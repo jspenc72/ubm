@@ -25,16 +25,70 @@
 		<link rel="stylesheet" href="http://code.jquery.com/mobile/1.3.2/jquery.mobile-1.3.2.min.css" />
 		<script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
 		<script src="http://code.jquery.com/mobile/1.3.2/jquery.mobile-1.3.2.min.js"></script>
+		<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&libraries=places"></script>
+		<script src="js/jquery.ui.map.js"></script>
         <title>Universal Business Model</title>
 		<script>
-			function userSignIn(){
+		function initializeMainMap() {
+		  var map = new google.maps.Map(document.getElementById('main_map_canvas'), {
+		    mapTypeId: google.maps.MapTypeId.ROADMAP,
+		    disableDefaultUI: true,
+		    zoom:10
+		  });
+			var defaultBounds = new google.maps.LatLngBounds(
+			    new google.maps.LatLng(41.6964, -111.8715),
+			    new google.maps.LatLng(40.6436, -111.7843));
+			map.fitBounds(defaultBounds); 
+		}
+		function centerMainMap() {
+				navigator.geolocation.getCurrentPosition(onSuccess, onError);
+			function onSuccess(position) { 
+						alert("onSuccess has retrieved location");
+			    var myLocation = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+			    map  = new google.maps.Map(document.getElementById('main_map_canvas'), {
+				mapTypeId: google.maps.MapTypeId.ROADMAP,
+				center: myLocation,
+				zoom: 21
+			    }); 
+				var marker = new google.maps.Marker({
+				    position: myLocation,
+				    map: map,
+				    title:"Hello World!"
+				});
+			    var lat = myLocation.lat();
+			    var lng = myLocation.lng();
+			  alert(lat);
+			  alert(lng);
+					$.getJSON('http://www.findmydriver.com/updatLoc.php?callback=?', {
+							appname: "FindMyDriver",
+							RQType: "updateLocation",
+							latitude: lat,
+							longitude: lng,
+							member_id: "1234",
+							device_id: "123"
+						},
+						function(res,status){
+					    alert(res.message);
+					    alert(status);
+					});
+				} 
+				function onError(){
+					alert("There was an error processing your request");
+			}
+		}
+		function moveMainToLocation(lat, lng){
+		     var center = new google.maps.LatLng(lat, lng);
+		     var map = document.getElementById("main_map_canvas");
+		     map.panTo(center);
+		  }
+		function userSignIn(){
 				event.preventDefault();
 				var si_email = document.getElementById("si_email").value;
 				var si_passWord = document.getElementById("si_pw").value;
 				var si_userName = si_email.split("@",1).toString();
 				window.username = si_userName;
 				//var si_userName = si_userNameArray.toString();
-				alert(si_userName);
+//				alert(si_userName);
 				if(si_userName.length<1){
 					alert("You must enter a username!");
 				}else{
@@ -66,7 +120,7 @@
 			//	alert("user Sign in Clicked");
 			//	$.mobile.changePage( "#home", { transition: "fade", changeHash: false, reloadPage: true });
 			}
-			function userRegister(){
+		function userRegister(){
 				event.preventDefault();
 				var reg_passwd1 = document.getElementById("reg_pw1").value;
 				//	alert(reg_passwd1);
@@ -111,10 +165,9 @@
 				<h1>UBM v1.0.0</h1>
 			</div><!-- /footer -->
 		</div><!-- /page -->
-
 		<div data-role="page" id="sign_in">
 			<div data-role="header" data-position="fixed" data-fullscreen="true">
-				<h1>Sign in to Continue!</h1>
+				<h1>You must Sign in or </br> Create an account to Continue!</h1>
 			</div><!-- /header -->
 			<div data-role="content">
 					<center><div id="main-map-canvas" style="position:fixed; height:200px; width:200px; -webkit-mask-image: url(circle.svg)"></div></center>
@@ -129,7 +182,7 @@
 					</form>
 				  	<div id="result" style="background-color: white;">		  	
 					</div>
-					<center><a href="#popupRegister" data-rel="popup" data-position-to="window" data-role="button" data-inline="true" data-icon="check" data-theme="b" data-transition="pop">Register</a></center>
+					<center><a href="#popupRegister" data-rel="popup" data-position-to="window" data-role="button" data-inline="true" data-icon="check" data-theme="b" data-transition="pop">Create Account</a></center>
 					<div data-role="popup" id="popupRegister" data-theme="a">
 						<form>
 							<div style="padding:10px 20px;">
