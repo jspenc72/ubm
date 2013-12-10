@@ -26,18 +26,163 @@
 		<script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
 		<script src="http://code.jquery.com/mobile/1.3.2/jquery.mobile-1.3.2.min.js"></script>
         <title>Universal Business Model</title>
+		<script>
+			function userSignIn(){
+				event.preventDefault();
+				var si_email = document.getElementById("si_email").value;
+				var si_passWord = document.getElementById("si_pw").value;
+				var si_userName = si_email.split("@",1).toString();
+				window.username = si_userName;
+				//var si_userName = si_userNameArray.toString();
+				alert(si_userName);
+				if(si_userName.length<1){
+					alert("You must enter a username!");
+				}else{
+					if(si_passWord.length<1){
+						alert("You must enter your password");
+					}else{
+					$('#result').empty().append('<center><p>Performing your sign in request...</p></center>');		 /* stop form from submitting normally */
+						$.getJSON('http://www.findmydriver.com/usrsi.php?callback=?', {
+								appname: "FindMyDriver",
+								RQType: "userSignIn",
+								email:	si_email,
+								username: si_userName,
+								password: si_passWord
+							},
+							function(res,status){
+			//				    alert(res.message);
+								if(res.validation=='TRUE'){
+									$('#result').empty().append('<center><p>'+ res.message + res.validation + '</p></center>');
+									$('#result').empty();
+									window.location = "#home"
+								}else{
+									$('#result').empty().append('<center><p>'+ res.message +'valid: '+ res.validation +'</br> Click Register to create your free account</p></center>');
+								}
+			//					$('#result').empty().append('<center><p>'+ res.validation + '</p></center>');
+			//				    alert(status);
+						});
+					}
+				}
+			//	alert("user Sign in Clicked");
+			//	$.mobile.changePage( "#home", { transition: "fade", changeHash: false, reloadPage: true });
+			}
+			function userRegister(){
+				event.preventDefault();
+				var reg_passwd1 = document.getElementById("reg_pw1").value;
+				//	alert(reg_passwd1);
+				var reg_passwd2 = document.getElementById("reg_pw2").value;
+				//	alert(reg_passwd2);
+				var reg_email = document.getElementById("reg_email").value;
+				var reg_username = reg_email.split("@",1).toString();
+				alert(reg_username);
+					if(reg_passwd1==reg_passwd2){
+						//alert("passwords match!");
+						$.getJSON('http://www.findmydriver.com/usreg.php?callback=?', {
+								appname: "FindMyDriver",
+								RQType: "userRegister",
+								email: reg_email,
+								password: reg_passwd1,
+								username: reg_username,
+							},
+							function(res,status){
+						    alert(res.message);
+							window.location = "#home"
+		//				    alert(status);
+						});
+					}else{
+						alert("The passwords you entered do not match!");
+					}
+				/*alert("This is a Registration Test");
+				alert(document.getElementById("reg_un").value);
+				alert(document.getElementById("reg_pw1").value);
+				alert(document.getElementById("reg_pw2").value);*/
+			}
+		</script>
     </head>
     <body>
 		<div data-role="page" id="main">
-			<div data-role="header">
-				<h1>Page Title</h1>
+			<div data-role="header" data-position="fixed" data-fullscreen="true">
+				<h1>Welcome to the UBM!</h1>
 			</div><!-- /header -->
-		
 			<div data-role="content">
-				<p>Page content goes here.</p>
+				<a href="#sign_in" data-role="button" data-icon="arrow-d" data-iconpos="bottom" data-inline="true">Click Here to Begin!</a>
 			</div><!-- /content -->
-			<div data-role="footer" data-position="fixed">
-				<h4>Page Footer</h4>
+			<div data-role="footer" data-position="fixed" data-fullscreen="true">
+				<h1>UBM v1.0.0</h1>
+			</div><!-- /footer -->
+		</div><!-- /page -->
+
+		<div data-role="page" id="sign_in">
+			<div data-role="header" data-position="fixed" data-fullscreen="true">
+				<h1>Sign in to Continue!</h1>
+			</div><!-- /header -->
+			<div data-role="content">
+					<center><div id="main-map-canvas" style="position:fixed; height:200px; width:200px; -webkit-mask-image: url(circle.svg)"></div></center>
+					<form>
+						<div style="padding:10px 20px;">
+					        <label for="un" class="ui-hidden-accessible">Username:</label>
+					        <input type="text" name="si_user" id="si_email" value="" placeholder="Username" data-theme="a" />
+					        <label for="pw" class="ui-hidden-accessible">Password:</label>
+					        <input type="password" name="si_pass" id="si_pw" value="" placeholder="Password" data-theme="a" />
+					    	<button data-theme="b" data-icon="check" onclick="userSignIn()">Sign in</button>
+						</div>
+					</form>
+				  	<div id="result" style="background-color: white;">		  	
+					</div>
+					<center><a href="#popupRegister" data-rel="popup" data-position-to="window" data-role="button" data-inline="true" data-icon="check" data-theme="b" data-transition="pop">Register</a></center>
+					<div data-role="popup" id="popupRegister" data-theme="a">
+						<form>
+							<div style="padding:10px 20px;">
+								<h3>Registration is Free!</h3>
+						        <label for="un" class="ui-hidden-accessible">Email:</label>
+						        <input type="email" name="reg_email" id="reg_email" value="" placeholder="Email" data-theme="a" />
+						        <label for="reg_pw1" class="ui-hidden-accessible">Password:</label>
+						        <input type="password" name="reg_pass1" id="reg_pw1" value="" placeholder="Enter Password" data-theme="a" />
+								<label for="reg_pw2" class="ui-hidden-accessible">Password:</label>
+						        <input type="password" name="reg_pass2" id="reg_pw2" value="" placeholder="Confirm Password" data-theme="a" />
+						    	<button data-theme="b" data-icon="check" onclick="userRegister()">Create Account!</button>
+							</div>
+						</form>
+					</div>
+			</div><!-- /content -->
+			<div data-role="footer" data-position="fixed" data-fullscreen="true">
+				<h1>UBM v1.0.0</h1>
+			</div><!-- /footer -->
+		</div><!-- /page -->		
+
+		<div data-role="page" id="home">
+			<div data-role="header" data-position="fixed" data-fullscreen="true">
+				<h1>Welcome to the UBM!</h1>
+			</div><!-- /header -->
+			<div data-role="content">
+
+			</div><!-- /content -->
+			<div data-role="footer" data-position="fixed" data-fullscreen="true">
+				<h1>UBM v1.0.0</h1>
+			</div><!-- /footer -->
+		</div><!-- /page -->
+
+		<div data-role="page" id="ubm">
+			<div data-role="header" data-position="fixed" data-fullscreen="true">
+				<h1>Welcome to the UBM!</h1>
+			</div><!-- /header -->
+			<div data-role="content">
+
+			</div><!-- /content -->
+			<div data-role="footer" data-position="fixed" data-fullscreen="true">
+				<h1>UBM v1.0.0</h1>
+			</div><!-- /footer -->
+		</div><!-- /page -->
+
+		<div data-role="page" id="template">
+			<div data-role="header" data-position="fixed" data-fullscreen="true">
+				<h1>header</h1>
+			</div><!-- /header -->
+			<div data-role="content">
+
+			</div><!-- /content -->
+			<div data-role="footer" data-position="fixed" data-fullscreen="true">
+				<h1>footer</h1>
 			</div><!-- /footer -->
 		</div><!-- /page -->
         <script type="text/javascript" src="phonegap.js"></script>
