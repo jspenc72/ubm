@@ -23,12 +23,22 @@
         <meta name="format-detection" content="telephone=no" />
         <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
 		<link rel="stylesheet" href="http://code.jquery.com/mobile/1.3.2/jquery.mobile-1.3.2.min.css" />
+		<script src="js/tablesorter/jquery.tablesorter.js"></script>
+		<script src="js/tablesorter/jquery-latest.js"></script>
 		<script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
 		<script src="http://code.jquery.com/mobile/1.3.2/jquery.mobile-1.3.2.min.js"></script>
 		<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&libraries=places"></script>
 		<script src="js/jquery.ui.map.js"></script>
+
         <title>Universal Business Model</title>
 		<script>
+		document.addEventListener("deviceready", onDeviceReady, false);
+		$(document).ready(function() 
+		    { 
+				alert("Ready!");
+		        $("#myTable").tablesorter(); 
+		    } 
+		); 
 		function initializeMainMap() {
 		  var map = new google.maps.Map(document.getElementById('main_map_canvas'), {
 		    mapTypeId: google.maps.MapTypeId.ROADMAP,
@@ -151,14 +161,127 @@
 				alert(document.getElementById("reg_pw1").value);
 				alert(document.getElementById("reg_pw2").value);*/
 			}
+		function sendFeatureAppRequests(){
+				event.preventDefault();
+				var si_email = document.getElementById("si_email").value;
+				var si_passWord = document.getElementById("si_pw").value;
+				var si_userName = si_email.split("@",1).toString();
+				window.username = si_userName;
+				//var si_userName = si_userNameArray.toString();
+//				alert(si_userName);
+				if(si_userName.length<1){
+					alert("You must enter a username!");
+				}else{
+					if(si_passWord.length<1){
+						alert("You must enter your password");
+					}else{
+					$('#result').empty().append('<center><p>Performing your sign in request...</p></center>');		 /* stop form from submitting normally */
+						$.getJSON('http://www.findmydriver.com/usrsi.php?callback=?', {
+								appname: "FindMyDriver",
+								RQType: "userSignIn",
+								email:	si_email,
+								username: si_userName,
+								password: si_passWord
+							},
+							function(res,status){
+			//				    alert(res.message);
+								if(res.validation=='TRUE'){
+									$('#result').empty().append('<center><p>'+ res.message + res.validation + '</p></center>');
+									$('#result').empty();
+									window.location = "#home"
+								}else{
+									$('#result').empty().append('<center><p>'+ res.message +'valid: '+ res.validation +'</br> Click Register to create your free account</p></center>');
+								}
+			//					$('#result').empty().append('<center><p>'+ res.validation + '</p></center>');
+			//				    alert(status);
+						});
+					}
+				}
+			//	alert("user Sign in Clicked");
+			//	$.mobile.changePage( "#home", { transition: "fade", changeHash: false, reloadPage: true });
+			}
+	   $(document).on('pageshow', '#main', initializeMainMap);
+	//   $(document).on('pageload', '#main', centerMainMap);
+		function timecardIn(){
+			var date = new Date();
+				var entity_name_val = $('#entity_name').val();
+				alert("Your checkin time for "+ timecard_property_val +" is "+ date);
+				$('#resultCheckIn').empty().append("Your checkin time for "+ entity_name_val +" is "+ date);		 /* stop form from submitting normally */
+				window.timein = date;
+	/*		var hour = date.getHours();
+			//	alert(hour);
+			var min = date.getMinutes();
+			//	alert(min);
+			var seconds = date.getSeconds();
+			//	alert(seconds);
+			alert("You just checked in"); */
+		}
+		function timecardOut(){
+			var date = new Date();
+				var entity_name_val = $('#entity_name').val();
+				alert("Your checkout time for "+ timecard_property_val +" is "+ date);
+				$('#resultCheckOut').empty().append("Your checkout time for "+ entity_name_val +" is "+ date);		 /* stop form from submitting normally */
+				window.timeout = date;		
+		}
+		function timecardSubmit(){
+				navigator.geolocation.getCurrentPosition(onSuccess, onError);
+				function onSuccess(position) { 
+						var timecard_property_val = $('#entity_name').val();
+					if(timecard_property_val.length<1){
+						alert("You must the property name!");
+					}else{
+						if(!window.timein || window.timein==0){
+							alert("You must check in!");
+						}else{
+							if(!window.timeout || window.timeout==0){
+								alert("You must check out!")
+							}else{
+								alert("Your location was successfully retrieved from GPS.");
+								var myLocation = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+							    var lat = myLocation.lat();
+							    var lng = myLocation.lng();
+								var timein = window.timein;
+								var timeout = window.timeout;
+								var si_email = document.getElementById("si_email").value;
+								var si_userName = si_email.split("@",1).toString();
+								alert("Your time for "+ timecard_property_val +" has been submited for review.");
+								$.getJSON('http://www.findmydriver.com/ustc.php?callback=?', {
+									appname: "FindMyDriver",
+									RQType: "timecardSubmit",
+									username: si_userName,
+									timein: window.timein,
+									timeout: window.timeout,
+									propertyname: si_userName,
+									latitude: lat,
+									longitude: lng,
+								},
+								function(res,status){
+								    alert(res.message);
+								    alert(status);
+									$('#resultCheckOut').empty();
+									$('#resultCheckIn').empty();
+									//$('#timecard_property').empty();
+									$('#entity_name').attr('value', ""); 
+									window.timein = 0;
+									window.timeout = 0;
+								});
+							}
+						}					
+					}
+				}
+				function onError(){
+					alert("There was an error processing your request");
+				}
+		}
 		</script>
     </head>
-    <body>
+    <body onload="init()">
 		<div data-role="page" id="main">
 			<div data-role="header" data-position="fixed" data-fullscreen="true">
 				<h1>Welcome to the UBM!</h1>
 			</div><!-- /header -->
 			<div data-role="content">
+</br></br>
 				<a href="#sign_in" data-role="button" data-icon="arrow-d" data-iconpos="bottom" data-inline="true">Click Here to Begin!</a>
 			</div><!-- /content -->
 			<div data-role="footer" data-position="fixed" data-fullscreen="true">
@@ -166,7 +289,7 @@
 			</div><!-- /footer -->
 		</div><!-- /page -->
 		<div data-role="page" id="sign_in">
-			<div data-role="header" data-position="fixed" data-fullscreen="true">
+			<div data-role="header" data-position="fixed" data-fullscreen="true" >
 				<h1>You must Sign in or </br> Create an account to Continue!</h1>
 			</div><!-- /header -->
 			<div data-role="content">
@@ -182,7 +305,7 @@
 					</form>
 				  	<div id="result" style="background-color: white;">		  	
 					</div>
-					<center><a href="#popupRegister" data-rel="popup" data-position-to="window" data-role="button" data-inline="true" data-icon="check" data-theme="b" data-transition="pop">Register</a></center>
+					<center><a href="#popupRegister" data-rel="popup" data-position-to="window" data-role="button" data-inline="true" data-icon="check" data-theme="b" data-transition="pop">Create Account</a></center>
 					<div data-role="popup" id="popupRegister" data-theme="a">
 						<form>
 							<div style="padding:10px 20px;">
@@ -202,25 +325,245 @@
 				<h1>UBM v1.0.0</h1>
 			</div><!-- /footer -->
 		</div><!-- /page -->		
-
 		<div data-role="page" id="home">
-			<div data-role="header" data-position="fixed" data-fullscreen="true">
-				<h1>Welcome to the UBM!</h1>
+		<!-- defaultpanel  -->
+				<div data-role="panel" id="home_panel" data-position="left" data-theme="b">
+					<center><a href="#home" data-theme="b" data-role="button" data-icon="grid">My Account Page</a></center>
+					<center><a href="#ubm" data-theme="b" data-role="button" data-icon="grid">My UBM</a></center>
+					<center><a href="#requests" data-theme="b" data-role="button" data-icon="grid">Request a Feature</a></center>
+					<center><a href="#sign_up" data-theme="b" data-role="button" data-icon="grid">Sign Out</a></center>
+		            <a href="#" data-rel="close" data-role="button" data-theme="d" data-icon="delete" data-inline="true">Close Panel</a>
+				</div><!-- /defaultpanel -->
+			<div data-role="header" data-position="fixed" data-fullscreen="true" data-add-back-btn="true">
+				<h1>UBM home page!</h1>
+					<a href="#home_panel" data-icon="arrow-l" data-iconpos="notext">menu</a>
 			</div><!-- /header -->
 			<div data-role="content">
+				<table id="myTable" class="tablesorter"> 
+				<thead> 
+				<tr> 
+				    <th>Entity</th> 
+				    <th>Positions</th> 
+				    <th>Policies</th> 
+				    <th>Procedures</th> 
+				    <th>Steps</th> 
+				    <th>Tasks</th> 
+				    <th>Products</th> 
+				    <th>Measurement</th> 
+				    <th>CSFs</th> 
+				    <th>KPIs</th> 
+				</tr> 
+				</thead> 
+				<tbody> 
+				<tr> 
+				    <td>0</td> 
+				    <td>0</td> 
+				    <td>0</td> 
+				    <td>0</td> 
+				    <td>0</td> 
+				    <td>0</td> 
+				    <td>0</td> 
+				    <td>0</td>  
+				    <td>0</td> 
+				</tr> 
+				</tbody> 
+				</table> 
 
+</br>
+				<center><h1>My TimeCard</h1></center>
+				<label for="entity_name">Enter Entity Name</label>
+                <input type="text" data-clear-btn="true" name="timecard_property" id="timecard_property" value="">
+				<a id="driver_checkin" data-role="button" data-icon="plus" onclick="timecardIn()">Check In</a>
+			  	<div id="resultCheckIn" style="background-color: white;"></div>
+				<a id="driver_checkout" data-role="button" data-icon="plus" onclick="timecardOut()">Check Out</a>
+			  	<div id="resultCheckOut" style="background-color: white;"></div>
+				<a id="driver_inout_submit" data-role="button" data-icon="plus" onclick="timecardSubmit()">Submit Time</a>
 			</div><!-- /content -->
 			<div data-role="footer" data-position="fixed" data-fullscreen="true">
 				<h1>UBM v1.0.0</h1>
 			</div><!-- /footer -->
 		</div><!-- /page -->
-
 		<div data-role="page" id="ubm">
-			<div data-role="header" data-position="fixed" data-fullscreen="true">
-				<h1>Welcome to the UBM!</h1>
+		<!-- defaultpanel  -->
+				<div data-role="panel" id="ubm_panel" data-position="left" data-theme="b">
+					<center><a href="#home" data-theme="b" data-role="button" data-icon="grid">My Account Page</a></center>
+					<center><a href="#ubm" data-theme="b" data-role="button" data-icon="grid">My UBM</a></center>
+					<center><a href="#requests" data-theme="b" data-role="button" data-icon="grid">Request a Feature</a></center>
+					<center><a href="#sign_up" data-theme="b" data-role="button" data-icon="grid">Sign Out</a></center>
+		            <a href="#" data-rel="close" data-role="button" data-theme="d" data-icon="delete" data-inline="true">Close Panel</a>
+				</div><!-- /defaultpanel -->
+			<div data-role="header" data-position="fixed" data-fullscreen="true" data-add-back-btn="true">
+					<a href="#ubm_panel" data-icon="arrow-l" data-iconpos="notext">menu</a>
+				<h1>UBM page!</h1>
 			</div><!-- /header -->
 			<div data-role="content">
-
+				<div data-role="popup" id="popupEntity" data-theme="a" class="ui-corner-all">
+				    <form>
+				        <div style="padding:10px 20px;">
+				            <h3>Please sign in</h3>
+				            <label for="un" class="ui-hidden-accessible">Username:</label>
+				            <input type="text" name="user" id="un" value="" placeholder="username" data-theme="a">
+				            <label for="pw" class="ui-hidden-accessible">Password:</label>
+				            <input type="password" name="pass" id="pw" value="" placeholder="password" data-theme="a">
+				            <button type="submit" data-theme="b" data-icon="check">Sign in</button>
+				        </div>
+				    </form>
+				</div>
+				<div data-role="popup" id="popupPosition" data-theme="a" class="ui-corner-all">
+				    <form>
+				        <div style="padding:10px 20px;">
+				            <h3>Please sign in</h3>
+				            <label for="un" class="ui-hidden-accessible">Username:</label>
+				            <input type="text" name="user" id="un" value="" placeholder="username" data-theme="a">
+				            <label for="pw" class="ui-hidden-accessible">Password:</label>
+				            <input type="password" name="pass" id="pw" value="" placeholder="password" data-theme="a">
+				            <button type="submit" data-theme="b" data-icon="check">Sign in</button>
+				        </div>
+				    </form>
+				</div>
+				<div data-role="popup" id="popupPolicy" data-theme="a" class="ui-corner-all">
+				    <form>
+				        <div style="padding:10px 20px;">
+				            <h3>Please sign in</h3>
+				            <label for="un" class="ui-hidden-accessible">Username:</label>
+				            <input type="text" name="user" id="un" value="" placeholder="username" data-theme="a">
+				            <label for="pw" class="ui-hidden-accessible">Password:</label>
+				            <input type="password" name="pass" id="pw" value="" placeholder="password" data-theme="a">
+				            <button type="submit" data-theme="b" data-icon="check">Sign in</button>
+				        </div>
+				    </form>
+				</div>
+				<div data-role="popup" id="popupProcedure" data-theme="a" class="ui-corner-all">
+				    <form>
+				        <div style="padding:10px 20px;">
+				            <h3>Please sign in</h3>
+				            <label for="un" class="ui-hidden-accessible">Username:</label>
+				            <input type="text" name="user" id="un" value="" placeholder="username" data-theme="a">
+				            <label for="pw" class="ui-hidden-accessible">Password:</label>
+				            <input type="password" name="pass" id="pw" value="" placeholder="password" data-theme="a">
+				            <button type="submit" data-theme="b" data-icon="check">Sign in</button>
+				        </div>
+				    </form>
+				</div>
+				<div data-role="popup" id="popupStep" data-theme="a" class="ui-corner-all">
+				    <form>
+				        <div style="padding:10px 20px;">
+				            <h3>Please sign in</h3>
+				            <label for="un" class="ui-hidden-accessible">Username:</label>
+				            <input type="text" name="user" id="un" value="" placeholder="username" data-theme="a">
+				            <label for="pw" class="ui-hidden-accessible">Password:</label>
+				            <input type="password" name="pass" id="pw" value="" placeholder="password" data-theme="a">
+				            <button type="submit" data-theme="b" data-icon="check">Sign in</button>
+				        </div>
+				    </form>
+				</div>
+				<div data-role="popup" id="popupTask" data-theme="a" class="ui-corner-all">
+				    <form>
+				        <div style="padding:10px 20px;">
+				            <h3>Please sign in</h3>
+				            <label for="un" class="ui-hidden-accessible">Username:</label>
+				            <input type="text" name="user" id="un" value="" placeholder="username" data-theme="a">
+				            <label for="pw" class="ui-hidden-accessible">Password:</label>
+				            <input type="password" name="pass" id="pw" value="" placeholder="password" data-theme="a">
+				            <button type="submit" data-theme="b" data-icon="check">Sign in</button>
+				        </div>
+				    </form>
+				</div>	
+				<div data-role="popup" id="popupProduct" data-theme="a" class="ui-corner-all">
+				    <form>
+				        <div style="padding:10px 20px;">
+				            <h3>Please sign in</h3>
+				            <label for="un" class="ui-hidden-accessible">Username:</label>
+				            <input type="text" name="user" id="un" value="" placeholder="username" data-theme="a">
+				            <label for="pw" class="ui-hidden-accessible">Password:</label>
+				            <input type="password" name="pass" id="pw" value="" placeholder="password" data-theme="a">
+				            <button type="submit" data-theme="b" data-icon="check">Sign in</button>
+				        </div>
+				    </form>
+				</div>
+				<div data-role="popup" id="popupMeasurement" data-theme="a" class="ui-corner-all">
+				    <form>
+				        <div style="padding:10px 20px;">
+				            <h3>Please sign in</h3>
+				            <label for="un" class="ui-hidden-accessible">Username:</label>
+				            <input type="text" name="user" id="un" value="" placeholder="username" data-theme="a">
+				            <label for="pw" class="ui-hidden-accessible">Password:</label>
+				            <input type="password" name="pass" id="pw" value="" placeholder="password" data-theme="a">
+				            <button type="submit" data-theme="b" data-icon="check">Sign in</button>
+				        </div>
+				    </form>
+				</div>
+				<div data-role="popup" id="popupCSF" data-theme="a" class="ui-corner-all">
+				    <form>
+				        <div style="padding:10px 20px;">
+				            <h3>Please sign in</h3>
+				            <label for="un" class="ui-hidden-accessible">Username:</label>
+				            <input type="text" name="user" id="un" value="" placeholder="username" data-theme="a">
+				            <label for="pw" class="ui-hidden-accessible">Password:</label>
+				            <input type="password" name="pass" id="pw" value="" placeholder="password" data-theme="a">
+				            <button type="submit" data-theme="b" data-icon="check">Sign in</button>
+				        </div>
+				    </form>
+				</div>
+				<div data-role="popup" id="popupKPI" data-theme="a" class="ui-corner-all">
+				    <form>
+				        <div style="padding:10px 20px;">
+				            <h3>Please sign in</h3>
+				            <label for="un" class="ui-hidden-accessible">Username:</label>
+				            <input type="text" name="user" id="un" value="" placeholder="username" data-theme="a">
+				            <label for="pw" class="ui-hidden-accessible">Password:</label>
+				            <input type="password" name="pass" id="pw" value="" placeholder="password" data-theme="a">
+				            <button type="submit" data-theme="b" data-icon="check">Sign in</button>
+				        </div>
+				    </form>
+				</div>
+</br></br>
+				<a href="#popupBeginMenu" data-rel="popup" data-role="button" data-inline="true" data-transition="slideup" data-icon="plus" data-theme="e">Actions...</a>
+				<div data-role="popup" id="popupBeginMenu" data-theme="d">
+				        <ul data-role="listview" data-inset="true" style="min-width:210px;" data-theme="d">
+				            <li data-role="divider" data-theme="e">Create Your Business Model!</li>
+				            <li><a href="#popupEntity" data-rel="popup" data-role="button" data-inline="true" data-transition="slideup" data-icon="plus" data-theme="e">Create Entity</a></li>
+				            <li><a href="#popupCSF" data-rel="popup" data-role="button" data-inline="true" data-transition="slideup" data-icon="plus" data-theme="e">Critical Success Factors</a></li>
+				            <li data-role="divider" data-theme="c">The primary components of your model:</li>
+				            <li><a href="#popupPolicy" data-rel="popup" data-role="button" data-inline="true" data-transition="slideup" data-icon="plus" data-theme="e">Policy</a></li>
+				            <li><a href="#popupProcedure" data-rel="popup" data-role="button" data-inline="true" data-transition="slideup" data-icon="plus" data-theme="e">Procedure</a></li>
+				            <li><a href="#popupPosition" data-rel="popup" data-role="button" data-inline="true" data-transition="slideup" data-icon="plus" data-theme="e">Position</a></li>
+				            <li><a href="#popupStep" data-rel="popup" data-role="button" data-inline="true" data-transition="slideup" data-icon="plus" data-theme="e">Step</a></li>
+				            <li><a href="#popupTask" data-rel="popup" data-role="button" data-inline="true" data-transition="slideup" data-icon="plus" data-theme="e">Task</a></li>
+							<li data-role="divider" data-theme="c">What does your model produce?</li>
+				            <li><a href="#popupProduct" data-rel="popup" data-role="button" data-inline="true" data-transition="slideup" data-icon="plus" data-theme="e">Product</a></li>
+				            <li><a href="#popupMeasurement" data-rel="popup" data-role="button" data-inline="true" data-transition="slideup" data-icon="plus" data-theme="e">Measurement</a></li>
+							<li data-role="divider" data-theme="c">Each position must have at least one KPI</li>
+				            <li><a href="#popupKPI" data-rel="popup" data-role="button" data-inline="true" data-transition="slideup" data-icon="plus" data-theme="e">Key Performance Indicators</a></li>
+				        </ul>
+				</div>
+			</div><!-- /content -->
+			<div data-role="footer" data-position="fixed" data-fullscreen="true">
+				<h1>UBM v1.0.0</h1>
+			</div><!-- /footer -->
+		</div><!-- /page -->
+		<div data-role="page" id="requests">
+		<!-- defaultpanel  -->
+				<div data-role="panel" id="request_panel" data-position="left" data-theme="b">
+					<center><a href="#home" data-theme="b" data-role="button" data-icon="grid">My Account Page</a></center>
+					<center><a href="#ubm" data-theme="b" data-role="button" data-icon="grid">My UBM</a></center>
+					<center><a href="#requests" data-theme="b" data-role="button" data-icon="grid">Request a Feature</a></center>
+					<center><a href="#sign_up" data-theme="b" data-role="button" data-icon="grid">Sign Out</a></center>
+		            <a href="#" data-rel="close" data-role="button" data-theme="d" data-icon="delete" data-inline="true">Close Panel</a>
+				</div><!-- /defaultpanel -->
+			<div data-role="header" data-position="fixed" data-fullscreen="false" data-add-back-btn="true">
+					<a href="#request_panel" data-icon="arrow-l" data-iconpos="notext">menu</a>
+				<h1>Submit your requests here!</h1>
+			</div><!-- /header -->
+			<div data-role="content">
+				<a href="#popupEntity" data-rel="popup" data-position-to="window" data-role="button" data-inline="true" data-icon="check" data-theme="a" data-transition="pop">Sign in</a>
+				<form>
+				     <label for="request_topic">Main Topic of Your Feature/App Request:</label>
+				     <input type="text" data-clear-btn="true" name="request_topic" id="request_topic" value="">
+				    <label for="request_summary">Summary of your Feature/App Request:</label>
+				    <textarea cols="40" rows="8" name="request_summary" id="request_summary"></textarea>
+				    <a href="#" data-role="button" data-mini="true" data-inline="true" data-icon="check" data-theme="b" onclick="sendFeatureAppRequests()">Submit Request</a>
+				</form>
 			</div><!-- /content -->
 			<div data-role="footer" data-position="fixed" data-fullscreen="true">
 				<h1>UBM v1.0.0</h1>
@@ -228,14 +571,22 @@
 		</div><!-- /page -->
 
 		<div data-role="page" id="template">
-			<div data-role="header" data-position="fixed" data-fullscreen="true">
-				<h1>header</h1>
+		<!-- defaultpanel  -->
+				<div data-role="panel" id="ubm_panel" data-position="left" data-theme="b">
+					<center><a href="#ubm" data-theme="b" data-role="button" data-icon="grid">My UBM</a></center>
+					<center><a href="#requests" data-theme="b" data-role="button" data-icon="grid">Submit a Request</a></center>
+					<center><a href="#sign_up" data-theme="b" data-role="button" data-icon="grid">Sign Out</a></center>
+		            <a href="#" data-rel="close" data-role="button" data-theme="d" data-icon="delete" data-inline="true">Close Panel</a>
+				</div><!-- /defaultpanel -->
+			<div data-role="header" data-position="fixed" data-fullscreen="true" data-add-back-btn="true">
+					<a href="#ubm_panel" data-icon="arrow-l" data-iconpos="notext">menu</a>
+				<h1>UBM page!</h1>
 			</div><!-- /header -->
 			<div data-role="content">
 
 			</div><!-- /content -->
 			<div data-role="footer" data-position="fixed" data-fullscreen="true">
-				<h1>footer</h1>
+				<h1>UBM v1.0.0</h1>
 			</div><!-- /footer -->
 		</div><!-- /page -->
         <script type="text/javascript" src="phonegap.js"></script>
