@@ -274,25 +274,41 @@
 				}
 		}
 		function createNewEntity(){
-			event.preventDefault();
-				var new_entity_name_val = $('#newEntityName').val();
-				var new_entity_tax_code_val = $('#newEntityTaxCode').val();
-				var new_entity_c_code_val = $('#newEntityCCode').val();
-			if(new_entity_name_val.length<1){
-				alert("Your entity must have a name!");
-			}else{
-				if(new_entity_tax_code_val.length<1){
-					alert("You must provide a Tax Code");
+				event.preventDefault();
+					var new_entity_name_val = $('#newEntityName').val();
+					var new_entity_tax_code_val = $('#newEntityTaxCode').val();
+					var new_entity_c_code_val = $('#newEntityCCode').val();
+				if(new_entity_name_val.length<1){
+					alert("Your entity must have a name!");
 				}else{
-					if(new_entity_c_code_val.length<1){
-						alert("Your entity must be associated with a CCode");
+					if(new_entity_tax_code_val.length<1){
+						alert("You must provide a Tax Code");
 					}else{
-						alert("Congratulations! Your entity has been created!");	
-						alert("An entity must have at least 1 position associated with it");	
+						if(new_entity_c_code_val.length<1){
+							alert("Your entity must be associated with a CCode");
+						}else{
+							alert("Congratulations! Your entity has been created!");	
+							alert("An entity must have at least 1 position associated with it");	
+						}
 					}
 				}
 			}
+		function test657(){
+			alert("test called");
+						$.getJSON('http://www.findmydriver.com/ubmmcsallitems.php?callback=?', {
+
+							},
+							function(res,status){
+								alert(status);
+									
+								$.each(res, function(i, item) {
+								//    alert(item.instruction_detail);
+									$('#ubmAppCreator_content').append("<fieldset data-role='controlgroup'><input type='checkbox' name='checkbox-t-2a' id='checkbox-t-2a' data-theme='a'><label for='checkbox-t-2a'>"+ item.instruction_detail +"</label></fieldset>");		 /* stop form from submitting normally */
+								});		
+						});
+	
 		}
+
 		</script>
     </head>
     <body onload="init()">
@@ -302,11 +318,14 @@
 			</div><!-- /header -->
 			<div data-role="content">
 </br></br></br></br>
+		    	<button data-theme="b" data-icon="check" onclick="test657()">member test</button>
+
 				<center><a href="#sign_in" data-role="button" data-icon="arrow-d" data-iconpos="bottom" data-inline="true">Click Here to Begin!</a></center>
 				<a href="#popupVideo" data-rel="popup" data-position-to="window" data-role="button" data-theme="b" data-inline="true">Launch video player</a>
 				<div data-role="popup" id="popupVideo" data-overlay-theme="a" data-theme="d" data-tolerance="15,15" class="ui-content">				
 				    <iframe src="http://player.vimeo.com/video/37119223" width="497" height="298" seamless></iframe>
 				</div>
+
 			</div><!-- /content -->
 			<div data-role="footer" data-position="fixed" data-fullscreen="true">
 				<h1>UBM v1.0.0</h1>
@@ -393,7 +412,6 @@
 				</tr> 
 				</tbody> 
 				</table> 
-
 </br>
 				<center><h1>My TimeCard</h1></center>
 				<label for="entity_name">Enter Entity Name</label>
@@ -403,6 +421,49 @@
 				<a id="driver_checkout" data-role="button" data-icon="plus" onclick="timecardOut()">Check Out</a>
 			  	<div id="resultCheckOut" style="background-color: white;"></div>
 				<a id="driver_inout_submit" data-role="button" data-icon="plus" onclick="timecardSubmit()">Submit Time</a>
+</br></br></br></br></br>
+				<center><h1>My Dashboard</h1></center>
+</br></br>
+				<center><h1>My Apps</h1></center>
+					<div data-role="controlgroup">
+					    <a href="#ubmAppCreator" data-role="button">APP1</a>
+					    <a href="#ubmAppCreator" data-role="button">APP2</a>
+					    <a href="#ubmAppCreator" data-role="button">APP3</a>
+					</div>
+					    <a href="#" data-role="button">CREATE NEW APP</a>
+</br>
+				<center><h1>My Models</h1></center>
+					<div data-role="controlgroup">
+					    <a href="#ubmAppCreator" data-role="button">MODEL1</a>
+					    <a href="#ubmAppCreator" data-role="button">MODEL2</a>
+					    <a href="#ubmAppCreator" data-role="button">MODEL3</a>
+					</div>
+					    <a href="#" data-role="button">CREATE NEW MODEL</a>
+</br></br></br>
+			</div><!-- /content -->
+			<div data-role="footer" data-position="fixed" data-fullscreen="true">
+				<h1>UBM v1.0.0</h1>
+			</div><!-- /footer -->
+		</div><!-- /page -->
+		<div data-role="page" id="ubmAppCreator">
+		<!-- defaultpanel  -->
+				<div data-role="panel" id="request_panel" data-position="left" data-theme="b">
+					<center><a href="#home" data-theme="b" data-role="button" data-icon="grid">My Account Page</a></center>
+					<center><a href="#ubmmodel" data-theme="b" data-role="button" data-icon="grid">My UBM</a></center>
+					<center><a href="#requests" data-theme="b" data-role="button" data-icon="grid">Request a Feature</a></center>
+					<center><a href="#sign_up" data-theme="b" data-role="button" data-icon="grid">Sign Out</a></center>
+		            <a href="#" data-rel="close" data-role="button" data-theme="d" data-icon="delete" data-inline="true">Close Panel</a>
+				</div><!-- /defaultpanel -->
+			<div data-role="header" data-position="fixed" data-fullscreen="false" data-add-back-btn="true">
+					<a href="#request_panel" data-icon="arrow-l" data-iconpos="notext">menu</a>
+				<h1>Model Creation Suite!</h1>
+			</div><!-- /header -->
+			<div data-role="content" id="ubmAppCreator_content">
+				<form>
+				    <fieldset data-role="controlgroup" id="modelCreationSuiteCKL" >
+
+				    </fieldset>
+				</form>
 			</div><!-- /content -->
 			<div data-role="footer" data-position="fixed" data-fullscreen="true">
 				<h1>UBM v1.0.0</h1>
