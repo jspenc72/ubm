@@ -40,7 +40,7 @@
 	<!--	<script type="text/javascript" src="http://dev.jtsage.com/jquery.mousewheel.min.js"></script> -->
 		<script type="text/javascript" src="http://dev.jtsage.com/cdn/datebox/latest/jqm-datebox.core.min.js"></script>
 		<script type="text/javascript" src="http://dev.jtsage.com/cdn/datebox/latest/jqm-datebox.mode.calbox.min.js"></script>
-		<script type="text/javascript" src="http://dev.jtsage.com/cdn/datebox/latest/jqm-datebox.mode.datebox.min.js"></script>
+	<!--		<script type="text/javascript" src="http://dev.jtsage.com/cdn/datebox/latest/jqm-datebox.mode.datebox.min.js"></script>
 		<script type="text/javascript" src="http://dev.jtsage.com/cdn/datebox/latest/jqm-datebox.mode.flipbox.min.js"></script>
 		<script type="text/javascript" src="http://dev.jtsage.com/cdn/datebox/latest/jqm-datebox.mode.durationbox.min.js"></script>
 		<script type="text/javascript" src="http://dev.jtsage.com/cdn/datebox/latest/jqm-datebox.mode.durationflipbox.min.js"></script>
@@ -352,9 +352,7 @@
 								alert("init: "+ status);
 								$.each(res, function(i, item) {
 								//    alert(item.instruction_detail);
-									$('#ubmAppCreator_content_right').append("<div data-role='fieldcontain' style='width:50%;'><input name='mode1' id='mode1' type='text' data-role='datebox' data-options='{\"mode\":\"calbox\", \"useNewStyle\":true}' /></div><fieldset data-role='controlgroup' ><input type='checkbox' name='checkbox-t-2a' id='checkbox-t-2a' data-theme='a' style='width:50%;'><label for='checkbox-t-2a'>"+ item.line_number + " " + item.instruction_detail +"</label></fieldset>");		 /* stop form from submitting normally */
-									$('#ubmAppCreator_content_left'jv u).append("<div data-role='fieldcontain' style='width:50%;'><input name='mode1' id='mode1' type='text' data-role='datebox' data-options='{\"mode\":\"calbox\", \"useNewStyle\":true}' /></div> for='checkbox-t-2a'>");		 /* stop form from submitting normally */
-
+									$('#ubmAppCreator_content_right').append("<fieldset data-role='controlgroup'><input type='checkbox' name='checkbox-t-2a' id='checkbox-t-2a' data-theme='a'><label for='checkbox-t-2a'>"+ item.line_number + " " + item.instruction_detail +"</label></fieldset>");		 /* stop form from submitting normally */
 //									$('#ubmAppCreator_content').append("<li><a href='index.html'><img src='images/album-bb.jpg' /><h3>Broken Bells</h3><p>Broken Bells</p></a><a href='#purchase' data-rel='popup' data-position-to='window' data-transition='pop'>Purchase album</a></li></ul>");		 /* stop form from submitting normally */
 								});	
 							});
@@ -369,6 +367,10 @@
 			<div data-role="content">
 
 </br></br></br></br>
+					<div data-role="fieldcontain">
+						<label for="mode1">CalBox</label>
+						<input name="mode1" id="mode1" type="text" data-role="datebox" data-options='{"mode":"calbox", "useNewStyle":true}' />
+					</div>
 				<center><a href="#sign_in" data-role="button" data-icon="arrow-d" data-iconpos="bottom" data-inline="true" onclick="checkListInit()">Click Here to Begin!</a></center>
 				<center><a href="#popupVideo" data-rel="popup" data-position-to="window" data-role="button" data-theme="b" data-inline="true">Launch video player</a></center>
 				<div data-role="popup" id="popupVideo" data-overlay-theme="a" data-theme="d" data-tolerance="15,15" class="ui-content"><iframe src="http://player.vimeo.com/video/37119223" width="497" height="298" seamless></iframe></div>
@@ -509,13 +511,14 @@
 					<div id="ubmAppCreator_content_top_instruction_detail_header">
 						
 					</div>
-					<div id="ubmAppCreator_content_top_prepared_by" style="position:absolute; top:0; width:20%;">
+					<div id="ubmAppCreator_content_top_prepared_by">
 						<div id="ubmAppCreator_content_top_prepared_by_initial">
 							    <label for="text-3">PB Initial</label>
      							<input type="text" data-clear-btn="true" name="PBInitial" id="text-3" value="">
+
 						</div>
-						<div id="ubmAppCreator_content_top_prepared_by_date" style="position:absolute; top:0; width:20%;">
-				
+						<div id="ubmAppCreator_content_top_prepared_by_date">
+							
 						</div>
 					</div>
 					<div id="ubmAppCreator_content_top_reviewed_by">
@@ -536,7 +539,7 @@
 					</div>
 					<center><p>This is a Test</p></center>
 				</div>
-				<div id="ubmAppCreator_content_right" style="position:absolute; top:40px; right:0; width:50%; ">
+				<div id="ubmAppCreator_content_right" style="position:absolute; top:40px; right:0; width:60%; ">
 					
 				</div>
 			</div><!-- /content -->

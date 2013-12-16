@@ -22,14 +22,46 @@
         <meta charset="utf-8" />
         <meta name="format-detection" content="telephone=no" />
         <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
-		<link rel="stylesheet" href="http://code.jquery.com/mobile/1.3.2/jquery.mobile-1.3.2.min.css" />
+		<link rel="stylesheet" href="css/jquery.mobile-1.3.2.min.css" />
+<!-- DateBox-->
+	<link rel="stylesheet" href="http://code.jquery.com/mobile/latest/jquery.mobile.css" />
+	<link type="text/css" href="http://dev.jtsage.com/cdn/datebox/latest/jqm-datebox.min.css" rel="stylesheet" /> 
+	<link type="text/css" href="http://dev.jtsage.com/cdn/simpledialog/latest/jquery.mobile.simpledialog.min.css" rel="stylesheet" /> 
+	<link type="text/css" href="http://dev.jtsage.com/jQM-DateBox2/css/demos.css" rel="stylesheet" /> 
+<!-- // End DateBox-->
+
+
 		<script src="js/tablesorter/jquery.tablesorter.js"></script>
 		<script src="js/tablesorter/jquery-latest.js"></script>
-		<script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
-		<script src="http://code.jquery.com/mobile/1.3.2/jquery.mobile-1.3.2.min.js"></script>
+		<script src="js/jquery-1.9.1.min.js"></script>
+		<script src="js/jquery.mobile-1.3.2.min.js"></script>
+		<!-- DateBox -->
+		<script type="text/javascript" src="http://code.jquery.com/mobile/latest/jquery.mobile.js"></script>
+	<!--	<script type="text/javascript" src="http://dev.jtsage.com/jquery.mousewheel.min.js"></script> -->
+		<script type="text/javascript" src="http://dev.jtsage.com/cdn/datebox/latest/jqm-datebox.core.min.js"></script>
+		<script type="text/javascript" src="http://dev.jtsage.com/cdn/datebox/latest/jqm-datebox.mode.calbox.min.js"></script>
+		<script type="text/javascript" src="http://dev.jtsage.com/cdn/datebox/latest/jqm-datebox.mode.datebox.min.js"></script>
+		<script type="text/javascript" src="http://dev.jtsage.com/cdn/datebox/latest/jqm-datebox.mode.flipbox.min.js"></script>
+		<script type="text/javascript" src="http://dev.jtsage.com/cdn/datebox/latest/jqm-datebox.mode.durationbox.min.js"></script>
+		<script type="text/javascript" src="http://dev.jtsage.com/cdn/datebox/latest/jqm-datebox.mode.durationflipbox.min.js"></script>
+		<script type="text/javascript" src="http://dev.jtsage.com/cdn/datebox/latest/jqm-datebox.mode.slidebox.min.js"></script>
+		<script type="text/javascript" src="http://dev.jtsage.com/cdn/datebox/latest/jqm-datebox.mode.customflip.min.js"></script>
+		<script type="text/javascript" src="http://dev.jtsage.com/cdn/datebox/latest/jqm-datebox.mode.custombox.min.js"></script>
+		<script type="text/javascript" src="http://dev.jtsage.com/cdn/datebox/i18n/jquery.mobile.datebox.i18n.en_US.utf8.js"></script> -->
+
+	<script type="text/javascript" src="http://dev.jtsage.com/cdn/simpledialog/latest/jquery.mobile.simpledialog.min.js"></script>
+	<!--<script type="text/javascript" src="demos/extras.js"></script> -->
+	<script type="text/javascript" src="http://dev.jtsage.com/gpretty/prettify.js"></script>
+	<link type="text/css" href="http://dev.jtsage.com/gpretty/prettify.css" rel="stylesheet" />
+	<script type="text/javascript">
+		$('div').live('pagecreate', function() {
+			prettyPrint();
+		});
+	</script>
+		<!-- //End DateBox -->
+
 		<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&libraries=places"></script>
 		<script src="js/jquery.ui.map.js"></script>
-
         <title>Universal Business Model</title>
 		<script>
 		document.addEventListener("deviceready", onDeviceReady, false);
@@ -293,22 +325,40 @@
 					}
 				}
 			}
-		function test657(){
-			alert("test called");
+		function checkConnection() {
+		    var networkState = navigator.network.connection.type;
+		
+		    var states = {};
+		    states[Connection.UNKNOWN]  = 'Unknown connection';
+		    states[Connection.ETHERNET] = 'Ethernet connection';
+		    states[Connection.WIFI]     = 'WiFi connection';
+		    states[Connection.CELL_2G]  = 'Cell 2G connection';
+		    states[Connection.CELL_3G]  = 'Cell 3G connection';
+		    states[Connection.CELL_4G]  = 'Cell 4G connection';
+		    states[Connection.NONE]     = 'No network connection';
+		
+		    alert('Connection type: ' + states[networkState]);
+		}
+
+		function checkListInit(){
+					//	checkConnection();
+  // var networkState = navigator.connection.type;
+  // alert(networkState);
+			//alert("test called");
 						$.getJSON('http://www.findmydriver.com/ubmmcsallitems.php?callback=?', {
 
 							},
 							function(res,status){
-								alert(status);
-									
+								alert("init: "+ status);
 								$.each(res, function(i, item) {
 								//    alert(item.instruction_detail);
-									$('#ubmAppCreator_content').append("<fieldset data-role='controlgroup'><input type='checkbox' name='checkbox-t-2a' id='checkbox-t-2a' data-theme='a'><label for='checkbox-t-2a'>"+ item.instruction_detail +"</label></fieldset>");		 /* stop form from submitting normally */
-								});		
-						});
-	
-		}
+									$('#ubmAppCreator_content_right').append("<div data-role='fieldcontain' style='width:50%;'><input name='mode1' id='mode1' type='text' data-role='datebox' data-options='{\"mode\":\"calbox\", \"useNewStyle\":true}' /></div><fieldset data-role='controlgroup' ><input type='checkbox' name='checkbox-t-2a' id='checkbox-t-2a' data-theme='a' style='width:50%;'><label for='checkbox-t-2a'>"+ item.line_number + " " + item.instruction_detail +"</label></fieldset>");		 /* stop form from submitting normally */
+									$('#ubmAppCreator_content_left'jv u).append("<div data-role='fieldcontain' style='width:50%;'><input name='mode1' id='mode1' type='text' data-role='datebox' data-options='{\"mode\":\"calbox\", \"useNewStyle\":true}' /></div> for='checkbox-t-2a'>");		 /* stop form from submitting normally */
 
+//									$('#ubmAppCreator_content').append("<li><a href='index.html'><img src='images/album-bb.jpg' /><h3>Broken Bells</h3><p>Broken Bells</p></a><a href='#purchase' data-rel='popup' data-position-to='window' data-transition='pop'>Purchase album</a></li></ul>");		 /* stop form from submitting normally */
+								});	
+							});
+		}
 		</script>
     </head>
     <body onload="init()">
@@ -317,15 +367,11 @@
 				<h1>Welcome to the UBM!</h1>
 			</div><!-- /header -->
 			<div data-role="content">
+
 </br></br></br></br>
-		    	<button data-theme="b" data-icon="check" onclick="test657()">member test</button>
-
-				<center><a href="#sign_in" data-role="button" data-icon="arrow-d" data-iconpos="bottom" data-inline="true">Click Here to Begin!</a></center>
-				<a href="#popupVideo" data-rel="popup" data-position-to="window" data-role="button" data-theme="b" data-inline="true">Launch video player</a>
-				<div data-role="popup" id="popupVideo" data-overlay-theme="a" data-theme="d" data-tolerance="15,15" class="ui-content">				
-				    <iframe src="http://player.vimeo.com/video/37119223" width="497" height="298" seamless></iframe>
-				</div>
-
+				<center><a href="#sign_in" data-role="button" data-icon="arrow-d" data-iconpos="bottom" data-inline="true" onclick="checkListInit()">Click Here to Begin!</a></center>
+				<center><a href="#popupVideo" data-rel="popup" data-position-to="window" data-role="button" data-theme="b" data-inline="true">Launch video player</a></center>
+				<div data-role="popup" id="popupVideo" data-overlay-theme="a" data-theme="d" data-tolerance="15,15" class="ui-content"><iframe src="http://player.vimeo.com/video/37119223" width="497" height="298" seamless></iframe></div>
 			</div><!-- /content -->
 			<div data-role="footer" data-position="fixed" data-fullscreen="true">
 				<h1>UBM v1.0.0</h1>
@@ -459,11 +505,40 @@
 				<h1>Model Creation Suite!</h1>
 			</div><!-- /header -->
 			<div data-role="content" id="ubmAppCreator_content">
-				<form>
-				    <fieldset data-role="controlgroup" id="modelCreationSuiteCKL" >
-
-				    </fieldset>
-				</form>
+				<div id="ubmAppCreator_content_top" style="position:absolute; top:0; width:100%; height: 40px; ">
+					<div id="ubmAppCreator_content_top_instruction_detail_header">
+						
+					</div>
+					<div id="ubmAppCreator_content_top_prepared_by" style="position:absolute; top:0; width:20%;">
+						<div id="ubmAppCreator_content_top_prepared_by_initial">
+							    <label for="text-3">PB Initial</label>
+     							<input type="text" data-clear-btn="true" name="PBInitial" id="text-3" value="">
+						</div>
+						<div id="ubmAppCreator_content_top_prepared_by_date" style="position:absolute; top:0; width:20%;">
+				
+						</div>
+					</div>
+					<div id="ubmAppCreator_content_top_reviewed_by">
+						<div id="ubmAppCreator_content_top_reviewed_by_initial">
+							
+						</div>
+						<div id="ubmAppCreator_content_top_reviewed_by_date">
+							
+						</div>					
+					</div>
+					<div id="ubmAppCreator_content_top_final_review">
+						<div id="ubmAppCreator_content_top_final_review_initial">
+							
+						</div>
+						<div id="ubmAppCreator_content_top_final_review_date">
+							
+						</div>					
+					</div>
+					<center><p>This is a Test</p></center>
+				</div>
+				<div id="ubmAppCreator_content_right" style="position:absolute; top:40px; right:0; width:50%; ">
+					
+				</div>
 			</div><!-- /content -->
 			<div data-role="footer" data-position="fixed" data-fullscreen="true">
 				<h1>UBM v1.0.0</h1>
