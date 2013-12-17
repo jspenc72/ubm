@@ -1,0 +1,768 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta name="format-detection" content="telephone-no">
+	<meta name="viewport" content="user-scalable=no, initial-scale=1, minimum-scale=1, maximum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi">
+	<title>EpiPlace iOS</title>
+
+																												<!-- WookMark Jquery Plugin -->
+	<link rel="stylesheet" href="css/wookmark/reset.css">   <!-- CSS Reset -->
+	<link rel="stylesheet" href="css/wookmark/main.css">  <!-- Global CSS for the page and tiles -->
+	<link rel="stylesheet" href="css/wookmark/wookstyle.css">   <!-- Specific CSS for the tiles -->
+	<link rel="stylesheet" href="css/wookmark/colorbox.css"> 	<!-- colorbox styles -->
+																												<!-- END WookMark Jquery Plugin -->
+	<link rel="stylesheet" href="css/main.css">
+	<script src="js/jquery.js"></script> <!-- Jquery version 1.8.3, NOTE version 1.10.0 causes db Errors -->
+	<script src="js/jquery.mobile-1.3.2.min.js"></script> 
+	<script src="js/mustache.js"></script>
+	<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=false"></script>
+	<link href="http://code.google.com/apis/maps/documentation/javascript/examples/default.css" rel="stylesheet" type="text/css" />
+	<link href="http://code.jquery.com/mobile/1.0/jquery.mobile-1.0.min.css" rel="stylesheet" type="text/css">
+	<script src="/resources/demos/external/globalize.js"></script>
+	<script src="/resources/demos/external/globalize.culture.de-DE.js"></script>
+	<script src="/resources/demos/external/globalize.culture.ja-JP.js"></script>
+	<script type="text/javascript" src="barcodescanner.js"></script>	
+	
+	<script>
+		var token ='456789';
+        var db, dbresults, itemindex, lat, lon;
+		var notedata = {itemname:"", itemdescription:"", itemsaleprice:"", itemvendor:"", itemcategory:"", imagesource:"", notelat:"", notelon:""};
+		var notetemplate = '<input type="text" data-theme="a" name="itemname" id="itemname" value="{{itemname}}" placeholder="Item Name"/><textarea  data-theme="a" cols="40" rows="8" name="itemdescription" id="itemdescription" placeholder="Description">{{itemdescription}}</textarea><p><label for="spinner">Item Cost:</label><input id="spinner" name="spinner" value="{{itemsaleprice}}" /></p><input id="addphoto" type="button"  data-icon="plus" onclick="javascript:takeaphoto();" value="Attach Photo from Camera" /><input id="selectphoto" type="button"  data-icon="plus" onclick="javascript:selectphoto();" value="Attach Photo from Library" /><center><img id="noteimage" src="{{imagesource}}" /></center><div id="map">Map Placeholder</div><input id="deleteitembutton" type="button" data-theme="a" value="Remove From Inventory" /><input id="saveitem" type="button" data-theme="a" value="Save Item to Inventory" />';
+		$(document).on("pageinit", function(){
+			$('#newnote').live('pagecreate', function(event){
+				if(itemindex >= 0) {
+					item = dbresults.rows.item(itemindex);
+					notedata = {itemname:item.itemname, itemdescription:item.itemdescription, itemsaleprice:item.itemsaleprice, imagesource:item.imagesource, notelat:item.notelat, notelon:item.notelon};
+				}  
+				var html = Mustache.to_html(notetemplate, notedata);
+				$("#itemdescriptioncontent").append(html);
+			}); 
+			$("#newnote").live("pageshow", function(){
+				navigator.geolocation.getCurrentPosition(onGeoSuccess, onGeoError);
+				if(itemindex >= 0){
+					$("#noteimage").css("display", "block");
+				}
+			});
+			$("#main").live("pageshow", function(){
+				console.log("#main page is displayed");
+				$('#itemname').empty()
+				$('#itemdescription').empty()
+				$("#noteimage").attr("src", '{{imagesource}}');
+			});
+			$("#epifeed").live("pageshow", function(){
+				console.log("#epifeed page is displayed");
+
+			});
+			$("#addphoto").bind("tap", function(){
+				var options = {sourceType:Camera.PictureSourceType.PHOTOLIBRARY, destinationType: Camera.DestinationType.FILE_URI};
+				navigator.camera.getPicture(onCameraSuccess, onError, options);
+			});
+			
+			$("#deleteitembutton").bind("tap", function(){
+				console.log("Delete Notes was tapped");
+				db.transaction(deleteDbNotes, onDbError, onDbSuccess);
+			});
+			
+			$("#saveitem").bind("tap", function(){
+				notedata.itemname = $("#itemname").val();
+				notedata.itemdescription = $("#itemdescription").val();
+				notedata.itemsaleprice = $("#spinner").val();
+				notedata.imagesource =  $("#noteimage").attr("src");
+				notedata.notelat = lat;
+				notedata.notelon = lon;
+				//alert("3saveitem was tapped");
+				db.transaction(saveitem, onDbError, onDbSuccess);
+				//alert("4saveitem db transaction was called");
+				alert("Your Note Has Been Saved");
+				window.location.replace("#main");
+			});
+		});
+		function token_field() { //form token function, inserts token field each time a form is submitted.
+			document.write('<input type="hidden" id="token" value="' + token + '" />');
+		}
+		function init() {
+			//alert("init function has been called");
+			document.addEventListener("deviceready", onDeviceReady, false);
+		}
+		function onDeviceReady() {
+			if (parseFloat(window.device.version) === 7.0) {
+			          document.body.style.marginTop = "20px";
+			    }
+			alert("look at the console log for your notes on whats next!");
+			console.log("Need to Connect WookMark API to EpiPlace, I have setup access to the Old Login Screen and tested the create user route. The JSON request seems to be working however I am still unable to access the wookmark API. Also Need to setup the feedSphere so that it runs on the new EpiPlace app.");
+			console.log("onDeviceReady has been called");
+			var networkstate = navigator.connection.type;
+			if(networkstate == "none")
+			{
+				$(".offline").css("visibility","visible");
+			}
+			//alert("you are connected to the internet!");
+			//var dbShell = window.openDatabase(database_name, database_version, database_displayname, database_size);
+            db = window.openDatabase("Notes", "1.0", "SavedNotes", 200000);
+            if(!db){
+            	alert("there is no db");
+            }else{
+            	//alert("the db was created! :-)");
+            }
+            db.transaction(getDbNotes, onDbError, onDbSuccess);	 //getDbNotes is the function called to 
+		}
+		function takeaphoto(){
+				//alert("takeaphoto");
+		        console.log('changePicture');
+		        if (!navigator.camera) {
+		            app.showAlert("Camera API not supported", "Error");
+		            return;
+		        }
+		        var options =   {   quality: 25,
+		                            destinationType: Camera.DestinationType.DATA_URL,
+		                            sourceType: Camera.PictureSourceType.CAMERA,      // 0:Photo Library, 1=Camera, 2=Saved Photo Album
+		                            encodingType: Camera.EncodingType.JPEG     // 0=JPG 1=PNG
+		                        };
+		        navigator.camera.getPicture(
+		            function(imageData) {
+		                $('#noteimage').attr('src', "data:image/jpeg;base64," + imageData);
+		            },
+		            function() {
+//		                alert('Error taking picture');
+		            },
+		            options);
+		}
+		function deleteDbNotes(tx){
+    		if(!tx){
+    			alert("Error no tx");
+    		}
+			console.log("deleteDbNotes was called");
+			itemname_entry = $("#itemname").val();
+			tx.executeSql("DELETE FROM NOTES WHERE itemname=?", [itemname_entry], onDbSuccess, onDbError);
+			console.log("delete All Notes was Successful");
+			alert("This note has been deleted!")
+			window.location.replace("#main");
+		}
+        function getDbNotes(tx){
+    		if(!tx){
+    			alert("Error no tx");
+    		}    		
+        	tx.executeSql("CREATE TABLE IF NOT EXISTS NOTES (itemname, itemdescription, itemsaleprice, imagesource, notelat, notelon)");	//
+        	tx.executeSql("SELECT * FROM NOTES", [], onSelectNotesSuccess, onDbError); 									//Displays contents of the table saved to db for offline access.
+        																												//[] is an empty array
+        }
+		function onSelectNotesSuccess(tx, results) { 		//Called when tx.execute is successfull in selecting all lines from notes db
+			dbresults = results; 																						//Global dbresults variable is set as results
+			var len = results.rows.length;																				
+			for(var i = 0; i<len; i++) {																				//create a list of results from the db
+				$("#notelist").append("<li><a href=#newnote  onclick='itemindex=" + i + ";' onclick='javascript:displayNote();'>" + results.rows.item(i).itemname + "</a></li>");
+			}
+			$("#notelist").listview("refresh");																			//jquery is called to render the list
+			}
+		function displayNote(itemindex){
+			console.log(itemindex);
+		}
+		function saveitem(tx) {
+			//alert("saveitem has been executed");
+			tx.executeSql("INSERT INTO NOTES (itemname, itemdescription, itemsaleprice, imagesource, notelat, notelon) VALUES (?, ?, ?, ?, ?, ?)",[notedata.itemname, notedata.itemdescription, notedata.itemsaleprice, notedata.imagesource, notedata.notelat, notedata.notelon]); 
+		} //The ? ? ? ? will be replaced by the elements of the [notedata.arrayitem1, notedata.arrayitem2]
+		function onGeoSuccess(position) {
+			lat = position.coords.latitude;
+			lon = position.coords.longitude;
+			var currentposition = new google.maps.LatLng(lat,lon);
+			var mapoptions = {
+				zoom: 12,
+				center: currentposition,
+				mapTypeId: google.maps.MapTypeId.ROADMAP
+			};
+			var map = new google.maps.Map(document.getElementById("map"), mapoptions);
+			var marker = new google.maps.Marker({
+					position: currentposition,
+					map: map
+			});
+		}
+		function onCameraSuccess(imageURI){
+			$("#noteimage").attr("src", imageURI);
+			$("#noteimage").css("display", "block");
+		}
+		function onGeoError(error) {
+			if( error == 1) {
+				alert('Turn on Geolocation services.');
+			}
+		}
+		function onDbSuccess(tx, results){
+			console.log("Database call was successful");
+			//alert("Your note has been saved!");
+			//getDbNotes();
+		}
+		function wook_mark(){
+			console.log("this is a test of wookmark");
+			//$('#tiles').append('<li data-filter-class="["Lunch"]"><a href="wookmark-images/image_7_big.jpg" rel="lightbox"><img src="wookmark-images/image_7.jpg" height="100" width="100"></a><p>Lunch Art</p></li>');
+			//$("#tiles").listview("refresh");
+			var n_ul = $("#tiles > li").size()			
+			console.log(''+ n_ul +'');
+		}
+		function ondeleteDbNotesSuccess(){
+				$("#notelist").empty(); 
+				getDbNotes();
+			}
+		function onGeoError(error) {
+		    if( error == 1) {
+		        alert('Turn on Geolocation services.');
+		    }
+		}
+		function onDbError(error){
+			alert("Database Error: " + error.message);
+		}
+		function onError(message){
+			alert(message);
+		}
+	</script>
+</head>
+<body onload="init()">
+	<div data-role="page" id="main">
+		<div data-role="header" class="jqm-header" data-theme="c" data-fullscreen="true" data-position="fixed">
+				</br>
+				<center>EpiPlace</center>
+				<div data-role="navbar">
+					<ul>
+						<li><a href="#login">Login</a></li> <!-- Need to build Explore Page -->
+						<li><a href="#popupVideo" data-rel="popup" data-position-to="window" data-role="button" data-theme="a" data-inline="true">Demo</a></li>	
+					</ul>
+				</div><!-- /navbar -->
+		</div><!-- /header -->
+		<div data-role="content" data-theme="d">
+			<ul id="notelist" data-role="listview" data-inset="true">
+			</ul>
+			<a href="#newnote" data-role="button" data-icon="plus">Add to Inventory</a></br>
+            <a href="#inventoryList" data-role="button" data-icon="star" data-iconpos="left">View My Inventory</a> </br>
+			</br>
+			</br>
+			</br>
+			</br>
+			</br>
+		</div>
+		<div data-role="footer" data-fullscreen="true" data-position="fixed" data-theme="a">
+			<h2 class="offline">Offline Mode</h2>
+			<center><a href="#popupLogin" data-rel="popup" data-position-to="window" data-role="button" data-inline="true" data-icon="check" data-theme="a" data-transition="flip" >Sign up with an email address</a></center>
+		</div>
+	</div>
+	<!-- /PAGE MAIN-->
+	<div data-role="page" id="findanitem">
+		
+	</div>
+	<div data-role="page" id="newnote">
+		<div data-role="header" class="logo">
+			<a href="#panel-nav" data-icon="bars" data-iconpos="notext">Navigation</a>
+			<h1>EpiPlace!</h1>
+			<a href="#panel-usersGroceryLists" data-icon="arrow-l" data-iconpos="notext">My Grocery Lists</a>
+		</div>
+		<div id="itemdescriptioncontent" data-role="content">
+	<!--	<select name="select-choice-8" id="select-choice-8" multiple="multiple" data-native-menu="false" data-icon="grid" data-iconpos="left">
+			<optgroup label="Baking"><option value="1">Baking Chips & Bars</option><option value="2">Baking Mixes</option><option value="3">Baking Nuts, Coconut & Fruit</option><option value="4">Baking Powerder & Soda</option><option value="5">Canned & Powdered Milk</option><option value="6">Coatings & Batters</option><option value="7">Extracts & Colorings</option><option value="8">Flour & Meal</option><option value="9">Salt, Spices & Seasoning</option><option value="10">Sugar & Sweeteners</option></optgroup>
+			<optgroup label="Beverages"><option value="1">Beer, Wine & Spirits</option><option value="2">Coffee</option><option value="3">Hot Cocoa</option><option value="4">Juice</option><option value="5">Milk & Cream</option><option value="6">Powdered Drinks & Mixes</option><option value="7">Seltzers, Tonics & Soda Water</option><option value="8">Soft Drinks</option><option value="9">Sports & Energy Drinks</option><option value="10">Tea</option><option value="11">Water</option></optgroup>
+			<optgroup label="Breakfast & Cereal"><option value="1">Breakfast Bars</option><option value="2">Cereal</option><option value="3">Toaster Pastries</option></optgroup>
+			<optgroup label="Candy"><option value="1">Caramels</option><option value="2">Chewy Candy</option><option value="3">Chocolate Candy</option><option value="4">Fudge</option><option value="5">Gum</option><option value="6">Gummy Candy</option><option value="7">Hard Candy</option><option value="8">Licorice</option><option value="9">Marshmallows</option><option value="10">Mints</option><option value="11">Multipacks & Variety Packs</option><option value="12">Suckers & Lollipops</option></optgroup>
+			<optgroup label="Canned Goods & Soups"><option value="1">Applesauce</option><option value="2">Canned Beans</option><option value="3">Canned Fruit</option><option value="4">Canned Ready to Eat Meat</option><option value="5">Canned Vegetables</option><option value="6">Chili</option><option value="7">Meat & Poultry</option><option value="8">Soup</option><option value="9">Soup</option><option value="10">Stocks & Broth</option><option value="11">Tuna & Seafood</option></optgroup>
+			<optgroup label="Coffee & Tea"><option value="1">Coffee</option><option value="2">Tea</option><option value="3">Creamers & Syrups</option><option value="4">Coffee Makers</option><option value="5">Accessories & Filters</option></optgroup>
+			<optgroup label="Condiments, Spices & Sauces"><option value="1">Chutneys & Relishes</option><option value="2">Condiments</option><option value="3">Dips & Spreads</option><option value="4">Honey</option><option value="5">Jam, Jelly & Preserves</option><option value="6">Olives</option><option value="7">Peanut Butter</option><option value="8">Pickles</option><option value="9">Salad Dressing</option><option value="10">Spices & Seasonings</option><option value="11">Sauces</option><option value="12">Syrups & Sweeteners</option><option value="13">Vinegars</option></optgroup>
+			<optgroup label="Fresh Food"><option value="1">Bakery & Bread</option><option value="2">Dairy, Eggs & Cheese</option><option value="3">Deli</option><option value="4">Meat, Seafood & Poultry</option><option value="5">Produce</option></optgroup>
+			<optgroup label="Food Gifts"><option value="1">Chocolates</option><option value="2">Candy</option></optgroup>
+			<optgroup label="Frozen Foods"><option value="1">Breakfast Food</option><option value="2">Frozen Appetizers</option><option value="3">Frozen Desserts & Bakery</option><option value="4">Frozen Dinners & Meals</option><option value="5">Frozen Fruit</option><option value="6">Frozen Juice</option><option value="7">Frozen Pizza</option><option value="8">Frozen Seafood</option><option value="9">Frozen Vegetables</option><option value="10">Ice Cream & Novelties</option></optgroup>
+			<optgroup label="Infant & Childcare"><option value="1">Baby Food</option><option value="2">Diapering</option><option value="3">Baby Accessories</option><option value="4">Baby Bath & Skin Care</option></optgroup>
+			<optgroup label="Meal Solutions, Grains & Pasta"><option value="1">Boxed Meals</option><option value="2">Chili</option><option value="3">Dried Beans</option><option value="4">Food Supplies</option><option value="5">Grains & Rice</option><option value="6">Meat & Poultry</option><option value="7">Pasta & Noodles</option><option value="8">Stocks & Broths</option><option value="9">Tuna & Seafood</option></optgroup>
+	</select> -->
+				<label for="select-choice-8" class="select">Select a Category:</label>
+				<select name="select-choice-8" id="select-choice-8" multiple="multiple" data-native-menu="false" data-icon="grid" data-iconpos="left">
+						<option value="Default" selected="">Default: Other</option>
+				        <option value="Baking" >Baking</option>
+				        <option value="Beverages">Beverages</option>
+				        <option value="Breakfast & Cereal">Breakfast & Cereal</option>
+				        <option value="Candy">Candy</option>
+				        <option value="Condiments, Spices & Sauces">Condiments, Spices & Sauces</option>
+				        <option value="Fresh Food">Fresh Food</option>
+				        <option value="Frozen Foods">Frozen Foods</option>
+				        <option value="Infant & Childcare">Infant & Childcare</option>
+				        <option value="Meal Solutions, Grains & Pasta">Meal Solutions, Grains & Pasta</option>
+				</select>
+
+			<script>
+				$(function() {
+				  $( "#currency" ).change(function() {
+				    $( "#spinner" ).spinner( "option", "culture", $( this ).val() );
+				  }); 
+				  $( "#spinner" ).spinner({
+				    min: 0,
+				    max: 2500,
+				    step: 1,
+				    start: 1000,
+				    numberFormat: "C"
+				  });
+				});
+			</script>
+		</div>
+			<div data-role="panel" id="panel-nav" class="jqm-nav-panel" data-position="left" data-display="overlay" data-theme="b">
+				        <ul data-role="listview" data-inset="false" data-filter="false" data-theme="d" data-divider-theme="d"  data-icon="false" data-filter-placeholder="Search..." class="jqm-list">
+				        <li data-role="list-divider">My EpiPlace</li>
+				            <li><a href="#main">Main Page</a></li>
+				            <li><a href="#epifeed">epiFeed</a></li>
+				            <li><a href="#findanitem">Find an Item</a></li>
+				            <li><a href="#findastore">Find a Store</a></li>
+				            <li><a href="#findarecipe">Find a Recipe</a></li>
+				            <li><a href="#mygrocerylists">My Grocery Lists</a></li>
+					        <li><a href="#myfavorites">My Favorites</a></li>
+				        <li data-role="list-divider">EpiPlace Community</li>
+					        <li><a href="#mygroupLists">My Group Lists</a></li>
+				            <li><a href="#epiplaceonfacebook">EpiPlace on Facebook</a></li>
+				            <li><a href="#applicationsettings">Application Settings</a></li>
+				            <li><a href="#welcome">Welcome</a></li>
+				        </ul>
+			</div><!-- /panel -->
+								<style type="text/css"> /*Popup Panel CSS */
+								#popupPanel-popup { /** CSS for popup itself*/
+								    right: 0 !important;
+								    left: auto !important;
+								    width: 80%;			
+								}
+								#popupPanel { /** CSS for list inside the panel*/
+								    width: 100%;
+								    border: 1px solid #000;
+								    border-right: none;
+								    background: rgba(0,0,0,.5);
+								    margin: -1px 0;
+								}
+								#popupPanel .ui-btn {
+								    margin: 1em 3px;
+								}
+								</style>
+								<script> /*Popup Panel JS, Set Height */
+								$( "#popupPanel" ).on({
+								    popupbeforeposition: function() {
+								        var h = $( window ).height();
+								        $( "#popupPanel" ).css( "height", h );
+								    }
+								});
+								function sortListlistName(){
+									$('ul.jqm-list>li').tsort();
+									//alert("sort by name");
+									$(".jqm-list").listview("refresh");	
+									//alert("list has been refreshed")
+								}
+								
+								function sortListdateCreated(){
+									//alert("sort by date created");
+								}
+								</script>
+						<div data-role="popup" id="popupPanel" data-corners="false" data-theme="none" data-shadow="false" data-tolerance="0,0" >
+							<div data-role="controlgroup" data-type="horizontal" data-mini="true">
+									<button data-theme="a" data-icon="grid" data-mini="true" onclick="javascript:sortListlistName();">Name</button>
+									<button data-theme="a" data-icon="grid" data-mini="true" onclick="javascript:sortListdateCreated();">Date</button>
+									<button data-theme="a" data-icon="plus" data-mini="true" onclick="javascript:createNewList();"></button>
+							</div>
+											<ul id="home_popup_Panel_List_of_Lists" data-role="listview" data-inset="true" data-autodividers="true" data-filter="true" data-theme="d" data-divider-theme="d"  data-icon="false" data-filter-placeholder="Search..." class="jqm-list">
+
+											</br>
+											</br>
+									            <li><a href="#panel-usersGroceryLists" onclick="javascript:loadagroceryList(1);">Tonights Dinner Party</a></li>
+									            <li><a href="#panel-usersGroceryLists" onclick="javascript:loadagroceryList(2);">Camping Next Friday</a></li>
+									            <li><a href="#panel-usersGroceryLists" onclick="javascript:loadagroceryList(3);">Dinner for Two</a></li>
+									            <li><a href="#panel-usersGroceryLists" onclick="javascript:loadagroceryList(4);">Sunday Dinner with Parents</a></li>
+											</ul>
+						</div>
+						<div data-role="panel" id="panel-usersGroceryLists" class="jqm-nav-panel" data-position="right" data-display="overlay" data-theme="b">
+ 
+							        <ul data-role="listview" data-inset="false" data-filter="true" data-theme="d" data-divider-theme="d"  data-icon="false" data-filter-placeholder="Search..." class="jqm-list">
+							            <li data-role="list-divider">Dairy</li>
+							            <li><a href="#">Whipped Cream</a></li>
+							            <li><a href="#">Milk</a></li>
+							            <li><a href="#">Butter</a></li>
+							            <li data-role="list-divider">Fruits and Veggies</li>
+							            <li><a href="#">Apples</a></li>
+							            <li><a href="#">Bananas</a></li>
+							            <li><a href="#">Grapes</a></li>
+							            <li><a href="#">Oranges</a></li>
+							            <li data-role="list-divider">Baked Goods</li>
+							            <li><a href="#">Bread</a></li>
+							            <li><a href="#">Peanut Butter Cookies</a></li>
+							            <li><a href="#">Birthday Cake</a></li>
+							            <li data-role="list-divider">Household Items</li>
+							            <li><a href="#">Tissue</a></li>
+							            <li><a href="#">Broom</a></li>
+							            <li><a href="#">Mop Stick</a></li>
+							        </ul>
+						</div><!-- /panel -->
+		<div data-role="footer" data-theme="c">
+			<center><p>EpiPlace!</p></center>
+		</div>
+	</div>
+	<!-- /PAGE newnote-->
+	<!--WOOKMARK RECIPE FEED -->
+	<div data-role="page" id="epifeed" data-theme="c" data-fullscreen="true" data-position="fixed">
+			<div data-role="header" class="jqm-header" data-theme="b" data-position="fixed">
+				<a id="loadEpiFeed" data-role="button" data-theme="c" >Load EpiFeed </a>
+			    <header>
+					<center><h3>Epi | Place</h3></center>
+			    </header>
+			    <center><ol id="filters">
+					<li data-filter="Breakfast">Breakfast</li>
+					<li data-filter="Lunch">Lunch</li>
+					<li data-filter="Dinner">Dinner</li>
+					<li data-filter="Cookies">EpiStores</li>
+					<li data-filter="Unique">Unique</li>
+					<li data-filter="Featured">Featured</li>
+			    </ol>
+			    <br/></center>
+				<center>
+			    <label for="search">Search: </label>
+				<input id="search" name="wookSearch_input" data-clear-btn="true" placeholder="Search"/>				
+				</center>
+			</div>
+			<div data-role="content" id="browse_content"  data-theme="b">
+				<div id="container">				
+					<div id="main" role="main">
+					  <ul id="tiles" >
+						<li data-filter-class='["Cookies"]'><a href="wookmark-images/image_1_big.jpg" rel="lightbox"><img src="wookmark-images/image_1.jpg" height="150" width="100"></a><p>Lunch Art</p></li>
+						<li data-filter-class='["Breakfast"]'><a href="wookmark-images/image_2_big.jpg" rel="lightbox"><img src="wookmark-images/image_2.jpg" height="200" width="100"></a><p>Berlin Art</p></li>
+						<li data-filter-class='["Lunch"]'><a href="wookmark-images/image_3_big.jpg" rel="lightbox"><img src="wookmark-images/image_3.jpg" height="150" width="100"></a><p>Berlin Video</p></li>
+						<li data-filter-class='["Dinner"]'><a href="wookmark-images/image_4_big.jpg" rel="lightbox"><img src="wookmark-images/image_4.jpg" height="158" width="100"></a><p>Breakfast Fashion</p></li>
+						<li data-filter-class='["Food"]'><a href="wookmark-images/image_5_big.jpg" rel="lightbox"><img src="wookmark-images/image_5.jpg" height="300" width="100"></a><p>Berlin Art</p></li>
+						<li data-filter-class='["Breakfast"]'><a href="wookmark-images/image_6_big.jpg" rel="lightbox"><img src="wookmark-images/image_6.jpg" height="297" width="100"></a><p>Breakfast Fashion</p></li>
+						<li data-filter-class='["Lunch"]'><a href="wookmark-images/image_7_big.jpg" rel="lightbox"><img src="wookmark-images/image_7.jpg" height="100" width="100"></a><p>Lunch Art</p></li>
+					    <!-- These is where we place content loaded from the Wookmark API -->
+					  </ul>
+					  <div id="loader">
+					    <div id="loaderCircle"></div>
+					  </div>
+					</div>
+					<footer>
+					</footer>
+				</div>
+				  <!-- Include the imagesLoaded plug-in -->
+				  <script src="libs/jquery.imagesloaded.js"></script>
+				  <!-- include colorbox -->
+				  <script src="libs/jquery.colorbox-min.js"></script>
+				  <!-- Include the plug-in -->
+				  <script src="js/jquery.wookmark.js"></script>
+				  <!-- Once the page is loaded, initalize the plug-in. -->
+				  <script type="text/javascript">	//Get EpiFeed from WookMark!
+				
+				      var handler = null,
+				          page = 1,
+				          isLoading = false;
+				          apiURL = 'http://www.wookmark.com/api/json?type=search&term=recipe';
+				      // Prepare layout options.
+				      var options = {
+				        autoResize: true, // This will auto-update the layout when the browser window is resized.
+				        container: $('#tiles'), // Optional, used for some extra CSS styling
+				        offset: 20, // Optional, the distance between grid items
+				        itemWidth: 140 // Optional, the width of a grid item
+				      };
+				      /**
+				       * When scrolled all the way to the bottom, add more tiles.
+				       */
+				      function onScroll(event) {
+				        // Only check when we're not still waiting for data.
+				        if(!isLoading) {
+	//			      	applyLayout();
+				          // Check if we're within 100 pixels of the bottom edge of the broser window.
+				          var closeToBottom = ($(window).scrollTop() + $(window).height() > $(document).height() - 100);
+				          var closeToTop = ($(window).scrollTop() == 0);
+				          if(closeToTop){
+				          	newloaddata();
+				          }
+				          if(closeToBottom) {
+				            newloaddata();
+				          }
+				        }
+				      };
+				      /**
+				       * Refreshes the layout.
+				       */
+				      function applyLayout() {
+				        options.container.imagesLoaded(function() {
+				          // Create a new layout handler when images have loaded.
+				          handler = $('#tiles li');
+				          handler.wookmark(options);
+				        // Init lightbox
+				        $('a', handler).colorbox({
+				          rel: 'lightbox'
+				        });        });
+				      };
+				      /**
+				       * Loads data from the API.
+				       */
+				/***/	function newloaddata() {
+				        // Increment page index for future calls.
+							page++;
+							console.log("newloaddata getjson is about to be called");
+							var search_term = "healthy food";
+							console.log(''+ search_term +'');
+							var data1;
+							$.getJSON(
+										//apiURL = 'http://www.wookmark.com/api/json?type=search&term=recipe';
+								'http://www.wookmark.com/api/json?type=search&term='+ search_term +'&callback=?',
+								{
+									crossDomain: true,
+									format: "jsonp",
+									data: {page: page}
+									}, 
+								function(data) {
+									if(data){
+										console.log("data was received");
+										var dataLength = data.length;
+										console.log('length of data is' + dataLength + '');
+										onLoadData(data);
+									};
+							  	}
+							);
+							//wook_mark();
+							console.log("onLoadData is about to be called");
+
+							
+						}; /***/
+				      function loadData() {
+				        isLoading = true;
+				        $('#loaderCircle').show();
+				        
+				        $.ajax({
+				          url: apiURL,
+				          dataType: 'jsonp',
+				          data: {page: page}, // Page parameter to make sure we load new data
+				          success: onLoadData
+				        });
+				      };
+				      /**
+				       * Receives data from the API, creates HTML for images and updates the layout
+				       */
+				      function onLoadData(data) {
+				        isLoading = false;
+				        $('#loaderCircle').hide();
+
+				        // Create HTML for the images.
+				        var html = '';
+				        var i=0, length=data.length, image;
+				      	console.log('The length of data before html: '+ length +'');
+				        for(; i<5; i++) {
+				          image = data[i];
+				          html += '<li><a href="'+image.preview+'" rel="lightbox">';
+				          // Image tag (preview in Wookmark are 200px wide, so we calculate the height based on that).
+				         // html += '<img src="'+image.preview+'" width="100" height="'+Math.round(image.height/image.width*100)+'">';
+				          html += '<img src="'+image.preview+'" width="100" height="'+ Math.round( image.height/image.width*100 ) + '">';			
+				          // Image title.
+				          html += '</a><p>'+image.title+''+i+'</p>'
+				          
+						  html += '<a href="#" onclick="window.open(\'https://www.facebook.com/sharer/sharer.php?u=\'+encodeURIComponent(location.href), \'facebook-share-dialog\', \'width=626,height=436\'); return false;">Share</a>'
+				          html += '</li>';
+				        }/*** /
+				        for(; i<length; i++) {
+				          image = data[i];
+				          html += '<li data-filter-class="["Dinner", "art"]"><a href="'+image.preview+'" rel="lightbox">';
+				          // Image tag (preview in Wookmark are 200px wide, so we calculate the height based on that).
+				         // html += '<img src="'+image.preview+'" width="100" height="'+Math.round(image.height/image.width*100)+'">';
+				          html += '<img src="'+image.preview+'" width="100" height="'+ Math.round( image.height/image.width*100 ) + '">';			
+				          // Image title.
+				          html += '</a><p>'+image.title+''+i+'</p>'
+	// working fb sharer					  html += '<a href="#" onclick="window.open(\'https://www.facebook.com/sharer/sharer.php?u=\'+encodeURIComponent(location.href), \'facebook-share-dialog\', \'width=626,height=436\'); return false;">Share</a>'
+	//					html += '<a href="#" onclick="window.open("https://www.facebook.com/sharer/sharer.php?u='+encodeURIComponent(location.href), "facebook-share-dialog", 'width=626,height=436'); return false;">Share on Facebook</a>';
+				          html += '</li>';
+				        }/***/
+				       console.log('number of loops through which: '+ i +'');
+				        // Add image HTML to the page.
+				        $('#tiles').append(html);
+						console.log("tiles have been appended to list");
+				        // Apply layout.
+				        applyLayout();
+					// Apply Layout 900ms after First Load
+						$(function() {
+						    var intervalID = setInterval(function() {
+								$(document).ready(function(){
+									applyLayout();
+								});
+						    }, 2300);
+						    setTimeout(function() {
+						        clearInterval(intervalID);
+						    }, 2400);
+						});
+				        // Get a reference to your grid items.
+				        var handler = $('#tiles li');
+				            //filters = $('#filters li');
+				      };
+				      // Capture scroll event.
+				      $(document).bind('scroll', onScroll);
+				        // Get a reference to your grid items.
+				        var handler = $('#tiles li');
+				            //filters = $('#filters li');
+				        // Call the layout function.
+				        handler.wookmark(options);
+				        // Init lightbox
+				        $('a', handler).colorbox({
+				          rel: 'lightbox'
+				        });
+				        /**
+				         * When a filter is clicked, toggle it's active state and refresh.
+				         */
+				        var onClickFilter = function(event) {
+				          var item = $(event.currentTarget),
+				              activeFilters = [];
+				          if (!item.hasClass('active')) {
+				            filters.removeClass('active');
+				          }
+				          item.toggleClass('active');
+				          // Filter by the currently selected filter
+				          if (item.hasClass('active')) {
+				            activeFilters.push(item.data('filter'));
+				          }
+				          handler.wookmarkInstance.filter(activeFilters);
+				        }
+				        // Capture filter click events.
+				      filters.click(onClickFilter);
+				      // Load first data from the API.
+				      newloaddata();
+				  </script>
+		</div>
+		
+		<div data-role="footer" data-theme="b" data-fullscreen="true" data-position="fixed">
+			<div data-role="navbar">
+						<ul>
+							<li><a href="#storelist" data-icon="delete" data-iconpos="notext" data-ajax="false">Back</a></li>
+							<li><a href="#profile" data-icon="home" data-iconpos="notext" data-ajax="false">Profile</a></li>
+						</ul>
+				</div><!-- /navbar -->
+			</div>
+	</div>		<!-- End of Browse Page-->
+	<div data-role="page" id="welcome" data-theme="c" data-fullscreen="true" data-position="fixed">
+		<div data-role="header" class="jqm-header" data-theme="c" data-fullscreen="true" data-position="fixed">
+					<center><h1>EpiPlace!</h1></center>
+				<div data-role="navbar">
+					<ul>
+						<li><a href="#login">Login</a></li> <!-- Need to build Explore Page -->
+						<li><a href="#popupVideo" data-rel="popup" data-position-to="window" data-role="button" data-theme="a" data-inline="true">Demo</a></li>	
+					</ul>
+				</div><!-- /navbar -->
+		</div><!-- /header -->
+		<div data-role="content" data-fullscreen="true" > 
+			<div data-role="popup" id="popupVideo" data-overlay-theme="a" data-theme="d" data-tolerance="15,15" class="ui-content">
+				<iframe src="http://player.vimeo.com/video/41135183?portrait=0" width="248" height="149" seamless></iframe>
+			</div>
+			<div data-role="popup" id="popupMenu" data-theme="a">
+				<div data-role="popup" id="popupLogin" data-theme="a" class="ui-corner-all">
+					<a href="#welcome" data-role="button" data-theme="a" data-icon="delete" data-iconpos="notext" class="ui-btn-right">Close</a>
+					<form id="signUp_form" action="http://dev.epiplace.com/app/test?callback=?" method="post" >
+						<div style="padding:10px 20px;">
+						  <center><h3>You're Moments Away!</h3></center>
+				          <label for="username_SignUp" class="ui-hidden-accessible">Username:</label>
+				          <input type="text" name="username_SignUp" id="un_signUp" value="" placeholder="username" data-theme="a" />
+				          <label for="email_SignUp" class="ui-hidden-accessible">Email:</label>
+				          <input type="text" name="email_SignUp" id="email_signUp" value="" placeholder="email" data-theme="a" />
+				          <label for="password_SignUp" class="ui-hidden-accessible">Password:</label>
+				          <input type="password" name="password_SignUp" id="password_SignUp" value="" placeholder="password" data-theme="a" />
+							  <div id="result_SignUp" style="background-color: white;">
+							  	
+							  </div>
+							<!--<script>token_field();</script>-->
+							<input type="hidden" id="login_failed_message" value="You must create an account!" />
+				    	  <button type="submit" data-theme="b"  name="submit" id="submit" value="signUp" data-icon="check" >Sign up!</button>
+						</div>
+					</form>
+				</div>
+			</div>
+				<script> /*THIS IS THE SIGNUP FORM Submit Code*/
+					/* attach a submit handler to the form 
+					 http://dev.epiplace.com/app/test?callback=? //test url for the form
+					 * */
+					$("#signUp_form").submit(function(event) {
+					  $('#result_SignUp').empty().append('Attempting registration...'); //alert the user that the form has been submitted
+					  /* stop form from submitting normally */
+					  event.preventDefault();
+						function navToepiFeed () {
+								$(function() {
+								    var intervalID = setInterval(function() {
+										$(document).ready(function(){
+											window.location.replace("#epifeed");
+										});
+								    }, 400);
+								    setTimeout(function() {
+								        clearInterval(intervalID);
+								    }, 600);
+								});
+						};
+					  /* get some values from elements on the page: */
+					  f = $(this);
+							function isValidEmailAddress(emailAddress) {
+							    var pattern = new RegExp(/^((([a-z]|\d|[!#\$%&'\*\+\-\/=\?\^_`{\|}~]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+(\.([a-z]|\d|[!#\$%&'\*\+\-\/=\?\^_`{\|}~]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+)*)|((\x22)((((\x20|\x09)*(\x0d\x0a))?(\x20|\x09)+)?(([\x01-\x08\x0b\x0c\x0e-\x1f\x7f]|\x21|[\x23-\x5b]|[\x5d-\x7e]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(\\([\x01-\x09\x0b\x0c\x0d-\x7f]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]))))*(((\x20|\x09)*(\x0d\x0a))?(\x20|\x09)+)?(\x22)))@((([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.)+(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.?$/i);
+							    return pattern.test(emailAddress);
+							};
+							var password_str = f.find('input[name="password_SignUp"]').val();
+							if (password_str.length<5) {											//Check password length is greater than 5 characters
+								if (!password_str.length) {											//Check that password field is not empty
+									alert("You must enter a password...");
+									$('#result_SignUp').empty().append('You must pick a password...');
+								}else{
+								alert("Your password is not long enough...");
+								$('#result_SignUp').empty().append('Your password is not long enough...');
+								}
+							}else{
+							var username_str = f.find('input[name="username_SignUp"]').val();
+							if (username_str.length<5) {
+									if(!username_str.length){
+										alert("You must enter a username...");
+										$('#result_SignUp').empty().append('You must pick a username...');
+									}else{
+										alert("Your username is not long enough...");
+										$('#result_SignUp').empty().append('Your username is not long enough...');
+									}
+								}else{
+										var emailaddress = f.find('input[name="email_SignUp"]').val();
+										if( !isValidEmailAddress( emailaddress ) ) { /* do stuff here */ 
+												alert("not a valid email address");
+												$('#result_SignUp').empty().append('You must enter a valid email address...');
+											}else{
+												var usrn_SignUp = f.find('input[name="username_SignUp"]').val(); //get the value of username entered by the user and store in a variable for use in the json request
+												var email_SignUp = f.find('input[name="email_SignUp"]').val(); //get the value of password entered by the user and store in a variable for use in the json request
+												var passwd_SignUp = f.find('input[name="pasword_SignUp"]').val(); //get the value of password entered by the user and store in a variable for use in the json request
+												/**/
+												//check to see if form is actually using this handler
+												/*alert(
+													'a: ' + f.attr('action') + 
+													"\nm: " + f.attr('method') + 
+													"\nu: " + f.find('input[name="username_SignUp"]').val() + 
+													"\np: " + f.find('input[name="password_SignUp"]').val()
+												);*/
+												//alert("a new user will be created");
+												$.getJSON(
+												//	'//dev.epiplace.com/app/db/create_user/'+ username_signUp +'/'+ password_signUp +'?token=' + token + '&callback=?',
+													'http://dev.epiplace.com/app/db/create_user/'+ usrn_SignUp +'/'+ passwd_SignUp +'/'+ email_SignUp +'?token=' + token + '&callback=?',
+													{
+														crossDomain: true,
+														format: "jsonp"
+														}, 
+													function(data, status) {
+														alert(status);
+														alert('the user id is '+ data.id +'');
+												  	}
+												);
+												//alert("user has been created");  /**/
+											  	$('#result_SignUp').empty().append('Registration was Successful...');
+											  	$('#un_signUp').empty()
+											  	$('#email_signUp').empty()
+											  	$('#password_SignUp').empty()
+										}
+									}
+									//navToepiFeed();
+								}
+					});
+				</script>
+		</div>
+		<div data-role="footer" data-fullscreen="true" data-position="fixed" data-theme="a">
+			<center><a href="#popupLogin" data-rel="popup" data-position-to="window" data-role="button" data-inline="true" data-icon="check" data-theme="a" data-transition="flip" >Sign up with an email address</a></center>
+		</div>
+	</div>
+
+	<script src="phonegap.js"></script>
+	<script src="js/main.js"></script>
+	<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
+	<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+
+																												<!-- THEMEROLLER MOBILE THEMES-->
+	<link rel="stylesheet" href="themes/epiPlace.min.css" />
+	<link rel="stylesheet" href="http://code.jquery.com/mobile/1.3.2/jquery.mobile.structure-1.3.2.min.css" />
+																												<!-- END THEMEROLLER THEMES -->
+
+</body>
+</html>
