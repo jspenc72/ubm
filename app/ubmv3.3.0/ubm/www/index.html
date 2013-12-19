@@ -24,100 +24,191 @@
         <!-- WARNING: for iOS 7, remove the width=device-width and height=device-height attributes. See https://issues.apache.org/jira/browse/CB-4323 -->
         <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
         <link rel="stylesheet" type="text/css" href="css/index.css" />
-		<link rel="stylesheet" href="http://code.jquery.com/mobile/1.3.2/jquery.mobile-1.3.2.min.css" />
+		<link rel="stylesheet" href="css/jquery.mobile-1.3.2.css" />
 		<script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
 		<script src="http://code.jquery.com/mobile/1.3.2/jquery.mobile-1.3.2.min.js"></script>      
-        <title>Hello World</title>
+        <title>UBM</title>
+        <script>
+        	function onLoadBody(){
+						$.getJSON('http://www.findmydriver.com/ubmmcsallitems.php?callback=?', {
+							},
+							function(res,status){
+								alert("init: "+ status);
+								$.each(res, function(i, item) {
+									if(i<10){
+									$( "#mfi_table" ).table( "refresh" );
+									$('#mfi_table_body').append("<tr ><th class='label'>"+ item.line_number + "</th><td>a</td><td>b</td><td>c</td><td>d</td><td>e</td><td>f</td><td>"+ item.mfi_explanation_ref +"</td><td>"+ item.mfi_template_process_ref +"</td><td>"+ item.source_model_mfi_ref +"</td><td><div data-role='controlgroup' data-type='horizontal' ><a href='index.html' data-role='button'><div style='white-space:normal'>" + item.instruction_detail + "</div></a></div></td><td>"+ item.budgeted_hours +"</td><td>l</td><td>m</td><td>n</td></tr>");
+								//	$('#ubmAppCreator_content_left').append("<div data-role='fieldcontain' style='width:50%;'><input name='mode1' id='mode1' type='text' data-role='datebox' data-options='{\"mode\":\"calbox\", \"useNewStyle\":true}' /></div> for='checkbox-t-2a'>");		 /* stop form from submitting normally */
+									$( "#mfi_table" ).table( "refresh" );
+									$( "#mfi_table" ).trigger( "create" );
+									}
+								});	
+							});
+        	//	alert("This is an Alert!");
+        	}
+        </script>
     </head>
-    <body>
+    <body onload="onLoadBody()">
 			<!-- Start of first page -->
-			<div data-role="page" id="page1">
+			<div data-role="page" id="mcs_setup_checklist_summary">
+			
+			    <div data-role="panel" id="mcs_setup_checklist_summary_lpanel" data-display="overlay" data-position="right">
+			    	<p>Right Panel </p>
+			        <!-- panel content goes here -->
+			    </div><!-- /panel -->
 				<div data-role="header">
-					<a href="index.html" data-icon="delete">Cancel</a>
-					<h1>Edit Contact</h1>
-					<a href="index.html" data-icon="check">Save</a>
+					<a href="#mcs_setup_checklist_summary_lpanel" data-icon="arrow-r" data-mini="true"></a>
+					<center><a href="#navPopup" data-rel="popup" data-role="button">Model Creation Suite</a></center>
 				</div><!-- /header -->
 				<div data-role="content">
-					<table data-role="table" id="phone-table" data-mode="columntoggle" data-column-btn-text="Compare..." data-column-btn-theme="a" class="phone-compare ui-shadow table-stroke">
+					<div data-role="popup" id="navPopup">
+						<ul data-role="listview" data-split-icon="gear" data-split-theme="d" data-filter="true" data-inline="true" data-inset="true" data-filter-reveal="true" data-filter-placeholder="Search the UBM">
+						</br></br>
+							<li><a href="index.html">
+								<img src="img/pre_backbone_rna.png" />
+								<h3>PreBackBone</h3>
+								<p>Master File Index Setup</p>
+								</a><a href="#purchase" data-rel="popup" data-position-to="window" data-transition="pop">Purchase album</a>
+							</li>
+							<li><a href="index.html">
+								
+								<img src="img/control.jpg" />
+								<h3>Control Section</h3>
+								<p> </p>
+								</a><a href="#purchase" data-rel="popup" data-position-to="window" data-transition="pop">Purchase album</a>
+							</li>
+							<li><a href="index.html">
+								<img src="img/conceptual_definition.png" />
+								<h3>Phase 1</h3>
+								<p>Conceptual Definition</p>
+								</a><a href="#purchase" data-rel="popup" data-position-to="window" data-transition="pop">Purchase album</a>
+							</li>
+							<li><a href="index.html">
+								<img src="img/order_of_magnitude.png" />
+								<h3>Phase 2</h3>
+								<p>Order of Magnitude Studies</p>
+								</a><a href="#purchase" data-rel="popup" data-position-to="window" data-transition="pop">Purchase album</a>
+							</li>
+							<li><a href="index.html">
+								<img src="img/" />
+								<h3>Phase 3</h3>
+								<p>Select the best Alternatives and Feasibility</p>
+								</a><a href="#purchase" data-rel="popup" data-position-to="window" data-transition="pop">Purchase album</a>
+							</li>
+							<li><a href="index.html">
+								<img src="img/order_of_magnitude.png" />
+								<h3>Phase 4 Book 1</h3>
+								<p>BM Conceptual Definitions</p>
+								</a><a href="#purchase" data-rel="popup" data-position-to="window" data-transition="pop">Purchase album</a>
+							</li>
+							<li><a href="index.html">
+								<img src="img/order_of_magnitude.png" />
+								<h3>Phase 4 Book 2</h3>
+								<p>Organizational Structure</p>
+								</a><a href="#purchase" data-rel="popup" data-position-to="window" data-transition="pop">Purchase album</a>
+							</li>
+							<li><a href="index.html">
+								<img src="img/order_of_magnitude.png" />
+								<h3>Phase 4 Book 3</h3>
+								<p>Owners</p>
+								</a><a href="#purchase" data-rel="popup" data-position-to="window" data-transition="pop">Purchase album</a>
+							</li>
+							<li><a href="index.html">
+								<img src="img/order_of_magnitude.png" />
+								<h3>Phase 4 Book 4</h3>
+								<p>Board Of Directors</p>
+								</a><a href="#purchase" data-rel="popup" data-position-to="window" data-transition="pop">Purchase album</a>
+							</li>
+							<li><a href="index.html">
+								<img src="img/order_of_magnitude.png" />
+								<h3>Phase 4 Book 5</h3>
+								<p>CEO Command Center</p>
+								</a><a href="#purchase" data-rel="popup" data-position-to="window" data-transition="pop">Purchase album</a>
+							</li>						
+							<li><a href="index.html">
+								<img src="img/order_of_magnitude.png" />
+								<h3>Phase 4 Book 6</h3>
+								<p>Management Reporting System</p>
+								</a><a href="#purchase" data-rel="popup" data-position-to="window" data-transition="pop">Purchase album</a>
+							</li>
+							<li><a href="index.html">
+								<img src="img/order_of_magnitude.png" />
+								<h3>Phase 4 Book 7</h3>
+								<p>Operation Systems</p>
+								</a><a href="#purchase" data-rel="popup" data-position-to="window" data-transition="pop">Purchase album</a>
+							</li>
+							<li><a href="index.html">
+								<img src="img/order_of_magnitude.png" />
+								<h3>Phase 4 Book 8</h3>
+								<p>Funding</p>
+								</a><a href="#purchase" data-rel="popup" data-position-to="window" data-transition="pop">Purchase album</a>
+							</li>
+							<li><a href="index.html">
+								<img src="img/order_of_magnitude.png" />
+								<h3>Phase 4 Book 9</h3>
+								<p>Begin Operations</p>
+								</a><a href="#purchase" data-rel="popup" data-position-to="window" data-transition="pop">Purchase album</a>
+							</li>
+							<li><a href="index.html">
+								<img src="img/order_of_magnitude.png" />
+								<h3>Phase 4 Book 10</h3>
+								<p>Ongoing Operations</p>
+								</a><a href="#purchase" data-rel="popup" data-position-to="window" data-transition="pop">Purchase album</a>
+							</li>
+							<li><a href="index.html">
+								<img src="img/order_of_magnitude.png" />
+								<h3>Phase 4 Book 11</h3>
+								<p>Company Applications</p>
+								</a><a href="#purchase" data-rel="popup" data-position-to="window" data-transition="pop">Purchase album</a>
+							</li>
+							<li><a href="index.html">
+								<img src="img/order_of_magnitude.png" />
+								<h3>Phase 4 Book 12</h3>
+								<p>Available Applications</p>
+								</a><a href="#purchase" data-rel="popup" data-position-to="window" data-transition="pop">Purchase album</a>
+							</li>
+						</ul>
+						<div data-role="popup" id="purchase" data-theme="d" data-overlay-theme="b" class="ui-content" style="max-width:340px;">
+							<h3>Purchase Album?</h3>
+							<p>Your download will begin immediately on your mobile device when you purchase.</p>
+							<a href="index.html" data-role="button" data-rel="back" data-theme="b" data-icon="check" data-inline="true" data-mini="true">Buy: $10.99</a>
+							<a href="index.html" data-role="button" data-rel="back" data-inline="true" data-mini="true">Cancel</a>	
+						</div>			  
+					 </div><!-- /popup -->
+						<table data-role="table" id="mfi_table" data-mode="columntoggle" data-column-btn-text="Compare..." data-column-btn-theme="a" class="phone-compare ui-shadow table-stroke">
 					  <thead>
 					    <tr>
-					      <th class="label">Model</th>
-					    <th>
-					        <h4>Apple</h4>
-					        <h3>iPhone 5</h3>
-					    </th>
-					    <th data-priority="1">
-					        <h4>Samsung</h4>
-					        <h3>Galaxy S III</h3>
-					    </th>
-					    <th data-priority="2">
-					        <h4>Nokia</h4>
-					        <h3>Lumia 920</h3>
-					    </th>
-					    <th data-priority="3">
-					        <h4>HTC</h4>
-					        <h3>One X</h3>
-					    </th>
+						    <th class="label">Model Creation Suite</th>
+						    <th data-priority="1"><h4>Final RB </br>Date</h4></th>
+						    <th data-priority="2"><h4>Final RB </br>Initial</h4></th>
+						    <th data-priority="3"><h4>RB</h4></th>
+						    <th data-priority="4"><h4>RB </br>Date</h4></th>
+						    <th data-priority="5"><h4>PB</h4></th>
+						    <th data-priority="6"><h4>PB </br>Date</h4></th>
+						    <th data-priority="7"><h4>MFI </br>Expl Ref</h4></th>
+						    <th data-priority="8"><h4>MFI Template</br>/ Process Ref</h4></th>
+						    <th data-priority="9"><h4>Source Model </br>MFI Ref</h4></th>
+						    <th data-priority="10"><h4>Instruction Detail</h4></th>
+						    <th data-priority="11"><h4>Budget </br>Hours</h4></th>
+						    <th data-priority="12"><h4>Actual </br>Hours</h4></th>
+						    <th data-priority="13"><h4>Review </br>Time</h4></th>
+						    <th data-priority="14"><h4>Difference </h4></th>
 					    </tr>
 					  </thead>
-					  <tbody>
-					    <tr class="photos">
-					      <th class="label">Photo</th>
-					      <td><a href="#img-iphone5" data-rel="popup" data-position-to="window"><img src="../../_assets/img/phone_iphone5.png"></a></td>
-					      <td><a href="#img-galaxy" data-rel="popup" data-position-to="window"><img src="../../_assets/img/phone_galaxy3.png"></a></td>
-					      <td><a href="#img-lumia" data-rel="popup" data-position-to="window"><img src="../../_assets/img/phone_lumia920.png"></a></td>
-					      <td><a href="#img-onex" data-rel="popup" data-position-to="window"><img src="../../_assets/img/phone_onex.png"></a></td>
-					    </tr>
-					    <tr>
-					      <th class="label">Height</th>
-					      <td>4.87"</td>
-					      <td>5.38"</td>
-					      <td>5.11"</td>
-					      <td>5.3"</td>
-					    </tr>
-					    <tr>
-					      <th class="label">Width</th>
-					      <td>2.31"</td>
-					      <td>2.78"</td>
-					      <td>2.79"</td>
-					      <td>2.75"</td>
-					    </tr>
-					    <tr>
-					      <th class="label">Depth</th>
-					      <td>0.3"</td>
-					      <td>0.34"</td>
-					      <td>0.42"</td>
-					      <td>0.37"</td>
-					    </tr>
-					    <tr>
-					      <th class="label">Weight (lbs.)</th>
-					      <td>0.25</td>
-					      <td>0.29</td>
-					      <td>0.41</td>
-					      <td>0.29</td>
-					    </tr>
+					  <tbody id="mfi_table_body">
+					  <!-- <tr ><th class="label">Photo</th><td>a</td><td>b</td><td>c</td><td>d</td><td>e</td><td>f</td><td>g</td><td>h</td><td>i</td><td>j</td><td>k</td><td>l</td><td>m</td><td>n</td></tr> -->
 					  </tbody>
 					</table>
-					<!-- Popups for lightbox images -->
-					<div id="img-iphone5" data-role="popup" data-overlay-theme="a">
-					    <img src="../../_assets/img/phone_iphone5.png">
-					</div>
-					<div id="img-galaxy" data-role="popup" data-overlay-theme="a">
-					    <img src="../../_assets/img/phone_galaxy3.png">
-					</div>
-					<div id="img-lumia" data-role="popup" data-overlay-theme="a">
-					    <img src="../../_assets/img/phone_lumia920.png">
-					</div>
-					<div id="img-onex" data-role="popup" data-overlay-theme="a">
-					    <img src="../../_assets/img/phone_onex.png">
-					</div>
 				</div><!-- /content -->
 				<div data-role="footer" data-fullscreen="true" data-position="fixed">
-					<a href="index.html" data-icon="gear" class="ui-btn-right">Options</a>
+
 				</div><!-- /footer -->
 			</div><!-- /page -->
 			<!-- Start of second page -->
 			<div data-role="page" id="page2">
+			    <div data-role="panel" id="mypanel">
+			        <!-- panel content goes here -->
+			    </div><!-- /panel -->
 				<div data-role="header">
 					<a href="index.html" data-icon="delete">Cancel</a>
 					<h1>Edit Contact</h1>
