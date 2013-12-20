@@ -24,16 +24,58 @@
         <!-- WARNING: for iOS 7, remove the width=device-width and height=device-height attributes. See https://issues.apache.org/jira/browse/CB-4323 -->
         <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
         <link rel="stylesheet" type="text/css" href="css/index.css" />
-        <title>Hello World</title>
+		<link rel="stylesheet" href="http://code.jquery.com/mobile/1.0.1/jquery.mobile-1.0.1.min.css" />
+		<script src="http://code.jquery.com/jquery-1.6.4.min.js"></script>
+		<script src="http://code.jquery.com/mobile/1.0.1/jquery.mobile-1.0.1.min.js"></script>
+        <title>WRE Impact</title>
     </head>
     <body>
-        <div class="app">
-            <h1>Apache Cordova</h1>
-            <div id="deviceready" class="blink">
-                <p class="event listening">Connecting to Device</p>
-                <p class="event received">Device is Ready</p>
-            </div>
-        </div>
+<div data-role="page" id="main">
+<!-- defaultpanel  -->
+		<div data-role="panel" id="defaultpanel" data-theme="b">
+			
+            <h3>Default panel options</h3>
+            <p>This panel has all the default options: positioned on the left with the reveal display mode. The panel markup is <em>before</em> the header, content and footer in the source order.</p>
+            <p>To close, click off the panel, swipe left or right, hit the Esc key, or use the button below:</p>
+            <a href="#demo-links" data-rel="close" data-role="button" data-theme="c" data-icon="delete" data-inline="true">Close panel</a>
+			
+		</div><!-- /defaultpanel -->
+	<div data-role="header">
+		<a href="#defaultpanel" data-role="button" data-inline="true" data-mini="true">Overlay</a>		
+		<center><a href="#navPopup" data-rel="popup" data-role="button">WRE Main Page</a></center>
+	</div>
+	<div data-role="content">
+		
+	</div>
+	<div data-role="footer">
+	
+	</div>
+</div>
+
+<div data-role="page" id="profile">
+	<div data-role="header"><p>Profile Page</p></div>
+	<div data-role="content">...</div>
+	<div data-role="footer">...</div>
+</div>
+
+<div data-role="page" id="friendsFeed">
+	<div data-role="header"><p>Friends Feed</p></div>
+	<div data-role="content">...</div>
+	<div data-role="footer">...</div>
+</div>
+
+<div data-role="page" id="publicFeed">
+	<div data-role="header"><p>Public Feed Page</p></div>
+	<div data-role="content">...</div>
+	<div data-role="footer">...</div>
+</div>
+
+<div data-role="page" id="map">
+	<div data-role="header"><p>Map Page</p></div>
+	<div data-role="content">...</div>
+	<div data-role="footer">...</div>
+</div>
+
         <script type="text/javascript" src="cordova.js"></script>
         <script type="text/javascript" src="js/index.js"></script>
         <script type="text/javascript">
