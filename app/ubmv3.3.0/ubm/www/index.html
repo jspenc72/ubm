@@ -24,28 +24,51 @@
         <!-- WARNING: for iOS 7, remove the width=device-width and height=device-height attributes. See https://issues.apache.org/jira/browse/CB-4323 -->
         <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
         <link rel="stylesheet" type="text/css" href="css/index.css" />
-		<link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.0/jquery.mobile-1.4.0.min.css" />
-		<script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
-		<script src="http://code.jquery.com/mobile/1.4.0/jquery.mobile-1.4.0.min.js"></script>   
+		<link rel="stylesheet" href="css/jquery.mobile-1.4.0.min.css" />
+		<script src="js/jquery-1.9.1.min.js"></script>
+		<script src="js/jquery-mobile-1.4.0.min.js"></script>   
 		<!--Begin Jquery UI and touchpounc -->
-		<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css">
-		<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+		<link rel="stylesheet" href="css/jquery-ui.css">
+		<script src="js/jquery-ui.js"></script>
 		<script src="js/jquery.ui.touch-punch.js"></script>
 		<script src="js/circles.js"></script>
 
         <title>UBM</title>
         <script>
+        	function refreshOpenItemsList(){
+				alert("Its time to refresh");
+				$.getJSON('http://www.findmydriver.com/ubmopenitemsallitems.php?callback=?', {		//JSONP Request to Checklist Setup Table
+					},
+					function(res,status){
+					//	alert("request for open items was a success!");
+							$('#mcs_open_points_action_items_table_body').empty();
+						$.each(res, function(i, item){
+							$('#mcs_open_points_action_items_table_body').append("<tr ><th class='label'>"+ item.id + "</th><td>"+ item.form_ref + "</td><td>"+ item.priority + "</td><td>"+ item.opened_by + "</td><td>"+ item.date_opened + "</td><td>"+ item.action_required +"</td><td>"+ item.assigned_to + "</td><td>"+ item.due_date +"</td><td>b</td><td>c</td></tr>");
+							$( "#mcs_open_points_action_items_table" ).table( "refresh" );
+						})
+							$( "#mcs_open_points_action_items_table" ).trigger( "create" );
+					});
+        	}
         	function onLoadBody(){
-						$.getJSON('http://www.findmydriver.com/ubmmcsallitems.php?callback=?', {
+						$.getJSON('http://www.findmydriver.com/ubmopenitemsallitems.php?callback=?', {		//JSONP Request to Checklist Setup Table
+							},
+							function(res,status){
+							//	alert("request for open items was a success!");
+								$.each(res, function(i, item){
+									$('#mcs_open_points_action_items_table_body').append("<tr ><th class='label'>"+ item.id + "</th><td>"+ item.form_ref + "</td><td>"+ item.priority + "</td><td>"+ item.opened_by + "</td><td>"+ item.date_opened + "</td><td>"+ item.action_required +"</td><td>"+ item.assigned_to + "</td><td>"+ item.due_date +"</td><td>b</td><td>c</td></tr>");
+								})
+							});
+							
+						$.getJSON('http://www.findmydriver.com/ubmmcsallitems.php?callback=?', {		//JSONP Request to Checklist Setup Table
 							},
 							function(res,status){
 								alert("init: "+ status);
 								$.each(res, function(i, item) {
 									if(item.phase_id=="MFIS"){
-										$( "#mcs_setup_checklist_setup_mfi_table" ).table( "refresh" );
+									//	$( "#mcs_setup_checklist_setup_mfi_table" ).table( "refresh" );
 										$('#mcs_setup_checklist_setup_mfi_table_body').append("<tr ><th class='label'>"+ item.line_number + "</th><td>a</td><td>b</td><td>c</td><td>d</td><td>e</td><td>f</td><td>"+ item.mfi_explanation_ref +"</td><td>"+ item.mfi_template_process_ref +"</td><td>"+ item.source_model_mfi_ref +"</td><td><div data-role='controlgroup' data-type='horizontal' ><a href='#"+ item.href +"' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a'><div style='white-space:normal'>" + item.instruction_detail + "</div></a></div></td><td>"+ item.budgeted_hours +"</td><td>l</td><td>m</td><td>n</td></tr>");
-										$( "#mcs_setup_checklist_setup_mfi_table" ).table( "refresh" );
-										$( "#mcs_setup_checklist_setup_mfi_table" ).trigger( "create" );
+										//$( "#mcs_setup_checklist_setup_mfi_table" ).table( "refresh" );
+									//	$( "#mcs_setup_checklist_setup_mfi_table" ).trigger( "create" );
 									}else{
 										if(item.phase_id=="CS"){
 											$('#mcs_setup_checklist_CS_mfi_table_body').append("<tr ><th class='label'>"+ item.line_number + "</th><td>a</td><td>b</td><td>c</td><td>d</td><td>e</td><td>f</td><td>"+ item.mfi_explanation_ref +"</td><td>"+ item.mfi_template_process_ref +"</td><td>"+ item.source_model_mfi_ref +"</td><td><div data-role='controlgroup' data-type='horizontal' ><a href='#mcs_setup_1_popUp' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a'><div style='white-space:normal'>" + item.instruction_detail + "</div></a></div></td><td>"+ item.budgeted_hours +"</td><td>l</td><td>m</td><td>n</td></tr>");
@@ -96,9 +119,143 @@
 		//		$('#gettingStarted_content').append($( "#gettingStarted_content_textarea" ).clone());
 				//alert("addField was executed");	
         	}
-		  $(function() {
-		    $( "#overlayTest" ).draggable();
-		  });
+			function submitReviewPoint(){
+				//event.preventDefault(); 																										//prevent the default from happening
+
+				alert("Your review point is being submitted...");
+						$.getJSON('http://www.findmydriver.com/ubmsubmitopenitems.php?callback=?', {
+								appname: "UBMMFICS",
+								RQType: "sumbitReviewPoint",
+								username: "si_userName",
+								formref: document.getElementById("submitreviewpoint_formref").value,
+								priority: document.getElementById("submitreviewpoint_priority").value,
+								actionrequired: document.getElementById("submitreviewpoint_actionrequired").value,
+								assignedto: document.getElementById("submitreviewpoint_assignedto").value,
+								duedate: document.getElementById("submitreviewpoint_duedatetime").value,
+							},
+							function(res,status){
+								alert("init: "+ status);
+								if(status=="success"){
+									alert(res.message);
+										$("#submitreviewpoint_formref").val() = "";
+								}
+							});
+			}
+			function userRegister(){
+				event.preventDefault();
+				var reg_passwd1 = document.getElementById("reg_pw1").value;
+				//	alert(reg_passwd1);
+				var reg_passwd2 = document.getElementById("reg_pw2").value;
+				//	alert(reg_passwd2);
+				var reg_email = document.getElementById("reg_email").value;
+				var reg_username = reg_email.split("@",1).toString();
+				alert(reg_username);
+					if(reg_passwd1==reg_passwd2){
+						//alert("passwords match!");
+						$.getJSON('http://www.findmydriver.com/usreg.php?callback=?', {
+								appname: "FindMyDriver",
+								RQType: "userRegister",
+								email: reg_email,
+								password: reg_passwd1,
+								username: reg_username,
+							},
+							function(res,status){
+						    alert(res.message);
+							window.location = "#home"
+		//				    alert(status);
+						});
+					}else{
+						alert("The passwords you entered do not match!");
+					}
+				/*alert("This is a Registration Test");
+				alert(document.getElementById("reg_un").value);
+				alert(document.getElementById("reg_pw1").value);
+				alert(document.getElementById("reg_pw2").value);*/
+			}
+			function userSignIn(){
+				event.preventDefault();
+				var si_email = document.getElementById("si_email").value;
+				var si_passWord = document.getElementById("si_pw").value;
+				var si_userName = si_email.split("@",1).toString();
+				window.username = si_userName;
+				//var si_userName = si_userNameArray.toString();
+				alert(si_userName);
+				if(si_userName.length<1){
+					alert("You must enter a username!");
+				}else{
+					if(si_passWord.length<1){
+						alert("You must enter your password");
+					}else{
+					$('#result').empty().append('<center><p>Performing your sign in request...</p></center>');		 /* stop form from submitting normally */
+						$.getJSON('http://www.findmydriver.com/usrsi.php?callback=?', {
+								appname: "FindMyDriver",
+								RQType: "userSignIn",
+								email:	si_email,
+								username: si_userName,
+								password: si_passWord
+							},
+							function(res,status){
+			//				    alert(res.message);
+								if(res.validation=='TRUE'){
+									$('#result').empty().append('<center><p>'+ res.message + res.validation + '</p></center>');
+									$('#result').empty();
+									window.location = "#gettingStarted"
+								}else{
+									$('#result').empty().append('<center><p>'+ res.message +'valid: '+ res.validation +'</br> Click Register to create your free account</p></center>');
+								}
+								if(res.accounttype=='admin'){
+									//admin only stuff here 
+									alert("you are an admin");
+									$('#gettingStarted').prepend('<div id="overlayTest" class="circleBase type1" style="z-index: 99999; position:fixed;"><a href="#mcs_gettingStarted_openItem_popup" data-rel="popup" data-transition="slideup" class="ui-btn ui-icon-alert ui-btn-icon-notext ui-corner-all">No text</a><a href="#mcs_gettingStarted_openItem_popup" data-rel="popup" data-transition="slideup" class="ui-btn ui-icon-action ui-btn-icon-notext ui-corner-all">No text</a><center><a href="#mcs_setup_checklist_setup_searchPopup" data-rel="popup" data-transition="slideup" class="ui-btn ui-icon-search ui-btn-icon-notext ui-corner-all">No text</a></center></div>');
+									$('#identification_setup_content').prepend('<div id="overlayTest" class="circleBase type1" style="z-index: 99999; position:fixed;"><a href="#mcs_identification_setup_openItem_popup" data-rel="popup" data-transition="slideup" class="ui-btn ui-icon-alert ui-btn-icon-notext ui-corner-all">No text</a><a href="#mcs_identification_setup_openItem_popup" data-rel="popup" data-transition="slideup" class="ui-btn ui-icon-action ui-btn-icon-notext ui-corner-all">No text</a><center><a href="#mcs_setup_checklist_setup_searchPopup" data-rel="popup" data-transition="slideup" class="ui-btn ui-icon-search ui-btn-icon-notext ui-corner-all">No text</a></center></div>');
+									$('#table_of_contents').prepend('<div id="overlayTest" class="circleBase type1" style="z-index: 99999; position:fixed;"><a href="#newRequest_popup" data-rel="popup" data-transition="slideup" class="ui-btn ui-icon-alert ui-btn-icon-notext ui-corner-all">No text</a><a href="#mcs_table_of_contents_openItem_popup" data-rel="popup" data-transition="slideup" class="ui-btn ui-icon-action ui-btn-icon-notext ui-corner-all">No text</a><center><a href="#mcs_setup_checklist_setup_searchPopup" data-rel="popup" data-transition="slideup" class="ui-btn ui-icon-search ui-btn-icon-notext ui-corner-all">No text</a></center></div>');
+									$('#mcs_setup_checklist_setup').prepend('<div id="overlayTest" class="circleBase type1" style="z-index: 99999; position:fixed;"><a href="#newRequest_popup" data-rel="popup" data-transition="slideup" class="ui-btn ui-icon-alert ui-btn-icon-notext ui-corner-all">No text</a><a href="#mcs_setup_checklist_setup_openItem_popup" data-rel="popup" data-transition="slideup" class="ui-btn ui-icon-action ui-btn-icon-notext ui-corner-all">No text</a><center><a href="#mcs_setup_checklist_setup_searchPopup" data-rel="popup" data-transition="slideup" class="ui-btn ui-icon-search ui-btn-icon-notext ui-corner-all">No text</a></center></div>');
+									$('#mcs_setup_checklist_CS').prepend('<div id="overlayTest" class="circleBase type1" style="z-index: 99999; position:fixed;"><a href="#newRequest_popup" data-rel="popup" data-transition="slideup" class="ui-btn ui-icon-alert ui-btn-icon-notext ui-corner-all">No text</a><a href="#mcs_setup_checklist_CS_openItem_popup" data-rel="popup" data-transition="slideup" class="ui-btn ui-icon-action ui-btn-icon-notext ui-corner-all">No text</a><center><a href="#mcs_setup_checklist_setup_searchPopup" data-rel="popup" data-transition="slideup" class="ui-btn ui-icon-search ui-btn-icon-notext ui-corner-all">No text</a></center></div>');
+									$('#mcs_setup_checklist_p1').prepend('<div id="overlayTest" class="circleBase type1" style="z-index: 99999; position:fixed;"><a href="#newRequest_popup" data-rel="popup" data-transition="slideup" class="ui-btn ui-icon-alert ui-btn-icon-notext ui-corner-all">No text</a><a href="#mcs_setup_checklist_p1_openItem_popup" data-rel="popup" data-transition="slideup" class="ui-btn ui-icon-action ui-btn-icon-notext ui-corner-all">No text</a><center><a href="#mcs_setup_checklist_setup_searchPopup" data-rel="popup" data-transition="slideup" class="ui-btn ui-icon-search ui-btn-icon-notext ui-corner-all">No text</a></center></div>');
+									$('#mcs_setup_checklist_p2').prepend('<div id="overlayTest" class="circleBase type1" style="z-index: 99999; position:fixed;"><a href="#newRequest_popup" data-rel="popup" data-transition="slideup" class="ui-btn ui-icon-alert ui-btn-icon-notext ui-corner-all">No text</a><a href="#mcs_setup_checklist_p2_openItem_popup" data-rel="popup" data-transition="slideup" class="ui-btn ui-icon-action ui-btn-icon-notext ui-corner-all">No text</a><center><a href="#mcs_setup_checklist_setup_searchPopup" data-rel="popup" data-transition="slideup" class="ui-btn ui-icon-search ui-btn-icon-notext ui-corner-all">No text</a></center></div>');
+									$('#mcs_setup_checklist_p3').prepend('<div id="overlayTest" class="circleBase type1" style="z-index: 99999; position:fixed;"><a href="#newRequest_popup" data-rel="popup" data-transition="slideup" class="ui-btn ui-icon-alert ui-btn-icon-notext ui-corner-all">No text</a><a href="#mcs_setup_checklist_p3_openItem_popup" data-rel="popup" data-transition="slideup" class="ui-btn ui-icon-action ui-btn-icon-notext ui-corner-all">No text</a><center><a href="#mcs_setup_checklist_setup_searchPopup" data-rel="popup" data-transition="slideup" class="ui-btn ui-icon-search ui-btn-icon-notext ui-corner-all">No text</a></center></div>');
+									$('#mcs_setup_checklist_p4_b1').prepend('<div id="overlayTest" class="circleBase type1" style="z-index: 99999; position:fixed;"><a href="#newRequest_popup" data-rel="popup" data-transition="slideup" class="ui-btn ui-icon-alert ui-btn-icon-notext ui-corner-all">No text</a><a href="#mcs_setup_checklist_p4_b1_openItem_popup" data-rel="popup" data-transition="slideup" class="ui-btn ui-icon-action ui-btn-icon-notext ui-corner-all">No text</a><center><a href="#mcs_setup_checklist_setup_searchPopup" data-rel="popup" data-transition="slideup" class="ui-btn ui-icon-search ui-btn-icon-notext ui-corner-all">No text</a></center></div>');
+									$('#mcs_setup_checklist_p4_b2').prepend('<div id="overlayTest" class="circleBase type1" style="z-index: 99999; position:fixed;"><a href="#newRequest_popup" data-rel="popup" data-transition="slideup" class="ui-btn ui-icon-alert ui-btn-icon-notext ui-corner-all">No text</a><a href="#mcs_setup_checklist_p4_b2_openItem_popup" data-rel="popup" data-transition="slideup" class="ui-btn ui-icon-action ui-btn-icon-notext ui-corner-all">No text</a><center><a href="#mcs_setup_checklist_setup_searchPopup" data-rel="popup" data-transition="slideup" class="ui-btn ui-icon-search ui-btn-icon-notext ui-corner-all">No text</a></center></div>');
+									$('#mcs_setup_checklist_p5').prepend('<div id="overlayTest" class="circleBase type1" style="z-index: 99999; position:fixed;"><a href="#newRequest_popup" data-rel="popup" data-transition="slideup" class="ui-btn ui-icon-alert ui-btn-icon-notext ui-corner-all">No text</a><a href="#mcs_setup_checklist_p5_openItem_popup" data-rel="popup" data-transition="slideup" class="ui-btn ui-icon-action ui-btn-icon-notext ui-corner-all">No text</a><center><a href="#mcs_setup_checklist_setup_searchPopup" data-rel="popup" data-transition="slideup" class="ui-btn ui-icon-search ui-btn-icon-notext ui-corner-all">No text</a></center></div>');
+									$('#mcs_setup_checklist_p6').prepend('<div id="overlayTest" class="circleBase type1" style="z-index: 99999; position:fixed;"><a href="#newRequest_popup" data-rel="popup" data-transition="slideup" class="ui-btn ui-icon-alert ui-btn-icon-notext ui-corner-all">No text</a><a href="#mcs_setup_checklist_p6_openItem_popup" data-rel="popup" data-transition="slideup" class="ui-btn ui-icon-action ui-btn-icon-notext ui-corner-all">No text</a><center><a href="#mcs_setup_checklist_setup_searchPopup" data-rel="popup" data-transition="slideup" class="ui-btn ui-icon-search ui-btn-icon-notext ui-corner-all">No text</a></center></div>');
+									$('#mcs_setup_checklist_p7').prepend('<div id="overlayTest" class="circleBase type1" style="z-index: 99999; position:fixed;"><a href="#newRequest_popup" data-rel="popup" data-transition="slideup" class="ui-btn ui-icon-alert ui-btn-icon-notext ui-corner-all">No text</a><a href="#mcs_setup_checklist_p7_openItem_popup" data-rel="popup" data-transition="slideup" class="ui-btn ui-icon-action ui-btn-icon-notext ui-corner-all">No text</a><center><a href="#mcs_setup_checklist_setup_searchPopup" data-rel="popup" data-transition="slideup" class="ui-btn ui-icon-search ui-btn-icon-notext ui-corner-all">No text</a></center></div>');
+									$('#mcs_setup_checklist_p8').prepend('<div id="overlayTest" class="circleBase type1" style="z-index: 99999; position:fixed;"><a href="#newRequest_popup" data-rel="popup" data-transition="slideup" class="ui-btn ui-icon-alert ui-btn-icon-notext ui-corner-all">No text</a><a href="#mcs_setup_checklist_p8_openItem_popup" data-rel="popup" data-transition="slideup" class="ui-btn ui-icon-action ui-btn-icon-notext ui-corner-all">No text</a><center><a href="#mcs_setup_checklist_setup_searchPopup" data-rel="popup" data-transition="slideup" class="ui-btn ui-icon-search ui-btn-icon-notext ui-corner-all">No text</a></center></div>');
+									//$('#manageMyCompany_content').append('<center><a href="#newChecklist" data-theme="b" data-role="button" data-icon="grid">Create a new Checklist</a></center>');
+									//$('#manageMyCompany_content').append('<center><a href="#inviteNewEmployee" data-theme="b" data-role="button" data-icon="grid" onclick="createNewEmployee()">Invite Someone to My Company</a></center>');
+											    $( ".circleBase" ).draggable();
+								}else{
+									if(res.accounttype=='user'){
+										alert("you are a user");
+	
+									//Driver only stuff here
+									}else{
+										if(res.accounttype=='dispatch'){
+											alert("You are a dispatch");
+
+											//Dispatch only stuff here
+										}else{
+											if(res.accounttype=='driver'){
+												alert("You are a driver");
+												
+											}
+											//User has not been assigned an account type!
+										}
+									}
+								}
+		//						$('#result').empty().append('<center><p>'+ res.validation + '</p></center>');
+		//					    alert(status);
+						});
+					}
+				}
+	//		alert("user Sign in Clicked");
+			//	$.mobile.changePage( "#home", { transition: "fade", changeHash: false, reloadPage: true });
+			}
+			$(function() {
+			    $( ".circleBase" ).draggable();
+			});
+			$(function() {
+				$('.bxslider').bxSlider();
+			});
         </script>
         <style>
 			#overlayTest { width: 100px; height: 100px; padding: 0.5em; float: left; margin: 10px 10px 10px 0; }
@@ -116,25 +273,118 @@
 			}
         </style>
     </head>
-	<div id="overlayTest" class="circleBase type1" style="z-index: 99999; position:fixed;"><a href="#newRequest_popup" data-rel="popup" data-transition="slideup" class="ui-btn ui-icon-alert ui-btn-icon-notext ui-corner-all">No text</a><a href="#openItem_popup" data-rel="popup" data-transition="slideup" class="ui-btn ui-icon-action ui-btn-icon-notext ui-corner-all">No text</a><center><a href="#mcs_setup_checklist_setup_searchPopup" data-rel="popup" data-transition="slideup" class="ui-btn ui-icon-search ui-btn-icon-notext ui-corner-all">No text</a></center></div>  
+<!--	<div id="overlayTest" class="circleBase type1" style="z-index: 99999; position:fixed;"><a href="#newRequest_popup" data-rel="popup" data-transition="slideup" class="ui-btn ui-icon-alert ui-btn-icon-notext ui-corner-all">No text</a><a href="#openItem_popup" data-rel="popup" data-transition="slideup" class="ui-btn ui-icon-action ui-btn-icon-notext ui-corner-all">No text</a><center><a href="#mcs_setup_checklist_setup_searchPopup" data-rel="popup" data-transition="slideup" class="ui-btn ui-icon-search ui-btn-icon-notext ui-corner-all">No text</a></center></div>  
+  -->
     <body onload="onLoadBody()">
-			<!-- Start of first page --><!--
-			<div data-role="page" id="gettingStarted">
+			<!-- Start of first page -->
+			<div data-role="page" id="sign_in_sign_up">
 				<div data-role="header" data-theme="a">
-
+						<h1>UBM Login</h1>
 				</div>
 				<div data-role="content" id="gettingStarted_content" >
-					<textarea cols="40" rows="8" name="textarea" id="gettingStarted_content_textarea0"></textarea>
-				<a href="#" class="ui-btn" onclick="addField()">add Field</a>
+					<div data-role="popup" id="gettingStarted_content_licenseagreement_popUp" data-theme="b" data-position-to="window" data-dismissible="false">
+					    <div data-role="header" data-theme="a">
+					   		<h1>License Agreement</h1>
+					    </div>
+					    <div role="main" class="ui-content">
+							        <h3 class="ui-title">By creating your account and checking the box below you agree to </br> BUSINESS MODEL CONSULTING LLC UNIVERSAL BUSINESS MODEL LICENSING AGREEMENT</h3>
+									<p>This step requires that you enter the tax id of the legal entity you represent.</p>
+									<form>
+									    <fieldset data-role="collapsible"><legend>1.  LIMITED LICENSE FOR USE OF UBM  </legend>
+												<li><p>a.Business Model Consulting LLC (BMC) is the owner of software, documents, copyrights, and other intellectual property, including computer files and hard copies, comprising the Universal Business Model (the UBM). BMC grants you a limited right to install the UBM on your computer systems, and to use the UBM to develop customized documents, policies, procedures, manuals, and training programs for your company’s internal use only. You will not use the UBM for any other purpose.
+												</br>b.	THIS LICENSE DOES NOT TRANSFER OWNERSHIP OF ANY PART OF THE UBM TO YOU. All legal and equitable title to the UBM, and copyrights, trade secrets, patents, and confidential and proprietary information related to the UBM, remain the exclusive property of BMC.
+												</br>c.	“Universal Business Model” and “UBM” are trademarks of BMC. You do not have the right to use those or any other trademarks, trade names, service marks, logos, and/or trade names of BMC.</p></li>
+									        <div data-role="controlgroup">
+									            <input type="checkbox" name="checkbox-1-a" id="checkbox-1-a">
+									            <label for="checkbox-1-a">I agree</label>
+									        </div>
+									    </fieldset>
+									    <fieldset data-role="collapsible"><legend>2.	CONFIDENTIALITY</legend>
+												<li><p>a.Business Model Consulting LLC (BMC) is the owner of software, documents, copyrights, and other intellectual property, including computer files and hard copies, comprising the Universal Business Model (the UBM). BMC grants you a limited right to install the UBM on your computer systems, and to use the UBM to develop customized documents, policies, procedures, manuals, and training programs for your company’s internal use only. You will not use the UBM for any other purpose.
+												</br>b.	THIS LICENSE DOES NOT TRANSFER OWNERSHIP OF ANY PART OF THE UBM TO YOU. All legal and equitable title to the UBM, and copyrights, trade secrets, patents, and confidential and proprietary information related to the UBM, remain the exclusive property of BMC.
+												</br>c.	“Universal Business Model” and “UBM” are trademarks of BMC. You do not have the right to use those or any other trademarks, trade names, service marks, logos, and/or trade names of BMC.</p></li>
+									        <div data-role="controlgroup">
+									            <input type="checkbox" name="checkbox-1-a" id="checkbox-1-a">
+									            <label for="checkbox-1-a">I agree</label>
+									        </div>
+									    </fieldset>
+									    <fieldset data-role="collapsible"><legend>3.	DISCLAIMER OF WARRANTY</legend>
+												<li><p>a.Business Model Consulting LLC (BMC) is the owner of software, documents, copyrights, and other intellectual property, including computer files and hard copies, comprising the Universal Business Model (the UBM). BMC grants you a limited right to install the UBM on your computer systems, and to use the UBM to develop customized documents, policies, procedures, manuals, and training programs for your company’s internal use only. You will not use the UBM for any other purpose.
+												</br>b.	THIS LICENSE DOES NOT TRANSFER OWNERSHIP OF ANY PART OF THE UBM TO YOU. All legal and equitable title to the UBM, and copyrights, trade secrets, patents, and confidential and proprietary information related to the UBM, remain the exclusive property of BMC.
+												</br>c.	“Universal Business Model” and “UBM” are trademarks of BMC. You do not have the right to use those or any other trademarks, trade names, service marks, logos, and/or trade names of BMC.</p></li>
+									        <div data-role="controlgroup">
+									            <input type="checkbox" name="checkbox-1-a" id="checkbox-1-a">
+									            <label for="checkbox-1-a">I agree</label>
+									        </div>
+									    </fieldset>
+									    <fieldset data-role="collapsible"><legend>4.	WAIVER OF DAMAGES</legend>
+												<li><p>a.Business Model Consulting LLC (BMC) is the owner of software, documents, copyrights, and other intellectual property, including computer files and hard copies, comprising the Universal Business Model (the UBM). BMC grants you a limited right to install the UBM on your computer systems, and to use the UBM to develop customized documents, policies, procedures, manuals, and training programs for your company’s internal use only. You will not use the UBM for any other purpose.
+												</br>b.	THIS LICENSE DOES NOT TRANSFER OWNERSHIP OF ANY PART OF THE UBM TO YOU. All legal and equitable title to the UBM, and copyrights, trade secrets, patents, and confidential and proprietary information related to the UBM, remain the exclusive property of BMC.
+												</br>c.	“Universal Business Model” and “UBM” are trademarks of BMC. You do not have the right to use those or any other trademarks, trade names, service marks, logos, and/or trade names of BMC.</p></li>
+									        <div data-role="controlgroup">
+									            <input type="checkbox" name="checkbox-1-a" id="checkbox-1-a">
+									            <label for="checkbox-1-a">I agree</label>
+									        </div>
+									    </fieldset>
+									    <fieldset data-role="collapsible"><legend>5.	MISCELLANEOUS</legend>
+												<li><p>a.Business Model Consulting LLC (BMC) is the owner of software, documents, copyrights, and other intellectual property, including computer files and hard copies, comprising the Universal Business Model (the UBM). BMC grants you a limited right to install the UBM on your computer systems, and to use the UBM to develop customized documents, policies, procedures, manuals, and training programs for your company’s internal use only. You will not use the UBM for any other purpose.
+												</br>b.	THIS LICENSE DOES NOT TRANSFER OWNERSHIP OF ANY PART OF THE UBM TO YOU. All legal and equitable title to the UBM, and copyrights, trade secrets, patents, and confidential and proprietary information related to the UBM, remain the exclusive property of BMC.
+												</br>c.	“Universal Business Model” and “UBM” are trademarks of BMC. You do not have the right to use those or any other trademarks, trade names, service marks, logos, and/or trade names of BMC.</p></li>
+									        <div data-role="controlgroup">
+									            <input type="checkbox" name="checkbox-1-a" id="checkbox-1-a">
+									            <label for="checkbox-1-a">I agree</label>
+									        </div>
+									    </fieldset>
+									</form>								        							        
+								<input type="text" name="textinput-6" id="textinput-6" placeholder="Enter the Tax ID for your Company" value="" data-mini="true">
+								<fieldset data-role="controlgroup">
+								    <label for="checkbox-2">I agree</label>
+								    <input type="checkbox" name="checkbox-2" id="checkbox-2">
+								</fieldset>					        
+								<a href="#" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b" data-rel="back" data-transition="flow">Disagree</a>
+								<a href="#" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b" data-rel="back" data-transition="flow">Continue</a>
+					    </div>
+					</div><!-- /popup -->
+					<center><div id="main_map_canvas" style="position:fixed; height:200px; width:200px; -webkit-mask-image: url(circle.svg)"></div></center>
+					<form>
+						<div style="padding:120px 20px;">
+					        <label for="un" class="ui-hidden-accessible">Username:</label>
+					        <input type="text" name="si_user" id="si_email" value="" placeholder="Username" data-theme="a" />
+					        <label for="pw" class="ui-hidden-accessible">Password:</label>
+					        <input type="password" name="si_pass" id="si_pw" value="" placeholder="Password" data-theme="a" />
+					    	<button data-theme="b" data-icon="check" onclick="userSignIn()">Sign in</button>
+						</div>
+					</form>
+				  	<div id="result" style="background-color: white;">
+					</div>
+					<center><a href="#popupRegister" data-rel="popup" data-position-to="window" data-role="button" data-inline="true" data-icon="check" data-theme="b" data-transition="pop">Register</a></center>
+					<div data-role="popup" id="popupRegister" data-theme="a">
+						<form>
+							<div style="padding:10px 20px;">
+								<h3>Registration is Free!</h3>
+						        <label for="un" class="ui-hidden-accessible">Email:</label>
+						        <input type="email" name="reg_email" id="reg_email" value="" placeholder="Email" data-theme="a" />
+						        <label for="reg_pw1" class="ui-hidden-accessible">Password:</label>
+						        <input type="password" name="reg_pass1" id="reg_pw1" value="" placeholder="Enter Password" data-theme="a" />
+								<label for="reg_pw2" class="ui-hidden-accessible">Password:</label>
+						        <input type="password" name="reg_pass2" id="reg_pw2" value="" placeholder="Confirm Password" data-theme="a" />
+						    	<button data-theme="b" data-icon="check" onclick="userRegister()">Create Account!</button>
+							</div>
+						</form>
+					</div>
 				</div>
 				<div data-role="footer" data-theme="a">
 
 				</div>
-			</div>-->
-			<div data-role="page" id="mcs_setup_checklist_setup">
-			    <div data-role="panel" id="mcs_setup_checklist_setup_lpanel" data-display="overlay" data-position="left">
+			</div>
+			<div data-role="page" id="gettingStarted">
+			    <div data-role="panel" id="mcs_gettingStarted_lpanel" data-display="overlay" data-position="left">
 					<ul data-role="listview">
-		                <li><a href="#mcs_setup_checklist_setup">MCS Setup</a></li>
+		                <li><a href="#gettingStarted">Getting Started</a></li>
+		                <li><a href="#identification_setup">Identification Setup</a></li>
+		                <li><a href="#table_of_contents">Table of Contents</a></li>
+		                <li><a href="#mcs_setup_checklist_setup">MCS Setup</a></li>		                
+		                <li><a href="#management_reporting">Management Reporting</a></li>
 		                <li><a href="#mcs_setup_checklist_CS">Control Section</a></li>
 		                <li><a href="#mcs_setup_checklist_p1">Phase 1</a></li>
 		                <li><a href="#mcs_setup_checklist_p2">Phase 2</a></li>
@@ -144,7 +394,448 @@
 		                <li><a href="#mcs_setup_checklist_p6">Phase 6</a></li>
 		                <li><a href="#mcs_setup_checklist_p7">Phase 7</a></li>
 		                <li><a href="#mcs_setup_checklist_p8">Phase 8</a></li>
+		                <li><a href="#open_points_action_items">Open Points Action Items</a></li>
 						<li data-icon="delete"><a href="#" data-rel="close">Close menu</a></li>
+						<li data-icon="delete"><a href="#sign_in_sign_up">Sign Out</a></li>
+					</ul>
+			    </div><!-- /panel -->
+				<div data-role="header">
+					<a href="#mcs_gettingStarted_lpanel" data-icon="arrow-r"></a>
+						<h1> Getting Started </h1>
+						<div class="reference">
+							<p>
+								00.01</>
+						</div>
+				</div>
+				<div data-role="content">
+					<div data-role="popup" id="mcs_gettingStarted_openItem_popup" data-theme="b">
+					        <ul data-role="listview" data-inset="true" style="min-width:210px;">
+					            <li data-role="list-divider">Write a Review Point</br>or Open Item</li>
+								<li><input type="text" name="text-1" id="submitreviewpoint_formref" value="" placeholder="Form Ref..."></li>
+								<li><input type="text" name="text-1" id="submitreviewpoint_priority" value="" placeholder="Priority..."></li>
+					            <li><textarea data-mini="true" cols="40" rows="8" name="textarea-4" id="submitreviewpoint_actionrequired" placeholder="Action Required..."></textarea></li>
+								<li><input type="text" name="text-1" id="submitreviewpoint_assignedto" value="" placeholder="Assigned To..."></li>
+					            <li><label for="datetime-4">Due Datetime</label><input type="datetime-local" data-clear-btn="true" name="datetime-4" id="submitreviewpoint_duedatetime" value="" placeholder="Due Datetime..."></li>
+								<li><input type="button" data-enhanced="true" value="Submit Review Item..." onclick="submitReviewPoint()"></li>
+					        </ul>
+					</div> 
+					<ul class="bxslider">
+						<li>
+							<div class="GS">
+								The easiest way to begin is to start on the company (do not print yet). All of the table of contents and checklists have been linked to all the forms you need to complete. In your UBM Creation Suite package you will see folders for the 4 major sections. (A) Model Creation, (B) Source Model, (C) Executable Model, and (D) Operating Model. You will also see a table of contents after the folders. Open the Table of contents and review. You will notice the 4 major sections are listed again on the table of contents. Under the (A) Model Creation section you will see a line referenced AMC. This is the checklist you will need to complete to have a functioning model. Click the AMC Model Creation Suite Phases Checklist. Each step on the checklist has been linked to the correct document you need to complete to check off the step. When you complete a step you need to initial and date the prepared by columns (located to the left of the steps).
+								</p>
+							</div>
+						</li>
+						<li>
+							<div class="GS">
+								<p>
+									Keep Track of your time for each step when creating your model (use the columns to the right of each step on the checklist
+								</p>
+							</div>
+						</li>
+						<li>
+							<div class="GS">
+								<p>
+									If you choose to start out by keeping hard copies of each form you can print off the pre-defined binder tabs located under the Table of contents file and create a binder using those. You do not have to create a binder at the first because the checklist will walk you through the steps eventually to do this. The only reason you would create the binder before the checklist says to, is if your manager needs a manual copy and needs to review each form individually.
+								</p>
+							</div>
+						</li>
+						<li>
+							<div class="GS">
+								<p>
+									All creation forms have already been referenced correctly you are not supposed to change any reference on any pre-defined form. All you need to do is add your company name in the center header of all forms.
+								</p>
+							</div>
+						</li>
+						<li>
+							<div class="GS">
+								<p>
+									Finally the UBM Creation Suite has a reference manual included in every version. The Reference Manual includes the explanation, templates, and samples you can refer to too assist you in completing your model forms.
+								</p>
+							</div>
+						</li>
+						<li>
+							<div class="GS">
+								<p>
+									If needed review the referencing Protocol and Referencing guide located in the Reference Manual in the following folder trail (B) Model Source >
+									01 Reference Manual > 00 Gen > 03 Ref Pro
+								</p>
+							</div>
+						</li>
+						<li>
+							<div class="GS">
+								<p>
+									PLEASE FEEL FREE TO CONTACT OUR OFFICES WITH ANY QUESTIONS 801-484-6988 (Michael Miller, Matthew Kingston, Katherine Hayes, or Erica Cannon)
+								</p>
+							</div>
+						</li>
+						<li><img src="img/03 UBM Flowchart.png">
+						</li>
+						<li>
+							<div class="GS">
+								<p>
+									GOOD LUCK!
+								</p>
+							</div>
+						</li>
+					</ul>
+					<div id="continue_button">
+						<a href="#identification_setup" data-role="button" data-inline="true">Continue to My Model Creation</a>
+					</div>
+					
+							<!--<textarea cols="40" rows="8" name="textarea" id="gettingStarted_content_textarea0"></textarea>
+							<a href="#" class="ui-btn" onclick="addField()">add Field</a>							addField duplicates the textarea and inserts a new text area below the existing one						-->
+					
+				</div>
+				<script>
+					$(function() {
+						$('.bxslider').bxSlider();
+					});
+		        </script>
+				<div data-role="footer">
+					
+				</div>
+		
+			</div>
+			<div data-role="page" id="identification_setup">
+			    <div data-role="panel" id="mcs_identification_setup_lpanel" data-display="overlay" data-position="left">
+					<ul data-role="listview">
+		                <li><a href="#gettingStarted">Getting Started</a></li>
+		                <li><a href="#identification_setup">Identification Setup</a></li>
+		                <li><a href="#table_of_contents">Table of Contents</a></li>
+		                <li><a href="#mcs_setup_checklist_setup">MCS Setup</a></li>		                
+		                <li><a href="#management_reporting">Management Reporting</a></li>
+		                <li><a href="#mcs_setup_checklist_CS">Control Section</a></li>
+		                <li><a href="#mcs_setup_checklist_p1">Phase 1</a></li>
+		                <li><a href="#mcs_setup_checklist_p2">Phase 2</a></li>
+		                <li><a href="#mcs_setup_checklist_p3">Phase 3</a></li>
+		                <li><a href="#mcs_setup_checklist_p4">Phase 4</a></li>
+		                <li><a href="#mcs_setup_checklist_p5">Phase 5</a></li>
+		                <li><a href="#mcs_setup_checklist_p6">Phase 6</a></li>
+		                <li><a href="#mcs_setup_checklist_p7">Phase 7</a></li>
+		                <li><a href="#mcs_setup_checklist_p8">Phase 8</a></li>
+		                <li><a href="#open_points_action_items">Open Points Action Items</a></li>
+						<li data-icon="delete"><a href="#" data-rel="close">Close menu</a></li>
+						<li data-icon="delete"><a href="#sign_in_sign_up">Sign Out</a></li>
+					</ul>
+			    </div><!-- /panel -->
+				<div data-role="header">
+					<a href="#mcs_identification_setup_lpanel" data-icon="arrow-r"></a>
+						<h1> Identificaion Setup </h1>
+						<div class="reference">
+							<p>
+								00.02
+							</p>
+						</div>
+				</div>
+				<div data-role="content" id="identification_setup_content">
+					<div data-role="popup" id="mcs_identification_setup_openItem_popup" data-theme="b">
+					        <ul data-role="listview" data-inset="true" style="min-width:210px;">
+					            <li data-role="list-divider">Write a Review Point</br>or Open Item</li>
+								<li><input type="text" name="text-1" id="submitreviewpoint_formref" value="" placeholder="Form Ref..."></li>
+								<li><input type="text" name="text-1" id="submitreviewpoint_priority" value="" placeholder="Priority..."></li>
+					            <li><textarea data-mini="true" cols="40" rows="8" name="textarea-4" id="submitreviewpoint_actionrequired" placeholder="Action Required..."></textarea></li>
+								<li><input type="text" name="text-1" id="submitreviewpoint_assignedto" value="" placeholder="Assigned To..."></li>
+					            <li><label for="datetime-4">Due Datetime</label><input type="datetime-local" data-clear-btn="true" name="datetime-4" id="submitreviewpoint_duedatetime" value="" placeholder="Due Datetime..."></li>
+								<li><input type="button" data-enhanced="true" value="Submit Review Item..." onclick="submitReviewPoint()"></li>
+					        </ul>
+					</div> 
+					<label for="text-6">Model Owner Legal Entity:</label>
+					<input type="text" name="text-6" id="text-6" value="" placeholder="Legal Entity">
+					<label for="text-6">CCODE:</label>
+					<input type="text" name="text-6" id="text-6" value="" placeholder="CCODE">
+					<label for="text-6">Contact Name:</label>
+					<input type="text" name="text-6" id="text-6" value="" placeholder="Contact Name">
+					<label for="text-6">Client Phone:</label>
+					<input type="text" name="text-6" id="text-6" value="" placeholder="Client Phone">
+					<label for="text-6">Model Title:</label>
+					<input type="text" name="text-6" id="text-6" value="" placeholder="Model Title">
+					<label for="text-6">Category:</label>
+					<input type="text" name="text-6" id="text-6" value="" placeholder="Business, Education, Family, Health, Medical, Productivity, Utilities, Church, Coop, Other">
+					<label for="text-6">Model(s) Compatible with:</label>
+					<input type="text" name="text-6" id="text-6" value="" placeholder="UBM, UFM, UCM, UEM, Other">
+					<label for="text-6">Model(s) Sub Type:</label>
+					<input type="text" name="text-6" id="text-6" value="" placeholder="Retail, Professional Services, Propery Owner, Other">
+					<label for="text-6">Hardware Requirements:</label>
+					<input type="text" name="text-6" id="text-6" value="" placeholder="PC, Mac, Smartphone, Tablet, None, Other">
+					<label for="text-6">Operating Systems Supported:</label>
+					<input type="text" name="text-6" id="text-6" value="" placeholder="Windows, IOS, Android, OSX, None, Other">
+					<label for="text-6">UBM Services Required:</label>
+					<input type="text" name="text-6" id="text-6" value="" placeholder="App Store, None, Other">
+					<label for="text-6">Description:</label>
+					<input type="text" name="text-6" id="text-6" value="" placeholder="Description">
+					<label for="text-6">Purpose/Goal:</label>
+					<input type="text" name="text-6" id="text-6" value="" placeholder="Purpose/Goal">
+					<label for="text-6">Scope:</label>
+					<input type="text" name="text-6" id="text-6" value="" placeholder="Scope">
+					<label for="text-6">What Features Must This Model Create, Do, Process, etc.:</label>
+					<input type="text" name="text-6" id="text-6" value="" placeholder="What Features Must This Model Create, Do, Process, etc.">
+					<label for="text-6">What Products Must This Model Create or Generate:</label>
+					<input type="text" name="text-6" id="text-6" value="" placeholder="What Products Must This Model Create or Generate">
+					<div id="submit_button">
+						<a href="#" data-role="button" data-inline="true">Submit</a>
+						<a href="#table_of_contents" data-role="button" data-inline="true">Continue</a>
+					</div>
+				</div>
+				<div data-role="footer">
+
+				</div>
+				</div>
+			<!-- Table of Contents Page-->
+			<div data-role="page" id="table_of_contents">
+			    <div data-role="panel" id="mcs_table_of_contents_lpanel" data-display="overlay" data-position="left">
+					<ul data-role="listview">
+		                <li><a href="#gettingStarted">Getting Started</a></li>
+		                <li><a href="#identification_setup">Identification Setup</a></li>
+		                <li><a href="#table_of_contents">Table of Contents</a></li>
+		                <li><a href="#mcs_setup_checklist_setup">MCS Setup</a></li>		                
+		                <li><a href="#management_reporting">Management Reporting</a></li>
+		                <li><a href="#mcs_setup_checklist_CS">Control Section</a></li>
+		                <li><a href="#mcs_setup_checklist_p1">Phase 1</a></li>
+		                <li><a href="#mcs_setup_checklist_p2">Phase 2</a></li>
+		                <li><a href="#mcs_setup_checklist_p3">Phase 3</a></li>
+		                <li><a href="#mcs_setup_checklist_p4">Phase 4</a></li>
+		                <li><a href="#mcs_setup_checklist_p5">Phase 5</a></li>
+		                <li><a href="#mcs_setup_checklist_p6">Phase 6</a></li>
+		                <li><a href="#mcs_setup_checklist_p7">Phase 7</a></li>
+		                <li><a href="#mcs_setup_checklist_p8">Phase 8</a></li>
+		                <li><a href="#open_points_action_items">Open Points Action Items</a></li>
+						<li data-icon="delete"><a href="#" data-rel="close">Close menu</a></li>
+						<li data-icon="delete"><a href="#sign_in_sign_up">Sign Out</a></li>
+					</ul>
+			    </div><!-- /panel -->
+				<div data-role="header">
+					<a href="#mcs_table_of_contents_lpanel" data-icon="arrow-r"></a>
+						<h1> Table of Contents </h1>
+						<div class="reference">
+							<p>
+								ATOC
+							</p>
+						</div>
+				</div>
+				<div data-role="content">
+					<div data-role="popup" id="mcs_table_of_contents_openItem_popup" data-theme="b">
+					        <ul data-role="listview" data-inset="true" style="min-width:210px;">
+					            <li data-role="list-divider">Write a Review Point</br>or Open Item</li>
+								<li><input type="text" name="text-1" id="submitreviewpoint_formref" value="" placeholder="Form Ref..."></li>
+								<li><input type="text" name="text-1" id="submitreviewpoint_priority" value="" placeholder="Priority..."></li>
+					            <li><textarea data-mini="true" cols="40" rows="8" name="textarea-4" id="submitreviewpoint_actionrequired" placeholder="Action Required..."></textarea></li>
+								<li><input type="text" name="text-1" id="submitreviewpoint_assignedto" value="" placeholder="Assigned To..."></li>
+					            <li><label for="datetime-4">Due Datetime</label><input type="datetime-local" data-clear-btn="true" name="datetime-4" id="submitreviewpoint_duedatetime" value="" placeholder="Due Datetime..."></li>
+								<li><input type="button" data-enhanced="true" value="Submit Review Item..." onclick="submitReviewPoint()"></li>
+					        </ul>
+					</div> 
+					<div id="model_creation">
+						<h1>(A) Model Creation</h1>
+						<p><a href="#mcs_setup_checklist_setup">Model Creation Suite Phases Checklist</a></p>
+						<p><a href="#open_points_action_items">Open Points/Action Items</a></p>
+						<p><a href="#notes_to_reviewer">Notes to Reviewer</a></p>
+						<p><a href="#timesheet">Time Sheet</a></p>
+					</div>
+					<div id="model">
+						<h1>(B) Model</h1>
+						<p>Model Creation Suite Master File Index Summary Table of Contents</p>
+						<p>Model Creation Suite Master File Index</p>
+					</div>
+					<div id="executable">
+						<h1>(C) Executable</h1>
+						<p>Manual Harvested Model Table of Contents</p>
+					</div>
+				</div>
+				<div data-role="footer">
+				
+				</div>
+			</div>
+			<div data-role="page" id="management_reporting">
+			    <div data-role="panel" id="mcs_management_reporting_upper_left_panel" data-display="overlay" data-position="left">
+					<ul data-role="listview">
+		                <li><a href="#gettingStarted">Getting Started</a></li>
+		                <li><a href="#identification_setup">Identification Setup</a></li>
+		                <li><a href="#table_of_contents">Table of Contents</a></li>
+		                <li><a href="#mcs_setup_checklist_setup">MCS Setup</a></li>		                
+		                <li><a href="#management_reporting">Management Reporting</a></li>
+		                <li><a href="#mcs_setup_checklist_CS">Control Section</a></li>
+		                <li><a href="#mcs_setup_checklist_p1">Phase 1</a></li>
+		                <li><a href="#mcs_setup_checklist_p2">Phase 2</a></li>
+		                <li><a href="#mcs_setup_checklist_p3">Phase 3</a></li>
+		                <li><a href="#mcs_setup_checklist_p4">Phase 4</a></li>
+		                <li><a href="#mcs_setup_checklist_p5">Phase 5</a></li>
+		                <li><a href="#mcs_setup_checklist_p6">Phase 6</a></li>
+		                <li><a href="#mcs_setup_checklist_p7">Phase 7</a></li>
+		                <li><a href="#mcs_setup_checklist_p8">Phase 8</a></li>
+		                <li><a href="#open_points_action_items">Open Points Action Items</a></li>
+						<li data-icon="delete"><a href="#" data-rel="close">Close menu</a></li>
+						<li data-icon="delete"><a href="#sign_in_sign_up">Sign Out</a></li>
+					</ul>
+			    </div><!-- /panel -->
+			    <div data-role="panel" id="mcs_management_reporting_lower_left_panel" data-display="overlay" data-position="left">
+					<div data-role="collapsible" data-inset="false">
+					    <h3>WRE</h3>
+							<ul data-role="listview" data-count-theme="b" >
+							  <li data-role="collapsible" data-iconpos="right" data-shadow="false" data-corners="false" data-inset="false">
+							    <h2>CEO</h2>
+							    <ul data-role="listview" data-shadow="false" data-corners="false">
+								  <li data-role="collapsible" data-iconpos="right" data-shadow="false" data-corners="false" data-inset="false">
+								    <h2>VP1</h2>
+								    <ul data-role="listview" data-shadow="false" data-corners="false">
+										<li data-role="collapsible" data-iconpos="right" data-shadow="false" data-corners="false">
+										    <h2>Manager 1</h2>
+										    <ul data-role="listview" data-shadow="false" data-corners="false">
+											    <li><a href="#">Employee 1</a></li>
+											    <li><a href="#">Employee 2</a></li>
+											    <li><a href="#">Employee 3</a></li>
+											    <li><a href="#">Employee 4</a></li>
+											    <li><a href="#">Employee 5</a></li>
+										    </ul>
+										</li>
+										<li data-role="collapsible" data-iconpos="right" data-shadow="false" data-corners="false">
+										    <h2>Manager 2</h2>
+										    <ul data-role="listview" data-shadow="false" data-corners="false">
+											    <li><a href="#">Employee 1</a></li>
+											    <li><a href="#">Employee 2</a></li>
+											    <li><a href="#">Employee 3</a></li>
+											    <li><a href="#">Employee 4</a></li>
+											    <li><a href="#">Employee 5</a></li>
+										    </ul>
+										</li>
+								    </ul>
+								  </li>
+								  <li data-role="collapsible" data-iconpos="right" data-shadow="false" data-corners="false">
+								    <h2>VP2</h2>
+								    <ul data-role="listview" data-shadow="false" data-corners="false">
+										<li data-role="collapsible" data-iconpos="right" data-shadow="false" data-corners="false">
+										    <h2>Manager 3</h2>
+										    <ul data-role="listview" data-shadow="false" data-corners="false">
+											    <li><a href="#">Employee 1</a></li>
+											    <li><a href="#">Employee 2</a></li>
+											    <li><a href="#">Employee 3</a></li>
+											    <li><a href="#">Employee 4</a></li>
+											    <li><a href="#">Employee 5</a></li>
+										    </ul>
+										</li>
+										<li data-role="collapsible" data-iconpos="right" data-shadow="false" data-corners="false">
+										    <h2>Manager 4</h2>
+										    <ul data-role="listview" data-shadow="false" data-corners="false">
+											    <li><a href="#">Employee 1</a></li>
+											    <li><a href="#">Employee 2</a></li>
+											    <li><a href="#">Employee 3</a></li>
+											    <li><a href="#">Employee 4</a></li>
+											    <li><a href="#">Employee 5</a></li>
+										    </ul>
+										</li>
+								    </ul>
+								  </li>
+							    </ul>
+							  </li>
+							</ul>
+					</div><!-- /collapsible -->
+					<div data-role="collapsible" data-inset="false">
+					    <h3>UFS</h3>
+							<ul data-role="listview" data-count-theme="b" data-inset="true">
+							    <li><a href="#">CEO <span class="ui-li-count">110</span></a></li>
+							    <li><a href="#">VP1 <span class="ui-li-count">10</span></a></li>
+							    <li><a href="#">VP2 <span class="ui-li-count">10</span></a></li>
+							    <li><a href="#">VP3 <span class="ui-li-count">10</span></a></li>
+							    <li><a href="#">VP4 <span class="ui-li-count">10</span></a></li>
+							    <li><a href="#">VP5 <span class="ui-li-count">10</span></a></li>
+							    <li><a href="#">VP6 <span class="ui-li-count">10</span></a></li>
+							    <li><a href="#">VP7 <span class="ui-li-count">10</span></a></li>
+							    <li><a href="#">VP8 <span class="ui-li-count">10</span></a></li>
+							    <li><a href="#">VP9 <span class="ui-li-count">10</span></a></li>
+							    <li><a href="#">VP10 <span class="ui-li-count">10</span></a></li>
+							    <li><a href="#">VP11 <span class="ui-li-count">10</span></a></li>
+							    <li><a href="#">VP12 <span class="ui-li-count">10</span></a></li>
+							</ul>
+					</div><!-- /collapsible -->
+					<div data-role="collapsible" data-inset="false">
+					    <h3>CCP</h3>
+							<ul data-role="listview" data-count-theme="b" data-inset="true">
+							    <li><a href="#">CEO <span class="ui-li-count">110</span></a></li>
+							    <li><a href="#">VP1 <span class="ui-li-count">10</span></a></li>
+							    <li><a href="#">VP2 <span class="ui-li-count">10</span></a></li>
+							    <li><a href="#">VP3 <span class="ui-li-count">10</span></a></li>
+							    <li><a href="#">VP4 <span class="ui-li-count">10</span></a></li>
+							    <li><a href="#">VP5 <span class="ui-li-count">10</span></a></li>
+							</ul>
+					</div><!-- /collapsible -->
+					<div data-role="collapsible" data-inset="false">
+					    <h3>Attco</h3>
+							<ul data-role="listview" data-count-theme="b" data-inset="true">
+							    <li><a href="#">CEO <span class="ui-li-count">110</span></a></li>
+							    <li><a href="#">VP1 <span class="ui-li-count">10</span></a></li>
+							    <li><a href="#">VP2 <span class="ui-li-count">10</span></a></li>
+							    <li><a href="#">VP3 <span class="ui-li-count">10</span></a></li>
+							    <li><a href="#">VP4 <span class="ui-li-count">10</span></a></li>
+							    <li><a href="#">VP5 <span class="ui-li-count">10</span></a></li>
+							</ul>
+					</div><!-- /collapsible -->
+					<div data-role="collapsible" data-inset="false">
+					    <h3>DIBS</h3>
+							<ul data-role="listview" data-count-theme="b" data-inset="true">
+							    <li><a href="#">CEO <span class="ui-li-count">110</span></a></li>
+							    <li><a href="#">VP1 <span class="ui-li-count">10</span></a></li>
+							    <li><a href="#">VP2 <span class="ui-li-count">10</span></a></li>
+							    <li><a href="#">VP3 <span class="ui-li-count">10</span></a></li>
+							    <li><a href="#">VP4 <span class="ui-li-count">10</span></a></li>
+							    <li><a href="#">VP5 <span class="ui-li-count">10</span></a></li>
+							</ul>
+					</div><!-- /collapsible -->
+			    </div><!-- /panel -->
+			    <div data-role="panel" id="mcs_management_reporting_upper_right_panel" data-display="overlay" data-position="right">
+					<p>upper right panel</p>
+			    </div><!-- /panel -->
+			    <div data-role="panel" id="mcs_management_reporting_lower_right_panel" data-display="overlay" data-position="right">
+					<p>lower right panel</p>
+			    </div><!-- /panel -->
+				<div data-role="header">
+				    <div data-role="controlgroup" data-type="horizontal" class="ui-mini ui-btn-left">
+				        <a href="#mcs_management_reporting_upper_left_panel" class="ui-btn ui-btn-icon-right ui-icon-arrow-u">upper left</a>
+				        <a href="#mcs_management_reporting_lower_left_panel" class="ui-btn ui-btn-icon-right ui-icon-plus">lower left</a>
+				    </div>
+					<center>
+						<h1> Management Reporting </h1>
+						<div class="reference">
+							<p>
+								Need to Add UBM Reference
+							</p>
+						</div>
+					</center>
+				    <div data-role="controlgroup" data-type="horizontal" class="ui-mini ui-btn-right">
+				        <a href="#mcs_management_reporting_upper_right_panel" class="ui-btn ui-btn-icon-right ui-icon-plus">upper right</a>
+				        <a href="#mcs_management_reporting_lower_right_panel" class="ui-btn ui-btn-icon-right ui-icon-arrow-u">lower right</a>
+				    </div>
+				</div>
+				<div data-role="content">
+					<div id="attendance_kpi">
+						<p>Attendance stats will be shown here.</p>
+					</div>
+					<div id="checklist_kpi">
+						<p>Checklist stats will be shown here.</p>
+					</div>
+				</div>
+				<div data-role="footer" data-position="fixed" data-fullscreen="true">
+				</div>
+			</div>
+			<div data-role="page" id="mcs_setup_checklist_setup">
+			    <div data-role="panel" id="mcs_setup_checklist_setup_lpanel" data-display="overlay" data-position="left">
+					<ul data-role="listview">
+		                <li><a href="#gettingStarted">Getting Started</a></li>
+		                <li><a href="#identification_setup">Identification Setup</a></li>
+		                <li><a href="#table_of_contents">Table of Contents</a></li>
+		                <li><a href="#mcs_setup_checklist_setup">MCS Setup</a></li>		                
+		                <li><a href="#management_reporting">Management Reporting</a></li>
+		                <li><a href="#mcs_setup_checklist_CS">Control Section</a></li>
+		                <li><a href="#mcs_setup_checklist_p1">Phase 1</a></li>
+		                <li><a href="#mcs_setup_checklist_p2">Phase 2</a></li>
+		                <li><a href="#mcs_setup_checklist_p3">Phase 3</a></li>
+		                <li><a href="#mcs_setup_checklist_p4">Phase 4</a></li>
+		                <li><a href="#mcs_setup_checklist_p5">Phase 5</a></li>
+		                <li><a href="#mcs_setup_checklist_p6">Phase 6</a></li>
+		                <li><a href="#mcs_setup_checklist_p7">Phase 7</a></li>
+		                <li><a href="#mcs_setup_checklist_p8">Phase 8</a></li>
+		                <li><a href="#open_points_action_items">Open Points Action Items</a></li>
+						<li data-icon="delete"><a href="#" data-rel="close">Close menu</a></li>
+						<li data-icon="delete"><a href="#sign_in_sign_up">Sign Out</a></li>
 					</ul>
 			    </div><!-- /panel -->
 				<div data-role="header" data-position="fixed">
@@ -161,18 +852,15 @@
 					            <li><a href="#">Something Totally Different!</a></li>
 					        </ul>
 					</div>  
-					<div data-role="popup" id="openItem_popup" data-theme="b">
+					<div data-role="popup" id="mcs_setup_checklist_setup_openItem_popup" data-theme="b">
 					        <ul data-role="listview" data-inset="true" style="min-width:210px;">
 					            <li data-role="list-divider">Write a Review Point</br>or Open Item</li>
-								<li><input type="text" name="text-1" id="text-1" value="" placeholder="Form Ref..."></li>
-								<li><input type="text" name="text-1" id="text-1" value="" placeholder="Priority..."></li>
-					            <li><label for="datetime-4">Open Datetime</label><input type="datetime-local" data-clear-btn="true" name="datetime-4" id="datetime-4" value="" placeholder="Open Datetime..."></li>
-					            <li><textarea data-mini="true" cols="40" rows="8" name="textarea-4" id="textarea-4" placeholder="Action Required..."></textarea></li>
-								<li><input type="text" name="text-1" id="text-1" value="" placeholder="Assigned To..."></li>
-								<li><input type="text" name="text-1" id="text-1" value="" placeholder="Form Ref..."></li>
-					            <li><label for="datetime-4">Assigned Datetime</label><input type="datetime-local" data-clear-btn="true" name="datetime-4" id="datetime-4" value="" placeholder="Assigned Datetime..."></li>
-					            <li><label for="datetime-4">Due Datetime</label><input type="datetime-local" data-clear-btn="true" name="datetime-4" id="datetime-4" value="" placeholder="Due Datetime..."></li>
-								<li><input type="button" data-enhanced="true" value="Submit Review Item..."></li>
+								<li><input type="text" name="text-1" id="submitreviewpoint_formref" value="" placeholder="Form Ref..."></li>
+								<li><input type="text" name="text-1" id="submitreviewpoint_priority" value="" placeholder="Priority..."></li>
+					            <li><textarea data-mini="true" cols="40" rows="8" name="textarea-4" id="submitreviewpoint_actionrequired" placeholder="Action Required..."></textarea></li>
+								<li><input type="text" name="text-1" id="submitreviewpoint_assignedto" value="" placeholder="Assigned To..."></li>
+					            <li><label for="datetime-4">Due Datetime</label><input type="datetime-local" data-clear-btn="true" name="datetime-4" id="submitreviewpoint_duedatetime" value="" placeholder="Due Datetime..."></li>
+								<li><input type="button" data-enhanced="true" value="Submit Review Item..." onclick="submitReviewPoint()"></li>
 					        </ul>
 					</div> 
 					<div data-role="popup" id="mcs_setup_1_popUp" data-theme="b" data-position-to="window" data-dismissible="false">
@@ -270,17 +958,17 @@
 				            <li><a href="#mcs_setup_checklist_p4_b2">Book 2 Organizational Structure</a></li>
 				            <li><a href="#mcs_setup_checklist_p4_b3">Book 3 Owners</a></li>
 				            <li><a href="#mcs_setup_checklist_p4_b4">Book 4 Board Of Directors</a></li>
-				            <li><a href="#mcs_setup_checklist_p4_b4">Book 5 Board Of Directors</a></li>
-				            <li><a href="#mcs_setup_checklist_p4_b4">Book 6 Board Of Directors</a></li>
-				            <li><a href="#mcs_setup_checklist_p4_b4">Book 7 Board Of Directors</a></li>
-				            <li><a href="#mcs_setup_checklist_p4_b4">Book 8 Board Of Directors</a></li>
-				            <li><a href="#mcs_setup_checklist_p4_b4">Book 9 Board Of Directors</a></li>
-				            <li><a href="#mcs_setup_checklist_p4_b4">Book 10 Board Of Directors</a></li>
-				            <li><a href="#mcs_setup_checklist_p4_b4">Book 11 Board Of Directors</a></li>
-				            <li><a href="#mcs_setup_checklist_p4_b4">Book 12 Board Of Directors</a></li>
+				            <li><a href="#mcs_setup_checklist_p4_b4">BOOK 5 CEO COMMAND CENTER</a></li>
+				            <li><a href="#mcs_setup_checklist_p4_b4">BOOK 6 MANAGEMENT REPORTING SYSTEM</a></li>
+				            <li><a href="#mcs_setup_checklist_p4_b4">BOOK 7 OPERATION SYSTEMS </a></li>
+				            <li><a href="#mcs_setup_checklist_p4_b4">BOOK 8 FUNDING</a></li>
+				            <li><a href="#mcs_setup_checklist_p4_b4">BOOK  9 BEGIN OPERATIONS</a></li>
+				            <li><a href="#mcs_setup_checklist_p4_b4">BOOK 10 ONGOING OPERATIONS</a></li>
+				            <li><a href="#mcs_setup_checklist_p4_b4">BOOK 11 COMPANY APPLICATIONS</a></li>
+				            <li><a href="#mcs_setup_checklist_p4_b4">BOOK 12 AVAILABLE APPLICATIONS</a></li>
 				        </ul>
 					</div><!-- /Phase 4 Popup-->
-					<table data-role="table" id="mcs_setup_checklist_setup_mfi_table" data-mode="columntoggle" data-column-btn-text="Select Column..." data-column-btn-theme="a" class="phone-compare ui-shadow table-stroke">
+					<table data-role="table" id="mcs_setup_checklist_setup_mfi_table" data-mode="columntoggle" data-filter="true" data-column-btn-text="Select Column..." data-column-btn-theme="a" class="phone-compare ui-shadow table-stroke">
 					  	<thead>
 						    <tr>
 							    <th class="label">Model Creation Suite</th>
@@ -321,19 +1009,25 @@
 				</div><!-- /footer -->
 			</div>
 			<div data-role="page" id="mcs_setup_checklist_CS">
-			    <div data-role="panel" id="mcs_setup_checklist_CS_lpanel" data-display="overlay" data-position="left">
+			    <div data-role="panel" id="mcs_identification_setup_lpanel" data-display="overlay" data-position="left">
 					<ul data-role="listview">
-			                <li><a href="#mcs_setup_checklist_setup">MCS Setup</a></li>
-			                <li><a href="#mcs_setup_checklist_CS">Control Section</a></li>
-			                <li><a href="#mcs_setup_checklist_p1">Phase 1</a></li>
-			                <li><a href="#mcs_setup_checklist_p2">Phase 2</a></li>
-			                <li><a href="#mcs_setup_checklist_p3">Phase 3</a></li>
-			                <li><a href="#mcs_setup_checklist_p4">Phase 4</a></li>
-			                <li><a href="#mcs_setup_checklist_p5">Phase 5</a></li>
-			                <li><a href="#mcs_setup_checklist_p6">Phase 6</a></li>
-			                <li><a href="#mcs_setup_checklist_p7">Phase 7</a></li>
-			                <li><a href="#mcs_setup_checklist_p8">Phase 8</a></li>
-							<li data-icon="delete"><a href="#" data-rel="close">Close menu</a></li>
+		                <li><a href="#gettingStarted">Getting Started</a></li>
+		                <li><a href="#identification_setup">Identification Setup</a></li>
+		                <li><a href="#table_of_contents">Table of Contents</a></li>
+		                <li><a href="#mcs_setup_checklist_setup">MCS Setup</a></li>		                
+		                <li><a href="#management_reporting">Management Reporting</a></li>
+		                <li><a href="#mcs_setup_checklist_CS">Control Section</a></li>
+		                <li><a href="#mcs_setup_checklist_p1">Phase 1</a></li>
+		                <li><a href="#mcs_setup_checklist_p2">Phase 2</a></li>
+		                <li><a href="#mcs_setup_checklist_p3">Phase 3</a></li>
+		                <li><a href="#mcs_setup_checklist_p4">Phase 4</a></li>
+		                <li><a href="#mcs_setup_checklist_p5">Phase 5</a></li>
+		                <li><a href="#mcs_setup_checklist_p6">Phase 6</a></li>
+		                <li><a href="#mcs_setup_checklist_p7">Phase 7</a></li>
+		                <li><a href="#mcs_setup_checklist_p8">Phase 8</a></li>
+		                <li><a href="#open_points_action_items">Open Points Action Items</a></li>
+						<li data-icon="delete"><a href="#" data-rel="close">Close menu</a></li>
+						<li data-icon="delete"><a href="#sign_in_sign_up">Sign Out</a></li>
 					</ul>
 			    </div><!-- /panel -->
 				<div data-role="header" data-position="fixed">
@@ -341,6 +1035,17 @@
 					<center><a href="#mcs_setup_checklist_CS_searchPopup" data-rel="popup" data-role="button">Model Creation Suite - Control</a></center>
 				</div><!-- /header -->
 				<div role="content" class="ui-content">
+					<div data-role="popup" id="mcs_setup_checklist_CS_openItem_popup" data-theme="b">
+					        <ul data-role="listview" data-inset="true" style="min-width:210px;">
+					            <li data-role="list-divider">Write a Review Point</br>or Open Item</li>
+								<li><input type="text" name="text-1" id="submitreviewpoint_formref" value="" placeholder="Form Ref..."></li>
+								<li><input type="text" name="text-1" id="submitreviewpoint_priority" value="" placeholder="Priority..."></li>
+					            <li><textarea data-mini="true" cols="40" rows="8" name="textarea-4" id="submitreviewpoint_actionrequired" placeholder="Action Required..."></textarea></li>
+								<li><input type="text" name="text-1" id="submitreviewpoint_assignedto" value="" placeholder="Assigned To..."></li>
+					            <li><label for="datetime-4">Due Datetime</label><input type="datetime-local" data-clear-btn="true" name="datetime-4" id="submitreviewpoint_duedatetime" value="" placeholder="Due Datetime..."></li>
+								<li><input type="button" data-enhanced="true" value="Submit Review Item..." onclick="submitReviewPoint()"></li>
+					        </ul>
+					</div> 
 					<div data-role="popup" id="mcs_setup_checklist_CS_searchPopup">
 						<ul data-role="listview" data-split-icon="gear" data-split-theme="d" data-filter="true" data-inline="true" data-inset="true" data-filter-reveal="true" data-filter-placeholder="Search the UBM">
 							<li><a href="#mcs_setup_checklist_setup"><img src="img/pre_backbone_rna.png" /><h3>PreBackBone</h3><p>Master File Index Setup</p></a><a href="#purchase" data-rel="popup" data-position-to="window" data-transition="pop">Purchase album</a></li>
@@ -373,17 +1078,17 @@
 				            <li><a href="#mcs_setup_checklist_p4_b2">Book 2 Organizational Structure</a></li>
 				            <li><a href="#mcs_setup_checklist_p4_b3">Book 3 Owners</a></li>
 				            <li><a href="#mcs_setup_checklist_p4_b4">Book 4 Board Of Directors</a></li>
-				            <li><a href="#mcs_setup_checklist_p4_b4">Book 5 Board Of Directors</a></li>
-				            <li><a href="#mcs_setup_checklist_p4_b4">Book 6 Board Of Directors</a></li>
-				            <li><a href="#mcs_setup_checklist_p4_b4">Book 7 Board Of Directors</a></li>
-				            <li><a href="#mcs_setup_checklist_p4_b4">Book 8 Board Of Directors</a></li>
-				            <li><a href="#mcs_setup_checklist_p4_b4">Book 9 Board Of Directors</a></li>
-				            <li><a href="#mcs_setup_checklist_p4_b4">Book 10 Board Of Directors</a></li>
-				            <li><a href="#mcs_setup_checklist_p4_b4">Book 11 Board Of Directors</a></li>
-				            <li><a href="#mcs_setup_checklist_p4_b4">Book 12 Board Of Directors</a></li>
+				            <li><a href="#mcs_setup_checklist_p4_b4">BOOK 5 CEO COMMAND CENTER</a></li>
+				            <li><a href="#mcs_setup_checklist_p4_b4">BOOK 6 MANAGEMENT REPORTING SYSTEM</a></li>
+				            <li><a href="#mcs_setup_checklist_p4_b4">BOOK 7 OPERATION SYSTEMS </a></li>
+				            <li><a href="#mcs_setup_checklist_p4_b4">BOOK 8 FUNDING</a></li>
+				            <li><a href="#mcs_setup_checklist_p4_b4">BOOK  9 BEGIN OPERATIONS</a></li>
+				            <li><a href="#mcs_setup_checklist_p4_b4">BOOK 10 ONGOING OPERATIONS</a></li>
+				            <li><a href="#mcs_setup_checklist_p4_b4">BOOK 11 COMPANY APPLICATIONS</a></li>
+				            <li><a href="#mcs_setup_checklist_p4_b4">BOOK 12 AVAILABLE APPLICATIONS</a></li>
 				        </ul>
 					</div><!-- /Phase 4 Popup-->
-					<table data-role="table" id="mcs_setup_checklist_CS_mfi_table" data-mode="columntoggle" data-column-btn-text="Select Column..." data-column-btn-theme="a" class="phone-compare ui-shadow table-stroke">
+					<table data-role="table" id="mcs_setup_checklist_CS_mfi_table" data-mode="columntoggle" data-filter="true" data-column-btn-text="Select Column..." data-column-btn-theme="a" class="phone-compare ui-shadow table-stroke">
 					  	<thead>
 						    <tr>
 							    <th class="label">Model Creation Suite</th>
@@ -424,19 +1129,25 @@
 				</div>
 			</div>
 			<div data-role="page" id="mcs_setup_checklist_p1">
-			    <div data-role="panel" id="mcs_setup_checklist_p1_lpanel" data-display="overlay" data-position="left">
+			    <div data-role="panel" id="mcs_identification_setup_lpanel" data-display="overlay" data-position="left">
 					<ul data-role="listview">
-			                <li><a href="#mcs_setup_checklist_setup">MCS Setup</a></li>
-			                <li><a href="#mcs_setup_checklist_CS">Control Section</a></li>
-			                <li><a href="#mcs_setup_checklist_p1">Phase 1</a></li>
-			                <li><a href="#mcs_setup_checklist_p2">Phase 2</a></li>
-			                <li><a href="#mcs_setup_checklist_p3">Phase 3</a></li>
-			                <li><a href="#mcs_setup_checklist_p4">Phase 4</a></li>
-			                <li><a href="#mcs_setup_checklist_p5">Phase 5</a></li>
-			                <li><a href="#mcs_setup_checklist_p6">Phase 6</a></li>
-			                <li><a href="#mcs_setup_checklist_p7">Phase 7</a></li>
-			                <li><a href="#mcs_setup_checklist_p8">Phase 8</a></li>
-							<li data-icon="delete"><a href="#" data-rel="close">Close menu</a></li>
+		                <li><a href="#gettingStarted">Getting Started</a></li>
+		                <li><a href="#identification_setup">Identification Setup</a></li>
+		                <li><a href="#table_of_contents">Table of Contents</a></li>
+		                <li><a href="#mcs_setup_checklist_setup">MCS Setup</a></li>		                
+		                <li><a href="#management_reporting">Management Reporting</a></li>
+		                <li><a href="#mcs_setup_checklist_CS">Control Section</a></li>
+		                <li><a href="#mcs_setup_checklist_p1">Phase 1</a></li>
+		                <li><a href="#mcs_setup_checklist_p2">Phase 2</a></li>
+		                <li><a href="#mcs_setup_checklist_p3">Phase 3</a></li>
+		                <li><a href="#mcs_setup_checklist_p4">Phase 4</a></li>
+		                <li><a href="#mcs_setup_checklist_p5">Phase 5</a></li>
+		                <li><a href="#mcs_setup_checklist_p6">Phase 6</a></li>
+		                <li><a href="#mcs_setup_checklist_p7">Phase 7</a></li>
+		                <li><a href="#mcs_setup_checklist_p8">Phase 8</a></li>
+		                <li><a href="#open_points_action_items">Open Points Action Items</a></li>
+						<li data-icon="delete"><a href="#" data-rel="close">Close menu</a></li>
+						<li data-icon="delete"><a href="#sign_in_sign_up">Sign Out</a></li>
 					</ul>
 			    </div><!-- /panel -->
 				<div data-role="header" data-position="fixed">
@@ -444,6 +1155,17 @@
 					<center><a href="#mcs_setup_checklist_p1_searchPopup" data-rel="popup" data-role="button">Model Creation Suite - Phase 1</a></center>
 				</div><!-- /header -->
 				<div role="content" class="ui-content">
+					<div data-role="popup" id="mcs_setup_checklist_p1_openItem_popup" data-theme="b">
+					        <ul data-role="listview" data-inset="true" style="min-width:210px;">
+					            <li data-role="list-divider">Write a Review Point</br>or Open Item</li>
+								<li><input type="text" name="text-1" id="submitreviewpoint_formref" value="" placeholder="Form Ref..."></li>
+								<li><input type="text" name="text-1" id="submitreviewpoint_priority" value="" placeholder="Priority..."></li>
+					            <li><textarea data-mini="true" cols="40" rows="8" name="textarea-4" id="submitreviewpoint_actionrequired" placeholder="Action Required..."></textarea></li>
+								<li><input type="text" name="text-1" id="submitreviewpoint_assignedto" value="" placeholder="Assigned To..."></li>
+					            <li><label for="datetime-4">Due Datetime</label><input type="datetime-local" data-clear-btn="true" name="datetime-4" id="submitreviewpoint_duedatetime" value="" placeholder="Due Datetime..."></li>
+								<li><input type="button" data-enhanced="true" value="Submit Review Item..." onclick="submitReviewPoint()"></li>
+					        </ul>
+					</div> 
 					<div data-role="popup" id="mcs_setup_checklist_p1_searchPopup">
 						<ul data-role="listview" data-split-icon="gear" data-split-theme="d" data-filter="true" data-inline="true" data-inset="true" data-filter-reveal="true" data-filter-placeholder="Search the UBM">
 							<li><a href="#mcs_setup_checklist_setup"><img src="img/pre_backbone_rna.png" /><h3>PreBackBone</h3><p>Master File Index Setup</p></a><a href="#purchase" data-rel="popup" data-position-to="window" data-transition="pop">Purchase album</a></li>
@@ -476,17 +1198,17 @@
 				            <li><a href="#mcs_setup_checklist_p4_b2">Book 2 Organizational Structure</a></li>
 				            <li><a href="#mcs_setup_checklist_p4_b3">Book 3 Owners</a></li>
 				            <li><a href="#mcs_setup_checklist_p4_b4">Book 4 Board Of Directors</a></li>
-				            <li><a href="#mcs_setup_checklist_p4_b4">Book 5 Board Of Directors</a></li>
-				            <li><a href="#mcs_setup_checklist_p4_b4">Book 6 Board Of Directors</a></li>
-				            <li><a href="#mcs_setup_checklist_p4_b4">Book 7 Board Of Directors</a></li>
-				            <li><a href="#mcs_setup_checklist_p4_b4">Book 8 Board Of Directors</a></li>
-				            <li><a href="#mcs_setup_checklist_p4_b4">Book 9 Board Of Directors</a></li>
-				            <li><a href="#mcs_setup_checklist_p4_b4">Book 10 Board Of Directors</a></li>
-				            <li><a href="#mcs_setup_checklist_p4_b4">Book 11 Board Of Directors</a></li>
-				            <li><a href="#mcs_setup_checklist_p4_b4">Book 12 Board Of Directors</a></li>
+				            <li><a href="#mcs_setup_checklist_p4_b4">BOOK 5 CEO COMMAND CENTER</a></li>
+				            <li><a href="#mcs_setup_checklist_p4_b4">BOOK 6 MANAGEMENT REPORTING SYSTEM</a></li>
+				            <li><a href="#mcs_setup_checklist_p4_b4">BOOK 7 OPERATION SYSTEMS </a></li>
+				            <li><a href="#mcs_setup_checklist_p4_b4">BOOK 8 FUNDING</a></li>
+				            <li><a href="#mcs_setup_checklist_p4_b4">BOOK  9 BEGIN OPERATIONS</a></li>
+				            <li><a href="#mcs_setup_checklist_p4_b4">BOOK 10 ONGOING OPERATIONS</a></li>
+				            <li><a href="#mcs_setup_checklist_p4_b4">BOOK 11 COMPANY APPLICATIONS</a></li>
+				            <li><a href="#mcs_setup_checklist_p4_b4">BOOK 12 AVAILABLE APPLICATIONS</a></li>
 				        </ul>
 					</div><!-- /Phase 4 Popup-->
-					<table data-role="table" id="mcs_setup_checklist_p1_mfi_table" data-mode="columntoggle" data-column-btn-text="Select Column..." data-column-btn-theme="a" class="phone-compare ui-shadow table-stroke">
+					<table data-role="table" id="mcs_setup_checklist_p1_mfi_table" data-mode="columntoggle" data-filter="true" data-column-btn-text="Select Column..." data-column-btn-theme="a" class="phone-compare ui-shadow table-stroke">
 					  	<thead>
 						    <tr>
 							    <th class="label">Model Creation Suite</th>
@@ -527,19 +1249,25 @@
 				</div>
 			</div>
 			<div data-role="page" id="mcs_setup_checklist_p2">
-			    <div data-role="panel" id="mcs_setup_checklist_p2_lpanel" data-display="overlay" data-position="left">
+			    <div data-role="panel" id="mcs_identification_setup_lpanel" data-display="overlay" data-position="left">
 					<ul data-role="listview">
-			                <li><a href="#mcs_setup_checklist_setup">MCS Setup</a></li>
-			                <li><a href="#mcs_setup_checklist_CS">Control Section</a></li>
-			                <li><a href="#mcs_setup_checklist_p1">Phase 1</a></li>
-			                <li><a href="#mcs_setup_checklist_p2">Phase 2</a></li>
-			                <li><a href="#mcs_setup_checklist_p3">Phase 3</a></li>
-			                <li><a href="#mcs_setup_checklist_p4">Phase 4</a></li>
-			                <li><a href="#mcs_setup_checklist_p5">Phase 5</a></li>
-			                <li><a href="#mcs_setup_checklist_p6">Phase 6</a></li>
-			                <li><a href="#mcs_setup_checklist_p7">Phase 7</a></li>
-			                <li><a href="#mcs_setup_checklist_p8">Phase 8</a></li>
-							<li data-icon="delete"><a href="#" data-rel="close">Close menu</a></li>
+		                <li><a href="#gettingStarted">Getting Started</a></li>
+		                <li><a href="#identification_setup">Identification Setup</a></li>
+		                <li><a href="#table_of_contents">Table of Contents</a></li>
+		                <li><a href="#mcs_setup_checklist_setup">MCS Setup</a></li>		                
+		                <li><a href="#management_reporting">Management Reporting</a></li>
+		                <li><a href="#mcs_setup_checklist_CS">Control Section</a></li>
+		                <li><a href="#mcs_setup_checklist_p1">Phase 1</a></li>
+		                <li><a href="#mcs_setup_checklist_p2">Phase 2</a></li>
+		                <li><a href="#mcs_setup_checklist_p3">Phase 3</a></li>
+		                <li><a href="#mcs_setup_checklist_p4">Phase 4</a></li>
+		                <li><a href="#mcs_setup_checklist_p5">Phase 5</a></li>
+		                <li><a href="#mcs_setup_checklist_p6">Phase 6</a></li>
+		                <li><a href="#mcs_setup_checklist_p7">Phase 7</a></li>
+		                <li><a href="#mcs_setup_checklist_p8">Phase 8</a></li>
+		                <li><a href="#open_points_action_items">Open Points Action Items</a></li>
+						<li data-icon="delete"><a href="#" data-rel="close">Close menu</a></li>
+						<li data-icon="delete"><a href="#sign_in_sign_up">Sign Out</a></li>
 					</ul>
 			    </div><!-- /panel -->
 				<div data-role="header" data-position="fixed">
@@ -547,6 +1275,17 @@
 					<center><a href="#mcs_setup_checklist_p2_searchPopup" data-rel="popup" data-role="button">Model Creation Suite - Phase 2</a></center>
 				</div><!-- /header -->
 				<div role="content" class="ui-content">
+					<div data-role="popup" id="mcs_setup_checklist_p2_openItem_popup" data-theme="b">
+					        <ul data-role="listview" data-inset="true" style="min-width:210px;">
+					            <li data-role="list-divider">Write a Review Point</br>or Open Item</li>
+								<li><input type="text" name="text-1" id="submitreviewpoint_formref" value="" placeholder="Form Ref..."></li>
+								<li><input type="text" name="text-1" id="submitreviewpoint_priority" value="" placeholder="Priority..."></li>
+					            <li><textarea data-mini="true" cols="40" rows="8" name="textarea-4" id="submitreviewpoint_actionrequired" placeholder="Action Required..."></textarea></li>
+								<li><input type="text" name="text-1" id="submitreviewpoint_assignedto" value="" placeholder="Assigned To..."></li>
+					            <li><label for="datetime-4">Due Datetime</label><input type="datetime-local" data-clear-btn="true" name="datetime-4" id="submitreviewpoint_duedatetime" value="" placeholder="Due Datetime..."></li>
+								<li><input type="button" data-enhanced="true" value="Submit Review Item..." onclick="submitReviewPoint()"></li>
+					        </ul>
+					</div> 
 					<div data-role="popup" id="mcs_setup_checklist_p2_searchPopup">
 						<ul data-role="listview" data-split-icon="gear" data-split-theme="d" data-filter="true" data-inline="true" data-inset="true" data-filter-reveal="true" data-filter-placeholder="Search the UBM">
 							<li><a href="#mcs_setup_checklist_setup"><img src="img/pre_backbone_rna.png" /><h3>PreBackBone</h3><p>Master File Index Setup</p></a><a href="#purchase" data-rel="popup" data-position-to="window" data-transition="pop">Purchase album</a></li>
@@ -579,17 +1318,17 @@
 				            <li><a href="#mcs_setup_checklist_p4_b2">Book 2 Organizational Structure</a></li>
 				            <li><a href="#mcs_setup_checklist_p4_b3">Book 3 Owners</a></li>
 				            <li><a href="#mcs_setup_checklist_p4_b4">Book 4 Board Of Directors</a></li>
-				            <li><a href="#mcs_setup_checklist_p4_b4">Book 5 Board Of Directors</a></li>
-				            <li><a href="#mcs_setup_checklist_p4_b4">Book 6 Board Of Directors</a></li>
-				            <li><a href="#mcs_setup_checklist_p4_b4">Book 7 Board Of Directors</a></li>
-				            <li><a href="#mcs_setup_checklist_p4_b4">Book 8 Board Of Directors</a></li>
-				            <li><a href="#mcs_setup_checklist_p4_b4">Book 9 Board Of Directors</a></li>
-				            <li><a href="#mcs_setup_checklist_p4_b4">Book 10 Board Of Directors</a></li>
-				            <li><a href="#mcs_setup_checklist_p4_b4">Book 11 Board Of Directors</a></li>
-				            <li><a href="#mcs_setup_checklist_p4_b4">Book 12 Board Of Directors</a></li>
+				            <li><a href="#mcs_setup_checklist_p4_b4">BOOK 5 CEO COMMAND CENTER</a></li>
+				            <li><a href="#mcs_setup_checklist_p4_b4">BOOK 6 MANAGEMENT REPORTING SYSTEM</a></li>
+				            <li><a href="#mcs_setup_checklist_p4_b4">BOOK 7 OPERATION SYSTEMS </a></li>
+				            <li><a href="#mcs_setup_checklist_p4_b4">BOOK 8 FUNDING</a></li>
+				            <li><a href="#mcs_setup_checklist_p4_b4">BOOK  9 BEGIN OPERATIONS</a></li>
+				            <li><a href="#mcs_setup_checklist_p4_b4">BOOK 10 ONGOING OPERATIONS</a></li>
+				            <li><a href="#mcs_setup_checklist_p4_b4">BOOK 11 COMPANY APPLICATIONS</a></li>
+				            <li><a href="#mcs_setup_checklist_p4_b4">BOOK 12 AVAILABLE APPLICATIONS</a></li>
 				        </ul>
 					</div><!-- /Phase 4 Popup-->
-					<table data-role="table" id="mcs_setup_checklist_p2_mfi_table" data-mode="columntoggle" data-column-btn-text="Select Column..." data-column-btn-theme="a" class="phone-compare ui-shadow table-stroke">
+					<table data-role="table" id="mcs_setup_checklist_p2_mfi_table" data-mode="columntoggle" data-filter="true" data-column-btn-text="Select Column..." data-column-btn-theme="a" class="phone-compare ui-shadow table-stroke">
 					  	<thead>
 						    <tr>
 							    <th class="label">Model Creation Suite</th>
@@ -630,19 +1369,25 @@
 				</div>				
 			</div>
 			<div data-role="page" id="mcs_setup_checklist_p3">
-			    <div data-role="panel" id="mcs_setup_checklist_p3_lpanel" data-display="overlay" data-position="left">
+			    <div data-role="panel" id="mcs_identification_setup_lpanel" data-display="overlay" data-position="left">
 					<ul data-role="listview">
-			                <li><a href="#mcs_setup_checklist_setup">MCS Setup</a></li>
-			                <li><a href="#mcs_setup_checklist_CS">Control Section</a></li>
-			                <li><a href="#mcs_setup_checklist_p1">Phase 1</a></li>
-			                <li><a href="#mcs_setup_checklist_p2">Phase 2</a></li>
-			                <li><a href="#mcs_setup_checklist_p3">Phase 3</a></li>
-			                <li><a href="#mcs_setup_checklist_p4">Phase 4</a></li>
-			                <li><a href="#mcs_setup_checklist_p5">Phase 5</a></li>
-			                <li><a href="#mcs_setup_checklist_p6">Phase 6</a></li>
-			                <li><a href="#mcs_setup_checklist_p7">Phase 7</a></li>
-			                <li><a href="#mcs_setup_checklist_p8">Phase 8</a></li>
-							<li data-icon="delete"><a href="#" data-rel="close">Close menu</a></li>
+		                <li><a href="#gettingStarted">Getting Started</a></li>
+		                <li><a href="#identification_setup">Identification Setup</a></li>
+		                <li><a href="#table_of_contents">Table of Contents</a></li>
+		                <li><a href="#mcs_setup_checklist_setup">MCS Setup</a></li>		                
+		                <li><a href="#management_reporting">Management Reporting</a></li>
+		                <li><a href="#mcs_setup_checklist_CS">Control Section</a></li>
+		                <li><a href="#mcs_setup_checklist_p1">Phase 1</a></li>
+		                <li><a href="#mcs_setup_checklist_p2">Phase 2</a></li>
+		                <li><a href="#mcs_setup_checklist_p3">Phase 3</a></li>
+		                <li><a href="#mcs_setup_checklist_p4">Phase 4</a></li>
+		                <li><a href="#mcs_setup_checklist_p5">Phase 5</a></li>
+		                <li><a href="#mcs_setup_checklist_p6">Phase 6</a></li>
+		                <li><a href="#mcs_setup_checklist_p7">Phase 7</a></li>
+		                <li><a href="#mcs_setup_checklist_p8">Phase 8</a></li>
+		                <li><a href="#open_points_action_items">Open Points Action Items</a></li>
+						<li data-icon="delete"><a href="#" data-rel="close">Close menu</a></li>
+						<li data-icon="delete"><a href="#sign_in_sign_up">Sign Out</a></li>
 					</ul>
 			    </div><!-- /panel -->
 				<div data-role="header" data-position="fixed">
@@ -650,6 +1395,17 @@
 					<center><a href="#searchPopup" data-rel="popup" data-role="button">Model Creation Suite - Phase 3</a></center>
 				</div><!-- /header -->
 				<div role="content" class="ui-content">
+					<div data-role="popup" id="mcs_setup_checklist_p3_openItem_popup" data-theme="b">
+					        <ul data-role="listview" data-inset="true" style="min-width:210px;">
+					            <li data-role="list-divider">Write a Review Point</br>or Open Item</li>
+								<li><input type="text" name="text-1" id="submitreviewpoint_formref" value="" placeholder="Form Ref..."></li>
+								<li><input type="text" name="text-1" id="submitreviewpoint_priority" value="" placeholder="Priority..."></li>
+					            <li><textarea data-mini="true" cols="40" rows="8" name="textarea-4" id="submitreviewpoint_actionrequired" placeholder="Action Required..."></textarea></li>
+								<li><input type="text" name="text-1" id="submitreviewpoint_assignedto" value="" placeholder="Assigned To..."></li>
+					            <li><label for="datetime-4">Due Datetime</label><input type="datetime-local" data-clear-btn="true" name="datetime-4" id="submitreviewpoint_duedatetime" value="" placeholder="Due Datetime..."></li>
+								<li><input type="button" data-enhanced="true" value="Submit Review Item..." onclick="submitReviewPoint()"></li>
+					        </ul>
+					</div> 
 					<div data-role="popup" id="searchPopup">
 						<ul data-role="listview" data-split-icon="gear" data-split-theme="d" data-filter="true" data-inline="true" data-inset="true" data-filter-reveal="true" data-filter-placeholder="Search the UBM">
 							<li><a href="#mcs_setup_checklist_setup"><img src="img/pre_backbone_rna.png" /><h3>PreBackBone</h3><p>Master File Index Setup</p></a><a href="#purchase" data-rel="popup" data-position-to="window" data-transition="pop">Purchase album</a></li>
@@ -682,17 +1438,17 @@
 				            <li><a href="#mcs_setup_checklist_p4_b2">Book 2 Organizational Structure</a></li>
 				            <li><a href="#mcs_setup_checklist_p4_b3">Book 3 Owners</a></li>
 				            <li><a href="#mcs_setup_checklist_p4_b4">Book 4 Board Of Directors</a></li>
-				            <li><a href="#mcs_setup_checklist_p4_b4">Book 5 Board Of Directors</a></li>
-				            <li><a href="#mcs_setup_checklist_p4_b4">Book 6 Board Of Directors</a></li>
-				            <li><a href="#mcs_setup_checklist_p4_b4">Book 7 Board Of Directors</a></li>
-				            <li><a href="#mcs_setup_checklist_p4_b4">Book 8 Board Of Directors</a></li>
-				            <li><a href="#mcs_setup_checklist_p4_b4">Book 9 Board Of Directors</a></li>
-				            <li><a href="#mcs_setup_checklist_p4_b4">Book 10 Board Of Directors</a></li>
-				            <li><a href="#mcs_setup_checklist_p4_b4">Book 11 Board Of Directors</a></li>
-				            <li><a href="#mcs_setup_checklist_p4_b4">Book 12 Board Of Directors</a></li>
+				            <li><a href="#mcs_setup_checklist_p4_b4">BOOK 5 CEO COMMAND CENTER</a></li>
+				            <li><a href="#mcs_setup_checklist_p4_b4">BOOK 6 MANAGEMENT REPORTING SYSTEM</a></li>
+				            <li><a href="#mcs_setup_checklist_p4_b4">BOOK 7 OPERATION SYSTEMS </a></li>
+				            <li><a href="#mcs_setup_checklist_p4_b4">BOOK 8 FUNDING</a></li>
+				            <li><a href="#mcs_setup_checklist_p4_b4">BOOK  9 BEGIN OPERATIONS</a></li>
+				            <li><a href="#mcs_setup_checklist_p4_b4">BOOK 10 ONGOING OPERATIONS</a></li>
+				            <li><a href="#mcs_setup_checklist_p4_b4">BOOK 11 COMPANY APPLICATIONS</a></li>
+				            <li><a href="#mcs_setup_checklist_p4_b4">BOOK 12 AVAILABLE APPLICATIONS</a></li>
 				        </ul>
 					</div><!-- /Phase 4 Popup-->
-					<table data-role="table" id="mcs_setup_checklist_p3_mfi_table" data-mode="columntoggle" data-column-btn-text="Select Column..." data-column-btn-theme="a" class="phone-compare ui-shadow table-stroke">
+					<table data-role="table" id="mcs_setup_checklist_p3_mfi_table" data-mode="columntoggle" data-filter="true" data-column-btn-text="Select Column..." data-column-btn-theme="a" class="phone-compare ui-shadow table-stroke">
 					  	<thead>
 						    <tr>
 							    <th class="label">Model Creation Suite</th>
@@ -733,26 +1489,43 @@
 				</div>				
 			</div>
 			<div data-role="page" id="mcs_setup_checklist_p4_b1">
-								    <div data-role="panel" id="mcs_setup_checklist_p4_b1_lpanel" data-display="overlay" data-position="left">
-										<ul data-role="listview">
-								                <li><a href="#mcs_setup_checklist_setup">MCS Setup</a></li>
-								                <li><a href="#mcs_setup_checklist_CS">Control Section</a></li>
-								                <li><a href="#mcs_setup_checklist_p1">Phase 1</a></li>
-								                <li><a href="#mcs_setup_checklist_p2">Phase 2</a></li>
-								                <li><a href="#mcs_setup_checklist_p3">Phase 3</a></li>
-								                <li><a href="#mcs_setup_checklist_p4">Phase 4</a></li>
-								                <li><a href="#mcs_setup_checklist_p5">Phase 5</a></li>
-								                <li><a href="#mcs_setup_checklist_p6">Phase 6</a></li>
-								                <li><a href="#mcs_setup_checklist_p7">Phase 7</a></li>
-								                <li><a href="#mcs_setup_checklist_p8">Phase 8</a></li>
-												<li data-icon="delete"><a href="#" data-rel="close">Close menu</a></li>
-										</ul>
-								    </div><!-- /panel -->
+			    <div data-role="panel" id="mcs_identification_setup_lpanel" data-display="overlay" data-position="left">
+					<ul data-role="listview">
+		                <li><a href="#gettingStarted">Getting Started</a></li>
+		                <li><a href="#identification_setup">Identification Setup</a></li>
+		                <li><a href="#table_of_contents">Table of Contents</a></li>
+		                <li><a href="#mcs_setup_checklist_setup">MCS Setup</a></li>		                
+		                <li><a href="#management_reporting">Management Reporting</a></li>
+		                <li><a href="#mcs_setup_checklist_CS">Control Section</a></li>
+		                <li><a href="#mcs_setup_checklist_p1">Phase 1</a></li>
+		                <li><a href="#mcs_setup_checklist_p2">Phase 2</a></li>
+		                <li><a href="#mcs_setup_checklist_p3">Phase 3</a></li>
+		                <li><a href="#mcs_setup_checklist_p4">Phase 4</a></li>
+		                <li><a href="#mcs_setup_checklist_p5">Phase 5</a></li>
+		                <li><a href="#mcs_setup_checklist_p6">Phase 6</a></li>
+		                <li><a href="#mcs_setup_checklist_p7">Phase 7</a></li>
+		                <li><a href="#mcs_setup_checklist_p8">Phase 8</a></li>
+		                <li><a href="#open_points_action_items">Open Points Action Items</a></li>
+						<li data-icon="delete"><a href="#" data-rel="close">Close menu</a></li>
+						<li data-icon="delete"><a href="#sign_in_sign_up">Sign Out</a></li>
+					</ul>
+			    </div><!-- /panel -->
 									<div data-role="header" data-position="fixed">
 										<a href="#mcs_setup_checklist_p4_lpanel" data-icon="arrow-r"></a>
 										<center><a href="#mcs_setup_checklist_p4_b1_searchPopup" data-rel="popup" data-role="button">Model Creation Suite - Phase 4 - Book 1</a></center>
 									</div><!-- /header -->
 				<div role="content" class="ui-content">
+					<div data-role="popup" id="mcs_setup_checklist_p4_b1_openItem_popup" data-theme="b">
+					        <ul data-role="listview" data-inset="true" style="min-width:210px;">
+					            <li data-role="list-divider">Write a Review Point</br>or Open Item</li>
+								<li><input type="text" name="text-1" id="submitreviewpoint_formref" value="" placeholder="Form Ref..."></li>
+								<li><input type="text" name="text-1" id="submitreviewpoint_priority" value="" placeholder="Priority..."></li>
+					            <li><textarea data-mini="true" cols="40" rows="8" name="textarea-4" id="submitreviewpoint_actionrequired" placeholder="Action Required..."></textarea></li>
+								<li><input type="text" name="text-1" id="submitreviewpoint_assignedto" value="" placeholder="Assigned To..."></li>
+					            <li><label for="datetime-4">Due Datetime</label><input type="datetime-local" data-clear-btn="true" name="datetime-4" id="submitreviewpoint_duedatetime" value="" placeholder="Due Datetime..."></li>
+								<li><input type="button" data-enhanced="true" value="Submit Review Item..." onclick="submitReviewPoint()"></li>
+					        </ul>
+					</div> 
 										<div data-role="popup" id="mcs_setup_checklist_p4_b1_searchPopup">
 											<ul data-role="listview" data-split-icon="gear" data-split-theme="d" data-filter="true" data-inline="true" data-inset="true" data-filter-reveal="true" data-filter-placeholder="Search the UBM">
 												<li><a href="#mcs_setup_checklist_setup"><img src="img/pre_backbone_rna.png" /><h3>PreBackBone</h3><p>Master File Index Setup</p></a><a href="#purchase" data-rel="popup" data-position-to="window" data-transition="pop">Purchase album</a></li>
@@ -785,17 +1558,17 @@
 									            <li><a href="#mcs_setup_checklist_p4_b2">Book 2 Organizational Structure</a></li>
 									            <li><a href="#mcs_setup_checklist_p4_b3">Book 3 Owners</a></li>
 									            <li><a href="#mcs_setup_checklist_p4_b4">Book 4 Board Of Directors</a></li>
-									            <li><a href="#mcs_setup_checklist_p4_b4">Book 5 Board Of Directors</a></li>
-									            <li><a href="#mcs_setup_checklist_p4_b4">Book 6 Board Of Directors</a></li>
-									            <li><a href="#mcs_setup_checklist_p4_b4">Book 7 Board Of Directors</a></li>
-									            <li><a href="#mcs_setup_checklist_p4_b4">Book 8 Board Of Directors</a></li>
-									            <li><a href="#mcs_setup_checklist_p4_b4">Book 9 Board Of Directors</a></li>
-									            <li><a href="#mcs_setup_checklist_p4_b4">Book 10 Board Of Directors</a></li>
-									            <li><a href="#mcs_setup_checklist_p4_b4">Book 11 Board Of Directors</a></li>
-									            <li><a href="#mcs_setup_checklist_p4_b4">Book 12 Board Of Directors</a></li>
+									            <li><a href="#mcs_setup_checklist_p4_b4">BOOK 5 CEO COMMAND CENTER</a></li>
+									            <li><a href="#mcs_setup_checklist_p4_b4">BOOK 6 MANAGEMENT REPORTING SYSTEM</a></li>
+									            <li><a href="#mcs_setup_checklist_p4_b4">BOOK 7 OPERATION SYSTEMS </a></li>
+									            <li><a href="#mcs_setup_checklist_p4_b4">BOOK 8 FUNDING</a></li>
+									            <li><a href="#mcs_setup_checklist_p4_b4">BOOK  9 BEGIN OPERATIONS</a></li>
+									            <li><a href="#mcs_setup_checklist_p4_b4">BOOK 10 ONGOING OPERATIONS</a></li>
+									            <li><a href="#mcs_setup_checklist_p4_b4">BOOK 11 COMPANY APPLICATIONS</a></li>
+									            <li><a href="#mcs_setup_checklist_p4_b4">BOOK 12 AVAILABLE APPLICATIONS</a></li>
 									        </ul>
 										</div><!-- /Phase 4 Popup-->
-										<table data-role="table" id="mcs_setup_checklist_p4_b1_mfi_table" data-mode="columntoggle" data-column-btn-text="Select Column..." data-column-btn-theme="a" class="phone-compare ui-shadow table-stroke">
+										<table data-role="table" id="mcs_setup_checklist_p4_b1_mfi_table" data-mode="columntoggle" data-filter="true" data-column-btn-text="Select Column..." data-column-btn-theme="a" class="phone-compare ui-shadow table-stroke">
 										  	<thead>
 											    <tr>
 												    <th class="label">Model Creation Suite</th>
@@ -836,19 +1609,25 @@
 				</div>				
 			</div>
 			<div data-role="page" id="mcs_setup_checklist_p4_b2">
-			    <div data-role="panel" id="mcs_setup_checklist_p4_b2_lpanel" data-display="overlay" data-position="left">
+			    <div data-role="panel" id="mcs_identification_setup_lpanel" data-display="overlay" data-position="left">
 					<ul data-role="listview">
-			                <li><a href="#mcs_setup_checklist_setup">MCS Setup</a></li>
-			                <li><a href="#mcs_setup_checklist_CS">Control Section</a></li>
-			                <li><a href="#mcs_setup_checklist_p1">Phase 1</a></li>
-			                <li><a href="#mcs_setup_checklist_p2">Phase 2</a></li>
-			                <li><a href="#mcs_setup_checklist_p3">Phase 3</a></li>
-			                <li><a href="#mcs_setup_checklist_p4">Phase 4</a></li>
-			                <li><a href="#mcs_setup_checklist_p5">Phase 5</a></li>
-			                <li><a href="#mcs_setup_checklist_p6">Phase 6</a></li>
-			                <li><a href="#mcs_setup_checklist_p7">Phase 7</a></li>
-			                <li><a href="#mcs_setup_checklist_p8">Phase 8</a></li>
-							<li data-icon="delete"><a href="#" data-rel="close">Close menu</a></li>
+		                <li><a href="#gettingStarted">Getting Started</a></li>
+		                <li><a href="#identification_setup">Identification Setup</a></li>
+		                <li><a href="#table_of_contents">Table of Contents</a></li>
+		                <li><a href="#mcs_setup_checklist_setup">MCS Setup</a></li>		                
+		                <li><a href="#management_reporting">Management Reporting</a></li>
+		                <li><a href="#mcs_setup_checklist_CS">Control Section</a></li>
+		                <li><a href="#mcs_setup_checklist_p1">Phase 1</a></li>
+		                <li><a href="#mcs_setup_checklist_p2">Phase 2</a></li>
+		                <li><a href="#mcs_setup_checklist_p3">Phase 3</a></li>
+		                <li><a href="#mcs_setup_checklist_p4">Phase 4</a></li>
+		                <li><a href="#mcs_setup_checklist_p5">Phase 5</a></li>
+		                <li><a href="#mcs_setup_checklist_p6">Phase 6</a></li>
+		                <li><a href="#mcs_setup_checklist_p7">Phase 7</a></li>
+		                <li><a href="#mcs_setup_checklist_p8">Phase 8</a></li>
+		                <li><a href="#open_points_action_items">Open Points Action Items</a></li>
+						<li data-icon="delete"><a href="#" data-rel="close">Close menu</a></li>
+						<li data-icon="delete"><a href="#sign_in_sign_up">Sign Out</a></li>
 					</ul>
 			    </div><!-- /panel -->
 				<div data-role="header" data-position="fixed">
@@ -856,6 +1635,17 @@
 					<center><a href="#mcs_setup_checklist_p4_b2_searchPopup" data-rel="popup" data-role="button">Model Creation Suite - Phase 4 - Book 2</a></center>
 				</div><!-- /header -->
 				<div data-role="content">
+					<div data-role="popup" id="mcs_setup_checklist_p4_b2_openItem_popup" data-theme="b">
+					        <ul data-role="listview" data-inset="true" style="min-width:210px;">
+					            <li data-role="list-divider">Write a Review Point</br>or Open Item</li>
+								<li><input type="text" name="text-1" id="submitreviewpoint_formref" value="" placeholder="Form Ref..."></li>
+								<li><input type="text" name="text-1" id="submitreviewpoint_priority" value="" placeholder="Priority..."></li>
+					            <li><textarea data-mini="true" cols="40" rows="8" name="textarea-4" id="submitreviewpoint_actionrequired" placeholder="Action Required..."></textarea></li>
+								<li><input type="text" name="text-1" id="submitreviewpoint_assignedto" value="" placeholder="Assigned To..."></li>
+					            <li><label for="datetime-4">Due Datetime</label><input type="datetime-local" data-clear-btn="true" name="datetime-4" id="submitreviewpoint_duedatetime" value="" placeholder="Due Datetime..."></li>
+								<li><input type="button" data-enhanced="true" value="Submit Review Item..." onclick="submitReviewPoint()"></li>
+					        </ul>
+					</div> 
 					<div data-role="popup" id="mcs_setup_checklist_p4_b2_searchPopup">
 						<ul data-role="listview" data-split-icon="gear" data-split-theme="d" data-filter="true" data-inline="true" data-inset="true" data-filter-reveal="true" data-filter-placeholder="Search the UBM">
 							<li><a href="#mcs_setup_checklist_setup"><img src="img/pre_backbone_rna.png" /><h3>PreBackBone</h3><p>Master File Index Setup</p></a><a href="#purchase" data-rel="popup" data-position-to="window" data-transition="pop">Purchase album</a></li>
@@ -888,17 +1678,17 @@
 				            <li><a href="#mcs_setup_checklist_p4_b2">Book 2 Organizational Structure</a></li>
 				            <li><a href="#mcs_setup_checklist_p4_b3">Book 3 Owners</a></li>
 				            <li><a href="#mcs_setup_checklist_p4_b4">Book 4 Board Of Directors</a></li>
-				            <li><a href="#mcs_setup_checklist_p4_b4">Book 5 Board Of Directors</a></li>
-				            <li><a href="#mcs_setup_checklist_p4_b4">Book 6 Board Of Directors</a></li>
-				            <li><a href="#mcs_setup_checklist_p4_b4">Book 7 Board Of Directors</a></li>
-				            <li><a href="#mcs_setup_checklist_p4_b4">Book 8 Board Of Directors</a></li>
-				            <li><a href="#mcs_setup_checklist_p4_b4">Book 9 Board Of Directors</a></li>
-				            <li><a href="#mcs_setup_checklist_p4_b4">Book 10 Board Of Directors</a></li>
-				            <li><a href="#mcs_setup_checklist_p4_b4">Book 11 Board Of Directors</a></li>
-				            <li><a href="#mcs_setup_checklist_p4_b4">Book 12 Board Of Directors</a></li>
+				            <li><a href="#mcs_setup_checklist_p4_b4">BOOK 5 CEO COMMAND CENTER</a></li>
+				            <li><a href="#mcs_setup_checklist_p4_b4">BOOK 6 MANAGEMENT REPORTING SYSTEM</a></li>
+				            <li><a href="#mcs_setup_checklist_p4_b4">BOOK 7 OPERATION SYSTEMS </a></li>
+				            <li><a href="#mcs_setup_checklist_p4_b4">BOOK 8 FUNDING</a></li>
+				            <li><a href="#mcs_setup_checklist_p4_b4">BOOK  9 BEGIN OPERATIONS</a></li>
+				            <li><a href="#mcs_setup_checklist_p4_b4">BOOK 10 ONGOING OPERATIONS</a></li>
+				            <li><a href="#mcs_setup_checklist_p4_b4">BOOK 11 COMPANY APPLICATIONS</a></li>
+				            <li><a href="#mcs_setup_checklist_p4_b4">BOOK 12 AVAILABLE APPLICATIONS</a></li>
 				        </ul>
 					</div><!-- /Phase 4 Popup-->
-					<table data-role="table" id="mcs_setup_checklist_p4_b2_mfi_table" data-mode="columntoggle" data-column-btn-text="Select Column..." data-column-btn-theme="a" class="phone-compare ui-shadow table-stroke">
+					<table data-role="table" id="mcs_setup_checklist_p4_b2_mfi_table" data-mode="columntoggle" data-filter="true" data-column-btn-text="Select Column..." data-column-btn-theme="a" class="phone-compare ui-shadow table-stroke">
 					  	<thead>
 						    <tr>
 							    <th class="label">Model Creation Suite</th>
@@ -939,19 +1729,25 @@
 				</div>				
 			</div>
 			<div data-role="page" id="mcs_setup_checklist_p5">
-			    <div data-role="panel" id="mcs_setup_checklist_p5_lpanel" data-display="overlay" data-position="left">
+			    <div data-role="panel" id="mcs_identification_setup_lpanel" data-display="overlay" data-position="left">
 					<ul data-role="listview">
-			                <li><a href="#mcs_setup_checklist_setup">MCS Setup</a></li>
-			                <li><a href="#mcs_setup_checklist_CS">Control Section</a></li>
-			                <li><a href="#mcs_setup_checklist_p1">Phase 1</a></li>
-			                <li><a href="#mcs_setup_checklist_p2">Phase 2</a></li>
-			                <li><a href="#mcs_setup_checklist_p3">Phase 3</a></li>
-			                <li><a href="#mcs_setup_checklist_p4">Phase 4</a></li>
-			                <li><a href="#mcs_setup_checklist_p5">Phase 5</a></li>
-			                <li><a href="#mcs_setup_checklist_p6">Phase 6</a></li>
-			                <li><a href="#mcs_setup_checklist_p7">Phase 7</a></li>
-			                <li><a href="#mcs_setup_checklist_p8">Phase 8</a></li>
-							<li data-icon="delete"><a href="#" data-rel="close">Close menu</a></li>
+		                <li><a href="#gettingStarted">Getting Started</a></li>
+		                <li><a href="#identification_setup">Identification Setup</a></li>
+		                <li><a href="#table_of_contents">Table of Contents</a></li>
+		                <li><a href="#mcs_setup_checklist_setup">MCS Setup</a></li>		                
+		                <li><a href="#management_reporting">Management Reporting</a></li>
+		                <li><a href="#mcs_setup_checklist_CS">Control Section</a></li>
+		                <li><a href="#mcs_setup_checklist_p1">Phase 1</a></li>
+		                <li><a href="#mcs_setup_checklist_p2">Phase 2</a></li>
+		                <li><a href="#mcs_setup_checklist_p3">Phase 3</a></li>
+		                <li><a href="#mcs_setup_checklist_p4">Phase 4</a></li>
+		                <li><a href="#mcs_setup_checklist_p5">Phase 5</a></li>
+		                <li><a href="#mcs_setup_checklist_p6">Phase 6</a></li>
+		                <li><a href="#mcs_setup_checklist_p7">Phase 7</a></li>
+		                <li><a href="#mcs_setup_checklist_p8">Phase 8</a></li>
+		                <li><a href="#open_points_action_items">Open Points Action Items</a></li>
+						<li data-icon="delete"><a href="#" data-rel="close">Close menu</a></li>
+						<li data-icon="delete"><a href="#sign_in_sign_up">Sign Out</a></li>
 					</ul>
 			    </div><!-- /panel -->
 				<div data-role="header" data-position="fixed">
@@ -959,6 +1755,17 @@
 					<center><a href="#mcs_setup_checklist_p5_searchPopup" data-rel="popup" data-role="button">Model Creation Suite - Phase 5</a></center>
 				</div><!-- /header -->
 				<div role="content" class="ui-content">
+					<div data-role="popup" id="mcs_setup_checklist_p5_openItem_popup" data-theme="b">
+					        <ul data-role="listview" data-inset="true" style="min-width:210px;">
+					            <li data-role="list-divider">Write a Review Point</br>or Open Item</li>
+								<li><input type="text" name="text-1" id="submitreviewpoint_formref" value="" placeholder="Form Ref..."></li>
+								<li><input type="text" name="text-1" id="submitreviewpoint_priority" value="" placeholder="Priority..."></li>
+					            <li><textarea data-mini="true" cols="40" rows="8" name="textarea-4" id="submitreviewpoint_actionrequired" placeholder="Action Required..."></textarea></li>
+								<li><input type="text" name="text-1" id="submitreviewpoint_assignedto" value="" placeholder="Assigned To..."></li>
+					            <li><label for="datetime-4">Due Datetime</label><input type="datetime-local" data-clear-btn="true" name="datetime-4" id="submitreviewpoint_duedatetime" value="" placeholder="Due Datetime..."></li>
+								<li><input type="button" data-enhanced="true" value="Submit Review Item..." onclick="submitReviewPoint()"></li>
+					        </ul>
+					</div> 
 					<div data-role="popup" id="mcs_setup_checklist_p5_searchPopup">
 						<ul data-role="listview" data-split-icon="gear" data-split-theme="d" data-filter="true" data-inline="true" data-inset="true" data-filter-reveal="true" data-filter-placeholder="Search the UBM">
 							<li><a href="#mcs_setup_checklist_setup"><img src="img/pre_backbone_rna.png" /><h3>PreBackBone</h3><p>Master File Index Setup</p></a><a href="#purchase" data-rel="popup" data-position-to="window" data-transition="pop">Purchase album</a></li>
@@ -991,17 +1798,17 @@
 				            <li><a href="#mcs_setup_checklist_p4_b2">Book 2 Organizational Structure</a></li>
 				            <li><a href="#mcs_setup_checklist_p4_b3">Book 3 Owners</a></li>
 				            <li><a href="#mcs_setup_checklist_p4_b4">Book 4 Board Of Directors</a></li>
-				            <li><a href="#mcs_setup_checklist_p4_b4">Book 5 Board Of Directors</a></li>
-				            <li><a href="#mcs_setup_checklist_p4_b4">Book 6 Board Of Directors</a></li>
-				            <li><a href="#mcs_setup_checklist_p4_b4">Book 7 Board Of Directors</a></li>
-				            <li><a href="#mcs_setup_checklist_p4_b4">Book 8 Board Of Directors</a></li>
-				            <li><a href="#mcs_setup_checklist_p4_b4">Book 9 Board Of Directors</a></li>
-				            <li><a href="#mcs_setup_checklist_p4_b4">Book 10 Board Of Directors</a></li>
-				            <li><a href="#mcs_setup_checklist_p4_b4">Book 11 Board Of Directors</a></li>
-				            <li><a href="#mcs_setup_checklist_p4_b4">Book 12 Board Of Directors</a></li>
+				            <li><a href="#mcs_setup_checklist_p4_b4">BOOK 5 CEO COMMAND CENTER</a></li>
+				            <li><a href="#mcs_setup_checklist_p4_b4">BOOK 6 MANAGEMENT REPORTING SYSTEM</a></li>
+				            <li><a href="#mcs_setup_checklist_p4_b4">BOOK 7 OPERATION SYSTEMS </a></li>
+				            <li><a href="#mcs_setup_checklist_p4_b4">BOOK 8 FUNDING</a></li>
+				            <li><a href="#mcs_setup_checklist_p4_b4">BOOK  9 BEGIN OPERATIONS</a></li>
+				            <li><a href="#mcs_setup_checklist_p4_b4">BOOK 10 ONGOING OPERATIONS</a></li>
+				            <li><a href="#mcs_setup_checklist_p4_b4">BOOK 11 COMPANY APPLICATIONS</a></li>
+				            <li><a href="#mcs_setup_checklist_p4_b4">BOOK 12 AVAILABLE APPLICATIONS</a></li>
 				        </ul>
 					</div><!-- /Phase 4 Popup-->
-					<table data-role="table" id="mcs_setup_checklist_p5_mfi_table" data-mode="columntoggle" data-column-btn-text="Select Column..." data-column-btn-theme="a" class="phone-compare ui-shadow table-stroke">
+					<table data-role="table" id="mcs_setup_checklist_p5_mfi_table" data-mode="columntoggle" data-filter="true" data-column-btn-text="Select Column..." data-column-btn-theme="a" class="phone-compare ui-shadow table-stroke">
 					  	<thead>
 						    <tr>
 							    <th class="label">Model Creation Suite</th>
@@ -1042,19 +1849,25 @@
 				</div>				
 			</div>
 			<div data-role="page" id="mcs_setup_checklist_p6">
-			    <div data-role="panel" id="mcs_setup_checklist_p6_lpanel" data-display="overlay" data-position="left">
+			    <div data-role="panel" id="mcs_identification_setup_lpanel" data-display="overlay" data-position="left">
 					<ul data-role="listview">
-			                <li><a href="#mcs_setup_checklist_setup">MCS Setup</a></li>
-			                <li><a href="#mcs_setup_checklist_CS">Control Section</a></li>
-			                <li><a href="#mcs_setup_checklist_p1">Phase 1</a></li>
-			                <li><a href="#mcs_setup_checklist_p2">Phase 2</a></li>
-			                <li><a href="#mcs_setup_checklist_p3">Phase 3</a></li>
-			                <li><a href="#mcs_setup_checklist_p4">Phase 4</a></li>
-			                <li><a href="#mcs_setup_checklist_p5">Phase 5</a></li>
-			                <li><a href="#mcs_setup_checklist_p6">Phase 6</a></li>
-			                <li><a href="#mcs_setup_checklist_p7">Phase 7</a></li>
-			                <li><a href="#mcs_setup_checklist_p8">Phase 8</a></li>
-							<li data-icon="delete"><a href="#" data-rel="close">Close menu</a></li>
+		                <li><a href="#gettingStarted">Getting Started</a></li>
+		                <li><a href="#identification_setup">Identification Setup</a></li>
+		                <li><a href="#table_of_contents">Table of Contents</a></li>
+		                <li><a href="#mcs_setup_checklist_setup">MCS Setup</a></li>		                
+		                <li><a href="#management_reporting">Management Reporting</a></li>
+		                <li><a href="#mcs_setup_checklist_CS">Control Section</a></li>
+		                <li><a href="#mcs_setup_checklist_p1">Phase 1</a></li>
+		                <li><a href="#mcs_setup_checklist_p2">Phase 2</a></li>
+		                <li><a href="#mcs_setup_checklist_p3">Phase 3</a></li>
+		                <li><a href="#mcs_setup_checklist_p4">Phase 4</a></li>
+		                <li><a href="#mcs_setup_checklist_p5">Phase 5</a></li>
+		                <li><a href="#mcs_setup_checklist_p6">Phase 6</a></li>
+		                <li><a href="#mcs_setup_checklist_p7">Phase 7</a></li>
+		                <li><a href="#mcs_setup_checklist_p8">Phase 8</a></li>
+		                <li><a href="#open_points_action_items">Open Points Action Items</a></li>
+						<li data-icon="delete"><a href="#" data-rel="close">Close menu</a></li>
+						<li data-icon="delete"><a href="#sign_in_sign_up">Sign Out</a></li>
 					</ul>
 			    </div><!-- /panel -->
 				<div data-role="header" data-position="fixed">
@@ -1062,6 +1875,17 @@
 					<center><a href="#mcs_setup_checklist_p6_searchPopup" data-rel="popup" data-role="button">Model Creation Suite - Phase 6</a></center>
 				</div><!-- /header -->
 				<div role="content" class="ui-content">
+					<div data-role="popup" id="mcs_setup_checklist_p6_openItem_popup" data-theme="b">
+					        <ul data-role="listview" data-inset="true" style="min-width:210px;">
+					            <li data-role="list-divider">Write a Review Point</br>or Open Item</li>
+								<li><input type="text" name="text-1" id="submitreviewpoint_formref" value="" placeholder="Form Ref..."></li>
+								<li><input type="text" name="text-1" id="submitreviewpoint_priority" value="" placeholder="Priority..."></li>
+					            <li><textarea data-mini="true" cols="40" rows="8" name="textarea-4" id="submitreviewpoint_actionrequired" placeholder="Action Required..."></textarea></li>
+								<li><input type="text" name="text-1" id="submitreviewpoint_assignedto" value="" placeholder="Assigned To..."></li>
+					            <li><label for="datetime-4">Due Datetime</label><input type="datetime-local" data-clear-btn="true" name="datetime-4" id="submitreviewpoint_duedatetime" value="" placeholder="Due Datetime..."></li>
+								<li><input type="button" data-enhanced="true" value="Submit Review Item..." onclick="submitReviewPoint()"></li>
+					        </ul>
+					</div> 
 					<div data-role="popup" id="searchPopup">
 						<ul data-role="listview" data-split-icon="gear" data-split-theme="d" data-filter="true" data-inline="true" data-inset="true" data-filter-reveal="true" data-filter-placeholder="Search the UBM">
 							<li><a href="#mcs_setup_checklist_setup"><img src="img/pre_backbone_rna.png" /><h3>PreBackBone</h3><p>Master File Index Setup</p></a><a href="#purchase" data-rel="popup" data-position-to="window" data-transition="pop">Purchase album</a></li>
@@ -1094,17 +1918,17 @@
 				            <li><a href="#mcs_setup_checklist_p4_b2">Book 2 Organizational Structure</a></li>
 				            <li><a href="#mcs_setup_checklist_p4_b3">Book 3 Owners</a></li>
 				            <li><a href="#mcs_setup_checklist_p4_b4">Book 4 Board Of Directors</a></li>
-				            <li><a href="#mcs_setup_checklist_p4_b4">Book 5 Board Of Directors</a></li>
-				            <li><a href="#mcs_setup_checklist_p4_b4">Book 6 Board Of Directors</a></li>
-				            <li><a href="#mcs_setup_checklist_p4_b4">Book 7 Board Of Directors</a></li>
-				            <li><a href="#mcs_setup_checklist_p4_b4">Book 8 Board Of Directors</a></li>
-				            <li><a href="#mcs_setup_checklist_p4_b4">Book 9 Board Of Directors</a></li>
-				            <li><a href="#mcs_setup_checklist_p4_b4">Book 10 Board Of Directors</a></li>
-				            <li><a href="#mcs_setup_checklist_p4_b4">Book 11 Board Of Directors</a></li>
-				            <li><a href="#mcs_setup_checklist_p4_b4">Book 12 Board Of Directors</a></li>
+				            <li><a href="#mcs_setup_checklist_p4_b4">BOOK 5 CEO COMMAND CENTER</a></li>
+				            <li><a href="#mcs_setup_checklist_p4_b4">BOOK 6 MANAGEMENT REPORTING SYSTEM</a></li>
+				            <li><a href="#mcs_setup_checklist_p4_b4">BOOK 7 OPERATION SYSTEMS </a></li>
+				            <li><a href="#mcs_setup_checklist_p4_b4">BOOK 8 FUNDING</a></li>
+				            <li><a href="#mcs_setup_checklist_p4_b4">BOOK  9 BEGIN OPERATIONS</a></li>
+				            <li><a href="#mcs_setup_checklist_p4_b4">BOOK 10 ONGOING OPERATIONS</a></li>
+				            <li><a href="#mcs_setup_checklist_p4_b4">BOOK 11 COMPANY APPLICATIONS</a></li>
+				            <li><a href="#mcs_setup_checklist_p4_b4">BOOK 12 AVAILABLE APPLICATIONS</a></li>
 				        </ul>
 					</div><!-- /Phase 4 Popup-->
-					<table data-role="table" id="mcs_setup_checklist_p6_mfi_table" data-mode="columntoggle" data-column-btn-text="Select Column..." data-column-btn-theme="a" class="phone-compare ui-shadow table-stroke">
+					<table data-role="table" id="mcs_setup_checklist_p6_mfi_table" data-mode="columntoggle" data-filter="true" data-column-btn-text="Select Column..." data-column-btn-theme="a" class="phone-compare ui-shadow table-stroke">
 					  	<thead>
 						    <tr>
 							    <th class="label">Model Creation Suite</th>
@@ -1145,19 +1969,24 @@
 				</div>				
 			</div>
 			<div data-role="page" id="mcs_setup_checklist_p7">
-			    <div data-role="panel" id="mcs_setup_checklist_p7_lpanel" data-display="overlay" data-position="left">
+			    <div data-role="panel" id="mcs_identification_setup_lpanel" data-display="overlay" data-position="left">
 					<ul data-role="listview">
-			                <li><a href="#mcs_setup_checklist_setup">MCS Setup</a></li>
-			                <li><a href="#mcs_setup_checklist_CS">Control Section</a></li>
-			                <li><a href="#mcs_setup_checklist_p1">Phase 1</a></li>
-			                <li><a href="#mcs_setup_checklist_p2">Phase 2</a></li>
-			                <li><a href="#mcs_setup_checklist_p3">Phase 3</a></li>
-			                <li><a href="#mcs_setup_checklist_p4">Phase 4</a></li>
-			                <li><a href="#mcs_setup_checklist_p5">Phase 5</a></li>
-			                <li><a href="#mcs_setup_checklist_p6">Phase 6</a></li>
-			                <li><a href="#mcs_setup_checklist_p7">Phase 7</a></li>
-			                <li><a href="#mcs_setup_checklist_p8">Phase 8</a></li>
-							<li data-icon="delete"><a href="#" data-rel="close">Close menu</a></li>
+		                <li><a href="#gettingStarted">Getting Started</a></li>
+		                <li><a href="#identification_setup">Identification Setup</a></li>
+		                <li><a href="#table_of_contents">Table of Contents</a></li>
+		                <li><a href="#mcs_setup_checklist_setup">MCS Setup</a></li>		                
+		                <li><a href="#management_reporting">Management Reporting</a></li>
+		                <li><a href="#mcs_setup_checklist_CS">Control Section</a></li>
+		                <li><a href="#mcs_setup_checklist_p1">Phase 1</a></li>
+		                <li><a href="#mcs_setup_checklist_p2">Phase 2</a></li>
+		                <li><a href="#mcs_setup_checklist_p3">Phase 3</a></li>
+		                <li><a href="#mcs_setup_checklist_p4">Phase 4</a></li>
+		                <li><a href="#mcs_setup_checklist_p5">Phase 5</a></li>
+		                <li><a href="#mcs_setup_checklist_p6">Phase 6</a></li>
+		                <li><a href="#mcs_setup_checklist_p7">Phase 7</a></li>
+		                <li><a href="#mcs_setup_checklist_p8">Phase 8</a></li>
+						<li data-icon="delete"><a href="#" data-rel="close">Close menu</a></li>
+						<li data-icon="delete"><a href="#sign_in_sign_up">Sign Out</a></li>
 					</ul>
 			    </div><!-- /panel -->
 				<div data-role="header" data-position="fixed">
@@ -1165,6 +1994,17 @@
 					<center><a href="#searchPopup" data-rel="popup" data-role="button">Model Creation Suite - Phase 7</a></center>
 				</div><!-- /header -->
 				<div role="content" class="ui-content">
+					<div data-role="popup" id="mcs_setup_checklist_p7_openItem_popup" data-theme="b">
+					        <ul data-role="listview" data-inset="true" style="min-width:210px;">
+					            <li data-role="list-divider">Write a Review Point</br>or Open Item</li>
+								<li><input type="text" name="text-1" id="submitreviewpoint_formref" value="" placeholder="Form Ref..."></li>
+								<li><input type="text" name="text-1" id="submitreviewpoint_priority" value="" placeholder="Priority..."></li>
+					            <li><textarea data-mini="true" cols="40" rows="8" name="textarea-4" id="submitreviewpoint_actionrequired" placeholder="Action Required..."></textarea></li>
+								<li><input type="text" name="text-1" id="submitreviewpoint_assignedto" value="" placeholder="Assigned To..."></li>
+					            <li><label for="datetime-4">Due Datetime</label><input type="datetime-local" data-clear-btn="true" name="datetime-4" id="submitreviewpoint_duedatetime" value="" placeholder="Due Datetime..."></li>
+								<li><input type="button" data-enhanced="true" value="Submit Review Item..." onclick="submitReviewPoint()"></li>
+					        </ul>
+					</div> 
 					<div data-role="popup" id="searchPopup">
 						<ul data-role="listview" data-split-icon="gear" data-split-theme="d" data-filter="true" data-inline="true" data-inset="true" data-filter-reveal="true" data-filter-placeholder="Search the UBM">
 							<li><a href="#mcs_setup_checklist_setup"><img src="img/pre_backbone_rna.png" /><h3>PreBackBone</h3><p>Master File Index Setup</p></a><a href="#purchase" data-rel="popup" data-position-to="window" data-transition="pop">Purchase album</a></li>
@@ -1197,17 +2037,17 @@
 				            <li><a href="#mcs_setup_checklist_p4_b2">Book 2 Organizational Structure</a></li>
 				            <li><a href="#mcs_setup_checklist_p4_b3">Book 3 Owners</a></li>
 				            <li><a href="#mcs_setup_checklist_p4_b4">Book 4 Board Of Directors</a></li>
-				            <li><a href="#mcs_setup_checklist_p4_b4">Book 5 Board Of Directors</a></li>
-				            <li><a href="#mcs_setup_checklist_p4_b4">Book 6 Board Of Directors</a></li>
-				            <li><a href="#mcs_setup_checklist_p4_b4">Book 7 Board Of Directors</a></li>
-				            <li><a href="#mcs_setup_checklist_p4_b4">Book 8 Board Of Directors</a></li>
-				            <li><a href="#mcs_setup_checklist_p4_b4">Book 9 Board Of Directors</a></li>
-				            <li><a href="#mcs_setup_checklist_p4_b4">Book 10 Board Of Directors</a></li>
-				            <li><a href="#mcs_setup_checklist_p4_b4">Book 11 Board Of Directors</a></li>
-				            <li><a href="#mcs_setup_checklist_p4_b4">Book 12 Board Of Directors</a></li>
+				            <li><a href="#mcs_setup_checklist_p4_b4">BOOK 5 CEO COMMAND CENTER</a></li>
+				            <li><a href="#mcs_setup_checklist_p4_b4">BOOK 6 MANAGEMENT REPORTING SYSTEM</a></li>
+				            <li><a href="#mcs_setup_checklist_p4_b4">BOOK 7 OPERATION SYSTEMS </a></li>
+				            <li><a href="#mcs_setup_checklist_p4_b4">BOOK 8 FUNDING</a></li>
+				            <li><a href="#mcs_setup_checklist_p4_b4">BOOK  9 BEGIN OPERATIONS</a></li>
+				            <li><a href="#mcs_setup_checklist_p4_b4">BOOK 10 ONGOING OPERATIONS</a></li>
+				            <li><a href="#mcs_setup_checklist_p4_b4">BOOK 11 COMPANY APPLICATIONS</a></li>
+				            <li><a href="#mcs_setup_checklist_p4_b4">BOOK 12 AVAILABLE APPLICATIONS</a></li>
 				        </ul>
 					</div><!-- /Phase 4 Popup-->
-					<table data-role="table" id="mcs_setup_checklist_p7_mfi_table" data-mode="columntoggle" data-column-btn-text="Select Column..." data-column-btn-theme="a" class="phone-compare ui-shadow table-stroke">
+					<table data-role="table" id="mcs_setup_checklist_p7_mfi_table" data-mode="columntoggle" data-filter="true" data-column-btn-text="Select Column..." data-column-btn-theme="a" class="phone-compare ui-shadow table-stroke">
 					  	<thead>
 						    <tr>
 							    <th class="label">Model Creation Suite</th>
@@ -1248,19 +2088,25 @@
 				</div>				
 			</div>
 			<div data-role="page" id="mcs_setup_checklist_p8">
-			    <div data-role="panel" id="mcs_setup_checklist_p8_lpanel" data-display="overlay" data-position="left">
+			    <div data-role="panel" id="mcs_identification_setup_lpanel" data-display="overlay" data-position="left">
 					<ul data-role="listview">
-			                <li><a href="#mcs_setup_checklist_setup">MCS Setup</a></li>
-			                <li><a href="#mcs_setup_checklist_CS">Control Section</a></li>
-			                <li><a href="#mcs_setup_checklist_p1">Phase 1</a></li>
-			                <li><a href="#mcs_setup_checklist_p2">Phase 2</a></li>
-			                <li><a href="#mcs_setup_checklist_p3">Phase 3</a></li>
-			                <li><a href="#mcs_setup_checklist_p4">Phase 4</a></li>
-			                <li><a href="#mcs_setup_checklist_p5">Phase 5</a></li>
-			                <li><a href="#mcs_setup_checklist_p6">Phase 6</a></li>
-			                <li><a href="#mcs_setup_checklist_p7">Phase 7</a></li>
-			                <li><a href="#mcs_setup_checklist_p8">Phase 8</a></li>
-							<li data-icon="delete"><a href="#" data-rel="close">Close menu</a></li>
+		                <li><a href="#gettingStarted">Getting Started</a></li>
+		                <li><a href="#identification_setup">Identification Setup</a></li>
+		                <li><a href="#table_of_contents">Table of Contents</a></li>
+		                <li><a href="#mcs_setup_checklist_setup">MCS Setup</a></li>		                
+		                <li><a href="#management_reporting">Management Reporting</a></li>
+		                <li><a href="#mcs_setup_checklist_CS">Control Section</a></li>
+		                <li><a href="#mcs_setup_checklist_p1">Phase 1</a></li>
+		                <li><a href="#mcs_setup_checklist_p2">Phase 2</a></li>
+		                <li><a href="#mcs_setup_checklist_p3">Phase 3</a></li>
+		                <li><a href="#mcs_setup_checklist_p4">Phase 4</a></li>
+		                <li><a href="#mcs_setup_checklist_p5">Phase 5</a></li>
+		                <li><a href="#mcs_setup_checklist_p6">Phase 6</a></li>
+		                <li><a href="#mcs_setup_checklist_p7">Phase 7</a></li>
+		                <li><a href="#mcs_setup_checklist_p8">Phase 8</a></li>
+		                <li><a href="#open_points_action_items">Open Points Action Items</a></li>
+						<li data-icon="delete"><a href="#" data-rel="close">Close menu</a></li>
+						<li data-icon="delete"><a href="#sign_in_sign_up">Sign Out</a></li>
 					</ul>
 			    </div><!-- /panel -->
 				<div data-role="header" data-position="fixed">
@@ -1300,19 +2146,20 @@
 				            <li><a href="#mcs_setup_checklist_p4_b2">Book 2 Organizational Structure</a></li>
 				            <li><a href="#mcs_setup_checklist_p4_b3">Book 3 Owners</a></li>
 				            <li><a href="#mcs_setup_checklist_p4_b4">Book 4 Board Of Directors</a></li>
-				            <li><a href="#mcs_setup_checklist_p4_b4">Book 5 Board Of Directors</a></li>
-				            <li><a href="#mcs_setup_checklist_p4_b4">Book 6 Board Of Directors</a></li>
-				            <li><a href="#mcs_setup_checklist_p4_b4">Book 7 Board Of Directors</a></li>
-				            <li><a href="#mcs_setup_checklist_p4_b4">Book 8 Board Of Directors</a></li>
-				            <li><a href="#mcs_setup_checklist_p4_b4">Book 9 Board Of Directors</a></li>
-				            <li><a href="#mcs_setup_checklist_p4_b4">Book 10 Board Of Directors</a></li>
-				            <li><a href="#mcs_setup_checklist_p4_b4">Book 11 Board Of Directors</a></li>
-				            <li><a href="#mcs_setup_checklist_p4_b4">Book 12 Board Of Directors</a></li>
+				            <li><a href="#mcs_setup_checklist_p4_b4">BOOK 5 CEO COMMAND CENTER</a></li>
+				            <li><a href="#mcs_setup_checklist_p4_b4">BOOK 6 MANAGEMENT REPORTING SYSTEM</a></li>
+				            <li><a href="#mcs_setup_checklist_p4_b4">BOOK 7 OPERATION SYSTEMS </a></li>
+				            <li><a href="#mcs_setup_checklist_p4_b4">BOOK 8 FUNDING</a></li>
+				            <li><a href="#mcs_setup_checklist_p4_b4">BOOK  9 BEGIN OPERATIONS</a></li>
+				            <li><a href="#mcs_setup_checklist_p4_b4">BOOK 10 ONGOING OPERATIONS</a></li>
+				            <li><a href="#mcs_setup_checklist_p4_b4">BOOK 11 COMPANY APPLICATIONS</a></li>
+				            <li><a href="#mcs_setup_checklist_p4_b4">BOOK 12 AVAILABLE APPLICATIONS</a></li>
 				        </ul>
 					</div><!-- /Phase 4 Popup-->
 				    <div data-role="panel" id="mcs_setup_checklist_p8_lpanel" data-display="overlay" data-position="left">
 						<ul data-role="listview">
-				                <li><a href="#mcs_setup_checklist_setup">MCS Setup</a></li>
+				                <li><a href="#mcs_setup_checklist_setup">MCS Setup</a></li>		                
+				                <li><a href="#management_reporting">Management Reporting</a></li>
 				                <li><a href="#mcs_setup_checklist_CS">Control Section</a></li>
 				                <li><a href="#mcs_setup_checklist_p1">Phase 1</a></li>
 				                <li><a href="#mcs_setup_checklist_p2">Phase 2</a></li>
@@ -1325,7 +2172,7 @@
 								<li data-icon="delete"><a href="#" data-rel="close">Close menu</a></li>
 						</ul>
 				    </div><!-- /panel -->
-					<table data-role="table" id="mcs_setup_checklist_p8_mfi_table" data-mode="columntoggle" data-column-btn-text="Select Column..." data-column-btn-theme="a" class="phone-compare ui-shadow table-stroke">
+					<table data-role="table" id="mcs_setup_checklist_p8_mfi_table" data-mode="columntoggle" data-filter="true" data-column-btn-text="Select Column..." data-column-btn-theme="a" class="phone-compare ui-shadow table-stroke">
 					  	<thead>
 						    <tr>
 							    <th class="label">Model Creation Suite</th>
@@ -1365,8 +2212,76 @@
 					</div>				
 				</div>				
 			</div>
+			<div data-role="page" id="open_points_action_items">
+			    <div data-role="panel" id="mcs_table_of_contents_lpanel" data-display="overlay" data-position="left">
+					<ul data-role="listview">
+		                <li><a href="#gettingStarted">Getting Started</a></li>
+		                <li><a href="#identification_setup">Identification Setup</a></li>
+		                <li><a href="#table_of_contents">Table of Contents</a></li>
+		                <li><a href="#mcs_setup_checklist_setup">MCS Setup</a></li>		                
+		                <li><a href="#management_reporting">Management Reporting</a></li>
+		                <li><a href="#mcs_setup_checklist_CS">Control Section</a></li>
+		                <li><a href="#mcs_setup_checklist_p1">Phase 1</a></li>
+		                <li><a href="#mcs_setup_checklist_p2">Phase 2</a></li>
+		                <li><a href="#mcs_setup_checklist_p3">Phase 3</a></li>
+		                <li><a href="#mcs_setup_checklist_p4">Phase 4</a></li>
+		                <li><a href="#mcs_setup_checklist_p5">Phase 5</a></li>
+		                <li><a href="#mcs_setup_checklist_p6">Phase 6</a></li>
+		                <li><a href="#mcs_setup_checklist_p7">Phase 7</a></li>
+		                <li><a href="#mcs_setup_checklist_p8">Phase 8</a></li>
+		                <li><a href="#open_points_action_items">Open Points Action Items</a></li>
+						<li data-icon="delete"><a href="#" data-rel="close">Close menu</a></li>
+						<li data-icon="delete"><a href="#sign_in_sign_up">Sign Out</a></li>
+					</ul>
+			    </div><!-- /panel -->
+				<div data-role="header" id="open_points_action_items_header">
+					<a href="#mcs_table_of_contents_lpanel" data-icon="arrow-r"></a>
+						<h1> Open Points / Action Items </h1>
+				</div>
+				<div data-role="content">
+					<div data-role="popup" id="mcs_open_points_action_items_openItem_popup" data-theme="b">
+					        <ul data-role="listview" data-inset="true" style="min-width:210px;">
+					            <li data-role="list-divider">Write a Review Point</br>or Open Item</li>
+								<li><input type="text" name="text-1" id="submitreviewpoint_formref" value="" placeholder="Form Ref..."></li>
+								<li><input type="text" name="text-1" id="submitreviewpoint_priority" value="" placeholder="Priority..."></li>
+					            <li><textarea data-mini="true" cols="40" rows="8" name="textarea-4" id="submitreviewpoint_actionrequired" placeholder="Action Required..."></textarea></li>
+								<li><input type="text" name="text-1" id="submitreviewpoint_assignedto" value="" placeholder="Assigned To..."></li>
+					            <li><label for="datetime-4">Due Datetime</label><input type="datetime-local" data-clear-btn="true" name="datetime-4" id="submitreviewpoint_duedatetime" value="" placeholder="Due Datetime..."></li>
+								<li><input type="button" data-enhanced="true" value="Submit Review Item..." onclick="submitReviewPoint()"></li>
+					        </ul>
+					</div> 
+					<button class="ui-btn ui-shadow ui-corner-all ui-btn-icon-left ui-icon-refresh" onclick="refreshOpenItemsList()">refresh</button>
+					<table data-role="table" id="mcs_open_points_action_items_table" data-mode="columntoggle" data-filter="false" data-column-btn-text="Select Column..." data-column-btn-theme="a" class="ui-shadow table-stroke">
+					  	<thead id="mcs_open_points_action_items_table_header">
+						    <tr>
+							    <th class="label">Open Points / Action Items</th>
+							    <th data-priority="10"><h4>Form Ref</h4></th>
+							    <th data-priority="9"><h4>Priority</h4></th>
+							    <th data-priority="8"><h4>Opened By</h4></th>
+							    <th data-priority="7"><h4>Date Opened</h4></th>
+							    <th data-priority="6"><h4>Action Required</h4></th>
+							    <th data-priority="5"><h4>Assigned To</h4></th>
+							    <th data-priority="4"><h4>Due Date</h4></th>
+							    <th data-priority="3"><h4>Disposition</h4></th>
+							    <th data-priority="2"><h4>Closed By</h4></th>
+							    <th data-priority="1"><h4>Date Closed</h4></th>
+						    </tr>
+						</thead>
+						<tbody id="mcs_open_points_action_items_table_body">
+
+						</tbody>
+					</table>
+					
+				</div>
+				<div data-role="footer">
+					
+				</div>
+			</div>
+
         <script type="text/javascript" src="cordova.js"></script>
         <script type="text/javascript" src="js/index.js"></script>
+		<script src="js/jquery.bxslider.min.js"></script>
+		<link href="css/jquery.bxslider.css" rel="stylesheet" />
         <script type="text/javascript">
             app.initialize();
         </script>
