@@ -37,25 +37,38 @@
         <script>
         	function refreshOpenItemsList(){
 				alert("Its time to refresh");
-				$.getJSON('http://www.findmydriver.com/ubmopenitemsallitems.php?callback=?', {		//JSONP Request to Checklist Setup Table
+				$.getJSON('http://www.findmydriver.com/ubmopenitemsallitems.php?callback=?', {		//JSONP Request to Open Items Page setup tables
 					},
 					function(res,status){
 					//	alert("request for open items was a success!");
 							$('#mcs_open_points_action_items_table_body').empty();
 						$.each(res, function(i, item){
-							$('#mcs_open_points_action_items_table_body').append("<tr ><th class='label'>"+ item.id + "</th><td>"+ item.form_ref + "</td><td>"+ item.priority + "</td><td>"+ item.opened_by + "</td><td>"+ item.date_opened + "</td><td>"+ item.action_required +"</td><td>"+ item.assigned_to + "</td><td>"+ item.due_date +"</td><td>b</td><td>c</td></tr>");
+							$( "#mcs_open_points_action_items_table" ).table( "refresh" );
+							$('#mcs_open_points_action_items_table_body').append("<tr ><th class='label'>"+ item.id + "</th><td>"+ item.form_ref + "</td><td>"+ item.priority + "</td><td>"+ item.opened_by + "</td><td>"+ item.date_opened + "</td><td>"+ item.action_required +"</td><td>"+ item.assigned_to + "</td><td>"+ item.due_date +"</td><td>b</td><td>c</td><td>d</td><td><a href='#' class='ui-li-has-count' data-role='button'  data-ajax='false' onclick='viewResolutions("+item.id+")'>View &nbsp&nbsp&nbsp&nbsp</br><span class='ui-li-count ui-btn-up-c ui-btn-corner-all'>"+ item.number_resolutions +"</span></a></td></tr>");
 							$( "#mcs_open_points_action_items_table" ).table( "refresh" );
 						})
 							$( "#mcs_open_points_action_items_table" ).trigger( "create" );
 					});
         	}
+			function viewResolutions(id){
+				alert("Although this functionality is not yet available, Clicking this will soon show any resolutions that have been added for item "+ id);
+				$.getJSON('http://www.findmydriver.com/ubmopenitemsallitems.php?callback=?', {		//JSONP Request to Open Items Page setup tables
+
+					},
+					function(res,status){
+						alert("json returned successfully! "+ status);
+						$.each(res, function(i, item){
+
+						})
+					});
+			}
         	function onLoadBody(){
-						$.getJSON('http://www.findmydriver.com/ubmopenitemsallitems.php?callback=?', {		//JSONP Request to Checklist Setup Table
+						$.getJSON('http://www.findmydriver.com/ubmopenitemsallitems.php?callback=?', {		//JSONP Request to Open Items Page setup tables
 							},
 							function(res,status){
 							//	alert("request for open items was a success!");
 								$.each(res, function(i, item){
-									$('#mcs_open_points_action_items_table_body').append("<tr ><th class='label'>"+ item.id + "</th><td>"+ item.form_ref + "</td><td>"+ item.priority + "</td><td>"+ item.opened_by + "</td><td>"+ item.date_opened + "</td><td>"+ item.action_required +"</td><td>"+ item.assigned_to + "</td><td>"+ item.due_date +"</td><td>b</td><td>c</td></tr>");
+									$('#mcs_open_points_action_items_table_body').append("<tr ><th class='label'>"+ item.id + "</th><td>"+ item.form_ref + "</td><td>"+ item.priority + "</td><td>"+ item.opened_by + "</td><td>"+ item.date_opened + "</td><td>"+ item.action_required +"</td><td>"+ item.assigned_to + "</td><td>"+ item.due_date +"</td><td>b</td><td>c</td><td>d</td><td><a href='#' class='ui-li-has-count' data-role='button'  data-ajax='false' onclick='viewResolutions("+item.id+")'>View &nbsp&nbsp&nbsp&nbsp</br><span class='ui-li-count ui-btn-up-c ui-btn-corner-all'>"+ item.number_resolutions +"</span></a></td></tr>");
 								})
 							});
 							
@@ -220,6 +233,7 @@
 									$('#mcs_setup_checklist_p6').prepend('<div id="overlayTest" class="circleBase type1" style="z-index: 99999; position:fixed;"><a href="#newRequest_popup" data-rel="popup" data-transition="slideup" class="ui-btn ui-icon-alert ui-btn-icon-notext ui-corner-all">No text</a><a href="#mcs_setup_checklist_p6_openItem_popup" data-rel="popup" data-transition="slideup" class="ui-btn ui-icon-action ui-btn-icon-notext ui-corner-all">No text</a><center><a href="#mcs_setup_checklist_setup_searchPopup" data-rel="popup" data-transition="slideup" class="ui-btn ui-icon-search ui-btn-icon-notext ui-corner-all">No text</a></center></div>');
 									$('#mcs_setup_checklist_p7').prepend('<div id="overlayTest" class="circleBase type1" style="z-index: 99999; position:fixed;"><a href="#newRequest_popup" data-rel="popup" data-transition="slideup" class="ui-btn ui-icon-alert ui-btn-icon-notext ui-corner-all">No text</a><a href="#mcs_setup_checklist_p7_openItem_popup" data-rel="popup" data-transition="slideup" class="ui-btn ui-icon-action ui-btn-icon-notext ui-corner-all">No text</a><center><a href="#mcs_setup_checklist_setup_searchPopup" data-rel="popup" data-transition="slideup" class="ui-btn ui-icon-search ui-btn-icon-notext ui-corner-all">No text</a></center></div>');
 									$('#mcs_setup_checklist_p8').prepend('<div id="overlayTest" class="circleBase type1" style="z-index: 99999; position:fixed;"><a href="#newRequest_popup" data-rel="popup" data-transition="slideup" class="ui-btn ui-icon-alert ui-btn-icon-notext ui-corner-all">No text</a><a href="#mcs_setup_checklist_p8_openItem_popup" data-rel="popup" data-transition="slideup" class="ui-btn ui-icon-action ui-btn-icon-notext ui-corner-all">No text</a><center><a href="#mcs_setup_checklist_setup_searchPopup" data-rel="popup" data-transition="slideup" class="ui-btn ui-icon-search ui-btn-icon-notext ui-corner-all">No text</a></center></div>');
+									$('#open_points_action_items').prepend('<div id="overlayTest" class="circleBase type1" style="z-index: 99999; position:fixed;"><a href="#newRequest_popup" data-rel="popup" data-transition="slideup" class="ui-btn ui-icon-alert ui-btn-icon-notext ui-corner-all">No text</a><a href="#mcs_setup_checklist_p8_openItem_popup" data-rel="popup" data-transition="slideup" class="ui-btn ui-icon-action ui-btn-icon-notext ui-corner-all">No text</a><center><a href="#mcs_setup_checklist_setup_searchPopup" data-rel="popup" data-transition="slideup" class="ui-btn ui-icon-search ui-btn-icon-notext ui-corner-all">No text</a></center></div>');
 									//$('#manageMyCompany_content').append('<center><a href="#newChecklist" data-theme="b" data-role="button" data-icon="grid">Create a new Checklist</a></center>');
 									//$('#manageMyCompany_content').append('<center><a href="#inviteNewEmployee" data-theme="b" data-role="button" data-icon="grid" onclick="createNewEmployee()">Invite Someone to My Company</a></center>');
 											    $( ".circleBase" ).draggable();
@@ -275,6 +289,10 @@
     </head>
 <!--	<div id="overlayTest" class="circleBase type1" style="z-index: 99999; position:fixed;"><a href="#newRequest_popup" data-rel="popup" data-transition="slideup" class="ui-btn ui-icon-alert ui-btn-icon-notext ui-corner-all">No text</a><a href="#openItem_popup" data-rel="popup" data-transition="slideup" class="ui-btn ui-icon-action ui-btn-icon-notext ui-corner-all">No text</a><center><a href="#mcs_setup_checklist_setup_searchPopup" data-rel="popup" data-transition="slideup" class="ui-btn ui-icon-search ui-btn-icon-notext ui-corner-all">No text</a></center></div>  
   -->
+	<div id="headerRecord_right" style="z-index: 99999; position:fixed; right:60px; top:5px;">
+		<div id="headerRecord_right_formref" style="color:red;">00.01</div>
+		<div id="headerRecord_right_page">1 of 1</div>			
+	</div>
     <body onload="onLoadBody()">
 			<!-- Start of first page -->
 			<div data-role="page" id="sign_in_sign_up">
@@ -2236,7 +2254,12 @@
 			    </div><!-- /panel -->
 				<div data-role="header" id="open_points_action_items_header">
 					<a href="#mcs_table_of_contents_lpanel" data-icon="arrow-r"></a>
-						<h1> Open Points / Action Items </h1>
+					<div id"headerRecord_center" style="text-align: center">
+						<div id="headerRecord_center_legalentity"> Legal Entity: Cindt, LLC </div>
+						<div id="headerRecord_center_systemtitle"> System Title: UBM v 3.3.0</div>
+						<div id="headerRecord_center_modelapptitle"> Model / App Title: </div>
+						<div id="headerRecord_center_pagetitle"> Open Points / Action Items </div>						
+					</div>
 				</div>
 				<div data-role="content">
 					<div data-role="popup" id="mcs_open_points_action_items_openItem_popup" data-theme="b">
@@ -2250,28 +2273,29 @@
 								<li><input type="button" data-enhanced="true" value="Submit Review Item..." onclick="submitReviewPoint()"></li>
 					        </ul>
 					</div> 
-					<button class="ui-btn ui-shadow ui-corner-all ui-btn-icon-left ui-icon-refresh" onclick="refreshOpenItemsList()">refresh</button>
 					<table data-role="table" id="mcs_open_points_action_items_table" data-mode="columntoggle" data-filter="false" data-column-btn-text="Select Column..." data-column-btn-theme="a" class="ui-shadow table-stroke">
 					  	<thead id="mcs_open_points_action_items_table_header">
 						    <tr>
 							    <th class="label">Open Points / Action Items</th>
 							    <th data-priority="10"><h4>Form Ref</h4></th>
 							    <th data-priority="9"><h4>Priority</h4></th>
-							    <th data-priority="8"><h4>Opened By</h4></th>
+							    <th data-priority="4"><h4>Opened By</h4></th>
 							    <th data-priority="7"><h4>Date Opened</h4></th>
-							    <th data-priority="6"><h4>Action Required</h4></th>
-							    <th data-priority="5"><h4>Assigned To</h4></th>
-							    <th data-priority="4"><h4>Due Date</h4></th>
+							    <th data-priority="10"><h4>Action Required</h4></th>
+							    <th data-priority="10"><h4>Assigned To</h4></th>
+							    <th data-priority="10"><h4>Due Date</h4></th>
 							    <th data-priority="3"><h4>Disposition</h4></th>
 							    <th data-priority="2"><h4>Closed By</h4></th>
-							    <th data-priority="1"><h4>Date Closed</h4></th>
+							    <th data-priority="6"><h4>Date Closed</h4></th>
+							    <th data-priority="10"><h4>Resolutions</h4></th>
+
 						    </tr>
 						</thead>
 						<tbody id="mcs_open_points_action_items_table_body">
 
 						</tbody>
 					</table>
-					
+					<button class="ui-btn ui-shadow ui-corner-all ui-btn-icon-left ui-icon-refresh" onclick="refreshOpenItemsList()">refresh</button>
 				</div>
 				<div data-role="footer">
 					
