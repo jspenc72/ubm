@@ -36,7 +36,6 @@
         <title>UBM</title>
         <script>
         	function refreshOpenItemsList(){
-				alert("Its time to refresh");
 				$.getJSON('http://www.findmydriver.com/ubmopenitemsallitems.php?callback=?', {		//JSONP Request to Open Items Page setup tables
 					},
 					function(res,status){
@@ -44,23 +43,32 @@
 							$('#mcs_open_points_action_items_table_body').empty();
 						$.each(res, function(i, item){
 							$( "#mcs_open_points_action_items_table" ).table( "refresh" );
-							$('#mcs_open_points_action_items_table_body').append("<tr ><th class='label'>"+ item.id + "</th><td>"+ item.form_ref + "</td><td>"+ item.priority + "</td><td>"+ item.opened_by + "</td><td>"+ item.date_opened + "</td><td>"+ item.action_required +"</td><td>"+ item.assigned_to + "</td><td>"+ item.due_date +"</td><td>b</td><td>c</td><td>d</td><td><a href='#' class='ui-li-has-count' data-role='button'  data-ajax='false' onclick='viewResolutions("+item.id+")'>View &nbsp&nbsp&nbsp&nbsp</br><span class='ui-li-count ui-btn-up-c ui-btn-corner-all'>"+ item.number_resolutions +"</span></a></td></tr>");
+							$('#mcs_open_points_action_items_table_body').append("<tr ><th class='label'>"+ item.id + "</th><td>"+ item.form_ref + "</td><td>"+ item.priority + "</td><td>"+ item.opened_by + "</td><td>"+ item.date_opened + "</td><td>"+ item.action_required +"</td><td>"+ item.assigned_to + "</td><td>"+ item.due_date +"</td><td>b</td><td>c</td><td>d</td><td><a href='#mcs_open_points_action_items_resolution_popup' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a' onclick='viewResolutions("+item.id+")'>View / Add / Modify &nbsp&nbsp&nbsp&nbsp<span class='ui-li-has-count ui-btn-up-c ui-btn-corner-all'>"+ item.number_resolutions +"</span></a></td></tr>");
 							$( "#mcs_open_points_action_items_table" ).table( "refresh" );
 						})
 							$( "#mcs_open_points_action_items_table" ).trigger( "create" );
 					});
         	}
 			function viewResolutions(id){
-				alert("Although this functionality is not yet available, Clicking this will soon show any resolutions that have been added for item "+ id);
-				$.getJSON('http://www.findmydriver.com/ubmopenitemsallitems.php?callback=?', {		//JSONP Request to Open Items Page setup tables
+				//alert("Although this functionality is not yet available, Clicking this will soon show any resolutions that have been added for item "+ id);
+//				$('#mcs_open_points_action_items_resolution_popup_ul').empty();
+//				$('#mcs_open_points_action_items_resolution_popup_ul').append("<li><a href='#'>New Resolution: "+ id +"</a></li>");
+//				$('#mcs_open_points_action_items_resolution_popup_ul').listview("refresh");
 
+				$.getJSON('http://www.findmydriver.com/ubmselectallresolutions.php?callback=?', {		//JSONP Request to Open Items Page setup tables
+						openitemid: id
 					},
 					function(res,status){
 						alert("json returned successfully! "+ status);
+							$('#mcs_open_points_action_items_resolution_popup_ul').empty();
 						$.each(res, function(i, item){
-
+							//alert(item.disposition);
+			
+							$('#mcs_open_points_action_items_resolution_popup_ul').append("<li data-iconpos='right' data-inset='true'><div style='height:200px; text-wrap: normal;'>New Resolution: "+ item.disposition +"</div></li>");
+							$('#mcs_open_points_action_items_resolution_popup_ul').listview("refresh");
 						})
 					});
+						$('#mcs_open_points_action_items_resolution_popup_ul').listview("refresh");
 			}
         	function onLoadBody(){
 						$.getJSON('http://www.findmydriver.com/ubmopenitemsallitems.php?callback=?', {		//JSONP Request to Open Items Page setup tables
@@ -2273,6 +2281,12 @@
 								<li><input type="button" data-enhanced="true" value="Submit Review Item..." onclick="submitReviewPoint()"></li>
 					        </ul>
 					</div> 
+					<div data-role="popup" id="mcs_open_points_action_items_resolution_popup" data-position-to="window" data-theme="b">
+						<ul data-role="listview" data-inset="false" id="mcs_open_points_action_items_resolution_popup_ul" style="min-width:210px;">
+							<li data-role="list-divider">Existing Resolutions:</li>
+
+						</ul>
+					</div>
 					<table data-role="table" id="mcs_open_points_action_items_table" data-mode="columntoggle" data-filter="false" data-column-btn-text="Select Column..." data-column-btn-theme="a" class="ui-shadow table-stroke">
 					  	<thead id="mcs_open_points_action_items_table_header">
 						    <tr>
@@ -2296,6 +2310,7 @@
 						</tbody>
 					</table>
 					<button class="ui-btn ui-shadow ui-corner-all ui-btn-icon-left ui-icon-refresh" onclick="refreshOpenItemsList()">refresh</button>
+
 				</div>
 				<div data-role="footer">
 					
