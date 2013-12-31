@@ -1,2 +1,2 @@
-C:\Work\ubm\platforms\android\bin\AndroidManifest.xml : \
-C:\Work\ubm\platforms\android\AndroidManifest.xml \
+C:\Work\pages\platforms\android\bin\AndroidManifest.xml : \
+C:\Work\pages\platforms\android\AndroidManifest.xml \

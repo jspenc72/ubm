@@ -30,18 +30,16 @@ under the License.
 		<script src="js/jquery.bxslider.js"></script>
 		<link href="css/jquery.bxslider.css" rel="stylesheet" />
 
-		<script>
-			$(document).ready(function() {
-				$('.bxslider').bxSlider({
-					speed : 200,
-				});
-			});
-		</script>
-
 	</head>
 
 	<body>
-
+		<script>
+			$(document).ready(function() {
+				$('.bxslider').bxSlider({
+					speed : 100,
+				});
+			});
+		</script>
 		<!-- Getting Started Page -->
 		<div data-role="page" id="getting_started">
 			<div data-role="header">
@@ -57,11 +55,16 @@ under the License.
 				<ul class="bxslider">
 					<li>
 						<div class="GS">
-							The easiest way to begin is to start on the company (do not print yet). All of the table of contents and checklists have been linked to all the forms you need to complete. In your UBM Creation Suite package you will see folders for the 4 major sections. (A) Model Creation, (B) Source Model, (C) Executable Model, and (D) Operating Model. You will also see a table of contents after the folders. Open the Table of contents and review. You will notice the 4 major sections are listed again on the table of contents. Under the (A) Model Creation section you will see a line referenced AMC. This is the checklist you will need to complete to have a functioning model. Click the AMC Model Creation Suite Phases Checklist. Each step on the checklist has been linked to the correct document you need to complete to check off the step. When you complete a step you need to initial and date the prepared by columns (located to the left of the steps).
+							The easiest way to begin is to start on the company (do not print yet). All of the table of contents and checklists have been linked to all the forms you need to complete.
+							</br>In your UBM Creation Suite package you will see folders for the four major sections.</br></br>(A) Model Creation, </br>(B) Source Model, </br>(C) Executable Model, and </br>(D) Operating Model. </br></br>You will also see a table of contents after the folders.
+							<a href="#table_of_contents">Open the Table of Contents</a> and review. You will notice the four major sections are listed again on the table of contents.
+							Under the (A) Model Creation section you will see a line referenced AMC. This is the checklist you will need to complete to have a functioning model.
+							Click the AMC Model Creation Suite Phases Checklist. Each step on the checklist has been linked to the correct document you need to complete to check off the step.
+							When you complete a step you need to initial and date the prepared by columns (located to the left of the steps).
 							</p>
 						</div>
 					</li>
-					<li>
+					<li style="position: absolute; top: 10em;">
 						<div class="GS">
 							<p>
 								Keep Track of your time for each step when creating your model (use the columns to the right of each step on the checklist
@@ -78,7 +81,7 @@ under the License.
 					<li>
 						<div class="GS">
 							<p>
-								All creation forms have already been referenced correctly you are not supposed to change any reference on any pre-defined form. All you need to do is add your company name in the center header of all forms.
+								All creation forms have already been referenced correctly <strong>you are not supposed to change any reference on any pre-defined form.</strong> All you need to do is add your company name in the center header of all forms.
 							</p>
 						</div>
 					</li>
@@ -92,7 +95,7 @@ under the License.
 					<li>
 						<div class="GS">
 							<p>
-								If needed review the referencing Protocol and Referencing guide located in the Reference Manual in the following folder trail (B) Model Source >
+								If needed review the referencing Protocol and Referencing guide located in the Reference Manual in the following folder trail: </br> (B) Model Source >
 								01 Reference Manual > 00 Gen > 03 Ref Pro
 							</p>
 						</div>
@@ -100,12 +103,9 @@ under the License.
 					<li>
 						<div class="GS">
 							<p>
-								PLEASE FEEL FREE TO CONTACT OUR OFFICES WITH ANY QUESTIONS 801-484-6988 (Michael Miller, Matthew Kingston, Katherine Hayes, or Erica Cannon)
+								<strong>FEEL FREE TO CONTACT OUR OFFICES WITH ANY QUESTIONS 801-484-6988</strong></br>Michael Miller, Matthew Kingston, Katherine Hayes, or Erica Cannon
 							</p>
 						</div>
-					</li>
-					<li>
-						<img src="img/03 UBM Flowchart.png">
 					</li>
 					<li>
 						<div class="GS">
@@ -114,6 +114,7 @@ under the License.
 							</p>
 						</div>
 					</li>
+
 				</ul>
 				<div class="continue_button">
 					<a href="#identification_setup" data-role="button" data-inline="true">Continue to My Model Creation</a>
@@ -357,6 +358,29 @@ under the License.
 			</div>
 		</div>
 
+		<!-- Selected Alternitives->
+		<div data-role="page" id="selected_alternitives">
+		<div data-role="header">
+		<div id="header">
+		<h1> Selected Alternitives</h1>
+		<div class="reference">
+		<p>
+		00.10
+		</p>
+		</div>
+		</div>
+		</div>
+		<div data-role="content">
+		<!--continue button TAKE OUT IN FULL VERSION -->
+		<div class="continue_button">
+			<a href="#projected_financial_statement" data-role="button" data-inline="true">Continue</a>
+		</div>
+		</div>
+		<div data-role="footer">
+
+		</div>
+		</div>
+
 		<!-- Projected Financial Statement-->
 		<div data-role="page" id="projected_financial_statement">
 			<div data-role="header">
@@ -372,7 +396,7 @@ under the License.
 			<div data-role="content">
 				<!--continue button TAKE OUT IN FULL VERSION -->
 				<div class="continue_button">
-					<a href="#primary_objects_setup_table" data-role="button" data-inline="true">Continue</a>
+					<a href="#getting_started" data-role="button" data-inline="true">Continue</a>
 				</div>
 			</div>
 			<div data-role="footer">
@@ -382,25 +406,25 @@ under the License.
 
 		<!-- Projected Financial Statement--
 		<div data-role="page" id="projected_financial_statement">
-			<div data-role="header">
-				<div id="header">
-					<h1> Projected Financial Statement</h1>
-					<div class="reference">
-						<p>
-							00.11
-						</p>
-					</div>
-				</div>
-			</div>
-			<div data-role="content">
-				<!--continue button TAKE OUT IN FULL VERSION --
-				<div class="continue_button">
-					<a href="#primary_objects_setup_table" data-role="button" data-inline="true">Continue</a>
-				</div>
-			</div>
-			<div data-role="footer">
+		<div data-role="header">
+		<div id="header">
+		<h1> Projected Financial Statement</h1>
+		<div class="reference">
+		<p>
+		00.11
+		</p>
+		</div>
+		</div>
+		</div>
+		<div data-role="content">
+		<!--continue button TAKE OUT IN FULL VERSION --
+		<div class="continue_button">
+		<a href="#primary_objects_setup_table" data-role="button" data-inline="true">Continue</a>
+		</div>
+		</div>
+		<div data-role="footer">
 
-			</div>
+		</div>
 		</div> -->
 		<script type="text/javascript" src="cordova.js"></script>
 		<script type="text/javascript" src="js/index.js"></script>
