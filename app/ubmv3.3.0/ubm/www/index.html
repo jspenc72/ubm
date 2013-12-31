@@ -22,7 +22,7 @@
         <meta charset="utf-8" />
         <meta name="format-detection" content="telephone=no" />
         <!-- WARNING: for iOS 7, remove the width=device-width and height=device-height attributes. See https://issues.apache.org/jira/browse/CB-4323 -->
-        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
+        <meta name="viewport" content="user-scalable=yes, initial-scale=1, maximum-scale=5.0, minimum-scale=1.0, width=device-width, height=device-height, target-densitydpi=device-dpi" />
         <link rel="stylesheet" type="text/css" href="css/index.css" />
 		<link rel="stylesheet" href="css/jquery.mobile-1.4.0.min.css" />
 		<script src="js/jquery-1.9.1.min.js"></script>
@@ -43,7 +43,7 @@
 							$('#mcs_open_points_action_items_table_body').empty();
 						$.each(res, function(i, item){
 							$( "#mcs_open_points_action_items_table" ).table( "refresh" );
-							$('#mcs_open_points_action_items_table_body').append("<tr ><th class='label'>"+ item.id + "</th><td>"+ item.form_ref + "</td><td>"+ item.priority + "</td><td>"+ item.opened_by + "</td><td>"+ item.date_opened + "</td><td>"+ item.action_required +"</td><td>"+ item.assigned_to + "</td><td>"+ item.due_date +"</td><td>b</td><td>c</td><td>d</td><td><a href='#mcs_open_points_action_items_resolution_popup' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a' onclick='viewResolutions("+item.id+")'>View / Add / Modify &nbsp&nbsp&nbsp&nbsp<span class='ui-li-has-count ui-btn-up-c ui-btn-corner-all'>"+ item.number_resolutions +"</span></a></td></tr>");
+							$('#mcs_open_points_action_items_table_body').append("<tr ><th class='label'>"+ item.id + "</th><td>"+ item.form_ref + "</td><td>"+ item.priority + "</td><td>"+ item.opened_by + "</td><td>"+ item.date_opened + "</td><td>"+ item.action_required +"</td><td>"+ item.assigned_to + "</td><td>"+ item.date_opened + "</td><td>"+ item.due_date +"</td><td>b</td><td>c</td><td>d</td><td><a href='#mcs_open_points_action_items_resolution_popup' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a' onclick='viewResolutions("+item.id+")'>View / Add / Modify &nbsp&nbsp&nbsp&nbsp<span class='ui-li-has-count ui-btn-up-c ui-btn-corner-all'>"+ item.number_resolutions +"</span></a></td></tr>");
 							$( "#mcs_open_points_action_items_table" ).table( "refresh" );
 						})
 							$( "#mcs_open_points_action_items_table" ).trigger( "create" );
@@ -71,12 +71,14 @@
 						$('#mcs_open_points_action_items_resolution_popup_ul').listview("refresh");
 			}
         	function onLoadBody(){
+
 						$.getJSON('http://www.findmydriver.com/ubmopenitemsallitems.php?callback=?', {		//JSONP Request to Open Items Page setup tables
 							},
 							function(res,status){
 							//	alert("request for open items was a success!");
 								$.each(res, function(i, item){
-									$('#mcs_open_points_action_items_table_body').append("<tr ><th class='label'>"+ item.id + "</th><td>"+ item.form_ref + "</td><td>"+ item.priority + "</td><td>"+ item.opened_by + "</td><td>"+ item.date_opened + "</td><td>"+ item.action_required +"</td><td>"+ item.assigned_to + "</td><td>"+ item.due_date +"</td><td>b</td><td>c</td><td>d</td><td><a href='#' class='ui-li-has-count' data-role='button'  data-ajax='false' onclick='viewResolutions("+item.id+")'>View &nbsp&nbsp&nbsp&nbsp</br><span class='ui-li-count ui-btn-up-c ui-btn-corner-all'>"+ item.number_resolutions +"</span></a></td></tr>");
+									$('#mcs_open_points_action_items_table_body').append("<tr ><th class='label'>"+ item.id + "</th><td>"+ item.form_ref + "</td><td>"+ item.priority + "</td><td>"+ item.opened_by + "</td><td>"+ item.date_opened + "</td><td>"+ item.action_required +"</td><td>"+ item.assigned_to + "</td><td>"+ item.date_opened + "</td><td>"+ item.due_date +"</td><td>b</td><td>c</td><td>d</td><td><a href='#mcs_open_points_action_items_resolution_popup' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a' onclick='viewResolutions("+item.id+")'>View / Add / Modify &nbsp&nbsp&nbsp&nbsp<span class='ui-li-has-count ui-btn-up-c ui-btn-corner-all'>"+ item.number_resolutions +"</span></a></td></tr>");
+									$( "#mcs_open_points_action_items_table" ).table( "refresh" );
 								})
 							});
 							
@@ -123,8 +125,24 @@
 								});	
 							});
         	//	alert("This is an Alert!");
+				$(".ubm_page").on( "pageremove", function( event ) {
+					alert("beforeshow!");
+				});
+				$( ".ubm_page" ).on( "pageshow", function( event ) { 	//bind to a ubm page change event!
+					var str = window.location.hash;						//get current page from window as a string
+					var strarray = str.split("#",2);							//spli the string to remove the hash
+			//		alert(window.location.hash);						//outputs the original hash
+					alert(strarray[1]);										//outputs the split string which has the hash removed
+					$.getJSON('http://www.findmydriver.com/getubmpagereference.php?callback=?', {		//JSONP Request to the app_pages table.
+						pageid: strarray[1]
+					},
+					function(res,status){
+						//	alert("json returned successfully! "+ status);
+							alert(res.message);
+					});	
+				});
         	}
-			window.c=0;																															//Set window variable so that the counter persists each time the function is called.
+			window.c=0;													//Set window variable so that the counter persists each time the function is called.
         	function addField(c,cloned){
 			   var c = window.c;																												//Set c equal to the window variable
 			   var cloned																														//define a variable to serve as the reference for inserting a new element
@@ -141,13 +159,13 @@
 				//alert("addField was executed");	
         	}
 			function submitReviewPoint(){
-				//event.preventDefault(); 																										//prevent the default from happening
-
-				alert("Your review point is being submitted...");
+				//alert($.getActivePage());
+				//event.preventDefault();
+				alert($("#submitreviewpoint_priority").val());
 						$.getJSON('http://www.findmydriver.com/ubmsubmitopenitems.php?callback=?', {
 								appname: "UBMMFICS",
 								RQType: "sumbitReviewPoint",
-								username: "si_userName",
+								username: document.username,
 								formref: document.getElementById("submitreviewpoint_formref").value,
 								priority: document.getElementById("submitreviewpoint_priority").value,
 								actionrequired: document.getElementById("submitreviewpoint_actionrequired").value,
@@ -158,7 +176,9 @@
 								alert("init: "+ status);
 								if(status=="success"){
 									alert(res.message);
-										$("#submitreviewpoint_formref").val() = "";
+									$( '#openItem_popup' ).each(function(){
+									    this.reset();
+									});									
 								}
 							});
 			}
@@ -200,7 +220,7 @@
 				var si_userName = si_email.split("@",1).toString();
 				window.username = si_userName;
 				//var si_userName = si_userNameArray.toString();
-				alert(si_userName);
+//				alert(si_userName);
 				if(si_userName.length<1){
 					alert("You must enter a username!");
 				}else{
@@ -227,28 +247,11 @@
 								if(res.accounttype=='admin'){
 									//admin only stuff here 
 									alert("you are an admin");
-									$('#gettingStarted').prepend('<div id="overlayTest" class="circleBase type1" style="z-index: 99999; position:fixed;"><a href="#mcs_gettingStarted_openItem_popup" data-rel="popup" data-transition="slideup" class="ui-btn ui-icon-alert ui-btn-icon-notext ui-corner-all">No text</a><a href="#mcs_gettingStarted_openItem_popup" data-rel="popup" data-transition="slideup" class="ui-btn ui-icon-action ui-btn-icon-notext ui-corner-all">No text</a><center><a href="#mcs_setup_checklist_setup_searchPopup" data-rel="popup" data-transition="slideup" class="ui-btn ui-icon-search ui-btn-icon-notext ui-corner-all">No text</a></center></div>');
-									$('#identification_setup_content').prepend('<div id="overlayTest" class="circleBase type1" style="z-index: 99999; position:fixed;"><a href="#mcs_identification_setup_openItem_popup" data-rel="popup" data-transition="slideup" class="ui-btn ui-icon-alert ui-btn-icon-notext ui-corner-all">No text</a><a href="#mcs_identification_setup_openItem_popup" data-rel="popup" data-transition="slideup" class="ui-btn ui-icon-action ui-btn-icon-notext ui-corner-all">No text</a><center><a href="#mcs_setup_checklist_setup_searchPopup" data-rel="popup" data-transition="slideup" class="ui-btn ui-icon-search ui-btn-icon-notext ui-corner-all">No text</a></center></div>');
-									$('#table_of_contents').prepend('<div id="overlayTest" class="circleBase type1" style="z-index: 99999; position:fixed;"><a href="#newRequest_popup" data-rel="popup" data-transition="slideup" class="ui-btn ui-icon-alert ui-btn-icon-notext ui-corner-all">No text</a><a href="#mcs_table_of_contents_openItem_popup" data-rel="popup" data-transition="slideup" class="ui-btn ui-icon-action ui-btn-icon-notext ui-corner-all">No text</a><center><a href="#mcs_setup_checklist_setup_searchPopup" data-rel="popup" data-transition="slideup" class="ui-btn ui-icon-search ui-btn-icon-notext ui-corner-all">No text</a></center></div>');
-									$('#mcs_setup_checklist_setup').prepend('<div id="overlayTest" class="circleBase type1" style="z-index: 99999; position:fixed;"><a href="#newRequest_popup" data-rel="popup" data-transition="slideup" class="ui-btn ui-icon-alert ui-btn-icon-notext ui-corner-all">No text</a><a href="#mcs_setup_checklist_setup_openItem_popup" data-rel="popup" data-transition="slideup" class="ui-btn ui-icon-action ui-btn-icon-notext ui-corner-all">No text</a><center><a href="#mcs_setup_checklist_setup_searchPopup" data-rel="popup" data-transition="slideup" class="ui-btn ui-icon-search ui-btn-icon-notext ui-corner-all">No text</a></center></div>');
-									$('#mcs_setup_checklist_CS').prepend('<div id="overlayTest" class="circleBase type1" style="z-index: 99999; position:fixed;"><a href="#newRequest_popup" data-rel="popup" data-transition="slideup" class="ui-btn ui-icon-alert ui-btn-icon-notext ui-corner-all">No text</a><a href="#mcs_setup_checklist_CS_openItem_popup" data-rel="popup" data-transition="slideup" class="ui-btn ui-icon-action ui-btn-icon-notext ui-corner-all">No text</a><center><a href="#mcs_setup_checklist_setup_searchPopup" data-rel="popup" data-transition="slideup" class="ui-btn ui-icon-search ui-btn-icon-notext ui-corner-all">No text</a></center></div>');
-									$('#mcs_setup_checklist_p1').prepend('<div id="overlayTest" class="circleBase type1" style="z-index: 99999; position:fixed;"><a href="#newRequest_popup" data-rel="popup" data-transition="slideup" class="ui-btn ui-icon-alert ui-btn-icon-notext ui-corner-all">No text</a><a href="#mcs_setup_checklist_p1_openItem_popup" data-rel="popup" data-transition="slideup" class="ui-btn ui-icon-action ui-btn-icon-notext ui-corner-all">No text</a><center><a href="#mcs_setup_checklist_setup_searchPopup" data-rel="popup" data-transition="slideup" class="ui-btn ui-icon-search ui-btn-icon-notext ui-corner-all">No text</a></center></div>');
-									$('#mcs_setup_checklist_p2').prepend('<div id="overlayTest" class="circleBase type1" style="z-index: 99999; position:fixed;"><a href="#newRequest_popup" data-rel="popup" data-transition="slideup" class="ui-btn ui-icon-alert ui-btn-icon-notext ui-corner-all">No text</a><a href="#mcs_setup_checklist_p2_openItem_popup" data-rel="popup" data-transition="slideup" class="ui-btn ui-icon-action ui-btn-icon-notext ui-corner-all">No text</a><center><a href="#mcs_setup_checklist_setup_searchPopup" data-rel="popup" data-transition="slideup" class="ui-btn ui-icon-search ui-btn-icon-notext ui-corner-all">No text</a></center></div>');
-									$('#mcs_setup_checklist_p3').prepend('<div id="overlayTest" class="circleBase type1" style="z-index: 99999; position:fixed;"><a href="#newRequest_popup" data-rel="popup" data-transition="slideup" class="ui-btn ui-icon-alert ui-btn-icon-notext ui-corner-all">No text</a><a href="#mcs_setup_checklist_p3_openItem_popup" data-rel="popup" data-transition="slideup" class="ui-btn ui-icon-action ui-btn-icon-notext ui-corner-all">No text</a><center><a href="#mcs_setup_checklist_setup_searchPopup" data-rel="popup" data-transition="slideup" class="ui-btn ui-icon-search ui-btn-icon-notext ui-corner-all">No text</a></center></div>');
-									$('#mcs_setup_checklist_p4_b1').prepend('<div id="overlayTest" class="circleBase type1" style="z-index: 99999; position:fixed;"><a href="#newRequest_popup" data-rel="popup" data-transition="slideup" class="ui-btn ui-icon-alert ui-btn-icon-notext ui-corner-all">No text</a><a href="#mcs_setup_checklist_p4_b1_openItem_popup" data-rel="popup" data-transition="slideup" class="ui-btn ui-icon-action ui-btn-icon-notext ui-corner-all">No text</a><center><a href="#mcs_setup_checklist_setup_searchPopup" data-rel="popup" data-transition="slideup" class="ui-btn ui-icon-search ui-btn-icon-notext ui-corner-all">No text</a></center></div>');
-									$('#mcs_setup_checklist_p4_b2').prepend('<div id="overlayTest" class="circleBase type1" style="z-index: 99999; position:fixed;"><a href="#newRequest_popup" data-rel="popup" data-transition="slideup" class="ui-btn ui-icon-alert ui-btn-icon-notext ui-corner-all">No text</a><a href="#mcs_setup_checklist_p4_b2_openItem_popup" data-rel="popup" data-transition="slideup" class="ui-btn ui-icon-action ui-btn-icon-notext ui-corner-all">No text</a><center><a href="#mcs_setup_checklist_setup_searchPopup" data-rel="popup" data-transition="slideup" class="ui-btn ui-icon-search ui-btn-icon-notext ui-corner-all">No text</a></center></div>');
-									$('#mcs_setup_checklist_p5').prepend('<div id="overlayTest" class="circleBase type1" style="z-index: 99999; position:fixed;"><a href="#newRequest_popup" data-rel="popup" data-transition="slideup" class="ui-btn ui-icon-alert ui-btn-icon-notext ui-corner-all">No text</a><a href="#mcs_setup_checklist_p5_openItem_popup" data-rel="popup" data-transition="slideup" class="ui-btn ui-icon-action ui-btn-icon-notext ui-corner-all">No text</a><center><a href="#mcs_setup_checklist_setup_searchPopup" data-rel="popup" data-transition="slideup" class="ui-btn ui-icon-search ui-btn-icon-notext ui-corner-all">No text</a></center></div>');
-									$('#mcs_setup_checklist_p6').prepend('<div id="overlayTest" class="circleBase type1" style="z-index: 99999; position:fixed;"><a href="#newRequest_popup" data-rel="popup" data-transition="slideup" class="ui-btn ui-icon-alert ui-btn-icon-notext ui-corner-all">No text</a><a href="#mcs_setup_checklist_p6_openItem_popup" data-rel="popup" data-transition="slideup" class="ui-btn ui-icon-action ui-btn-icon-notext ui-corner-all">No text</a><center><a href="#mcs_setup_checklist_setup_searchPopup" data-rel="popup" data-transition="slideup" class="ui-btn ui-icon-search ui-btn-icon-notext ui-corner-all">No text</a></center></div>');
-									$('#mcs_setup_checklist_p7').prepend('<div id="overlayTest" class="circleBase type1" style="z-index: 99999; position:fixed;"><a href="#newRequest_popup" data-rel="popup" data-transition="slideup" class="ui-btn ui-icon-alert ui-btn-icon-notext ui-corner-all">No text</a><a href="#mcs_setup_checklist_p7_openItem_popup" data-rel="popup" data-transition="slideup" class="ui-btn ui-icon-action ui-btn-icon-notext ui-corner-all">No text</a><center><a href="#mcs_setup_checklist_setup_searchPopup" data-rel="popup" data-transition="slideup" class="ui-btn ui-icon-search ui-btn-icon-notext ui-corner-all">No text</a></center></div>');
-									$('#mcs_setup_checklist_p8').prepend('<div id="overlayTest" class="circleBase type1" style="z-index: 99999; position:fixed;"><a href="#newRequest_popup" data-rel="popup" data-transition="slideup" class="ui-btn ui-icon-alert ui-btn-icon-notext ui-corner-all">No text</a><a href="#mcs_setup_checklist_p8_openItem_popup" data-rel="popup" data-transition="slideup" class="ui-btn ui-icon-action ui-btn-icon-notext ui-corner-all">No text</a><center><a href="#mcs_setup_checklist_setup_searchPopup" data-rel="popup" data-transition="slideup" class="ui-btn ui-icon-search ui-btn-icon-notext ui-corner-all">No text</a></center></div>');
-									$('#open_points_action_items').prepend('<div id="overlayTest" class="circleBase type1" style="z-index: 99999; position:fixed;"><a href="#newRequest_popup" data-rel="popup" data-transition="slideup" class="ui-btn ui-icon-alert ui-btn-icon-notext ui-corner-all">No text</a><a href="#mcs_setup_checklist_p8_openItem_popup" data-rel="popup" data-transition="slideup" class="ui-btn ui-icon-action ui-btn-icon-notext ui-corner-all">No text</a><center><a href="#mcs_setup_checklist_setup_searchPopup" data-rel="popup" data-transition="slideup" class="ui-btn ui-icon-search ui-btn-icon-notext ui-corner-all">No text</a></center></div>');
-									//$('#manageMyCompany_content').append('<center><a href="#newChecklist" data-theme="b" data-role="button" data-icon="grid">Create a new Checklist</a></center>');
-									//$('#manageMyCompany_content').append('<center><a href="#inviteNewEmployee" data-theme="b" data-role="button" data-icon="grid" onclick="createNewEmployee()">Invite Someone to My Company</a></center>');
-											    $( ".circleBase" ).draggable();
+									$('body').prepend('<div id="overlayTest" class="circleBase type2" style="z-index: 99999; position:fixed;"><a href="#openItem_popup" data-rel="popup" data-transition="slideup" class="ui-btn ui-icon-alert ui-btn-icon-notext ui-corner-all">No text</a><a href="#openItem_popup" data-rel="popup" data-transition="slideup" class="ui-btn ui-icon-action ui-btn-icon-notext ui-corner-all">No text</a><center><a href="#mcs_setup_checklist_setup_searchPopup" data-rel="popup" data-transition="slideup" class="ui-btn ui-icon-search ui-btn-icon-notext ui-corner-all">No text</a></center></div>');
+								//    $( ".circleBase" ).draggable();
 								}else{
 									if(res.accounttype=='user'){
 										alert("you are a user");
-	
 									//Driver only stuff here
 									}else{
 										if(res.accounttype=='dispatch'){
@@ -278,6 +281,11 @@
 			$(function() {
 				$('.bxslider').bxSlider();
 			});
+			// Instantiate the open item popup on DOMReady, and enhance its contents manually so the same popup is used on all pages within the app.
+			$( function() {
+			    $( "#openItem_popup" ).enhanceWithin().popup();
+				$(window.location.hash + "_content").load('#openItem_popup');
+			});
         </script>
         <style>
 			#overlayTest { width: 100px; height: 100px; padding: 0.5em; float: left; margin: 10px 10px 10px 0; }
@@ -293,21 +301,51 @@
 				background-color:rgba(255,0,0,0.5);
 			    border: 3px solid red
 			}
+			.type2 {
+			    width: 100px;
+			    height: 100px;
+				background-color:rgba(0,0,255,0.5);
+			    border: 3px solid blue
+			}
         </style>
     </head>
-<!--	<div id="overlayTest" class="circleBase type1" style="z-index: 99999; position:fixed;"><a href="#newRequest_popup" data-rel="popup" data-transition="slideup" class="ui-btn ui-icon-alert ui-btn-icon-notext ui-corner-all">No text</a><a href="#openItem_popup" data-rel="popup" data-transition="slideup" class="ui-btn ui-icon-action ui-btn-icon-notext ui-corner-all">No text</a><center><a href="#mcs_setup_checklist_setup_searchPopup" data-rel="popup" data-transition="slideup" class="ui-btn ui-icon-search ui-btn-icon-notext ui-corner-all">No text</a></center></div>  
-  -->
+	<div id="overlayTest" class="circleBase type1" style="z-index: 99999; position:fixed; right:20px; top:300px;"><a href="#newRequest_popup" data-rel="popup" data-transition="slideup" class="ui-btn ui-icon-alert ui-btn-icon-notext ui-corner-all">No text</a><a href="#openItem_popup" data-rel="popup" data-transition="slideup" class="ui-btn ui-icon-action ui-btn-icon-notext ui-corner-all">No text</a><center><a href="#mcs_setup_checklist_setup_searchPopup" data-rel="popup" data-transition="slideup" class="ui-btn ui-icon-search ui-btn-icon-notext ui-corner-all">No text</a></center></div>  
 	<div id="headerRecord_right" style="z-index: 99999; position:fixed; right:60px; top:5px;">
 		<div id="headerRecord_right_formref" style="color:red;">00.01</div>
 		<div id="headerRecord_right_page">1 of 1</div>			
 	</div>
     <body onload="onLoadBody()">
+<!-- Open Items Popup -->
+					<div data-role="popup" id="openItem_popup" data-theme="b">
+				        <ul data-role="listview" data-inset="true" style="min-width:210px;">
+				            <li data-role="list-divider">Write a Review Point</br>or Open Item</li>
+							<li><input type="text" id="submitreviewpoint_formref" value="" placeholder="Form Ref..."></li>									
+							<select  id="submitreviewpoint_priority" value="Select" data-native-menu="false">
+							    <option>Priority...</option>
+							    <option value="A1">A1</option>
+							    <option value="A2">A2</option>
+							    <option value="A3">A3</option>
+							    <option value="B1">B1</option>
+							    <option value="B2">B2</option>
+							    <option value="B3">B3</option>
+							    <option value="C1">C1</option>
+							    <option value="C2">C2</option>
+							    <option value="C3">C3</option>
+							</select>
+							</li>
+				            <li><textarea data-mini="true" cols="40" rows="8" id="submitreviewpoint_actionrequired" placeholder="Action Required..."></textarea></li>
+							<li><input type="text" id="submitreviewpoint_assignedto" value="" placeholder="Assigned To..."></li>
+				            <li><label for="datetime-4">Due Datetime</label><input type="datetime-local" data-clear-btn="true"  id="submitreviewpoint_duedatetime" value="" placeholder="Due Datetime..."></li>
+							<li><input type="button" data-enhanced="true" value="Submit Review Point" onclick="submitReviewPoint()"></li>
+				        </ul>
+					</div>
 			<!-- Start of first page -->
-			<div data-role="page" id="sign_in_sign_up">
+			<div data-role="page" class="ubm_page" id="sign_in_sign_up">
 				<div data-role="header" data-theme="a">
 						<h1>UBM Login</h1>
 				</div>
 				<div data-role="content" id="gettingStarted_content" >
+
 					<div data-role="popup" id="gettingStarted_content_licenseagreement_popUp" data-theme="b" data-position-to="window" data-dismissible="false">
 					    <div data-role="header" data-theme="a">
 					   		<h1>License Agreement</h1>
@@ -326,18 +364,18 @@
 									        </div>
 									    </fieldset>
 									    <fieldset data-role="collapsible"><legend>2.	CONFIDENTIALITY</legend>
-												<li><p>a.Business Model Consulting LLC (BMC) is the owner of software, documents, copyrights, and other intellectual property, including computer files and hard copies, comprising the Universal Business Model (the UBM). BMC grants you a limited right to install the UBM on your computer systems, and to use the UBM to develop customized documents, policies, procedures, manuals, and training programs for your company’s internal use only. You will not use the UBM for any other purpose.
-												</br>b.	THIS LICENSE DOES NOT TRANSFER OWNERSHIP OF ANY PART OF THE UBM TO YOU. All legal and equitable title to the UBM, and copyrights, trade secrets, patents, and confidential and proprietary information related to the UBM, remain the exclusive property of BMC.
-												</br>c.	“Universal Business Model” and “UBM” are trademarks of BMC. You do not have the right to use those or any other trademarks, trade names, service marks, logos, and/or trade names of BMC.</p></li>
+												<li><p>a.	The UBM contains confidential and proprietary information. You will take reasonable precautions to safeguard the confidentiality of the UBM. You will not remove or alter any confidentiality or proprietary notice in the UBM. You will not disclose or allow access to the UBM, or any part of it in any form, or any information in or about the UBM, to a third party without BMC’s prior written permission. If an unauthorized use or disclosure occurs, you will take immediate action to recover the UBM and disclosed information, and prevent its subsequent unauthorized use</p></li>
 									        <div data-role="controlgroup">
 									            <input type="checkbox" name="checkbox-1-a" id="checkbox-1-a">
 									            <label for="checkbox-1-a">I agree</label>
 									        </div>
 									    </fieldset>
 									    <fieldset data-role="collapsible"><legend>3.	DISCLAIMER OF WARRANTY</legend>
-												<li><p>a.Business Model Consulting LLC (BMC) is the owner of software, documents, copyrights, and other intellectual property, including computer files and hard copies, comprising the Universal Business Model (the UBM). BMC grants you a limited right to install the UBM on your computer systems, and to use the UBM to develop customized documents, policies, procedures, manuals, and training programs for your company’s internal use only. You will not use the UBM for any other purpose.
-												</br>b.	THIS LICENSE DOES NOT TRANSFER OWNERSHIP OF ANY PART OF THE UBM TO YOU. All legal and equitable title to the UBM, and copyrights, trade secrets, patents, and confidential and proprietary information related to the UBM, remain the exclusive property of BMC.
-												</br>c.	“Universal Business Model” and “UBM” are trademarks of BMC. You do not have the right to use those or any other trademarks, trade names, service marks, logos, and/or trade names of BMC.</p></li>
+												<li><p><strong>a.	BMC LICENSES THE UBM TO YOU “AS IS”, WITHOUT WARRANTY OF ANY KIND. YOU USE THE UBM AT YOUR OWN RISK
+												</br>b.	BMC EXPRESSLY EXCLUDES AND DISCLAIMS ANY AND ALL WARRANTIES, REPRESENTATIONS, AND GUARANTEES WITH RESPECT TO THE UBM WHETHER EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO ANY WARRANTY OF MERCHANTABILITY, QUALITY, AND FITNESS FOR A PARTICULAR PURPOSE
+												</strong></br>c.	Full use of some features of the UBM may require internet access, and may be limited by other software and technological limitations. BMC expressly excludes and disclaims any warranty about your ability to access those features of the UBM. Any inability to access or use those features of the UBM will not be a limitation on or a breach of your license by BMC
+												</br>d.	BMC does not provide you with legal advice, via the UBM or otherwise. BMC recommends that you consult your own attorneys and other professionals in connection with your use of the UBM, and your use of any documents, policies, procedures, manuals, and training programs you may develop from the UBM
+												</p></li>
 									        <div data-role="controlgroup">
 									            <input type="checkbox" name="checkbox-1-a" id="checkbox-1-a">
 									            <label for="checkbox-1-a">I agree</label>
@@ -356,10 +394,7 @@
 												<li><p>a.Business Model Consulting LLC (BMC) is the owner of software, documents, copyrights, and other intellectual property, including computer files and hard copies, comprising the Universal Business Model (the UBM). BMC grants you a limited right to install the UBM on your computer systems, and to use the UBM to develop customized documents, policies, procedures, manuals, and training programs for your company’s internal use only. You will not use the UBM for any other purpose.
 												</br>b.	THIS LICENSE DOES NOT TRANSFER OWNERSHIP OF ANY PART OF THE UBM TO YOU. All legal and equitable title to the UBM, and copyrights, trade secrets, patents, and confidential and proprietary information related to the UBM, remain the exclusive property of BMC.
 												</br>c.	“Universal Business Model” and “UBM” are trademarks of BMC. You do not have the right to use those or any other trademarks, trade names, service marks, logos, and/or trade names of BMC.</p></li>
-									        <div data-role="controlgroup">
-									            <input type="checkbox" name="checkbox-1-a" id="checkbox-1-a">
-									            <label for="checkbox-1-a">I agree</label>
-									        </div>
+
 									    </fieldset>
 									</form>								        							        
 								<input type="text" name="textinput-6" id="textinput-6" placeholder="Enter the Tax ID for your Company" value="" data-mini="true">
@@ -371,7 +406,6 @@
 								<a href="#" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b" data-rel="back" data-transition="flow">Continue</a>
 					    </div>
 					</div><!-- /popup -->
-					<center><div id="main_map_canvas" style="position:fixed; height:200px; width:200px; -webkit-mask-image: url(circle.svg)"></div></center>
 					<form>
 						<div style="padding:120px 20px;">
 					        <label for="un" class="ui-hidden-accessible">Username:</label>
@@ -399,11 +433,11 @@
 						</form>
 					</div>
 				</div>
-				<div data-role="footer" data-theme="a">
-
+				<div data-role="footer" data-theme="a" data-position="fixed" data-fullscreen="true">
+					<center><p>Alpha</p></center>
 				</div>
 			</div>
-			<div data-role="page" id="gettingStarted">
+			<div data-role="page" class="ubm_page" id="gettingStarted">
 			    <div data-role="panel" id="mcs_gettingStarted_lpanel" data-display="overlay" data-position="left">
 					<ul data-role="listview">
 		                <li><a href="#gettingStarted">Getting Started</a></li>
@@ -427,28 +461,23 @@
 			    </div><!-- /panel -->
 				<div data-role="header">
 					<a href="#mcs_gettingStarted_lpanel" data-icon="arrow-r"></a>
-						<h1> Getting Started </h1>
-						<div class="reference">
-							<p>
-								00.01</>
-						</div>
+					<div id"gettingStarted_header_headerRecord_center" style="text-align: center">
+						<div id="gettingStarted_header_headerRecord_center_legalentity"> Legal Entity: Cindt, LLC </div>
+						<div id="gettingStarted_header_headerRecord_center_systemtitle"> System Title: UBM v 3.3.0</div>
+						<div id="gettingStarted_header_headerRecord_center_modelapptitle"> Model / App Title: UBM Model Creation Suite Automated Prototype </div>
+						<div id="gettingStarted_header_headerRecord_center_pagetitle"> Getting Started </div>						
+					</div>
 				</div>
-				<div data-role="content">
-					<div data-role="popup" id="mcs_gettingStarted_openItem_popup" data-theme="b">
-					        <ul data-role="listview" data-inset="true" style="min-width:210px;">
-					            <li data-role="list-divider">Write a Review Point</br>or Open Item</li>
-								<li><input type="text" name="text-1" id="submitreviewpoint_formref" value="" placeholder="Form Ref..."></li>
-								<li><input type="text" name="text-1" id="submitreviewpoint_priority" value="" placeholder="Priority..."></li>
-					            <li><textarea data-mini="true" cols="40" rows="8" name="textarea-4" id="submitreviewpoint_actionrequired" placeholder="Action Required..."></textarea></li>
-								<li><input type="text" name="text-1" id="submitreviewpoint_assignedto" value="" placeholder="Assigned To..."></li>
-					            <li><label for="datetime-4">Due Datetime</label><input type="datetime-local" data-clear-btn="true" name="datetime-4" id="submitreviewpoint_duedatetime" value="" placeholder="Due Datetime..."></li>
-								<li><input type="button" data-enhanced="true" value="Submit Review Item..." onclick="submitReviewPoint()"></li>
-					        </ul>
-					</div> 
-					<ul class="bxslider">
+				<div data-role="content"> 
+					<ul class="bxslider1">
 						<li>
 							<div class="GS">
-								The easiest way to begin is to start on the company (do not print yet). All of the table of contents and checklists have been linked to all the forms you need to complete. In your UBM Creation Suite package you will see folders for the 4 major sections. (A) Model Creation, (B) Source Model, (C) Executable Model, and (D) Operating Model. You will also see a table of contents after the folders. Open the Table of contents and review. You will notice the 4 major sections are listed again on the table of contents. Under the (A) Model Creation section you will see a line referenced AMC. This is the checklist you will need to complete to have a functioning model. Click the AMC Model Creation Suite Phases Checklist. Each step on the checklist has been linked to the correct document you need to complete to check off the step. When you complete a step you need to initial and date the prepared by columns (located to the left of the steps).
+								The easiest way to begin is to start on the company (do not print yet). All of the table of contents and checklists have been linked to all the forms you need to complete. 
+								</br>In your UBM Creation Suite package you will see folders for the four major sections.</br></br>(A) Model Creation, </br>(B) Source Model, </br>(C) Executable Model, and </br>(D) Operating Model. </br></br>You will also see a table of contents after the folders. 
+								<a href="#table_of_contents">Open the Table of Contents</a> and review. You will notice the four major sections are listed again on the table of contents. 
+								Under the (A) Model Creation section you will see a line referenced AMC. This is the checklist you will need to complete to have a functioning model. 
+								Click the AMC Model Creation Suite Phases Checklist. Each step on the checklist has been linked to the correct document you need to complete to check off the step. 
+								When you complete a step you need to initial and date the prepared by columns (located to the left of the steps).
 								</p>
 							</div>
 						</li>
@@ -469,7 +498,7 @@
 						<li>
 							<div class="GS">
 								<p>
-									All creation forms have already been referenced correctly you are not supposed to change any reference on any pre-defined form. All you need to do is add your company name in the center header of all forms.
+									All creation forms have already been referenced correctly <strong>you are not supposed to change any reference on any pre-defined form.</strong> All you need to do is add your company name in the center header of all forms.
 								</p>
 							</div>
 						</li>
@@ -483,7 +512,7 @@
 						<li>
 							<div class="GS">
 								<p>
-									If needed review the referencing Protocol and Referencing guide located in the Reference Manual in the following folder trail (B) Model Source >
+									If needed review the referencing Protocol and Referencing guide located in the Reference Manual in the following folder trail: </br> (B) Model Source >
 									01 Reference Manual > 00 Gen > 03 Ref Pro
 								</p>
 							</div>
@@ -491,11 +520,9 @@
 						<li>
 							<div class="GS">
 								<p>
-									PLEASE FEEL FREE TO CONTACT OUR OFFICES WITH ANY QUESTIONS 801-484-6988 (Michael Miller, Matthew Kingston, Katherine Hayes, or Erica Cannon)
+									<strong>FEEL FREE TO CONTACT OUR OFFICES WITH ANY QUESTIONS 801-484-6988</strong></br>Michael Miller, Matthew Kingston, Katherine Hayes, or Erica Cannon
 								</p>
 							</div>
-						</li>
-						<li><img src="img/03 UBM Flowchart.png">
 						</li>
 						<li>
 							<div class="GS">
@@ -504,9 +531,14 @@
 								</p>
 							</div>
 						</li>
+
 					</ul>
+							<a href="#popupParis" data-rel="popup" data-position-to="window" data-transition="fade"><img src="img/03 UBM Flowchart.png" width="60" style="position:center; width:50%; height:auto;"></a>
+							<div data-role="popup" id="popupParis" data-overlay-theme="b" data-theme="b" data-corners="false">
+							    <a href="#" data-rel="back" class="ui-btn ui-corner-all ui-shadow ui-btn-a ui-icon-delete ui-btn-icon-notext ui-btn-right">Close</a><img class="popphoto" src="img/03 UBM Flowchart.png" style="max-height:700px;" alt="UBM Flow Chart">
+							</div>		
 					<div id="continue_button">
-						<a href="#identification_setup" data-role="button" data-inline="true">Continue to My Model Creation</a>
+						<a href="#table_of_contents" data-role="button" data-inline="true">Continue to My Model Creation</a>
 					</div>
 					
 							<!--<textarea cols="40" rows="8" name="textarea" id="gettingStarted_content_textarea0"></textarea>
@@ -523,7 +555,76 @@
 				</div>
 		
 			</div>
-			<div data-role="page" id="identification_setup">
+			<!-- Table of Contents Page-->
+			<div data-role="page" class="ubm_page" id="table_of_contents">
+			    <div data-role="panel" id="mcs_table_of_contents_lpanel" data-display="overlay" data-position="left">
+					<ul data-role="listview">
+		                <li><a href="#gettingStarted">Getting Started</a></li>
+		                <li><a href="#identification_setup">Identification Setup</a></li>
+		                <li><a href="#table_of_contents">Table of Contents</a></li>
+		                <li><a href="#mcs_setup_checklist_setup">MCS Setup</a></li>		                
+		                <li><a href="#management_reporting">Management Reporting</a></li>
+		                <li><a href="#mcs_setup_checklist_CS">Control Section</a></li>
+		                <li><a href="#mcs_setup_checklist_p1">Phase 1</a></li>
+		                <li><a href="#mcs_setup_checklist_p2">Phase 2</a></li>
+		                <li><a href="#mcs_setup_checklist_p3">Phase 3</a></li>
+		                <li><a href="#mcs_setup_checklist_p4">Phase 4</a></li>
+		                <li><a href="#mcs_setup_checklist_p5">Phase 5</a></li>
+		                <li><a href="#mcs_setup_checklist_p6">Phase 6</a></li>
+		                <li><a href="#mcs_setup_checklist_p7">Phase 7</a></li>
+		                <li><a href="#mcs_setup_checklist_p8">Phase 8</a></li>
+		                <li><a href="#open_points_action_items">Open Points Action Items</a></li>
+						<li data-icon="delete"><a href="#" data-rel="close">Close menu</a></li>
+						<li data-icon="delete"><a href="#sign_in_sign_up">Sign Out</a></li>
+					</ul>
+			    </div><!-- /panel -->
+				<div data-role="header">
+					<a href="#mcs_table_of_contents_lpanel" data-icon="arrow-r"></a>
+					<div id"table_of_contents_header_headerRecord_center" style="text-align: center">
+						<div id="table_of_contents_header_headerRecord_center_legalentity"> Legal Entity: Cindt, LLC </div>
+						<div id="table_of_contents_header_headerRecord_center_systemtitle"> System Title: UBM v 3.3.0</div>
+						<div id="table_of_contents_header_headerRecord_center_modelapptitle"> Model / App Title: UBM Model Creation Suite Automated Prototype </div>
+						<div id="table_of_contents_header_headerRecord_center_pagetitle"> Table of Contents </div>						
+					</div>
+				</div>
+				<div data-role="content">
+					<div data-role="popup" id="mcs_table_of_contents_openItem_popup" data-theme="b">
+					        <ul data-role="listview" data-inset="true" style="min-width:210px;">
+					            <li data-role="list-divider">Write a Review Point</br>or Open Item</li>
+								<li><input type="text" name="text-1" id="submitreviewpoint_formref" value="" placeholder="Form Ref..."></li>
+								<li><input type="text" name="text-1" id="submitreviewpoint_priority" value="" placeholder="Priority..."></li>
+					            <li><textarea data-mini="true" cols="40" rows="8" name="textarea-4" id="submitreviewpoint_actionrequired" placeholder="Action Required..."></textarea></li>
+								<li><input type="text" name="text-1" id="submitreviewpoint_assignedto" value="" placeholder="Assigned To..."></li>
+					            <li><label for="datetime-4">Due Datetime</label><input type="datetime-local" data-clear-btn="true" name="datetime-4" id="submitreviewpoint_duedatetime" value="" placeholder="Due Datetime..."></li>
+								<li><input type="button" data-enhanced="true" value="Submit Review Item..." onclick="submitReviewPoint()"></li>
+					        </ul>
+					</div> 
+					<div id="model_creation">
+						<h1>(A) Model Creation</h1>
+						<p><a href="#mcs_setup_checklist_setup">Model Creation Suite Phases Checklist</a></p>
+						<p><a href="#open_points_action_items">Open Points/Action Items</a></p>
+						<p><a href="#notes_to_reviewer">Notes to Reviewer</a></p>
+						<p><a href="#timesheet">Time Sheet</a></p>
+					</div>
+					<div id="model">
+						<h1>(B) Model</h1>
+						<p>Model Creation Suite Master File Index Summary Table of Contents</p>
+						<p>Model Creation Suite Master File Index</p>
+					</div>
+					<div id="executable">
+						<h1>(C) Executable</h1>
+						<p>Manual Harvested Model Table of Contents</p>
+					</div>
+					<div id="Operating Model">
+						<h1>(D) Operating Model</h1>
+						<p>The Operating Model contains: ...</p>
+					</div>
+				</div>
+				<div data-role="footer">
+				
+				</div>
+			</div>
+			<div data-role="page" class="ubm_page" id="identification_setup">
 			    <div data-role="panel" id="mcs_identification_setup_lpanel" data-display="overlay" data-position="left">
 					<ul data-role="listview">
 		                <li><a href="#gettingStarted">Getting Started</a></li>
@@ -547,12 +648,12 @@
 			    </div><!-- /panel -->
 				<div data-role="header">
 					<a href="#mcs_identification_setup_lpanel" data-icon="arrow-r"></a>
-						<h1> Identificaion Setup </h1>
-						<div class="reference">
-							<p>
-								00.02
-							</p>
-						</div>
+					<div id"identification_setup_header_headerRecord_center" style="text-align: center">
+						<div id="identification_setup_header_headerRecord_center_legalentity"> Legal Entity: Cindt, LLC </div>
+						<div id="identification_setup_header_headerRecord_center_systemtitle"> System Title: UBM v 3.3.0</div>
+						<div id="identification_setup_header_headerRecord_center_modelapptitle"> Model / App Title: UBM Model Creation Suite Automated Prototype </div>
+						<div id="identification_setup_header_headerRecord_center_pagetitle"> Table of Contents </div>						
+					</div>
 				</div>
 				<div data-role="content" id="identification_setup_content">
 					<div data-role="popup" id="mcs_identification_setup_openItem_popup" data-theme="b">
@@ -600,79 +701,84 @@
 					<input type="text" name="text-6" id="text-6" value="" placeholder="What Products Must This Model Create or Generate">
 					<div id="submit_button">
 						<a href="#" data-role="button" data-inline="true">Submit</a>
-						<a href="#table_of_contents" data-role="button" data-inline="true">Continue</a>
+						<a href="#primary_objects_setup_table" data-role="button" data-inline="true">Continue</a>
 					</div>
 				</div>
 				<div data-role="footer">
 
 				</div>
 				</div>
-			<!-- Table of Contents Page-->
-			<div data-role="page" id="table_of_contents">
-			    <div data-role="panel" id="mcs_table_of_contents_lpanel" data-display="overlay" data-position="left">
-					<ul data-role="listview">
-		                <li><a href="#gettingStarted">Getting Started</a></li>
-		                <li><a href="#identification_setup">Identification Setup</a></li>
-		                <li><a href="#table_of_contents">Table of Contents</a></li>
-		                <li><a href="#mcs_setup_checklist_setup">MCS Setup</a></li>		                
-		                <li><a href="#management_reporting">Management Reporting</a></li>
-		                <li><a href="#mcs_setup_checklist_CS">Control Section</a></li>
-		                <li><a href="#mcs_setup_checklist_p1">Phase 1</a></li>
-		                <li><a href="#mcs_setup_checklist_p2">Phase 2</a></li>
-		                <li><a href="#mcs_setup_checklist_p3">Phase 3</a></li>
-		                <li><a href="#mcs_setup_checklist_p4">Phase 4</a></li>
-		                <li><a href="#mcs_setup_checklist_p5">Phase 5</a></li>
-		                <li><a href="#mcs_setup_checklist_p6">Phase 6</a></li>
-		                <li><a href="#mcs_setup_checklist_p7">Phase 7</a></li>
-		                <li><a href="#mcs_setup_checklist_p8">Phase 8</a></li>
-		                <li><a href="#open_points_action_items">Open Points Action Items</a></li>
-						<li data-icon="delete"><a href="#" data-rel="close">Close menu</a></li>
-						<li data-icon="delete"><a href="#sign_in_sign_up">Sign Out</a></li>
-					</ul>
-			    </div><!-- /panel -->
+			<!-- Primary Objects Setup Table -->
+			<div data-role="page" class="ubm_page" id="primary_objects_setup_table">
 				<div data-role="header">
-					<a href="#mcs_table_of_contents_lpanel" data-icon="arrow-r"></a>
-						<h1> Table of Contents </h1>
+					<div id="header">
+						<h1> Primary Objects Setup Table</h1>
 						<div class="reference">
 							<p>
-								ATOC
+								00.02
 							</p>
 						</div>
+					</div>
 				</div>
 				<div data-role="content">
-					<div data-role="popup" id="mcs_table_of_contents_openItem_popup" data-theme="b">
-					        <ul data-role="listview" data-inset="true" style="min-width:210px;">
-					            <li data-role="list-divider">Write a Review Point</br>or Open Item</li>
-								<li><input type="text" name="text-1" id="submitreviewpoint_formref" value="" placeholder="Form Ref..."></li>
-								<li><input type="text" name="text-1" id="submitreviewpoint_priority" value="" placeholder="Priority..."></li>
-					            <li><textarea data-mini="true" cols="40" rows="8" name="textarea-4" id="submitreviewpoint_actionrequired" placeholder="Action Required..."></textarea></li>
-								<li><input type="text" name="text-1" id="submitreviewpoint_assignedto" value="" placeholder="Assigned To..."></li>
-					            <li><label for="datetime-4">Due Datetime</label><input type="datetime-local" data-clear-btn="true" name="datetime-4" id="submitreviewpoint_duedatetime" value="" placeholder="Due Datetime..."></li>
-								<li><input type="button" data-enhanced="true" value="Submit Review Item..." onclick="submitReviewPoint()"></li>
-					        </ul>
-					</div> 
-					<div id="model_creation">
-						<h1>(A) Model Creation</h1>
-						<p><a href="#mcs_setup_checklist_setup">Model Creation Suite Phases Checklist</a></p>
-						<p><a href="#open_points_action_items">Open Points/Action Items</a></p>
-						<p><a href="#notes_to_reviewer">Notes to Reviewer</a></p>
-						<p><a href="#timesheet">Time Sheet</a></p>
+					<label for="text-6">Conceptual Definitions</label>
+					<input type="text" name="text-6" id="text-6" value="" placeholder="Conceptual Definitions (Refer to 01.01.02.01 in the Reference Manual)">
+					<label for="text-6">Entity/Model Description</label>
+					<input type="text" name="text-6" id="text-6" value="" placeholder="Entity/Model Description (Refer to 01.01.02.13  in the Reference Manual)">
+					<label for="text-6">Mission Statement</label>
+					<input type="text" name="text-6" id="text-6" value="" placeholder="Mission Statement (Refer to 01.01.02.02  in the Reference Manual)">
+					<label for="text-6">Vision Statement</label>
+					<input type="text" name="text-6" id="text-6" value="" placeholder="Vision Statement (Refer to 01.01.02.03  in the Reference Manual)">
+					<label for="text-6">Core Values</label>
+					<input type="text" name="text-6" id="text-6" value="" placeholder="Core Values (Refer to 01.01.02.04  in the Reference Manual)">
+					<label for="text-6">My Customer</label>
+					<input type="text" name="text-6" id="text-6" value="" placeholder="My Customer (Refer to 01.01.02.05  in the Reference Manual)">
+					<label for="text-6">Products and Service</label>
+					<input type="text" name="text-6" id="text-6" value="" placeholder="Product & Service (Refer to 01.01.02.06  in the Reference Manual)">
+					<label for="text-6">Organizational Structure</label>
+					<input type="text" name="text-6" id="text-6" value="" placeholder="Organizational Structure (Refer to 01.01.01.04 in the Reference Manual)">
+					<label for="text-6">Physical Facilities</label>
+					<input type="text" name="text-6" id="text-6" value="" placeholder="Physical Facilities (Refer to 01.01.02.10  in the Reference Manual)">
+					<label for="text-6">Physical Facilites By Position</label>
+					<input type="text" name="text-6" id="text-6" value="" placeholder="Physical Facilities By Position (Refer to 01.01.02.10  in the Reference Manual)">
+					<label for="text-6">Strategic Positioning Questions</label>
+					<input type="text" name="text-6" id="text-6" value="" placeholder="Strategic Positioning Questions (Refer to 01.01.02.07  in the Reference Manual)">
+					<label for="text-6">Strategic Alliances</label>
+					<input type="text" name="text-6" id="text-6" value="" placeholder="Strategic Alliances (Refer to 01.01.02.14 in the Reference Manual)">
+					<!--submit button-->
+					<div id="submit_button">
+						<a href="#" data-role="button" data-inline="true">Submit</a>
 					</div>
-					<div id="model">
-						<h1>(B) Model</h1>
-						<p>Model Creation Suite Master File Index Summary Table of Contents</p>
-						<p>Model Creation Suite Master File Index</p>
+					<!--continue button-->
+					<div class="continue_button">
+						<a href="#possible_alternitives" data-role="button" data-inline="true">Continue</a>
 					</div>
-					<div id="executable">
-						<h1>(C) Executable</h1>
-						<p>Manual Harvested Model Table of Contents</p>
-					</div>
+	
 				</div>
 				<div data-role="footer">
-				
+	
 				</div>
 			</div>
-			<div data-role="page" id="management_reporting">
+			<!-- List of Possible Alternitives -->
+			<div data-role="page" class="ubm_page" id="possible_alternitives">
+				<div data-role="header">
+					<div id="header">
+						<h1> List of Possible Alternitives</h1>
+						<div class="reference">
+							<p>
+								00.07
+							</p>
+						</div>
+					</div>
+				</div>
+				<div data-role="content">
+							<a href="#table_of_contents" data-role="button" data-inline="true">Continue</a>
+				</div>
+				<div data-role="footer">
+					...
+				</div>
+			</div>
+			<div data-role="page" class="ubm_page" id="management_reporting">
 			    <div data-role="panel" id="mcs_management_reporting_upper_left_panel" data-display="overlay" data-position="left">
 					<ul data-role="listview">
 		                <li><a href="#gettingStarted">Getting Started</a></li>
@@ -694,7 +800,8 @@
 						<li data-icon="delete"><a href="#sign_in_sign_up">Sign Out</a></li>
 					</ul>
 			    </div><!-- /panel -->
-			    <div data-role="panel" id="mcs_management_reporting_lower_left_panel" data-display="overlay" data-position="left">
+			    <div data-role="panel" id="mcs_management_reporting_entitynavigation_panel" data-display="overlay" data-position="left">
+					<h1>My Entities</h1>
 					<div data-role="collapsible" data-inset="false">
 					    <h3>WRE</h3>
 							<ul data-role="listview" data-count-theme="b" >
@@ -813,25 +920,199 @@
 			    <div data-role="panel" id="mcs_management_reporting_lower_right_panel" data-display="overlay" data-position="right">
 					<p>lower right panel</p>
 			    </div><!-- /panel -->
-				<div data-role="header">
+				<div data-role="header" data-position="fixed">
 				    <div data-role="controlgroup" data-type="horizontal" class="ui-mini ui-btn-left">
 				        <a href="#mcs_management_reporting_upper_left_panel" class="ui-btn ui-btn-icon-right ui-icon-arrow-u">upper left</a>
-				        <a href="#mcs_management_reporting_lower_left_panel" class="ui-btn ui-btn-icon-right ui-icon-plus">lower left</a>
+				        <a href="#mcs_management_reporting_entitynavigation_panel" class="ui-btn ui-btn-icon-right ui-icon-plus">Entity Navigation</a>
 				    </div>
-					<center>
-						<h1> Management Reporting </h1>
-						<div class="reference">
-							<p>
-								Need to Add UBM Reference
-							</p>
-						</div>
-					</center>
+					<div id"gettingStarted_header_headerRecord_center" style="text-align: center">
+						<div id="gettingStarted_header_headerRecord_center_legalentity"> Legal Entity: Cindt, LLC </div>
+						<div id="gettingStarted_header_headerRecord_center_systemtitle"> System Title: UBM v 3.3.0</div>
+						<div id="gettingStarted_header_headerRecord_center_modelapptitle"> Model / App Title: UBM Model Creation Suite Automated Prototype </div>
+						<div id="gettingStarted_header_headerRecord_center_pagetitle"> Management Reporting </div>						
+					</div>
 				    <div data-role="controlgroup" data-type="horizontal" class="ui-mini ui-btn-right">
 				        <a href="#mcs_management_reporting_upper_right_panel" class="ui-btn ui-btn-icon-right ui-icon-plus">upper right</a>
 				        <a href="#mcs_management_reporting_lower_right_panel" class="ui-btn ui-btn-icon-right ui-icon-arrow-u">lower right</a>
 				    </div>
 				</div>
 				<div data-role="content">
+					<div class="ui-grid-solo">
+					    <div class="ui-block-a"><a href="#" class="ui-btn ui-shadow ui-corner-all">Refresh</a></div>
+					</div>
+					<div class="ui-grid-a" id="management_reporting_content_grid" style="top:50px;">
+					    <div class="ui-block-a"><div class="ui-bar ui-bar-a" style="height:auto; max-height: 700px;">	
+							<div id="management_reporting_content_cfo_accountspayable">
+								<table data-role="table" id="management_reporting_content_cfo_accountspayable_table" data-mode="columntoggle" data-filter="false" data-column-btn-text="Select" data-column-btn-theme="a" class="ui-shadow table-stroke">
+								  	<thead id="management_reporting_content_cfo_accountspayable_table_header">
+									    <tr>
+										    <th class="label">Accounts Payable</th>
+										    <th data-priority="10"><h4>Vendor</h4></th>
+										    <th data-priority="9"><h4>0-30 days</h4></th>
+										    <th data-priority="9"><h4>30-60 days</h4></th>
+										    <th data-priority="9"><h4>60-90 days</h4></th>
+										    <th data-priority="9"><h4>Total</h4></th>
+									    </tr>
+									</thead>
+									<tbody id="management_reporting_content_cfo_accountspayable_table_body">
+			
+									</tbody>
+								</table>						
+							</div>				    				 
+					    </div></div> <!-- End Grid 1 Section A-->
+					    <div class="ui-block-b"><div class="ui-bar ui-bar-a" style="height:auto; max-height: 700px;">
+							<div id="management_reporting_content_cfo_accountsreceivable">
+								<table data-role="table" id="management_reporting_content_cfo_accountsreceivable_table" data-mode="columntoggle" data-filter="false" data-column-btn-text="Select" data-column-btn-theme="a" class="ui-shadow table-stroke">
+								  	<thead id="management_reporting_content_cfo_accountsreceivable_table_header">
+									    <tr>
+										    <th class="label">Accounts Receivable</th>
+										    <th data-priority="10"><h4>Customer</h4></th>
+										    <th data-priority="9"><h4>0-30 days</h4></th>
+										    <th data-priority="9"><h4>30-60 days</h4></th>
+										    <th data-priority="9"><h4>60-90 days</h4></th>
+										    <th data-priority="9"><h4>Total</h4></th>
+									    </tr>
+									</thead>
+									<tbody id="management_reporting_content_cfo_accountsreceivable_table_body">
+			
+									</tbody>
+								</table>
+							</div>				    	
+					    </div></div> <!-- End Grid 1 Section B-->
+					    <div class="ui-block-c"><div class="ui-bar ui-bar-a" style="height:auto;">
+							<div id="management_reporting_content_cfo_financials" >
+								<table data-role="table" id="management_reporting_content_cfo_financials_table" data-mode="columntoggle" data-filter="false" data-column-btn-text="Select" data-column-btn-theme="a" class="ui-shadow table-stroke">
+								  	<thead id="management_reporting_content_cfo_financials_table_header">
+									    <tr>
+										    <th class="label">Financials</th>
+										    <th data-priority="10"><h4>Item</h4></th>
+										    <th data-priority="9"><h4>Amount</h4></th>
+									    </tr>
+									</thead>
+									<tbody id="management_reporting_content_cfo_financials_table_body">
+			
+									</tbody>
+								</table>					
+							</div>				    
+					    </div></div> <!-- End Grid 1 Section C-->
+					</div><!-- /grid-b -->
+
+					<div id="management_reporting_content_cfo_longtermnetprofit">
+						<table data-role="table" id="management_reporting_content_cfo_longtermnetprofit_table" data-mode="columntoggle" data-filter="false" data-column-btn-text="Select" data-column-btn-theme="a" class="ui-shadow table-stroke">
+						  	<thead id="management_reporting_content_cfo_longtermnetprofit_table_header">
+							    <tr>
+								    <th class="label">Long-Term N/P</th>
+								    <th data-priority="10"><h4>Creditors</h4></th>
+								    <th data-priority="9"><h4>Int Balance</h4></th>
+								    <th data-priority="9"><h4>PR Balance</h4></th>
+								    <th data-priority="9"><h4>Total Balance</h4></th>
+								    <th data-priority="9"><h4>0-30 days Past Due</h4></th>
+								    <th data-priority="9"><h4>30-60 days Past Due</h4></th>
+								    <th data-priority="9"><h4>60-90 days Past Due</h4></th>
+								    <th data-priority="9"><h4>Total Past Due</h4></th>
+							    </tr>
+							</thead>
+							<tbody id="management_reporting_content_cfo_longtermnetprofit_table_body">
+	
+							</tbody>
+						</table>						
+					</div>
+					<div id="management_reporting_content_cfo_employeeutilization">
+						<table data-role="table" id="management_reporting_content_cfo_employeeutilization_table" data-mode="columntoggle" data-filter="false" data-column-btn-text="Select" data-column-btn-theme="a" class="ui-shadow table-stroke">
+						  	<thead id="management_reporting_content_cfo_employeeutilization_table_header">
+							    <tr>
+								    <th class="label">Employee Utilization</th>
+								    <th data-priority="10"><h4>Employee Name</h4></th>
+								    <th data-priority="9"><h4>Billable Hourse</h4></th>
+								    <th data-priority="9"><h4>Admin Hours</h4></th>
+								    <th data-priority="9"><h4>Total Hours</h4></th>
+								    <th data-priority="9"><h4>Billable Ratio</h4></th>
+								    <th data-priority="9"><h4>Paid Payroll</h4></th>
+							    </tr>
+							</thead>
+							<tbody id="management_reporting_content_cfo_employeeutilization_table_body">
+	
+							</tbody>
+						</table>						
+					</div>
+					<div id="management_reporting_content_bmm_modelcreationstatistics">
+						<table data-role="table" id="management_reporting_content_bmm_modelcreationstatistics_table" data-mode="columntoggle" data-filter="false" data-column-btn-text="Select" data-column-btn-theme="a" class="ui-shadow table-stroke">
+						  	<thead id="management_reporting_content_bmm_modelcreationstatistics_table_header">
+							    <tr>
+								    <th class="label">Business Model Creation Statistics</th>
+								    <th data-priority="10"><h4>Item Description</h4></th>
+								    <th data-priority="9"><h4>UBM Checklist Items Identified</h4></th>
+								    <th data-priority="9"><h4>UBM Checklist Items Completed</h4></th>
+								    <th data-priority="10"><h4>Completion Ratio</h4></th>
+								    <th data-priority="10"><h4>Items Passed Final Review</h4></th>
+								    <th data-priority="10"><h4>Approval Ratio</h4></th>
+							    </tr>
+							</thead>
+							<tbody id="management_reporting_content_bmm_modelcreationstatistics_table_body">
+	
+							</tbody>
+						</table>						
+					</div>
+					<div id="management_reporting_content_bmm_modelobjectdefinitionstatistics">
+						<table data-role="table" id="management_reporting_content_bmm_modelobjectdefinitionstatistics_table" data-mode="columntoggle" data-filter="false" data-column-btn-text="Select" data-column-btn-theme="a" class="ui-shadow table-stroke">
+						  	<thead id="management_reporting_content_bmm_modelobjectdefinitionstatistics_table_header">
+							    <tr>
+								    <th class="label">Business Model Creation Statistics</th>
+								    <th data-priority="10"><h4>Item Description</h4></th>
+								    <th data-priority="9"><h4>UBM Checklist Items Identified</h4></th>
+								    <th data-priority="9"><h4>UBM Checklist Items Completed</h4></th>
+								    <th data-priority="10"><h4>Completion Ratio</h4></th>
+								    <th data-priority="10"><h4>Items Passed Final Review</h4></th>
+								    <th data-priority="10"><h4>Approval Ratio</h4></th>
+							    </tr>
+							</thead>
+							<tbody id="management_reporting_content_bmm_modelobjectdefinitionstatistics_table_body">
+	
+							</tbody>
+						</table>						
+					</div>
+					<div id="management_reporting_content_operations_summary">
+						<table data-role="table" id="management_reporting_content_operations_summary_table" data-mode="columntoggle" data-filter="false" data-column-btn-text="Select" data-column-btn-theme="a" class="ui-shadow table-stroke">
+						  	<thead id="management_reporting_content_operations_summary_table_header">
+							    <tr>
+								    <th class="label">Operations Summary</th>
+								    <th data-priority="10"><h4>Item</h4></th>
+								    <th data-priority="9"><h4>Measure</h4></th>
+							    </tr>
+							</thead>
+							<tbody id="management_reporting_content_operations_summary_table_body">
+	
+							</tbody>
+						</table>						
+					</div>
+					<div id="management_reporting_content_bmma_summary">
+						<table data-role="table" id="management_reporting_content_bmma_summary_table" data-mode="columntoggle" data-filter="false" data-column-btn-text="Select" data-column-btn-theme="a" class="ui-shadow table-stroke">
+						  	<thead id="management_reporting_content_bmma_summary_table_header">
+							    <tr>
+								    <th class="label">Business Model Manager/ Assistant CEO</th>
+								    <th data-priority="10"><h4>Packets Reviewed</h4></th>
+								    <th data-priority="9"><h4>Count</h4></th>
+							    </tr>
+							</thead>
+							<tbody id="management_reporting_content_bmma_summary_table_body">
+	
+							</tbody>
+						</table>						
+					</div>
+					<div id="management_reporting_content_ceo_summary">
+						<table data-role="table" id="management_reporting_content_ceo_summary_table" data-mode="columntoggle" data-filter="false" data-column-btn-text="Select" data-column-btn-theme="a" class="ui-shadow table-stroke">
+						  	<thead id="management_reporting_content_ceo_summary_table_header">
+							    <tr>
+								    <th class="label">Chief Executive Officer</th>
+								    <th data-priority="10"><h4>Packets Reviewed</h4></th>
+								    <th data-priority="9"><h4>Count</h4></th>
+							    </tr>
+							</thead>
+							<tbody id="management_reporting_content_ceo_summary_table_body">
+	
+							</tbody>
+						</table>						
+					</div>
 					<div id="attendance_kpi">
 						<p>Attendance stats will be shown here.</p>
 					</div>
@@ -842,7 +1123,7 @@
 				<div data-role="footer" data-position="fixed" data-fullscreen="true">
 				</div>
 			</div>
-			<div data-role="page" id="mcs_setup_checklist_setup">
+			<div data-role="page" class="ubm_page" id="mcs_setup_checklist_setup">
 			    <div data-role="panel" id="mcs_setup_checklist_setup_lpanel" data-display="overlay" data-position="left">
 					<ul data-role="listview">
 		                <li><a href="#gettingStarted">Getting Started</a></li>
@@ -889,69 +1170,6 @@
 								<li><input type="button" data-enhanced="true" value="Submit Review Item..." onclick="submitReviewPoint()"></li>
 					        </ul>
 					</div> 
-					<div data-role="popup" id="mcs_setup_1_popUp" data-theme="b" data-position-to="window" data-dismissible="false">
-					    <div data-role="header" data-theme="a">
-					   		<h1>License Agreement</h1>
-					    </div>
-					    <div role="main" class="ui-content">
-							        <h3 class="ui-title">By creating your account and checking the box below you agree to </br> BUSINESS MODEL CONSULTING LLC UNIVERSAL BUSINESS MODEL LICENSING AGREEMENT</h3>
-									<p>This step requires that you enter the tax id of the legal entity you represent.</p>
-									<form>
-									    <fieldset data-role="collapsible"><legend>1.  LIMITED LICENSE FOR USE OF UBM  </legend>
-												<li><p>a.Business Model Consulting LLC (BMC) is the owner of software, documents, copyrights, and other intellectual property, including computer files and hard copies, comprising the Universal Business Model (the UBM). BMC grants you a limited right to install the UBM on your computer systems, and to use the UBM to develop customized documents, policies, procedures, manuals, and training programs for your company’s internal use only. You will not use the UBM for any other purpose.
-												</br>b.	THIS LICENSE DOES NOT TRANSFER OWNERSHIP OF ANY PART OF THE UBM TO YOU. All legal and equitable title to the UBM, and copyrights, trade secrets, patents, and confidential and proprietary information related to the UBM, remain the exclusive property of BMC.
-												</br>c.	“Universal Business Model” and “UBM” are trademarks of BMC. You do not have the right to use those or any other trademarks, trade names, service marks, logos, and/or trade names of BMC.</p></li>
-									        <div data-role="controlgroup">
-									            <input type="checkbox" name="checkbox-1-a" id="checkbox-1-a">
-									            <label for="checkbox-1-a">I agree</label>
-									        </div>
-									    </fieldset>
-									    <fieldset data-role="collapsible"><legend>2.	CONFIDENTIALITY</legend>
-												<li><p>a.Business Model Consulting LLC (BMC) is the owner of software, documents, copyrights, and other intellectual property, including computer files and hard copies, comprising the Universal Business Model (the UBM). BMC grants you a limited right to install the UBM on your computer systems, and to use the UBM to develop customized documents, policies, procedures, manuals, and training programs for your company’s internal use only. You will not use the UBM for any other purpose.
-												</br>b.	THIS LICENSE DOES NOT TRANSFER OWNERSHIP OF ANY PART OF THE UBM TO YOU. All legal and equitable title to the UBM, and copyrights, trade secrets, patents, and confidential and proprietary information related to the UBM, remain the exclusive property of BMC.
-												</br>c.	“Universal Business Model” and “UBM” are trademarks of BMC. You do not have the right to use those or any other trademarks, trade names, service marks, logos, and/or trade names of BMC.</p></li>
-									        <div data-role="controlgroup">
-									            <input type="checkbox" name="checkbox-1-a" id="checkbox-1-a">
-									            <label for="checkbox-1-a">I agree</label>
-									        </div>
-									    </fieldset>
-									    <fieldset data-role="collapsible"><legend>3.	DISCLAIMER OF WARRANTY</legend>
-												<li><p>a.Business Model Consulting LLC (BMC) is the owner of software, documents, copyrights, and other intellectual property, including computer files and hard copies, comprising the Universal Business Model (the UBM). BMC grants you a limited right to install the UBM on your computer systems, and to use the UBM to develop customized documents, policies, procedures, manuals, and training programs for your company’s internal use only. You will not use the UBM for any other purpose.
-												</br>b.	THIS LICENSE DOES NOT TRANSFER OWNERSHIP OF ANY PART OF THE UBM TO YOU. All legal and equitable title to the UBM, and copyrights, trade secrets, patents, and confidential and proprietary information related to the UBM, remain the exclusive property of BMC.
-												</br>c.	“Universal Business Model” and “UBM” are trademarks of BMC. You do not have the right to use those or any other trademarks, trade names, service marks, logos, and/or trade names of BMC.</p></li>
-									        <div data-role="controlgroup">
-									            <input type="checkbox" name="checkbox-1-a" id="checkbox-1-a">
-									            <label for="checkbox-1-a">I agree</label>
-									        </div>
-									    </fieldset>
-									    <fieldset data-role="collapsible"><legend>4.	WAIVER OF DAMAGES</legend>
-												<li><p>a.Business Model Consulting LLC (BMC) is the owner of software, documents, copyrights, and other intellectual property, including computer files and hard copies, comprising the Universal Business Model (the UBM). BMC grants you a limited right to install the UBM on your computer systems, and to use the UBM to develop customized documents, policies, procedures, manuals, and training programs for your company’s internal use only. You will not use the UBM for any other purpose.
-												</br>b.	THIS LICENSE DOES NOT TRANSFER OWNERSHIP OF ANY PART OF THE UBM TO YOU. All legal and equitable title to the UBM, and copyrights, trade secrets, patents, and confidential and proprietary information related to the UBM, remain the exclusive property of BMC.
-												</br>c.	“Universal Business Model” and “UBM” are trademarks of BMC. You do not have the right to use those or any other trademarks, trade names, service marks, logos, and/or trade names of BMC.</p></li>
-									        <div data-role="controlgroup">
-									            <input type="checkbox" name="checkbox-1-a" id="checkbox-1-a">
-									            <label for="checkbox-1-a">I agree</label>
-									        </div>
-									    </fieldset>
-									    <fieldset data-role="collapsible"><legend>5.	MISCELLANEOUS</legend>
-												<li><p>a.Business Model Consulting LLC (BMC) is the owner of software, documents, copyrights, and other intellectual property, including computer files and hard copies, comprising the Universal Business Model (the UBM). BMC grants you a limited right to install the UBM on your computer systems, and to use the UBM to develop customized documents, policies, procedures, manuals, and training programs for your company’s internal use only. You will not use the UBM for any other purpose.
-												</br>b.	THIS LICENSE DOES NOT TRANSFER OWNERSHIP OF ANY PART OF THE UBM TO YOU. All legal and equitable title to the UBM, and copyrights, trade secrets, patents, and confidential and proprietary information related to the UBM, remain the exclusive property of BMC.
-												</br>c.	“Universal Business Model” and “UBM” are trademarks of BMC. You do not have the right to use those or any other trademarks, trade names, service marks, logos, and/or trade names of BMC.</p></li>
-									        <div data-role="controlgroup">
-									            <input type="checkbox" name="checkbox-1-a" id="checkbox-1-a">
-									            <label for="checkbox-1-a">I agree</label>
-									        </div>
-									    </fieldset>
-									</form>								        							        
-								<input type="text" name="textinput-6" id="textinput-6" placeholder="Enter the Tax ID for your Company" value="" data-mini="true">
-								<fieldset data-role="controlgroup">
-								    <label for="checkbox-2">I agree</label>
-								    <input type="checkbox" name="checkbox-2" id="checkbox-2">
-								</fieldset>					        
-								<a href="#" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b" data-rel="back" data-transition="flow">Disagree</a>
-								<a href="#" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b" data-rel="back" data-transition="flow">Continue</a>
-					    </div>
-					</div><!-- /popup -->
 					<div data-role="popup" id="mcs_setup_checklist_setup_searchPopup">
 						<ul data-role="listview" data-split-icon="gear" data-split-theme="d" data-filter="true" data-inline="true" data-inset="true" data-filter-reveal="true" data-filter-placeholder="Search the UBM">
 							<li><a href="#mcs_setup_checklist_setup"><img src="img/pre_backbone_rna.png" /><h3>PreBackBone</h3><p>Master File Index Setup</p></a><a href="#purchase" data-rel="popup" data-position-to="window" data-transition="pop">Purchase album</a></li>
@@ -1034,7 +1252,7 @@
 					</div>	
 				</div><!-- /footer -->
 			</div>
-			<div data-role="page" id="mcs_setup_checklist_CS">
+			<div data-role="page" class="ubm_page" id="mcs_setup_checklist_CS">
 			    <div data-role="panel" id="mcs_identification_setup_lpanel" data-display="overlay" data-position="left">
 					<ul data-role="listview">
 		                <li><a href="#gettingStarted">Getting Started</a></li>
@@ -1154,7 +1372,7 @@
 					</div>				
 				</div>
 			</div>
-			<div data-role="page" id="mcs_setup_checklist_p1">
+			<div data-role="page" class="ubm_page" id="mcs_setup_checklist_p1">
 			    <div data-role="panel" id="mcs_identification_setup_lpanel" data-display="overlay" data-position="left">
 					<ul data-role="listview">
 		                <li><a href="#gettingStarted">Getting Started</a></li>
@@ -1274,7 +1492,7 @@
 					</div>				
 				</div>
 			</div>
-			<div data-role="page" id="mcs_setup_checklist_p2">
+			<div data-role="page" class="ubm_page" id="mcs_setup_checklist_p2">
 			    <div data-role="panel" id="mcs_identification_setup_lpanel" data-display="overlay" data-position="left">
 					<ul data-role="listview">
 		                <li><a href="#gettingStarted">Getting Started</a></li>
@@ -1394,7 +1612,7 @@
 					</div>				
 				</div>				
 			</div>
-			<div data-role="page" id="mcs_setup_checklist_p3">
+			<div data-role="page" class="ubm_page" id="mcs_setup_checklist_p3">
 			    <div data-role="panel" id="mcs_identification_setup_lpanel" data-display="overlay" data-position="left">
 					<ul data-role="listview">
 		                <li><a href="#gettingStarted">Getting Started</a></li>
@@ -1514,7 +1732,7 @@
 					</div>				
 				</div>				
 			</div>
-			<div data-role="page" id="mcs_setup_checklist_p4_b1">
+			<div data-role="page" class="ubm_page" id="mcs_setup_checklist_p4_b1">
 			    <div data-role="panel" id="mcs_identification_setup_lpanel" data-display="overlay" data-position="left">
 					<ul data-role="listview">
 		                <li><a href="#gettingStarted">Getting Started</a></li>
@@ -1634,7 +1852,7 @@
 										</div>				
 				</div>				
 			</div>
-			<div data-role="page" id="mcs_setup_checklist_p4_b2">
+			<div data-role="page" class="ubm_page" id="mcs_setup_checklist_p4_b2">
 			    <div data-role="panel" id="mcs_identification_setup_lpanel" data-display="overlay" data-position="left">
 					<ul data-role="listview">
 		                <li><a href="#gettingStarted">Getting Started</a></li>
@@ -1754,7 +1972,7 @@
 					</div>				
 				</div>				
 			</div>
-			<div data-role="page" id="mcs_setup_checklist_p5">
+			<div data-role="page" class="ubm_page" id="mcs_setup_checklist_p5">
 			    <div data-role="panel" id="mcs_identification_setup_lpanel" data-display="overlay" data-position="left">
 					<ul data-role="listview">
 		                <li><a href="#gettingStarted">Getting Started</a></li>
@@ -1874,7 +2092,7 @@
 					</div>				
 				</div>				
 			</div>
-			<div data-role="page" id="mcs_setup_checklist_p6">
+			<div data-role="page" class="ubm_page" id="mcs_setup_checklist_p6">
 			    <div data-role="panel" id="mcs_identification_setup_lpanel" data-display="overlay" data-position="left">
 					<ul data-role="listview">
 		                <li><a href="#gettingStarted">Getting Started</a></li>
@@ -1994,7 +2212,7 @@
 					</div>				
 				</div>				
 			</div>
-			<div data-role="page" id="mcs_setup_checklist_p7">
+			<div data-role="page" class="ubm_page" id="mcs_setup_checklist_p7">
 			    <div data-role="panel" id="mcs_identification_setup_lpanel" data-display="overlay" data-position="left">
 					<ul data-role="listview">
 		                <li><a href="#gettingStarted">Getting Started</a></li>
@@ -2113,7 +2331,7 @@
 					</div>				
 				</div>				
 			</div>
-			<div data-role="page" id="mcs_setup_checklist_p8">
+			<div data-role="page" class="ubm_page" id="mcs_setup_checklist_p8">
 			    <div data-role="panel" id="mcs_identification_setup_lpanel" data-display="overlay" data-position="left">
 					<ul data-role="listview">
 		                <li><a href="#gettingStarted">Getting Started</a></li>
@@ -2238,7 +2456,7 @@
 					</div>				
 				</div>				
 			</div>
-			<div data-role="page" id="open_points_action_items">
+			<div data-role="page" class="ubm_page" id="open_points_action_items">
 			    <div data-role="panel" id="mcs_table_of_contents_lpanel" data-display="overlay" data-position="left">
 					<ul data-role="listview">
 		                <li><a href="#gettingStarted">Getting Started</a></li>
@@ -2262,11 +2480,11 @@
 			    </div><!-- /panel -->
 				<div data-role="header" id="open_points_action_items_header">
 					<a href="#mcs_table_of_contents_lpanel" data-icon="arrow-r"></a>
-					<div id"headerRecord_center" style="text-align: center">
-						<div id="headerRecord_center_legalentity"> Legal Entity: Cindt, LLC </div>
-						<div id="headerRecord_center_systemtitle"> System Title: UBM v 3.3.0</div>
-						<div id="headerRecord_center_modelapptitle"> Model / App Title: </div>
-						<div id="headerRecord_center_pagetitle"> Open Points / Action Items </div>						
+					<div id"open_points_action_items_header_headerRecord_center" style="text-align: center">
+						<div id="open_points_action_items_header_headerRecord_center_legalentity"> Legal Entity: Cindt, LLC </div>
+						<div id="open_points_action_items_header_headerRecord_center_systemtitle"> System Title: UBM v 3.3.0</div>
+						<div id="open_points_action_items_header_headerRecord_center_modelapptitle"> Model / App Title: </div>
+						<div id="open_points_action_items_header_headerRecord_center_pagetitle"> Open Points / Action Items </div>						
 					</div>
 				</div>
 				<div data-role="content">
@@ -2297,12 +2515,12 @@
 							    <th data-priority="7"><h4>Date Opened</h4></th>
 							    <th data-priority="10"><h4>Action Required</h4></th>
 							    <th data-priority="10"><h4>Assigned To</h4></th>
+							    <th data-priority="10"><h4>Date Assigned</h4></th>
 							    <th data-priority="10"><h4>Due Date</h4></th>
 							    <th data-priority="3"><h4>Disposition</h4></th>
 							    <th data-priority="2"><h4>Closed By</h4></th>
 							    <th data-priority="6"><h4>Date Closed</h4></th>
 							    <th data-priority="10"><h4>Resolutions</h4></th>
-
 						    </tr>
 						</thead>
 						<tbody id="mcs_open_points_action_items_table_body">
@@ -2316,7 +2534,6 @@
 					
 				</div>
 			</div>
-
         <script type="text/javascript" src="cordova.js"></script>
         <script type="text/javascript" src="js/index.js"></script>
 		<script src="js/jquery.bxslider.min.js"></script>
