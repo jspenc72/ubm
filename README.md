@@ -8,7 +8,7 @@ Application Tier
 
 Network Tier
 
-Servicre Tier
+Service Tier
 
 DB Access Tier
 
