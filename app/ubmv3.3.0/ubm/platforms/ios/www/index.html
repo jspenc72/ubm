@@ -36,6 +36,25 @@
         <title>UBM</title>
         <script>
         	function refreshOpenItemsList(){
+				//Show Loader Message
+				
+			    var $this = $("#page_loading_message"),
+			        theme = $this.jqmData( "theme" ) || $.mobile.loader.prototype.options.theme,
+			        msgText = $this.jqmData( "msgtext" ) || $.mobile.loader.prototype.options.text,
+			        textVisible = $this.jqmData( "textvisible" ) || $.mobile.loader.prototype.options.textVisible,
+			        textonly = !!$this.jqmData( "textonly" );
+			        html = $this.jqmData( "html" ) || "";
+
+			    $.mobile.loading( "show", {
+			            text: msgText,
+			            textVisible: textVisible,
+			            theme: theme,
+			            textonly: textonly,
+			            html: html
+			    });
+			    
+				//End Show Loader Message
+				
 				$.getJSON('http://www.findmydriver.com/ubmopenitemsallitems.php?callback=?', {		//JSONP Request to Open Items Page setup tables
 					},
 					function(res,status){
@@ -45,9 +64,15 @@
 							$( "#mcs_open_points_action_items_table" ).table( "refresh" );
 							$('#mcs_open_points_action_items_table_body').append("<tr ><th class='label'>"+ item.id + "</th><td>"+ item.form_ref + "</td><td>"+ item.priority + "</td><td>"+ item.opened_by + "</td><td>"+ item.date_opened + "</td><td>"+ item.action_required +"</td><td>"+ item.assigned_to + "</td><td>"+ item.date_opened + "</td><td>"+ item.due_date +"</td><td>b</td><td>c</td><td>d</td><td><a href='#mcs_open_points_action_items_resolution_popup' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a' onclick='viewResolutions("+item.id+")'>View / Add / Modify &nbsp&nbsp&nbsp&nbsp<span class='ui-li-has-count ui-btn-up-c ui-btn-corner-all'>"+ item.number_resolutions +"</span></a></td></tr>");
 							$( "#mcs_open_points_action_items_table" ).table( "refresh" );
+							    
+							    //Start Hide Loading Message
+								$.mobile.loading( "hide" );
+								//End Hide Loading Message
+						
 						})
 							$( "#mcs_open_points_action_items_table" ).trigger( "create" );
 					});
+					
         	}
 			function viewResolutions(id){
 				//alert("Although this functionality is not yet available, Clicking this will soon show any resolutions that have been added for item "+ id);
@@ -130,9 +155,89 @@
 				});
 				$( ".ubm_page" ).on( "pageshow", function( event ) { 	//bind to a ubm page change event!
 					var str = window.location.hash;						//get current page from window as a string
-					var strarray = str.split("#",2);							//spli the string to remove the hash
-			//		alert(window.location.hash);						//outputs the original hash
-					alert(strarray[1]);										//outputs the split string which has the hash removed
+					var strarray = str.split("#",2);							//spli the string to remove the hash			
+					if(strarray[1]=="gettingStarted"){
+						var link = document.getElementById("openItem_popup_button");	//Get the popup on the current page.
+						link.setAttribute("href", '#gettingStarted_openItem_popup');						//Set the Attribute of the open item button to the popup on the current page.						
+					}else{
+						if(strarray[1]=="table_of_contents"){
+							var link = document.getElementById("openItem_popup_button");	//Get the popup on the current page.
+							link.setAttribute("href", '#table_of_contents_openItem_popup');						//Set the Attribute of the open item button to the popup on the current page.	
+						}else{
+							if(strarray[1]=="identification_setup"){
+								var link = document.getElementById("openItem_popup_button");	//Get the popup on the current page.
+								link.setAttribute("href", '#identification_setup_openItem_popup');						//Set the Attribute of the open item button to the popup on the current page.	
+							}else{
+								if(strarray[1]=="primary_objects_setup_table"){
+									var link = document.getElementById("openItem_popup_button");	//Get the popup on the current page.
+									link.setAttribute("href", '#primary_objects_setup_table_openItem_popup');						//Set the Attribute of the open item button to the popup on the current page.										
+								}else{
+									if(strarray[1]=="possible_alternatives"){
+										var link = document.getElementById("openItem_popup_button");	//Get the popup on the current page.
+										link.setAttribute("href", '#possible_alternatives_openItem_popup');						//Set the Attribute of the open item button to the popup on the current page.											
+									}else{
+										if(strarray[1]=="mcs_setup_checklist_setup"){
+											var link = document.getElementById("openItem_popup_button");	//Get the popup on the current page.
+											link.setAttribute("href", '#mcs_setup_checklist_setup_openItem_popup');						//Set the Attribute of the open item button to the popup on the current page.												
+										}else{
+											if(strarray[1]=="mcs_setup_checklist_CS"){
+												var link = document.getElementById("openItem_popup_button");	//Get the popup on the current page.
+												link.setAttribute("href", '#mcs_setup_checklist_CS_openItem_popup');						//Set the Attribute of the open item button to the popup on the current page.												
+											}
+											else{
+												if(strarray[1]=="mcs_setup_checklist_p1"){
+													var link = document.getElementById("openItem_popup_button");	//Get the popup on the current page.
+													link.setAttribute("href", '#mcs_setup_checklist_p1_openItem_popup');						//Set the Attribute of the open item button to the popup on the current page.												
+												}else{
+													if(strarray[1]=="mcs_setup_checklist_p2"){
+														var link = document.getElementById("openItem_popup_button");	//Get the popup on the current page.
+														link.setAttribute("href", '#mcs_setup_checklist_p2_openItem_popup');						//Set the Attribute of the open item button to the popup on the current page.												
+													}else{
+														if(strarray[1]=="mcs_setup_checklist_p3"){
+															var link = document.getElementById("openItem_popup_button");	//Get the popup on the current page.
+															link.setAttribute("href", '#mcs_setup_checklist_p3_openItem_popup');						//Set the Attribute of the open item button to the popup on the current page.												
+														}else{
+															if(strarray[1]=="mcs_setup_checklist_p4_b1"){
+																var link = document.getElementById("openItem_popup_button");	//Get the popup on the current page.
+																link.setAttribute("href", '#mcs_setup_checklist_p4_b1_openItem_popup');						//Set the Attribute of the open item button to the popup on the current page.												
+															}else{
+																if(strarray[1]=="mcs_setup_checklist_p4_b2"){
+																	var link = document.getElementById("openItem_popup_button");	//Get the popup on the current page.
+																	link.setAttribute("href", '#mcs_setup_checklist_p4_b2_openItem_popup');						//Set the Attribute of the open item button to the popup on the current page.												
+																}else{
+																	if(strarray[1]=="mcs_setup_checklist_p5"){
+																		var link = document.getElementById("openItem_popup_button");	//Get the popup on the current page.
+																		link.setAttribute("href", '#mcs_setup_checklist_p5_openItem_popup');						//Set the Attribute of the open item button to the popup on the current page.												
+																	}else{
+																		if(strarray[1]=="mcs_setup_checklist_p6"){
+																			var link = document.getElementById("openItem_popup_button");	//Get the popup on the current page.
+																			link.setAttribute("href", '#mcs_setup_checklist_p6_openItem_popup');						//Set the Attribute of the open item button to the popup on the current page.												
+																		}else{
+																			if(strarray[1]=="mcs_setup_checklist_p7"){
+																				var link = document.getElementById("openItem_popup_button");	//Get the popup on the current page.
+																				link.setAttribute("href", '#mcs_setup_checklist_p7_openItem_popup');						//Set the Attribute of the open item button to the popup on the current page.												
+																			}else{
+																				if(strarray[1]=="mcs_setup_checklist_p8"){
+																					var link = document.getElementById("openItem_popup_button");	//Get the popup on the current page.
+																					link.setAttribute("href", '#mcs_setup_checklist_p8_openItem_popup');						//Set the Attribute of the open item button to the popup on the current page.												
+																				}
+																			}
+																		}
+																	}
+																}
+															}
+														}
+													}
+												}
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+			//		alert(window.location.hash);									//outputs the original hash
+					//alert(strarray[1]);												//outputs the split string which has the hash removed
 					$.getJSON('http://www.findmydriver.com/getubmpagereference.php?callback=?', {		//JSONP Request to the app_pages table.
 						pageid: strarray[1]
 					},
@@ -158,31 +263,71 @@
 		//		$('#gettingStarted_content').append($( "#gettingStarted_content_textarea" ).clone());
 				//alert("addField was executed");	
         	}
-			function submitReviewPoint(){
-				//alert($.getActivePage());
+			function submitReviewPoint(popupid){
+				//Show Loader Message				
+			    var $this = $("#page_loading_message"),
+			        theme = $this.jqmData( "theme" ) || $.mobile.loader.prototype.options.theme,
+			        msgText = $this.jqmData( "msgtext" ) || $.mobile.loader.prototype.options.text,
+			        textVisible = $this.jqmData( "textvisible" ) || $.mobile.loader.prototype.options.textVisible,
+			        textonly = !!$this.jqmData( "textonly" );
+			        html = $this.jqmData( "html" ) || "";
+
+			    $.mobile.loading( "show", {
+			            text: msgText,
+			            textVisible: textVisible,
+			            theme: theme,
+			            textonly: textonly,
+			            html: html
+			    });
+			    if(popupid=="sign_in_sign_up_"){
+			    	alert("this is the popup: "+popupid);
+			    }
+				//End Show Loader Message
 				//event.preventDefault();
-				alert($("#submitreviewpoint_priority").val());
+				alert(window.username);
 						$.getJSON('http://www.findmydriver.com/ubmsubmitopenitems.php?callback=?', {
 								appname: "UBMMFICS",
 								RQType: "sumbitReviewPoint",
-								username: document.username,
-								formref: document.getElementById("submitreviewpoint_formref").value,
-								priority: document.getElementById("submitreviewpoint_priority").value,
-								actionrequired: document.getElementById("submitreviewpoint_actionrequired").value,
-								assignedto: document.getElementById("submitreviewpoint_assignedto").value,
-								duedate: document.getElementById("submitreviewpoint_duedatetime").value,
+								username: window.username,
+								formref: document.getElementById(popupid+"submitreviewpoint_formref").value,
+								priority: document.getElementById(popupid+"submitreviewpoint_priority").value,
+								actionrequired: document.getElementById(popupid+"submitreviewpoint_actionrequired").value,
+								assignedto: document.getElementById(popupid+"submitreviewpoint_assignedto").value,
+								duedate: document.getElementById(popupid+"submitreviewpoint_duedatetime").value,
 							},
 							function(res,status){
 								alert("init: "+ status);
 								if(status=="success"){
 									alert(res.message);
-									$( '#openItem_popup' ).each(function(){
+									$( '#gettingStarted_open_items_form' ).each(function(){
 									    this.reset();
-									});									
+									});
+									$( '#sign_in_sign_up_open_items_form' ).each(function(){
+									    this.reset();
+									});	
 								}
+							    //Start Show Loading Message
+								$.mobile.loading( "hide" );
+								//End Hide Loading Message
 							});
-			}
+			}			
 			function userRegister(){
+				//Show Loader Message
+			    var $this = $("#page_loading_message"),
+			        theme = $this.jqmData( "theme" ) || $.mobile.loader.prototype.options.theme,
+			        msgText = $this.jqmData( "msgtext" ) || $.mobile.loader.prototype.options.text,
+			        textVisible = $this.jqmData( "textvisible" ) || $.mobile.loader.prototype.options.textVisible,
+			        textonly = !!$this.jqmData( "textonly" );
+			        html = $this.jqmData( "html" ) || "";
+
+			    $.mobile.loading( "show", {
+			            text: msgText,
+			            textVisible: textVisible,
+			            theme: theme,
+			            textonly: textonly,
+			            html: html
+			    });
+				//End Show Loader Message
 				event.preventDefault();
 				var reg_passwd1 = document.getElementById("reg_pw1").value;
 				//	alert(reg_passwd1);
@@ -202,16 +347,17 @@
 							},
 							function(res,status){
 						    alert(res.message);
+						    
+						    //Start Showing Loading Message
+							$.mobile.loading( "hide" );
+							//Hide Loading Message
+							
 							window.location = "#home"
 		//				    alert(status);
 						});
 					}else{
 						alert("The passwords you entered do not match!");
 					}
-				/*alert("This is a Registration Test");
-				alert(document.getElementById("reg_un").value);
-				alert(document.getElementById("reg_pw1").value);
-				alert(document.getElementById("reg_pw2").value);*/
 			}
 			function userSignIn(){
 				event.preventDefault();
@@ -247,7 +393,7 @@
 								if(res.accounttype=='admin'){
 									//admin only stuff here 
 									alert("you are an admin");
-									$('body').prepend('<div id="overlayTest" class="circleBase type2" style="z-index: 99999; position:fixed;"><a href="#openItem_popup" data-rel="popup" data-transition="slideup" class="ui-btn ui-icon-alert ui-btn-icon-notext ui-corner-all">No text</a><a href="#openItem_popup" data-rel="popup" data-transition="slideup" class="ui-btn ui-icon-action ui-btn-icon-notext ui-corner-all">No text</a><center><a href="#mcs_setup_checklist_setup_searchPopup" data-rel="popup" data-transition="slideup" class="ui-btn ui-icon-search ui-btn-icon-notext ui-corner-all">No text</a></center></div>');
+								//	$('body').prepend('<div id="overlayTest" class="circleBase type2" style="z-index: 99999; position:fixed;"><a href="#openItem_popup" data-rel="popup" data-transition="slideup" class="ui-btn ui-icon-alert ui-btn-icon-notext ui-corner-all">No text</a><a href="#openItem_popup" data-rel="popup" data-transition="slideup" class="ui-btn ui-icon-action ui-btn-icon-notext ui-corner-all">No text</a><center><a href="#mcs_setup_checklist_setup_searchPopup" data-rel="popup" data-transition="slideup" class="ui-btn ui-icon-search ui-btn-icon-notext ui-corner-all">No text</a></center></div>');
 								//    $( ".circleBase" ).draggable();
 								}else{
 									if(res.accounttype=='user'){
@@ -261,7 +407,6 @@
 										}else{
 											if(res.accounttype=='driver'){
 												alert("You are a driver");
-												
 											}
 											//User has not been assigned an account type!
 										}
@@ -282,9 +427,28 @@
 				$('.bxslider').bxSlider();
 			});
 			// Instantiate the open item popup on DOMReady, and enhance its contents manually so the same popup is used on all pages within the app.
-			$( function() {
-			    $( "#openItem_popup" ).enhanceWithin().popup();
-				$(window.location.hash + "_content").load('#openItem_popup');
+			//$( function() {
+			//    $( "#openItem_popup" ).enhanceWithin().popup();
+			//	$(window.location.hash + "_content").load('#openItem_popup');
+			//});
+			$( document ).on( "click", ".show-page-loading-msg", function() {
+			    var $this = $("#page_loading_message"),
+			        theme = $this.jqmData( "theme" ) || $.mobile.loader.prototype.options.theme,
+			        msgText = $this.jqmData( "msgtext" ) || $.mobile.loader.prototype.options.text,
+			        textVisible = $this.jqmData( "textvisible" ) || $.mobile.loader.prototype.options.textVisible,
+			        textonly = !!$this.jqmData( "textonly" );
+			        html = $this.jqmData( "html" ) || "";
+
+			    $.mobile.loading( "show", {
+			            text: msgText,
+			            textVisible: textVisible,
+			            theme: theme,
+			            textonly: textonly,
+			            html: html
+			    });
+			})
+			.on( "click", ".hide-page-loading-msg", function() {
+			    $.mobile.loading( "hide" );
 			});
         </script>
         <style>
@@ -309,43 +473,50 @@
 			}
         </style>
     </head>
-	<div id="overlayTest" class="circleBase type1" style="z-index: 99999; position:fixed; right:20px; top:300px;"><a href="#newRequest_popup" data-rel="popup" data-transition="slideup" class="ui-btn ui-icon-alert ui-btn-icon-notext ui-corner-all">No text</a><a href="#openItem_popup" data-rel="popup" data-transition="slideup" class="ui-btn ui-icon-action ui-btn-icon-notext ui-corner-all">No text</a><center><a href="#mcs_setup_checklist_setup_searchPopup" data-rel="popup" data-transition="slideup" class="ui-btn ui-icon-search ui-btn-icon-notext ui-corner-all">No text</a></center></div>  
 	<div id="headerRecord_right" style="z-index: 99999; position:fixed; right:60px; top:5px;">
 		<div id="headerRecord_right_formref" style="color:red;">00.01</div>
 		<div id="headerRecord_right_page">1 of 1</div>			
 	</div>
     <body onload="onLoadBody()">
-<!-- Open Items Popup -->
-					<div data-role="popup" id="openItem_popup" data-theme="b">
-				        <ul data-role="listview" data-inset="true" style="min-width:210px;">
-				            <li data-role="list-divider">Write a Review Point</br>or Open Item</li>
-							<li><input type="text" id="submitreviewpoint_formref" value="" placeholder="Form Ref..."></li>									
-							<select  id="submitreviewpoint_priority" value="Select" data-native-menu="false">
-							    <option>Priority...</option>
-							    <option value="A1">A1</option>
-							    <option value="A2">A2</option>
-							    <option value="A3">A3</option>
-							    <option value="B1">B1</option>
-							    <option value="B2">B2</option>
-							    <option value="B3">B3</option>
-							    <option value="C1">C1</option>
-							    <option value="C2">C2</option>
-							    <option value="C3">C3</option>
-							</select>
-							</li>
-				            <li><textarea data-mini="true" cols="40" rows="8" id="submitreviewpoint_actionrequired" placeholder="Action Required..."></textarea></li>
-							<li><input type="text" id="submitreviewpoint_assignedto" value="" placeholder="Assigned To..."></li>
-				            <li><label for="datetime-4">Due Datetime</label><input type="datetime-local" data-clear-btn="true"  id="submitreviewpoint_duedatetime" value="" placeholder="Due Datetime..."></li>
-							<li><input type="button" data-enhanced="true" value="Submit Review Point" onclick="submitReviewPoint()"></li>
-				        </ul>
-					</div>
+
+	<div id="overlayTest" class="circleBase type1" style="z-index: 99999; position:fixed; right:20px; top:300px;">
+		<a href="#newRequest_popup" id="newRequest_popup_button" data-rel="popup" data-transition="slideup" class="ui-btn ui-icon-alert ui-btn-icon-notext ui-corner-all">No text</a>
+		<a href="#sign_in_sign_up_openItem_popup" id="openItem_popup_button" data-rel="popup" data-transition="slideup" class="ui-btn ui-icon-action ui-btn-icon-notext ui-corner-all">No text</a>
+		<center><a href="#mcs_setup_checklist_setup_searchPopup" data-rel="popup" data-transition="slideup" class="ui-btn ui-icon-search ui-btn-icon-notext ui-corner-all">No text</a></center>
+	</div>  
 			<!-- Start of first page -->
 			<div data-role="page" class="ubm_page" id="sign_in_sign_up">
 				<div data-role="header" data-theme="a">
 						<h1>UBM Login</h1>
 				</div>
 				<div data-role="content" id="gettingStarted_content" >
+<!-- Open Items Popup -->
+					<div data-role="popup" id="sign_in_sign_up_openItem_popup" data-theme="b">
+						<form id="sign_in_sign_up_open_items_form" name="open_items_form">
+					        <ul data-role="listview" data-inset="true" style="min-width:210px;">
+					            <li data-role="list-divider">Write a Review Point</br>or Open Item</li>
+								<li><input type="text" id="sign_in_sign_up_submitreviewpoint_formref" name="submitreviewpoint_formref" value="" placeholder="Form Ref..."></li>									
+								<select  id="sign_in_sign_up_submitreviewpoint_priority" value="Select" data-native-menu="false">
+								    <option>Priority...</option>
+								    <option value="A1">A1</option>
+								    <option value="A2">A2</option>
+								    <option value="A3">A3</option>
+								    <option value="B1">B1</option>
+								    <option value="B2">B2</option>
+								    <option value="B3">B3</option>
+								    <option value="C1">C1</option>
+								    <option value="C2">C2</option>
+								    <option value="C3">C3</option>
+								</select>
+								</li>
+					            <li><textarea data-mini="true" cols="40" rows="8" id="sign_in_sign_up_submitreviewpoint_actionrequired" placeholder="Action Required..."></textarea></li>
+								<li><input type="text" id="sign_in_sign_up_submitreviewpoint_assignedto" value="" placeholder="Assigned To..."></li>
+					            <li><label for="datetime-4">Due Datetime</label><input type="datetime-local" data-clear-btn="true"  id="sign_in_sign_up_submitreviewpoint_duedatetime" value="" placeholder="Due Datetime..."></li>
+								<li><input type="button" data-enhanced="true" value="Submit Review Point" onclick="submitReviewPoint('sign_in_sign_up_');"></li>
+					        </ul>						
 
+						</form>
+					</div>
 					<div data-role="popup" id="gettingStarted_content_licenseagreement_popUp" data-theme="b" data-position-to="window" data-dismissible="false">
 					    <div data-role="header" data-theme="a">
 					   		<h1>License Agreement</h1>
@@ -469,6 +640,35 @@
 					</div>
 				</div>
 				<div data-role="content"> 
+
+<!-- Open Items Popup -->
+					<div data-role="popup" id="gettingStarted_openItem_popup" data-theme="b">
+						<form id="gettingStarted_open_items_form" name="open_items_form">
+					        <ul data-role="listview" data-inset="true" style="min-width:210px;">
+					            <li data-role="list-divider">Write a Review Point</br>or Open Item</li>
+								<li><input type="text" id="gettingStarted_submitreviewpoint_formref" name="submitreviewpoint_formref" value="" placeholder="Form Ref..."></li>									
+								<select  id="gettingStarted_submitreviewpoint_priority" value="Select" data-native-menu="false">
+								    <option>Priority...</option>
+								    <option value="A1">A1</option>
+								    <option value="A2">A2</option>
+								    <option value="A3">A3</option>
+								    <option value="B1">B1</option>
+								    <option value="B2">B2</option>
+								    <option value="B3">B3</option>
+								    <option value="C1">C1</option>
+								    <option value="C2">C2</option>
+								    <option value="C3">C3</option>
+								</select>
+								</li>
+					            <li><textarea data-mini="true" cols="40" rows="8" id="gettingStarted_submitreviewpoint_actionrequired" placeholder="Action Required..."></textarea></li>
+								<li><input type="text" id="gettingStarted_submitreviewpoint_assignedto" value="" placeholder="Assigned To..."></li>
+					            <li><label for="datetime-4">Due Datetime</label><input type="datetime-local" data-clear-btn="true"  id="gettingStarted_submitreviewpoint_duedatetime" value="" placeholder="Due Datetime..."></li>
+								<li><input type="button" data-enhanced="true" value="Submit Review Point" onclick="submitReviewPoint('gettingStarted_');"></li>
+					        </ul>
+						</form>
+					</div>
+<!-- End Open Items Popup -->
+
 					<ul class="bxslider1">
 						<li>
 							<div class="GS">
@@ -588,17 +788,33 @@
 					</div>
 				</div>
 				<div data-role="content">
-					<div data-role="popup" id="mcs_table_of_contents_openItem_popup" data-theme="b">
+<!-- Open Items Popup -->
+					<div data-role="popup" id="table_of_contents_openItem_popup" data-theme="b">
+						<form id="table_of_contents_open_items_form" name="open_items_form">
 					        <ul data-role="listview" data-inset="true" style="min-width:210px;">
 					            <li data-role="list-divider">Write a Review Point</br>or Open Item</li>
-								<li><input type="text" name="text-1" id="submitreviewpoint_formref" value="" placeholder="Form Ref..."></li>
-								<li><input type="text" name="text-1" id="submitreviewpoint_priority" value="" placeholder="Priority..."></li>
-					            <li><textarea data-mini="true" cols="40" rows="8" name="textarea-4" id="submitreviewpoint_actionrequired" placeholder="Action Required..."></textarea></li>
-								<li><input type="text" name="text-1" id="submitreviewpoint_assignedto" value="" placeholder="Assigned To..."></li>
-					            <li><label for="datetime-4">Due Datetime</label><input type="datetime-local" data-clear-btn="true" name="datetime-4" id="submitreviewpoint_duedatetime" value="" placeholder="Due Datetime..."></li>
-								<li><input type="button" data-enhanced="true" value="Submit Review Item..." onclick="submitReviewPoint()"></li>
+								<li><input type="text" id="table_of_contents_submitreviewpoint_formref" name="submitreviewpoint_formref" value="" placeholder="Form Ref..."></li>									
+								<select  id="table_of_contents_submitreviewpoint_priority" value="Select" data-native-menu="false">
+								    <option>Priority...</option>
+								    <option value="A1">A1</option>
+								    <option value="A2">A2</option>
+								    <option value="A3">A3</option>
+								    <option value="B1">B1</option>
+								    <option value="B2">B2</option>
+								    <option value="B3">B3</option>
+								    <option value="C1">C1</option>
+								    <option value="C2">C2</option>
+								    <option value="C3">C3</option>
+								</select>
+								</li>
+					            <li><textarea data-mini="true" cols="40" rows="8" id="table_of_contents_submitreviewpoint_actionrequired" placeholder="Action Required..."></textarea></li>
+								<li><input type="text" id="table_of_contents_submitreviewpoint_assignedto" value="" placeholder="Assigned To..."></li>
+					            <li><label for="datetime-4">Due Datetime</label><input type="datetime-local" data-clear-btn="true"  id="table_of_contents_submitreviewpoint_duedatetime" value="" placeholder="Due Datetime..."></li>
+								<li><input type="button" data-enhanced="true" value="Submit Review Point" onclick="submitReviewPoint('table_of_contents_');"></li>
 					        </ul>
-					</div> 
+						</form>
+					</div>
+<!-- End Open Items Popup -->
 					<div id="model_creation">
 						<h1>(A) Model Creation</h1>
 						<p><a href="#mcs_setup_checklist_setup">Model Creation Suite Phases Checklist</a></p>
@@ -656,17 +872,33 @@
 					</div>
 				</div>
 				<div data-role="content" id="identification_setup_content">
-					<div data-role="popup" id="mcs_identification_setup_openItem_popup" data-theme="b">
+<!-- Open Items Popup -->
+					<div data-role="popup" id="identification_setup_openItem_popup" data-theme="b">
+						<form id="identification_setup_open_items_form" name="open_items_form">
 					        <ul data-role="listview" data-inset="true" style="min-width:210px;">
 					            <li data-role="list-divider">Write a Review Point</br>or Open Item</li>
-								<li><input type="text" name="text-1" id="submitreviewpoint_formref" value="" placeholder="Form Ref..."></li>
-								<li><input type="text" name="text-1" id="submitreviewpoint_priority" value="" placeholder="Priority..."></li>
-					            <li><textarea data-mini="true" cols="40" rows="8" name="textarea-4" id="submitreviewpoint_actionrequired" placeholder="Action Required..."></textarea></li>
-								<li><input type="text" name="text-1" id="submitreviewpoint_assignedto" value="" placeholder="Assigned To..."></li>
-					            <li><label for="datetime-4">Due Datetime</label><input type="datetime-local" data-clear-btn="true" name="datetime-4" id="submitreviewpoint_duedatetime" value="" placeholder="Due Datetime..."></li>
-								<li><input type="button" data-enhanced="true" value="Submit Review Item..." onclick="submitReviewPoint()"></li>
+								<li><input type="text" id="identification_setup_submitreviewpoint_formref" name="submitreviewpoint_formref" value="" placeholder="Form Ref..."></li>									
+								<select  id="identification_setup_submitreviewpoint_priority" value="Select" data-native-menu="false">
+								    <option>Priority...</option>
+								    <option value="A1">A1</option>
+								    <option value="A2">A2</option>
+								    <option value="A3">A3</option>
+								    <option value="B1">B1</option>
+								    <option value="B2">B2</option>
+								    <option value="B3">B3</option>
+								    <option value="C1">C1</option>
+								    <option value="C2">C2</option>
+								    <option value="C3">C3</option>
+								</select>
+								</li>
+					            <li><textarea data-mini="true" cols="40" rows="8" id="identification_setup_submitreviewpoint_actionrequired" placeholder="Action Required..."></textarea></li>
+								<li><input type="text" id="identification_setup_submitreviewpoint_assignedto" value="" placeholder="Assigned To..."></li>
+					            <li><label for="datetime-4">Due Datetime</label><input type="datetime-local" data-clear-btn="true"  id="identification_setup_submitreviewpoint_duedatetime" value="" placeholder="Due Datetime..."></li>
+								<li><input type="button" data-enhanced="true" value="Submit Review Point" onclick="submitReviewPoint('identification_setup_');"></li>
 					        </ul>
-					</div> 
+						</form>
+					</div>
+<!-- End Open Items Popup -->
 					<label for="text-6">Model Owner Legal Entity:</label>
 					<input type="text" name="text-6" id="text-6" value="" placeholder="Legal Entity">
 					<label for="text-6">CCODE:</label>
@@ -721,6 +953,33 @@
 					</div>
 				</div>
 				<div data-role="content">
+<!-- Open Items Popup -->
+					<div data-role="popup" id="primary_objects_setup_table_openItem_popup" data-theme="b">
+						<form id="primary_objects_setup_table_open_items_form" name="open_items_form">
+					        <ul data-role="listview" data-inset="true" style="min-width:210px;">
+					            <li data-role="list-divider">Write a Review Point</br>or Open Item</li>
+								<li><input type="text" id="primary_objects_setup_table_submitreviewpoint_formref" name="submitreviewpoint_formref" value="" placeholder="Form Ref..."></li>									
+								<select  id="primary_objects_setup_table_submitreviewpoint_priority" value="Select" data-native-menu="false">
+								    <option>Priority...</option>
+								    <option value="A1">A1</option>
+								    <option value="A2">A2</option>
+								    <option value="A3">A3</option>
+								    <option value="B1">B1</option>
+								    <option value="B2">B2</option>
+								    <option value="B3">B3</option>
+								    <option value="C1">C1</option>
+								    <option value="C2">C2</option>
+								    <option value="C3">C3</option>
+								</select>
+								</li>
+					            <li><textarea data-mini="true" cols="40" rows="8" id="primary_objects_setup_table_submitreviewpoint_actionrequired" placeholder="Action Required..."></textarea></li>
+								<li><input type="text" id="primary_objects_setup_table_submitreviewpoint_assignedto" value="" placeholder="Assigned To..."></li>
+					            <li><label for="datetime-4">Due Datetime</label><input type="datetime-local" data-clear-btn="true"  id="primary_objects_setup_table_submitreviewpoint_duedatetime" value="" placeholder="Due Datetime..."></li>
+								<li><input type="button" data-enhanced="true" value="Submit Review Point" onclick="submitReviewPoint('primary_objects_setup_table_');"></li>
+					        </ul>
+						</form>
+					</div>
+<!-- End Open Items Popup -->
 					<label for="text-6">Conceptual Definitions</label>
 					<input type="text" name="text-6" id="text-6" value="" placeholder="Conceptual Definitions (Refer to 01.01.02.01 in the Reference Manual)">
 					<label for="text-6">Entity/Model Description</label>
@@ -937,6 +1196,33 @@
 				    </div>
 				</div>
 				<div data-role="content">
+<!-- Open Items Popup -->
+					<div data-role="popup" id="management_reporting_openItem_popup" data-theme="b">
+						<form id="management_reporting_open_items_form" name="open_items_form">
+					        <ul data-role="listview" data-inset="true" style="min-width:210px;">
+					            <li data-role="list-divider">Write a Review Point</br>or Open Item</li>
+								<li><input type="text" id="management_reporting_submitreviewpoint_formref" name="submitreviewpoint_formref" value="" placeholder="Form Ref..."></li>									
+								<select  id="management_reporting_submitreviewpoint_priority" value="Select" data-native-menu="false">
+								    <option>Priority...</option>
+								    <option value="A1">A1</option>
+								    <option value="A2">A2</option>
+								    <option value="A3">A3</option>
+								    <option value="B1">B1</option>
+								    <option value="B2">B2</option>
+								    <option value="B3">B3</option>
+								    <option value="C1">C1</option>
+								    <option value="C2">C2</option>
+								    <option value="C3">C3</option>
+								</select>
+								</li>
+					            <li><textarea data-mini="true" cols="40" rows="8" id="management_reporting_submitreviewpoint_actionrequired" placeholder="Action Required..."></textarea></li>
+								<li><input type="text" id="management_reporting_submitreviewpoint_assignedto" value="" placeholder="Assigned To..."></li>
+					            <li><label for="datetime-4">Due Datetime</label><input type="datetime-local" data-clear-btn="true"  id="management_reporting_submitreviewpoint_duedatetime" value="" placeholder="Due Datetime..."></li>
+								<li><input type="button" data-enhanced="true" value="Submit Review Point" onclick="submitReviewPoint('management_reporting_');"></li>
+					        </ul>
+						</form>
+					</div>
+<!-- End Open Items Popup -->
 					<div class="ui-grid-solo">
 					    <div class="ui-block-a"><a href="#" class="ui-btn ui-shadow ui-corner-all">Refresh</a></div>
 					</div>
@@ -1150,6 +1436,33 @@
 					<center><a href="#mcs_setup_checklist_setup_searchPopup" data-rel="popup" data-role="button">Model Creation Suite - Setup</a></center>
 				</div><!-- /header -->
 				<div data-role="content">
+<!-- Open Items Popup -->
+					<div data-role="popup" id="mcs_setup_checklist_setup_openItem_popup" data-theme="b">
+						<form id="mcs_setup_checklist_setup_open_items_form" name="open_items_form">
+					        <ul data-role="listview" data-inset="true" style="min-width:210px;">
+					            <li data-role="list-divider">Write a Review Point</br>or Open Item</li>
+								<li><input type="text" id="mcs_setup_checklist_setup_submitreviewpoint_formref" name="submitreviewpoint_formref" value="" placeholder="Form Ref..."></li>									
+								<select  id="mcs_setup_checklist_setup_submitreviewpoint_priority" value="Select" data-native-menu="false">
+								    <option>Priority...</option>
+								    <option value="A1">A1</option>
+								    <option value="A2">A2</option>
+								    <option value="A3">A3</option>
+								    <option value="B1">B1</option>
+								    <option value="B2">B2</option>
+								    <option value="B3">B3</option>
+								    <option value="C1">C1</option>
+								    <option value="C2">C2</option>
+								    <option value="C3">C3</option>
+								</select>
+								</li>
+					            <li><textarea data-mini="true" cols="40" rows="8" id="mcs_setup_checklist_setup_submitreviewpoint_actionrequired" placeholder="Action Required..."></textarea></li>
+								<li><input type="text" id="mcs_setup_checklist_setup_submitreviewpoint_assignedto" value="" placeholder="Assigned To..."></li>
+					            <li><label for="datetime-4">Due Datetime</label><input type="datetime-local" data-clear-btn="true"  id="mcs_setup_checklist_setup_submitreviewpoint_duedatetime" value="" placeholder="Due Datetime..."></li>
+								<li><input type="button" data-enhanced="true" value="Submit Review Point" onclick="submitReviewPoint('mcs_setup_checklist_setup_');"></li>
+					        </ul>
+						</form>
+					</div>
+<!-- End Open Items Popup -->
 					<div data-role="popup" id="newRequest_popup" data-theme="b">
 					        <ul data-role="listview" data-inset="true" style="min-width:210px;">
 					            <li data-role="list-divider">Request Something New </br>or Unheard Of?</li>
@@ -1279,17 +1592,33 @@
 					<center><a href="#mcs_setup_checklist_CS_searchPopup" data-rel="popup" data-role="button">Model Creation Suite - Control</a></center>
 				</div><!-- /header -->
 				<div role="content" class="ui-content">
+<!-- Open Items Popup -->
 					<div data-role="popup" id="mcs_setup_checklist_CS_openItem_popup" data-theme="b">
+						<form id="mcs_setup_checklist_CS_open_items_form" name="open_items_form">
 					        <ul data-role="listview" data-inset="true" style="min-width:210px;">
 					            <li data-role="list-divider">Write a Review Point</br>or Open Item</li>
-								<li><input type="text" name="text-1" id="submitreviewpoint_formref" value="" placeholder="Form Ref..."></li>
-								<li><input type="text" name="text-1" id="submitreviewpoint_priority" value="" placeholder="Priority..."></li>
-					            <li><textarea data-mini="true" cols="40" rows="8" name="textarea-4" id="submitreviewpoint_actionrequired" placeholder="Action Required..."></textarea></li>
-								<li><input type="text" name="text-1" id="submitreviewpoint_assignedto" value="" placeholder="Assigned To..."></li>
-					            <li><label for="datetime-4">Due Datetime</label><input type="datetime-local" data-clear-btn="true" name="datetime-4" id="submitreviewpoint_duedatetime" value="" placeholder="Due Datetime..."></li>
-								<li><input type="button" data-enhanced="true" value="Submit Review Item..." onclick="submitReviewPoint()"></li>
+								<li><input type="text" id="mcs_setup_checklist_CS_submitreviewpoint_formref" name="submitreviewpoint_formref" value="" placeholder="Form Ref..."></li>									
+								<select  id="mcs_setup_checklist_CS_submitreviewpoint_priority" value="Select" data-native-menu="false">
+								    <option>Priority...</option>
+								    <option value="A1">A1</option>
+								    <option value="A2">A2</option>
+								    <option value="A3">A3</option>
+								    <option value="B1">B1</option>
+								    <option value="B2">B2</option>
+								    <option value="B3">B3</option>
+								    <option value="C1">C1</option>
+								    <option value="C2">C2</option>
+								    <option value="C3">C3</option>
+								</select>
+								</li>
+					            <li><textarea data-mini="true" cols="40" rows="8" id="mcs_setup_checklist_CS_submitreviewpoint_actionrequired" placeholder="Action Required..."></textarea></li>
+								<li><input type="text" id="mcs_setup_checklist_CS_submitreviewpoint_assignedto" value="" placeholder="Assigned To..."></li>
+					            <li><label for="datetime-4">Due Datetime</label><input type="datetime-local" data-clear-btn="true"  id="mcs_setup_checklist_CS_submitreviewpoint_duedatetime" value="" placeholder="Due Datetime..."></li>
+								<li><input type="button" data-enhanced="true" value="Submit Review Point" onclick="submitReviewPoint('mcs_setup_checklist_CS_');"></li>
 					        </ul>
-					</div> 
+						</form>
+					</div>
+<!-- End Open Items Popup -->
 					<div data-role="popup" id="mcs_setup_checklist_CS_searchPopup">
 						<ul data-role="listview" data-split-icon="gear" data-split-theme="d" data-filter="true" data-inline="true" data-inset="true" data-filter-reveal="true" data-filter-placeholder="Search the UBM">
 							<li><a href="#mcs_setup_checklist_setup"><img src="img/pre_backbone_rna.png" /><h3>PreBackBone</h3><p>Master File Index Setup</p></a><a href="#purchase" data-rel="popup" data-position-to="window" data-transition="pop">Purchase album</a></li>
@@ -1399,17 +1728,33 @@
 					<center><a href="#mcs_setup_checklist_p1_searchPopup" data-rel="popup" data-role="button">Model Creation Suite - Phase 1</a></center>
 				</div><!-- /header -->
 				<div role="content" class="ui-content">
+<!-- Open Items Popup -->
 					<div data-role="popup" id="mcs_setup_checklist_p1_openItem_popup" data-theme="b">
+						<form id="mcs_setup_checklist_p1_open_items_form" name="open_items_form">
 					        <ul data-role="listview" data-inset="true" style="min-width:210px;">
 					            <li data-role="list-divider">Write a Review Point</br>or Open Item</li>
-								<li><input type="text" name="text-1" id="submitreviewpoint_formref" value="" placeholder="Form Ref..."></li>
-								<li><input type="text" name="text-1" id="submitreviewpoint_priority" value="" placeholder="Priority..."></li>
-					            <li><textarea data-mini="true" cols="40" rows="8" name="textarea-4" id="submitreviewpoint_actionrequired" placeholder="Action Required..."></textarea></li>
-								<li><input type="text" name="text-1" id="submitreviewpoint_assignedto" value="" placeholder="Assigned To..."></li>
-					            <li><label for="datetime-4">Due Datetime</label><input type="datetime-local" data-clear-btn="true" name="datetime-4" id="submitreviewpoint_duedatetime" value="" placeholder="Due Datetime..."></li>
-								<li><input type="button" data-enhanced="true" value="Submit Review Item..." onclick="submitReviewPoint()"></li>
+								<li><input type="text" id="mcs_setup_checklist_p1_submitreviewpoint_formref" name="submitreviewpoint_formref" value="" placeholder="Form Ref..."></li>									
+								<select  id="mcs_setup_checklist_p1_submitreviewpoint_priority" value="Select" data-native-menu="false">
+								    <option>Priority...</option>
+								    <option value="A1">A1</option>
+								    <option value="A2">A2</option>
+								    <option value="A3">A3</option>
+								    <option value="B1">B1</option>
+								    <option value="B2">B2</option>
+								    <option value="B3">B3</option>
+								    <option value="C1">C1</option>
+								    <option value="C2">C2</option>
+								    <option value="C3">C3</option>
+								</select>
+								</li>
+					            <li><textarea data-mini="true" cols="40" rows="8" id="mcs_setup_checklist_p1_submitreviewpoint_actionrequired" placeholder="Action Required..."></textarea></li>
+								<li><input type="text" id="mcs_setup_checklist_p1_submitreviewpoint_assignedto" value="" placeholder="Assigned To..."></li>
+					            <li><label for="datetime-4">Due Datetime</label><input type="datetime-local" data-clear-btn="true"  id="mcs_setup_checklist_p1_submitreviewpoint_duedatetime" value="" placeholder="Due Datetime..."></li>
+								<li><input type="button" data-enhanced="true" value="Submit Review Point" onclick="submitReviewPoint('mcs_setup_checklist_p1_');"></li>
 					        </ul>
-					</div> 
+						</form>
+					</div>
+<!-- End Open Items Popup -->
 					<div data-role="popup" id="mcs_setup_checklist_p1_searchPopup">
 						<ul data-role="listview" data-split-icon="gear" data-split-theme="d" data-filter="true" data-inline="true" data-inset="true" data-filter-reveal="true" data-filter-placeholder="Search the UBM">
 							<li><a href="#mcs_setup_checklist_setup"><img src="img/pre_backbone_rna.png" /><h3>PreBackBone</h3><p>Master File Index Setup</p></a><a href="#purchase" data-rel="popup" data-position-to="window" data-transition="pop">Purchase album</a></li>
@@ -1519,17 +1864,33 @@
 					<center><a href="#mcs_setup_checklist_p2_searchPopup" data-rel="popup" data-role="button">Model Creation Suite - Phase 2</a></center>
 				</div><!-- /header -->
 				<div role="content" class="ui-content">
+<!-- Open Items Popup -->
 					<div data-role="popup" id="mcs_setup_checklist_p2_openItem_popup" data-theme="b">
+						<form id="mcs_setup_checklist_p2_open_items_form" name="open_items_form">
 					        <ul data-role="listview" data-inset="true" style="min-width:210px;">
 					            <li data-role="list-divider">Write a Review Point</br>or Open Item</li>
-								<li><input type="text" name="text-1" id="submitreviewpoint_formref" value="" placeholder="Form Ref..."></li>
-								<li><input type="text" name="text-1" id="submitreviewpoint_priority" value="" placeholder="Priority..."></li>
-					            <li><textarea data-mini="true" cols="40" rows="8" name="textarea-4" id="submitreviewpoint_actionrequired" placeholder="Action Required..."></textarea></li>
-								<li><input type="text" name="text-1" id="submitreviewpoint_assignedto" value="" placeholder="Assigned To..."></li>
-					            <li><label for="datetime-4">Due Datetime</label><input type="datetime-local" data-clear-btn="true" name="datetime-4" id="submitreviewpoint_duedatetime" value="" placeholder="Due Datetime..."></li>
-								<li><input type="button" data-enhanced="true" value="Submit Review Item..." onclick="submitReviewPoint()"></li>
+								<li><input type="text" id="mcs_setup_checklist_p2_submitreviewpoint_formref" name="submitreviewpoint_formref" value="" placeholder="Form Ref..."></li>									
+								<select  id="mcs_setup_checklist_p2_submitreviewpoint_priority" value="Select" data-native-menu="false">
+								    <option>Priority...</option>
+								    <option value="A1">A1</option>
+								    <option value="A2">A2</option>
+								    <option value="A3">A3</option>
+								    <option value="B1">B1</option>
+								    <option value="B2">B2</option>
+								    <option value="B3">B3</option>
+								    <option value="C1">C1</option>
+								    <option value="C2">C2</option>
+								    <option value="C3">C3</option>
+								</select>
+								</li>
+					            <li><textarea data-mini="true" cols="40" rows="8" id="mcs_setup_checklist_p2_submitreviewpoint_actionrequired" placeholder="Action Required..."></textarea></li>
+								<li><input type="text" id="mcs_setup_checklist_p2_submitreviewpoint_assignedto" value="" placeholder="Assigned To..."></li>
+					            <li><label for="datetime-4">Due Datetime</label><input type="datetime-local" data-clear-btn="true"  id="mcs_setup_checklist_p2_submitreviewpoint_duedatetime" value="" placeholder="Due Datetime..."></li>
+								<li><input type="button" data-enhanced="true" value="Submit Review Point" onclick="submitReviewPoint('mcs_setup_checklist_p2_');"></li>
 					        </ul>
-					</div> 
+						</form>
+					</div>
+<!-- End Open Items Popup -->
 					<div data-role="popup" id="mcs_setup_checklist_p2_searchPopup">
 						<ul data-role="listview" data-split-icon="gear" data-split-theme="d" data-filter="true" data-inline="true" data-inset="true" data-filter-reveal="true" data-filter-placeholder="Search the UBM">
 							<li><a href="#mcs_setup_checklist_setup"><img src="img/pre_backbone_rna.png" /><h3>PreBackBone</h3><p>Master File Index Setup</p></a><a href="#purchase" data-rel="popup" data-position-to="window" data-transition="pop">Purchase album</a></li>
@@ -1639,17 +2000,33 @@
 					<center><a href="#searchPopup" data-rel="popup" data-role="button">Model Creation Suite - Phase 3</a></center>
 				</div><!-- /header -->
 				<div role="content" class="ui-content">
+<!-- Open Items Popup -->
 					<div data-role="popup" id="mcs_setup_checklist_p3_openItem_popup" data-theme="b">
+						<form id="mcs_setup_checklist_p3_open_items_form" name="open_items_form">
 					        <ul data-role="listview" data-inset="true" style="min-width:210px;">
 					            <li data-role="list-divider">Write a Review Point</br>or Open Item</li>
-								<li><input type="text" name="text-1" id="submitreviewpoint_formref" value="" placeholder="Form Ref..."></li>
-								<li><input type="text" name="text-1" id="submitreviewpoint_priority" value="" placeholder="Priority..."></li>
-					            <li><textarea data-mini="true" cols="40" rows="8" name="textarea-4" id="submitreviewpoint_actionrequired" placeholder="Action Required..."></textarea></li>
-								<li><input type="text" name="text-1" id="submitreviewpoint_assignedto" value="" placeholder="Assigned To..."></li>
-					            <li><label for="datetime-4">Due Datetime</label><input type="datetime-local" data-clear-btn="true" name="datetime-4" id="submitreviewpoint_duedatetime" value="" placeholder="Due Datetime..."></li>
-								<li><input type="button" data-enhanced="true" value="Submit Review Item..." onclick="submitReviewPoint()"></li>
+								<li><input type="text" id="mcs_setup_checklist_p3_submitreviewpoint_formref" name="submitreviewpoint_formref" value="" placeholder="Form Ref..."></li>									
+								<select  id="mcs_setup_checklist_p3_submitreviewpoint_priority" value="Select" data-native-menu="false">
+								    <option>Priority...</option>
+								    <option value="A1">A1</option>
+								    <option value="A2">A2</option>
+								    <option value="A3">A3</option>
+								    <option value="B1">B1</option>
+								    <option value="B2">B2</option>
+								    <option value="B3">B3</option>
+								    <option value="C1">C1</option>
+								    <option value="C2">C2</option>
+								    <option value="C3">C3</option>
+								</select>
+								</li>
+					            <li><textarea data-mini="true" cols="40" rows="8" id="mcs_setup_checklist_p3_submitreviewpoint_actionrequired" placeholder="Action Required..."></textarea></li>
+								<li><input type="text" id="mcs_setup_checklist_p3_submitreviewpoint_assignedto" value="" placeholder="Assigned To..."></li>
+					            <li><label for="datetime-4">Due Datetime</label><input type="datetime-local" data-clear-btn="true"  id="mcs_setup_checklist_p3_submitreviewpoint_duedatetime" value="" placeholder="Due Datetime..."></li>
+								<li><input type="button" data-enhanced="true" value="Submit Review Point" onclick="submitReviewPoint('mcs_setup_checklist_p3_');"></li>
 					        </ul>
-					</div> 
+						</form>
+					</div>
+<!-- End Open Items Popup -->
 					<div data-role="popup" id="searchPopup">
 						<ul data-role="listview" data-split-icon="gear" data-split-theme="d" data-filter="true" data-inline="true" data-inset="true" data-filter-reveal="true" data-filter-placeholder="Search the UBM">
 							<li><a href="#mcs_setup_checklist_setup"><img src="img/pre_backbone_rna.png" /><h3>PreBackBone</h3><p>Master File Index Setup</p></a><a href="#purchase" data-rel="popup" data-position-to="window" data-transition="pop">Purchase album</a></li>
@@ -1759,17 +2136,33 @@
 										<center><a href="#mcs_setup_checklist_p4_b1_searchPopup" data-rel="popup" data-role="button">Model Creation Suite - Phase 4 - Book 1</a></center>
 									</div><!-- /header -->
 				<div role="content" class="ui-content">
+<!-- Open Items Popup -->
 					<div data-role="popup" id="mcs_setup_checklist_p4_b1_openItem_popup" data-theme="b">
+						<form id="mcs_setup_checklist_p4_b1_open_items_form" name="open_items_form">
 					        <ul data-role="listview" data-inset="true" style="min-width:210px;">
 					            <li data-role="list-divider">Write a Review Point</br>or Open Item</li>
-								<li><input type="text" name="text-1" id="submitreviewpoint_formref" value="" placeholder="Form Ref..."></li>
-								<li><input type="text" name="text-1" id="submitreviewpoint_priority" value="" placeholder="Priority..."></li>
-					            <li><textarea data-mini="true" cols="40" rows="8" name="textarea-4" id="submitreviewpoint_actionrequired" placeholder="Action Required..."></textarea></li>
-								<li><input type="text" name="text-1" id="submitreviewpoint_assignedto" value="" placeholder="Assigned To..."></li>
-					            <li><label for="datetime-4">Due Datetime</label><input type="datetime-local" data-clear-btn="true" name="datetime-4" id="submitreviewpoint_duedatetime" value="" placeholder="Due Datetime..."></li>
-								<li><input type="button" data-enhanced="true" value="Submit Review Item..." onclick="submitReviewPoint()"></li>
+								<li><input type="text" id="mcs_setup_checklist_p4_b1_submitreviewpoint_formref" name="submitreviewpoint_formref" value="" placeholder="Form Ref..."></li>									
+								<select  id="mcs_setup_checklist_p4_b1_submitreviewpoint_priority" value="Select" data-native-menu="false">
+								    <option>Priority...</option>
+								    <option value="A1">A1</option>
+								    <option value="A2">A2</option>
+								    <option value="A3">A3</option>
+								    <option value="B1">B1</option>
+								    <option value="B2">B2</option>
+								    <option value="B3">B3</option>
+								    <option value="C1">C1</option>
+								    <option value="C2">C2</option>
+								    <option value="C3">C3</option>
+								</select>
+								</li>
+					            <li><textarea data-mini="true" cols="40" rows="8" id="mcs_setup_checklist_p4_b1_submitreviewpoint_actionrequired" placeholder="Action Required..."></textarea></li>
+								<li><input type="text" id="mcs_setup_checklist_p4_b1_submitreviewpoint_assignedto" value="" placeholder="Assigned To..."></li>
+					            <li><label for="datetime-4">Due Datetime</label><input type="datetime-local" data-clear-btn="true"  id="mcs_setup_checklist_p4_b1_submitreviewpoint_duedatetime" value="" placeholder="Due Datetime..."></li>
+								<li><input type="button" data-enhanced="true" value="Submit Review Point" onclick="submitReviewPoint('mcs_setup_checklist_p4_b1_');"></li>
 					        </ul>
-					</div> 
+						</form>
+					</div>
+<!-- End Open Items Popup -->
 										<div data-role="popup" id="mcs_setup_checklist_p4_b1_searchPopup">
 											<ul data-role="listview" data-split-icon="gear" data-split-theme="d" data-filter="true" data-inline="true" data-inset="true" data-filter-reveal="true" data-filter-placeholder="Search the UBM">
 												<li><a href="#mcs_setup_checklist_setup"><img src="img/pre_backbone_rna.png" /><h3>PreBackBone</h3><p>Master File Index Setup</p></a><a href="#purchase" data-rel="popup" data-position-to="window" data-transition="pop">Purchase album</a></li>
@@ -1879,17 +2272,33 @@
 					<center><a href="#mcs_setup_checklist_p4_b2_searchPopup" data-rel="popup" data-role="button">Model Creation Suite - Phase 4 - Book 2</a></center>
 				</div><!-- /header -->
 				<div data-role="content">
+<!-- Open Items Popup -->
 					<div data-role="popup" id="mcs_setup_checklist_p4_b2_openItem_popup" data-theme="b">
+						<form id="mcs_setup_checklist_p4_b2_open_items_form" name="open_items_form">
 					        <ul data-role="listview" data-inset="true" style="min-width:210px;">
 					            <li data-role="list-divider">Write a Review Point</br>or Open Item</li>
-								<li><input type="text" name="text-1" id="submitreviewpoint_formref" value="" placeholder="Form Ref..."></li>
-								<li><input type="text" name="text-1" id="submitreviewpoint_priority" value="" placeholder="Priority..."></li>
-					            <li><textarea data-mini="true" cols="40" rows="8" name="textarea-4" id="submitreviewpoint_actionrequired" placeholder="Action Required..."></textarea></li>
-								<li><input type="text" name="text-1" id="submitreviewpoint_assignedto" value="" placeholder="Assigned To..."></li>
-					            <li><label for="datetime-4">Due Datetime</label><input type="datetime-local" data-clear-btn="true" name="datetime-4" id="submitreviewpoint_duedatetime" value="" placeholder="Due Datetime..."></li>
-								<li><input type="button" data-enhanced="true" value="Submit Review Item..." onclick="submitReviewPoint()"></li>
+								<li><input type="text" id="mcs_setup_checklist_p4_b2_submitreviewpoint_formref" name="submitreviewpoint_formref" value="" placeholder="Form Ref..."></li>									
+								<select  id="mcs_setup_checklist_p4_b2_submitreviewpoint_priority" value="Select" data-native-menu="false">
+								    <option>Priority...</option>
+								    <option value="A1">A1</option>
+								    <option value="A2">A2</option>
+								    <option value="A3">A3</option>
+								    <option value="B1">B1</option>
+								    <option value="B2">B2</option>
+								    <option value="B3">B3</option>
+								    <option value="C1">C1</option>
+								    <option value="C2">C2</option>
+								    <option value="C3">C3</option>
+								</select>
+								</li>
+					            <li><textarea data-mini="true" cols="40" rows="8" id="mcs_setup_checklist_p4_b2_submitreviewpoint_actionrequired" placeholder="Action Required..."></textarea></li>
+								<li><input type="text" id="mcs_setup_checklist_p4_b2_submitreviewpoint_assignedto" value="" placeholder="Assigned To..."></li>
+					            <li><label for="datetime-4">Due Datetime</label><input type="datetime-local" data-clear-btn="true"  id="mcs_setup_checklist_p4_b2_submitreviewpoint_duedatetime" value="" placeholder="Due Datetime..."></li>
+								<li><input type="button" data-enhanced="true" value="Submit Review Point" onclick="submitReviewPoint('mcs_setup_checklist_p4_b2_');"></li>
 					        </ul>
-					</div> 
+						</form>
+					</div>
+<!-- End Open Items Popup -->
 					<div data-role="popup" id="mcs_setup_checklist_p4_b2_searchPopup">
 						<ul data-role="listview" data-split-icon="gear" data-split-theme="d" data-filter="true" data-inline="true" data-inset="true" data-filter-reveal="true" data-filter-placeholder="Search the UBM">
 							<li><a href="#mcs_setup_checklist_setup"><img src="img/pre_backbone_rna.png" /><h3>PreBackBone</h3><p>Master File Index Setup</p></a><a href="#purchase" data-rel="popup" data-position-to="window" data-transition="pop">Purchase album</a></li>
@@ -1999,17 +2408,33 @@
 					<center><a href="#mcs_setup_checklist_p5_searchPopup" data-rel="popup" data-role="button">Model Creation Suite - Phase 5</a></center>
 				</div><!-- /header -->
 				<div role="content" class="ui-content">
+<!-- Open Items Popup -->
 					<div data-role="popup" id="mcs_setup_checklist_p5_openItem_popup" data-theme="b">
+						<form id="mcs_setup_checklist_p5_open_items_form" name="open_items_form">
 					        <ul data-role="listview" data-inset="true" style="min-width:210px;">
 					            <li data-role="list-divider">Write a Review Point</br>or Open Item</li>
-								<li><input type="text" name="text-1" id="submitreviewpoint_formref" value="" placeholder="Form Ref..."></li>
-								<li><input type="text" name="text-1" id="submitreviewpoint_priority" value="" placeholder="Priority..."></li>
-					            <li><textarea data-mini="true" cols="40" rows="8" name="textarea-4" id="submitreviewpoint_actionrequired" placeholder="Action Required..."></textarea></li>
-								<li><input type="text" name="text-1" id="submitreviewpoint_assignedto" value="" placeholder="Assigned To..."></li>
-					            <li><label for="datetime-4">Due Datetime</label><input type="datetime-local" data-clear-btn="true" name="datetime-4" id="submitreviewpoint_duedatetime" value="" placeholder="Due Datetime..."></li>
-								<li><input type="button" data-enhanced="true" value="Submit Review Item..." onclick="submitReviewPoint()"></li>
+								<li><input type="text" id="mcs_setup_checklist_p5_submitreviewpoint_formref" name="submitreviewpoint_formref" value="" placeholder="Form Ref..."></li>									
+								<select  id="mcs_setup_checklist_p5_submitreviewpoint_priority" value="Select" data-native-menu="false">
+								    <option>Priority...</option>
+								    <option value="A1">A1</option>
+								    <option value="A2">A2</option>
+								    <option value="A3">A3</option>
+								    <option value="B1">B1</option>
+								    <option value="B2">B2</option>
+								    <option value="B3">B3</option>
+								    <option value="C1">C1</option>
+								    <option value="C2">C2</option>
+								    <option value="C3">C3</option>
+								</select>
+								</li>
+					            <li><textarea data-mini="true" cols="40" rows="8" id="mcs_setup_checklist_p5_submitreviewpoint_actionrequired" placeholder="Action Required..."></textarea></li>
+								<li><input type="text" id="mcs_setup_checklist_p5_submitreviewpoint_assignedto" value="" placeholder="Assigned To..."></li>
+					            <li><label for="datetime-4">Due Datetime</label><input type="datetime-local" data-clear-btn="true"  id="mcs_setup_checklist_p5_submitreviewpoint_duedatetime" value="" placeholder="Due Datetime..."></li>
+								<li><input type="button" data-enhanced="true" value="Submit Review Point" onclick="submitReviewPoint('mcs_setup_checklist_p5_');"></li>
 					        </ul>
-					</div> 
+						</form>
+					</div>
+<!-- End Open Items Popup -->
 					<div data-role="popup" id="mcs_setup_checklist_p5_searchPopup">
 						<ul data-role="listview" data-split-icon="gear" data-split-theme="d" data-filter="true" data-inline="true" data-inset="true" data-filter-reveal="true" data-filter-placeholder="Search the UBM">
 							<li><a href="#mcs_setup_checklist_setup"><img src="img/pre_backbone_rna.png" /><h3>PreBackBone</h3><p>Master File Index Setup</p></a><a href="#purchase" data-rel="popup" data-position-to="window" data-transition="pop">Purchase album</a></li>
@@ -2119,17 +2544,33 @@
 					<center><a href="#mcs_setup_checklist_p6_searchPopup" data-rel="popup" data-role="button">Model Creation Suite - Phase 6</a></center>
 				</div><!-- /header -->
 				<div role="content" class="ui-content">
+<!-- Open Items Popup -->
 					<div data-role="popup" id="mcs_setup_checklist_p6_openItem_popup" data-theme="b">
+						<form id="mcs_setup_checklist_p6_open_items_form" name="open_items_form">
 					        <ul data-role="listview" data-inset="true" style="min-width:210px;">
 					            <li data-role="list-divider">Write a Review Point</br>or Open Item</li>
-								<li><input type="text" name="text-1" id="submitreviewpoint_formref" value="" placeholder="Form Ref..."></li>
-								<li><input type="text" name="text-1" id="submitreviewpoint_priority" value="" placeholder="Priority..."></li>
-					            <li><textarea data-mini="true" cols="40" rows="8" name="textarea-4" id="submitreviewpoint_actionrequired" placeholder="Action Required..."></textarea></li>
-								<li><input type="text" name="text-1" id="submitreviewpoint_assignedto" value="" placeholder="Assigned To..."></li>
-					            <li><label for="datetime-4">Due Datetime</label><input type="datetime-local" data-clear-btn="true" name="datetime-4" id="submitreviewpoint_duedatetime" value="" placeholder="Due Datetime..."></li>
-								<li><input type="button" data-enhanced="true" value="Submit Review Item..." onclick="submitReviewPoint()"></li>
+								<li><input type="text" id="mcs_setup_checklist_p6_submitreviewpoint_formref" name="submitreviewpoint_formref" value="" placeholder="Form Ref..."></li>									
+								<select  id="mcs_setup_checklist_p6_submitreviewpoint_priority" value="Select" data-native-menu="false">
+								    <option>Priority...</option>
+								    <option value="A1">A1</option>
+								    <option value="A2">A2</option>
+								    <option value="A3">A3</option>
+								    <option value="B1">B1</option>
+								    <option value="B2">B2</option>
+								    <option value="B3">B3</option>
+								    <option value="C1">C1</option>
+								    <option value="C2">C2</option>
+								    <option value="C3">C3</option>
+								</select>
+								</li>
+					            <li><textarea data-mini="true" cols="40" rows="8" id="mcs_setup_checklist_p6_submitreviewpoint_actionrequired" placeholder="Action Required..."></textarea></li>
+								<li><input type="text" id="mcs_setup_checklist_p6_submitreviewpoint_assignedto" value="" placeholder="Assigned To..."></li>
+					            <li><label for="datetime-4">Due Datetime</label><input type="datetime-local" data-clear-btn="true"  id="mcs_setup_checklist_p6_submitreviewpoint_duedatetime" value="" placeholder="Due Datetime..."></li>
+								<li><input type="button" data-enhanced="true" value="Submit Review Point" onclick="submitReviewPoint('mcs_setup_checklist_p6_');"></li>
 					        </ul>
-					</div> 
+						</form>
+					</div>
+<!-- End Open Items Popup -->
 					<div data-role="popup" id="searchPopup">
 						<ul data-role="listview" data-split-icon="gear" data-split-theme="d" data-filter="true" data-inline="true" data-inset="true" data-filter-reveal="true" data-filter-placeholder="Search the UBM">
 							<li><a href="#mcs_setup_checklist_setup"><img src="img/pre_backbone_rna.png" /><h3>PreBackBone</h3><p>Master File Index Setup</p></a><a href="#purchase" data-rel="popup" data-position-to="window" data-transition="pop">Purchase album</a></li>
@@ -2238,17 +2679,33 @@
 					<center><a href="#searchPopup" data-rel="popup" data-role="button">Model Creation Suite - Phase 7</a></center>
 				</div><!-- /header -->
 				<div role="content" class="ui-content">
+<!-- Open Items Popup -->
 					<div data-role="popup" id="mcs_setup_checklist_p7_openItem_popup" data-theme="b">
+						<form id="mcs_setup_checklist_p7_open_items_form" name="open_items_form">
 					        <ul data-role="listview" data-inset="true" style="min-width:210px;">
 					            <li data-role="list-divider">Write a Review Point</br>or Open Item</li>
-								<li><input type="text" name="text-1" id="submitreviewpoint_formref" value="" placeholder="Form Ref..."></li>
-								<li><input type="text" name="text-1" id="submitreviewpoint_priority" value="" placeholder="Priority..."></li>
-					            <li><textarea data-mini="true" cols="40" rows="8" name="textarea-4" id="submitreviewpoint_actionrequired" placeholder="Action Required..."></textarea></li>
-								<li><input type="text" name="text-1" id="submitreviewpoint_assignedto" value="" placeholder="Assigned To..."></li>
-					            <li><label for="datetime-4">Due Datetime</label><input type="datetime-local" data-clear-btn="true" name="datetime-4" id="submitreviewpoint_duedatetime" value="" placeholder="Due Datetime..."></li>
-								<li><input type="button" data-enhanced="true" value="Submit Review Item..." onclick="submitReviewPoint()"></li>
+								<li><input type="text" id="mcs_setup_checklist_p7_submitreviewpoint_formref" name="submitreviewpoint_formref" value="" placeholder="Form Ref..."></li>									
+								<select  id="mcs_setup_checklist_p7_submitreviewpoint_priority" value="Select" data-native-menu="false">
+								    <option>Priority...</option>
+								    <option value="A1">A1</option>
+								    <option value="A2">A2</option>
+								    <option value="A3">A3</option>
+								    <option value="B1">B1</option>
+								    <option value="B2">B2</option>
+								    <option value="B3">B3</option>
+								    <option value="C1">C1</option>
+								    <option value="C2">C2</option>
+								    <option value="C3">C3</option>
+								</select>
+								</li>
+					            <li><textarea data-mini="true" cols="40" rows="8" id="mcs_setup_checklist_p7_submitreviewpoint_actionrequired" placeholder="Action Required..."></textarea></li>
+								<li><input type="text" id="mcs_setup_checklist_p7_submitreviewpoint_assignedto" value="" placeholder="Assigned To..."></li>
+					            <li><label for="datetime-4">Due Datetime</label><input type="datetime-local" data-clear-btn="true"  id="mcs_setup_checklist_p7_submitreviewpoint_duedatetime" value="" placeholder="Due Datetime..."></li>
+								<li><input type="button" data-enhanced="true" value="Submit Review Point" onclick="submitReviewPoint('mcs_setup_checklist_p7_');"></li>
 					        </ul>
-					</div> 
+						</form>
+					</div>
+<!-- End Open Items Popup -->
 					<div data-role="popup" id="searchPopup">
 						<ul data-role="listview" data-split-icon="gear" data-split-theme="d" data-filter="true" data-inline="true" data-inset="true" data-filter-reveal="true" data-filter-placeholder="Search the UBM">
 							<li><a href="#mcs_setup_checklist_setup"><img src="img/pre_backbone_rna.png" /><h3>PreBackBone</h3><p>Master File Index Setup</p></a><a href="#purchase" data-rel="popup" data-position-to="window" data-transition="pop">Purchase album</a></li>
@@ -2358,6 +2815,33 @@
 					<center><a href="#mcs_setup_checklist_p8_searchPopup" data-rel="popup" data-role="button">Model Creation Suite - Phase 8</a></center>
 				</div><!-- /header -->
 				<div role="content" class="ui-content">
+<!-- Open Items Popup -->
+					<div data-role="popup" id="mcs_setup_checklist_p8_openItem_popup" data-theme="b">
+						<form id="mcs_setup_checklist_p8_open_items_form" name="open_items_form">
+					        <ul data-role="listview" data-inset="true" style="min-width:210px;">
+					            <li data-role="list-divider">Write a Review Point</br>or Open Item</li>
+								<li><input type="text" id="mcs_setup_checklist_p8_submitreviewpoint_formref" name="submitreviewpoint_formref" value="" placeholder="Form Ref..."></li>									
+								<select  id="mcs_setup_checklist_p8_submitreviewpoint_priority" value="Select" data-native-menu="false">
+								    <option>Priority...</option>
+								    <option value="A1">A1</option>
+								    <option value="A2">A2</option>
+								    <option value="A3">A3</option>
+								    <option value="B1">B1</option>
+								    <option value="B2">B2</option>
+								    <option value="B3">B3</option>
+								    <option value="C1">C1</option>
+								    <option value="C2">C2</option>
+								    <option value="C3">C3</option>
+								</select>
+								</li>
+					            <li><textarea data-mini="true" cols="40" rows="8" id="mcs_setup_checklist_p8_submitreviewpoint_actionrequired" placeholder="Action Required..."></textarea></li>
+								<li><input type="text" id="mcs_setup_checklist_p8_submitreviewpoint_assignedto" value="" placeholder="Assigned To..."></li>
+					            <li><label for="datetime-4">Due Datetime</label><input type="datetime-local" data-clear-btn="true"  id="mcs_setup_checklist_p8_submitreviewpoint_duedatetime" value="" placeholder="Due Datetime..."></li>
+								<li><input type="button" data-enhanced="true" value="Submit Review Point" onclick="submitReviewPoint('mcs_setup_checklist_p8_');"></li>
+					        </ul>
+						</form>
+					</div>
+<!-- End Open Items Popup -->
 					<div data-role="popup" id="mcs_setup_checklist_p8_searchPopup">
 						<ul data-role="listview" data-split-icon="gear" data-split-theme="d" data-filter="true" data-inline="true" data-inset="true" data-filter-reveal="true" data-filter-placeholder="Search the UBM">
 							<li><a href="#mcs_setup_checklist_setup"><img src="img/pre_backbone_rna.png" /><h3>PreBackBone</h3><p>Master File Index Setup</p></a><a href="#purchase" data-rel="popup" data-position-to="window" data-transition="pop">Purchase album</a></li>
@@ -2488,17 +2972,33 @@
 					</div>
 				</div>
 				<div data-role="content">
-					<div data-role="popup" id="mcs_open_points_action_items_openItem_popup" data-theme="b">
+<!-- Open Items Popup -->
+					<div data-role="popup" id="open_points_action_items_openItem_popup" data-theme="b">
+						<form id="open_points_action_items_open_items_form" name="open_items_form">
 					        <ul data-role="listview" data-inset="true" style="min-width:210px;">
 					            <li data-role="list-divider">Write a Review Point</br>or Open Item</li>
-								<li><input type="text" name="text-1" id="submitreviewpoint_formref" value="" placeholder="Form Ref..."></li>
-								<li><input type="text" name="text-1" id="submitreviewpoint_priority" value="" placeholder="Priority..."></li>
-					            <li><textarea data-mini="true" cols="40" rows="8" name="textarea-4" id="submitreviewpoint_actionrequired" placeholder="Action Required..."></textarea></li>
-								<li><input type="text" name="text-1" id="submitreviewpoint_assignedto" value="" placeholder="Assigned To..."></li>
-					            <li><label for="datetime-4">Due Datetime</label><input type="datetime-local" data-clear-btn="true" name="datetime-4" id="submitreviewpoint_duedatetime" value="" placeholder="Due Datetime..."></li>
-								<li><input type="button" data-enhanced="true" value="Submit Review Item..." onclick="submitReviewPoint()"></li>
+								<li><input type="text" id="open_points_action_items_submitreviewpoint_formref" name="submitreviewpoint_formref" value="" placeholder="Form Ref..."></li>									
+								<select  id="open_points_action_items_submitreviewpoint_priority" value="Select" data-native-menu="false">
+								    <option>Priority...</option>
+								    <option value="A1">A1</option>
+								    <option value="A2">A2</option>
+								    <option value="A3">A3</option>
+								    <option value="B1">B1</option>
+								    <option value="B2">B2</option>
+								    <option value="B3">B3</option>
+								    <option value="C1">C1</option>
+								    <option value="C2">C2</option>
+								    <option value="C3">C3</option>
+								</select>
+								</li>
+					            <li><textarea data-mini="true" cols="40" rows="8" id="open_points_action_items_submitreviewpoint_actionrequired" placeholder="Action Required..."></textarea></li>
+								<li><input type="text" id="open_points_action_items_submitreviewpoint_assignedto" value="" placeholder="Assigned To..."></li>
+					            <li><label for="datetime-4">Due Datetime</label><input type="datetime-local" data-clear-btn="true"  id="open_points_action_items_submitreviewpoint_duedatetime" value="" placeholder="Due Datetime..."></li>
+								<li><input type="button" data-enhanced="true" value="Submit Review Point" onclick="submitReviewPoint('open_points_action_items_');"></li>
 					        </ul>
-					</div> 
+						</form>
+					</div>
+<!-- End Open Items Popup --> 
 					<div data-role="popup" id="mcs_open_points_action_items_resolution_popup" data-position-to="window" data-theme="b">
 						<ul data-role="listview" data-inset="false" id="mcs_open_points_action_items_resolution_popup_ul" style="min-width:210px;">
 							<li data-role="list-divider">Existing Resolutions:</li>
@@ -2511,7 +3011,7 @@
 							    <th class="label">Open Points / Action Items</th>
 							    <th data-priority="10"><h4>Form Ref</h4></th>
 							    <th data-priority="9"><h4>Priority</h4></th>
-							    <th data-priority="4"><h4>Opened By</h4></th>
+							    <th data-priority="10"><h4>Opened By</h4></th>
 							    <th data-priority="7"><h4>Date Opened</h4></th>
 							    <th data-priority="10"><h4>Action Required</h4></th>
 							    <th data-priority="10"><h4>Assigned To</h4></th>
@@ -2520,7 +3020,7 @@
 							    <th data-priority="3"><h4>Disposition</h4></th>
 							    <th data-priority="2"><h4>Closed By</h4></th>
 							    <th data-priority="6"><h4>Date Closed</h4></th>
-							    <th data-priority="10"><h4>Resolutions</h4></th>
+							    <th data-priority="6"><h4>Resolutions</h4></th>
 						    </tr>
 						</thead>
 						<tbody id="mcs_open_points_action_items_table_body">
