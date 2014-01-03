@@ -393,8 +393,8 @@
 								if(res.accounttype=='admin'){
 									//admin only stuff here 
 									alert("you are an admin");
-								//	$('body').prepend('<div id="overlayTest" class="circleBase type2" style="z-index: 99999; position:fixed;"><a href="#openItem_popup" data-rel="popup" data-transition="slideup" class="ui-btn ui-icon-alert ui-btn-icon-notext ui-corner-all">No text</a><a href="#openItem_popup" data-rel="popup" data-transition="slideup" class="ui-btn ui-icon-action ui-btn-icon-notext ui-corner-all">No text</a><center><a href="#mcs_setup_checklist_setup_searchPopup" data-rel="popup" data-transition="slideup" class="ui-btn ui-icon-search ui-btn-icon-notext ui-corner-all">No text</a></center></div>');
-								//    $( ".circleBase" ).draggable();
+									$('body').prepend('<div id="overlayTest" class="circleBase type2" style="z-index: 99999; position:fixed;"><a href="#openItem_popup" data-rel="popup" data-transition="slideup" class="ui-btn ui-icon-alert ui-btn-icon-notext ui-corner-all">No text</a><a href="#openItem_popup" data-rel="popup" data-transition="slideup" class="ui-btn ui-icon-action ui-btn-icon-notext ui-corner-all">No text</a><center><a href="#mcs_setup_checklist_setup_searchPopup" data-rel="popup" data-transition="slideup" class="ui-btn ui-icon-search ui-btn-icon-notext ui-corner-all">No text</a></center></div>');
+								    $( ".circleBase" ).draggable();
 								}else{
 									if(res.accounttype=='user'){
 										alert("you are a user");
@@ -510,7 +510,13 @@
 								</select>
 								</li>
 					            <li><textarea data-mini="true" cols="40" rows="8" id="sign_in_sign_up_submitreviewpoint_actionrequired" placeholder="Action Required..."></textarea></li>
-								<li><input type="text" id="sign_in_sign_up_submitreviewpoint_assignedto" value="" placeholder="Assigned To..."></li>
+								<li>
+								<select  id="sign_in_sign_up_submitreviewpoint_assignedto" value="Select" data-native-menu="false">
+								    <option>Assigned To...</option>
+								    <option value="Jesse Spencer">Jesse Spencer</option>
+								    <option value="Adam Gustafson">Adam Gustafson</option>
+								</select>
+								</li>								
 					            <li><label for="datetime-4">Due Datetime</label><input type="datetime-local" data-clear-btn="true"  id="sign_in_sign_up_submitreviewpoint_duedatetime" value="" placeholder="Due Datetime..."></li>
 								<li><input type="button" data-enhanced="true" value="Submit Review Point" onclick="submitReviewPoint('sign_in_sign_up_');"></li>
 					        </ul>						
@@ -661,7 +667,13 @@
 								</select>
 								</li>
 					            <li><textarea data-mini="true" cols="40" rows="8" id="gettingStarted_submitreviewpoint_actionrequired" placeholder="Action Required..."></textarea></li>
-								<li><input type="text" id="gettingStarted_submitreviewpoint_assignedto" value="" placeholder="Assigned To..."></li>
+								<li>
+								<select  id="gettingStarted_submitreviewpoint_assignedto" value="Select" data-native-menu="false">
+								    <option>Assigned To...</option>
+								    <option value="Jesse Spencer">Jesse Spencer</option>
+								    <option value="Adam Gustafson">Adam Gustafson</option>
+								</select>
+								</li>								
 					            <li><label for="datetime-4">Due Datetime</label><input type="datetime-local" data-clear-btn="true"  id="gettingStarted_submitreviewpoint_duedatetime" value="" placeholder="Due Datetime..."></li>
 								<li><input type="button" data-enhanced="true" value="Submit Review Point" onclick="submitReviewPoint('gettingStarted_');"></li>
 					        </ul>
@@ -794,6 +806,7 @@
 					        <ul data-role="listview" data-inset="true" style="min-width:210px;">
 					            <li data-role="list-divider">Write a Review Point</br>or Open Item</li>
 								<li><input type="text" id="table_of_contents_submitreviewpoint_formref" name="submitreviewpoint_formref" value="" placeholder="Form Ref..."></li>									
+								<li>
 								<select  id="table_of_contents_submitreviewpoint_priority" value="Select" data-native-menu="false">
 								    <option>Priority...</option>
 								    <option value="A1">A1</option>
@@ -808,7 +821,14 @@
 								</select>
 								</li>
 					            <li><textarea data-mini="true" cols="40" rows="8" id="table_of_contents_submitreviewpoint_actionrequired" placeholder="Action Required..."></textarea></li>
-								<li><input type="text" id="table_of_contents_submitreviewpoint_assignedto" value="" placeholder="Assigned To..."></li>
+
+								<li>
+								<select  id="table_of_contents_submitreviewpoint_assignedto" value="Select" data-native-menu="false">
+								    <option>Assigned To...</option>
+								    <option value="Jesse Spencer">Jesse Spencer</option>
+								    <option value="Adam Gustafson">Adam Gustafson</option>
+								</select>
+								</li>
 					            <li><label for="datetime-4">Due Datetime</label><input type="datetime-local" data-clear-btn="true"  id="table_of_contents_submitreviewpoint_duedatetime" value="" placeholder="Due Datetime..."></li>
 								<li><input type="button" data-enhanced="true" value="Submit Review Point" onclick="submitReviewPoint('table_of_contents_');"></li>
 					        </ul>
@@ -892,8 +912,13 @@
 								</select>
 								</li>
 					            <li><textarea data-mini="true" cols="40" rows="8" id="identification_setup_submitreviewpoint_actionrequired" placeholder="Action Required..."></textarea></li>
-								<li><input type="text" id="identification_setup_submitreviewpoint_assignedto" value="" placeholder="Assigned To..."></li>
-					            <li><label for="datetime-4">Due Datetime</label><input type="datetime-local" data-clear-btn="true"  id="identification_setup_submitreviewpoint_duedatetime" value="" placeholder="Due Datetime..."></li>
+								<li>
+								<select  id="identification_setup_submitreviewpoint_assignedto" value="Select" data-native-menu="false">
+								    <option>Assigned To...</option>
+								    <option value="Jesse Spencer">Jesse Spencer</option>
+								    <option value="Adam Gustafson">Adam Gustafson</option>
+								</select>
+								</li>					            <li><label for="datetime-4">Due Datetime</label><input type="datetime-local" data-clear-btn="true"  id="identification_setup_submitreviewpoint_duedatetime" value="" placeholder="Due Datetime..."></li>
 								<li><input type="button" data-enhanced="true" value="Submit Review Point" onclick="submitReviewPoint('identification_setup_');"></li>
 					        </ul>
 						</form>
@@ -973,7 +998,13 @@
 								</select>
 								</li>
 					            <li><textarea data-mini="true" cols="40" rows="8" id="primary_objects_setup_table_submitreviewpoint_actionrequired" placeholder="Action Required..."></textarea></li>
-								<li><input type="text" id="primary_objects_setup_table_submitreviewpoint_assignedto" value="" placeholder="Assigned To..."></li>
+								<li>
+								<select  id="primary_objects_setup_table_submitreviewpoint_assignedto" value="Select" data-native-menu="false">
+								    <option>Assigned To...</option>
+								    <option value="Jesse Spencer">Jesse Spencer</option>
+								    <option value="Adam Gustafson">Adam Gustafson</option>
+								</select>
+								</li>									
 					            <li><label for="datetime-4">Due Datetime</label><input type="datetime-local" data-clear-btn="true"  id="primary_objects_setup_table_submitreviewpoint_duedatetime" value="" placeholder="Due Datetime..."></li>
 								<li><input type="button" data-enhanced="true" value="Submit Review Point" onclick="submitReviewPoint('primary_objects_setup_table_');"></li>
 					        </ul>
@@ -1216,7 +1247,13 @@
 								</select>
 								</li>
 					            <li><textarea data-mini="true" cols="40" rows="8" id="management_reporting_submitreviewpoint_actionrequired" placeholder="Action Required..."></textarea></li>
-								<li><input type="text" id="management_reporting_submitreviewpoint_assignedto" value="" placeholder="Assigned To..."></li>
+								<li>
+								<select  id="management_reporting_submitreviewpoint_assignedto" value="Select" data-native-menu="false">
+								    <option>Assigned To...</option>
+								    <option value="Jesse Spencer">Jesse Spencer</option>
+								    <option value="Adam Gustafson">Adam Gustafson</option>
+								</select>
+								</li>								
 					            <li><label for="datetime-4">Due Datetime</label><input type="datetime-local" data-clear-btn="true"  id="management_reporting_submitreviewpoint_duedatetime" value="" placeholder="Due Datetime..."></li>
 								<li><input type="button" data-enhanced="true" value="Submit Review Point" onclick="submitReviewPoint('management_reporting_');"></li>
 					        </ul>
@@ -1456,7 +1493,13 @@
 								</select>
 								</li>
 					            <li><textarea data-mini="true" cols="40" rows="8" id="mcs_setup_checklist_setup_submitreviewpoint_actionrequired" placeholder="Action Required..."></textarea></li>
-								<li><input type="text" id="mcs_setup_checklist_setup_submitreviewpoint_assignedto" value="" placeholder="Assigned To..."></li>
+								<li>
+								<select  id="mcs_setup_checklist_setup_submitreviewpoint_assignedto" value="Select" data-native-menu="false">
+								    <option>Assigned To...</option>
+								    <option value="Jesse Spencer">Jesse Spencer</option>
+								    <option value="Adam Gustafson">Adam Gustafson</option>
+								</select>
+								</li>								
 					            <li><label for="datetime-4">Due Datetime</label><input type="datetime-local" data-clear-btn="true"  id="mcs_setup_checklist_setup_submitreviewpoint_duedatetime" value="" placeholder="Due Datetime..."></li>
 								<li><input type="button" data-enhanced="true" value="Submit Review Point" onclick="submitReviewPoint('mcs_setup_checklist_setup_');"></li>
 					        </ul>
@@ -1471,18 +1514,7 @@
 					            <li><a href="#">A new Model</a></li>
 					            <li><a href="#">Something Totally Different!</a></li>
 					        </ul>
-					</div>  
-					<div data-role="popup" id="mcs_setup_checklist_setup_openItem_popup" data-theme="b">
-					        <ul data-role="listview" data-inset="true" style="min-width:210px;">
-					            <li data-role="list-divider">Write a Review Point</br>or Open Item</li>
-								<li><input type="text" name="text-1" id="submitreviewpoint_formref" value="" placeholder="Form Ref..."></li>
-								<li><input type="text" name="text-1" id="submitreviewpoint_priority" value="" placeholder="Priority..."></li>
-					            <li><textarea data-mini="true" cols="40" rows="8" name="textarea-4" id="submitreviewpoint_actionrequired" placeholder="Action Required..."></textarea></li>
-								<li><input type="text" name="text-1" id="submitreviewpoint_assignedto" value="" placeholder="Assigned To..."></li>
-					            <li><label for="datetime-4">Due Datetime</label><input type="datetime-local" data-clear-btn="true" name="datetime-4" id="submitreviewpoint_duedatetime" value="" placeholder="Due Datetime..."></li>
-								<li><input type="button" data-enhanced="true" value="Submit Review Item..." onclick="submitReviewPoint()"></li>
-					        </ul>
-					</div> 
+					</div>
 					<div data-role="popup" id="mcs_setup_checklist_setup_searchPopup">
 						<ul data-role="listview" data-split-icon="gear" data-split-theme="d" data-filter="true" data-inline="true" data-inset="true" data-filter-reveal="true" data-filter-placeholder="Search the UBM">
 							<li><a href="#mcs_setup_checklist_setup"><img src="img/pre_backbone_rna.png" /><h3>PreBackBone</h3><p>Master File Index Setup</p></a><a href="#purchase" data-rel="popup" data-position-to="window" data-transition="pop">Purchase album</a></li>
@@ -1551,18 +1583,20 @@
 					</table>
 				</div><!-- /content -->
 				<div data-role="footer" data-fullscreen="true" data-position="fixed">
-					<div data-role="controlgroup" data-type="horizontal" data-mini="true">
-					    <a href="#mcs_setup_checklist_setup" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-grid ui-btn-b">Setup</a>
-					    <a href="#mcs_setup_checklist_CS" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-grid ui-btn-b">Control </a>
-					    <a href="#mcs_setup_checklist_p1" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-grid ui-btn-b">Phase 1</a>
-					    <a href="#mcs_setup_checklist_p2" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-grid ui-btn-b">Phase 2</a>
-					    <a href="#mcs_setup_checklist_p3" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-grid ui-btn-b">Phase 3</a>
-					    <a href="#mcs_setup_checklist_setup_popupphase4" data-rel="popup" data-transition="slideup" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a">Phase 4</a>
-					    <a href="#mcs_setup_checklist_p5" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-grid ui-btn-b">Phase 5</a>
-					    <a href="#mcs_setup_checklist_p6" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-grid ui-btn-b">Phase 6</a>
-					    <a href="#mcs_setup_checklist_p7" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-grid ui-btn-b">Phase 7</a>
-					    <a href="#mcs_setup_checklist_p8" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-grid ui-btn-b">Phase 8</a>
-					</div>	
+					<center>
+						<div data-role="controlgroup" data-type="horizontal" data-mini="true">
+						    <a href="#mcs_setup_checklist_setup" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-grid ui-btn-b">Setup</a>
+						    <a href="#mcs_setup_checklist_CS" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-grid ui-btn-b">Control </a>
+						    <a href="#mcs_setup_checklist_p1" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-grid ui-btn-b">Phase 1</a>
+						    <a href="#mcs_setup_checklist_p2" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-grid ui-btn-b">Phase 2</a>
+						    <a href="#mcs_setup_checklist_p3" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-grid ui-btn-b">Phase 3</a>
+						    <a href="#mcs_setup_checklist_setup_popupphase4" data-rel="popup" data-transition="slideup" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a">Phase 4</a>
+						    <a href="#mcs_setup_checklist_p5" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-grid ui-btn-b">Phase 5</a>
+						    <a href="#mcs_setup_checklist_p6" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-grid ui-btn-b">Phase 6</a>
+						    <a href="#mcs_setup_checklist_p7" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-grid ui-btn-b">Phase 7</a>
+						    <a href="#mcs_setup_checklist_p8" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-grid ui-btn-b">Phase 8</a>
+						</div>	
+					</center>
 				</div><!-- /footer -->
 			</div>
 			<div data-role="page" class="ubm_page" id="mcs_setup_checklist_CS">
@@ -1612,7 +1646,13 @@
 								</select>
 								</li>
 					            <li><textarea data-mini="true" cols="40" rows="8" id="mcs_setup_checklist_CS_submitreviewpoint_actionrequired" placeholder="Action Required..."></textarea></li>
-								<li><input type="text" id="mcs_setup_checklist_CS_submitreviewpoint_assignedto" value="" placeholder="Assigned To..."></li>
+								<li>
+								<select  id="mcs_setup_checklist_CS_submitreviewpoint_assignedto" value="Select" data-native-menu="false">
+								    <option>Assigned To...</option>
+								    <option value="Jesse Spencer">Jesse Spencer</option>
+								    <option value="Adam Gustafson">Adam Gustafson</option>
+								</select>
+								</li>								
 					            <li><label for="datetime-4">Due Datetime</label><input type="datetime-local" data-clear-btn="true"  id="mcs_setup_checklist_CS_submitreviewpoint_duedatetime" value="" placeholder="Due Datetime..."></li>
 								<li><input type="button" data-enhanced="true" value="Submit Review Point" onclick="submitReviewPoint('mcs_setup_checklist_CS_');"></li>
 					        </ul>
@@ -1687,18 +1727,20 @@
 					</table>
 				</div>
 				<div data-role="footer" data-fullscreen="true" data-position="fixed">
-					<div data-role="controlgroup" data-type="horizontal" data-mini="true">
-					    <a href="#mcs_setup_checklist_setup" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-grid ui-btn-b">Setup</a>
-					    <a href="#mcs_setup_checklist_CS" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-grid ui-btn-b">Control </a>
-					    <a href="#mcs_setup_checklist_p1" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-grid ui-btn-b">Phase 1</a>
-					    <a href="#mcs_setup_checklist_p2" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-grid ui-btn-b">Phase 2</a>
-					    <a href="#mcs_setup_checklist_p3" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-grid ui-btn-b">Phase 3</a>
-					    <a href="#mcs_setup_checklist_CS_popupphase4" data-rel="popup" data-transition="slideup" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a">Phase 4</a>
-					    <a href="#mcs_setup_checklist_p5" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-grid ui-btn-b">Phase 5</a>
-					    <a href="#mcs_setup_checklist_p6" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-grid ui-btn-b">Phase 6</a>
-					    <a href="#mcs_setup_checklist_p7" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-grid ui-btn-b">Phase 7</a>
-					    <a href="#mcs_setup_checklist_p8" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-grid ui-btn-b">Phase 8</a>
-					</div>				
+					<center>
+						<div data-role="controlgroup" data-type="horizontal" data-mini="true">
+						    <a href="#mcs_setup_checklist_setup" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-grid ui-btn-b">Setup</a>
+						    <a href="#mcs_setup_checklist_CS" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-grid ui-btn-b">Control </a>
+						    <a href="#mcs_setup_checklist_p1" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-grid ui-btn-b">Phase 1</a>
+						    <a href="#mcs_setup_checklist_p2" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-grid ui-btn-b">Phase 2</a>
+						    <a href="#mcs_setup_checklist_p3" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-grid ui-btn-b">Phase 3</a>
+						    <a href="#mcs_setup_checklist_CS_popupphase4" data-rel="popup" data-transition="slideup" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a">Phase 4</a>
+						    <a href="#mcs_setup_checklist_p5" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-grid ui-btn-b">Phase 5</a>
+						    <a href="#mcs_setup_checklist_p6" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-grid ui-btn-b">Phase 6</a>
+						    <a href="#mcs_setup_checklist_p7" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-grid ui-btn-b">Phase 7</a>
+						    <a href="#mcs_setup_checklist_p8" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-grid ui-btn-b">Phase 8</a>
+						</div>	
+					</center>			
 				</div>
 			</div>
 			<div data-role="page" class="ubm_page" id="mcs_setup_checklist_p1">
@@ -1748,7 +1790,13 @@
 								</select>
 								</li>
 					            <li><textarea data-mini="true" cols="40" rows="8" id="mcs_setup_checklist_p1_submitreviewpoint_actionrequired" placeholder="Action Required..."></textarea></li>
-								<li><input type="text" id="mcs_setup_checklist_p1_submitreviewpoint_assignedto" value="" placeholder="Assigned To..."></li>
+								<li>
+								<select  id="mcs_setup_checklist_p1_submitreviewpoint_assignedto" value="Select" data-native-menu="false">
+								    <option>Assigned To...</option>
+								    <option value="Jesse Spencer">Jesse Spencer</option>
+								    <option value="Adam Gustafson">Adam Gustafson</option>
+								</select>
+								</li>								
 					            <li><label for="datetime-4">Due Datetime</label><input type="datetime-local" data-clear-btn="true"  id="mcs_setup_checklist_p1_submitreviewpoint_duedatetime" value="" placeholder="Due Datetime..."></li>
 								<li><input type="button" data-enhanced="true" value="Submit Review Point" onclick="submitReviewPoint('mcs_setup_checklist_p1_');"></li>
 					        </ul>
@@ -1823,18 +1871,20 @@
 					</table>
 				</div>
 				<div data-role="footer" data-fullscreen="true" data-position="fixed">
-					<div data-role="controlgroup" data-type="horizontal" data-mini="true">
-					    <a href="#mcs_setup_checklist_setup" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-grid ui-btn-b">Setup</a>
-					    <a href="#mcs_setup_checklist_CS" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-grid ui-btn-b">Control </a>
-					    <a href="#mcs_setup_checklist_p1" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-grid ui-btn-b">Phase 1</a>
-					    <a href="#mcs_setup_checklist_p2" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-grid ui-btn-b">Phase 2</a>
-					    <a href="#mcs_setup_checklist_p3" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-grid ui-btn-b">Phase 3</a>
-					    <a href="#mcs_setup_checklist_p1_popupphase4" data-rel="popup" data-transition="slideup" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a">Phase 4</a>
-					    <a href="#mcs_setup_checklist_p5" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-grid ui-btn-b">Phase 5</a>
-					    <a href="#mcs_setup_checklist_p6" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-grid ui-btn-b">Phase 6</a>
-					    <a href="#mcs_setup_checklist_p7" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-grid ui-btn-b">Phase 7</a>
-					    <a href="#mcs_setup_checklist_p8" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-grid ui-btn-b">Phase 8</a>
-					</div>				
+					<center>
+						<div data-role="controlgroup" data-type="horizontal" data-mini="true">
+						    <a href="#mcs_setup_checklist_setup" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-grid ui-btn-b">Setup</a>
+						    <a href="#mcs_setup_checklist_CS" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-grid ui-btn-b">Control </a>
+						    <a href="#mcs_setup_checklist_p1" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-grid ui-btn-b">Phase 1</a>
+						    <a href="#mcs_setup_checklist_p2" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-grid ui-btn-b">Phase 2</a>
+						    <a href="#mcs_setup_checklist_p3" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-grid ui-btn-b">Phase 3</a>
+						    <a href="#mcs_setup_checklist_p1_popupphase4" data-rel="popup" data-transition="slideup" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a">Phase 4</a>
+						    <a href="#mcs_setup_checklist_p5" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-grid ui-btn-b">Phase 5</a>
+						    <a href="#mcs_setup_checklist_p6" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-grid ui-btn-b">Phase 6</a>
+						    <a href="#mcs_setup_checklist_p7" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-grid ui-btn-b">Phase 7</a>
+						    <a href="#mcs_setup_checklist_p8" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-grid ui-btn-b">Phase 8</a>
+						</div>
+					</center>				
 				</div>
 			</div>
 			<div data-role="page" class="ubm_page" id="mcs_setup_checklist_p2">
@@ -1884,7 +1934,13 @@
 								</select>
 								</li>
 					            <li><textarea data-mini="true" cols="40" rows="8" id="mcs_setup_checklist_p2_submitreviewpoint_actionrequired" placeholder="Action Required..."></textarea></li>
-								<li><input type="text" id="mcs_setup_checklist_p2_submitreviewpoint_assignedto" value="" placeholder="Assigned To..."></li>
+								<li>
+								<select  id="mcs_setup_checklist_p2_submitreviewpoint_assignedto" value="Select" data-native-menu="false">
+								    <option>Assigned To...</option>
+								    <option value="Jesse Spencer">Jesse Spencer</option>
+								    <option value="Adam Gustafson">Adam Gustafson</option>
+								</select>
+								</li>								
 					            <li><label for="datetime-4">Due Datetime</label><input type="datetime-local" data-clear-btn="true"  id="mcs_setup_checklist_p2_submitreviewpoint_duedatetime" value="" placeholder="Due Datetime..."></li>
 								<li><input type="button" data-enhanced="true" value="Submit Review Point" onclick="submitReviewPoint('mcs_setup_checklist_p2_');"></li>
 					        </ul>
@@ -1959,18 +2015,20 @@
 					</table>
 				</div>
 				<div data-role="footer" data-fullscreen="true" data-position="fixed">
-					<div data-role="controlgroup" data-type="horizontal" data-mini="true">
-					    <a href="#mcs_setup_checklist_setup" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-grid ui-btn-b">Setup</a>
-					    <a href="#mcs_setup_checklist_CS" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-grid ui-btn-b">Control </a>
-					    <a href="#mcs_setup_checklist_p1" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-grid ui-btn-b">Phase 1</a>
-					    <a href="#mcs_setup_checklist_p2" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-grid ui-btn-b">Phase 2</a>
-					    <a href="#mcs_setup_checklist_p3" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-grid ui-btn-b">Phase 3</a>
-					    <a href="#mcs_setup_checklist_p2_popupphase4" data-rel="popup" data-transition="slideup" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a">Phase 4</a>
-					    <a href="#mcs_setup_checklist_p5" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-grid ui-btn-b">Phase 5</a>
-					    <a href="#mcs_setup_checklist_p6" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-grid ui-btn-b">Phase 6</a>
-					    <a href="#mcs_setup_checklist_p7" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-grid ui-btn-b">Phase 7</a>
-					    <a href="#mcs_setup_checklist_p8" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-grid ui-btn-b">Phase 8</a>
-					</div>				
+					<center>
+						<div data-role="controlgroup" data-type="horizontal" data-mini="true">
+						    <a href="#mcs_setup_checklist_setup" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-grid ui-btn-b">Setup</a>
+						    <a href="#mcs_setup_checklist_CS" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-grid ui-btn-b">Control </a>
+						    <a href="#mcs_setup_checklist_p1" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-grid ui-btn-b">Phase 1</a>
+						    <a href="#mcs_setup_checklist_p2" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-grid ui-btn-b">Phase 2</a>
+						    <a href="#mcs_setup_checklist_p3" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-grid ui-btn-b">Phase 3</a>
+						    <a href="#mcs_setup_checklist_p2_popupphase4" data-rel="popup" data-transition="slideup" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a">Phase 4</a>
+						    <a href="#mcs_setup_checklist_p5" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-grid ui-btn-b">Phase 5</a>
+						    <a href="#mcs_setup_checklist_p6" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-grid ui-btn-b">Phase 6</a>
+						    <a href="#mcs_setup_checklist_p7" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-grid ui-btn-b">Phase 7</a>
+						    <a href="#mcs_setup_checklist_p8" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-grid ui-btn-b">Phase 8</a>
+						</div>	
+					</center>			
 				</div>				
 			</div>
 			<div data-role="page" class="ubm_page" id="mcs_setup_checklist_p3">
@@ -2020,7 +2078,13 @@
 								</select>
 								</li>
 					            <li><textarea data-mini="true" cols="40" rows="8" id="mcs_setup_checklist_p3_submitreviewpoint_actionrequired" placeholder="Action Required..."></textarea></li>
-								<li><input type="text" id="mcs_setup_checklist_p3_submitreviewpoint_assignedto" value="" placeholder="Assigned To..."></li>
+								<li>
+								<select  id="mcs_setup_checklist_p3_submitreviewpoint_assignedto" value="Select" data-native-menu="false">
+								    <option>Assigned To...</option>
+								    <option value="Jesse Spencer">Jesse Spencer</option>
+								    <option value="Adam Gustafson">Adam Gustafson</option>
+								</select>
+								</li>									
 					            <li><label for="datetime-4">Due Datetime</label><input type="datetime-local" data-clear-btn="true"  id="mcs_setup_checklist_p3_submitreviewpoint_duedatetime" value="" placeholder="Due Datetime..."></li>
 								<li><input type="button" data-enhanced="true" value="Submit Review Point" onclick="submitReviewPoint('mcs_setup_checklist_p3_');"></li>
 					        </ul>
@@ -2095,18 +2159,20 @@
 					</table>
 				</div>
 				<div data-role="footer" data-fullscreen="true" data-position="fixed">
-					<div data-role="controlgroup" data-type="horizontal" data-mini="true">
-					    <a href="#mcs_setup_checklist_setup" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-grid ui-btn-b">Setup</a>
-					    <a href="#mcs_setup_checklist_CS" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-grid ui-btn-b">Control </a>
-					    <a href="#mcs_setup_checklist_p1" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-grid ui-btn-b">Phase 1</a>
-					    <a href="#mcs_setup_checklist_p2" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-grid ui-btn-b">Phase 2</a>
-					    <a href="#mcs_setup_checklist_p3" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-grid ui-btn-b">Phase 3</a>
-					    <a href="#mcs_setup_checklist_p3_popupphase4" data-rel="popup" data-transition="slideup" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a">Phase 4</a>
-					    <a href="#mcs_setup_checklist_p5" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-grid ui-btn-b">Phase 5</a>
-					    <a href="#mcs_setup_checklist_p6" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-grid ui-btn-b">Phase 6</a>
-					    <a href="#mcs_setup_checklist_p7" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-grid ui-btn-b">Phase 7</a>
-					    <a href="#mcs_setup_checklist_p8" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-grid ui-btn-b">Phase 8</a>
-					</div>				
+					<center>
+						<div data-role="controlgroup" data-type="horizontal" data-mini="true">
+						    <a href="#mcs_setup_checklist_setup" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-grid ui-btn-b">Setup</a>
+						    <a href="#mcs_setup_checklist_CS" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-grid ui-btn-b">Control </a>
+						    <a href="#mcs_setup_checklist_p1" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-grid ui-btn-b">Phase 1</a>
+						    <a href="#mcs_setup_checklist_p2" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-grid ui-btn-b">Phase 2</a>
+						    <a href="#mcs_setup_checklist_p3" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-grid ui-btn-b">Phase 3</a>
+						    <a href="#mcs_setup_checklist_p3_popupphase4" data-rel="popup" data-transition="slideup" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a">Phase 4</a>
+						    <a href="#mcs_setup_checklist_p5" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-grid ui-btn-b">Phase 5</a>
+						    <a href="#mcs_setup_checklist_p6" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-grid ui-btn-b">Phase 6</a>
+						    <a href="#mcs_setup_checklist_p7" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-grid ui-btn-b">Phase 7</a>
+						    <a href="#mcs_setup_checklist_p8" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-grid ui-btn-b">Phase 8</a>
+						</div>
+					</center>				
 				</div>				
 			</div>
 			<div data-role="page" class="ubm_page" id="mcs_setup_checklist_p4_b1">
@@ -2156,7 +2222,13 @@
 								</select>
 								</li>
 					            <li><textarea data-mini="true" cols="40" rows="8" id="mcs_setup_checklist_p4_b1_submitreviewpoint_actionrequired" placeholder="Action Required..."></textarea></li>
-								<li><input type="text" id="mcs_setup_checklist_p4_b1_submitreviewpoint_assignedto" value="" placeholder="Assigned To..."></li>
+								<li>
+								<select  id="mcs_setup_checklist_p4_b1_submitreviewpoint_assignedto" value="Select" data-native-menu="false">
+								    <option>Assigned To...</option>
+								    <option value="Jesse Spencer">Jesse Spencer</option>
+								    <option value="Adam Gustafson">Adam Gustafson</option>
+								</select>
+								</li>								
 					            <li><label for="datetime-4">Due Datetime</label><input type="datetime-local" data-clear-btn="true"  id="mcs_setup_checklist_p4_b1_submitreviewpoint_duedatetime" value="" placeholder="Due Datetime..."></li>
 								<li><input type="button" data-enhanced="true" value="Submit Review Point" onclick="submitReviewPoint('mcs_setup_checklist_p4_b1_');"></li>
 					        </ul>
@@ -2231,18 +2303,20 @@
 										</table>
 				</div>
 				<div data-role="footer" data-fullscreen="true" data-position="fixed">
-										<div data-role="controlgroup" data-type="horizontal" data-mini="true">
-										    <a href="#mcs_setup_checklist_setup" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-grid ui-btn-b">Setup</a>
-										    <a href="#mcs_setup_checklist_CS" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-grid ui-btn-b">Control </a>
-										    <a href="#mcs_setup_checklist_p1" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-grid ui-btn-b">Phase 1</a>
-										    <a href="#mcs_setup_checklist_p2" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-grid ui-btn-b">Phase 2</a>
-										    <a href="#mcs_setup_checklist_p3" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-grid ui-btn-b">Phase 3</a>
-										    <a href="#mcs_setup_checklist_p4_b1_popupphase4" data-rel="popup" data-transition="slideup" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a">Phase 4</a>
-										    <a href="#mcs_setup_checklist_p5" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-grid ui-btn-b">Phase 5</a>
-										    <a href="#mcs_setup_checklist_p6" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-grid ui-btn-b">Phase 6</a>
-										    <a href="#mcs_setup_checklist_p7" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-grid ui-btn-b">Phase 7</a>
-										    <a href="#mcs_setup_checklist_p8" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-grid ui-btn-b">Phase 8</a>
-										</div>				
+					<center>
+						<div data-role="controlgroup" data-type="horizontal" data-mini="true">
+						    <a href="#mcs_setup_checklist_setup" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-grid ui-btn-b">Setup</a>
+						    <a href="#mcs_setup_checklist_CS" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-grid ui-btn-b">Control </a>
+						    <a href="#mcs_setup_checklist_p1" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-grid ui-btn-b">Phase 1</a>
+						    <a href="#mcs_setup_checklist_p2" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-grid ui-btn-b">Phase 2</a>
+						    <a href="#mcs_setup_checklist_p3" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-grid ui-btn-b">Phase 3</a>
+						    <a href="#mcs_setup_checklist_p4_b1_popupphase4" data-rel="popup" data-transition="slideup" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a">Phase 4</a>
+						    <a href="#mcs_setup_checklist_p5" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-grid ui-btn-b">Phase 5</a>
+						    <a href="#mcs_setup_checklist_p6" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-grid ui-btn-b">Phase 6</a>
+						    <a href="#mcs_setup_checklist_p7" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-grid ui-btn-b">Phase 7</a>
+						    <a href="#mcs_setup_checklist_p8" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-grid ui-btn-b">Phase 8</a>
+						</div>
+					</center>				
 				</div>				
 			</div>
 			<div data-role="page" class="ubm_page" id="mcs_setup_checklist_p4_b2">
@@ -2292,7 +2366,13 @@
 								</select>
 								</li>
 					            <li><textarea data-mini="true" cols="40" rows="8" id="mcs_setup_checklist_p4_b2_submitreviewpoint_actionrequired" placeholder="Action Required..."></textarea></li>
-								<li><input type="text" id="mcs_setup_checklist_p4_b2_submitreviewpoint_assignedto" value="" placeholder="Assigned To..."></li>
+								<li>
+								<select  id="mcs_setup_checklist_p4_b2_submitreviewpoint_assignedto" value="Select" data-native-menu="false">
+								    <option>Assigned To...</option>
+								    <option value="Jesse Spencer">Jesse Spencer</option>
+								    <option value="Adam Gustafson">Adam Gustafson</option>
+								</select>
+								</li>									
 					            <li><label for="datetime-4">Due Datetime</label><input type="datetime-local" data-clear-btn="true"  id="mcs_setup_checklist_p4_b2_submitreviewpoint_duedatetime" value="" placeholder="Due Datetime..."></li>
 								<li><input type="button" data-enhanced="true" value="Submit Review Point" onclick="submitReviewPoint('mcs_setup_checklist_p4_b2_');"></li>
 					        </ul>
@@ -2367,18 +2447,20 @@
 					</table>
 				</div>
 				<div data-role="footer" data-fullscreen="true" data-position="fixed">
-					<div data-role="controlgroup" data-type="horizontal" data-mini="true">
-					    <a href="#mcs_setup_checklist_setup" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-grid ui-btn-b">Setup</a>
-					    <a href="#mcs_setup_checklist_CS" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-grid ui-btn-b">Control </a>
-					    <a href="#mcs_setup_checklist_p1" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-grid ui-btn-b">Phase 1</a>
-					    <a href="#mcs_setup_checklist_p2" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-grid ui-btn-b">Phase 2</a>
-					    <a href="#mcs_setup_checklist_p3" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-grid ui-btn-b">Phase 3</a>
-					    <a href="#mcs_setup_checklist_p4_b2_popupphase4" data-rel="popup" data-transition="slideup" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a">Phase 4</a>
-					    <a href="#mcs_setup_checklist_p5" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-grid ui-btn-b">Phase 5</a>
-					    <a href="#mcs_setup_checklist_p6" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-grid ui-btn-b">Phase 6</a>
-					    <a href="#mcs_setup_checklist_p7" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-grid ui-btn-b">Phase 7</a>
-					    <a href="#mcs_setup_checklist_p8" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-grid ui-btn-b">Phase 8</a>
-					</div>				
+					<center>
+						<div data-role="controlgroup" data-type="horizontal" data-mini="true">
+						    <a href="#mcs_setup_checklist_setup" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-grid ui-btn-b">Setup</a>
+						    <a href="#mcs_setup_checklist_CS" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-grid ui-btn-b">Control </a>
+						    <a href="#mcs_setup_checklist_p1" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-grid ui-btn-b">Phase 1</a>
+						    <a href="#mcs_setup_checklist_p2" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-grid ui-btn-b">Phase 2</a>
+						    <a href="#mcs_setup_checklist_p3" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-grid ui-btn-b">Phase 3</a>
+						    <a href="#mcs_setup_checklist_p4_b2_popupphase4" data-rel="popup" data-transition="slideup" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a">Phase 4</a>
+						    <a href="#mcs_setup_checklist_p5" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-grid ui-btn-b">Phase 5</a>
+						    <a href="#mcs_setup_checklist_p6" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-grid ui-btn-b">Phase 6</a>
+						    <a href="#mcs_setup_checklist_p7" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-grid ui-btn-b">Phase 7</a>
+						    <a href="#mcs_setup_checklist_p8" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-grid ui-btn-b">Phase 8</a>
+						</div>	
+					</center>			
 				</div>				
 			</div>
 			<div data-role="page" class="ubm_page" id="mcs_setup_checklist_p5">
@@ -2428,7 +2510,13 @@
 								</select>
 								</li>
 					            <li><textarea data-mini="true" cols="40" rows="8" id="mcs_setup_checklist_p5_submitreviewpoint_actionrequired" placeholder="Action Required..."></textarea></li>
-								<li><input type="text" id="mcs_setup_checklist_p5_submitreviewpoint_assignedto" value="" placeholder="Assigned To..."></li>
+								<li>
+								<select  id="mcs_setup_checklist_p5_submitreviewpoint_assignedto" value="Select" data-native-menu="false">
+								    <option>Assigned To...</option>
+								    <option value="Jesse Spencer">Jesse Spencer</option>
+								    <option value="Adam Gustafson">Adam Gustafson</option>
+								</select>
+								</li>								
 					            <li><label for="datetime-4">Due Datetime</label><input type="datetime-local" data-clear-btn="true"  id="mcs_setup_checklist_p5_submitreviewpoint_duedatetime" value="" placeholder="Due Datetime..."></li>
 								<li><input type="button" data-enhanced="true" value="Submit Review Point" onclick="submitReviewPoint('mcs_setup_checklist_p5_');"></li>
 					        </ul>
@@ -2503,18 +2591,20 @@
 					</table>
 				</div>
 				<div data-role="footer" data-fullscreen="true" data-position="fixed">
-					<div data-role="controlgroup" data-type="horizontal" data-mini="true">
-					    <a href="#mcs_setup_checklist_setup" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-grid ui-btn-b">Setup</a>
-					    <a href="#mcs_setup_checklist_CS" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-grid ui-btn-b">Control </a>
-					    <a href="#mcs_setup_checklist_p1" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-grid ui-btn-b">Phase 1</a>
-					    <a href="#mcs_setup_checklist_p2" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-grid ui-btn-b">Phase 2</a>
-					    <a href="#mcs_setup_checklist_p3" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-grid ui-btn-b">Phase 3</a>
-					    <a href="#mcs_setup_checklist_p5_popupphase4" data-rel="popup" data-transition="slideup" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a">Phase 4</a>
-					    <a href="#mcs_setup_checklist_p5" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-grid ui-btn-b">Phase 5</a>
-					    <a href="#mcs_setup_checklist_p6" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-grid ui-btn-b">Phase 6</a>
-					    <a href="#mcs_setup_checklist_p7" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-grid ui-btn-b">Phase 7</a>
-					    <a href="#mcs_setup_checklist_p8" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-grid ui-btn-b">Phase 8</a>
-					</div>				
+					<center>
+						<div data-role="controlgroup" data-type="horizontal" data-mini="true">
+						    <a href="#mcs_setup_checklist_setup" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-grid ui-btn-b">Setup</a>
+						    <a href="#mcs_setup_checklist_CS" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-grid ui-btn-b">Control </a>
+						    <a href="#mcs_setup_checklist_p1" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-grid ui-btn-b">Phase 1</a>
+						    <a href="#mcs_setup_checklist_p2" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-grid ui-btn-b">Phase 2</a>
+						    <a href="#mcs_setup_checklist_p3" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-grid ui-btn-b">Phase 3</a>
+						    <a href="#mcs_setup_checklist_p5_popupphase4" data-rel="popup" data-transition="slideup" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a">Phase 4</a>
+						    <a href="#mcs_setup_checklist_p5" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-grid ui-btn-b">Phase 5</a>
+						    <a href="#mcs_setup_checklist_p6" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-grid ui-btn-b">Phase 6</a>
+						    <a href="#mcs_setup_checklist_p7" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-grid ui-btn-b">Phase 7</a>
+						    <a href="#mcs_setup_checklist_p8" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-grid ui-btn-b">Phase 8</a>
+						</div>
+					</center>				
 				</div>				
 			</div>
 			<div data-role="page" class="ubm_page" id="mcs_setup_checklist_p6">
@@ -2564,7 +2654,13 @@
 								</select>
 								</li>
 					            <li><textarea data-mini="true" cols="40" rows="8" id="mcs_setup_checklist_p6_submitreviewpoint_actionrequired" placeholder="Action Required..."></textarea></li>
-								<li><input type="text" id="mcs_setup_checklist_p6_submitreviewpoint_assignedto" value="" placeholder="Assigned To..."></li>
+								<li>
+								<select  id="mcs_setup_checklist_p6_submitreviewpoint_assignedto" value="Select" data-native-menu="false">
+								    <option>Assigned To...</option>
+								    <option value="Jesse Spencer">Jesse Spencer</option>
+								    <option value="Adam Gustafson">Adam Gustafson</option>
+								</select>
+								</li>								
 					            <li><label for="datetime-4">Due Datetime</label><input type="datetime-local" data-clear-btn="true"  id="mcs_setup_checklist_p6_submitreviewpoint_duedatetime" value="" placeholder="Due Datetime..."></li>
 								<li><input type="button" data-enhanced="true" value="Submit Review Point" onclick="submitReviewPoint('mcs_setup_checklist_p6_');"></li>
 					        </ul>
@@ -2639,18 +2735,20 @@
 					</table>
 				</div>
 				<div data-role="footer" data-fullscreen="true" data-position="fixed">
-					<div data-role="controlgroup" data-type="horizontal" data-mini="true">
-					    <a href="#mcs_setup_checklist_setup" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-grid ui-btn-b">Setup</a>
-					    <a href="#mcs_setup_checklist_CS" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-grid ui-btn-b">Control </a>
-					    <a href="#mcs_setup_checklist_p1" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-grid ui-btn-b">Phase 1</a>
-					    <a href="#mcs_setup_checklist_p2" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-grid ui-btn-b">Phase 2</a>
-					    <a href="#mcs_setup_checklist_p3" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-grid ui-btn-b">Phase 3</a>
-					    <a href="#mcs_setup_checklist_p6_popupphase4" data-rel="popup" data-transition="slideup" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a">Phase 4</a>
-					    <a href="#mcs_setup_checklist_p5" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-grid ui-btn-b">Phase 5</a>
-					    <a href="#mcs_setup_checklist_p6" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-grid ui-btn-b">Phase 6</a>
-					    <a href="#mcs_setup_checklist_p7" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-grid ui-btn-b">Phase 7</a>
-					    <a href="#mcs_setup_checklist_p8" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-grid ui-btn-b">Phase 8</a>
-					</div>				
+					<center>
+						<div data-role="controlgroup" data-type="horizontal" data-mini="true">
+						    <a href="#mcs_setup_checklist_setup" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-grid ui-btn-b">Setup</a>
+						    <a href="#mcs_setup_checklist_CS" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-grid ui-btn-b">Control </a>
+						    <a href="#mcs_setup_checklist_p1" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-grid ui-btn-b">Phase 1</a>
+						    <a href="#mcs_setup_checklist_p2" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-grid ui-btn-b">Phase 2</a>
+						    <a href="#mcs_setup_checklist_p3" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-grid ui-btn-b">Phase 3</a>
+						    <a href="#mcs_setup_checklist_p6_popupphase4" data-rel="popup" data-transition="slideup" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a">Phase 4</a>
+						    <a href="#mcs_setup_checklist_p5" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-grid ui-btn-b">Phase 5</a>
+						    <a href="#mcs_setup_checklist_p6" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-grid ui-btn-b">Phase 6</a>
+						    <a href="#mcs_setup_checklist_p7" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-grid ui-btn-b">Phase 7</a>
+						    <a href="#mcs_setup_checklist_p8" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-grid ui-btn-b">Phase 8</a>
+						</div>	
+					</center>			
 				</div>				
 			</div>
 			<div data-role="page" class="ubm_page" id="mcs_setup_checklist_p7">
@@ -2699,7 +2797,13 @@
 								</select>
 								</li>
 					            <li><textarea data-mini="true" cols="40" rows="8" id="mcs_setup_checklist_p7_submitreviewpoint_actionrequired" placeholder="Action Required..."></textarea></li>
-								<li><input type="text" id="mcs_setup_checklist_p7_submitreviewpoint_assignedto" value="" placeholder="Assigned To..."></li>
+								<li>
+								<select  id="mcs_setup_checklist_p7_submitreviewpoint_assignedto" value="Select" data-native-menu="false">
+								    <option>Assigned To...</option>
+								    <option value="Jesse Spencer">Jesse Spencer</option>
+								    <option value="Adam Gustafson">Adam Gustafson</option>
+								</select>
+								</li>								
 					            <li><label for="datetime-4">Due Datetime</label><input type="datetime-local" data-clear-btn="true"  id="mcs_setup_checklist_p7_submitreviewpoint_duedatetime" value="" placeholder="Due Datetime..."></li>
 								<li><input type="button" data-enhanced="true" value="Submit Review Point" onclick="submitReviewPoint('mcs_setup_checklist_p7_');"></li>
 					        </ul>
@@ -2774,18 +2878,20 @@
 					</table>
 				</div>
 				<div data-role="footer" data-fullscreen="true" data-position="fixed">
-					<div data-role="controlgroup" data-type="horizontal" data-mini="true">
-					    <a href="#mcs_setup_checklist_setup" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-grid ui-btn-b">Setup</a>
-					    <a href="#mcs_setup_checklist_CS" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-grid ui-btn-b">Control </a>
-					    <a href="#mcs_setup_checklist_p1" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-grid ui-btn-b">Phase 1</a>
-					    <a href="#mcs_setup_checklist_p2" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-grid ui-btn-b">Phase 2</a>
-					    <a href="#mcs_setup_checklist_p3" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-grid ui-btn-b">Phase 3</a>
-					    <a href="#mcs_setup_checklist_p7_popupphase4" data-rel="popup" data-transition="slideup" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a">Phase 4</a>
-					    <a href="#mcs_setup_checklist_p5" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-grid ui-btn-b">Phase 5</a>
-					    <a href="#mcs_setup_checklist_p6" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-grid ui-btn-b">Phase 6</a>
-					    <a href="#mcs_setup_checklist_p7" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-grid ui-btn-b">Phase 7</a>
-					    <a href="#mcs_setup_checklist_p8" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-grid ui-btn-b">Phase 8</a>
-					</div>				
+					<center>
+						<div data-role="controlgroup" data-type="horizontal" data-mini="true">
+						    <a href="#mcs_setup_checklist_setup" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-grid ui-btn-b">Setup</a>
+						    <a href="#mcs_setup_checklist_CS" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-grid ui-btn-b">Control </a>
+						    <a href="#mcs_setup_checklist_p1" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-grid ui-btn-b">Phase 1</a>
+						    <a href="#mcs_setup_checklist_p2" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-grid ui-btn-b">Phase 2</a>
+						    <a href="#mcs_setup_checklist_p3" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-grid ui-btn-b">Phase 3</a>
+						    <a href="#mcs_setup_checklist_p7_popupphase4" data-rel="popup" data-transition="slideup" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a">Phase 4</a>
+						    <a href="#mcs_setup_checklist_p5" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-grid ui-btn-b">Phase 5</a>
+						    <a href="#mcs_setup_checklist_p6" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-grid ui-btn-b">Phase 6</a>
+						    <a href="#mcs_setup_checklist_p7" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-grid ui-btn-b">Phase 7</a>
+						    <a href="#mcs_setup_checklist_p8" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-grid ui-btn-b">Phase 8</a>
+						</div>	
+					</center>			
 				</div>				
 			</div>
 			<div data-role="page" class="ubm_page" id="mcs_setup_checklist_p8">
@@ -2835,7 +2941,13 @@
 								</select>
 								</li>
 					            <li><textarea data-mini="true" cols="40" rows="8" id="mcs_setup_checklist_p8_submitreviewpoint_actionrequired" placeholder="Action Required..."></textarea></li>
-								<li><input type="text" id="mcs_setup_checklist_p8_submitreviewpoint_assignedto" value="" placeholder="Assigned To..."></li>
+								<li>
+								<select  id="mcs_setup_checklist_p8_submitreviewpoint_assignedto" value="Select" data-native-menu="false">
+								    <option>Assigned To...</option>
+								    <option value="Jesse Spencer">Jesse Spencer</option>
+								    <option value="Adam Gustafson">Adam Gustafson</option>
+								</select>
+								</li>								
 					            <li><label for="datetime-4">Due Datetime</label><input type="datetime-local" data-clear-btn="true"  id="mcs_setup_checklist_p8_submitreviewpoint_duedatetime" value="" placeholder="Due Datetime..."></li>
 								<li><input type="button" data-enhanced="true" value="Submit Review Point" onclick="submitReviewPoint('mcs_setup_checklist_p8_');"></li>
 					        </ul>
@@ -2926,18 +3038,20 @@
 					</table>
 				</div>
 				<div data-role="footer" data-fullscreen="true" data-position="fixed">
-					<div data-role="controlgroup" data-type="horizontal" data-mini="true">
-					    <a href="#mcs_setup_checklist_setup" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-grid ui-btn-b">Setup</a>
-					    <a href="#mcs_setup_checklist_CS" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-grid ui-btn-b">Control </a>
-					    <a href="#mcs_setup_checklist_p1" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-grid ui-btn-b">Phase 1</a>
-					    <a href="#mcs_setup_checklist_p2" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-grid ui-btn-b">Phase 2</a>
-					    <a href="#mcs_setup_checklist_p3" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-grid ui-btn-b">Phase 3</a>
-					    <a href="#mcs_setup_checklist_p8_popupphase4" data-rel="popup" data-transition="slideup" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a">Phase 4</a>
-					    <a href="#mcs_setup_checklist_p5" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-grid ui-btn-b">Phase 5</a>
-					    <a href="#mcs_setup_checklist_p6" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-grid ui-btn-b">Phase 6</a>
-					    <a href="#mcs_setup_checklist_p7" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-grid ui-btn-b">Phase 7</a>
-					    <a href="#mcs_setup_checklist_p8" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-grid ui-btn-b">Phase 8</a>
-					</div>				
+					<center>
+						<div data-role="controlgroup" data-type="horizontal" data-mini="true">
+						    <a href="#mcs_setup_checklist_setup" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-grid ui-btn-b">Setup</a>
+						    <a href="#mcs_setup_checklist_CS" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-grid ui-btn-b">Control </a>
+						    <a href="#mcs_setup_checklist_p1" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-grid ui-btn-b">Phase 1</a>
+						    <a href="#mcs_setup_checklist_p2" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-grid ui-btn-b">Phase 2</a>
+						    <a href="#mcs_setup_checklist_p3" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-grid ui-btn-b">Phase 3</a>
+						    <a href="#mcs_setup_checklist_p8_popupphase4" data-rel="popup" data-transition="slideup" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a">Phase 4</a>
+						    <a href="#mcs_setup_checklist_p5" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-grid ui-btn-b">Phase 5</a>
+						    <a href="#mcs_setup_checklist_p6" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-grid ui-btn-b">Phase 6</a>
+						    <a href="#mcs_setup_checklist_p7" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-grid ui-btn-b">Phase 7</a>
+						    <a href="#mcs_setup_checklist_p8" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-grid ui-btn-b">Phase 8</a>
+						</div>	
+					</center>			
 				</div>				
 			</div>
 			<div data-role="page" class="ubm_page" id="open_points_action_items">
@@ -2992,7 +3106,13 @@
 								</select>
 								</li>
 					            <li><textarea data-mini="true" cols="40" rows="8" id="open_points_action_items_submitreviewpoint_actionrequired" placeholder="Action Required..."></textarea></li>
-								<li><input type="text" id="open_points_action_items_submitreviewpoint_assignedto" value="" placeholder="Assigned To..."></li>
+								<li>
+								<select  id="open_points_action_items_submitreviewpoint_assignedto" value="Select" data-native-menu="false">
+								    <option>Assigned To...</option>
+								    <option value="Jesse Spencer">Jesse Spencer</option>
+								    <option value="Adam Gustafson">Adam Gustafson</option>
+								</select>
+								</li>								
 					            <li><label for="datetime-4">Due Datetime</label><input type="datetime-local" data-clear-btn="true"  id="open_points_action_items_submitreviewpoint_duedatetime" value="" placeholder="Due Datetime..."></li>
 								<li><input type="button" data-enhanced="true" value="Submit Review Point" onclick="submitReviewPoint('open_points_action_items_');"></li>
 					        </ul>
