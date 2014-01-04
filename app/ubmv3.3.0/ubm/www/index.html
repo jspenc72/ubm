@@ -160,9 +160,9 @@
 						var link = document.getElementById("openItem_popup_button");	//Get the popup on the current page.
 						link.setAttribute("href", '#gettingStarted_openItem_popup');						//Set the Attribute of the open item button to the popup on the current page.						
 					}else{
-						if(strarray[1]=="table_of_contents"){
+						if(strarray[1]=="creator_table_of_contents"){
 							var link = document.getElementById("openItem_popup_button");	//Get the popup on the current page.
-							link.setAttribute("href", '#table_of_contents_openItem_popup');						//Set the Attribute of the open item button to the popup on the current page.	
+							link.setAttribute("href", '#creator_table_of_contents_openItem_popup');						//Set the Attribute of the open item button to the popup on the current page.	
 						}else{
 							if(strarray[1]=="identification_setup"){
 								var link = document.getElementById("openItem_popup_button");	//Get the popup on the current page.
@@ -478,7 +478,6 @@
 		<div id="headerRecord_right_page">1 of 1</div>			
 	</div>
     <body onload="onLoadBody()">
-
 	<div id="overlayTest" class="circleBase type1" style="z-index: 99999; position:fixed; right:20px; top:300px;">
 		<a href="#newRequest_popup" id="newRequest_popup_button" data-rel="popup" data-transition="slideup" class="ui-btn ui-icon-alert ui-btn-icon-notext ui-corner-all">No text</a>
 		<a href="#sign_in_sign_up_openItem_popup" id="openItem_popup_button" data-rel="popup" data-transition="slideup" class="ui-btn ui-icon-action ui-btn-icon-notext ui-corner-all">No text</a>
@@ -619,7 +618,7 @@
 					<ul data-role="listview">
 		                <li><a href="#gettingStarted">Getting Started</a></li>
 		                <li><a href="#identification_setup">Identification Setup</a></li>
-		                <li><a href="#table_of_contents">Table of Contents</a></li>
+		                <li><a href="#creator_table_of_contents">Model Creator Table of Contents</a></li>
 		                <li><a href="#mcs_setup_checklist_setup">MCS Setup</a></li>		                
 		                <li><a href="#management_reporting">Management Reporting</a></li>
 		                <li><a href="#mcs_setup_checklist_CS">Control Section</a></li>
@@ -684,9 +683,18 @@
 					<ul class="bxslider1">
 						<li>
 							<div class="GS">
+								Each Item on every Table of Contents has two links, the reference link and the item link. </br>The <strong>Reference Link</strong>  will take you to that section of the UBM Reference Manual</br>The <strong>Item Link</strong> will take you to that section of the UBM Suite.
+								</br>In your <a href="#ubmsuite_table_of_contents">Universal Business Model Creation Suite</a> package you will see folders for the four major sections.</br></br>(I) Setup, </br>(II) Model Creator, </br>(III) App Store </br>(IV) External Developers Section. </br>(V) Internal Developers Section. </br></br>You will also see a table of contents after the folders. 
+								Open the <a href="#ubmsuite_table_of_contents">UBM Suite Table of Contents</a> and review. You will notice the four major sections are listed again on the table of contents. 
+
+								</p>
+							</div>
+						</li>
+						<li>
+							<div class="GS">
 								The easiest way to begin is to start on the company (do not print yet). All of the table of contents and checklists have been linked to all the forms you need to complete. 
-								</br>In your UBM Creation Suite package you will see folders for the four major sections.</br></br>(A) Model Creation, </br>(B) Source Model, </br>(C) Executable Model, and </br>(D) Operating Model. </br></br>You will also see a table of contents after the folders. 
-								<a href="#table_of_contents">Open the Table of Contents</a> and review. You will notice the four major sections are listed again on the table of contents. 
+								</br>In your Universal Business Model Creation Suite package you will see folders for the four major sections.</br></br>(A) Model Creation, </br>(B) Source Model, </br>(C) Executable Model, and </br>(D) Operating Model. </br></br>You will also see a table of contents after the folders. 
+								<a href="#creator_table_of_contents">Open the Table of Contents</a> and review. You will notice the four major sections are listed again on the table of contents. 
 								Under the (A) Model Creation section you will see a line referenced AMC. This is the checklist you will need to complete to have a functioning model. 
 								Click the AMC Model Creation Suite Phases Checklist. Each step on the checklist has been linked to the correct document you need to complete to check off the step. 
 								When you complete a step you need to initial and date the prepared by columns (located to the left of the steps).
@@ -750,7 +758,7 @@
 							    <a href="#" data-rel="back" class="ui-btn ui-corner-all ui-shadow ui-btn-a ui-icon-delete ui-btn-icon-notext ui-btn-right">Close</a><img class="popphoto" src="img/03 UBM Flowchart.png" style="max-height:700px;" alt="UBM Flow Chart">
 							</div>		
 					<div id="continue_button">
-						<a href="#table_of_contents" data-role="button" data-inline="true">Continue to My Model Creation</a>
+						<a href="#creator_table_of_contents" data-role="button" data-inline="true">Continue to My Model Creation</a>
 					</div>
 					
 							<!--<textarea cols="40" rows="8" name="textarea" id="gettingStarted_content_textarea0"></textarea>
@@ -767,13 +775,15 @@
 				</div>
 		
 			</div>
-			<!-- Table of Contents Page-->
-			<div data-role="page" class="ubm_page" id="table_of_contents">
-			    <div data-role="panel" id="mcs_table_of_contents_lpanel" data-display="overlay" data-position="left">
+			<!-- UBM Suite Table of Contents Page-->
+			<div data-role="page" class="ubm_page" id="ubmsuite_table_of_contents">
+			    <div data-role="panel" id="ubmsuite_table_of_contents_lpanel" data-display="overlay" data-position="left">
 					<ul data-role="listview">
 		                <li><a href="#gettingStarted">Getting Started</a></li>
 		                <li><a href="#identification_setup">Identification Setup</a></li>
-		                <li><a href="#table_of_contents">Table of Contents</a></li>
+		                <li><a href="#ubmsuite_table_of_contents">UBM Suite Table of Contents</a></li>
+		                <li><a href="#creator_table_of_contents">Model Creator Table of Contents</a></li>
+		                <li><a href="#ubmsuite_table_of_contents">UBM Suite Table of Contents</a></li>
 		                <li><a href="#mcs_setup_checklist_setup">MCS Setup</a></li>		                
 		                <li><a href="#management_reporting">Management Reporting</a></li>
 		                <li><a href="#mcs_setup_checklist_CS">Control Section</a></li>
@@ -791,23 +801,23 @@
 					</ul>
 			    </div><!-- /panel -->
 				<div data-role="header">
-					<a href="#mcs_table_of_contents_lpanel" data-icon="arrow-r"></a>
-					<div id"table_of_contents_header_headerRecord_center" style="text-align: center">
-						<div id="table_of_contents_header_headerRecord_center_legalentity"> Legal Entity: Cindt, LLC </div>
-						<div id="table_of_contents_header_headerRecord_center_systemtitle"> System Title: UBM v 3.3.0</div>
-						<div id="table_of_contents_header_headerRecord_center_modelapptitle"> Model / App Title: UBM Model Creation Suite Automated Prototype </div>
-						<div id="table_of_contents_header_headerRecord_center_pagetitle"> Table of Contents </div>						
+					<a href="#ubmsuite_table_of_contents_lpanel" data-icon="arrow-r"></a>
+					<div id"ubmsuite_table_of_contents_header_headerRecord_center" style="text-align: center">
+						<div id="creator_table_of_contents_header_headerRecord_center_legalentity"> Legal Entity: Cindt, LLC </div>
+						<div id="creator_table_of_contents_header_headerRecord_center_systemtitle"> System Title: UBM v 3.3.0</div>
+						<div id="creator_table_of_contents_header_headerRecord_center_modelapptitle"> Model / App Title: Universal Business Model Suite - Automated Prototype </div>
+						<div id="creator_table_of_contents_header_headerRecord_center_pagetitle"> Table of Contents </div>						
 					</div>
 				</div>
 				<div data-role="content">
 <!-- Open Items Popup -->
-					<div data-role="popup" id="table_of_contents_openItem_popup" data-theme="b">
-						<form id="table_of_contents_open_items_form" name="open_items_form">
+					<div data-role="popup" id="ubmsuite_table_of_contents_openItem_popup" data-theme="b">
+						<form id="ubmsuite_table_of_contents_open_items_form" name="open_items_form">
 					        <ul data-role="listview" data-inset="true" style="min-width:210px;">
 					            <li data-role="list-divider">Write a Review Point</br>or Open Item</li>
-								<li><input type="text" id="table_of_contents_submitreviewpoint_formref" name="submitreviewpoint_formref" value="" placeholder="Form Ref..."></li>									
+								<li><input type="text" id="ubmsuite_table_of_contents_submitreviewpoint_formref" name="submitreviewpoint_formref" value="" placeholder="Form Ref..."></li>									
 								<li>
-								<select  id="table_of_contents_submitreviewpoint_priority" value="Select" data-native-menu="false">
+								<select  id="ubmsuite_table_of_contents_submitreviewpoint_priority" value="Select" data-native-menu="false">
 								    <option>Priority...</option>
 								    <option value="A1">A1</option>
 								    <option value="A2">A2</option>
@@ -820,17 +830,114 @@
 								    <option value="C3">C3</option>
 								</select>
 								</li>
-					            <li><textarea data-mini="true" cols="40" rows="8" id="table_of_contents_submitreviewpoint_actionrequired" placeholder="Action Required..."></textarea></li>
+					            <li><textarea data-mini="true" cols="40" rows="8" id="ubmsuite_table_of_contents_submitreviewpoint_actionrequired" placeholder="Action Required..."></textarea></li>
 
 								<li>
-								<select  id="table_of_contents_submitreviewpoint_assignedto" value="Select" data-native-menu="false">
+								<select  id="ubmsuite_table_of_contents_submitreviewpoint_assignedto" value="Select" data-native-menu="false">
 								    <option>Assigned To...</option>
 								    <option value="Jesse Spencer">Jesse Spencer</option>
 								    <option value="Adam Gustafson">Adam Gustafson</option>
 								</select>
 								</li>
-					            <li><label for="datetime-4">Due Datetime</label><input type="datetime-local" data-clear-btn="true"  id="table_of_contents_submitreviewpoint_duedatetime" value="" placeholder="Due Datetime..."></li>
-								<li><input type="button" data-enhanced="true" value="Submit Review Point" onclick="submitReviewPoint('table_of_contents_');"></li>
+					            <li><label for="datetime-4">Due Datetime</label><input type="datetime-local" data-clear-btn="true"  id="ubmsuite_table_of_contents_submitreviewpoint_duedatetime" value="" placeholder="Due Datetime..."></li>
+								<li><input type="button" data-enhanced="true" value="Submit Review Point" onclick="submitReviewPoint('ubmsuite_table_of_contents_');"></li>
+					        </ul>
+						</form>
+					</div>
+<!-- End Open Items Popup -->
+					<div id="model_creation">
+						<h1>(I) Setup</h1>
+						<p><a href="#">BM Setup</a> BM Setup Packet</p>
+					</div>
+					<div id="model">
+						<h1>(II) Model Creator</h1>
+						<p><a href="#">UBM</a> - <strong><a href="#creator_table_of_contents">Business Model Creator</a></strong></p>
+						<p><a href="#">BMRM</a> - <strong>Business Model Reference Manual</strong></p>
+						<p><a href="#">BMS</a> - <strong>Business Model Services</strong></p>
+					</div>
+					<div id="executable">
+						<h1>(III) App Store</h1>
+						<p><a href="#">Book 10</a> - <strong>App Store Access</strong></p>
+						<p><a href="#">Book 10</a> - <strong>App Store Catalog</strong></p>
+					</div>
+					<div id="Operating Model">
+						<h1>(IV) External Developers Section</h1>
+						<p><a href="#">UBMRM</a> - <strong>UBM Reference Manual</strong></p>
+					</div>
+					<div id="Operating Model">
+						<h1>(V) Internal Developers Section</h1>
+						<p><a href="#">UBMRM</a> - <strong>UBM Reference Manual</strong></p>
+						<p><a href="#">BMS</a> - <strong>The Internal Developers Section contains: ...</strong></p>
+					</div>
+				</div>
+				<div data-role="footer">
+				
+				</div>
+			</div>
+			<!-- Creator Table of Contents Page-->
+			<div data-role="page" class="ubm_page" id="creator_table_of_contents">
+			    <div data-role="panel" id="mcs_creator_table_of_contents_lpanel" data-display="overlay" data-position="left">
+					<ul data-role="listview">
+		                <li><a href="#gettingStarted">Getting Started</a></li>
+		                <li><a href="#identification_setup">Identification Setup</a></li>
+		                <li><a href="#creator_table_of_contents">Model Creator Table of Contents</a></li>
+		                <li><a href="#mcs_setup_checklist_setup">MCS Setup</a></li>		                
+		                <li><a href="#management_reporting">Management Reporting</a></li>
+		                <li><a href="#mcs_setup_checklist_CS">Control Section</a></li>
+		                <li><a href="#mcs_setup_checklist_p1">Phase 1</a></li>
+		                <li><a href="#mcs_setup_checklist_p2">Phase 2</a></li>
+		                <li><a href="#mcs_setup_checklist_p3">Phase 3</a></li>
+		                <li><a href="#mcs_setup_checklist_p4">Phase 4</a></li>
+		                <li><a href="#mcs_setup_checklist_p5">Phase 5</a></li>
+		                <li><a href="#mcs_setup_checklist_p6">Phase 6</a></li>
+		                <li><a href="#mcs_setup_checklist_p7">Phase 7</a></li>
+		                <li><a href="#mcs_setup_checklist_p8">Phase 8</a></li>
+		                <li><a href="#open_points_action_items">Open Points Action Items</a></li>
+						<li data-icon="delete"><a href="#" data-rel="close">Close menu</a></li>
+						<li data-icon="delete"><a href="#sign_in_sign_up">Sign Out</a></li>
+					</ul>
+			    </div><!-- /panel -->
+				<div data-role="header">
+					<a href="#mcs_creator_table_of_contents_lpanel" data-icon="arrow-r"></a>
+					<div id"creator_table_of_contents_header_headerRecord_center" style="text-align: center">
+						<div id="creator_table_of_contents_header_headerRecord_center_legalentity"> Legal Entity: Cindt, LLC </div>
+						<div id="creator_table_of_contents_header_headerRecord_center_systemtitle"> System Title: UBM v 3.3.0</div>
+						<div id="creator_table_of_contents_header_headerRecord_center_modelapptitle"> Model / App Title: UBM Model Creation Suite Automated Prototype </div>
+						<div id="creator_table_of_contents_header_headerRecord_center_pagetitle"> Table of Contents </div>						
+					</div>
+				</div>
+				<div data-role="content">
+<!-- Open Items Popup -->
+					<div data-role="popup" id="creator_table_of_contents_openItem_popup" data-theme="b">
+						<form id="creator_table_of_contents_open_items_form" name="open_items_form">
+					        <ul data-role="listview" data-inset="true" style="min-width:210px;">
+					            <li data-role="list-divider">Write a Review Point</br>or Open Item</li>
+								<li><input type="text" id="creator_table_of_contents_submitreviewpoint_formref" name="submitreviewpoint_formref" value="" placeholder="Form Ref..."></li>									
+								<li>
+								<select  id="creator_table_of_contents_submitreviewpoint_priority" value="Select" data-native-menu="false">
+								    <option>Priority...</option>
+								    <option value="A1">A1</option>
+								    <option value="A2">A2</option>
+								    <option value="A3">A3</option>
+								    <option value="B1">B1</option>
+								    <option value="B2">B2</option>
+								    <option value="B3">B3</option>
+								    <option value="C1">C1</option>
+								    <option value="C2">C2</option>
+								    <option value="C3">C3</option>
+								</select>
+								</li>
+					            <li><textarea data-mini="true" cols="40" rows="8" id="creator_table_of_contents_submitreviewpoint_actionrequired" placeholder="Action Required..."></textarea></li>
+
+								<li>
+								<select  id="creator_table_of_contents_submitreviewpoint_assignedto" value="Select" data-native-menu="false">
+								    <option>Assigned To...</option>
+								    <option value="Jesse Spencer">Jesse Spencer</option>
+								    <option value="Adam Gustafson">Adam Gustafson</option>
+								</select>
+								</li>
+					            <li><label for="datetime-4">Due Datetime</label><input type="datetime-local" data-clear-btn="true"  id="creator_table_of_contents_submitreviewpoint_duedatetime" value="" placeholder="Due Datetime..."></li>
+								<li><input type="button" data-enhanced="true" value="Submit Review Point" onclick="submitReviewPoint('creator_table_of_contents_');"></li>
 					        </ul>
 						</form>
 					</div>
@@ -865,7 +972,7 @@
 					<ul data-role="listview">
 		                <li><a href="#gettingStarted">Getting Started</a></li>
 		                <li><a href="#identification_setup">Identification Setup</a></li>
-		                <li><a href="#table_of_contents">Table of Contents</a></li>
+		                <li><a href="#creator_table_of_contents">Model Creator Table of Contents</a></li>
 		                <li><a href="#mcs_setup_checklist_setup">MCS Setup</a></li>		                
 		                <li><a href="#management_reporting">Management Reporting</a></li>
 		                <li><a href="#mcs_setup_checklist_CS">Control Section</a></li>
@@ -1062,7 +1169,7 @@
 					</div>
 				</div>
 				<div data-role="content">
-							<a href="#table_of_contents" data-role="button" data-inline="true">Continue</a>
+							<a href="#creator_table_of_contents" data-role="button" data-inline="true">Continue</a>
 				</div>
 				<div data-role="footer">
 					...
@@ -1073,7 +1180,7 @@
 					<ul data-role="listview">
 		                <li><a href="#gettingStarted">Getting Started</a></li>
 		                <li><a href="#identification_setup">Identification Setup</a></li>
-		                <li><a href="#table_of_contents">Table of Contents</a></li>
+		                <li><a href="#creator_table_of_contents">Model Creator Table of Contents</a></li>
 		                <li><a href="#mcs_setup_checklist_setup">MCS Setup</a></li>		                
 		                <li><a href="#management_reporting">Management Reporting</a></li>
 		                <li><a href="#mcs_setup_checklist_CS">Control Section</a></li>
@@ -1451,7 +1558,7 @@
 					<ul data-role="listview">
 		                <li><a href="#gettingStarted">Getting Started</a></li>
 		                <li><a href="#identification_setup">Identification Setup</a></li>
-		                <li><a href="#table_of_contents">Table of Contents</a></li>
+		                <li><a href="#creator_table_of_contents">Model Creator Table of Contents</a></li>
 		                <li><a href="#mcs_setup_checklist_setup">MCS Setup</a></li>		                
 		                <li><a href="#management_reporting">Management Reporting</a></li>
 		                <li><a href="#mcs_setup_checklist_CS">Control Section</a></li>
@@ -1604,7 +1711,7 @@
 					<ul data-role="listview">
 		                <li><a href="#gettingStarted">Getting Started</a></li>
 		                <li><a href="#identification_setup">Identification Setup</a></li>
-		                <li><a href="#table_of_contents">Table of Contents</a></li>
+		                <li><a href="#creator_table_of_contents">Model Creator Table of Contents</a></li>
 		                <li><a href="#mcs_setup_checklist_setup">MCS Setup</a></li>		                
 		                <li><a href="#management_reporting">Management Reporting</a></li>
 		                <li><a href="#mcs_setup_checklist_CS">Control Section</a></li>
@@ -1748,7 +1855,7 @@
 					<ul data-role="listview">
 		                <li><a href="#gettingStarted">Getting Started</a></li>
 		                <li><a href="#identification_setup">Identification Setup</a></li>
-		                <li><a href="#table_of_contents">Table of Contents</a></li>
+		                <li><a href="#creator_table_of_contents">Model Creator Table of Contents</a></li>
 		                <li><a href="#mcs_setup_checklist_setup">MCS Setup</a></li>		                
 		                <li><a href="#management_reporting">Management Reporting</a></li>
 		                <li><a href="#mcs_setup_checklist_CS">Control Section</a></li>
@@ -1892,7 +1999,7 @@
 					<ul data-role="listview">
 		                <li><a href="#gettingStarted">Getting Started</a></li>
 		                <li><a href="#identification_setup">Identification Setup</a></li>
-		                <li><a href="#table_of_contents">Table of Contents</a></li>
+		                <li><a href="#creator_table_of_contents">Model Creator Table of Contents</a></li>
 		                <li><a href="#mcs_setup_checklist_setup">MCS Setup</a></li>		                
 		                <li><a href="#management_reporting">Management Reporting</a></li>
 		                <li><a href="#mcs_setup_checklist_CS">Control Section</a></li>
@@ -2036,7 +2143,7 @@
 					<ul data-role="listview">
 		                <li><a href="#gettingStarted">Getting Started</a></li>
 		                <li><a href="#identification_setup">Identification Setup</a></li>
-		                <li><a href="#table_of_contents">Table of Contents</a></li>
+		                <li><a href="#creator_table_of_contents">Model Creator Table of Contents</a></li>
 		                <li><a href="#mcs_setup_checklist_setup">MCS Setup</a></li>		                
 		                <li><a href="#management_reporting">Management Reporting</a></li>
 		                <li><a href="#mcs_setup_checklist_CS">Control Section</a></li>
@@ -2180,7 +2287,7 @@
 					<ul data-role="listview">
 		                <li><a href="#gettingStarted">Getting Started</a></li>
 		                <li><a href="#identification_setup">Identification Setup</a></li>
-		                <li><a href="#table_of_contents">Table of Contents</a></li>
+		                <li><a href="#creator_table_of_contents">Model Creator Table of Contents</a></li>
 		                <li><a href="#mcs_setup_checklist_setup">MCS Setup</a></li>		                
 		                <li><a href="#management_reporting">Management Reporting</a></li>
 		                <li><a href="#mcs_setup_checklist_CS">Control Section</a></li>
@@ -2324,7 +2431,7 @@
 					<ul data-role="listview">
 		                <li><a href="#gettingStarted">Getting Started</a></li>
 		                <li><a href="#identification_setup">Identification Setup</a></li>
-		                <li><a href="#table_of_contents">Table of Contents</a></li>
+		                <li><a href="#creator_table_of_contents">Model Creator Table of Contents</a></li>
 		                <li><a href="#mcs_setup_checklist_setup">MCS Setup</a></li>		                
 		                <li><a href="#management_reporting">Management Reporting</a></li>
 		                <li><a href="#mcs_setup_checklist_CS">Control Section</a></li>
@@ -2468,7 +2575,7 @@
 					<ul data-role="listview">
 		                <li><a href="#gettingStarted">Getting Started</a></li>
 		                <li><a href="#identification_setup">Identification Setup</a></li>
-		                <li><a href="#table_of_contents">Table of Contents</a></li>
+		                <li><a href="#creator_table_of_contents">Model Creator Table of Contents</a></li>
 		                <li><a href="#mcs_setup_checklist_setup">MCS Setup</a></li>		                
 		                <li><a href="#management_reporting">Management Reporting</a></li>
 		                <li><a href="#mcs_setup_checklist_CS">Control Section</a></li>
@@ -2612,7 +2719,7 @@
 					<ul data-role="listview">
 		                <li><a href="#gettingStarted">Getting Started</a></li>
 		                <li><a href="#identification_setup">Identification Setup</a></li>
-		                <li><a href="#table_of_contents">Table of Contents</a></li>
+		                <li><a href="#creator_table_of_contents">Model Creator Table of Contents</a></li>
 		                <li><a href="#mcs_setup_checklist_setup">MCS Setup</a></li>		                
 		                <li><a href="#management_reporting">Management Reporting</a></li>
 		                <li><a href="#mcs_setup_checklist_CS">Control Section</a></li>
@@ -2756,7 +2863,7 @@
 					<ul data-role="listview">
 		                <li><a href="#gettingStarted">Getting Started</a></li>
 		                <li><a href="#identification_setup">Identification Setup</a></li>
-		                <li><a href="#table_of_contents">Table of Contents</a></li>
+		                <li><a href="#creator_table_of_contents">Model Creator Table of Contents</a></li>
 		                <li><a href="#mcs_setup_checklist_setup">MCS Setup</a></li>		                
 		                <li><a href="#management_reporting">Management Reporting</a></li>
 		                <li><a href="#mcs_setup_checklist_CS">Control Section</a></li>
@@ -2899,7 +3006,7 @@
 					<ul data-role="listview">
 		                <li><a href="#gettingStarted">Getting Started</a></li>
 		                <li><a href="#identification_setup">Identification Setup</a></li>
-		                <li><a href="#table_of_contents">Table of Contents</a></li>
+		                <li><a href="#creator_table_of_contents">Model Creator Table of Contents</a></li>
 		                <li><a href="#mcs_setup_checklist_setup">MCS Setup</a></li>		                
 		                <li><a href="#management_reporting">Management Reporting</a></li>
 		                <li><a href="#mcs_setup_checklist_CS">Control Section</a></li>
@@ -3055,11 +3162,11 @@
 				</div>				
 			</div>
 			<div data-role="page" class="ubm_page" id="open_points_action_items">
-			    <div data-role="panel" id="mcs_table_of_contents_lpanel" data-display="overlay" data-position="left">
+			    <div data-role="panel" id="mcs_creator_table_of_contents_lpanel" data-display="overlay" data-position="left">
 					<ul data-role="listview">
 		                <li><a href="#gettingStarted">Getting Started</a></li>
 		                <li><a href="#identification_setup">Identification Setup</a></li>
-		                <li><a href="#table_of_contents">Table of Contents</a></li>
+		                <li><a href="#creator_table_of_contents">Model Creator Table of Contents</a></li>
 		                <li><a href="#mcs_setup_checklist_setup">MCS Setup</a></li>		                
 		                <li><a href="#management_reporting">Management Reporting</a></li>
 		                <li><a href="#mcs_setup_checklist_CS">Control Section</a></li>
@@ -3077,7 +3184,7 @@
 					</ul>
 			    </div><!-- /panel -->
 				<div data-role="header" id="open_points_action_items_header">
-					<a href="#mcs_table_of_contents_lpanel" data-icon="arrow-r"></a>
+					<a href="#mcs_creator_table_of_contents_lpanel" data-icon="arrow-r"></a>
 					<div id"open_points_action_items_header_headerRecord_center" style="text-align: center">
 						<div id="open_points_action_items_header_headerRecord_center_legalentity"> Legal Entity: Cindt, LLC </div>
 						<div id="open_points_action_items_header_headerRecord_center_systemtitle"> System Title: UBM v 3.3.0</div>
