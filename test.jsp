@@ -8,7 +8,7 @@
 <%
 //    System.out.println( "Evaluating date now" );
 //    Date date = new Date();
-    // This scriptlet generates HTML output fo sho
+    // This scriptlet generates HTML output fo rizzle
 //    out.println("<BR>Another Date: "+ date );
 //    out.println( "<BR>Kents machine's address is " );
 //    out.println( request.getRemoteHost());
