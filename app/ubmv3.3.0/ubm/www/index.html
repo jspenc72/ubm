@@ -473,6 +473,50 @@ under the License.
 			}).on("click", ".hide-page-loading-msg", function() {
 				$.mobile.loading("hide");
 			});
+
+
+        </script>
+		<script>
+        function checkConnection() {
+			alert("Check Connection Called");
+            var networkState = navigator.connection.type;
+			alert("After Network STate");
+
+            var states = {};
+            states[Connection.UNKNOWN]  = 'Unknown connection';
+            states[Connection.ETHERNET] = 'Ethernet connection';
+            states[Connection.WIFI]     = 'WiFi connection';
+            states[Connection.CELL_2G]  = 'Cell 2G connection';
+            states[Connection.CELL_3G]  = 'Cell 3G connection';
+            states[Connection.CELL_4G]  = 'Cell 4G connection';
+            states[Connection.CELL]     = 'Cell generic connection';
+            states[Connection.NONE]     = 'No network connection';
+
+            alert('Connection type: ' + states[networkState]);
+        }
+		function getPosition(){
+				var onSuccess = function(position) {
+				    alert('Latitude: '          + position.coords.latitude          + '\n' +
+				          'Longitude: '         + position.coords.longitude         + '\n' +
+				          'Altitude: '          + position.coords.altitude          + '\n' +
+				          'Accuracy: '          + position.coords.accuracy          + '\n' +
+				          'Altitude Accuracy: ' + position.coords.altitudeAccuracy  + '\n' +
+				          'Heading: '           + position.coords.heading           + '\n' +
+				          'Speed: '             + position.coords.speed             + '\n' +
+				          'Timestamp: '         + position.timestamp                + '\n');
+				};
+				// onError Callback receives a PositionError object
+				//
+				function onError(error) {
+				    alert('code: '    + error.code    + '\n' +
+				          'message: ' + error.message + '\n');
+				}
+				navigator.geolocation.getCurrentPosition(onSuccess, onError);				
+		}
+		</script>
+        <style>
+			#overlayTest { width: 100px; height: 100px; padding: 0.5em; float: left; margin: 10px 10px 10px 0; }
+=======
 		</script>
 		<style>
 			#overlayTest {
@@ -482,6 +526,7 @@ under the License.
 				float: left;
 				margin: 10px 10px 10px 0;
 			}
+>>>>>>> 7d143baf014b0736300a493d79b83e7fe3ba973b
 			.circleBase {
 				-webkit-border-radius: 999px;
 				-moz-border-radius: 999px;
@@ -693,6 +738,29 @@ under the License.
 							</button>
 						</div>
 					</form>
+				  	<div id="result" style="background-color: white;">
+					</div>
+					<center><a href="#popupRegister" data-rel="popup" data-position-to="window" data-role="button" data-inline="true" data-icon="check" data-theme="b" data-transition="pop">Register</a></center>
+					<div data-role="popup" id="popupRegister" data-theme="a">
+						<form>
+							<div style="padding:10px 20px;">
+								<h3>Registration is Free!</h3>
+						        <label for="un" class="ui-hidden-accessible">Email:</label>
+						        <input type="email" name="reg_email" id="reg_email" value="" placeholder="Email" data-theme="a" />
+						        <label for="reg_pw1" class="ui-hidden-accessible">Password:</label>
+						        <input type="password" name="reg_pass1" id="reg_pw1" value="" placeholder="Enter Password" data-theme="a" />
+								<label for="reg_pw2" class="ui-hidden-accessible">Password:</label>
+						        <input type="password" name="reg_pass2" id="reg_pw2" value="" placeholder="Confirm Password" data-theme="a" />
+						    	<button data-theme="b" data-icon="check" onclick="userRegister()">Create Account!</button>
+							</div>
+						</form>
+					</div>
+				</div>
+				<div data-role="footer" data-theme="a" data-position="fixed" data-fullscreen="true">
+					<center><p>Alpha</p></center>
+					<button data-theme="b" data-icon="check" onclick="checkConnection()">Check Connection!</button>
+=======
+>>>>>>> 7d143baf014b0736300a493d79b83e7fe3ba973b
 				</div>
 			</div>
 			<div data-role="footer" data-theme="a" data-position="fixed" data-fullscreen="true">
@@ -775,6 +843,29 @@ under the License.
 						Getting Started
 					</div>
 				</div>
+				<div data-role="content">
+<!-- Open Items Popup -->
+					<div data-role="popup" id="gettingStarted_openItem_popup" data-theme="b">
+						<form id="gettingStarted_open_items_form" name="open_items_form">
+					        <ul data-role="listview" data-inset="true" style="min-width:210px;">
+					            <li data-role="list-divider">Write a Review Point</br>or Open Item</li>
+								<li><input type="text" id="gettingStarted_submitreviewpoint_formref" name="submitreviewpoint_formref" value="" placeholder="Form Ref..."></li>									
+								<select  id="gettingStarted_submitreviewpoint_priority" value="Select" data-native-menu="false">
+								    <option>Priority...</option>
+								    <option value="A1">A1</option>
+								    <option value="A2">A2</option>
+								    <option value="A3">A3</option>
+								    <option value="B1">B1</option>
+								    <option value="B2">B2</option>
+								    <option value="B3">B3</option>
+								    <option value="C1">C1</option>
+								    <option value="C2">C2</option>
+								    <option value="C3">C3</option>
+								</select>
+								</li>
+					            <li><textarea data-mini="true" cols="40" rows="8" id="gettingStarted_submitreviewpoint_actionrequired" placeholder="Action Required..."></textarea></li>
+								<li>
+=======
 			</div>
 			<div data-role="content">
 
@@ -805,6 +896,7 @@ under the License.
 								<textarea data-mini="true" cols="40" rows="8" id="gettingStarted_submitreviewpoint_actionrequired" placeholder="Action Required..."></textarea>
 							</li>
 							<li>
+>>>>>>> 7d143baf014b0736300a493d79b83e7fe3ba973b
 								<select  id="gettingStarted_submitreviewpoint_assignedto" value="Select" data-native-menu="false">
 									<option>Assigned To...</option>
 									<option value="Jesse Spencer">Jesse Spencer</option>
@@ -823,6 +915,90 @@ under the License.
 				</div>
 				<!-- End Open Items Popup -->
 
+					<ul class="bxslider1">
+						<li>
+							<div class="GS">
+								Each Item on every Table of Contents has two links, the reference link and the item link. </br>The <strong>Reference Link</strong>  will take you to that section of the UBM Reference Manual</br>The <strong>Item Link</strong> will take you to that section of the UBM Suite.
+								</br>In your <a href="#ubmsuite_table_of_contents">Universal Business Model Creation Suite</a> package you will see folders for the four major sections.
+								</br>
+								</br>(I) Setup 
+								</br>(II) Model Creator 
+								</br>(III) App Store 
+								</br>(IV) External Developers Section 
+								</br>(V) Internal Developers Section 
+								</br></br>You will also see a table of contents after the folders. 
+								Open the <a href="#ubmsuite_table_of_contents">UBM Suite Table of Contents</a> and review. You will notice the four major sections are listed again on the table of contents. 
+
+								</p>
+							</div>
+						</li>
+						<li>
+							<div class="GS">
+								The easiest way to begin is to start on the company (do not print yet). All of the table of contents and checklists have been linked to all the forms you need to complete. 
+								</br>In your Universal Business Model Creation Suite package you will see folders for the four major sections.</br>
+								</br>(A) Model Creation
+								</br>(B) Source Model
+								</br>(C) Executable Model
+								</br>(D) Operating Model 
+								</br></br>You will also see a table of contents after the folders. 
+								<a href="#creator_table_of_contents">Open the Table of Contents</a> and review. You will notice the four major sections are listed again on the table of contents. 
+								Under the (A) Model Creation section you will see a line referenced AMC. This is the checklist you will need to complete to have a functioning model. 
+								Click the AMC Model Creation Suite Phases Checklist. Each step on the checklist has been linked to the correct document you need to complete to check off the step. 
+								When you complete a step you need to initial and date the prepared by columns (located to the left of the steps).
+								</p>
+							</div>
+						</li>
+						<li>
+							<div class="GS">
+								<p>
+									Keep Track of your time for each step when creating your model (use the columns to the right of each step on the checklist
+								</p>
+							</div>
+						</li>
+						<li>
+							<div class="GS">
+								<p>
+									If you choose to start out by keeping hard copies of each form you can print off the pre-defined binder tabs located under the Table of contents file and create a binder using those. You do not have to create a binder at the first because the checklist will walk you through the steps eventually to do this. The only reason you would create the binder before the checklist says to, is if your manager needs a manual copy and needs to review each form individually.
+								</p>
+							</div>
+						</li>
+						<li>
+							<div class="GS">
+								<p>
+									All creation forms have already been referenced correctly <strong>you are not supposed to change any reference on any pre-defined form.</strong> All you need to do is add your company name in the center header of all forms.
+								</p>
+							</div>
+						</li>
+						<li>
+							<div class="GS">
+								<p>
+									Finally the UBM Creation Suite has a reference manual included in every version. The Reference Manual includes the explanation, templates, and samples you can refer to too assist you in completing your model forms.
+								</p>
+							</div>
+						</li>
+						<li>
+							<div class="GS">
+								<p>
+									If needed review the referencing Protocol and Referencing guide located in the Reference Manual in the following folder trail: </br> (B) Model Source >
+									01 Reference Manual > 00 Gen > 03 Ref Pro
+								</p>
+							</div>
+						</li>
+						<li>
+							<div class="GS">
+								<p>
+									<strong>FEEL FREE TO CONTACT OUR OFFICES WITH ANY QUESTIONS 801-484-6988</strong></br>Michael Miller, Matthew Kingston, Katherine Hayes, or Erica Cannon
+								</p>
+							</div>
+						</li>
+						<li>
+							<div class="GS">
+								<p>
+									GOOD LUCK!
+								</p>
+							</div>
+						</li>
+=======
 				<ul class="bxslider1">
 					<li>
 						<div class="GS">
@@ -894,11 +1070,14 @@ under the License.
 							</p>
 						</div>
 					</li>
+>>>>>>> 7d143baf014b0736300a493d79b83e7fe3ba973b
 
 				</ul>
 				<a href="#popupParis" data-rel="popup" data-position-to="window" data-transition="fade"><img src="img/03 UBM Flowchart.png" width="60" style="position:center; width:50%; height:auto;"></a>
 				<div data-role="popup" id="popupParis" data-overlay-theme="b" data-theme="b" data-corners="false">
 					<a href="#" data-rel="back" class="ui-btn ui-corner-all ui-shadow ui-btn-a ui-icon-delete ui-btn-icon-notext ui-btn-right">Close</a><img class="popphoto" src="img/03 UBM Flowchart.png" style="max-height:700px;" alt="UBM Flow Chart">
+				</div>
+				<div data-role="footer">
 				</div>
 				<div id="continue_button">
 					<a href="#creator_table_of_contents" data-role="button" data-inline="true">Continue to My Model Creation</a>
@@ -907,6 +1086,7 @@ under the License.
 				<!--<textarea cols="40" rows="8" name="textarea" id="gettingStarted_content_textarea0"></textarea>
 				<a href="#" class="ui-btn" onclick="addField()">add Field</a>							addField duplicates the textarea and inserts a new text area below the existing one						-->
 
+>>>>>>> 7d143baf014b0736300a493d79b83e7fe3ba973b
 			</div>
 			<script>
 				$(function() {
