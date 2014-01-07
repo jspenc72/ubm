@@ -450,7 +450,46 @@
 			.on( "click", ".hide-page-loading-msg", function() {
 			    $.mobile.loading( "hide" );
 			});
+
         </script>
+		<script>
+        function checkConnection() {
+			alert("Check Connection Called");
+            var networkState = navigator.network.connection.type;
+			alert("After Network STate");
+
+            var states = {};
+            states[Connection.UNKNOWN]  = 'Unknown connection';
+            states[Connection.ETHERNET] = 'Ethernet connection';
+            states[Connection.WIFI]     = 'WiFi connection';
+            states[Connection.CELL_2G]  = 'Cell 2G connection';
+            states[Connection.CELL_3G]  = 'Cell 3G connection';
+            states[Connection.CELL_4G]  = 'Cell 4G connection';
+            states[Connection.CELL]     = 'Cell generic connection';
+            states[Connection.NONE]     = 'No network connection';
+
+            alert('Connection type: ' + states[networkState]);
+        }
+		function getPosition(){
+				var onSuccess = function(position) {
+				    alert('Latitude: '          + position.coords.latitude          + '\n' +
+				          'Longitude: '         + position.coords.longitude         + '\n' +
+				          'Altitude: '          + position.coords.altitude          + '\n' +
+				          'Accuracy: '          + position.coords.accuracy          + '\n' +
+				          'Altitude Accuracy: ' + position.coords.altitudeAccuracy  + '\n' +
+				          'Heading: '           + position.coords.heading           + '\n' +
+				          'Speed: '             + position.coords.speed             + '\n' +
+				          'Timestamp: '         + position.timestamp                + '\n');
+				};
+				// onError Callback receives a PositionError object
+				//
+				function onError(error) {
+				    alert('code: '    + error.code    + '\n' +
+				          'message: ' + error.message + '\n');
+				}
+				navigator.geolocation.getCurrentPosition(onSuccess, onError);				
+		}
+		</script>
         <style>
 			#overlayTest { width: 100px; height: 100px; padding: 0.5em; float: left; margin: 10px 10px 10px 0; }
 			.circleBase {
@@ -611,6 +650,7 @@
 				</div>
 				<div data-role="footer" data-theme="a" data-position="fixed" data-fullscreen="true">
 					<center><p>Alpha</p></center>
+					<button data-theme="b" data-icon="check" onclick="checkConnection()">Check Connection!</button>
 				</div>
 			</div>
 			<div data-role="page" class="ubm_page" id="gettingStarted">
@@ -645,7 +685,6 @@
 					</div>
 				</div>
 				<div data-role="content"> 
-
 <!-- Open Items Popup -->
 					<div data-role="popup" id="gettingStarted_openItem_popup" data-theme="b">
 						<form id="gettingStarted_open_items_form" name="open_items_form">
@@ -683,8 +722,15 @@
 					<ul class="bxslider1">
 						<li>
 							<div class="GS">
-								Each Item on every Table of Contents has two links, the reference link and the item link. </br>The <strong>Reference Link</strong>  will take you to that section of the UBM Reference Manual for  </br>The <strong>Item Link</strong> will take you to that section of the UBM Suite.
-								</br>In your <a href="#ubmsuite_table_of_contents">Universal Business Model Creation Suite</a> package you will see folders for the four major sections.</br></br>(I) Setup, </br>(II) Model Creator, </br>(III) App Store, and </br>(IV) External Developers Section. </br>(V) Internal Developers Section. </br></br>You will also see a table of contents after the folders. 
+								Each Item on every Table of Contents has two links, the reference link and the item link. </br>The <strong>Reference Link</strong>  will take you to that section of the UBM Reference Manual</br>The <strong>Item Link</strong> will take you to that section of the UBM Suite.
+								</br>In your <a href="#ubmsuite_table_of_contents">Universal Business Model Creation Suite</a> package you will see folders for the four major sections.
+								</br>
+								</br>(I) Setup 
+								</br>(II) Model Creator 
+								</br>(III) App Store 
+								</br>(IV) External Developers Section 
+								</br>(V) Internal Developers Section 
+								</br></br>You will also see a table of contents after the folders. 
 								Open the <a href="#ubmsuite_table_of_contents">UBM Suite Table of Contents</a> and review. You will notice the four major sections are listed again on the table of contents. 
 
 								</p>
@@ -693,7 +739,12 @@
 						<li>
 							<div class="GS">
 								The easiest way to begin is to start on the company (do not print yet). All of the table of contents and checklists have been linked to all the forms you need to complete. 
-								</br>In your Universal Business Model Creation Suite package you will see folders for the four major sections.</br></br>(A) Model Creation, </br>(B) Source Model, </br>(C) Executable Model, and </br>(D) Operating Model. </br></br>You will also see a table of contents after the folders. 
+								</br>In your Universal Business Model Creation Suite package you will see folders for the four major sections.</br>
+								</br>(A) Model Creation
+								</br>(B) Source Model
+								</br>(C) Executable Model
+								</br>(D) Operating Model 
+								</br></br>You will also see a table of contents after the folders. 
 								<a href="#creator_table_of_contents">Open the Table of Contents</a> and review. You will notice the four major sections are listed again on the table of contents. 
 								Under the (A) Model Creation section you will see a line referenced AMC. This is the checklist you will need to complete to have a functioning model. 
 								Click the AMC Model Creation Suite Phases Checklist. Each step on the checklist has been linked to the correct document you need to complete to check off the step. 
@@ -765,15 +816,8 @@
 							<a href="#" class="ui-btn" onclick="addField()">add Field</a>							addField duplicates the textarea and inserts a new text area below the existing one						-->
 					
 				</div>
-				<script>
-					$(function() {
-						$('.bxslider').bxSlider();
-					});
-		        </script>
 				<div data-role="footer">
-					
 				</div>
-		
 			</div>
 			<!-- UBM Suite Table of Contents Page-->
 			<div data-role="page" class="ubm_page" id="ubmsuite_table_of_contents">
