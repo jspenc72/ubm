@@ -27,7 +27,7 @@ under the License.
 		<link rel="stylesheet" href="css/jquery.mobile-1.4.0.min.css" />
 		<script src="js/jquery-1.9.1.min.js"></script>
 		<script src="js/jquery-mobile-1.4.0.min.js"></script>
-		<!--Begin Jquery UI and touchpounc -->
+		<!--Begin Jquery UI and touchpounch -->
 		<link rel="stylesheet" href="css/jquery-ui.css">
 		<script src="js/jquery-ui.js"></script>
 		<script src="js/jquery.ui.touch-punch.js"></script>
@@ -63,7 +63,6 @@ under the License.
 						//Start Hide Loading Message
 						$.mobile.loading("hide");
 						//End Hide Loading Message
-
 					})
 					$("#mcs_open_points_action_items_table").trigger("create");
 				});
@@ -480,7 +479,7 @@ under the License.
 		<script>
         function checkConnection() {
 			alert("Check Connection Called");
-            var networkState = navigator.network.connection.type;
+            var networkState = navigator.connection.type;
 			alert("After Network STate");
 
             var states = {};
@@ -517,7 +516,7 @@ under the License.
 		</script>
         <style>
 			#overlayTest { width: 100px; height: 100px; padding: 0.5em; float: left; margin: 10px 10px 10px 0; }
-=======
+
 		</script>
 		<style>
 			#overlayTest {
@@ -527,7 +526,7 @@ under the License.
 				float: left;
 				margin: 10px 10px 10px 0;
 			}
->>>>>>> 7d143baf014b0736300a493d79b83e7fe3ba973b
+
 			.circleBase {
 				-webkit-border-radius: 999px;
 				-moz-border-radius: 999px;
@@ -739,7 +738,6 @@ under the License.
 							</button>
 						</div>
 					</form>
-
 				  	<div id="result" style="background-color: white;">
 					</div>
 					<center><a href="#popupRegister" data-rel="popup" data-position-to="window" data-role="button" data-inline="true" data-icon="check" data-theme="b" data-transition="pop">Register</a></center>
@@ -761,16 +759,7 @@ under the License.
 				<div data-role="footer" data-theme="a" data-position="fixed" data-fullscreen="true">
 					<center><p>Alpha</p></center>
 					<button data-theme="b" data-icon="check" onclick="checkConnection()">Check Connection!</button>
-=======
->>>>>>> 7d143baf014b0736300a493d79b83e7fe3ba973b
 				</div>
-			</div>
-			<div data-role="footer" data-theme="a" data-position="fixed" data-fullscreen="true">
-				<center>
-					<p>
-						Alpha
-					</p>
-				</center>
 			</div>
 		</div>
 		<div data-role="page" class="ubm_page" id="gettingStarted">
@@ -845,33 +834,8 @@ under the License.
 						Getting Started
 					</div>
 				</div>
-
-				<div data-role="content"> 
-<!-- Open Items Popup -->
-					<div data-role="popup" id="gettingStarted_openItem_popup" data-theme="b">
-						<form id="gettingStarted_open_items_form" name="open_items_form">
-					        <ul data-role="listview" data-inset="true" style="min-width:210px;">
-					            <li data-role="list-divider">Write a Review Point</br>or Open Item</li>
-								<li><input type="text" id="gettingStarted_submitreviewpoint_formref" name="submitreviewpoint_formref" value="" placeholder="Form Ref..."></li>									
-								<select  id="gettingStarted_submitreviewpoint_priority" value="Select" data-native-menu="false">
-								    <option>Priority...</option>
-								    <option value="A1">A1</option>
-								    <option value="A2">A2</option>
-								    <option value="A3">A3</option>
-								    <option value="B1">B1</option>
-								    <option value="B2">B2</option>
-								    <option value="B3">B3</option>
-								    <option value="C1">C1</option>
-								    <option value="C2">C2</option>
-								    <option value="C3">C3</option>
-								</select>
-								</li>
-					            <li><textarea data-mini="true" cols="40" rows="8" id="gettingStarted_submitreviewpoint_actionrequired" placeholder="Action Required..."></textarea></li>
-								<li>
-=======
 			</div>
 			<div data-role="content">
-
 				<!-- Open Items Popup -->
 				<div data-role="popup" id="gettingStarted_openItem_popup" data-theme="b">
 					<form id="gettingStarted_open_items_form" name="open_items_form">
@@ -899,7 +863,6 @@ under the License.
 								<textarea data-mini="true" cols="40" rows="8" id="gettingStarted_submitreviewpoint_actionrequired" placeholder="Action Required..."></textarea>
 							</li>
 							<li>
->>>>>>> 7d143baf014b0736300a493d79b83e7fe3ba973b
 								<select  id="gettingStarted_submitreviewpoint_assignedto" value="Select" data-native-menu="false">
 									<option>Assigned To...</option>
 									<option value="Jesse Spencer">Jesse Spencer</option>
@@ -917,7 +880,6 @@ under the License.
 					</form>
 				</div>
 				<!-- End Open Items Popup -->
-
 
 					<ul class="bxslider1">
 						<li>
@@ -1002,7 +964,7 @@ under the License.
 								</p>
 							</div>
 						</li>
-=======
+ 
 				<ul class="bxslider1">
 					<li>
 						<div class="GS">
@@ -1074,17 +1036,15 @@ under the License.
 							</p>
 						</div>
 					</li>
->>>>>>> 7d143baf014b0736300a493d79b83e7fe3ba973b
+
 
 				</ul>
 				<a href="#popupParis" data-rel="popup" data-position-to="window" data-transition="fade"><img src="img/03 UBM Flowchart.png" width="60" style="position:center; width:50%; height:auto;"></a>
 				<div data-role="popup" id="popupParis" data-overlay-theme="b" data-theme="b" data-corners="false">
 					<a href="#" data-rel="back" class="ui-btn ui-corner-all ui-shadow ui-btn-a ui-icon-delete ui-btn-icon-notext ui-btn-right">Close</a><img class="popphoto" src="img/03 UBM Flowchart.png" style="max-height:700px;" alt="UBM Flow Chart">
 				</div>
-
 				<div data-role="footer">
 				</div>
-
 				<div id="continue_button">
 					<a href="#creator_table_of_contents" data-role="button" data-inline="true">Continue to My Model Creation</a>
 				</div>
@@ -1092,7 +1052,7 @@ under the License.
 				<!--<textarea cols="40" rows="8" name="textarea" id="gettingStarted_content_textarea0"></textarea>
 				<a href="#" class="ui-btn" onclick="addField()">add Field</a>							addField duplicates the textarea and inserts a new text area below the existing one						-->
 
->>>>>>> 7d143baf014b0736300a493d79b83e7fe3ba973b
+
 			</div>
 			<script>
 				$(function() {
@@ -1405,7 +1365,7 @@ under the License.
 						<a href="#mcs_setup_checklist_setup">Model Creation Suite Phases Checklist</a>
 					</p>
 					<p>
-						<a href="#open_points_action_items">Open Points/Action Items</a>
+						<a href="#open_points_action_items" onClick="refreshOpenItemsList()">Open Points/Action Items</a>
 					</p>
 					<p>
 						<a href="#notes_to_reviewer">Notes to Reviewer</a>
@@ -5947,6 +5907,7 @@ under the License.
 					</form>
 				</div>
 				<!-- End Open Items Popup -->
+
 				<div data-role="popup" id="mcs_open_points_action_items_resolution_popup" data-position-to="window" data-theme="b">
 					<ul data-role="listview" data-inset="false" id="mcs_open_points_action_items_resolution_popup_ul" style="min-width:210px;">
 						<li data-role="list-divider">
@@ -5955,7 +5916,7 @@ under the License.
 
 					</ul>
 				</div>
-				<body onload="refreshOpenItemsList">
+
 				<table data-role="table" id="mcs_open_points_action_items_table" data-mode="columntoggle" data-filter="false" data-column-btn-text="Select Column..." data-column-btn-theme="a" class="ui-shadow table-stroke">
 					<thead id="mcs_open_points_action_items_table_header">
 						<tr>
@@ -5974,12 +5935,13 @@ under the License.
 							<th data-priority="6"><h4>Resolutions</h4></th>
 						</tr>
 					</thead>
+
 					<tbody id="mcs_open_points_action_items_table_body">
 
 					</tbody>
 				</table>
 				<button class="ui-btn ui-shadow ui-corner-all ui-btn-icon-left ui-icon-refresh" onclick="refreshOpenItemsList()">
-					refresh
+					Refresh
 				</button>
 
 			</div>
