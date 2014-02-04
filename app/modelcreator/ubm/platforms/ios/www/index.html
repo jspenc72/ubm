@@ -442,7 +442,7 @@ under the License.
 								$('#result').empty();
 								window.location = "#gettingStarted"
 							} else {
-								$('#result').empty().append('<center><p>' + res.message + 'valid: ' + res.validation + '</br> Click Register to create your free account</p></center>');
+								$('#result').empty().append('<center><p>No account exists with that username or password. Click Register to create your free account</p></center>');
 							}
 							if (res.accounttype == 'admin') {
 								//admin only stuff here
