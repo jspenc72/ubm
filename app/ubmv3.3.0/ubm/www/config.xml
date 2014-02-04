@@ -1,12 +1,30 @@
-<?xml version='1.0' encoding='utf-8'?>
-<widget id="com.universalbusinessmodel.app" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<?xml version="1.0" encoding="UTF-8" ?>
+<widget xmlns = "http://www.w3.org/ns/widgets"
+    
+    xmlns:gap   = "http://phonegap.com/ns/1.0"
+    id          = "com.universalbusinessmodel.app"
+    version     = "1.0.0"
+    versionCode = "10"
+    xmlns:cdv="http://cordova.apache.org/ns/1.0" >
+    
+    <!-- versionCode is optional and Android only -->
+    
+    <preference name="phonegap-version" value="3.1.0" />
+    
     <name>ubm</name>
+    
     <description>
-        A sample Apache Cordova application that responds to the deviceready event.
+        A profound application for everyone and everything.
     </description>
-    <author email="dev@cordova.apache.org" href="http://cordova.io">
-        Apache Cordova Team
+    
+    <author href="http://www.findmydriver.com" email="support@findmydriver.com">
+        Jesse Spencer
     </author>
-    <content src="index.html" />
+    
     <access origin="*" />
+    <gap:plugin name="org.apache.cordova.geolocation" version="0.3.2" />
+    <gap:plugin name="org.apache.cordova.camera" version="0.2.3" />
+    <gap:plugin name="org.apache.cordova.device" version="0.2.3" />
+    <gap:plugin name="org.apache.cordova.file" version="0.2.3" />
+    <gap:plugin name="org.apache.cordova.media" version="0.2.3" /> -->
 </widget>

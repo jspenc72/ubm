@@ -107,12 +107,16 @@ under the License.
 					$.each(res, function(i, item) {
 						if (item.phase_id == "MFIS") {
 							//	$( "#mcs_setup_checklist_setup_mfi_table" ).table( "refresh" );
-							$('#mcs_setup_checklist_setup_mfi_table_body').append("<tr ><th class='label'>" + item.line_number + "</th><td>a</td><td>b</td><td>c</td><td>d</td><td>e</td><td>f</td><td>" + item.mfi_explanation_ref + "</td><td>" + item.mfi_template_process_ref + "</td><td>" + item.source_model_mfi_ref + "</td><td><div data-role='controlgroup' data-type='horizontal' ><a href='#" + item.href + "' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a'><div style='white-space:normal'>" + item.instruction_detail + "</div></a></div></td><td>" + item.budgeted_hours + "</td><td>l</td><td>m</td><td>n</td></tr>");
+							if(item.line_number==1){
+								$('#mcs_setup_checklist_setup_mfi_table_body').append("<tr ><th class='label'>" + item.line_number + "</th><td>a</td><td>b</td><td>c</td><td>d</td><td>e</td><td>f</td><td>" + item.mfi_explanation_ref + "</td><td>" + item.mfi_template_process_ref + "</td><td>" + item.source_model_mfi_ref + "</td><td><div data-role='controlgroup' data-type='horizontal' ><a href='#" + item.href + "' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a'><div style='white-space:normal'>" + item.instruction_detail + "</div></a></div></td><td>" + item.budgeted_hours + "</td><td>l</td><td>m</td><td>n</td></tr>");								
+							}else{
+								$('#mcs_setup_checklist_setup_mfi_table_body').append("<tr ><th class='label'>" + item.line_number + "</th><td>a</td><td>b</td><td>c</td><td>d</td><td>e</td><td>f</td><td>" + item.mfi_explanation_ref + "</td><td>" + item.mfi_template_process_ref + "</td><td>" + item.source_model_mfi_ref + "</td><td><div data-role='controlgroup' data-type='horizontal' ><a href='#" + item.href + "' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a'><div style='white-space:normal'>" + item.instruction_detail + "</div></a></div></td><td>" + item.budgeted_hours + "</td><td>l</td><td>m</td><td>n</td></tr>");								
+							}							
 							//$( "#mcs_setup_checklist_setup_mfi_table" ).table( "refresh" );
 							//	$( "#mcs_setup_checklist_setup_mfi_table" ).trigger( "create" );
 						} else {
 							if (item.phase_id == "CS") {
-								$('#mcs_setup_checklist_CS_mfi_table_body').append("<tr ><th class='label'>" + item.line_number + "</th><td>a</td><td>b</td><td>c</td><td>d</td><td>e</td><td>f</td><td>" + item.mfi_explanation_ref + "</td><td>" + item.mfi_template_process_ref + "</td><td>" + item.source_model_mfi_ref + "</td><td><div data-role='controlgroup' data-type='horizontal' ><a href='#mcs_setup_1_popUp' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a'><div style='white-space:normal'>" + item.instruction_detail + "</div></a></div></td><td>" + item.budgeted_hours + "</td><td>l</td><td>m</td><td>n</td></tr>");
+								$('#mcs_setup_checklist_CS_mfi_table_body').append("<tr ><th class='label'>" + item.line_number + "</th><td>a</td><td>b</td><td>c</td><td>d</td><td>e</td><td>f</td><td>" + item.mfi_explanation_ref + "</td><td>" + item.mfi_template_process_ref + "</td><td>" + item.source_model_mfi_ref + "</td><td><div data-role='controlgroup' data-type='horizontal' ><a href='#" + item.href + "' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a'><div style='white-space:normal'>" + item.instruction_detail + "</div></a></div></td><td>" + item.budgeted_hours + "</td><td>l</td><td>m</td><td>n</td></tr>");
 								//	$( "#mcs_setup_checklist_CS_mfi_table" ).table( "refresh" );
 								//	$( "#mcs_setup_checklist_CS_mfi_table" ).trigger( "create" );
 								//alert("Item is CS");
@@ -122,17 +126,17 @@ under the License.
 									//	alert("Item is MFIS");
 								} else {
 									if (item.phase_id == "P1") {
-										$('#mcs_setup_checklist_p1_mfi_table_body').append("<tr ><th class='label'>" + item.line_number + "</th><td>a</td><td>b</td><td>c</td><td>d</td><td>e</td><td>f</td><td>" + item.mfi_explanation_ref + "</td><td>" + item.mfi_template_process_ref + "</td><td>" + item.source_model_mfi_ref + "</td><td><div data-role='controlgroup' data-type='horizontal' ><a href='#mcs_setup_1_popUp' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a'><div style='white-space:normal'>" + item.instruction_detail + "</div></a></div></td><td>" + item.budgeted_hours + "</td><td>l</td><td>m</td><td>n</td></tr>");
+										$('#mcs_setup_checklist_p1_mfi_table_body').append("<tr ><th class='label'>" + item.line_number + "</th><td>a</td><td>b</td><td>c</td><td>d</td><td>e</td><td>f</td><td>" + item.mfi_explanation_ref + "</td><td>" + item.mfi_template_process_ref + "</td><td>" + item.source_model_mfi_ref + "</td><td><div data-role='controlgroup' data-type='horizontal' ><a href='#" + item.href + "' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a'><div style='white-space:normal'>" + item.instruction_detail + "</div></a></div></td><td>" + item.budgeted_hours + "</td><td>l</td><td>m</td><td>n</td></tr>");
 									} else {
 										if (item.phase_id == "P2") {
-											$('#mcs_setup_checklist_p2_mfi_table_body').append("<tr ><th class='label'>" + item.line_number + "</th><td>a</td><td>b</td><td>c</td><td>d</td><td>e</td><td>f</td><td>" + item.mfi_explanation_ref + "</td><td>" + item.mfi_template_process_ref + "</td><td>" + item.source_model_mfi_ref + "</td><td><div data-role='controlgroup' data-type='horizontal' ><a href='#mcs_setup_1_popUp' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a'><div style='white-space:normal'>" + item.instruction_detail + "</div></a></div></td><td>" + item.budgeted_hours + "</td><td>l</td><td>m</td><td>n</td></tr>");
+											$('#mcs_setup_checklist_p2_mfi_table_body').append("<tr ><th class='label'>" + item.line_number + "</th><td>a</td><td>b</td><td>c</td><td>d</td><td>e</td><td>f</td><td>" + item.mfi_explanation_ref + "</td><td>" + item.mfi_template_process_ref + "</td><td>" + item.source_model_mfi_ref + "</td><td><div data-role='controlgroup' data-type='horizontal' ><a href='#" + item.href + "' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a'><div style='white-space:normal'>" + item.instruction_detail + "</div></a></div></td><td>" + item.budgeted_hours + "</td><td>l</td><td>m</td><td>n</td></tr>");
 										} else {
 											if (item.phase_id == "P3") {
-												$('#mcs_setup_checklist_p3_mfi_table_body').append("<tr ><th class='label'>" + item.line_number + "</th><td>a</td><td>b</td><td>c</td><td>d</td><td>e</td><td>f</td><td>" + item.mfi_explanation_ref + "</td><td>" + item.mfi_template_process_ref + "</td><td>" + item.source_model_mfi_ref + "</td><td><div data-role='controlgroup' data-type='horizontal' ><a href='#mcs_setup_1_popUp' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a'><div style='white-space:normal'>" + item.instruction_detail + "</div></a></div></td><td>" + item.budgeted_hours + "</td><td>l</td><td>m</td><td>n</td></tr>");
+												$('#mcs_setup_checklist_p3_mfi_table_body').append("<tr ><th class='label'>" + item.line_number + "</th><td>a</td><td>b</td><td>c</td><td>d</td><td>e</td><td>f</td><td>" + item.mfi_explanation_ref + "</td><td>" + item.mfi_template_process_ref + "</td><td>" + item.source_model_mfi_ref + "</td><td><div data-role='controlgroup' data-type='horizontal' ><a href='#" + item.href + "' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a'><div style='white-space:normal'>" + item.instruction_detail + "</div></a></div></td><td>" + item.budgeted_hours + "</td><td>l</td><td>m</td><td>n</td></tr>");
 
 											} else {
 												if (item.phase_id == "P4B1") {
-													$('#mcs_setup_checklist_p4_b1_mfi_table_body').append("<tr ><th class='label'>" + item.line_number + "</th><td>a</td><td>b</td><td>c</td><td>d</td><td>e</td><td>f</td><td>" + item.mfi_explanation_ref + "</td><td>" + item.mfi_template_process_ref + "</td><td>" + item.source_model_mfi_ref + "</td><td><div data-role='controlgroup' data-type='horizontal' ><a href='#mcs_setup_1_popUp' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a'><div style='white-space:normal'>" + item.instruction_detail + "</div></a></div></td><td>" + item.budgeted_hours + "</td><td>l</td><td>m</td><td>n</td></tr>");
+													$('#mcs_setup_checklist_p4_b1_mfi_table_body').append("<tr ><th class='label'>" + item.line_number + "</th><td>a</td><td>b</td><td>c</td><td>d</td><td>e</td><td>f</td><td>" + item.mfi_explanation_ref + "</td><td>" + item.mfi_template_process_ref + "</td><td>" + item.source_model_mfi_ref + "</td><td><div data-role='controlgroup' data-type='horizontal' ><a href='#" + item.href + "' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a'><div style='white-space:normal'>" + item.instruction_detail + "</div></a></div></td><td>" + item.budgeted_hours + "</td><td>l</td><td>m</td><td>n</td></tr>");
 												}
 											}
 										}
@@ -265,11 +269,12 @@ under the License.
 					//		alert(window.location.hash);									//outputs the original hash
 					//alert(strarray[1]);												//outputs the split string which has the hash removed
 					$.getJSON('http://www.findmydriver.com/getubmpagereference.php?callback=?', {//JSONP Request to the app_pages table.
-						pageid : strarray[1]
+						pageid : strarray[1]		// sends the current page to the server.
 					}, function(res, status) {
 						//	alert("json returned successfully! "+ status);
-						alert(res.message);
+					//	alert(res.message); // Alerts the current page which was sent in the call back from the server.
 					});
+
 				});
 			}
 
@@ -568,7 +573,7 @@ under the License.
 			<div data-role="header" data-theme="a">
 				<h1>UBM Login</h1>
 			</div>
-			<div data-role="content" id="gettingStarted_content" >
+			<div data-role="content" id="sign_in_sign_up_content" >
 				<!-- Open Items Popup -->
 				<div data-role="popup" id="sign_in_sign_up_openItem_popup" data-theme="b">
 					<form id="sign_in_sign_up_open_items_form" name="open_items_form">
@@ -613,101 +618,6 @@ under the License.
 
 					</form>
 				</div>
-				<div data-role="popup" id="gettingStarted_content_licenseagreement_popUp" data-theme="b" data-position-to="window" data-dismissible="false">
-					<div data-role="header" data-theme="a">
-						<h1>License Agreement</h1>
-					</div>
-					<div role="main" class="ui-content">
-						<h3 class="ui-title">By creating your account and checking the box below you agree to </br> BUSINESS MODEL CONSULTING LLC UNIVERSAL BUSINESS MODEL LICENSING AGREEMENT</h3>
-						<p>
-							This step requires that you enter the tax id of the legal entity you represent.
-						</p>
-						<form>
-							<fieldset data-role="collapsible">
-								<legend>
-									1.  LIMITED LICENSE FOR USE OF UBM
-								</legend>
-								<li>
-									<p>
-										a.Business Model Consulting LLC (BMC) is the owner of software, documents, copyrights, and other intellectual property, including computer files and hard copies, comprising the Universal Business Model (the UBM). BMC grants you a limited right to install the UBM on your computer systems, and to use the UBM to develop customized documents, policies, procedures, manuals, and training programs for your company’s internal use only. You will not use the UBM for any other purpose.
-										</br>b.	THIS LICENSE DOES NOT TRANSFER OWNERSHIP OF ANY PART OF THE UBM TO YOU. All legal and equitable title to the UBM, and copyrights, trade secrets, patents, and confidential and proprietary information related to the UBM, remain the exclusive property of BMC.
-										</br>c.	“Universal Business Model” and “UBM” are trademarks of BMC. You do not have the right to use those or any other trademarks, trade names, service marks, logos, and/or trade names of BMC.
-									</p>
-								</li>
-								<div data-role="controlgroup">
-									<input type="checkbox" name="checkbox-1-a" id="checkbox-1-a">
-									<label for="checkbox-1-a">I agree</label>
-								</div>
-							</fieldset>
-							<fieldset data-role="collapsible">
-								<legend>
-									2.	CONFIDENTIALITY
-								</legend>
-								<li>
-									<p>
-										a.	The UBM contains confidential and proprietary information. You will take reasonable precautions to safeguard the confidentiality of the UBM. You will not remove or alter any confidentiality or proprietary notice in the UBM. You will not disclose or allow access to the UBM, or any part of it in any form, or any information in or about the UBM, to a third party without BMC’s prior written permission. If an unauthorized use or disclosure occurs, you will take immediate action to recover the UBM and disclosed information, and prevent its subsequent unauthorized use
-									</p>
-								</li>
-								<div data-role="controlgroup">
-									<input type="checkbox" name="checkbox-1-a" id="checkbox-1-a">
-									<label for="checkbox-1-a">I agree</label>
-								</div>
-							</fieldset>
-							<fieldset data-role="collapsible">
-								<legend>
-									3.	DISCLAIMER OF WARRANTY
-								</legend>
-								<li>
-									<p>
-										<strong>a.	BMC LICENSES THE UBM TO YOU “AS IS”, WITHOUT WARRANTY OF ANY KIND. YOU USE THE UBM AT YOUR OWN RISK
-										</br>b.	BMC EXPRESSLY EXCLUDES AND DISCLAIMS ANY AND ALL WARRANTIES, REPRESENTATIONS, AND GUARANTEES WITH RESPECT TO THE UBM WHETHER EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO ANY WARRANTY OF MERCHANTABILITY, QUALITY, AND FITNESS FOR A PARTICULAR PURPOSE </strong></br>c.	Full use of some features of the UBM may require internet access, and may be limited by other software and technological limitations. BMC expressly excludes and disclaims any warranty about your ability to access those features of the UBM. Any inability to access or use those features of the UBM will not be a limitation on or a breach of your license by BMC
-										</br>d.	BMC does not provide you with legal advice, via the UBM or otherwise. BMC recommends that you consult your own attorneys and other professionals in connection with your use of the UBM, and your use of any documents, policies, procedures, manuals, and training programs you may develop from the UBM
-									</p>
-								</li>
-								<div data-role="controlgroup">
-									<input type="checkbox" name="checkbox-1-a" id="checkbox-1-a">
-									<label for="checkbox-1-a">I agree</label>
-								</div>
-							</fieldset>
-							<fieldset data-role="collapsible">
-								<legend>
-									4.	WAIVER OF DAMAGES
-								</legend>
-								<li>
-									<p>
-										a.Business Model Consulting LLC (BMC) is the owner of software, documents, copyrights, and other intellectual property, including computer files and hard copies, comprising the Universal Business Model (the UBM). BMC grants you a limited right to install the UBM on your computer systems, and to use the UBM to develop customized documents, policies, procedures, manuals, and training programs for your company’s internal use only. You will not use the UBM for any other purpose.
-										</br>b.	THIS LICENSE DOES NOT TRANSFER OWNERSHIP OF ANY PART OF THE UBM TO YOU. All legal and equitable title to the UBM, and copyrights, trade secrets, patents, and confidential and proprietary information related to the UBM, remain the exclusive property of BMC.
-										</br>c.	“Universal Business Model” and “UBM” are trademarks of BMC. You do not have the right to use those or any other trademarks, trade names, service marks, logos, and/or trade names of BMC.
-									</p>
-								</li>
-								<div data-role="controlgroup">
-									<input type="checkbox" name="checkbox-1-a" id="checkbox-1-a">
-									<label for="checkbox-1-a">I agree</label>
-								</div>
-							</fieldset>
-							<fieldset data-role="collapsible">
-								<legend>
-									5.	MISCELLANEOUS
-								</legend>
-								<li>
-									<p>
-										a.Business Model Consulting LLC (BMC) is the owner of software, documents, copyrights, and other intellectual property, including computer files and hard copies, comprising the Universal Business Model (the UBM). BMC grants you a limited right to install the UBM on your computer systems, and to use the UBM to develop customized documents, policies, procedures, manuals, and training programs for your company’s internal use only. You will not use the UBM for any other purpose.
-										</br>b.	THIS LICENSE DOES NOT TRANSFER OWNERSHIP OF ANY PART OF THE UBM TO YOU. All legal and equitable title to the UBM, and copyrights, trade secrets, patents, and confidential and proprietary information related to the UBM, remain the exclusive property of BMC.
-										</br>c.	“Universal Business Model” and “UBM” are trademarks of BMC. You do not have the right to use those or any other trademarks, trade names, service marks, logos, and/or trade names of BMC.
-									</p>
-								</li>
-
-							</fieldset>
-						</form>
-						<input type="text" name="textinput-6" id="textinput-6" placeholder="Enter the Tax ID for your Company" value="" data-mini="true">
-						<fieldset data-role="controlgroup">
-							<label for="checkbox-2">I agree</label>
-							<input type="checkbox" name="checkbox-2" id="checkbox-2">
-						</fieldset>
-						<a href="#" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b" data-rel="back" data-transition="flow">Disagree</a>
-						<a href="#" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b" data-rel="back" data-transition="flow">Continue</a>
-					</div>
-				</div><!-- /popup -->
 				<form>
 					<div style="padding:120px 20px;">
 						<label for="un" class="ui-hidden-accessible">Username:</label>
@@ -733,32 +643,16 @@ under the License.
 							<input type="password" name="reg_pass1" id="reg_pw1" value="" placeholder="Enter Password" data-theme="a" />
 							<label for="reg_pw2" class="ui-hidden-accessible">Password:</label>
 							<input type="password" name="reg_pass2" id="reg_pw2" value="" placeholder="Confirm Password" data-theme="a" />
-							<button data-theme="b" data-icon="check" onclick="userRegister()">
-								Create Account!
-							</button>
+							<button data-theme="b" data-icon="check" onclick="userRegister()">Create Account!</button>
 						</div>
 					</form>
 				  	<div id="result" style="background-color: white;">
-					</div>
-					<center><a href="#popupRegister" data-rel="popup" data-position-to="window" data-role="button" data-inline="true" data-icon="check" data-theme="b" data-transition="pop">Register</a></center>
-					<div data-role="popup" id="popupRegister" data-theme="a">
-						<form>
-							<div style="padding:10px 20px;">
-								<h3>Registration is Free!</h3>
-						        <label for="un" class="ui-hidden-accessible">Email:</label>
-						        <input type="email" name="reg_email" id="reg_email" value="" placeholder="Email" data-theme="a" />
-						        <label for="reg_pw1" class="ui-hidden-accessible">Password:</label>
-						        <input type="password" name="reg_pass1" id="reg_pw1" value="" placeholder="Enter Password" data-theme="a" />
-								<label for="reg_pw2" class="ui-hidden-accessible">Password:</label>
-						        <input type="password" name="reg_pass2" id="reg_pw2" value="" placeholder="Confirm Password" data-theme="a" />
-						    	<button data-theme="b" data-icon="check" onclick="userRegister()">Create Account!</button>
-							</div>
-						</form>
 					</div>
 				</div>
 				<div data-role="footer" data-theme="a" data-position="fixed" data-fullscreen="true">
 					<center><p>Alpha</p></center>
 					<button data-theme="b" data-icon="check" onclick="checkConnection()">Check Connection!</button>
+					<h2 class="offline" style="visibility:hidden; color: #f00; font-style: italic; ">Unable to connect to a Network <br> This app requires an internet connection. <br> Connect to the internet and restart this app to continue.</h2>
 				</div>
 			</div>
 		</div>
@@ -1039,7 +933,7 @@ under the License.
 
 
 				</ul>
-				<a href="#popupParis" data-rel="popup" data-position-to="window" data-transition="fade"><img src="img/03 UBM Flowchart.png" width="60" style="position:center; width:50%; height:auto;"></a>
+				<a href="#popupParis" data-rel="popup" data-position-to="window" data-transition="fade"><img src="img/03 UBM Flowchart.png" width="60" style="position:center; width:75%; height:auto;"></a>
 				<div data-role="popup" id="popupParis" data-overlay-theme="b" data-theme="b" data-corners="false">
 					<a href="#" data-rel="back" class="ui-btn ui-corner-all ui-shadow ui-btn-a ui-icon-delete ui-btn-icon-notext ui-btn-right">Close</a><img class="popphoto" src="img/03 UBM Flowchart.png" style="max-height:700px;" alt="UBM Flow Chart">
 				</div>
@@ -2287,6 +2181,119 @@ under the License.
 				</center>
 			</div><!-- /header -->
 			<div data-role="content">
+				<div data-role="popup" id="mcs_template_popup" data-theme="b" data-position-to="window" data-dismissible="false">
+					<div data-role="header" data-theme="a">
+						<h1>UBM Template Popup Form</h1>
+					</div>
+					<div role="main" class="ui-content">
+						<h3 class="ui-title">This is a template popup</h3>
+						<p>
+							This popup may contain a form or display an image, video, checklist or anything else you can imagine. <br>As you complete each step your progress will be stored in the database.
+						</p>
+						<input type="text" name="textinput-6" id="textinput-6" placeholder="Enter something worth noting!" value="" data-mini="true">
+						<fieldset data-role="controlgroup">
+							<label for="checkbox-2">Check off this step!</label>
+							<input type="checkbox" name="checkbox-2" id="checkbox-2">
+						</fieldset>
+						<a href="#" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b" data-rel="back" data-transition="flow">Your Ok, Dismiss</a>
+						<a href="#" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b" data-rel="back" data-transition="flow">Im Ok, Dismiss</a>
+					</div>
+				</div><!-- /popup -->
+				<div data-role="popup" id="mcs_setup_1_popUp" data-theme="b" data-position-to="window" data-dismissible="false">
+					<div data-role="header" data-theme="a">
+						<h1>License Agreement</h1>
+					</div>
+					<div role="main" class="ui-content">
+						<h3 class="ui-title">By creating your account and checking the box below you agree to </br> BUSINESS MODEL CONSULTING LLC UNIVERSAL BUSINESS MODEL LICENSING AGREEMENT</h3>
+						<p>
+							This step requires that you enter the tax id of the legal entity you represent.
+						</p>
+						<form>
+							<fieldset data-role="collapsible">
+								<legend>
+									1.  LIMITED LICENSE FOR USE OF UBM
+								</legend>
+								<li>
+									<p>
+										a.Business Model Consulting LLC (BMC) is the owner of software, documents, copyrights, and other intellectual property, including computer files and hard copies, comprising the Universal Business Model (the UBM). BMC grants you a limited right to install the UBM on your computer systems, and to use the UBM to develop customized documents, policies, procedures, manuals, and training programs for your company’s internal use only. You will not use the UBM for any other purpose.
+										</br>b.	THIS LICENSE DOES NOT TRANSFER OWNERSHIP OF ANY PART OF THE UBM TO YOU. All legal and equitable title to the UBM, and copyrights, trade secrets, patents, and confidential and proprietary information related to the UBM, remain the exclusive property of BMC.
+										</br>c.	“Universal Business Model” and “UBM” are trademarks of BMC. You do not have the right to use those or any other trademarks, trade names, service marks, logos, and/or trade names of BMC.
+									</p>
+								</li>
+								<div data-role="controlgroup">
+									<input type="checkbox" name="checkbox-1-a" id="checkbox-1-a">
+									<label for="checkbox-1-a">I agree</label>
+								</div>
+							</fieldset>
+							<fieldset data-role="collapsible">
+								<legend>
+									2.	CONFIDENTIALITY
+								</legend>
+								<li>
+									<p>
+										a.	The UBM contains confidential and proprietary information. You will take reasonable precautions to safeguard the confidentiality of the UBM. You will not remove or alter any confidentiality or proprietary notice in the UBM. You will not disclose or allow access to the UBM, or any part of it in any form, or any information in or about the UBM, to a third party without BMC’s prior written permission. If an unauthorized use or disclosure occurs, you will take immediate action to recover the UBM and disclosed information, and prevent its subsequent unauthorized use
+									</p>
+								</li>
+								<div data-role="controlgroup">
+									<input type="checkbox" name="checkbox-1-a" id="checkbox-1-a">
+									<label for="checkbox-1-a">I agree</label>
+								</div>
+							</fieldset>
+							<fieldset data-role="collapsible">
+								<legend>
+									3.	DISCLAIMER OF WARRANTY
+								</legend>
+								<li>
+									<p>
+										<strong>a.	BMC LICENSES THE UBM TO YOU “AS IS”, WITHOUT WARRANTY OF ANY KIND. YOU USE THE UBM AT YOUR OWN RISK
+										</br>b.	BMC EXPRESSLY EXCLUDES AND DISCLAIMS ANY AND ALL WARRANTIES, REPRESENTATIONS, AND GUARANTEES WITH RESPECT TO THE UBM WHETHER EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO ANY WARRANTY OF MERCHANTABILITY, QUALITY, AND FITNESS FOR A PARTICULAR PURPOSE </strong></br>c.	Full use of some features of the UBM may require internet access, and may be limited by other software and technological limitations. BMC expressly excludes and disclaims any warranty about your ability to access those features of the UBM. Any inability to access or use those features of the UBM will not be a limitation on or a breach of your license by BMC
+										</br>d.	BMC does not provide you with legal advice, via the UBM or otherwise. BMC recommends that you consult your own attorneys and other professionals in connection with your use of the UBM, and your use of any documents, policies, procedures, manuals, and training programs you may develop from the UBM
+									</p>
+								</li>
+								<div data-role="controlgroup">
+									<input type="checkbox" name="checkbox-1-a" id="checkbox-1-a">
+									<label for="checkbox-1-a">I agree</label>
+								</div>
+							</fieldset>
+							<fieldset data-role="collapsible">
+								<legend>
+									4.	WAIVER OF DAMAGES
+								</legend>
+								<li>
+									<p>
+										a.Business Model Consulting LLC (BMC) is the owner of software, documents, copyrights, and other intellectual property, including computer files and hard copies, comprising the Universal Business Model (the UBM). BMC grants you a limited right to install the UBM on your computer systems, and to use the UBM to develop customized documents, policies, procedures, manuals, and training programs for your company’s internal use only. You will not use the UBM for any other purpose.
+										</br>b.	THIS LICENSE DOES NOT TRANSFER OWNERSHIP OF ANY PART OF THE UBM TO YOU. All legal and equitable title to the UBM, and copyrights, trade secrets, patents, and confidential and proprietary information related to the UBM, remain the exclusive property of BMC.
+										</br>c.	“Universal Business Model” and “UBM” are trademarks of BMC. You do not have the right to use those or any other trademarks, trade names, service marks, logos, and/or trade names of BMC.
+									</p>
+								</li>
+								<div data-role="controlgroup">
+									<input type="checkbox" name="checkbox-1-a" id="checkbox-1-a">
+									<label for="checkbox-1-a">I agree</label>
+								</div>
+							</fieldset>
+							<fieldset data-role="collapsible">
+								<legend>
+									5.	MISCELLANEOUS
+								</legend>
+								<li>
+									<p>
+										a.Business Model Consulting LLC (BMC) is the owner of software, documents, copyrights, and other intellectual property, including computer files and hard copies, comprising the Universal Business Model (the UBM). BMC grants you a limited right to install the UBM on your computer systems, and to use the UBM to develop customized documents, policies, procedures, manuals, and training programs for your company’s internal use only. You will not use the UBM for any other purpose.
+										</br>b.	THIS LICENSE DOES NOT TRANSFER OWNERSHIP OF ANY PART OF THE UBM TO YOU. All legal and equitable title to the UBM, and copyrights, trade secrets, patents, and confidential and proprietary information related to the UBM, remain the exclusive property of BMC.
+										</br>c.	“Universal Business Model” and “UBM” are trademarks of BMC. You do not have the right to use those or any other trademarks, trade names, service marks, logos, and/or trade names of BMC.
+									</p>
+								</li>
+
+							</fieldset>
+						</form>
+						<input type="text" name="textinput-6" id="textinput-6" placeholder="Enter the Tax ID for the company you represent." value="" data-mini="true">
+						<fieldset data-role="controlgroup">
+							<label for="checkbox-2">I agree</label>
+							<input type="checkbox" name="checkbox-2" id="checkbox-2">
+						</fieldset>
+						<a href="#" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b" data-rel="back" data-transition="flow">Disagree</a>
+						<a href="#" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b" data-rel="back" data-transition="flow">Continue</a>
+					</div>
+				</div><!-- /popup -->
 				<!-- Open Items Popup -->
 				<div data-role="popup" id="mcs_setup_checklist_setup_openItem_popup" data-theme="b">
 					<form id="mcs_setup_checklist_setup_open_items_form" name="open_items_form">
@@ -2944,6 +2951,7 @@ under the License.
 				</center>
 			</div><!-- /header -->
 			<div role="content" class="ui-content">
+
 				<!-- Open Items Popup -->
 				<div data-role="popup" id="mcs_setup_checklist_p1_openItem_popup" data-theme="b">
 					<form id="mcs_setup_checklist_p1_open_items_form" name="open_items_form">
@@ -5932,7 +5940,7 @@ under the License.
 							<th data-priority="3"><h4>Disposition</h4></th>
 							<th data-priority="2"><h4>Closed By</h4></th>
 							<th data-priority="6"><h4>Date Closed</h4></th>
-							<th data-priority="6"><h4>Resolutions</h4></th>
+							<th data-priority="10"><h4>Resolutions</h4></th>
 						</tr>
 					</thead>
 
@@ -5953,7 +5961,34 @@ under the License.
 		<script type="text/javascript" src="js/index.js"></script>
 		<script src="js/jquery.bxslider.min.js"></script>
 		<link href="css/jquery.bxslider.css" rel="stylesheet" />
+		
 		<script type="text/javascript">
+	        function checkConnection() {
+	            var networkState = navigator.connection.type;	
+	            var states = {};
+	            states[Connection.UNKNOWN]  = 'Unknown connection';
+	            states[Connection.ETHERNET] = 'Ethernet connection';
+	            states[Connection.WIFI]     = 'WiFi connection';
+	            states[Connection.CELL_2G]  = 'Cell 2G connection';
+	            states[Connection.CELL_3G]  = 'Cell 3G connection';
+	            states[Connection.CELL_4G]  = 'Cell 4G connection';
+	            states[Connection.CELL]     = 'Cell generic connection';
+	            states[Connection.NONE]     = 'No network connection';
+	
+	            //alert('Connection type: ' + states[networkState]);
+				if(states[networkState]=='No network connection')
+				{
+					$(".offline").css("visibility","visible");
+				}else{
+					$(".offline").css("visibility","hidden");					
+				}
+	        }
+			$( document ).on( "pageshow", ".ubm_page", function() {
+				//	$(".offline").css("visibility","visible");
+				setTimeout(function() {
+					checkConnection();
+				}, 3000); 
+			});
 			app.initialize();
 		</script>
 	</body>
