@@ -35,6 +35,21 @@ under the License.
 
 		<title>UBM</title>
 		<script>
+			function confirmCloseOpenItem(id){
+				$("#mcs_open_points_action_items_closeitem_popup").popup('open');
+				window.openitemid = id;
+			}
+			function closeOpenItem(){
+				alert("This item will now be closed: "+window.openitemid);
+				$("#mcs_open_points_action_items_closeitem_popup").popup('close');
+
+				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_openitem_markasclosed.php?callback=?', {//JSONP Request to Open Items Page setup tables
+					openitemid : window.openitemid,
+					username: window.username
+				}, function(res, status) {
+					alert("json request returned: " + status);
+				});
+			}
 			function refreshOpenItemsList() {
 				//Show Loader Message
 
@@ -51,14 +66,50 @@ under the License.
 
 				//End Show Loader Message
 
-				$.getJSON('http://www.findmydriver.com/ubmopenitemsallitems.php?callback=?', {//JSONP Request to Open Items Page setup tables
+				$.getJSON('http://www.findmydriver.com/ubmopenitemsonlystatusopenitems.php?callback=?', {//JSONP Request to Open Items Page setup tables
 				}, function(res, status) {
 					//	alert("request for open items was a success!");
 					$('#mcs_open_points_action_items_table_body').empty();
 					$.each(res, function(i, item) {
-						$("#mcs_open_points_action_items_table").table("refresh");
-						$('#mcs_open_points_action_items_table_body').append("<tr ><th class='label'>" + item.id + "</th><td>" + item.form_ref + "</td><td>" + item.priority + "</td><td>" + item.opened_by + "</td><td>" + item.date_opened + "</td><td>" + item.action_required + "</td><td>" + item.assigned_to + "</td><td>" + item.date_opened + "</td><td>" + item.due_date + "</td><td>b</td><td>c</td><td>d</td><td><a href='#' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a' onclick='viewResolutions(" + item.id + ")'>View &nbsp&nbsp&nbsp&nbsp<span class='ui-li-has-count ui-btn-up-c ui-btn-corner-all'>" + item.number_resolutions + "</span></a><a href='#' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a' onclick='addResolutions(" + item.id + ")'>Add &nbsp&nbsp&nbsp&nbsp</a></td></tr>");
-						$("#mcs_open_points_action_items_table").table("refresh");
+						if(window.accounttype=="admin"){	//If user accounttype is admin, allow user to add new resolutions. If not, only allow them to view existing resolutions.
+							if(window.username.toUpperCase() == item.opened_by.toUpperCase()){ //if current window.username is the same as the user who created the review point insert a button to allow user to mark the review point as closed.
+								//alert(window.accounttype);
+								if(item.number_resolutions!=="0"){	//If item doesnt have any resolutions associated with it, use theme a for the "View" Resolutions button
+									$('#mcs_open_points_action_items_table_body').append("<tr ><th class='label'>" + item.id + "</th><td>" + item.form_ref + "</td><td>" + item.priority + "</td><td>" + item.opened_by + "<a href='#' onclick='confirmCloseOpenItem(" + item.id + ")' class='ui-btn ui-btn-inline ui-icon-delete ui-btn-icon-left'>Close Item</a></td><td>" + item.date_opened + "</td><td>" + item.action_required + "</td><td>" + item.assigned_to + "</td><td>" + item.date_opened + "</td><td>" + item.due_date + "</td><td>b</td><td>c</td><td>d</td><td><a href='#' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-comment ui-btn-icon-left ui-btn-b' onclick='viewResolutions(" + item.id + ")'>View &nbsp&nbsp&nbsp&nbsp<span class='ui-li-has-count ui-btn-up-c ui-btn-corner-all'>" + item.number_resolutions + "</span></a><a href='#' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-plus ui-btn-icon-left ui-btn-a' onclick='addResolutions(" + item.id + ")'>Add &nbsp&nbsp&nbsp&nbsp</a></td></tr>");
+									$("#mcs_open_points_action_items_table").table("refresh");
+								}else{
+									$('#mcs_open_points_action_items_table_body').append("<tr ><th class='label'>" + item.id + "</th><td>" + item.form_ref + "</td><td>" + item.priority + "</td><td>" + item.opened_by + "<a href='#' onclick='confirmCloseOpenItem(" + item.id + ")' class='ui-btn ui-btn-inline ui-icon-delete ui-btn-icon-left'>Close Item</a></td><td>" + item.date_opened + "</td><td>" + item.action_required + "</td><td>" + item.assigned_to + "</td><td>" + item.date_opened + "</td><td>" + item.due_date + "</td><td>b</td><td>c</td><td>d</td><td><a href='#' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-comment ui-btn-icon-left ui-btn-a' onclick='viewResolutions(" + item.id + ")'>View &nbsp&nbsp&nbsp&nbsp<span class='ui-li-has-count ui-btn-up-c ui-btn-corner-all'>" + item.number_resolutions + "</span></a><a href='#' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-plus ui-btn-icon-left ui-btn-a' onclick='addResolutions(" + item.id + ")'>Add &nbsp&nbsp&nbsp&nbsp</a></td></tr>");
+									$("#mcs_open_points_action_items_table").table("refresh");							
+								}								
+							}else{
+								//alert(window.accounttype);
+								if(item.number_resolutions!=="0"){	//If item doesnt have any resolutions associated with it, use theme a for the "View" Resolutions button
+									$('#mcs_open_points_action_items_table_body').append("<tr ><th class='label'>" + item.id + "</th><td>" + item.form_ref + "</td><td>" + item.priority + "</td><td>" + item.opened_by + "</td><td>" + item.date_opened + "</td><td>" + item.action_required + "</td><td>" + item.assigned_to + "</td><td>" + item.date_opened + "</td><td>" + item.due_date + "</td><td>b</td><td>c</td><td>d</td><td><a href='#' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-comment ui-btn-icon-left ui-btn-b' onclick='viewResolutions(" + item.id + ")'>View &nbsp&nbsp&nbsp&nbsp<span class='ui-li-has-count ui-btn-up-c ui-btn-corner-all'>" + item.number_resolutions + "</span></a><a href='#' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-plus ui-btn-icon-left ui-btn-a' onclick='addResolutions(" + item.id + ")'>Add &nbsp&nbsp&nbsp&nbsp</a></td></tr>");
+									$("#mcs_open_points_action_items_table").table("refresh");							
+								}else{
+									$('#mcs_open_points_action_items_table_body').append("<tr ><th class='label'>" + item.id + "</th><td>" + item.form_ref + "</td><td>" + item.priority + "</td><td>" + item.opened_by + "</td><td>" + item.date_opened + "</td><td>" + item.action_required + "</td><td>" + item.assigned_to + "</td><td>" + item.date_opened + "</td><td>" + item.due_date + "</td><td>b</td><td>c</td><td>d</td><td><a href='#' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-comment ui-btn-icon-left ui-btn-a' onclick='viewResolutions(" + item.id + ")'>View &nbsp&nbsp&nbsp&nbsp<span class='ui-li-has-count ui-btn-up-c ui-btn-corner-all'>" + item.number_resolutions + "</span></a><a href='#' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-plus ui-btn-icon-left ui-btn-a' onclick='addResolutions(" + item.id + ")'>Add &nbsp&nbsp&nbsp&nbsp</a></td></tr>");
+									$("#mcs_open_points_action_items_table").table("refresh");							
+								}								
+							}
+						}else{								//If user accounttype is not admin,	dont allow user to add new resolutions.	
+							if(window.username.toUpperCase() == item.opened_by.toUpperCase()){ //if current window.username is the same as the user who created the review point insert a button to allow user to close the review point.
+								//alert(window.accounttype);
+								if(item.number_resolutions!=="0"){	//If item doesnt have any resolutions associated with it, use theme a for the "View" Resolutions button
+									$('#mcs_open_points_action_items_table_body').append("<tr ><th class='label'>" + item.id + "</th><td>" + item.form_ref + "</td><td>" + item.priority + "</td><td>" + item.opened_by + "<a href='#' onclick='confirmCloseOpenItem(" + item.id + ")' class='ui-btn ui-btn-inline ui-icon-delete ui-btn-icon-left'>Close Item</a></td><td>" + item.date_opened + "</td><td>" + item.action_required + "</td><td>" + item.assigned_to + "</td><td>" + item.date_opened + "</td><td>" + item.due_date + "</td><td>b</td><td>c</td><td>d</td><td><a href='#' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-comment ui-btn-icon-left ui-btn-b' onclick='viewResolutions(" + item.id + ")'>View &nbsp&nbsp&nbsp&nbsp<span class='ui-li-has-count ui-btn-up-c ui-btn-corner-all'>" + item.number_resolutions + "</span></a><a href='#' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-plus ui-btn-icon-left ui-btn-a' onclick='addResolutions(" + item.id + ")'>Add &nbsp&nbsp&nbsp&nbsp</a></td></tr>");
+								}else{
+									$('#mcs_open_points_action_items_table_body').append("<tr ><th class='label'>" + item.id + "</th><td>" + item.form_ref + "</td><td>" + item.priority + "</td><td>" + item.opened_by + "<a href='#' onclick='confirmCloseOpenItem(" + item.id + ")' class='ui-btn ui-btn-inline ui-icon-delete ui-btn-icon-left'>Close Item</a></td><td>" + item.date_opened + "</td><td>" + item.action_required + "</td><td>" + item.assigned_to + "</td><td>" + item.date_opened + "</td><td>" + item.due_date + "</td><td>b</td><td>c</td><td>d</td><td><a href='#' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-comment ui-btn-icon-left ui-btn-a' onclick='viewResolutions(" + item.id + ")'>View &nbsp&nbsp&nbsp&nbsp<span class='ui-li-has-count ui-btn-up-c ui-btn-corner-all'>" + item.number_resolutions + "</span></a><a href='#' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-plus ui-btn-icon-left ui-btn-a' onclick='addResolutions(" + item.id + ")'>Add &nbsp&nbsp&nbsp&nbsp</a></td></tr>");
+									$("#mcs_open_points_action_items_table").table("refresh");							
+								}								
+							}else{
+								//alert(window.accounttype);
+								if(item.number_resolutions!=="0"){	//If item doesnt have any resolutions associated with it, use theme a for the "View" Resolutions button
+									$('#mcs_open_points_action_items_table_body').append("<tr ><th class='label'>" + item.id + "</th><td>" + item.form_ref + "</td><td>" + item.priority + "</td><td>" + item.opened_by + "</td><td>" + item.date_opened + "</td><td>" + item.action_required + "</td><td>" + item.assigned_to + "</td><td>" + item.date_opened + "</td><td>" + item.due_date + "</td><td>b</td><td>c</td><td>d</td><td><a href='#' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-comment ui-btn-icon-left ui-btn-b' onclick='viewResolutions(" + item.id + ")'>View &nbsp&nbsp&nbsp&nbsp<span class='ui-li-has-count ui-btn-up-c ui-btn-corner-all'>" + item.number_resolutions + "</span></a><a href='#' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-plus ui-btn-icon-left ui-btn-a' onclick='addResolutions(" + item.id + ")'>Add &nbsp&nbsp&nbsp&nbsp</a></td></tr>");
+								}else{
+									$('#mcs_open_points_action_items_table_body').append("<tr ><th class='label'>" + item.id + "</th><td>" + item.form_ref + "</td><td>" + item.priority + "</td><td>" + item.opened_by + "</td><td>" + item.date_opened + "</td><td>" + item.action_required + "</td><td>" + item.assigned_to + "</td><td>" + item.date_opened + "</td><td>" + item.due_date + "</td><td>b</td><td>c</td><td>d</td><td><a href='#' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-comment ui-btn-icon-left ui-btn-a' onclick='viewResolutions(" + item.id + ")'>View &nbsp&nbsp&nbsp&nbsp<span class='ui-li-has-count ui-btn-up-c ui-btn-corner-all'>" + item.number_resolutions + "</span></a><a href='#' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-plus ui-btn-icon-left ui-btn-a' onclick='addResolutions(" + item.id + ")'>Add &nbsp&nbsp&nbsp&nbsp</a></td></tr>");
+									$("#mcs_open_points_action_items_table").table("refresh");							
+								}								
+							}
+						}
 						//Start Hide Loading Message
 						$.mobile.loading("hide");
 						//End Hide Loading Message
@@ -71,7 +122,7 @@ under the License.
 				window.openitemid = id;
 				//submitResolution();
 			}
-			function submitResolution(id){
+			function submitResolution(){
 				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_openitem_createresolutions1.php?callback=?', {//JSONP Request to Open Items Page setup tables
 					openitemid : window.openitemid,
 					username: window.username,
@@ -82,7 +133,6 @@ under the License.
 
 				});
 				setTimeout(function() {
-					alert(id);	
 				}, 1500); 
 			}
 			function viewResolutions(id) {
@@ -110,17 +160,31 @@ under the License.
 				$('#mcs_open_points_action_items_resolution_popup_ul').listview("refresh");
 				setTimeout(function() {
 					$("#mcs_open_points_action_items_resolution_popup").popup('open');
-				}, 1000); 
+				}, 1500); 
 			}
 
 			function onLoadBody() {
 
-				$.getJSON('http://www.findmydriver.com/ubmopenitemsallitems.php?callback=?', {//JSONP Request to Open Items Page setup tables
+				$.getJSON('http://www.findmydriver.com/ubmopenitemsonlystatusopenitems.php?callback=?', {//JSONP Request to Open Items Page setup tables
 				}, function(res, status) {
 					//	alert("request for open items was a success!");
 					$.each(res, function(i, item) {
-						$('#mcs_open_points_action_items_table_body').append("<tr ><th class='label'>" + item.id + "</th><td>" + item.form_ref + "</td><td>" + item.priority + "</td><td>" + item.opened_by + "</td><td>" + item.date_opened + "</td><td>" + item.action_required + "</td><td>" + item.assigned_to + "</td><td>" + item.date_opened + "</td><td>" + item.due_date + "</td><td>b</td><td>c</td><td>d</td><td><a href='#' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a' onclick='viewResolutions(" + item.id + ")'>View / Add / Modify &nbsp&nbsp&nbsp&nbsp<span class='ui-li-has-count ui-btn-up-c ui-btn-corner-all'>" + item.number_resolutions + "</span></a></td></tr>");
-						$("#mcs_open_points_action_items_table").table("refresh");
+						if(window.accounttype=="admin"){	//If user accounttype is admin, allow user to add new resolutions. If not, only allow them to view existing resolutions.
+							//alert(window.accounttype);
+							if(item.number_resolutions!=="0"){	//If item doesnt have any resolutions associated with it, use theme a for the "View" Resolutions button
+								$('#mcs_open_points_action_items_table_body').append("<tr ><th class='label'>" + item.id + "</th><td>" + item.form_ref + "</td><td>" + item.priority + "</td><td>" + item.opened_by + "</td><td>" + item.date_opened + "</td><td>" + item.action_required + "</td><td>" + item.assigned_to + "</td><td>" + item.date_opened + "</td><td>" + item.due_date + "</td><td>b</td><td>c</td><td>d</td><td><a href='#' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-comment ui-btn-icon-left ui-btn-b' onclick='viewResolutions(" + item.id + ")'>View &nbsp&nbsp&nbsp&nbsp<span class='ui-li-has-count ui-btn-up-c ui-btn-corner-all'>" + item.number_resolutions + "</span></a><a href='#' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-plus ui-btn-icon-left ui-btn-a' onclick='addResolutions(" + item.id + ")'>Add &nbsp&nbsp&nbsp&nbsp</a></td></tr>");
+							}else{
+								$('#mcs_open_points_action_items_table_body').append("<tr ><th class='label'>" + item.id + "</th><td>" + item.form_ref + "</td><td>" + item.priority + "</td><td>" + item.opened_by + "</td><td>" + item.date_opened + "</td><td>" + item.action_required + "</td><td>" + item.assigned_to + "</td><td>" + item.date_opened + "</td><td>" + item.due_date + "</td><td>b</td><td>c</td><td>d</td><td><a href='#' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-comment ui-btn-icon-left ui-btn-a' onclick='viewResolutions(" + item.id + ")'>View &nbsp&nbsp&nbsp&nbsp<span class='ui-li-has-count ui-btn-up-c ui-btn-corner-all'>" + item.number_resolutions + "</span></a><a href='#' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-plus ui-btn-icon-left ui-btn-a' onclick='addResolutions(" + item.id + ")'>Add &nbsp&nbsp&nbsp&nbsp</a></td></tr>");
+								$("#mcs_open_points_action_items_table").table("refresh");							
+							}	
+						}else{						
+							if(item.number_resolutions!=="0"){  //If item has one or more resolutions associated with it, use theme b for the "View" Resolutions button
+								$('#mcs_open_points_action_items_table_body').append("<tr ><th class='label'>" + item.id + "</th><td>" + item.form_ref + "</td><td>" + item.priority + "</td><td>" + item.opened_by + "</td><td>" + item.date_opened + "</td><td>" + item.action_required + "</td><td>" + item.assigned_to + "</td><td>" + item.date_opened + "</td><td>" + item.due_date + "</td><td>b</td><td>c</td><td>d</td><td><a href='#' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-comment ui-btn-icon-left ui-btn-b' onclick='viewResolutions(" + item.id + ")'>View &nbsp&nbsp&nbsp&nbsp<span class='ui-li-has-count ui-btn-up-c ui-btn-corner-all'>" + item.number_resolutions + "</span></a></td></tr>");
+							}else{
+								$('#mcs_open_points_action_items_table_body').append("<tr ><th class='label'>" + item.id + "</th><td>" + item.form_ref + "</td><td>" + item.priority + "</td><td>" + item.opened_by + "</td><td>" + item.date_opened + "</td><td>" + item.action_required + "</td><td>" + item.assigned_to + "</td><td>" + item.date_opened + "</td><td>" + item.due_date + "</td><td>b</td><td>c</td><td>d</td><td><a href='#' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-comment ui-btn-icon-left ui-btn-a' onclick='viewResolutions(" + item.id + ")'>View &nbsp&nbsp&nbsp&nbsp<span class='ui-li-has-count ui-btn-up-c ui-btn-corner-all'>" + item.number_resolutions + "</span></a></td></tr>");
+								$("#mcs_open_points_action_items_table").table("refresh");							
+							}
+						}
 					})
 				});
 
@@ -184,95 +248,111 @@ under the License.
 						link.setAttribute("href", '#gettingStarted_openItem_popup');
 						//Set the Attribute of the open item button to the popup on the current page.
 					} else {
-						if (strarray[1] == "creator_table_of_contents") {
+						if (strarray[1] == "ubmsuite_table_of_contents") {
 							var link = document.getElementById("openItem_popup_button");
 							//Get the popup on the current page.
-							link.setAttribute("href", '#creator_table_of_contents_openItem_popup');
+							link.setAttribute("href", '#ubmsuite_table_of_contents_openItem_popup');
 							//Set the Attribute of the open item button to the popup on the current page.
-						} else {
-							if (strarray[1] == "identification_setup") {
+						}else{
+							if (strarray[1] == "creator_table_of_contents") {
 								var link = document.getElementById("openItem_popup_button");
 								//Get the popup on the current page.
-								link.setAttribute("href", '#identification_setup_openItem_popup');
+								link.setAttribute("href", '#creator_table_of_contents_openItem_popup');
 								//Set the Attribute of the open item button to the popup on the current page.
-							} else {
-								if (strarray[1] == "primary_objects_setup_table") {
-									var link = document.getElementById("openItem_popup_button");
-									//Get the popup on the current page.
-									link.setAttribute("href", '#primary_objects_setup_table_openItem_popup');
-									//Set the Attribute of the open item button to the popup on the current page.
 								} else {
-									if (strarray[1] == "possible_alternatives") {
+									if (strarray[1] == "identification_setup") {
 										var link = document.getElementById("openItem_popup_button");
 										//Get the popup on the current page.
-										link.setAttribute("href", '#possible_alternatives_openItem_popup');
+										link.setAttribute("href", '#identification_setup_openItem_popup');
 										//Set the Attribute of the open item button to the popup on the current page.
 									} else {
-										if (strarray[1] == "mcs_setup_checklist_setup") {
+										if (strarray[1] == "primary_objects_setup_table") {
 											var link = document.getElementById("openItem_popup_button");
 											//Get the popup on the current page.
-											link.setAttribute("href", '#mcs_setup_checklist_setup_openItem_popup');
+											link.setAttribute("href", '#primary_objects_setup_table_openItem_popup');
 											//Set the Attribute of the open item button to the popup on the current page.
 										} else {
-											if (strarray[1] == "mcs_setup_checklist_CS") {
+											if (strarray[1] == "possible_alternatives") {
 												var link = document.getElementById("openItem_popup_button");
 												//Get the popup on the current page.
-												link.setAttribute("href", '#mcs_setup_checklist_CS_openItem_popup');
+												link.setAttribute("href", '#possible_alternatives_openItem_popup');
 												//Set the Attribute of the open item button to the popup on the current page.
 											} else {
-												if (strarray[1] == "mcs_setup_checklist_p1") {
+												if (strarray[1] == "mcs_setup_checklist_setup") {
 													var link = document.getElementById("openItem_popup_button");
 													//Get the popup on the current page.
-													link.setAttribute("href", '#mcs_setup_checklist_p1_openItem_popup');
+													link.setAttribute("href", '#mcs_setup_checklist_setup_openItem_popup');
 													//Set the Attribute of the open item button to the popup on the current page.
 												} else {
-													if (strarray[1] == "mcs_setup_checklist_p2") {
+													if (strarray[1] == "mcs_setup_checklist_CS") {
 														var link = document.getElementById("openItem_popup_button");
 														//Get the popup on the current page.
-														link.setAttribute("href", '#mcs_setup_checklist_p2_openItem_popup');
+														link.setAttribute("href", '#mcs_setup_checklist_CS_openItem_popup');
 														//Set the Attribute of the open item button to the popup on the current page.
 													} else {
-														if (strarray[1] == "mcs_setup_checklist_p3") {
+														if (strarray[1] == "mcs_setup_checklist_p1") {
 															var link = document.getElementById("openItem_popup_button");
 															//Get the popup on the current page.
-															link.setAttribute("href", '#mcs_setup_checklist_p3_openItem_popup');
+															link.setAttribute("href", '#mcs_setup_checklist_p1_openItem_popup');
 															//Set the Attribute of the open item button to the popup on the current page.
 														} else {
-															if (strarray[1] == "mcs_setup_checklist_p4_b1") {
+															if (strarray[1] == "mcs_setup_checklist_p2") {
 																var link = document.getElementById("openItem_popup_button");
 																//Get the popup on the current page.
-																link.setAttribute("href", '#mcs_setup_checklist_p4_b1_openItem_popup');
+																link.setAttribute("href", '#mcs_setup_checklist_p2_openItem_popup');
 																//Set the Attribute of the open item button to the popup on the current page.
 															} else {
-																if (strarray[1] == "mcs_setup_checklist_p4_b2") {
+																if (strarray[1] == "mcs_setup_checklist_p3") {
 																	var link = document.getElementById("openItem_popup_button");
 																	//Get the popup on the current page.
-																	link.setAttribute("href", '#mcs_setup_checklist_p4_b2_openItem_popup');
+																	link.setAttribute("href", '#mcs_setup_checklist_p3_openItem_popup');
 																	//Set the Attribute of the open item button to the popup on the current page.
 																} else {
-																	if (strarray[1] == "mcs_setup_checklist_p5") {
+																	if (strarray[1] == "mcs_setup_checklist_p4_b1") {
 																		var link = document.getElementById("openItem_popup_button");
 																		//Get the popup on the current page.
-																		link.setAttribute("href", '#mcs_setup_checklist_p5_openItem_popup');
+																		link.setAttribute("href", '#mcs_setup_checklist_p4_b1_openItem_popup');
 																		//Set the Attribute of the open item button to the popup on the current page.
 																	} else {
-																		if (strarray[1] == "mcs_setup_checklist_p6") {
+																		if (strarray[1] == "mcs_setup_checklist_p4_b2") {
 																			var link = document.getElementById("openItem_popup_button");
 																			//Get the popup on the current page.
-																			link.setAttribute("href", '#mcs_setup_checklist_p6_openItem_popup');
+																			link.setAttribute("href", '#mcs_setup_checklist_p4_b2_openItem_popup');
 																			//Set the Attribute of the open item button to the popup on the current page.
 																		} else {
-																			if (strarray[1] == "mcs_setup_checklist_p7") {
+																			if (strarray[1] == "mcs_setup_checklist_p5") {
 																				var link = document.getElementById("openItem_popup_button");
 																				//Get the popup on the current page.
-																				link.setAttribute("href", '#mcs_setup_checklist_p7_openItem_popup');
+																				link.setAttribute("href", '#mcs_setup_checklist_p5_openItem_popup');
 																				//Set the Attribute of the open item button to the popup on the current page.
 																			} else {
-																				if (strarray[1] == "mcs_setup_checklist_p8") {
+																				if (strarray[1] == "mcs_setup_checklist_p6") {
 																					var link = document.getElementById("openItem_popup_button");
 																					//Get the popup on the current page.
-																					link.setAttribute("href", '#mcs_setup_checklist_p8_openItem_popup');
+																					link.setAttribute("href", '#mcs_setup_checklist_p6_openItem_popup');
 																					//Set the Attribute of the open item button to the popup on the current page.
+																				} else {
+																					if (strarray[1] == "mcs_setup_checklist_p7") {
+																						var link = document.getElementById("openItem_popup_button");
+																						//Get the popup on the current page.
+																						link.setAttribute("href", '#mcs_setup_checklist_p7_openItem_popup');
+																						//Set the Attribute of the open item button to the popup on the current page.
+																					} else {
+																						if (strarray[1] == "mcs_setup_checklist_p8") {
+																							var link = document.getElementById("openItem_popup_button");
+																							//Get the popup on the current page.
+																							link.setAttribute("href", '#mcs_setup_checklist_p8_openItem_popup');
+																							//Set the Attribute of the open item button to the popup on the current page.
+																						}else{
+																							if (strarray[1] == "open_points_action_items") {
+																								var link = document.getElementById("openItem_popup_button");
+																								//Get the popup on the current page.
+																								link.setAttribute("href", '#open_points_action_items_openItem_popup');
+																								//Set the Attribute of the open item button to the popup on the current page.																						
+																							}
+																							
+																						}
+																					}
 																				}
 																			}
 																		}
@@ -288,7 +368,6 @@ under the License.
 								}
 							}
 						}
-					}
 					//		alert(window.location.hash);									//outputs the original hash
 					//alert(strarray[1]);												//outputs the split string which has the hash removed
 					$.getJSON('http://www.findmydriver.com/getubmpagereference.php?callback=?', {//JSONP Request to the app_pages table.
@@ -441,13 +520,14 @@ under the License.
 								$('#result').empty().append('<center><p>' + res.message + res.validation + '</p></center>');
 								$('#result').empty();
 								window.location = "#gettingStarted"
+								window.accounttype=res.accounttype;
 							} else {
 								$('#result').empty().append('<center><p>No account exists with that username or password. Click Register to create your free account</p></center>');
 							}
 							if (res.accounttype == 'admin') {
 								//admin only stuff here
 								alert("you are an admin");
-								$('body').prepend('<div id="overlayTest" class="circleBase type2" style="z-index: 99999; position:fixed;"><a href="#openItem_popup" data-rel="popup" data-transition="slideup" class="ui-btn ui-icon-alert ui-btn-icon-notext ui-corner-all">No text</a><a href="#openItem_popup" data-rel="popup" data-transition="slideup" class="ui-btn ui-icon-action ui-btn-icon-notext ui-corner-all">No text</a><center><a href="#mcs_setup_checklist_setup_searchPopup" data-rel="popup" data-transition="slideup" class="ui-btn ui-icon-search ui-btn-icon-notext ui-corner-all">No text</a></center></div>');
+								//$('body').prepend('<div id="overlayTest" class="circleBase type2" style="z-index: 99999; position:fixed;"><a href="#openItem_popup" data-rel="popup" data-transition="slideup" class="ui-btn ui-icon-alert ui-btn-icon-notext ui-corner-all">No text</a><a href="#openItem_popup" data-rel="popup" data-transition="slideup" class="ui-btn ui-icon-action ui-btn-icon-notext ui-corner-all">No text</a><center><a href="#mcs_setup_checklist_setup_searchPopup" data-rel="popup" data-transition="slideup" class="ui-btn ui-icon-search ui-btn-icon-notext ui-corner-all">No text</a></center></div>');
 								$(".circleBase").draggable();
 							} else {
 								if (res.accounttype == 'user') {
@@ -541,34 +621,30 @@ under the License.
 				navigator.geolocation.getCurrentPosition(onSuccess, onError);				
 		}
 		</script>
-        <style>
-			#overlayTest { width: 100px; height: 100px; padding: 0.5em; float: left; margin: 10px 10px 10px 0; }
-
-		</script>
 		<style>
 			#overlayTest {
-				width: 100px;
-				height: 100px;
+				width: 40px;
+				height: 40px;
 				padding: 0.5em;
 				float: left;
-				margin: 10px 10px 10px 0;
+				margin: 30px 10px 10px 0;
 			}
 
 			.circleBase {
-				-webkit-border-radius: 999px;
-				-moz-border-radius: 999px;
-				border-radius: 999px;
+				-webkit-border-radius: 888px;
+				-moz-border-radius: 888px;
+				border-radius: 888px;
 				behavior: url(PIE.htc);
 			}
 			.type1 {
-				width: 100px;
-				height: 100px;
+				width: 40px;
+				height: 40px;
 				background-color: rgba(255,0,0,0.5);
 				border: 3px solid red
 			}
 			.type2 {
-				width: 100px;
-				height: 100px;
+				width: 40px;
+				height: 40px;
 				background-color: rgba(0,0,255,0.5);
 				border: 3px solid blue
 			}
@@ -584,11 +660,7 @@ under the License.
 	</div>
 	<body onload="onLoadBody()">
 		<div id="overlayTest" class="circleBase type1" style="z-index: 99999; position:fixed; right:20px; top:300px;">
-			<a href="#newRequest_popup" id="newRequest_popup_button" data-rel="popup" data-transition="slideup" class="ui-btn ui-icon-alert ui-btn-icon-notext ui-corner-all">No text</a>
 			<a href="#sign_in_sign_up_openItem_popup" id="openItem_popup_button" data-rel="popup" data-transition="slideup" class="ui-btn ui-icon-action ui-btn-icon-notext ui-corner-all">No text</a>
-			<center>
-				<a href="#mcs_setup_checklist_setup_searchPopup" data-rel="popup" data-transition="slideup" class="ui-btn ui-icon-search ui-btn-icon-notext ui-corner-all">No text</a>
-			</center>
 		</div>
 		<!-- Start of first page -->
 		<div data-role="page" class="ubm_page" id="sign_in_sign_up">
@@ -737,7 +809,7 @@ under the License.
 				</ul>
 			</div><!-- /panel -->
 			<div data-role="header">
-				<a href="#mcs_gettingStarted_lpanel" data-icon="arrow-r"></a>
+				<a href="#mcs_gettingStarted_lpanel" data-icon="arrow-r" data-iconpos="notext">Menu</a>
 				<div id"gettingStarted_header_headerRecord_center" style="text-align: center">
 					<div id="gettingStarted_header_headerRecord_center_legalentity">
 						Legal Entity: Cindt, LLC
@@ -1048,7 +1120,7 @@ under the License.
 				</ul>
 			</div><!-- /panel -->
 			<div data-role="header">
-				<a href="#ubmsuite_table_of_contents_lpanel" data-icon="arrow-r"></a>
+				<a href="#ubmsuite_table_of_contents_lpanel" data-icon="arrow-r" data-iconpos="notext">Menu</a>
 				<div id"ubmsuite_table_of_contents_header_headerRecord_center" style="text-align: center">
 					<div id="creator_table_of_contents_header_headerRecord_center_legalentity">
 						Legal Entity: Cindt, LLC
@@ -1215,7 +1287,7 @@ under the License.
 				</ul>
 			</div><!-- /panel -->
 			<div data-role="header">
-				<a href="#mcs_creator_table_of_contents_lpanel" data-icon="arrow-r"></a>
+				<a href="#mcs_creator_table_of_contents_lpanel" data-icon="arrow-r" data-iconpos="notext">Menu</a>
 				<div id"creator_table_of_contents_header_headerRecord_center" style="text-align: center">
 					<div id="creator_table_of_contents_header_headerRecord_center_legalentity">
 						Legal Entity: Cindt, LLC
@@ -1375,7 +1447,7 @@ under the License.
 				</ul>
 			</div><!-- /panel -->
 			<div data-role="header">
-				<a href="#mcs_identification_setup_lpanel" data-icon="arrow-r"></a>
+				<a href="#mcs_identification_setup_lpanel" data-icon="arrow-r" data-iconpos="notext">Menu</a>
 				<div id"identification_setup_header_headerRecord_center" style="text-align: center">
 					<div id="identification_setup_header_headerRecord_center_legalentity">
 						Legal Entity: Cindt, LLC
@@ -2199,7 +2271,7 @@ under the License.
 				</ul>
 			</div><!-- /panel -->
 			<div data-role="header" data-position="fixed">
-				<a href="#mcs_setup_checklist_setup_lpanel" data-icon="arrow-r"></a>
+				<a href="#mcs_setup_checklist_setup_lpanel" data-icon="arrow-r" data-iconpos="notext">Menu</a>
 				<center>
 					<a href="#mcs_setup_checklist_setup_searchPopup" data-rel="popup" data-role="button">Model Creation Suite - Setup</a>
 				</center>
@@ -2554,24 +2626,24 @@ under the License.
 						</li>
 					</ul>
 				</div><!-- /Phase 4 Popup-->
-				<table data-role="table" id="mcs_setup_checklist_setup_mfi_table" data-mode="columntoggle" data-filter="true" data-column-btn-text="Select Column..." data-column-btn-theme="a" class="phone-compare ui-shadow table-stroke">
+				<table data-role="table" id="mcs_setup_checklist_setup_mfi_table" data-mode="columntoggle" data-filter="false" data-column-btn-text="Select Column..." data-column-btn-theme="a" class="phone-compare ui-shadow table-stroke">
 					<thead>
 						<tr>
-							<th class="label">Model Creation Suite</th>
+							<th data-priority="1">Model Creation Suite</th>
 							<th data-priority="1"><h4>Final RB </br>Date</h4></th>
-							<th data-priority="2"><h4>Final RB </br>Initial</h4></th>
-							<th data-priority="3"><h4>RB</h4></th>
-							<th data-priority="4"><h4>RB </br>Date</h4></th>
-							<th data-priority="5"><h4>PB</h4></th>
-							<th data-priority="6"><h4>PB </br>Date</h4></th>
-							<th data-priority="7"><h4>MFI </br>Expl Ref</h4></th>
-							<th data-priority="8"><h4>MFI Template / Process Ref</h4></th>
-							<th data-priority="9"><h4>Source Model </br>MFI Ref</h4></th>
+							<th data-priority="1"><h4>Final RB </br>Initial</h4></th>
+							<th data-priority="1"><h4>RB</h4></th>
+							<th data-priority="1"><h4>RB </br>Date</h4></th>
+							<th data-priority="1"><h4>PB</h4></th>
+							<th data-priority="1"><h4>PB </br>Date</h4></th>
+							<th data-priority="1"><h4>MFI </br>Expl Ref</h4></th>
+							<th data-priority="1"><h4>MFI Template / Process Ref</h4></th>
+							<th data-priority="1"><h4>Source Model </br>MFI Ref</h4></th>
 							<th data-priority="10"><h4>Instruction Detail</h4></th>
-							<th data-priority="11"><h4>Budget </br>Hours</h4></th>
-							<th data-priority="12"><h4>Actual </br>Hours</h4></th>
-							<th data-priority="13"><h4>Review </br>Time</h4></th>
-							<th data-priority="14"><h4>Difference </h4></th>
+							<th data-priority="1"><h4>Budget </br>Hours</h4></th>
+							<th data-priority="1"><h4>Actual </br>Hours</h4></th>
+							<th data-priority="1"><h4>Review </br>Time</h4></th>
+							<th data-priority="1"><h4>Difference </h4></th>
 						</tr>
 					</thead>
 					<tbody id="mcs_setup_checklist_setup_mfi_table_body">
@@ -2582,7 +2654,7 @@ under the License.
 			<div data-role="footer" data-fullscreen="true" data-position="fixed">
 				<center>
 					<div data-role="controlgroup" data-type="horizontal" data-mini="true">
-						<a href="#mcs_setup_checklist_setup" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-grid ui-btn-b">Setup</a>
+						<a href="#mcs_setup_checklist_setup" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-grid ui-btn-b ui-btn-active">Setup</a>
 						<a href="#mcs_setup_checklist_CS" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-grid ui-btn-b">Control </a>
 						<a href="#mcs_setup_checklist_p1" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-grid ui-btn-b">Phase 1</a>
 						<a href="#mcs_setup_checklist_p2" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-grid ui-btn-b">Phase 2</a>
@@ -2653,7 +2725,7 @@ under the License.
 				</ul>
 			</div><!-- /panel -->
 			<div data-role="header" data-position="fixed">
-				<a href="#mcs_setup_checklist_CS_lpanel" data-icon="arrow-r"></a>
+				<a href="#mcs_setup_checklist_CS_lpanel" data-icon="arrow-r" data-iconpos="notext">Menu</a>
 				<center>
 					<a href="#mcs_setup_checklist_CS_searchPopup" data-rel="popup" data-role="button">Model Creation Suite - Control</a>
 				</center>
@@ -2873,24 +2945,24 @@ under the License.
 						</li>
 					</ul>
 				</div><!-- /Phase 4 Popup-->
-				<table data-role="table" id="mcs_setup_checklist_CS_mfi_table" data-mode="columntoggle" data-filter="true" data-column-btn-text="Select Column..." data-column-btn-theme="a" class="phone-compare ui-shadow table-stroke">
+				<table data-role="table" id="mcs_setup_checklist_CS_mfi_table" data-mode="columntoggle" data-filter="false" data-column-btn-text="Select Column..." data-column-btn-theme="a" class="phone-compare ui-shadow table-stroke">
 					<thead>
 						<tr>
-							<th class="label">Model Creation Suite</th>
+							<th data-priority="1">Model Creation Suite</th>
 							<th data-priority="1"><h4>Final RB </br>Date</h4></th>
-							<th data-priority="2"><h4>Final RB </br>Initial</h4></th>
-							<th data-priority="3"><h4>RB</h4></th>
-							<th data-priority="4"><h4>RB </br>Date</h4></th>
-							<th data-priority="5"><h4>PB</h4></th>
-							<th data-priority="6"><h4>PB </br>Date</h4></th>
-							<th data-priority="7"><h4>MFI </br>Expl Ref</h4></th>
-							<th data-priority="8"><h4>MFI Template / Process Ref</h4></th>
-							<th data-priority="9"><h4>Source Model </br>MFI Ref</h4></th>
+							<th data-priority="1"><h4>Final RB </br>Initial</h4></th>
+							<th data-priority="1"><h4>RB</h4></th>
+							<th data-priority="1"><h4>RB </br>Date</h4></th>
+							<th data-priority="1"><h4>PB</h4></th>
+							<th data-priority="1"><h4>PB </br>Date</h4></th>
+							<th data-priority="1"><h4>MFI </br>Expl Ref</h4></th>
+							<th data-priority="1"><h4>MFI Template / Process Ref</h4></th>
+							<th data-priority="1"><h4>Source Model </br>MFI Ref</h4></th>
 							<th data-priority="10"><h4>Instruction Detail</h4></th>
-							<th data-priority="11"><h4>Budget </br>Hours</h4></th>
-							<th data-priority="12"><h4>Actual </br>Hours</h4></th>
-							<th data-priority="13"><h4>Review </br>Time</h4></th>
-							<th data-priority="14"><h4>Difference </h4></th>
+							<th data-priority="1"><h4>Budget </br>Hours</h4></th>
+							<th data-priority="1"><h4>Actual </br>Hours</h4></th>
+							<th data-priority="1"><h4>Review </br>Time</h4></th>
+							<th data-priority="1"><h4>Difference </h4></th>
 						</tr>
 					</thead>
 					<tbody id="mcs_setup_checklist_CS_mfi_table_body">
@@ -2902,7 +2974,7 @@ under the License.
 				<center>
 					<div data-role="controlgroup" data-type="horizontal" data-mini="true">
 						<a href="#mcs_setup_checklist_setup" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-grid ui-btn-b">Setup</a>
-						<a href="#mcs_setup_checklist_CS" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-grid ui-btn-b">Control </a>
+						<a href="#mcs_setup_checklist_CS" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-grid ui-btn-b ui-btn-active">Control </a>
 						<a href="#mcs_setup_checklist_p1" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-grid ui-btn-b">Phase 1</a>
 						<a href="#mcs_setup_checklist_p2" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-grid ui-btn-b">Phase 2</a>
 						<a href="#mcs_setup_checklist_p3" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-grid ui-btn-b">Phase 3</a>
@@ -2972,13 +3044,12 @@ under the License.
 				</ul>
 			</div><!-- /panel -->
 			<div data-role="header" data-position="fixed">
-				<a href="#mcs_setup_checklist_p1_lpanel" data-icon="arrow-r"></a>
+				<a href="#mcs_setup_checklist_p1_lpanel" data-icon="arrow-r" data-iconpos="notext">Menu</a>
 				<center>
 					<a href="#mcs_setup_checklist_p1_searchPopup" data-rel="popup" data-role="button">Model Creation Suite - Phase 1</a>
 				</center>
 			</div><!-- /header -->
 			<div role="content" class="ui-content">
-
 				<!-- Open Items Popup -->
 				<div data-role="popup" id="mcs_setup_checklist_p1_openItem_popup" data-theme="b">
 					<form id="mcs_setup_checklist_p1_open_items_form" name="open_items_form">
@@ -3193,24 +3264,24 @@ under the License.
 						</li>
 					</ul>
 				</div><!-- /Phase 4 Popup-->
-				<table data-role="table" id="mcs_setup_checklist_p1_mfi_table" data-mode="columntoggle" data-filter="true" data-column-btn-text="Select Column..." data-column-btn-theme="a" class="phone-compare ui-shadow table-stroke">
+				<table data-role="table" id="mcs_setup_checklist_p1_mfi_table" data-mode="columntoggle" data-filter="false" data-column-btn-text="Select Column..." data-column-btn-theme="a" class="phone-compare ui-shadow table-stroke">
 					<thead>
 						<tr>
-							<th class="label">Model Creation Suite</th>
+							<th data-priority="1">Model Creation Suite</th>
 							<th data-priority="1"><h4>Final RB </br>Date</h4></th>
-							<th data-priority="2"><h4>Final RB </br>Initial</h4></th>
-							<th data-priority="3"><h4>RB</h4></th>
-							<th data-priority="4"><h4>RB </br>Date</h4></th>
-							<th data-priority="5"><h4>PB</h4></th>
-							<th data-priority="6"><h4>PB </br>Date</h4></th>
-							<th data-priority="7"><h4>MFI </br>Expl Ref</h4></th>
-							<th data-priority="8"><h4>MFI Template</br>/ Process Ref</h4></th>
-							<th data-priority="9"><h4>Source Model </br>MFI Ref</h4></th>
+							<th data-priority="1"><h4>Final RB </br>Initial</h4></th>
+							<th data-priority="1"><h4>RB</h4></th>
+							<th data-priority="1"><h4>RB </br>Date</h4></th>
+							<th data-priority="1"><h4>PB</h4></th>
+							<th data-priority="1"><h4>PB </br>Date</h4></th>
+							<th data-priority="1"><h4>MFI </br>Expl Ref</h4></th>
+							<th data-priority="1"><h4>MFI Template / Process Ref</h4></th>
+							<th data-priority="1"><h4>Source Model </br>MFI Ref</h4></th>
 							<th data-priority="10"><h4>Instruction Detail</h4></th>
-							<th data-priority="11"><h4>Budget </br>Hours</h4></th>
-							<th data-priority="12"><h4>Actual </br>Hours</h4></th>
-							<th data-priority="13"><h4>Review </br>Time</h4></th>
-							<th data-priority="14"><h4>Difference </h4></th>
+							<th data-priority="1"><h4>Budget </br>Hours</h4></th>
+							<th data-priority="1"><h4>Actual </br>Hours</h4></th>
+							<th data-priority="1"><h4>Review </br>Time</h4></th>
+							<th data-priority="1"><h4>Difference </h4></th>
 						</tr>
 					</thead>
 					<tbody id="mcs_setup_checklist_p1_mfi_table_body">
@@ -3223,7 +3294,7 @@ under the License.
 					<div data-role="controlgroup" data-type="horizontal" data-mini="true">
 						<a href="#mcs_setup_checklist_setup" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-grid ui-btn-b">Setup</a>
 						<a href="#mcs_setup_checklist_CS" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-grid ui-btn-b">Control </a>
-						<a href="#mcs_setup_checklist_p1" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-grid ui-btn-b">Phase 1</a>
+						<a href="#mcs_setup_checklist_p1" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-grid ui-btn-b ui-btn-active">Phase 1</a>
 						<a href="#mcs_setup_checklist_p2" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-grid ui-btn-b">Phase 2</a>
 						<a href="#mcs_setup_checklist_p3" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-grid ui-btn-b">Phase 3</a>
 						<a href="#mcs_setup_checklist_p1_popupphase4" data-rel="popup" data-transition="slideup" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a">Phase 4</a>
@@ -3292,7 +3363,7 @@ under the License.
 				</ul>
 			</div><!-- /panel -->
 			<div data-role="header" data-position="fixed">
-				<a href="#mcs_setup_checklist_p2_lpanel" data-icon="arrow-r"></a>
+				<a href="#mcs_setup_checklist_p2_lpanel" data-icon="arrow-r" data-iconpos="notext">Menu</a>
 				<center>
 					<a href="#mcs_setup_checklist_p2_searchPopup" data-rel="popup" data-role="button">Model Creation Suite - Phase 2</a>
 				</center>
@@ -3512,24 +3583,24 @@ under the License.
 						</li>
 					</ul>
 				</div><!-- /Phase 4 Popup-->
-				<table data-role="table" id="mcs_setup_checklist_p2_mfi_table" data-mode="columntoggle" data-filter="true" data-column-btn-text="Select Column..." data-column-btn-theme="a" class="phone-compare ui-shadow table-stroke">
+				<table data-role="table" id="mcs_setup_checklist_p2_mfi_table" data-mode="columntoggle" data-filter="false" data-column-btn-text="Select Column..." data-column-btn-theme="a" class="phone-compare ui-shadow table-stroke">
 					<thead>
 						<tr>
-							<th class="label">Model Creation Suite</th>
+							<th data-priority="1">Model Creation Suite</th>
 							<th data-priority="1"><h4>Final RB </br>Date</h4></th>
-							<th data-priority="2"><h4>Final RB </br>Initial</h4></th>
-							<th data-priority="3"><h4>RB</h4></th>
-							<th data-priority="4"><h4>RB </br>Date</h4></th>
-							<th data-priority="5"><h4>PB</h4></th>
-							<th data-priority="6"><h4>PB </br>Date</h4></th>
-							<th data-priority="7"><h4>MFI </br>Expl Ref</h4></th>
-							<th data-priority="8"><h4>MFI Template</br>/ Process Ref</h4></th>
-							<th data-priority="9"><h4>Source Model </br>MFI Ref</h4></th>
+							<th data-priority="1"><h4>Final RB </br>Initial</h4></th>
+							<th data-priority="1"><h4>RB</h4></th>
+							<th data-priority="1"><h4>RB </br>Date</h4></th>
+							<th data-priority="1"><h4>PB</h4></th>
+							<th data-priority="1"><h4>PB </br>Date</h4></th>
+							<th data-priority="1"><h4>MFI </br>Expl Ref</h4></th>
+							<th data-priority="1"><h4>MFI Template / Process Ref</h4></th>
+							<th data-priority="1"><h4>Source Model </br>MFI Ref</h4></th>
 							<th data-priority="10"><h4>Instruction Detail</h4></th>
-							<th data-priority="11"><h4>Budget </br>Hours</h4></th>
-							<th data-priority="12"><h4>Actual </br>Hours</h4></th>
-							<th data-priority="13"><h4>Review </br>Time</h4></th>
-							<th data-priority="14"><h4>Difference </h4></th>
+							<th data-priority="1"><h4>Budget </br>Hours</h4></th>
+							<th data-priority="1"><h4>Actual </br>Hours</h4></th>
+							<th data-priority="1"><h4>Review </br>Time</h4></th>
+							<th data-priority="1"><h4>Difference </h4></th>
 						</tr>
 					</thead>
 					<tbody id="mcs_setup_checklist_p2_mfi_table_body">
@@ -3543,7 +3614,7 @@ under the License.
 						<a href="#mcs_setup_checklist_setup" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-grid ui-btn-b">Setup</a>
 						<a href="#mcs_setup_checklist_CS" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-grid ui-btn-b">Control </a>
 						<a href="#mcs_setup_checklist_p1" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-grid ui-btn-b">Phase 1</a>
-						<a href="#mcs_setup_checklist_p2" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-grid ui-btn-b">Phase 2</a>
+						<a href="#mcs_setup_checklist_p2" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-grid ui-btn-b ui-btn-active">Phase 2</a>
 						<a href="#mcs_setup_checklist_p3" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-grid ui-btn-b">Phase 3</a>
 						<a href="#mcs_setup_checklist_p2_popupphase4" data-rel="popup" data-transition="slideup" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a">Phase 4</a>
 						<a href="#mcs_setup_checklist_p5" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-grid ui-btn-b">Phase 5</a>
@@ -3611,7 +3682,7 @@ under the License.
 				</ul>
 			</div><!-- /panel -->
 			<div data-role="header" data-position="fixed">
-				<a href="#mcs_setup_checklist_p3_lpanel" data-icon="arrow-r"></a>
+				<a href="#mcs_setup_checklist_p3_lpanel" data-icon="arrow-r" data-iconpos="notext">Menu</a>
 				<center>
 					<a href="#searchPopup" data-rel="popup" data-role="button">Model Creation Suite - Phase 3</a>
 				</center>
@@ -3831,24 +3902,24 @@ under the License.
 						</li>
 					</ul>
 				</div><!-- /Phase 4 Popup-->
-				<table data-role="table" id="mcs_setup_checklist_p3_mfi_table" data-mode="columntoggle" data-filter="true" data-column-btn-text="Select Column..." data-column-btn-theme="a" class="phone-compare ui-shadow table-stroke">
+				<table data-role="table" id="mcs_setup_checklist_p3_mfi_table" data-mode="columntoggle" data-filter="false" data-column-btn-text="Select Column..." data-column-btn-theme="a" class="phone-compare ui-shadow table-stroke">
 					<thead>
 						<tr>
-							<th class="label">Model Creation Suite</th>
+							<th data-priority="1">Model Creation Suite</th>
 							<th data-priority="1"><h4>Final RB </br>Date</h4></th>
-							<th data-priority="2"><h4>Final RB </br>Initial</h4></th>
-							<th data-priority="3"><h4>RB</h4></th>
-							<th data-priority="4"><h4>RB </br>Date</h4></th>
-							<th data-priority="5"><h4>PB</h4></th>
-							<th data-priority="6"><h4>PB </br>Date</h4></th>
-							<th data-priority="7"><h4>MFI </br>Expl Ref</h4></th>
-							<th data-priority="8"><h4>MFI Template</br>/ Process Ref</h4></th>
-							<th data-priority="9"><h4>Source Model </br>MFI Ref</h4></th>
+							<th data-priority="1"><h4>Final RB </br>Initial</h4></th>
+							<th data-priority="1"><h4>RB</h4></th>
+							<th data-priority="1"><h4>RB </br>Date</h4></th>
+							<th data-priority="1"><h4>PB</h4></th>
+							<th data-priority="1"><h4>PB </br>Date</h4></th>
+							<th data-priority="1"><h4>MFI </br>Expl Ref</h4></th>
+							<th data-priority="1"><h4>MFI Template / Process Ref</h4></th>
+							<th data-priority="1"><h4>Source Model </br>MFI Ref</h4></th>
 							<th data-priority="10"><h4>Instruction Detail</h4></th>
-							<th data-priority="11"><h4>Budget </br>Hours</h4></th>
-							<th data-priority="12"><h4>Actual </br>Hours</h4></th>
-							<th data-priority="13"><h4>Review </br>Time</h4></th>
-							<th data-priority="14"><h4>Difference </h4></th>
+							<th data-priority="1"><h4>Budget </br>Hours</h4></th>
+							<th data-priority="1"><h4>Actual </br>Hours</h4></th>
+							<th data-priority="1"><h4>Review </br>Time</h4></th>
+							<th data-priority="1"><h4>Difference </h4></th>
 						</tr>
 					</thead>
 					<tbody id="mcs_setup_checklist_p3_mfi_table_body">
@@ -3863,7 +3934,7 @@ under the License.
 						<a href="#mcs_setup_checklist_CS" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-grid ui-btn-b">Control </a>
 						<a href="#mcs_setup_checklist_p1" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-grid ui-btn-b">Phase 1</a>
 						<a href="#mcs_setup_checklist_p2" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-grid ui-btn-b">Phase 2</a>
-						<a href="#mcs_setup_checklist_p3" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-grid ui-btn-b">Phase 3</a>
+						<a href="#mcs_setup_checklist_p3" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-grid ui-btn-b ui-btn-active">Phase 3</a>
 						<a href="#mcs_setup_checklist_p3_popupphase4" data-rel="popup" data-transition="slideup" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a">Phase 4</a>
 						<a href="#mcs_setup_checklist_p5" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-grid ui-btn-b">Phase 5</a>
 						<a href="#mcs_setup_checklist_p6" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-grid ui-btn-b">Phase 6</a>
@@ -3930,7 +4001,7 @@ under the License.
 				</ul>
 			</div><!-- /panel -->
 			<div data-role="header" data-position="fixed">
-				<a href="#mcs_setup_checklist_p4_lpanel" data-icon="arrow-r"></a>
+				<a href="#mcs_setup_checklist_p4_lpanel" data-icon="arrow-r" data-iconpos="notext">Menu</a>
 				<center>
 					<a href="#mcs_setup_checklist_p4_b1_searchPopup" data-rel="popup" data-role="button">Model Creation Suite - Phase 4 - Book 1</a>
 				</center>
@@ -4150,24 +4221,24 @@ under the License.
 						</li>
 					</ul>
 				</div><!-- /Phase 4 Popup-->
-				<table data-role="table" id="mcs_setup_checklist_p4_b1_mfi_table" data-mode="columntoggle" data-filter="true" data-column-btn-text="Select Column..." data-column-btn-theme="a" class="phone-compare ui-shadow table-stroke">
+				<table data-role="table" id="mcs_setup_checklist_p4_b1_mfi_table" data-mode="columntoggle" data-filter="false" data-column-btn-text="Select Column..." data-column-btn-theme="a" class="phone-compare ui-shadow table-stroke">
 					<thead>
 						<tr>
-							<th class="label">Model Creation Suite</th>
+							<th data-priority="1">Model Creation Suite</th>
 							<th data-priority="1"><h4>Final RB </br>Date</h4></th>
-							<th data-priority="2"><h4>Final RB </br>Initial</h4></th>
-							<th data-priority="3"><h4>RB</h4></th>
-							<th data-priority="4"><h4>RB </br>Date</h4></th>
-							<th data-priority="5"><h4>PB</h4></th>
-							<th data-priority="6"><h4>PB </br>Date</h4></th>
-							<th data-priority="7"><h4>MFI </br>Expl Ref</h4></th>
-							<th data-priority="8"><h4>MFI Template</br>/ Process Ref</h4></th>
-							<th data-priority="9"><h4>Source Model </br>MFI Ref</h4></th>
+							<th data-priority="1"><h4>Final RB </br>Initial</h4></th>
+							<th data-priority="1"><h4>RB</h4></th>
+							<th data-priority="1"><h4>RB </br>Date</h4></th>
+							<th data-priority="1"><h4>PB</h4></th>
+							<th data-priority="1"><h4>PB </br>Date</h4></th>
+							<th data-priority="1"><h4>MFI </br>Expl Ref</h4></th>
+							<th data-priority="1"><h4>MFI Template / Process Ref</h4></th>
+							<th data-priority="1"><h4>Source Model </br>MFI Ref</h4></th>
 							<th data-priority="10"><h4>Instruction Detail</h4></th>
-							<th data-priority="11"><h4>Budget </br>Hours</h4></th>
-							<th data-priority="12"><h4>Actual </br>Hours</h4></th>
-							<th data-priority="13"><h4>Review </br>Time</h4></th>
-							<th data-priority="14"><h4>Difference </h4></th>
+							<th data-priority="1"><h4>Budget </br>Hours</h4></th>
+							<th data-priority="1"><h4>Actual </br>Hours</h4></th>
+							<th data-priority="1"><h4>Review </br>Time</h4></th>
+							<th data-priority="1"><h4>Difference </h4></th>
 						</tr>
 					</thead>
 					<tbody id="mcs_setup_checklist_p4_b1_mfi_table_body">
@@ -4183,7 +4254,7 @@ under the License.
 						<a href="#mcs_setup_checklist_p1" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-grid ui-btn-b">Phase 1</a>
 						<a href="#mcs_setup_checklist_p2" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-grid ui-btn-b">Phase 2</a>
 						<a href="#mcs_setup_checklist_p3" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-grid ui-btn-b">Phase 3</a>
-						<a href="#mcs_setup_checklist_p4_b1_popupphase4" data-rel="popup" data-transition="slideup" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a">Phase 4</a>
+						<a href="#mcs_setup_checklist_p4_b1_popupphase4" data-rel="popup" data-transition="slideup" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a ui-btn-active">Phase 4</a>
 						<a href="#mcs_setup_checklist_p5" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-grid ui-btn-b">Phase 5</a>
 						<a href="#mcs_setup_checklist_p6" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-grid ui-btn-b">Phase 6</a>
 						<a href="#mcs_setup_checklist_p7" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-grid ui-btn-b">Phase 7</a>
@@ -4249,7 +4320,7 @@ under the License.
 				</ul>
 			</div><!-- /panel -->
 			<div data-role="header" data-position="fixed">
-				<a href="#mcs_setup_checklist_p1_lpanel" data-icon="arrow-r"></a>
+				<a href="#mcs_setup_checklist_p1_lpanel" data-icon="arrow-r" data-iconpos="notext">Menu</a>
 				<center>
 					<a href="#mcs_setup_checklist_p4_b2_searchPopup" data-rel="popup" data-role="button">Model Creation Suite - Phase 4 - Book 2</a>
 				</center>
@@ -4469,24 +4540,24 @@ under the License.
 						</li>
 					</ul>
 				</div><!-- /Phase 4 Popup-->
-				<table data-role="table" id="mcs_setup_checklist_p4_b2_mfi_table" data-mode="columntoggle" data-filter="true" data-column-btn-text="Select Column..." data-column-btn-theme="a" class="phone-compare ui-shadow table-stroke">
+				<table data-role="table" id="mcs_setup_checklist_p4_b2_mfi_table" data-mode="columntoggle" data-filter="false" data-column-btn-text="Select Column..." data-column-btn-theme="a" class="phone-compare ui-shadow table-stroke">
 					<thead>
 						<tr>
-							<th class="label">Model Creation Suite</th>
+							<th data-priority="1">Model Creation Suite</th>
 							<th data-priority="1"><h4>Final RB </br>Date</h4></th>
-							<th data-priority="2"><h4>Final RB </br>Initial</h4></th>
-							<th data-priority="3"><h4>RB</h4></th>
-							<th data-priority="4"><h4>RB </br>Date</h4></th>
-							<th data-priority="5"><h4>PB</h4></th>
-							<th data-priority="6"><h4>PB </br>Date</h4></th>
-							<th data-priority="7"><h4>MFI </br>Expl Ref</h4></th>
-							<th data-priority="8"><h4>MFI Template</br>/ Process Ref</h4></th>
-							<th data-priority="9"><h4>Source Model </br>MFI Ref</h4></th>
+							<th data-priority="1"><h4>Final RB </br>Initial</h4></th>
+							<th data-priority="1"><h4>RB</h4></th>
+							<th data-priority="1"><h4>RB </br>Date</h4></th>
+							<th data-priority="1"><h4>PB</h4></th>
+							<th data-priority="1"><h4>PB </br>Date</h4></th>
+							<th data-priority="1"><h4>MFI </br>Expl Ref</h4></th>
+							<th data-priority="1"><h4>MFI Template / Process Ref</h4></th>
+							<th data-priority="1"><h4>Source Model </br>MFI Ref</h4></th>
 							<th data-priority="10"><h4>Instruction Detail</h4></th>
-							<th data-priority="11"><h4>Budget </br>Hours</h4></th>
-							<th data-priority="12"><h4>Actual </br>Hours</h4></th>
-							<th data-priority="13"><h4>Review </br>Time</h4></th>
-							<th data-priority="14"><h4>Difference </h4></th>
+							<th data-priority="1"><h4>Budget </br>Hours</h4></th>
+							<th data-priority="1"><h4>Actual </br>Hours</h4></th>
+							<th data-priority="1"><h4>Review </br>Time</h4></th>
+							<th data-priority="1"><h4>Difference </h4></th>
 						</tr>
 					</thead>
 					<tbody id="mcs_setup_checklist_p4_b2_mfi_table_body">
@@ -4502,7 +4573,7 @@ under the License.
 						<a href="#mcs_setup_checklist_p1" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-grid ui-btn-b">Phase 1</a>
 						<a href="#mcs_setup_checklist_p2" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-grid ui-btn-b">Phase 2</a>
 						<a href="#mcs_setup_checklist_p3" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-grid ui-btn-b">Phase 3</a>
-						<a href="#mcs_setup_checklist_p4_b2_popupphase4" data-rel="popup" data-transition="slideup" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a">Phase 4</a>
+						<a href="#mcs_setup_checklist_p4_b2_popupphase4" data-rel="popup" data-transition="slideup" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a ui-btn-active">Phase 4</a>
 						<a href="#mcs_setup_checklist_p5" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-grid ui-btn-b">Phase 5</a>
 						<a href="#mcs_setup_checklist_p6" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-grid ui-btn-b">Phase 6</a>
 						<a href="#mcs_setup_checklist_p7" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-grid ui-btn-b">Phase 7</a>
@@ -4568,7 +4639,7 @@ under the License.
 				</ul>
 			</div><!-- /panel -->
 			<div data-role="header" data-position="fixed">
-				<a href="#mcs_setup_checklist_p5_lpanel" data-icon="arrow-r"></a>
+				<a href="#mcs_setup_checklist_p5_lpanel" data-icon="arrow-r" data-iconpos="notext">Menu</a>
 				<center>
 					<a href="#mcs_setup_checklist_p5_searchPopup" data-rel="popup" data-role="button">Model Creation Suite - Phase 5</a>
 				</center>
@@ -4788,24 +4859,24 @@ under the License.
 						</li>
 					</ul>
 				</div><!-- /Phase 4 Popup-->
-				<table data-role="table" id="mcs_setup_checklist_p5_mfi_table" data-mode="columntoggle" data-filter="true" data-column-btn-text="Select Column..." data-column-btn-theme="a" class="phone-compare ui-shadow table-stroke">
+				<table data-role="table" id="mcs_setup_checklist_p5_mfi_table" data-mode="columntoggle" data-filter="false" data-column-btn-text="Select Column..." data-column-btn-theme="a" class="phone-compare ui-shadow table-stroke">
 					<thead>
 						<tr>
-							<th class="label">Model Creation Suite</th>
+							<th data-priority="1">Model Creation Suite</th>
 							<th data-priority="1"><h4>Final RB </br>Date</h4></th>
-							<th data-priority="2"><h4>Final RB </br>Initial</h4></th>
-							<th data-priority="3"><h4>RB</h4></th>
-							<th data-priority="4"><h4>RB </br>Date</h4></th>
-							<th data-priority="5"><h4>PB</h4></th>
-							<th data-priority="6"><h4>PB </br>Date</h4></th>
-							<th data-priority="7"><h4>MFI </br>Expl Ref</h4></th>
-							<th data-priority="8"><h4>MFI Template</br>/ Process Ref</h4></th>
-							<th data-priority="9"><h4>Source Model </br>MFI Ref</h4></th>
+							<th data-priority="1"><h4>Final RB </br>Initial</h4></th>
+							<th data-priority="1"><h4>RB</h4></th>
+							<th data-priority="1"><h4>RB </br>Date</h4></th>
+							<th data-priority="1"><h4>PB</h4></th>
+							<th data-priority="1"><h4>PB </br>Date</h4></th>
+							<th data-priority="1"><h4>MFI </br>Expl Ref</h4></th>
+							<th data-priority="1"><h4>MFI Template / Process Ref</h4></th>
+							<th data-priority="1"><h4>Source Model </br>MFI Ref</h4></th>
 							<th data-priority="10"><h4>Instruction Detail</h4></th>
-							<th data-priority="11"><h4>Budget </br>Hours</h4></th>
-							<th data-priority="12"><h4>Actual </br>Hours</h4></th>
-							<th data-priority="13"><h4>Review </br>Time</h4></th>
-							<th data-priority="14"><h4>Difference </h4></th>
+							<th data-priority="1"><h4>Budget </br>Hours</h4></th>
+							<th data-priority="1"><h4>Actual </br>Hours</h4></th>
+							<th data-priority="1"><h4>Review </br>Time</h4></th>
+							<th data-priority="1"><h4>Difference </h4></th>
 						</tr>
 					</thead>
 					<tbody id="mcs_setup_checklist_p5_mfi_table_body">
@@ -4822,7 +4893,7 @@ under the License.
 						<a href="#mcs_setup_checklist_p2" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-grid ui-btn-b">Phase 2</a>
 						<a href="#mcs_setup_checklist_p3" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-grid ui-btn-b">Phase 3</a>
 						<a href="#mcs_setup_checklist_p5_popupphase4" data-rel="popup" data-transition="slideup" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a">Phase 4</a>
-						<a href="#mcs_setup_checklist_p5" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-grid ui-btn-b">Phase 5</a>
+						<a href="#mcs_setup_checklist_p5" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-grid ui-btn-b ui-btn-active">Phase 5</a>
 						<a href="#mcs_setup_checklist_p6" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-grid ui-btn-b">Phase 6</a>
 						<a href="#mcs_setup_checklist_p7" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-grid ui-btn-b">Phase 7</a>
 						<a href="#mcs_setup_checklist_p8" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-grid ui-btn-b">Phase 8</a>
@@ -4887,7 +4958,7 @@ under the License.
 				</ul>
 			</div><!-- /panel -->
 			<div data-role="header" data-position="fixed">
-				<a href="#mcs_setup_checklist_p6_lpanel" data-icon="arrow-r"></a>
+				<a href="#mcs_setup_checklist_p6_lpanel" data-icon="arrow-r" data-iconpos="notext">Menu</a>
 				<center>
 					<a href="#mcs_setup_checklist_p6_searchPopup" data-rel="popup" data-role="button">Model Creation Suite - Phase 6</a>
 				</center>
@@ -5107,24 +5178,24 @@ under the License.
 						</li>
 					</ul>
 				</div><!-- /Phase 4 Popup-->
-				<table data-role="table" id="mcs_setup_checklist_p6_mfi_table" data-mode="columntoggle" data-filter="true" data-column-btn-text="Select Column..." data-column-btn-theme="a" class="phone-compare ui-shadow table-stroke">
+				<table data-role="table" id="mcs_setup_checklist_p6_mfi_table" data-mode="columntoggle" data-filter="false" data-column-btn-text="Select Column..." data-column-btn-theme="a" class="phone-compare ui-shadow table-stroke">
 					<thead>
 						<tr>
-							<th class="label">Model Creation Suite</th>
+							<th data-priority="1">Model Creation Suite</th>
 							<th data-priority="1"><h4>Final RB </br>Date</h4></th>
-							<th data-priority="2"><h4>Final RB </br>Initial</h4></th>
-							<th data-priority="3"><h4>RB</h4></th>
-							<th data-priority="4"><h4>RB </br>Date</h4></th>
-							<th data-priority="5"><h4>PB</h4></th>
-							<th data-priority="6"><h4>PB </br>Date</h4></th>
-							<th data-priority="7"><h4>MFI </br>Expl Ref</h4></th>
-							<th data-priority="8"><h4>MFI Template</br>/ Process Ref</h4></th>
-							<th data-priority="9"><h4>Source Model </br>MFI Ref</h4></th>
+							<th data-priority="1"><h4>Final RB </br>Initial</h4></th>
+							<th data-priority="1"><h4>RB</h4></th>
+							<th data-priority="1"><h4>RB </br>Date</h4></th>
+							<th data-priority="1"><h4>PB</h4></th>
+							<th data-priority="1"><h4>PB </br>Date</h4></th>
+							<th data-priority="1"><h4>MFI </br>Expl Ref</h4></th>
+							<th data-priority="1"><h4>MFI Template / Process Ref</h4></th>
+							<th data-priority="1"><h4>Source Model </br>MFI Ref</h4></th>
 							<th data-priority="10"><h4>Instruction Detail</h4></th>
-							<th data-priority="11"><h4>Budget </br>Hours</h4></th>
-							<th data-priority="12"><h4>Actual </br>Hours</h4></th>
-							<th data-priority="13"><h4>Review </br>Time</h4></th>
-							<th data-priority="14"><h4>Difference </h4></th>
+							<th data-priority="1"><h4>Budget </br>Hours</h4></th>
+							<th data-priority="1"><h4>Actual </br>Hours</h4></th>
+							<th data-priority="1"><h4>Review </br>Time</h4></th>
+							<th data-priority="1"><h4>Difference </h4></th>
 						</tr>
 					</thead>
 					<tbody id="mcs_setup_checklist_p6_mfi_table_body">
@@ -5142,7 +5213,7 @@ under the License.
 						<a href="#mcs_setup_checklist_p3" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-grid ui-btn-b">Phase 3</a>
 						<a href="#mcs_setup_checklist_p6_popupphase4" data-rel="popup" data-transition="slideup" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a">Phase 4</a>
 						<a href="#mcs_setup_checklist_p5" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-grid ui-btn-b">Phase 5</a>
-						<a href="#mcs_setup_checklist_p6" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-grid ui-btn-b">Phase 6</a>
+						<a href="#mcs_setup_checklist_p6" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-grid ui-btn-b ui-btn-active">Phase 6</a>
 						<a href="#mcs_setup_checklist_p7" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-grid ui-btn-b">Phase 7</a>
 						<a href="#mcs_setup_checklist_p8" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-grid ui-btn-b">Phase 8</a>
 					</div>
@@ -5203,7 +5274,7 @@ under the License.
 				</ul>
 			</div><!-- /panel -->
 			<div data-role="header" data-position="fixed">
-				<a href="#mcs_setup_checklist_p7_lpanel" data-icon="arrow-r"></a>
+				<a href="#mcs_setup_checklist_p7_lpanel" data-icon="arrow-r" data-iconpos="notext">Menu</a>
 				<center>
 					<a href="#searchPopup" data-rel="popup" data-role="button">Model Creation Suite - Phase 7</a>
 				</center>
@@ -5423,24 +5494,24 @@ under the License.
 						</li>
 					</ul>
 				</div><!-- /Phase 4 Popup-->
-				<table data-role="table" id="mcs_setup_checklist_p7_mfi_table" data-mode="columntoggle" data-filter="true" data-column-btn-text="Select Column..." data-column-btn-theme="a" class="phone-compare ui-shadow table-stroke">
+				<table data-role="table" id="mcs_setup_checklist_p7_mfi_table" data-mode="columntoggle" data-filter="false" data-column-btn-text="Select Column..." data-column-btn-theme="a" class="phone-compare ui-shadow table-stroke">
 					<thead>
 						<tr>
-							<th class="label">Model Creation Suite</th>
+							<th data-priority="1">Model Creation Suite</th>
 							<th data-priority="1"><h4>Final RB </br>Date</h4></th>
-							<th data-priority="2"><h4>Final RB </br>Initial</h4></th>
-							<th data-priority="3"><h4>RB</h4></th>
-							<th data-priority="4"><h4>RB </br>Date</h4></th>
-							<th data-priority="5"><h4>PB</h4></th>
-							<th data-priority="6"><h4>PB </br>Date</h4></th>
-							<th data-priority="7"><h4>MFI </br>Expl Ref</h4></th>
-							<th data-priority="8"><h4>MFI Template</br>/ Process Ref</h4></th>
-							<th data-priority="9"><h4>Source Model </br>MFI Ref</h4></th>
+							<th data-priority="1"><h4>Final RB </br>Initial</h4></th>
+							<th data-priority="1"><h4>RB</h4></th>
+							<th data-priority="1"><h4>RB </br>Date</h4></th>
+							<th data-priority="1"><h4>PB</h4></th>
+							<th data-priority="1"><h4>PB </br>Date</h4></th>
+							<th data-priority="1"><h4>MFI </br>Expl Ref</h4></th>
+							<th data-priority="1"><h4>MFI Template / Process Ref</h4></th>
+							<th data-priority="1"><h4>Source Model </br>MFI Ref</h4></th>
 							<th data-priority="10"><h4>Instruction Detail</h4></th>
-							<th data-priority="11"><h4>Budget </br>Hours</h4></th>
-							<th data-priority="12"><h4>Actual </br>Hours</h4></th>
-							<th data-priority="13"><h4>Review </br>Time</h4></th>
-							<th data-priority="14"><h4>Difference </h4></th>
+							<th data-priority="1"><h4>Budget </br>Hours</h4></th>
+							<th data-priority="1"><h4>Actual </br>Hours</h4></th>
+							<th data-priority="1"><h4>Review </br>Time</h4></th>
+							<th data-priority="1"><h4>Difference </h4></th>
 						</tr>
 					</thead>
 					<tbody id="mcs_setup_checklist_p7_mfi_table_body">
@@ -5459,7 +5530,7 @@ under the License.
 						<a href="#mcs_setup_checklist_p7_popupphase4" data-rel="popup" data-transition="slideup" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a">Phase 4</a>
 						<a href="#mcs_setup_checklist_p5" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-grid ui-btn-b">Phase 5</a>
 						<a href="#mcs_setup_checklist_p6" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-grid ui-btn-b">Phase 6</a>
-						<a href="#mcs_setup_checklist_p7" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-grid ui-btn-b">Phase 7</a>
+						<a href="#mcs_setup_checklist_p7" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-grid ui-btn-b ui-btn-active">Phase 7</a>
 						<a href="#mcs_setup_checklist_p8" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-grid ui-btn-b">Phase 8</a>
 					</div>
 				</center>
@@ -5522,7 +5593,7 @@ under the License.
 				</ul>
 			</div><!-- /panel -->
 			<div data-role="header" data-position="fixed">
-				<a href="#mcs_setup_checklist_p8_lpanel" data-icon="arrow-r"></a>
+				<a href="#mcs_setup_checklist_p8_lpanel" data-icon="arrow-r" data-iconpos="notext">Menu</a>
 				<center>
 					<a href="#mcs_setup_checklist_p8_searchPopup" data-rel="popup" data-role="button">Model Creation Suite - Phase 8</a>
 				</center>
@@ -5782,24 +5853,24 @@ under the License.
 						</li>
 					</ul>
 				</div><!-- /panel -->
-				<table data-role="table" id="mcs_setup_checklist_p8_mfi_table" data-mode="columntoggle" data-filter="true" data-column-btn-text="Select Column..." data-column-btn-theme="a" class="phone-compare ui-shadow table-stroke">
+				<table data-role="table" id="mcs_setup_checklist_p8_mfi_table" data-mode="columntoggle" data-filter="false" data-column-btn-text="Select Column..." data-column-btn-theme="a" class="phone-compare ui-shadow table-stroke">
 					<thead>
 						<tr>
-							<th class="label">Model Creation Suite</th>
+							<th data-priority="1">Model Creation Suite</th>
 							<th data-priority="1"><h4>Final RB </br>Date</h4></th>
-							<th data-priority="2"><h4>Final RB </br>Initial</h4></th>
-							<th data-priority="3"><h4>RB</h4></th>
-							<th data-priority="4"><h4>RB </br>Date</h4></th>
-							<th data-priority="5"><h4>PB</h4></th>
-							<th data-priority="6"><h4>PB </br>Date</h4></th>
-							<th data-priority="7"><h4>MFI </br>Expl Ref</h4></th>
-							<th data-priority="8"><h4>MFI Template</br>/ Process Ref</h4></th>
-							<th data-priority="9"><h4>Source Model </br>MFI Ref</h4></th>
+							<th data-priority="1"><h4>Final RB </br>Initial</h4></th>
+							<th data-priority="1"><h4>RB</h4></th>
+							<th data-priority="1"><h4>RB </br>Date</h4></th>
+							<th data-priority="1"><h4>PB</h4></th>
+							<th data-priority="1"><h4>PB </br>Date</h4></th>
+							<th data-priority="1"><h4>MFI </br>Expl Ref</h4></th>
+							<th data-priority="1"><h4>MFI Template / Process Ref</h4></th>
+							<th data-priority="1"><h4>Source Model </br>MFI Ref</h4></th>
 							<th data-priority="10"><h4>Instruction Detail</h4></th>
-							<th data-priority="11"><h4>Budget </br>Hours</h4></th>
-							<th data-priority="12"><h4>Actual </br>Hours</h4></th>
-							<th data-priority="13"><h4>Review </br>Time</h4></th>
-							<th data-priority="14"><h4>Difference </h4></th>
+							<th data-priority="1"><h4>Budget </br>Hours</h4></th>
+							<th data-priority="1"><h4>Actual </br>Hours</h4></th>
+							<th data-priority="1"><h4>Review </br>Time</h4></th>
+							<th data-priority="1"><h4>Difference </h4></th>
 						</tr>
 					</thead>
 					<tbody id="mcs_setup_checklist_p8_mfi_table_body">
@@ -5819,7 +5890,7 @@ under the License.
 						<a href="#mcs_setup_checklist_p5" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-grid ui-btn-b">Phase 5</a>
 						<a href="#mcs_setup_checklist_p6" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-grid ui-btn-b">Phase 6</a>
 						<a href="#mcs_setup_checklist_p7" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-grid ui-btn-b">Phase 7</a>
-						<a href="#mcs_setup_checklist_p8" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-grid ui-btn-b">Phase 8</a>
+						<a href="#mcs_setup_checklist_p8" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-grid ui-btn-b ui-btn-active">Phase 8</a>
 					</div>
 				</center>
 			</div>
@@ -5881,7 +5952,7 @@ under the License.
 				</ul>
 			</div><!-- /panel -->
 			<div data-role="header" id="open_points_action_items_header">
-				<a href="#mcs_creator_table_of_contents_lpanel" data-icon="arrow-r"></a>
+				<a href="#mcs_creator_table_of_contents_lpanel" data-icon="arrow-r" data-iconpos="notext">Menu</a>
 				<div id"open_points_action_items_header_headerRecord_center" style="text-align: center">
 					<div id="open_points_action_items_header_headerRecord_center_legalentity">
 						Legal Entity: Cindt, LLC
@@ -5943,7 +6014,7 @@ under the License.
 					</form>
 				</div>
 				<!-- End Open Items Popup -->
-				<div data-role="popup" id="mcs_open_points_action_items_resolution_popup" data-position-to="window" data-theme="b">
+				<div data-role="popup" id="mcs_open_points_action_items_resolution_popup" data-position-to="window" data-overlay-theme="b" data-theme="b">
 					<div data-role="header" data-theme="a">
 						<h1>Resolutions</h1>
 					</div>
@@ -5953,7 +6024,7 @@ under the License.
 						</ul>
 					</div>
 				</div>
-				<div data-role="popup" id="mcs_open_points_action_items_submitresolution_popup" data-position-to="window" data-theme="b">
+				<div data-role="popup" id="mcs_open_points_action_items_submitresolution_popup" data-position-to="window" data-overlay-theme="b" data-theme="b">
 					<div data-role="header" data-theme="a">
 						<h1>Resolutions</h1>
 					</div>
@@ -5961,22 +6032,33 @@ under the License.
 						<form id="open_points_action_items_submitResolution_form" name="open_items_form">
 							<ul data-role="listview" data-inset="true" style="min-width:210px;">
 								<li>
-									<input type="text" id="open_points_action_items_submitResolution_form_githuturl" name="submitreviewpoint_formref" value="" placeholder="Past the GitHub URL Here">
+									<input type="text" id="open_points_action_items_submitResolution_form_githuturl" name="submitreviewpoint_formref" value="" placeholder="Paste the GitHub URL Here">
 								</li>
 								<li>
 									<textarea data-mini="true" cols="40" rows="8" id="open_points_action_items_submitResolution_form_disposition" placeholder="Give a summary of what you did to address this resolution..."></textarea>
 								</li>
 								<li>
-									<input type="button" data-enhanced="true" value="Submit" onclick="submitResolution('open_points_action_items_');">
+									<input type="button" data-enhanced="true" value="Submit" onclick="submitResolution();">
 								</li>
 							</ul>
 						</form>
 					</div>
 				</div>
+				<div data-role="popup" id="mcs_open_points_action_items_closeitem_popup" data-position-to="window" data-overlay-theme="b" data-theme="b">
+					<div data-role="header" data-theme="a">
+						<h1>Confirm Action</h1>
+					</div>
+					<div role="main" class="ui-content">
+						<a href="#" data-rel="back" class="ui-btn ui-corner-all ui-shadow ui-btn-a ui-icon-delete ui-btn-icon-notext ui-btn-right">Close</a>
+						<h3>Are you sure you want to mark this item as closed?</h3>
+						<center><input type="button" data-enhanced="true" value="Yes" onclick="closeOpenItem();"></center>
+						<center><p>Only an administrator can undo this action.</p></center>
+					</div>
+				</div>
 				<table data-role="table" id="mcs_open_points_action_items_table" data-mode="columntoggle" data-filter="false" data-column-btn-text="Select Column..." data-column-btn-theme="a" class="ui-shadow table-stroke">
 					<thead id="mcs_open_points_action_items_table_header">
 						<tr>
-							<th data-priority="1">Open Points / Action Items</th>
+							<th data-priority="1">Line Number</th>
 							<th data-priority="1"><h4>Form Ref</h4></th>
 							<th data-priority="2"><h4>Priority</h4></th>
 							<th data-priority="10"><h4>Opened By</h4></th>
@@ -5994,7 +6076,7 @@ under the License.
 					<tbody id="mcs_open_points_action_items_table_body">
 					</tbody>
 				</table>
-				<button class="ui-btn ui-shadow ui-corner-all ui-btn-icon-left ui-icon-refresh" onclick="refreshOpenItemsList()">Refresh</button>
+				<button class="ui-btn ui-shadow ui-corner-all ui-btn-icon-left ui-icon-refresh" onclick="refreshOpenItemsList()">Refresh Open Items List</button>
 			</div>
 			<div data-role="footer">
 			</div>
