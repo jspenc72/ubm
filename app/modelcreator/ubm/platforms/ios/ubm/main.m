@@ -21,7 +21,7 @@
 //  ubm
 //
 //  Created by ___FULLUSERNAME___ on ___DATE___.
-//  Copyright ___ORGANIZATIONNAME___ ___YEAR___. All rights reserved.
+//  Copyright ___ORGANIZATIONNAME___ ___YEAR___. All rights reserved.r
 //
 
 #import <UIKit/UIKit.h>
