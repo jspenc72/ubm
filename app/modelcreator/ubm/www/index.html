@@ -224,6 +224,7 @@ under the License.
 					$("#mcs_open_points_action_items_table").trigger("create");
 				});
 <<<<<<< HEAD
+<<<<<<< HEAD
 			}
 <<<<<<< HEAD
 			function addItemComment(id){
@@ -231,6 +232,10 @@ under the License.
 				$("#mcs_open_points_action_items_submitcomment_popup").popup('open');
 			}
 =======
+
+>>>>>>> de3eb3acfe3483f84d1d91c851052a930e22a068
+=======
+			}
 
 >>>>>>> de3eb3acfe3483f84d1d91c851052a930e22a068
 =======
@@ -1409,12 +1414,15 @@ under the License.
 				<!-- End Open Items Popup -->
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 				<center><img src="img/03 UBM Flowchart.png" width="60" style="position:center; width:25%; height:auto;"></center>
 				<center><a href="#ubmsuite_SelectBusinessModel_popup" data-rel="popup" data-role="button" data-inline="true" >Select an Existing Business Model and Continue to The Model Creation Suite</a></center>
 				<center><p>or</p></center>
 				<center><a href="#" data-role="button" data-inline="true" >Create a New Model</a></center>
 				
 =======
+=======
+>>>>>>> de3eb3acfe3483f84d1d91c851052a930e22a068
 =======
 >>>>>>> de3eb3acfe3483f84d1d91c851052a930e22a068
 				<center><img src="img/03 UBM Flowchart.png" width="60" style="position:center; width:25%; height:auto;">
@@ -1432,6 +1440,9 @@ under the License.
 				</center>
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+>>>>>>> de3eb3acfe3483f84d1d91c851052a930e22a068
+=======
 >>>>>>> de3eb3acfe3483f84d1d91c851052a930e22a068
 =======
 >>>>>>> de3eb3acfe3483f84d1d91c851052a930e22a068
@@ -3827,7 +3838,54 @@ under the License.
 				<!-- Read Phase Two User Guide Popup -->
 				<div data-role="popup" id="mcs_setup_checklist_p2_userGuide_popup" data-theme="b">
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+					<form id="mcs_setup_checklist_p2_open_items_form" name="open_items_form">
+						<ul data-role="listview" data-inset="true" style="min-width:210px;">
+							<li data-role="list-divider">
+								Write a Review Point</br>or Open Item
+							</li>
+							<li>
+								<input type="text" id="mcs_setup_checklist_p2_submitreviewpoint_formref" name="submitreviewpoint_formref" value="" placeholder="Form Ref...">
+							</li>
+							<select  id="mcs_setup_checklist_p2_submitreviewpoint_priority" value="Select" data-native-menu="false">
+								<option>Priority...</option>
+								<option value="A1">A1</option>
+								<option value="A2">A2</option>
+								<option value="A3">A3</option>
+								<option value="B1">B1</option>
+								<option value="B2">B2</option>
+								<option value="B3">B3</option>
+								<option value="C1">C1</option>
+								<option value="C2">C2</option>
+								<option value="C3">C3</option>
+							</select>
+							</li>
+							<li>
+								<textarea data-mini="true" cols="40" rows="8" id="mcs_setup_checklist_p2_submitreviewpoint_actionrequired" placeholder="Action Required..."></textarea>
+							</li>
+							<li>
+								<select  id="mcs_setup_checklist_p2_submitreviewpoint_assignedto" value="Select" data-native-menu="false">
+									<option>Assigned To...</option>
+									<option value="Jesse Spencer">Jesse Spencer</option>
+									<option value="Adam Gustafson">Adam Gustafson</option>
+								</select>
+							</li>
+							<li>
+								<label for="datetime-4">Due Datetime</label>
+								<input type="datetime-local" data-clear-btn="true"  id="mcs_setup_checklist_p2_submitreviewpoint_duedatetime" value="" placeholder="Due Datetime...">
+							</li>
+							<li>
+								<input type="button" data-enhanced="true" value="Submit Review Point" onclick="submitReviewPoint('mcs_setup_checklist_p2_');">
+							</li>
+						</ul>
+					</form>
+				</div>
+				<!-- End Read Phase Two User Guide Popup -->
+				<!-- Open Items Popup -->
+				<div data-role="popup" id="mcs_setup_checklist_p2_openItem_popup" data-theme="b">
+>>>>>>> de3eb3acfe3483f84d1d91c851052a930e22a068
 					<form id="mcs_setup_checklist_p2_open_items_form" name="open_items_form">
 						<ul data-role="listview" data-inset="true" style="min-width:210px;">
 							<li data-role="list-divider">
@@ -4602,6 +4660,53 @@ under the License.
 				<!-- Read Phase Four Book 1 User Guide Popup -->
 				<div data-role="popup" id="mcs_setup_checklist_p4_b1_userGuide_popup" data-theme="b">
 <<<<<<< HEAD
+<<<<<<< HEAD
+					<form id="mcs_setup_checklist_p4_b1_open_items_form" name="open_items_form">
+						<ul data-role="listview" data-inset="true" style="min-width:210px;">
+							<li data-role="list-divider">
+								Write a Review Point</br>or Open Item
+							</li>
+							<li>
+								<input type="text" id="mcs_setup_checklist_p4_b1_submitreviewpoint_formref" name="submitreviewpoint_formref" value="" placeholder="Form Ref...">
+							</li>
+							<select  id="mcs_setup_checklist_p4_b1_submitreviewpoint_priority" value="Select" data-native-menu="false">
+								<option>Priority...</option>
+								<option value="A1">A1</option>
+								<option value="A2">A2</option>
+								<option value="A3">A3</option>
+								<option value="B1">B1</option>
+								<option value="B2">B2</option>
+								<option value="B3">B3</option>
+								<option value="C1">C1</option>
+								<option value="C2">C2</option>
+								<option value="C3">C3</option>
+							</select>
+							</li>
+							<li>
+								<textarea data-mini="true" cols="40" rows="8" id="mcs_setup_checklist_p4_b1_submitreviewpoint_actionrequired" placeholder="Action Required..."></textarea>
+							</li>
+							<li>
+								<select  id="mcs_setup_checklist_p4_b1_submitreviewpoint_assignedto" value="Select" data-native-menu="false">
+									<option>Assigned To...</option>
+									<option value="Jesse Spencer">Jesse Spencer</option>
+									<option value="Adam Gustafson">Adam Gustafson</option>
+								</select>
+							</li>
+							<li>
+								<label for="datetime-4">Due Datetime</label>
+								<input type="datetime-local" data-clear-btn="true"  id="mcs_setup_checklist_p4_b1_submitreviewpoint_duedatetime" value="" placeholder="Due Datetime...">
+							</li>
+							<li>
+								<input type="button" data-enhanced="true" value="Submit Review Point" onclick="submitReviewPoint('mcs_setup_checklist_p4_b1_');">
+							</li>
+						</ul>
+					</form>
+				</div>
+				<!-- End Read Phase Four Book 1 User Guide Popup  -->
+				<!-- Open Items Popup -->
+				<div data-role="popup" id="mcs_setup_checklist_p4_b1_openItem_popup" data-theme="b">
+=======
+>>>>>>> de3eb3acfe3483f84d1d91c851052a930e22a068
 					<form id="mcs_setup_checklist_p4_b1_open_items_form" name="open_items_form">
 						<ul data-role="listview" data-inset="true" style="min-width:210px;">
 							<li data-role="list-divider">
