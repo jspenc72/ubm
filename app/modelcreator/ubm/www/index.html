@@ -223,25 +223,13 @@ under the License.
 					})
 					$("#mcs_open_points_action_items_table").trigger("create");
 				});
-<<<<<<< HEAD
-<<<<<<< HEAD
+
 			}
-<<<<<<< HEAD
 			function addItemComment(id){
 				window.openitemid = id;
 				$("#mcs_open_points_action_items_submitcomment_popup").popup('open');
 			}
-=======
 
->>>>>>> de3eb3acfe3483f84d1d91c851052a930e22a068
-=======
-			}
-
->>>>>>> de3eb3acfe3483f84d1d91c851052a930e22a068
-=======
-			}
-
->>>>>>> de3eb3acfe3483f84d1d91c851052a930e22a068
 			function addResolutions(id) {
 				window.openitemid = id;
 				$("#mcs_open_points_action_items_submitresolution_popup").popup('open');
@@ -249,11 +237,11 @@ under the License.
 				//submitResolution();
 			}
 			function submitComment(){
-				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_openitem_createresolutions1.php?callback=?', {//JSONP Request to Open Items Page setup tables
+				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_openitem_createcomment.php?callback=?', {//JSONP Request to Open Items Page setup tables
 					openitemid : window.openitemid,
-					username : window.username,
-					disposition : document.getElementById("open_points_action_items_submitResolution_form_disposition").value,
-					githuburl : document.getElementById("open_points_action_items_submitResolution_form_githuturl").value
+					author : window.username,
+					comment : document.getElementById("open_points_action_items_submitComment_form_comment").value,
+					type : document.getElementById("open_points_action_items_submitResolution_form_githuturl").value
 				}, function(res, status) {
 					alert("json returned successfully! " + status);
 				});
@@ -10716,7 +10704,16 @@ under the License.
 						<form id="open_points_action_items_submitComment_form" name="open_items_form">
 							<ul data-role="listview" data-inset="true" style="min-width:210px;">
 								<li>
-									<textarea data-mini="true" cols="40" rows="8" id="open_points_action_items_submitComment_form_disposition" placeholder="Type your comment here..."></textarea>
+									<textarea data-mini="true" cols="40" rows="8" id="open_points_action_items_submitComment_form_comment" placeholder="Type your comment here..."></textarea>
+								</li>
+								<li>
+									<select  id="open_points_action_items_submitComment_form_type" value="Select" data-native-menu="false">
+										<option>Comment Type...</option>
+										<option value="Urgent Request">Urgent Request</option>
+										<option value="General Request">General Comment</option>
+										<option value="Suggestion">Suggestion</option>
+										<option value="Request to Close Item">Request to Close Item</option>
+									</select>
 								</li>
 								<li>
 									<input type="button" data-enhanced="true" value="Submit" onclick="submitComment();">
