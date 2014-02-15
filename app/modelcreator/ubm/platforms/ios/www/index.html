@@ -342,11 +342,6 @@ under the License.
 				}, 1500);
 			}
 			function viewResolutions(id) {
-				//alert("Although this functionality is not yet available, Clicking this will soon show any resolutions that have been added for item "+ id);
-				//				$('#mcs_open_points_action_items_resolution_popup_ul').empty();
-				//				$('#mcs_open_points_action_items_resolution_popup_ul').append("<li><a href='#'>New Resolution: "+ id +"</a></li>");
-				//				$('#mcs_open_points_action_items_resolution_popup_ul').listview("refresh");
-
 				$.getJSON('http://www.findmydriver.com/ubmselectallresolutions.php?callback=?', {//JSONP Request to Open Items Page setup tables
 					openitemid : id,
 					username : window.username
@@ -357,7 +352,6 @@ under the License.
 						//alert(item.disposition);
 						$('#mcs_open_points_action_items_resolution_popup_ul').append("<li><a href='#' data-rel='popup' data-position-to='window' data-transition='pop'><h1>" + item.closed_by + "</h1><p style='white-space:normal;'>" + item.disposition + "</p></a></li>");
 						$('#mcs_open_points_action_items_resolution_popup_ul').append("<li data-role='list-divider' >" + item.githuburl + "</p></li>");
-
 						//$('#mcs_open_points_action_items_resolution_popup_ul').append("<div style='height:200px; width:200px; text-wrap: normal;'>New Resolution: " + item.disposition + "</div>");
 						$('#mcs_open_points_action_items_resolution_popup_ul').listview("refresh");
 					})
@@ -838,13 +832,11 @@ under the License.
 						username : reg_username,
 					}, function(res, status) {
 						alert(res.message);
-
-						//Start Showing Loading Message
+							if(status="SUCCESS"){
+							}
 						$.mobile.loading("hide");
 						//Hide Loading Message
-
-						window.location = "#home"
-						//				    alert(status);
+						window.location = "#ubmsuite_SelectBusinessModel"		//Need to modify server side to check if username already exists, if so send a callback to notify the user, Only allow change window location if the user account was created successfully.
 					});
 				} else {
 					alert("The passwords you entered do not match!");
@@ -877,7 +869,7 @@ under the License.
 							if (res.validation == 'TRUE') {
 								$('#result').empty().append('<center><p>' + res.message + res.validation + '</p></center>');
 								$('#result').empty();
-								window.location = "#gettingStarted"
+								window.location = "#ubmsuite_SelectBusinessModel"
 								window.accounttype = res.accounttype;
 							} else {
 								$('#result').empty().append('<center><p>No account exists with that username or password. Click Register to create your free account</p></center>');
@@ -912,7 +904,9 @@ under the License.
 				//		alert("user Sign in Clicked");
 				//	$.mobile.changePage( "#home", { transition: "fade", changeHash: false, reloadPage: true });
 			}
-
+			function userSignOut(){
+				window.username=0;
+			}
 			$(function() {
 				$(".circleBase").draggable();
 			});
@@ -941,7 +935,6 @@ under the License.
 				alert("Check Connection Called");
 				var networkState = navigator.connection.type;
 				alert("After Network STate");
-
 				var states = {};
 				states[Connection.UNKNOWN] = 'Unknown connection';
 				states[Connection.ETHERNET] = 'Ethernet connection';
@@ -951,21 +944,16 @@ under the License.
 				states[Connection.CELL_4G] = 'Cell 4G connection';
 				states[Connection.CELL] = 'Cell generic connection';
 				states[Connection.NONE] = 'No network connection';
-
 				alert('Connection type: ' + states[networkState]);
 			}
-
 			function getPosition() {
 				var onSuccess = function(position) {
 					alert('Latitude: ' + position.coords.latitude + '\n' + 'Longitude: ' + position.coords.longitude + '\n' + 'Altitude: ' + position.coords.altitude + '\n' + 'Accuracy: ' + position.coords.accuracy + '\n' + 'Altitude Accuracy: ' + position.coords.altitudeAccuracy + '\n' + 'Heading: ' + position.coords.heading + '\n' + 'Speed: ' + position.coords.speed + '\n' + 'Timestamp: ' + position.timestamp + '\n');
 				};
 				// onError Callback receives a PositionError object
-				//
 				function onError(error) {
 					alert('code: ' + error.code + '\n' + 'message: ' + error.message + '\n');
 				}
-
-
 				navigator.geolocation.getCurrentPosition(onSuccess, onError);
 			}
         </script>
@@ -1249,6 +1237,405 @@ under the License.
 
             </div>
         </div>
+        <div data-role="page" class="ubm_page" id="ubmsuite_SelectBusinessModel">  <!-- Select Business Model -->
+            <div data-role="panel" id="ubmsuite_table_of_contents_lpanel" data-display="overlay" data-position="left">
+                <ul data-role="listview">
+                    <li>
+                        <a href="#gettingStarted">Getting Started</a>
+                    </li>
+                    <li>
+                        <a href="#identification_setup">Identification Setup</a>
+                    </li>
+                    <li>
+                        <a href="#ubmsuite_table_of_contents">UBM Suite Table of Contents</a>
+                    </li>
+                    <li>
+                        <a href="#creator_table_of_contents">Model Creator Table of Contents</a>
+                    </li>
+                    <li>
+                        <a href="#ubmsuite_table_of_contents">UBM Suite Table of Contents</a>
+                    </li>
+                    <li>
+                        <a href="#mcs_setup_checklist_setup">MCS Setup</a>
+                    </li>
+                    <li>
+                        <a href="#management_reporting">Management Reporting</a>
+                    </li>
+                    <li>
+                        <a href="#mcs_setup_checklist_CS">Control Section</a>
+                    </li>
+                    <li>
+                        <a href="#mcs_setup_checklist_p1">Phase 1</a>
+                    </li>
+                    <li>
+                        <a href="#mcs_setup_checklist_p2">Phase 2</a>
+                    </li>
+                    <li>
+                        <a href="#mcs_setup_checklist_p3">Phase 3</a>
+                    </li>
+                    <li>
+                        <a href="#mcs_setup_checklist_p4">Phase 4</a>
+                    </li>
+                    <li>
+                        <a href="#mcs_setup_checklist_p5">Phase 5</a>
+                    </li>
+                    <li>
+                        <a href="#mcs_setup_checklist_p6">Phase 6</a>
+                    </li>
+                    <li>
+                        <a href="#mcs_setup_checklist_p7">Phase 7</a>
+                    </li>
+                    <li>
+                        <a href="#mcs_setup_checklist_p8">Phase 8</a>
+                    </li>
+                    <li>
+                        <a href="#open_points_action_items">Open Points Action Items</a>
+                    </li>
+                    <li data-icon="delete">
+                        <a href="#" data-rel="close">Close menu</a>
+                    </li>
+                    <li data-icon="delete">
+                        <a href="#sign_in_sign_up">Sign Out</a>
+                    </li>
+                </ul>
+            </div><!-- /panel -->
+            <div data-role="header">
+                <a href="#ubmsuite_table_of_contents_lpanel" data-icon="arrow-r" data-iconpos="notext">Menu</a>
+                <div id"ubmsuite_table_of_contents_header_headerRecord_center" style="text-align: center">
+                    <div id="creator_table_of_contents_header_headerRecord_center_legalentity">
+                        Legal Entity: Cindt, LLC
+                    </div>
+                    <div id="creator_table_of_contents_header_headerRecord_center_systemtitle">
+                        System Title: UBM v 3.3.0
+                    </div>
+                    <div id="creator_table_of_contents_header_headerRecord_center_modelapptitle">
+                        Model / App Title: Universal Business Model Suite - Automated Prototype
+                    </div>
+                    <div id="creator_table_of_contents_header_headerRecord_center_pagetitle">
+                        My Models Page
+                    </div>
+                </div>
+                <a href="#" data-icon="refresh" data-iconpos="notext" onclick="getMyModels()">Refresh</a>
+            </div>
+            <div data-role="content">
+                <!-- Create Model Popup -->
+                <div data-role="popup" id="ubmsuite_createModel_popup" data-theme="b" data-position-to="window" data-dismissible="false">
+                    <div data-role="header" data-theme="a">
+                        <h1>Create a Model</h1>
+                    </div>
+                    <form id="ubmsuite_createModel_popup_newModel_form">
+                        <input type="text" name="textinput-6" id="ubmsuite_createModel_popup_newModel_form_reference" placeholder="Reference" value="" data-mini="true">
+                        <input type="text" name="textinput-6" id="ubmsuite_createModel_popup_newModel_form_title" placeholder="Title" value="" data-mini="true">
+                        <input type="text" name="textinput-6" id="ubmsuite_createModel_popup_newModel_form_description" placeholder="Description..." value="" data-mini="true">
+                        &nbsp;&nbsp; <a href="#" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b" data-transition="flow" onclick="createModel()">Create Model!</a>
+                        <a href="#" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b" data-rel="back" data-transition="flow">Cancel </a> &nbsp;&nbsp;
+                    </form>
+                </div>
+                <!-- End Create Model Popup -->
+                <!-- Open Items Popup -->
+                <div data-role="popup" id="ubmsuite_table_of_contents_openItem_popup" data-theme="b">
+                    <form id="ubmsuite_table_of_contents_open_items_form" name="open_items_form">
+                        <ul data-role="listview" data-inset="true" style="min-width:210px;">
+                            <li data-role="list-divider">
+                                Write a Review Point</br>or Open Item
+                            </li>
+                            <li>
+                                <input type="text" id="ubmsuite_table_of_contents_submitreviewpoint_formref" name="submitreviewpoint_formref" value="" placeholder="Form Ref...">
+                            </li>
+                            <li>
+                                <select  id="ubmsuite_table_of_contents_submitreviewpoint_priority" value="Select" data-native-menu="false">
+                                    <option>Priority...</option>
+                                    <option value="A1">A1</option>
+                                    <option value="A2">A2</option>
+                                    <option value="A3">A3</option>
+                                    <option value="B1">B1</option>
+                                    <option value="B2">B2</option>
+                                    <option value="B3">B3</option>
+                                    <option value="C1">C1</option>
+                                    <option value="C2">C2</option>
+                                    <option value="C3">C3</option>
+                                </select>
+                            </li>
+                            <li>
+                                <textarea data-mini="true" cols="40" rows="8" id="ubmsuite_table_of_contents_submitreviewpoint_actionrequired" placeholder="Action Required..."></textarea>
+                            </li>
+                            <li>
+                                <select  id="ubmsuite_table_of_contents_submitreviewpoint_assignedto" value="Select" data-native-menu="false">
+                                    <option>Assigned To...</option>
+                                    <option value="Jesse Spencer">Jesse Spencer</option>
+                                    <option value="Adam Gustafson">Adam Gustafson</option>
+                                </select>
+                            </li>
+                            <li>
+                                <label for="datetime-4">Due Datetime</label>
+                                <input type="datetime-local" data-clear-btn="true"  id="ubmsuite_table_of_contents_submitreviewpoint_duedatetime" value="" placeholder="Due Datetime...">
+                            </li>
+                            <li>
+                                <input type="button" data-enhanced="true" value="Submit Review Point" onclick="submitReviewPoint('ubmsuite_table_of_contents_');">
+                            </li>
+                        </ul>
+                    </form>
+                </div>
+                <!-- End Open Items Popup -->
+                <center><img src="img/03 UBM Flowchart.png" width="60" style="position:center; width:25%; height:auto;">
+                </center>
+                <center>
+                    <a href="#ubmsuite_createModel_popup" data-rel="popup" data-role="button" data-inline="true"  >Create New Model</a>
+                </center>
+                </br>
+                <ul data-role='listview' data-inset='true' id='ubmsuite_SelectBusinessModel_MyModels_ul'>
+                    <!-- <li data-role='list-divider'>creator_id</li><li><a href='index.html'><h2>Model Title</h2><p><strong>Reference: </strong></p><p>Description: </p><p class='ui-li-aside'><strong>Creation Date: </strong></p></a></li>-->
+                </ul>
+                <ul data-role='listview' data-inset='true' id='ubmsuite_SelectBusinessModel_SharedModels_ul' data-theme="b">
+
+                </ul>
+            </div>
+            <div data-role="footer" data-position="fixed" data-fullscreen="true"></div>
+        </div>
+        <div data-role="page" class="ubm_page" id="ubmsuite_EditMyBusinessModel" data-theme="a">
+        	<!-- No Panel on this page, instead only back button is needed.-->
+            <div data-role="header">
+                <a href="#" class="back_btn" data-icon="arrow-l" data-iconpos="notext">Back</a>
+                <div id"ubmsuite_EditMyBusinessModel_header_headerRecord_center" style="text-align: center">
+                    <div id="ubmsuite_EditMyBusinessModel_header_headerRecord_center_legalentity">
+                        Legal Entity: Cindt, LLC
+                    </div>
+                    <div id="ubmsuite_EditMyBusinessModel_header_headerRecord_center_systemtitle">
+                        System Title: UBM v 3.3.0
+                    </div>
+                    <div id="ubmsuite_EditMyBusinessModel_header_headerRecord_center_modelapptitle">
+                        Model / App Title: Universal Business Model Suite - Automated Prototype
+                    </div>
+                    <div id="ubmsuite_EditMyBusinessModel_header_headerRecord_center_pagetitle">
+                        Edit Model
+                    </div>
+                </div>
+            </div>
+            <div data-role="content" class="my-page">
+                <!-- Open Items Popup -->
+                <div data-role="popup" id="ubmsuite_EditMyBusinessModel_openItem_popup" data-theme="b">
+                    <form id="ubmsuite_EditMyBusinessModel_open_items_form" name="open_items_form">
+                        <ul data-role="listview" data-inset="true" style="min-width:210px;">
+                            <li data-role="list-divider">
+                                Write a Review Point</br>or Open Item
+                            </li>
+                            <li>
+                                <input type="text" id="ubmsuite_EditMyBusinessModel_submitreviewpoint_formref" name="submitreviewpoint_formref" value="" placeholder="Form Ref...">
+                            </li>
+                            <li>
+                                <select  id="ubmsuite_EditMyBusinessModel_submitreviewpoint_priority" value="Select" data-native-menu="false">
+                                    <option>Priority...</option>
+                                    <option value="A1">A1</option>
+                                    <option value="A2">A2</option>
+                                    <option value="A3">A3</option>
+                                    <option value="B1">B1</option>
+                                    <option value="B2">B2</option>
+                                    <option value="B3">B3</option>
+                                    <option value="C1">C1</option>
+                                    <option value="C2">C2</option>
+                                    <option value="C3">C3</option>
+                                </select>
+                            </li>
+                            <li>
+                                <textarea data-mini="true" cols="40" rows="8" id="ubmsuite_EditMyBusinessModel_submitreviewpoint_actionrequired" placeholder="Action Required..."></textarea>
+                            </li>
+                            <li>
+                                <select  id="ubmsuite_EditMyBusinessModel_submitreviewpoint_assignedto" value="Select" data-native-menu="false">
+                                    <option>Assigned To...</option>
+                                    <option value="Jesse Spencer">Jesse Spencer</option>
+                                    <option value="Adam Gustafson">Adam Gustafson</option>
+                                </select>
+                            </li>
+                            <li>
+                                <label for="datetime-4">Due Datetime</label>
+                                <input type="datetime-local" data-clear-btn="true"  id="ubmsuite_EditMyBusinessModel_submitreviewpoint_duedatetime" value="" placeholder="Due Datetime...">
+                            </li>
+                            <li>
+                                <input type="button" data-enhanced="true" value="Submit Review Point" onclick="submitReviewPoint('ubmsuite_EditMyBusinessModel_');">
+                            </li>
+                        </ul>
+                    </form>
+                </div>
+                <!-- End Open Items Popup -->
+                <ul data-role="listview" data-inset="true">
+                    <li>
+                        <a href="#"> <img src="img/apple.png" class="ui-li-thumb"> <h2>Master File Index</h2>
+	                        <p>Setting up your model.</p>
+	                        <p class="ui-li-aside">MFI</p>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#"> <img src="img/apple.png" class="ui-li-thumb"> <h2>Process Management</h2>
+                        <p>
+                            Forms </br> Packets
+                        </p>
+                        <p class="ui-li-aside">
+                            PM
+                        </p> </a>
+                    </li>
+                    <li>
+                        <a href="#"> <img src="img/lumia_800.png" class="ui-li-thumb"> <h2>Alternatives</h2>
+                        <p>
+							<strong>Possible</strong> and <strong>Selected</strong> </br>	
+                           ROI, Risk Analysis, Projected Financial Statement
+                        </p>
+                        <p class="ui-li-aside">
+                            A
+                        </p> </a>
+                    </li>
+                    <li>
+                        <a href="#ubmsuite_modelSettings"> <img src="img/galaxy_express.png" class="ui-li-thumb"> <h2>Model Creation Suite</h2>
+                        <p>
+                            Create your model.
+                        </p>
+                        <p class="ui-li-aside">
+                            MCS
+                        </p> </a>
+                    </li>
+                    <li>
+                        <a href="#ubmsuite_modelSettings"> <img src="img/galaxy_express.png" class="ui-li-thumb"> <h2>Reference Manual</h2>
+                        <p>
+                            Your portal to understanding all things UBM.
+                        </p>
+                        <p class="ui-li-aside">
+                            RM
+                        </p> </a>
+                    </li>
+                    <li>
+                        <a href="#ubmsuite_modelSettings"> <img src="img/apple.png" class="ui-li-thumb"> <h2>Model Settings</h2>
+                        <p>
+                            Modify user access, Edit Model Properties, etc...
+                        </p>
+                        <p class="ui-li-aside">
+                            MS
+                        </p> </a>
+                    </li>
+                </ul>
+            </div>
+            <div data-role="footer" data-position="fixed" data-fullscreen="true"></div>
+        </div>
+        <div data-role="page" class="ubm_page my-page" id="ubmsuite_EditSharedBusinessModel" data-theme="b">
+            <div data-role="header">
+                <a href="#" class="back_btn" data-icon="arrow-l" data-iconpos="notext">Back</a>
+                <div id"ubmsuite_EditSharedBusinessModel_header_headerRecord_center" style="text-align: center">
+                    <div id="ubmsuite_EditSharedBusinessModel_header_headerRecord_center_legalentity">
+                        Legal Entity: Cindt, LLC
+                    </div>
+                    <div id="ubmsuite_EditSharedBusinessModel_header_headerRecord_center_systemtitle">
+                        System Title: UBM v 3.3.0
+                    </div>
+                    <div id="ubmsuite_EditSharedBusinessModel_header_headerRecord_center_modelapptitle">
+                        Model / App Title: Universal Business Model Suite - Automated Prototype
+                    </div>
+                    <div id="ubmsuite_EditSharedBusinessModel_header_headerRecord_center_pagetitle">
+                        Edit Model
+                    </div>
+                </div>
+            </div>
+            <div data-role="content">
+                <!-- Open Items Popup -->
+                <div data-role="popup" id="ubmsuite_EditSharedBusinessModel_openItem_popup" data-theme="b">
+                    <form id="ubmsuite_EditSharedBusinessModel_open_items_form" name="open_items_form">
+                        <ul data-role="listview" data-inset="true" style="min-width:210px;">
+                            <li data-role="list-divider">
+                                Write a Review Point</br>or Open Item
+                            </li>
+                            <li>
+                                <input type="text" id="ubmsuite_EditSharedBusinessModel_submitreviewpoint_formref" name="submitreviewpoint_formref" value="" placeholder="Form Ref...">
+                            </li>
+                            <li>
+                                <select  id="ubmsuite_EditSharedBusinessModel_submitreviewpoint_priority" value="Select" data-native-menu="false">
+                                    <option>Priority...</option>
+                                    <option value="A1">A1</option>
+                                    <option value="A2">A2</option>
+                                    <option value="A3">A3</option>
+                                    <option value="B1">B1</option>
+                                    <option value="B2">B2</option>
+                                    <option value="B3">B3</option>
+                                    <option value="C1">C1</option>
+                                    <option value="C2">C2</option>
+                                    <option value="C3">C3</option>
+                                </select>
+                            </li>
+                            <li>
+                                <textarea data-mini="true" cols="40" rows="8" id="ubmsuite_EditSharedBusinessModel_submitreviewpoint_actionrequired" placeholder="Action Required..."></textarea>
+                            </li>
+                            <li>
+                                <select  id="ubmsuite_EditSharedBusinessModel_submitreviewpoint_assignedto" value="Select" data-native-menu="false">
+                                    <option>Assigned To...</option>
+                                    <option value="Jesse Spencer">Jesse Spencer</option>
+                                    <option value="Adam Gustafson">Adam Gustafson</option>
+                                </select>
+                            </li>
+                            <li>
+                                <label for="datetime-4">Due Datetime</label>
+                                <input type="datetime-local" data-clear-btn="true"  id="ubmsuite_EditSharedBusinessModel_submitreviewpoint_duedatetime" value="" placeholder="Due Datetime...">
+                            </li>
+                            <li>
+                                <input type="button" data-enhanced="true" value="Submit Review Point" onclick="submitReviewPoint('ubmsuite_EditSharedBusinessModel_');">
+                            </li>
+                        </ul>
+                    </form>
+                </div>
+                <!-- End Open Items Popup -->
+                <ul data-role="listview" data-inset="true">
+                    <li>
+                        <a href="#"> <img src="img/apple.png" class="ui-li-thumb"> <h2>Master File Index</h2>
+	                        <p>Setting up your model.</p>
+	                        <p class="ui-li-aside">MFI</p>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#"> <img src="img/apple.png" class="ui-li-thumb"> <h2>Process Management</h2>
+                        <p>
+                            Forms </br> Packets
+                        </p>
+                        <p class="ui-li-aside">
+                            PM
+                        </p> </a>
+                    </li>
+                    <li>
+                        <a href="#"> <img src="img/lumia_800.png" class="ui-li-thumb"> <h2>Alternatives</h2>
+                        <p>
+							<strong>Possible</strong> and <strong>Selected</strong> </br>	
+                           ROI, Risk Analysis, Projected Financial Statement
+                        </p>
+                        <p class="ui-li-aside">
+                            A
+                        </p> </a>
+                    </li>
+                    <li>
+                        <a href="#ubmsuite_modelSettings"> <img src="img/galaxy_express.png" class="ui-li-thumb"> <h2>Model Creation Suite</h2>
+                        <p>
+                            Create your model.
+                        </p>
+                        <p class="ui-li-aside">
+                            MCS
+                        </p> </a>
+                    </li>
+                    <li>
+                        <a href="#ubmsuite_modelSettings"> <img src="img/galaxy_express.png" class="ui-li-thumb"> <h2>Reference Manual</h2>
+                        <p>
+                            Your portal to understanding all things UBM.
+                        </p>
+                        <p class="ui-li-aside">
+                            RM
+                        </p> </a>
+                    </li>
+                    <li>
+                        <a href="#ubmsuite_modelSettings"> <img src="img/apple.png" class="ui-li-thumb"> <h2>Model Settings</h2>
+                        <p>
+                            Modify user access, Edit Model Properties, etc...
+                        </p>
+                        <p class="ui-li-aside">
+                            MS
+                        </p> </a>
+                    </li>
+                </ul>
+            </div>
+            <div data-role="footer" data-position="fixed" data-fullscreen="true"></div>
+        </div>
+        <!-- Business Model Creator Settings -->
         <div data-role="page" class="ubm_page" id="gettingStarted">
             <div data-role="panel" id="mcs_gettingStarted_lpanel" data-display="overlay" data-position="left">
                 <ul data-role="listview">
@@ -1463,372 +1850,6 @@ under the License.
             </div>
 
         </div>
-        <!-- Select Business Model -->
-        <div data-role="page" class="ubm_page" id="ubmsuite_SelectBusinessModel">
-            <div data-role="panel" id="ubmsuite_table_of_contents_lpanel" data-display="overlay" data-position="left">
-                <ul data-role="listview">
-                    <li>
-                        <a href="#gettingStarted">Getting Started</a>
-                    </li>
-                    <li>
-                        <a href="#identification_setup">Identification Setup</a>
-                    </li>
-                    <li>
-                        <a href="#ubmsuite_table_of_contents">UBM Suite Table of Contents</a>
-                    </li>
-                    <li>
-                        <a href="#creator_table_of_contents">Model Creator Table of Contents</a>
-                    </li>
-                    <li>
-                        <a href="#ubmsuite_table_of_contents">UBM Suite Table of Contents</a>
-                    </li>
-                    <li>
-                        <a href="#mcs_setup_checklist_setup">MCS Setup</a>
-                    </li>
-                    <li>
-                        <a href="#management_reporting">Management Reporting</a>
-                    </li>
-                    <li>
-                        <a href="#mcs_setup_checklist_CS">Control Section</a>
-                    </li>
-                    <li>
-                        <a href="#mcs_setup_checklist_p1">Phase 1</a>
-                    </li>
-                    <li>
-                        <a href="#mcs_setup_checklist_p2">Phase 2</a>
-                    </li>
-                    <li>
-                        <a href="#mcs_setup_checklist_p3">Phase 3</a>
-                    </li>
-                    <li>
-                        <a href="#mcs_setup_checklist_p4">Phase 4</a>
-                    </li>
-                    <li>
-                        <a href="#mcs_setup_checklist_p5">Phase 5</a>
-                    </li>
-                    <li>
-                        <a href="#mcs_setup_checklist_p6">Phase 6</a>
-                    </li>
-                    <li>
-                        <a href="#mcs_setup_checklist_p7">Phase 7</a>
-                    </li>
-                    <li>
-                        <a href="#mcs_setup_checklist_p8">Phase 8</a>
-                    </li>
-                    <li>
-                        <a href="#open_points_action_items">Open Points Action Items</a>
-                    </li>
-                    <li data-icon="delete">
-                        <a href="#" data-rel="close">Close menu</a>
-                    </li>
-                    <li data-icon="delete">
-                        <a href="#sign_in_sign_up">Sign Out</a>
-                    </li>
-                </ul>
-            </div><!-- /panel -->
-            <div data-role="header">
-                <a href="#ubmsuite_table_of_contents_lpanel" data-icon="arrow-r" data-iconpos="notext">Menu</a>
-                <div id"ubmsuite_table_of_contents_header_headerRecord_center" style="text-align: center">
-                    <div id="creator_table_of_contents_header_headerRecord_center_legalentity">
-                        Legal Entity: Cindt, LLC
-                    </div>
-                    <div id="creator_table_of_contents_header_headerRecord_center_systemtitle">
-                        System Title: UBM v 3.3.0
-                    </div>
-                    <div id="creator_table_of_contents_header_headerRecord_center_modelapptitle">
-                        Model / App Title: Universal Business Model Suite - Automated Prototype
-                    </div>
-                    <div id="creator_table_of_contents_header_headerRecord_center_pagetitle">
-                        My Models Page
-                    </div>
-                </div>
-                <a href="#" data-icon="refresh" data-iconpos="notext" onclick="getMyModels()">Refresh</a>
-            </div>
-            <div data-role="content">
-                <!-- Create Model Popup -->
-                <div data-role="popup" id="ubmsuite_createModel_popup" data-theme="b" data-position-to="window" data-dismissible="false">
-                    <div data-role="header" data-theme="a">
-                        <h1>Create a Model</h1>
-                    </div>
-                    <form id="ubmsuite_createModel_popup_newModel_form">
-                        <input type="text" name="textinput-6" id="ubmsuite_createModel_popup_newModel_form_reference" placeholder="Reference" value="" data-mini="true">
-                        <input type="text" name="textinput-6" id="ubmsuite_createModel_popup_newModel_form_title" placeholder="Title" value="" data-mini="true">
-                        <input type="text" name="textinput-6" id="ubmsuite_createModel_popup_newModel_form_description" placeholder="Description..." value="" data-mini="true">
-                        &nbsp;&nbsp; <a href="#" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b" data-transition="flow" onclick="createModel()">Create Model!</a>
-                        <a href="#" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b" data-rel="back" data-transition="flow">Cancel </a> &nbsp;&nbsp;
-                    </form>
-                </div>
-                <!-- End Create Model Popup -->
-                <!-- Open Items Popup -->
-                <div data-role="popup" id="ubmsuite_table_of_contents_openItem_popup" data-theme="b">
-                    <form id="ubmsuite_table_of_contents_open_items_form" name="open_items_form">
-                        <ul data-role="listview" data-inset="true" style="min-width:210px;">
-                            <li data-role="list-divider">
-                                Write a Review Point</br>or Open Item
-                            </li>
-                            <li>
-                                <input type="text" id="ubmsuite_table_of_contents_submitreviewpoint_formref" name="submitreviewpoint_formref" value="" placeholder="Form Ref...">
-                            </li>
-                            <li>
-                                <select  id="ubmsuite_table_of_contents_submitreviewpoint_priority" value="Select" data-native-menu="false">
-                                    <option>Priority...</option>
-                                    <option value="A1">A1</option>
-                                    <option value="A2">A2</option>
-                                    <option value="A3">A3</option>
-                                    <option value="B1">B1</option>
-                                    <option value="B2">B2</option>
-                                    <option value="B3">B3</option>
-                                    <option value="C1">C1</option>
-                                    <option value="C2">C2</option>
-                                    <option value="C3">C3</option>
-                                </select>
-                            </li>
-                            <li>
-                                <textarea data-mini="true" cols="40" rows="8" id="ubmsuite_table_of_contents_submitreviewpoint_actionrequired" placeholder="Action Required..."></textarea>
-                            </li>
-                            <li>
-                                <select  id="ubmsuite_table_of_contents_submitreviewpoint_assignedto" value="Select" data-native-menu="false">
-                                    <option>Assigned To...</option>
-                                    <option value="Jesse Spencer">Jesse Spencer</option>
-                                    <option value="Adam Gustafson">Adam Gustafson</option>
-                                </select>
-                            </li>
-                            <li>
-                                <label for="datetime-4">Due Datetime</label>
-                                <input type="datetime-local" data-clear-btn="true"  id="ubmsuite_table_of_contents_submitreviewpoint_duedatetime" value="" placeholder="Due Datetime...">
-                            </li>
-                            <li>
-                                <input type="button" data-enhanced="true" value="Submit Review Point" onclick="submitReviewPoint('ubmsuite_table_of_contents_');">
-                            </li>
-                        </ul>
-                    </form>
-                </div>
-                <!-- End Open Items Popup -->
-                <center><img src="img/03 UBM Flowchart.png" width="60" style="position:center; width:25%; height:auto;">
-                </center>
-                <center>
-                    <a href="#ubmsuite_createModel_popup" data-rel="popup" data-role="button" data-inline="true"  >Create New Model</a>
-                </center>
-                </br>
-                <ul data-role='listview' data-inset='true' id='ubmsuite_SelectBusinessModel_MyModels_ul'>
-                    <!-- <li data-role='list-divider'>creator_id</li><li><a href='index.html'><h2>Model Title</h2><p><strong>Reference: </strong></p><p>Description: </p><p class='ui-li-aside'><strong>Creation Date: </strong></p></a></li>-->
-                </ul>
-                <ul data-role='listview' data-inset='true' id='ubmsuite_SelectBusinessModel_SharedModels_ul' data-theme="b">
-
-                </ul>
-            </div>
-            <div data-role="footer" data-position="fixed" data-fullscreen="true"></div>
-        </div>
-        <!-- UBM Suite Table of Contents Page-->
-        <div data-role="page" class="ubm_page" id="ubmsuite_EditMyBusinessModel" data-theme="a">
-        	<!-- No Panel on this page, instead only back button is needed.-->
-            <div data-role="header">
-                <a href="#" class="back_btn" data-icon="arrow-l" data-iconpos="notext">Back</a>
-                <div id"ubmsuite_EditMyBusinessModel_header_headerRecord_center" style="text-align: center">
-                    <div id="ubmsuite_EditMyBusinessModel_header_headerRecord_center_legalentity">
-                        Legal Entity: Cindt, LLC
-                    </div>
-                    <div id="ubmsuite_EditMyBusinessModel_header_headerRecord_center_systemtitle">
-                        System Title: UBM v 3.3.0
-                    </div>
-                    <div id="ubmsuite_EditMyBusinessModel_header_headerRecord_center_modelapptitle">
-                        Model / App Title: Universal Business Model Suite - Automated Prototype
-                    </div>
-                    <div id="ubmsuite_EditMyBusinessModel_header_headerRecord_center_pagetitle">
-                        Edit Model
-                    </div>
-                </div>
-            </div>
-            <div data-role="content" class="my-page">
-                <!-- Open Items Popup -->
-                <div data-role="popup" id="ubmsuite_EditMyBusinessModel_openItem_popup" data-theme="b">
-                    <form id="ubmsuite_EditMyBusinessModel_open_items_form" name="open_items_form">
-                        <ul data-role="listview" data-inset="true" style="min-width:210px;">
-                            <li data-role="list-divider">
-                                Write a Review Point</br>or Open Item
-                            </li>
-                            <li>
-                                <input type="text" id="ubmsuite_EditMyBusinessModel_submitreviewpoint_formref" name="submitreviewpoint_formref" value="" placeholder="Form Ref...">
-                            </li>
-                            <li>
-                                <select  id="ubmsuite_EditMyBusinessModel_submitreviewpoint_priority" value="Select" data-native-menu="false">
-                                    <option>Priority...</option>
-                                    <option value="A1">A1</option>
-                                    <option value="A2">A2</option>
-                                    <option value="A3">A3</option>
-                                    <option value="B1">B1</option>
-                                    <option value="B2">B2</option>
-                                    <option value="B3">B3</option>
-                                    <option value="C1">C1</option>
-                                    <option value="C2">C2</option>
-                                    <option value="C3">C3</option>
-                                </select>
-                            </li>
-                            <li>
-                                <textarea data-mini="true" cols="40" rows="8" id="ubmsuite_EditMyBusinessModel_submitreviewpoint_actionrequired" placeholder="Action Required..."></textarea>
-                            </li>
-                            <li>
-                                <select  id="ubmsuite_EditMyBusinessModel_submitreviewpoint_assignedto" value="Select" data-native-menu="false">
-                                    <option>Assigned To...</option>
-                                    <option value="Jesse Spencer">Jesse Spencer</option>
-                                    <option value="Adam Gustafson">Adam Gustafson</option>
-                                </select>
-                            </li>
-                            <li>
-                                <label for="datetime-4">Due Datetime</label>
-                                <input type="datetime-local" data-clear-btn="true"  id="ubmsuite_EditMyBusinessModel_submitreviewpoint_duedatetime" value="" placeholder="Due Datetime...">
-                            </li>
-                            <li>
-                                <input type="button" data-enhanced="true" value="Submit Review Point" onclick="submitReviewPoint('ubmsuite_EditMyBusinessModel_');">
-                            </li>
-                        </ul>
-                    </form>
-                </div>
-                <!-- End Open Items Popup -->
-                <ul data-role="listview" data-inset="true">
-                    <li>
-                        <a href="#"> <img src="img/apple.png" class="ui-li-thumb"> <h2>Master File Index</h2>
-	                        <p>Setting up your model.</p>
-	                        <p class="ui-li-aside">MFI</p>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#"> <img src="img/blackberry_10.png" class="ui-li-thumb"> <h2>Process Management</h2>
-                        <p>
-                            Forms </br> Packets
-                        </p>
-                        <p class="ui-li-aside">
-                            PM
-                        </p> </a>
-                    </li>
-                    <li>
-                        <a href="#"> <img src="img/lumia_800.png" class="ui-li-thumb"> <h2>Alternatives</h2>
-                        <p>
-							<strong>Possible</strong> and <strong>Selected</strong> </br>	
-                           ROI, Risk Analysis, Projected Financial Statement
-                        </p>
-                        <p class="ui-li-aside">
-                            A
-                        </p> </a>
-                    </li>
-                    <li>
-                        <a href="#ubmsuite_modelSettings"> <h2>Model Settings</h2>
-                        <p>
-                            E
-                        </p>
-                        <p class="ui-li-aside">
-                            MFI-P6
-                        </p> </a>
-                    </li>
-                </ul>
-
-            </div>
-            <div data-role="footer" data-position="fixed" data-fullscreen="true"></div>
-        </div>
-        <div data-role="page" class="ubm_page my-page" id="ubmsuite_EditSharedBusinessModel" data-theme="b">
-            <div data-role="header">
-                <a href="#" class="back_btn" data-icon="arrow-l" data-iconpos="notext">Back</a>
-                <div id"ubmsuite_EditSharedBusinessModel_header_headerRecord_center" style="text-align: center">
-                    <div id="ubmsuite_EditSharedBusinessModel_header_headerRecord_center_legalentity">
-                        Legal Entity: Cindt, LLC
-                    </div>
-                    <div id="ubmsuite_EditSharedBusinessModel_header_headerRecord_center_systemtitle">
-                        System Title: UBM v 3.3.0
-                    </div>
-                    <div id="ubmsuite_EditSharedBusinessModel_header_headerRecord_center_modelapptitle">
-                        Model / App Title: Universal Business Model Suite - Automated Prototype
-                    </div>
-                    <div id="ubmsuite_EditSharedBusinessModel_header_headerRecord_center_pagetitle">
-                        Edit Model
-                    </div>
-                </div>
-            </div>
-            <div data-role="content">
-                <!-- Open Items Popup -->
-                <div data-role="popup" id="ubmsuite_EditSharedBusinessModel_openItem_popup" data-theme="b">
-                    <form id="ubmsuite_EditSharedBusinessModel_open_items_form" name="open_items_form">
-                        <ul data-role="listview" data-inset="true" style="min-width:210px;">
-                            <li data-role="list-divider">
-                                Write a Review Point</br>or Open Item
-                            </li>
-                            <li>
-                                <input type="text" id="ubmsuite_EditSharedBusinessModel_submitreviewpoint_formref" name="submitreviewpoint_formref" value="" placeholder="Form Ref...">
-                            </li>
-                            <li>
-                                <select  id="ubmsuite_EditSharedBusinessModel_submitreviewpoint_priority" value="Select" data-native-menu="false">
-                                    <option>Priority...</option>
-                                    <option value="A1">A1</option>
-                                    <option value="A2">A2</option>
-                                    <option value="A3">A3</option>
-                                    <option value="B1">B1</option>
-                                    <option value="B2">B2</option>
-                                    <option value="B3">B3</option>
-                                    <option value="C1">C1</option>
-                                    <option value="C2">C2</option>
-                                    <option value="C3">C3</option>
-                                </select>
-                            </li>
-                            <li>
-                                <textarea data-mini="true" cols="40" rows="8" id="ubmsuite_EditSharedBusinessModel_submitreviewpoint_actionrequired" placeholder="Action Required..."></textarea>
-                            </li>
-                            <li>
-                                <select  id="ubmsuite_EditSharedBusinessModel_submitreviewpoint_assignedto" value="Select" data-native-menu="false">
-                                    <option>Assigned To...</option>
-                                    <option value="Jesse Spencer">Jesse Spencer</option>
-                                    <option value="Adam Gustafson">Adam Gustafson</option>
-                                </select>
-                            </li>
-                            <li>
-                                <label for="datetime-4">Due Datetime</label>
-                                <input type="datetime-local" data-clear-btn="true"  id="ubmsuite_EditSharedBusinessModel_submitreviewpoint_duedatetime" value="" placeholder="Due Datetime...">
-                            </li>
-                            <li>
-                                <input type="button" data-enhanced="true" value="Submit Review Point" onclick="submitReviewPoint('ubmsuite_EditSharedBusinessModel_');">
-                            </li>
-                        </ul>
-                    </form>
-                </div>
-                <!-- End Open Items Popup -->
-                <ul data-role="listview" data-inset="true">
-                    <li>
-                        <a href="#"> <img src="img/apple.png" class="ui-li-thumb"> <h2>Master File Index</h2>
-	                        <p>Setting up your model.</p>
-	                        <p class="ui-li-aside">MFI</p>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#"> <img src="img/blackberry_10.png" class="ui-li-thumb"> <h2>Process Management</h2>
-                        <p>
-                            Forms </br> Packets
-                        </p>
-                        <p class="ui-li-aside">
-                            PM
-                        </p> </a>
-                    </li>
-                    <li>
-                        <a href="#"> <img src="img/lumia_800.png" class="ui-li-thumb"> <h2>Alternatives</h2>
-                        <p>
-							<strong>Possible</strong> and <strong>Selected</strong> </br>	
-                           ROI, Risk Analysis, Projected Financial Statement
-                        </p>
-                        <p class="ui-li-aside">
-                            A
-                        </p> </a>
-                    </li>
-                    <li>
-                        <a href="#ubmsuite_modelSettings"> <h2>Model Settings</h2>
-                        <p>
-                            E
-                        </p>
-                        <p class="ui-li-aside">
-                            MFI-P6
-                        </p> </a>
-                    </li>
-                </ul>
-            </div>
-            <div data-role="footer" data-position="fixed" data-fullscreen="true"></div>
-        </div>
-        <!-- Business Model Creator Settings -->
         <div data-role="page" class="ubm_page" id="ubmsuite_modelSettings" data-theme="a">
         	<!-- No Panel on this page, instead only back button is needed.-->
             <div data-role="header">
@@ -1935,7 +1956,7 @@ under the License.
             	
             </div>
         </div>
-        <div data-role="page" class="ubm_page" id="ubmsuite_table_of_contents">
+        <div data-role="page" class="ubm_page" id="ubmsuite_table_of_contents">   <!-- UBM Suite Table of Contents Page-->
             <div data-role="panel" id="ubmsuite_table_of_contents_lpanel" data-display="overlay" data-position="left">
                 <ul data-role="listview">
                     <li>
