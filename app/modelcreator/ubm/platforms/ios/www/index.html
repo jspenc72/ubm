@@ -259,6 +259,8 @@ under the License.
 					$('#ubmsuite_SelectBusinessModel_MyModels_ul').empty();
 					$('#ubmsuite_SelectBusinessModel_MyModels_ul').append("<li data-role='list-divider'><center>My Models</center></li>");
 					$('#ubmsuite_SelectBusinessModel_MyModels_ul').append("<li data-role='list-divider'>Model Creator: " + window.username + "</li>");
+					$('#ubmsuite_SelectBusinessModel_MyModels_ul').listview("refresh");
+
 					$.each(res, function(i, item) {
 						$('#ubmsuite_SelectBusinessModel_MyModels_ul').append("<li><a href='#ubmsuite_EditMyBusinessModel' onclick='setActiveModel(" + item.id + ")'><h2>Model Title: " + item.title + "</h2><p><strong>Model Reference: " + item.reference + "</strong></p><p>" + item.description + "</p><p class='ui-li-aside'>Creation Date: <strong>" + item.created_date + "</strong></p></a></li>");
 						$('#ubmsuite_SelectBusinessModel_MyModels_ul').listview("refresh");
@@ -272,6 +274,7 @@ under the License.
 				}, function(res, status) {
 					$('#ubmsuite_SelectBusinessModel_SharedModels_ul').empty();
 					$('#ubmsuite_SelectBusinessModel_SharedModels_ul').append("<li data-role='list-divider'><center>Shared Models</center></li>");
+					$('#ubmsuite_SelectBusinessModel_SharedModels_ul').listview("refresh");							
 					$.each(res, function(i, item) {
 						if(window.username!==item.creator_id){
 							$('#ubmsuite_SelectBusinessModel_SharedModels_ul').append("<li data-role='list-divider'>Model Creator: " + item.creator_id + "</li>");
@@ -1822,7 +1825,6 @@ under the License.
                         </p> </a>
                     </li>
                 </ul>
-
             </div>
             <div data-role="footer" data-position="fixed" data-fullscreen="true"></div>
         </div>
@@ -1920,12 +1922,11 @@ under the License.
 				<fieldset class="ui-grid-a" >
 				    <div class="ui-block-a">
 						<ul data-role="listview" id="ubmsuite_modelSettings_modelusers_ul" data-filter="true" data-filter-placeholder="Users with access to this model..." data-theme="b" data-autodividers="true" data-inset="true" data-scroll="true">
-						    <li><a href="#">Apple</a></li>
-						    <li><a href="#">Banana</a></li>
+
 						</ul>				    
 				    </div>
 				    <div class="ui-block-b">
-    	                <a data-rel="popup" data-transition="slideup" href="#ubmsuite_modelSettings_shareModel_popup" class="ui-btn ui-shadow">Click to add another user to this model.</a>
+    	                <a data-rel="popup" data-transition="slideup" href="#ubmsuite_modelSettings_shareModel_popup" class="ui-btn ui-shadow">Click to give another user access to this model.</a>
 				    </div>
 				</fieldset>
 
