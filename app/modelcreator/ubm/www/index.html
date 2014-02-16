@@ -32,7 +32,6 @@ under the License.
         <script src="js/jquery-ui.js"></script>
         <script src="js/jquery.ui.touch-punch.js"></script>
         <script src="js/circles.js"></script>
-
         <title>UBM</title>
         <script>
 			function confirmCloseOpenItem(id) {
@@ -75,19 +74,19 @@ under the License.
 							if (window.username.toUpperCase() == item.opened_by.toUpperCase()) {//if current window.username is the same as the user who created the review point insert a button to allow user to mark the review point as closed.
 								//alert(window.accounttype);
 								if (item.number_resolutions !== "0") {//If item doesnt have any resolutions associated with it, use theme a for the "View" Resolutions button
-									$('#mcs_open_points_action_items_table_body').append("<tr ><th class='label'>" + item.id + "</th><td>" + item.form_ref + "</td><td>" + item.priority + "</td><td>" + item.opened_by + "<a href='#' onclick='confirmCloseOpenItem(" + item.id + ")' class='ui-btn ui-btn-inline ui-icon-delete ui-btn-icon-left' data-mini='true' >Close <br> Item</a></td><td>" + item.date_opened + "</td><td>" + item.action_required + "</td><td>" + item.assigned_to + "</td><td>" + item.date_opened + "</td><td>" + item.due_date + "</td><td>b</td><td>c</td><td>d</td><td><a href='#' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-comment ui-btn-icon-left ui-btn-b' onclick='viewResolutions(" + item.id + ")'>View &nbsp&nbsp&nbsp&nbsp<span class='ui-li-has-count ui-btn-up-c ui-btn-corner-all'>" + item.number_resolutions + "</span></a><a href='#' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-plus ui-btn-icon-left ui-btn-a' onclick='addResolutions(" + item.id + ")'>Add &nbsp&nbsp&nbsp&nbsp</a><a href='#' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-plus ui-btn-icon-left ui-btn-a' onclick='addItemComment(" + item.id + ")'>Comment &nbsp&nbsp&nbsp&nbsp</a></td></tr>");
+									$('#mcs_open_points_action_items_table_body').append("<tr ><th class='label'>" + item.id + "</th><td>" + item.form_ref + "</td><td>" + item.priority + "</td><td>" + item.opened_by + "<a href='#' onclick='confirmCloseOpenItem(" + item.id + ")' class='ui-btn ui-btn-inline ui-icon-delete ui-btn-icon-left' data-mini='true' >Close <br> Item</a></td><td>" + item.date_opened + "</td><td>" + item.action_required + "</td><td>" + item.assigned_to + "</td><td>" + item.date_opened + "</td><td>" + item.due_date + "</td><td>b</td><td>c</td><td>d</td><td><a href='#' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-comment ui-btn-icon-left ui-btn-b' onclick='viewResolutions(" + item.id + ")'>View &nbsp&nbsp&nbsp&nbsp<span class='ui-li-has-count ui-btn-up-c ui-btn-corner-all'>" + item.number_resolutions + "</span></a><a href='#' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-plus ui-btn-icon-left ui-btn-a' onclick='addResolutions(" + item.id + ")'>Resolve &nbsp&nbsp&nbsp&nbsp</a><a href='#' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-plus ui-btn-icon-left ui-btn-a' onclick='addItemComment(" + item.id + ")'>Comment &nbsp&nbsp&nbsp&nbsp</a></td></tr>");
 									$("#mcs_open_points_action_items_table").table("refresh");
 								} else {
-									$('#mcs_open_points_action_items_table_body').append("<tr ><th class='label'>" + item.id + "</th><td>" + item.form_ref + "</td><td>" + item.priority + "</td><td>" + item.opened_by + "<a href='#' onclick='confirmCloseOpenItem(" + item.id + ")' class='ui-btn ui-btn-inline ui-icon-delete ui-btn-icon-left' data-mini='true' >Close <br> Item</a></td><td>" + item.date_opened + "</td><td>" + item.action_required + "</td><td>" + item.assigned_to + "</td><td>" + item.date_opened + "</td><td>" + item.due_date + "</td><td>b</td><td>c</td><td>d</td><td><a href='#' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-comment ui-btn-icon-left ui-btn-a' onclick='viewResolutions(" + item.id + ")'>View &nbsp&nbsp&nbsp&nbsp<span class='ui-li-has-count ui-btn-up-c ui-btn-corner-all'>" + item.number_resolutions + "</span></a><a href='#' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-plus ui-btn-icon-left ui-btn-a' onclick='addResolutions(" + item.id + ")'>Add &nbsp&nbsp&nbsp&nbsp</a><a href='#' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-plus ui-btn-icon-left ui-btn-a' onclick='addItemComment(" + item.id + ")'>Comment &nbsp&nbsp&nbsp&nbsp</a></td></tr>");
+									$('#mcs_open_points_action_items_table_body').append("<tr ><th class='label'>" + item.id + "</th><td>" + item.form_ref + "</td><td>" + item.priority + "</td><td>" + item.opened_by + "<a href='#' onclick='confirmCloseOpenItem(" + item.id + ")' class='ui-btn ui-btn-inline ui-icon-delete ui-btn-icon-left' data-mini='true' >Close <br> Item</a></td><td>" + item.date_opened + "</td><td>" + item.action_required + "</td><td>" + item.assigned_to + "</td><td>" + item.date_opened + "</td><td>" + item.due_date + "</td><td>b</td><td>c</td><td>d</td><td><a href='#' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-comment ui-btn-icon-left ui-btn-a' onclick='viewResolutions(" + item.id + ")'>View &nbsp&nbsp&nbsp&nbsp<span class='ui-li-has-count ui-btn-up-c ui-btn-corner-all'>" + item.number_resolutions + "</span></a><a href='#' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-plus ui-btn-icon-left ui-btn-a' onclick='addResolutions(" + item.id + ")'>Resolve &nbsp&nbsp&nbsp&nbsp</a><a href='#' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-plus ui-btn-icon-left ui-btn-a' onclick='addItemComment(" + item.id + ")'>Comment &nbsp&nbsp&nbsp&nbsp</a></td></tr>");
 									$("#mcs_open_points_action_items_table").table("refresh");
 								}
 							} else {
 								//alert(window.accounttype);
 								if (item.number_resolutions !== "0") {//If item doesnt have any resolutions associated with it, use theme a for the "View" Resolutions button
-									$('#mcs_open_points_action_items_table_body').append("<tr ><th class='label'>" + item.id + "</th><td>" + item.form_ref + "</td><td>" + item.priority + "</td><td>" + item.opened_by + "</td><td>" + item.date_opened + "</td><td>" + item.action_required + "</td><td>" + item.assigned_to + "</td><td>" + item.date_opened + "</td><td>" + item.due_date + "</td><td>b</td><td>c</td><td>d</td><td><a href='#' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-comment ui-btn-icon-left ui-btn-b' onclick='viewResolutions(" + item.id + ")'>View &nbsp&nbsp&nbsp&nbsp<span class='ui-li-has-count ui-btn-up-c ui-btn-corner-all'>" + item.number_resolutions + "</span></a><a href='#' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-plus ui-btn-icon-left ui-btn-a' onclick='addResolutions(" + item.id + ")'>Add &nbsp&nbsp&nbsp&nbsp</a><a href='#' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-plus ui-btn-icon-left ui-btn-a' onclick='addItemComment(" + item.id + ")'>Comment &nbsp&nbsp&nbsp&nbsp</a></td></tr>");
+									$('#mcs_open_points_action_items_table_body').append("<tr ><th class='label'>" + item.id + "</th><td>" + item.form_ref + "</td><td>" + item.priority + "</td><td>" + item.opened_by + "</td><td>" + item.date_opened + "</td><td>" + item.action_required + "</td><td>" + item.assigned_to + "</td><td>" + item.date_opened + "</td><td>" + item.due_date + "</td><td>b</td><td>c</td><td>d</td><td><a href='#' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-comment ui-btn-icon-left ui-btn-b' onclick='viewResolutions(" + item.id + ")'>View &nbsp&nbsp&nbsp&nbsp<span class='ui-li-has-count ui-btn-up-c ui-btn-corner-all'>" + item.number_resolutions + "</span></a><a href='#' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-plus ui-btn-icon-left ui-btn-a' onclick='addResolutions(" + item.id + ")'>Resolve &nbsp&nbsp&nbsp&nbsp</a><a href='#' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-plus ui-btn-icon-left ui-btn-a' onclick='addItemComment(" + item.id + ")'>Comment &nbsp&nbsp&nbsp&nbsp</a></td></tr>");
 									$("#mcs_open_points_action_items_table").table("refresh");
 								} else {
-									$('#mcs_open_points_action_items_table_body').append("<tr ><th class='label'>" + item.id + "</th><td>" + item.form_ref + "</td><td>" + item.priority + "</td><td>" + item.opened_by + "</td><td>" + item.date_opened + "</td><td>" + item.action_required + "</td><td>" + item.assigned_to + "</td><td>" + item.date_opened + "</td><td>" + item.due_date + "</td><td>b</td><td>c</td><td>d</td><td><a href='#' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-comment ui-btn-icon-left ui-btn-a' onclick='viewResolutions(" + item.id + ")'>View &nbsp&nbsp&nbsp&nbsp<span class='ui-li-has-count ui-btn-up-c ui-btn-corner-all'>" + item.number_resolutions + "</span></a><a href='#' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-plus ui-btn-icon-left ui-btn-a' onclick='addResolutions(" + item.id + ")'>Add &nbsp&nbsp&nbsp&nbsp</a><a href='#' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-plus ui-btn-icon-left ui-btn-a' onclick='addItemComment(" + item.id + ")'>Comment &nbsp&nbsp&nbsp&nbsp</a></td></tr>");
+									$('#mcs_open_points_action_items_table_body').append("<tr ><th class='label'>" + item.id + "</th><td>" + item.form_ref + "</td><td>" + item.priority + "</td><td>" + item.opened_by + "</td><td>" + item.date_opened + "</td><td>" + item.action_required + "</td><td>" + item.assigned_to + "</td><td>" + item.date_opened + "</td><td>" + item.due_date + "</td><td>b</td><td>c</td><td>d</td><td><a href='#' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-comment ui-btn-icon-left ui-btn-a' onclick='viewResolutions(" + item.id + ")'>View &nbsp&nbsp&nbsp&nbsp<span class='ui-li-has-count ui-btn-up-c ui-btn-corner-all'>" + item.number_resolutions + "</span></a><a href='#' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-plus ui-btn-icon-left ui-btn-a' onclick='addResolutions(" + item.id + ")'>Resolve &nbsp&nbsp&nbsp&nbsp</a><a href='#' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-plus ui-btn-icon-left ui-btn-a' onclick='addItemComment(" + item.id + ")'>Comment &nbsp&nbsp&nbsp&nbsp</a></td></tr>");
 									$("#mcs_open_points_action_items_table").table("refresh");
 								}
 							}
@@ -95,17 +94,17 @@ under the License.
 							if (window.username.toUpperCase() == item.opened_by.toUpperCase()) {//if current window.username is the same as the user who created the review point insert a button to allow user to close the review point.
 								//alert(window.accounttype);
 								if (item.number_resolutions !== "0") {//If item doesnt have any resolutions associated with it, use theme a for the "View" Resolutions button
-									$('#mcs_open_points_action_items_table_body').append("<tr ><th class='label'>" + item.id + "</th><td>" + item.form_ref + "</td><td>" + item.priority + "</td><td>" + item.opened_by + "<a href='#' onclick='confirmCloseOpenItem(" + item.id + ")' class='ui-btn ui-btn-inline ui-icon-delete ui-btn-icon-left' data-mini='true' >Close <br> Item</a></td><td>" + item.date_opened + "</td><td>" + item.action_required + "</td><td>" + item.assigned_to + "</td><td>" + item.date_opened + "</td><td>" + item.due_date + "</td><td>b</td><td>c</td><td>d</td><td><a href='#' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-comment ui-btn-icon-left ui-btn-b' onclick='viewResolutions(" + item.id + ")'>View &nbsp&nbsp&nbsp&nbsp<span class='ui-li-has-count ui-btn-up-c ui-btn-corner-all'>" + item.number_resolutions + "</span></a><a href='#' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-plus ui-btn-icon-left ui-btn-a' onclick='addResolutions(" + item.id + ")'>Add &nbsp&nbsp&nbsp&nbsp</a><a href='#' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-plus ui-btn-icon-left ui-btn-a' onclick='addItemComment(" + item.id + ")'>Comment &nbsp&nbsp&nbsp&nbsp</a></td></tr>");
+									$('#mcs_open_points_action_items_table_body').append("<tr ><th class='label'>" + item.id + "</th><td>" + item.form_ref + "</td><td>" + item.priority + "</td><td>" + item.opened_by + "<a href='#' onclick='confirmCloseOpenItem(" + item.id + ")' class='ui-btn ui-btn-inline ui-icon-delete ui-btn-icon-left' data-mini='true' >Close <br> Item</a></td><td>" + item.date_opened + "</td><td>" + item.action_required + "</td><td>" + item.assigned_to + "</td><td>" + item.date_opened + "</td><td>" + item.due_date + "</td><td>b</td><td>c</td><td>d</td><td><a href='#' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-comment ui-btn-icon-left ui-btn-b' onclick='viewResolutions(" + item.id + ")'>View &nbsp&nbsp&nbsp&nbsp<span class='ui-li-has-count ui-btn-up-c ui-btn-corner-all'>" + item.number_resolutions + "</span></a><a href='#' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-plus ui-btn-icon-left ui-btn-a' onclick='addResolutions(" + item.id + ")'>Resolve &nbsp&nbsp&nbsp&nbsp</a><a href='#' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-plus ui-btn-icon-left ui-btn-a' onclick='addItemComment(" + item.id + ")'>Comment &nbsp&nbsp&nbsp&nbsp</a></td></tr>");
 								} else {
-									$('#mcs_open_points_action_items_table_body').append("<tr ><th class='label'>" + item.id + "</th><td>" + item.form_ref + "</td><td>" + item.priority + "</td><td>" + item.opened_by + "<a href='#' onclick='confirmCloseOpenItem(" + item.id + ")' class='ui-btn ui-btn-inline ui-icon-delete ui-btn-icon-left' data-mini='true' >Close <br> Item</a></td><td>" + item.date_opened + "</td><td>" + item.action_required + "</td><td>" + item.assigned_to + "</td><td>" + item.date_opened + "</td><td>" + item.due_date + "</td><td>b</td><td>c</td><td>d</td><td><a href='#' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-comment ui-btn-icon-left ui-btn-a' onclick='viewResolutions(" + item.id + ")'>View &nbsp&nbsp&nbsp&nbsp<span class='ui-li-has-count ui-btn-up-c ui-btn-corner-all'>" + item.number_resolutions + "</span></a><a href='#' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-plus ui-btn-icon-left ui-btn-a' onclick='addResolutions(" + item.id + ")'>Add &nbsp&nbsp&nbsp&nbsp</a><a href='#' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-plus ui-btn-icon-left ui-btn-a' onclick='addItemComment(" + item.id + ")'>Comment &nbsp&nbsp&nbsp&nbsp</a></td></tr>");
+									$('#mcs_open_points_action_items_table_body').append("<tr ><th class='label'>" + item.id + "</th><td>" + item.form_ref + "</td><td>" + item.priority + "</td><td>" + item.opened_by + "<a href='#' onclick='confirmCloseOpenItem(" + item.id + ")' class='ui-btn ui-btn-inline ui-icon-delete ui-btn-icon-left' data-mini='true' >Close <br> Item</a></td><td>" + item.date_opened + "</td><td>" + item.action_required + "</td><td>" + item.assigned_to + "</td><td>" + item.date_opened + "</td><td>" + item.due_date + "</td><td>b</td><td>c</td><td>d</td><td><a href='#' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-comment ui-btn-icon-left ui-btn-a' onclick='viewResolutions(" + item.id + ")'>View &nbsp&nbsp&nbsp&nbsp<span class='ui-li-has-count ui-btn-up-c ui-btn-corner-all'>" + item.number_resolutions + "</span></a><a href='#' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-plus ui-btn-icon-left ui-btn-a' onclick='addResolutions(" + item.id + ")'>Resolve &nbsp&nbsp&nbsp&nbsp</a><a href='#' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-plus ui-btn-icon-left ui-btn-a' onclick='addItemComment(" + item.id + ")'>Comment &nbsp&nbsp&nbsp&nbsp</a></td></tr>");
 									$("#mcs_open_points_action_items_table").table("refresh");
 								}
 							} else {
 								//alert(window.accounttype);
 								if (item.number_resolutions !== "0") {//If item doesnt have any resolutions associated with it, use theme a for the "View" Resolutions button
-									$('#mcs_open_points_action_items_table_body').append("<tr ><th class='label'>" + item.id + "</th><td>" + item.form_ref + "</td><td>" + item.priority + "</td><td>" + item.opened_by + "</td><td>" + item.date_opened + "</td><td>" + item.action_required + "</td><td>" + item.assigned_to + "</td><td>" + item.date_opened + "</td><td>" + item.due_date + "</td><td>b</td><td>c</td><td>d</td><td><a href='#' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-comment ui-btn-icon-left ui-btn-b' onclick='viewResolutions(" + item.id + ")'>View &nbsp&nbsp&nbsp&nbsp<span class='ui-li-has-count ui-btn-up-c ui-btn-corner-all'>" + item.number_resolutions + "</span></a><a href='#' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-plus ui-btn-icon-left ui-btn-a' onclick='addResolutions(" + item.id + ")'>Add &nbsp&nbsp&nbsp&nbsp</a><a href='#' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-plus ui-btn-icon-left ui-btn-a' onclick='addItemComment(" + item.id + ")'>Comment &nbsp&nbsp&nbsp&nbsp</a></td></tr>");
+									$('#mcs_open_points_action_items_table_body').append("<tr ><th class='label'>" + item.id + "</th><td>" + item.form_ref + "</td><td>" + item.priority + "</td><td>" + item.opened_by + "</td><td>" + item.date_opened + "</td><td>" + item.action_required + "</td><td>" + item.assigned_to + "</td><td>" + item.date_opened + "</td><td>" + item.due_date + "</td><td>b</td><td>c</td><td>d</td><td><a href='#' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-comment ui-btn-icon-left ui-btn-b' onclick='viewResolutions(" + item.id + ")'>View &nbsp&nbsp&nbsp&nbsp<span class='ui-li-has-count ui-btn-up-c ui-btn-corner-all'>" + item.number_resolutions + "</span></a><a href='#' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-plus ui-btn-icon-left ui-btn-a' onclick='addResolutions(" + item.id + ")'>Resolve &nbsp&nbsp&nbsp&nbsp</a><a href='#' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-plus ui-btn-icon-left ui-btn-a' onclick='addItemComment(" + item.id + ")'>Comment &nbsp&nbsp&nbsp&nbsp</a></td></tr>");
 								} else {
-									$('#mcs_open_points_action_items_table_body').append("<tr ><th class='label'>" + item.id + "</th><td>" + item.form_ref + "</td><td>" + item.priority + "</td><td>" + item.opened_by + "</td><td>" + item.date_opened + "</td><td>" + item.action_required + "</td><td>" + item.assigned_to + "</td><td>" + item.date_opened + "</td><td>" + item.due_date + "</td><td>b</td><td>c</td><td>d</td><td><a href='#' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-comment ui-btn-icon-left ui-btn-a' onclick='viewResolutions(" + item.id + ")'>View &nbsp&nbsp&nbsp&nbsp<span class='ui-li-has-count ui-btn-up-c ui-btn-corner-all'>" + item.number_resolutions + "</span></a><a href='#' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-plus ui-btn-icon-left ui-btn-a' onclick='addResolutions(" + item.id + ")'>Add &nbsp&nbsp&nbsp&nbsp</a><a href='#' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-plus ui-btn-icon-left ui-btn-a' onclick='addItemComment(" + item.id + ")'>Comment &nbsp&nbsp&nbsp&nbsp</a></td></tr>");
+									$('#mcs_open_points_action_items_table_body').append("<tr ><th class='label'>" + item.id + "</th><td>" + item.form_ref + "</td><td>" + item.priority + "</td><td>" + item.opened_by + "</td><td>" + item.date_opened + "</td><td>" + item.action_required + "</td><td>" + item.assigned_to + "</td><td>" + item.date_opened + "</td><td>" + item.due_date + "</td><td>b</td><td>c</td><td>d</td><td><a href='#' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-comment ui-btn-icon-left ui-btn-a' onclick='viewResolutions(" + item.id + ")'>View &nbsp&nbsp&nbsp&nbsp<span class='ui-li-has-count ui-btn-up-c ui-btn-corner-all'>" + item.number_resolutions + "</span></a><a href='#' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-plus ui-btn-icon-left ui-btn-a' onclick='addResolutions(" + item.id + ")'>Resolve &nbsp&nbsp&nbsp&nbsp</a><a href='#' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-plus ui-btn-icon-left ui-btn-a' onclick='addItemComment(" + item.id + ")'>Comment &nbsp&nbsp&nbsp&nbsp</a></td></tr>");
 									$("#mcs_open_points_action_items_table").table("refresh");
 								}
 							}
@@ -127,19 +126,19 @@ under the License.
 							if (window.username.toUpperCase() == item.opened_by.toUpperCase()) {//if current window.username is the same as the user who created the review point insert a button to allow user to mark the review point as closed.
 								//alert(window.accounttype);
 								if (item.number_resolutions !== "0") {//If item doesnt have any resolutions associated with it, use theme a for the "View" Resolutions button
-									$('#mcs_open_points_action_items_table_body').append("<tr ><th class='label'>" + item.id + "</th><td>" + item.form_ref + "</td><td>" + item.priority + "</td><td>" + item.opened_by + "<a href='#' onclick='confirmCloseOpenItem(" + item.id + ")' class='ui-btn ui-btn-inline ui-icon-delete ui-btn-icon-left' data-mini='true' >Close <br> Item</a></td><td>" + item.date_opened + "</td><td>" + item.action_required + "</td><td>" + item.assigned_to + "</td><td>" + item.date_opened + "</td><td>" + item.due_date + "</td><td>b</td><td>c</td><td>d</td><td><a href='#' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-comment ui-btn-icon-left ui-btn-b' onclick='viewResolutions(" + item.id + ")'>View &nbsp&nbsp&nbsp&nbsp<span class='ui-li-has-count ui-btn-up-c ui-btn-corner-all'>" + item.number_resolutions + "</span></a><a href='#' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-plus ui-btn-icon-left ui-btn-a' onclick='addResolutions(" + item.id + ")'>Add &nbsp&nbsp&nbsp&nbsp</a><a href='#' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-plus ui-btn-icon-left ui-btn-a' onclick='addItemComment(" + item.id + ")'>Comment &nbsp&nbsp&nbsp&nbsp</a></td></tr>");
+									$('#mcs_open_points_action_items_table_body').append("<tr ><th class='label'>" + item.id + "</th><td>" + item.form_ref + "</td><td>" + item.priority + "</td><td>" + item.opened_by + "<a href='#' onclick='confirmCloseOpenItem(" + item.id + ")' class='ui-btn ui-btn-inline ui-icon-delete ui-btn-icon-left' data-mini='true' >Close <br> Item</a></td><td>" + item.date_opened + "</td><td>" + item.action_required + "</td><td>" + item.assigned_to + "</td><td>" + item.date_opened + "</td><td>" + item.due_date + "</td><td>b</td><td>c</td><td>d</td><td><a href='#' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-comment ui-btn-icon-left ui-btn-b' onclick='viewResolutions(" + item.id + ")'>View &nbsp&nbsp&nbsp&nbsp<span class='ui-li-has-count ui-btn-up-c ui-btn-corner-all'>" + item.number_resolutions + "</span></a><a href='#' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-plus ui-btn-icon-left ui-btn-a' onclick='addResolutions(" + item.id + ")'>Resolve &nbsp&nbsp&nbsp&nbsp</a><a href='#' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-plus ui-btn-icon-left ui-btn-a' onclick='addItemComment(" + item.id + ")'>Comment &nbsp&nbsp&nbsp&nbsp</a></td></tr>");
 									$("#mcs_open_points_action_items_table").table("refresh");
 								} else {
-									$('#mcs_open_points_action_items_table_body').append("<tr ><th class='label'>" + item.id + "</th><td>" + item.form_ref + "</td><td>" + item.priority + "</td><td>" + item.opened_by + "<a href='#' onclick='confirmCloseOpenItem(" + item.id + ")' class='ui-btn ui-btn-inline ui-icon-delete ui-btn-icon-left' data-mini='true' >Close <br> Item</a></td><td>" + item.date_opened + "</td><td>" + item.action_required + "</td><td>" + item.assigned_to + "</td><td>" + item.date_opened + "</td><td>" + item.due_date + "</td><td>b</td><td>c</td><td>d</td><td><a href='#' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-comment ui-btn-icon-left ui-btn-a' onclick='viewResolutions(" + item.id + ")'>View &nbsp&nbsp&nbsp&nbsp<span class='ui-li-has-count ui-btn-up-c ui-btn-corner-all'>" + item.number_resolutions + "</span></a><a href='#' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-plus ui-btn-icon-left ui-btn-a' onclick='addResolutions(" + item.id + ")'>Add &nbsp&nbsp&nbsp&nbsp</a><a href='#' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-plus ui-btn-icon-left ui-btn-a' onclick='addItemComment(" + item.id + ")'>Comment &nbsp&nbsp&nbsp&nbsp</a></td></tr>");
+									$('#mcs_open_points_action_items_table_body').append("<tr ><th class='label'>" + item.id + "</th><td>" + item.form_ref + "</td><td>" + item.priority + "</td><td>" + item.opened_by + "<a href='#' onclick='confirmCloseOpenItem(" + item.id + ")' class='ui-btn ui-btn-inline ui-icon-delete ui-btn-icon-left' data-mini='true' >Close <br> Item</a></td><td>" + item.date_opened + "</td><td>" + item.action_required + "</td><td>" + item.assigned_to + "</td><td>" + item.date_opened + "</td><td>" + item.due_date + "</td><td>b</td><td>c</td><td>d</td><td><a href='#' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-comment ui-btn-icon-left ui-btn-a' onclick='viewResolutions(" + item.id + ")'>View &nbsp&nbsp&nbsp&nbsp<span class='ui-li-has-count ui-btn-up-c ui-btn-corner-all'>" + item.number_resolutions + "</span></a><a href='#' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-plus ui-btn-icon-left ui-btn-a' onclick='addResolutions(" + item.id + ")'>Resolve &nbsp&nbsp&nbsp&nbsp</a><a href='#' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-plus ui-btn-icon-left ui-btn-a' onclick='addItemComment(" + item.id + ")'>Comment &nbsp&nbsp&nbsp&nbsp</a></td></tr>");
 									$("#mcs_open_points_action_items_table").table("refresh");
 								}
 							} else {
 								//alert(window.accounttype);
 								if (item.number_resolutions !== "0") {//If item doesnt have any resolutions associated with it, use theme a for the "View" Resolutions button
-									$('#mcs_open_points_action_items_table_body').append("<tr ><th class='label'>" + item.id + "</th><td>" + item.form_ref + "</td><td>" + item.priority + "</td><td>" + item.opened_by + "</td><td>" + item.date_opened + "</td><td>" + item.action_required + "</td><td>" + item.assigned_to + "</td><td>" + item.date_opened + "</td><td>" + item.due_date + "</td><td>b</td><td>c</td><td>d</td><td><a href='#' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-comment ui-btn-icon-left ui-btn-b' onclick='viewResolutions(" + item.id + ")'>View &nbsp&nbsp&nbsp&nbsp<span class='ui-li-has-count ui-btn-up-c ui-btn-corner-all'>" + item.number_resolutions + "</span></a><a href='#' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-plus ui-btn-icon-left ui-btn-a' onclick='addResolutions(" + item.id + ")'>Add &nbsp&nbsp&nbsp&nbsp</a><a href='#' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-plus ui-btn-icon-left ui-btn-a' onclick='addItemComment(" + item.id + ")'>Comment &nbsp&nbsp&nbsp&nbsp</a></td></tr>");
+									$('#mcs_open_points_action_items_table_body').append("<tr ><th class='label'>" + item.id + "</th><td>" + item.form_ref + "</td><td>" + item.priority + "</td><td>" + item.opened_by + "</td><td>" + item.date_opened + "</td><td>" + item.action_required + "</td><td>" + item.assigned_to + "</td><td>" + item.date_opened + "</td><td>" + item.due_date + "</td><td>b</td><td>c</td><td>d</td><td><a href='#' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-comment ui-btn-icon-left ui-btn-b' onclick='viewResolutions(" + item.id + ")'>View &nbsp&nbsp&nbsp&nbsp<span class='ui-li-has-count ui-btn-up-c ui-btn-corner-all'>" + item.number_resolutions + "</span></a><a href='#' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-plus ui-btn-icon-left ui-btn-a' onclick='addResolutions(" + item.id + ")'>Resolve &nbsp&nbsp&nbsp&nbsp</a><a href='#' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-plus ui-btn-icon-left ui-btn-a' onclick='addItemComment(" + item.id + ")'>Comment &nbsp&nbsp&nbsp&nbsp</a></td></tr>");
 									$("#mcs_open_points_action_items_table").table("refresh");
 								} else {
-									$('#mcs_open_points_action_items_table_body').append("<tr ><th class='label'>" + item.id + "</th><td>" + item.form_ref + "</td><td>" + item.priority + "</td><td>" + item.opened_by + "</td><td>" + item.date_opened + "</td><td>" + item.action_required + "</td><td>" + item.assigned_to + "</td><td>" + item.date_opened + "</td><td>" + item.due_date + "</td><td>b</td><td>c</td><td>d</td><td><a href='#' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-comment ui-btn-icon-left ui-btn-a' onclick='viewResolutions(" + item.id + ")'>View &nbsp&nbsp&nbsp&nbsp<span class='ui-li-has-count ui-btn-up-c ui-btn-corner-all'>" + item.number_resolutions + "</span></a><a href='#' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-plus ui-btn-icon-left ui-btn-a' onclick='addResolutions(" + item.id + ")'>Add &nbsp&nbsp&nbsp&nbsp</a><a href='#' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-plus ui-btn-icon-left ui-btn-a' onclick='addItemComment(" + item.id + ")'>Comment &nbsp&nbsp&nbsp&nbsp</a></td></tr>");
+									$('#mcs_open_points_action_items_table_body').append("<tr ><th class='label'>" + item.id + "</th><td>" + item.form_ref + "</td><td>" + item.priority + "</td><td>" + item.opened_by + "</td><td>" + item.date_opened + "</td><td>" + item.action_required + "</td><td>" + item.assigned_to + "</td><td>" + item.date_opened + "</td><td>" + item.due_date + "</td><td>b</td><td>c</td><td>d</td><td><a href='#' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-comment ui-btn-icon-left ui-btn-a' onclick='viewResolutions(" + item.id + ")'>View &nbsp&nbsp&nbsp&nbsp<span class='ui-li-has-count ui-btn-up-c ui-btn-corner-all'>" + item.number_resolutions + "</span></a><a href='#' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-plus ui-btn-icon-left ui-btn-a' onclick='addResolutions(" + item.id + ")'>Resolve &nbsp&nbsp&nbsp&nbsp</a><a href='#' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-plus ui-btn-icon-left ui-btn-a' onclick='addItemComment(" + item.id + ")'>Comment &nbsp&nbsp&nbsp&nbsp</a></td></tr>");
 									$("#mcs_open_points_action_items_table").table("refresh");
 								}
 							}
@@ -147,17 +146,17 @@ under the License.
 							if (window.username.toUpperCase() == item.opened_by.toUpperCase()) {//if current window.username is the same as the user who created the review point insert a button to allow user to close the review point.
 								//alert(window.accounttype);
 								if (item.number_resolutions !== "0") {//If item doesnt have any resolutions associated with it, use theme a for the "View" Resolutions button
-									$('#mcs_open_points_action_items_table_body').append("<tr ><th class='label'>" + item.id + "</th><td>" + item.form_ref + "</td><td>" + item.priority + "</td><td>" + item.opened_by + "<a href='#' onclick='confirmCloseOpenItem(" + item.id + ")' class='ui-btn ui-btn-inline ui-icon-delete ui-btn-icon-left' data-mini='true' >Close <br> Item</a></td><td>" + item.date_opened + "</td><td>" + item.action_required + "</td><td>" + item.assigned_to + "</td><td>" + item.date_opened + "</td><td>" + item.due_date + "</td><td>b</td><td>c</td><td>d</td><td><a href='#' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-comment ui-btn-icon-left ui-btn-b' onclick='viewResolutions(" + item.id + ")'>View &nbsp&nbsp&nbsp&nbsp<span class='ui-li-has-count ui-btn-up-c ui-btn-corner-all'>" + item.number_resolutions + "</span></a><a href='#' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-plus ui-btn-icon-left ui-btn-a' onclick='addResolutions(" + item.id + ")'>Add &nbsp&nbsp&nbsp&nbsp</a><a href='#' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-plus ui-btn-icon-left ui-btn-a' onclick='addItemComment(" + item.id + ")'>Comment &nbsp&nbsp&nbsp&nbsp</a></td></tr>");
+									$('#mcs_open_points_action_items_table_body').append("<tr ><th class='label'>" + item.id + "</th><td>" + item.form_ref + "</td><td>" + item.priority + "</td><td>" + item.opened_by + "<a href='#' onclick='confirmCloseOpenItem(" + item.id + ")' class='ui-btn ui-btn-inline ui-icon-delete ui-btn-icon-left' data-mini='true' >Close <br> Item</a></td><td>" + item.date_opened + "</td><td>" + item.action_required + "</td><td>" + item.assigned_to + "</td><td>" + item.date_opened + "</td><td>" + item.due_date + "</td><td>b</td><td>c</td><td>d</td><td><a href='#' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-comment ui-btn-icon-left ui-btn-b' onclick='viewResolutions(" + item.id + ")'>View &nbsp&nbsp&nbsp&nbsp<span class='ui-li-has-count ui-btn-up-c ui-btn-corner-all'>" + item.number_resolutions + "</span></a><a href='#' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-plus ui-btn-icon-left ui-btn-a' onclick='addResolutions(" + item.id + ")'>Resolve &nbsp&nbsp&nbsp&nbsp</a><a href='#' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-plus ui-btn-icon-left ui-btn-a' onclick='addItemComment(" + item.id + ")'>Comment &nbsp&nbsp&nbsp&nbsp</a></td></tr>");
 								} else {
-									$('#mcs_open_points_action_items_table_body').append("<tr ><th class='label'>" + item.id + "</th><td>" + item.form_ref + "</td><td>" + item.priority + "</td><td>" + item.opened_by + "<a href='#' onclick='confirmCloseOpenItem(" + item.id + ")' class='ui-btn ui-btn-inline ui-icon-delete ui-btn-icon-left' data-mini='true' >Close <br> Item</a></td><td>" + item.date_opened + "</td><td>" + item.action_required + "</td><td>" + item.assigned_to + "</td><td>" + item.date_opened + "</td><td>" + item.due_date + "</td><td>b</td><td>c</td><td>d</td><td><a href='#' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-comment ui-btn-icon-left ui-btn-a' onclick='viewResolutions(" + item.id + ")'>View &nbsp&nbsp&nbsp&nbsp<span class='ui-li-has-count ui-btn-up-c ui-btn-corner-all'>" + item.number_resolutions + "</span></a><a href='#' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-plus ui-btn-icon-left ui-btn-a' onclick='addResolutions(" + item.id + ")'>Add &nbsp&nbsp&nbsp&nbsp</a><a href='#' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-plus ui-btn-icon-left ui-btn-a' onclick='addItemComment(" + item.id + ")'>Comment &nbsp&nbsp&nbsp&nbsp</a></td></tr>");
+									$('#mcs_open_points_action_items_table_body').append("<tr ><th class='label'>" + item.id + "</th><td>" + item.form_ref + "</td><td>" + item.priority + "</td><td>" + item.opened_by + "<a href='#' onclick='confirmCloseOpenItem(" + item.id + ")' class='ui-btn ui-btn-inline ui-icon-delete ui-btn-icon-left' data-mini='true' >Close <br> Item</a></td><td>" + item.date_opened + "</td><td>" + item.action_required + "</td><td>" + item.assigned_to + "</td><td>" + item.date_opened + "</td><td>" + item.due_date + "</td><td>b</td><td>c</td><td>d</td><td><a href='#' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-comment ui-btn-icon-left ui-btn-a' onclick='viewResolutions(" + item.id + ")'>View &nbsp&nbsp&nbsp&nbsp<span class='ui-li-has-count ui-btn-up-c ui-btn-corner-all'>" + item.number_resolutions + "</span></a><a href='#' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-plus ui-btn-icon-left ui-btn-a' onclick='addResolutions(" + item.id + ")'>Resolve &nbsp&nbsp&nbsp&nbsp</a><a href='#' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-plus ui-btn-icon-left ui-btn-a' onclick='addItemComment(" + item.id + ")'>Comment &nbsp&nbsp&nbsp&nbsp</a></td></tr>");
 									$("#mcs_open_points_action_items_table").table("refresh");
 								}
 							} else {
 								//alert(window.accounttype);
 								if (item.number_resolutions !== "0") {//If item doesnt have any resolutions associated with it, use theme a for the "View" Resolutions button
-									$('#mcs_open_points_action_items_table_body').append("<tr ><th class='label'>" + item.id + "</th><td>" + item.form_ref + "</td><td>" + item.priority + "</td><td>" + item.opened_by + "</td><td>" + item.date_opened + "</td><td>" + item.action_required + "</td><td>" + item.assigned_to + "</td><td>" + item.date_opened + "</td><td>" + item.due_date + "</td><td>b</td><td>c</td><td>d</td><td><a href='#' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-comment ui-btn-icon-left ui-btn-b' onclick='viewResolutions(" + item.id + ")'>View &nbsp&nbsp&nbsp&nbsp<span class='ui-li-has-count ui-btn-up-c ui-btn-corner-all'>" + item.number_resolutions + "</span></a><a href='#' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-plus ui-btn-icon-left ui-btn-a' onclick='addResolutions(" + item.id + ")'>Add &nbsp&nbsp&nbsp&nbsp</a><a href='#' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-plus ui-btn-icon-left ui-btn-a' onclick='addItemComment(" + item.id + ")'>Comment &nbsp&nbsp&nbsp&nbsp</a></td></tr>");
+									$('#mcs_open_points_action_items_table_body').append("<tr ><th class='label'>" + item.id + "</th><td>" + item.form_ref + "</td><td>" + item.priority + "</td><td>" + item.opened_by + "</td><td>" + item.date_opened + "</td><td>" + item.action_required + "</td><td>" + item.assigned_to + "</td><td>" + item.date_opened + "</td><td>" + item.due_date + "</td><td>b</td><td>c</td><td>d</td><td><a href='#' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-comment ui-btn-icon-left ui-btn-b' onclick='viewResolutions(" + item.id + ")'>View &nbsp&nbsp&nbsp&nbsp<span class='ui-li-has-count ui-btn-up-c ui-btn-corner-all'>" + item.number_resolutions + "</span></a><a href='#' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-plus ui-btn-icon-left ui-btn-a' onclick='addResolutions(" + item.id + ")'>Resolve &nbsp&nbsp&nbsp&nbsp</a><a href='#' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-plus ui-btn-icon-left ui-btn-a' onclick='addItemComment(" + item.id + ")'>Comment &nbsp&nbsp&nbsp&nbsp</a></td></tr>");
 								} else {
-									$('#mcs_open_points_action_items_table_body').append("<tr ><th class='label'>" + item.id + "</th><td>" + item.form_ref + "</td><td>" + item.priority + "</td><td>" + item.opened_by + "</td><td>" + item.date_opened + "</td><td>" + item.action_required + "</td><td>" + item.assigned_to + "</td><td>" + item.date_opened + "</td><td>" + item.due_date + "</td><td>b</td><td>c</td><td>d</td><td><a href='#' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-comment ui-btn-icon-left ui-btn-a' onclick='viewResolutions(" + item.id + ")'>View &nbsp&nbsp&nbsp&nbsp<span class='ui-li-has-count ui-btn-up-c ui-btn-corner-all'>" + item.number_resolutions + "</span></a><a href='#' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-plus ui-btn-icon-left ui-btn-a' onclick='addResolutions(" + item.id + ")'>Add &nbsp&nbsp&nbsp&nbsp</a><a href='#' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-plus ui-btn-icon-left ui-btn-a' onclick='addItemComment(" + item.id + ")'>Comment &nbsp&nbsp&nbsp&nbsp</a></td></tr>");
+									$('#mcs_open_points_action_items_table_body').append("<tr ><th class='label'>" + item.id + "</th><td>" + item.form_ref + "</td><td>" + item.priority + "</td><td>" + item.opened_by + "</td><td>" + item.date_opened + "</td><td>" + item.action_required + "</td><td>" + item.assigned_to + "</td><td>" + item.date_opened + "</td><td>" + item.due_date + "</td><td>b</td><td>c</td><td>d</td><td><a href='#' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-comment ui-btn-icon-left ui-btn-a' onclick='viewResolutions(" + item.id + ")'>View &nbsp&nbsp&nbsp&nbsp<span class='ui-li-has-count ui-btn-up-c ui-btn-corner-all'>" + item.number_resolutions + "</span></a><a href='#' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-plus ui-btn-icon-left ui-btn-a' onclick='addResolutions(" + item.id + ")'>Resolve &nbsp&nbsp&nbsp&nbsp</a><a href='#' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-plus ui-btn-icon-left ui-btn-a' onclick='addItemComment(" + item.id + ")'>Comment &nbsp&nbsp&nbsp&nbsp</a></td></tr>");
 									$("#mcs_open_points_action_items_table").table("refresh");
 								}
 							}
@@ -180,19 +179,19 @@ under the License.
 							if (window.username.toUpperCase() == item.opened_by.toUpperCase()) {//if current window.username is the same as the user who created the review point insert a button to allow user to mark the review point as closed.
 								//alert(window.accounttype);
 								if (item.number_resolutions !== "0") {//If item doesnt have any resolutions associated with it, use theme a for the "View" Resolutions button
-									$('#mcs_open_points_action_items_table_body').append("<tr ><th class='label'>" + item.id + "</th><td>" + item.form_ref + "</td><td>" + item.priority + "</td><td>" + item.opened_by + "<a href='#' onclick='confirmCloseOpenItem(" + item.id + ")' class='ui-btn ui-btn-inline ui-icon-delete ui-btn-icon-left' data-mini='true'>Close <br> Item</a></td><td>" + item.date_opened + "</td><td>" + item.action_required + "</td><td>" + item.assigned_to + "</td><td>" + item.date_opened + "</td><td>" + item.due_date + "</td><td>b</td><td>c</td><td>d</td><td><a href='#' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-comment ui-btn-icon-left ui-btn-b' onclick='viewResolutions(" + item.id + ")'>View &nbsp&nbsp&nbsp&nbsp<span class='ui-li-has-count ui-btn-up-c ui-btn-corner-all'>" + item.number_resolutions + "</span></a><a href='#' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-plus ui-btn-icon-left ui-btn-a' onclick='addResolutions(" + item.id + ")'>Add &nbsp&nbsp&nbsp&nbsp</a><a href='#' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-plus ui-btn-icon-left ui-btn-a' onclick='addItemComment(" + item.id + ")'>Comment &nbsp&nbsp&nbsp&nbsp</a></td></tr>");
+									$('#mcs_open_points_action_items_table_body').append("<tr ><th class='label'>" + item.id + "</th><td>" + item.form_ref + "</td><td>" + item.priority + "</td><td>" + item.opened_by + "<a href='#' onclick='confirmCloseOpenItem(" + item.id + ")' class='ui-btn ui-btn-inline ui-icon-delete ui-btn-icon-left' data-mini='true'>Close <br> Item</a></td><td>" + item.date_opened + "</td><td>" + item.action_required + "</td><td>" + item.assigned_to + "</td><td>" + item.date_opened + "</td><td>" + item.due_date + "</td><td>b</td><td>c</td><td>d</td><td><a href='#' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-comment ui-btn-icon-left ui-btn-b' onclick='viewResolutions(" + item.id + ")'>View &nbsp&nbsp&nbsp&nbsp<span class='ui-li-has-count ui-btn-up-c ui-btn-corner-all'>" + item.number_resolutions + "</span></a><a href='#' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-plus ui-btn-icon-left ui-btn-a' onclick='addResolutions(" + item.id + ")'>Resolve &nbsp&nbsp&nbsp&nbsp</a><a href='#' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-plus ui-btn-icon-left ui-btn-a' onclick='addItemComment(" + item.id + ")'>Comment &nbsp&nbsp&nbsp&nbsp</a></td></tr>");
 									$("#mcs_open_points_action_items_table").table("refresh");
 								} else {
-									$('#mcs_open_points_action_items_table_body').append("<tr ><th class='label'>" + item.id + "</th><td>" + item.form_ref + "</td><td>" + item.priority + "</td><td>" + item.opened_by + "<a href='#' onclick='confirmCloseOpenItem(" + item.id + ")' class='ui-btn ui-btn-inline ui-icon-delete ui-btn-icon-left' data-mini='true'>Close <br> Item</a></td><td>" + item.date_opened + "</td><td>" + item.action_required + "</td><td>" + item.assigned_to + "</td><td>" + item.date_opened + "</td><td>" + item.due_date + "</td><td>b</td><td>c</td><td>d</td><td><a href='#' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-comment ui-btn-icon-left ui-btn-a' onclick='viewResolutions(" + item.id + ")'>View &nbsp&nbsp&nbsp&nbsp<span class='ui-li-has-count ui-btn-up-c ui-btn-corner-all'>" + item.number_resolutions + "</span></a><a href='#' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-plus ui-btn-icon-left ui-btn-a' onclick='addResolutions(" + item.id + ")'>Add &nbsp&nbsp&nbsp&nbsp</a><a href='#' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-plus ui-btn-icon-left ui-btn-a' onclick='addItemComment(" + item.id + ")'>Comment &nbsp&nbsp&nbsp&nbsp</a></td></tr>");
+									$('#mcs_open_points_action_items_table_body').append("<tr ><th class='label'>" + item.id + "</th><td>" + item.form_ref + "</td><td>" + item.priority + "</td><td>" + item.opened_by + "<a href='#' onclick='confirmCloseOpenItem(" + item.id + ")' class='ui-btn ui-btn-inline ui-icon-delete ui-btn-icon-left' data-mini='true'>Close <br> Item</a></td><td>" + item.date_opened + "</td><td>" + item.action_required + "</td><td>" + item.assigned_to + "</td><td>" + item.date_opened + "</td><td>" + item.due_date + "</td><td>b</td><td>c</td><td>d</td><td><a href='#' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-comment ui-btn-icon-left ui-btn-a' onclick='viewResolutions(" + item.id + ")'>View &nbsp&nbsp&nbsp&nbsp<span class='ui-li-has-count ui-btn-up-c ui-btn-corner-all'>" + item.number_resolutions + "</span></a><a href='#' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-plus ui-btn-icon-left ui-btn-a' onclick='addResolutions(" + item.id + ")'>Resolve &nbsp&nbsp&nbsp&nbsp</a><a href='#' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-plus ui-btn-icon-left ui-btn-a' onclick='addItemComment(" + item.id + ")'>Comment &nbsp&nbsp&nbsp&nbsp</a></td></tr>");
 									$("#mcs_open_points_action_items_table").table("refresh");
 								}
 							} else {
 								//alert(window.accounttype);
 								if (item.number_resolutions !== "0") {//If item doesnt have any resolutions associated with it, use theme a for the "View" Resolutions button
-									$('#mcs_open_points_action_items_table_body').append("<tr ><th class='label'>" + item.id + "</th><td>" + item.form_ref + "</td><td>" + item.priority + "</td><td>" + item.opened_by + "</td><td>" + item.date_opened + "</td><td>" + item.action_required + "</td><td>" + item.assigned_to + "</td><td>" + item.date_opened + "</td><td>" + item.due_date + "</td><td>b</td><td>c</td><td>d</td><td><a href='#' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-comment ui-btn-icon-left ui-btn-b' onclick='viewResolutions(" + item.id + ")'>View &nbsp&nbsp&nbsp&nbsp<span class='ui-li-has-count ui-btn-up-c ui-btn-corner-all'>" + item.number_resolutions + "</span></a><a href='#' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-plus ui-btn-icon-left ui-btn-a' onclick='addResolutions(" + item.id + ")'>Add &nbsp&nbsp&nbsp&nbsp</a><a href='#' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-plus ui-btn-icon-left ui-btn-a' onclick='addItemComment(" + item.id + ")'>Comment &nbsp&nbsp&nbsp&nbsp</a></td></tr>");
+									$('#mcs_open_points_action_items_table_body').append("<tr ><th class='label'>" + item.id + "</th><td>" + item.form_ref + "</td><td>" + item.priority + "</td><td>" + item.opened_by + "</td><td>" + item.date_opened + "</td><td>" + item.action_required + "</td><td>" + item.assigned_to + "</td><td>" + item.date_opened + "</td><td>" + item.due_date + "</td><td>b</td><td>c</td><td>d</td><td><a href='#' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-comment ui-btn-icon-left ui-btn-b' onclick='viewResolutions(" + item.id + ")'>View &nbsp&nbsp&nbsp&nbsp<span class='ui-li-has-count ui-btn-up-c ui-btn-corner-all'>" + item.number_resolutions + "</span></a><a href='#' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-plus ui-btn-icon-left ui-btn-a' onclick='addResolutions(" + item.id + ")'>Resolve &nbsp&nbsp&nbsp&nbsp</a><a href='#' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-plus ui-btn-icon-left ui-btn-a' onclick='addItemComment(" + item.id + ")'>Comment &nbsp&nbsp&nbsp&nbsp</a></td></tr>");
 									$("#mcs_open_points_action_items_table").table("refresh");
 								} else {
-									$('#mcs_open_points_action_items_table_body').append("<tr ><th class='label'>" + item.id + "</th><td>" + item.form_ref + "</td><td>" + item.priority + "</td><td>" + item.opened_by + "</td><td>" + item.date_opened + "</td><td>" + item.action_required + "</td><td>" + item.assigned_to + "</td><td>" + item.date_opened + "</td><td>" + item.due_date + "</td><td>b</td><td>c</td><td>d</td><td><a href='#' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-comment ui-btn-icon-left ui-btn-a' onclick='viewResolutions(" + item.id + ")'>View &nbsp&nbsp&nbsp&nbsp<span class='ui-li-has-count ui-btn-up-c ui-btn-corner-all'>" + item.number_resolutions + "</span></a><a href='#' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-plus ui-btn-icon-left ui-btn-a' onclick='addResolutions(" + item.id + ")'>Add &nbsp&nbsp&nbsp&nbsp</a><a href='#' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-plus ui-btn-icon-left ui-btn-a' onclick='addItemComment(" + item.id + ")'>Comment &nbsp&nbsp&nbsp&nbsp</a></td></tr>");
+									$('#mcs_open_points_action_items_table_body').append("<tr ><th class='label'>" + item.id + "</th><td>" + item.form_ref + "</td><td>" + item.priority + "</td><td>" + item.opened_by + "</td><td>" + item.date_opened + "</td><td>" + item.action_required + "</td><td>" + item.assigned_to + "</td><td>" + item.date_opened + "</td><td>" + item.due_date + "</td><td>b</td><td>c</td><td>d</td><td><a href='#' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-comment ui-btn-icon-left ui-btn-a' onclick='viewResolutions(" + item.id + ")'>View &nbsp&nbsp&nbsp&nbsp<span class='ui-li-has-count ui-btn-up-c ui-btn-corner-all'>" + item.number_resolutions + "</span></a><a href='#' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-plus ui-btn-icon-left ui-btn-a' onclick='addResolutions(" + item.id + ")'>Resolve &nbsp&nbsp&nbsp&nbsp</a><a href='#' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-plus ui-btn-icon-left ui-btn-a' onclick='addItemComment(" + item.id + ")'>Comment &nbsp&nbsp&nbsp&nbsp</a></td></tr>");
 									$("#mcs_open_points_action_items_table").table("refresh");
 								}
 							}
@@ -200,17 +199,17 @@ under the License.
 							if (window.username.toUpperCase() == item.opened_by.toUpperCase()) {//if current window.username is the same as the user who created the review point insert a button to allow user to close the review point.
 								//alert(window.accounttype);
 								if (item.number_resolutions !== "0") {//If item doesnt have any resolutions associated with it, use theme a for the "View" Resolutions button
-									$('#mcs_open_points_action_items_table_body').append("<tr ><th class='label'>" + item.id + "</th><td>" + item.form_ref + "</td><td>" + item.priority + "</td><td>" + item.opened_by + "<a href='#' onclick='confirmCloseOpenItem(" + item.id + ")' class='ui-btn ui-btn-inline ui-icon-delete ui-btn-icon-left'data-mini='true' >Close <br> Item</a></td><td>" + item.date_opened + "</td><td>" + item.action_required + "</td><td>" + item.assigned_to + "</td><td>" + item.date_opened + "</td><td>" + item.due_date + "</td><td>b</td><td>c</td><td>d</td><td><a href='#' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-comment ui-btn-icon-left ui-btn-b' onclick='viewResolutions(" + item.id + ")'>View &nbsp&nbsp&nbsp&nbsp<span class='ui-li-has-count ui-btn-up-c ui-btn-corner-all'>" + item.number_resolutions + "</span></a><a href='#' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-plus ui-btn-icon-left ui-btn-a' onclick='addResolutions(" + item.id + ")'>Add &nbsp&nbsp&nbsp&nbsp</a><a href='#' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-plus ui-btn-icon-left ui-btn-a' onclick='addItemComment(" + item.id + ")'>Comment &nbsp&nbsp&nbsp&nbsp</a></td></tr>");
+									$('#mcs_open_points_action_items_table_body').append("<tr ><th class='label'>" + item.id + "</th><td>" + item.form_ref + "</td><td>" + item.priority + "</td><td>" + item.opened_by + "<a href='#' onclick='confirmCloseOpenItem(" + item.id + ")' class='ui-btn ui-btn-inline ui-icon-delete ui-btn-icon-left'data-mini='true' >Close <br> Item</a></td><td>" + item.date_opened + "</td><td>" + item.action_required + "</td><td>" + item.assigned_to + "</td><td>" + item.date_opened + "</td><td>" + item.due_date + "</td><td>b</td><td>c</td><td>d</td><td><a href='#' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-comment ui-btn-icon-left ui-btn-b' onclick='viewResolutions(" + item.id + ")'>View &nbsp&nbsp&nbsp&nbsp<span class='ui-li-has-count ui-btn-up-c ui-btn-corner-all'>" + item.number_resolutions + "</span></a><a href='#' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-plus ui-btn-icon-left ui-btn-a' onclick='addResolutions(" + item.id + ")'>Resolve &nbsp&nbsp&nbsp&nbsp</a><a href='#' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-plus ui-btn-icon-left ui-btn-a' onclick='addItemComment(" + item.id + ")'>Comment &nbsp&nbsp&nbsp&nbsp</a></td></tr>");
 								} else {
-									$('#mcs_open_points_action_items_table_body').append("<tr ><th class='label'>" + item.id + "</th><td>" + item.form_ref + "</td><td>" + item.priority + "</td><td>" + item.opened_by + "<a href='#' onclick='confirmCloseOpenItem(" + item.id + ")' class='ui-btn ui-btn-inline ui-icon-delete ui-btn-icon-left'data-mini='true' >Close <br> Item</a></td><td>" + item.date_opened + "</td><td>" + item.action_required + "</td><td>" + item.assigned_to + "</td><td>" + item.date_opened + "</td><td>" + item.due_date + "</td><td>b</td><td>c</td><td>d</td><td><a href='#' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-comment ui-btn-icon-left ui-btn-a' onclick='viewResolutions(" + item.id + ")'>View &nbsp&nbsp&nbsp&nbsp<span class='ui-li-has-count ui-btn-up-c ui-btn-corner-all'>" + item.number_resolutions + "</span></a><a href='#' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-plus ui-btn-icon-left ui-btn-a' onclick='addResolutions(" + item.id + ")'>Add &nbsp&nbsp&nbsp&nbsp</a><a href='#' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-plus ui-btn-icon-left ui-btn-a' onclick='addItemComment(" + item.id + ")'>Comment &nbsp&nbsp&nbsp&nbsp</a></td></tr>");
+									$('#mcs_open_points_action_items_table_body').append("<tr ><th class='label'>" + item.id + "</th><td>" + item.form_ref + "</td><td>" + item.priority + "</td><td>" + item.opened_by + "<a href='#' onclick='confirmCloseOpenItem(" + item.id + ")' class='ui-btn ui-btn-inline ui-icon-delete ui-btn-icon-left'data-mini='true' >Close <br> Item</a></td><td>" + item.date_opened + "</td><td>" + item.action_required + "</td><td>" + item.assigned_to + "</td><td>" + item.date_opened + "</td><td>" + item.due_date + "</td><td>b</td><td>c</td><td>d</td><td><a href='#' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-comment ui-btn-icon-left ui-btn-a' onclick='viewResolutions(" + item.id + ")'>View &nbsp&nbsp&nbsp&nbsp<span class='ui-li-has-count ui-btn-up-c ui-btn-corner-all'>" + item.number_resolutions + "</span></a><a href='#' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-plus ui-btn-icon-left ui-btn-a' onclick='addResolutions(" + item.id + ")'>Resolve &nbsp&nbsp&nbsp&nbsp</a><a href='#' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-plus ui-btn-icon-left ui-btn-a' onclick='addItemComment(" + item.id + ")'>Comment &nbsp&nbsp&nbsp&nbsp</a></td></tr>");
 									$("#mcs_open_points_action_items_table").table("refresh");
 								}
 							} else {
 								//alert(window.accounttype);
 								if (item.number_resolutions !== "0") {//If item doesnt have any resolutions associated with it, use theme a for the "View" Resolutions button
-									$('#mcs_open_points_action_items_table_body').append("<tr ><th class='label'>" + item.id + "</th><td>" + item.form_ref + "</td><td>" + item.priority + "</td><td>" + item.opened_by + "</td><td>" + item.date_opened + "</td><td>" + item.action_required + "</td><td>" + item.assigned_to + "</td><td>" + item.date_opened + "</td><td>" + item.due_date + "</td><td>b</td><td>c</td><td>d</td><td><a href='#' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-comment ui-btn-icon-left ui-btn-b' onclick='viewResolutions(" + item.id + ")'>View &nbsp&nbsp&nbsp&nbsp<span class='ui-li-has-count ui-btn-up-c ui-btn-corner-all'>" + item.number_resolutions + "</span></a><a href='#' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-plus ui-btn-icon-left ui-btn-a' onclick='addResolutions(" + item.id + ")'>Add &nbsp&nbsp&nbsp&nbsp</a><a href='#' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-plus ui-btn-icon-left ui-btn-a' onclick='addItemComment(" + item.id + ")'>Comment &nbsp&nbsp&nbsp&nbsp</a></td></tr>");
+									$('#mcs_open_points_action_items_table_body').append("<tr ><th class='label'>" + item.id + "</th><td>" + item.form_ref + "</td><td>" + item.priority + "</td><td>" + item.opened_by + "</td><td>" + item.date_opened + "</td><td>" + item.action_required + "</td><td>" + item.assigned_to + "</td><td>" + item.date_opened + "</td><td>" + item.due_date + "</td><td>b</td><td>c</td><td>d</td><td><a href='#' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-comment ui-btn-icon-left ui-btn-b' onclick='viewResolutions(" + item.id + ")'>View &nbsp&nbsp&nbsp&nbsp<span class='ui-li-has-count ui-btn-up-c ui-btn-corner-all'>" + item.number_resolutions + "</span></a><a href='#' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-plus ui-btn-icon-left ui-btn-a' onclick='addResolutions(" + item.id + ")'>Resolve &nbsp&nbsp&nbsp&nbsp</a><a href='#' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-plus ui-btn-icon-left ui-btn-a' onclick='addItemComment(" + item.id + ")'>Comment &nbsp&nbsp&nbsp&nbsp</a></td></tr>");
 								} else {
-									$('#mcs_open_points_action_items_table_body').append("<tr ><th class='label'>" + item.id + "</th><td>" + item.form_ref + "</td><td>" + item.priority + "</td><td>" + item.opened_by + "</td><td>" + item.date_opened + "</td><td>" + item.action_required + "</td><td>" + item.assigned_to + "</td><td>" + item.date_opened + "</td><td>" + item.due_date + "</td><td>b</td><td>c</td><td>d</td><td><a href='#' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-comment ui-btn-icon-left ui-btn-a' onclick='viewResolutions(" + item.id + ")'>View &nbsp&nbsp&nbsp&nbsp<span class='ui-li-has-count ui-btn-up-c ui-btn-corner-all'>" + item.number_resolutions + "</span></a><a href='#' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-plus ui-btn-icon-left ui-btn-a' onclick='addResolutions(" + item.id + ")'>Add &nbsp&nbsp&nbsp&nbsp</a><a href='#' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-plus ui-btn-icon-left ui-btn-a' onclick='addItemComment(" + item.id + ")'>Comment &nbsp&nbsp&nbsp&nbsp</a></td></tr>");
+									$('#mcs_open_points_action_items_table_body').append("<tr ><th class='label'>" + item.id + "</th><td>" + item.form_ref + "</td><td>" + item.priority + "</td><td>" + item.opened_by + "</td><td>" + item.date_opened + "</td><td>" + item.action_required + "</td><td>" + item.assigned_to + "</td><td>" + item.date_opened + "</td><td>" + item.due_date + "</td><td>b</td><td>c</td><td>d</td><td><a href='#' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-comment ui-btn-icon-left ui-btn-a' onclick='viewResolutions(" + item.id + ")'>View &nbsp&nbsp&nbsp&nbsp<span class='ui-li-has-count ui-btn-up-c ui-btn-corner-all'>" + item.number_resolutions + "</span></a><a href='#' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-plus ui-btn-icon-left ui-btn-a' onclick='addResolutions(" + item.id + ")'>Resolve &nbsp&nbsp&nbsp&nbsp</a><a href='#' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-plus ui-btn-icon-left ui-btn-a' onclick='addItemComment(" + item.id + ")'>Comment &nbsp&nbsp&nbsp&nbsp</a></td></tr>");
 									$("#mcs_open_points_action_items_table").table("refresh");
 								}
 							}
@@ -232,6 +231,38 @@ under the License.
 				$("#mcs_open_points_action_items_submitresolution_popup").popup('open');
 				//window.openitemid = id;
 				//submitResolution();
+			}
+			function submitResolution() {
+				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_openitem_createresolutions1.php?callback=?', {//JSONP Request to Open Items Page setup tables
+					openitemid : window.openitemid,
+					username : window.username,
+					disposition : document.getElementById("open_points_action_items_submitResolution_form_disposition").value,
+					githuburl : document.getElementById("open_points_action_items_submitResolution_form_githuturl").value
+				}, function(res, status) {
+					alert("json returned successfully! " + status);
+				});
+				setTimeout(function() {
+				}, 1500);
+			}
+			function viewResolutions(id) {
+				$.getJSON('http://www.findmydriver.com/ubmselectallresolutions.php?callback=?', {//JSONP Request to Open Items Page setup tables
+					openitemid : id,
+					username : window.username
+				}, function(res, status) {
+					//alert("json returned successfully! " + status);
+					$('#mcs_open_points_action_items_resolution_popup_ul').empty();
+					$.each(res, function(i, item) {
+						//alert(item.disposition);
+						$('#mcs_open_points_action_items_resolution_popup_ul').append("<li><a href='#' data-rel='popup' data-position-to='window' data-transition='pop'><h1>" + item.closed_by + "</h1><p style='white-space:normal;'>" + item.disposition + "</p></a></li>");
+						$('#mcs_open_points_action_items_resolution_popup_ul').append("<li data-role='list-divider' >" + item.githuburl + "</p></li>");
+						//$('#mcs_open_points_action_items_resolution_popup_ul').append("<div style='height:200px; width:200px; text-wrap: normal;'>New Resolution: " + item.disposition + "</div>");
+						$('#mcs_open_points_action_items_resolution_popup_ul').listview("refresh");
+					})
+				});
+				$('#mcs_open_points_action_items_resolution_popup_ul').listview("refresh");
+				setTimeout(function() {
+					$("#mcs_open_points_action_items_resolution_popup").popup('open');
+				}, 1500);
 			}
 			function createModel() {
 				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_createmodel.php?callback=?', {//JSONP Request to Create new model
@@ -329,38 +360,6 @@ under the License.
 				});
 
 			}
-			function submitResolution() {
-				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_openitem_createresolutions1.php?callback=?', {//JSONP Request to Open Items Page setup tables
-					openitemid : window.openitemid,
-					username : window.username,
-					disposition : document.getElementById("open_points_action_items_submitResolution_form_disposition").value,
-					githuburl : document.getElementById("open_points_action_items_submitResolution_form_githuturl").value
-				}, function(res, status) {
-					alert("json returned successfully! " + status);
-				});
-				setTimeout(function() {
-				}, 1500);
-			}
-			function viewResolutions(id) {
-				$.getJSON('http://www.findmydriver.com/ubmselectallresolutions.php?callback=?', {//JSONP Request to Open Items Page setup tables
-					openitemid : id,
-					username : window.username
-				}, function(res, status) {
-					//alert("json returned successfully! " + status);
-					$('#mcs_open_points_action_items_resolution_popup_ul').empty();
-					$.each(res, function(i, item) {
-						//alert(item.disposition);
-						$('#mcs_open_points_action_items_resolution_popup_ul').append("<li><a href='#' data-rel='popup' data-position-to='window' data-transition='pop'><h1>" + item.closed_by + "</h1><p style='white-space:normal;'>" + item.disposition + "</p></a></li>");
-						$('#mcs_open_points_action_items_resolution_popup_ul').append("<li data-role='list-divider' >" + item.githuburl + "</p></li>");
-						//$('#mcs_open_points_action_items_resolution_popup_ul').append("<div style='height:200px; width:200px; text-wrap: normal;'>New Resolution: " + item.disposition + "</div>");
-						$('#mcs_open_points_action_items_resolution_popup_ul').listview("refresh");
-					})
-				});
-				$('#mcs_open_points_action_items_resolution_popup_ul').listview("refresh");
-				setTimeout(function() {
-					$("#mcs_open_points_action_items_resolution_popup").popup('open');
-				}, 1500);
-			}
 			function onLoadBody() {
 				$.getJSON('http://www.findmydriver.com/ubmopenitemsonlystatusopenitems.php?callback=?', {//JSONP Request to Open Items Page setup tables
 				}, function(res, status) {
@@ -369,9 +368,9 @@ under the License.
 						if (window.accounttype == "admin") {//If user accounttype is admin, allow user to add new resolutions. If not, only allow them to view existing resolutions.
 							//alert(window.accounttype);
 							if (item.number_resolutions !== "0") {//If item doesnt have any resolutions associated with it, use theme a for the "View" Resolutions button
-								$('#mcs_open_points_action_items_table_body').append("<tr ><th class='label'>" + item.id + "</th><td>" + item.form_ref + "</td><td>" + item.priority + "</td><td>" + item.opened_by + "</td><td>" + item.date_opened + "</td><td>" + item.action_required + "</td><td>" + item.assigned_to + "</td><td>" + item.date_opened + "</td><td>" + item.due_date + "</td><td>b</td><td>c</td><td>d</td><td><a href='#' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-comment ui-btn-icon-left ui-btn-b' onclick='viewResolutions(" + item.id + ")'>View &nbsp&nbsp&nbsp&nbsp<span class='ui-li-has-count ui-btn-up-c ui-btn-corner-all'>" + item.number_resolutions + "</span></a><a href='#' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-plus ui-btn-icon-left ui-btn-a' onclick='addResolutions(" + item.id + ")'>Add &nbsp&nbsp&nbsp&nbsp</a><a href='#' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-plus ui-btn-icon-left ui-btn-a' onclick='addItemComment(" + item.id + ")'>Comment &nbsp&nbsp&nbsp&nbsp</a></td></tr>");
+								$('#mcs_open_points_action_items_table_body').append("<tr ><th class='label'>" + item.id + "</th><td>" + item.form_ref + "</td><td>" + item.priority + "</td><td>" + item.opened_by + "</td><td>" + item.date_opened + "</td><td>" + item.action_required + "</td><td>" + item.assigned_to + "</td><td>" + item.date_opened + "</td><td>" + item.due_date + "</td><td>b</td><td>c</td><td>d</td><td><a href='#' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-comment ui-btn-icon-left ui-btn-b' onclick='viewResolutions(" + item.id + ")'>View &nbsp&nbsp&nbsp&nbsp<span class='ui-li-has-count ui-btn-up-c ui-btn-corner-all'>" + item.number_resolutions + "</span></a><a href='#' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-plus ui-btn-icon-left ui-btn-a' onclick='addResolutions(" + item.id + ")'>Resolve &nbsp&nbsp&nbsp&nbsp</a><a href='#' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-plus ui-btn-icon-left ui-btn-a' onclick='addItemComment(" + item.id + ")'>Comment &nbsp&nbsp&nbsp&nbsp</a></td></tr>");
 							} else {
-								$('#mcs_open_points_action_items_table_body').append("<tr ><th class='label'>" + item.id + "</th><td>" + item.form_ref + "</td><td>" + item.priority + "</td><td>" + item.opened_by + "</td><td>" + item.date_opened + "</td><td>" + item.action_required + "</td><td>" + item.assigned_to + "</td><td>" + item.date_opened + "</td><td>" + item.due_date + "</td><td>b</td><td>c</td><td>d</td><td><a href='#' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-comment ui-btn-icon-left ui-btn-a' onclick='viewResolutions(" + item.id + ")'>View &nbsp&nbsp&nbsp&nbsp<span class='ui-li-has-count ui-btn-up-c ui-btn-corner-all'>" + item.number_resolutions + "</span></a><a href='#' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-plus ui-btn-icon-left ui-btn-a' onclick='addResolutions(" + item.id + ")'>Add &nbsp&nbsp&nbsp&nbsp</a><a href='#' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-plus ui-btn-icon-left ui-btn-a' onclick='addItemComment(" + item.id + ")'>Comment &nbsp&nbsp&nbsp&nbsp</a></td></tr>");
+								$('#mcs_open_points_action_items_table_body').append("<tr ><th class='label'>" + item.id + "</th><td>" + item.form_ref + "</td><td>" + item.priority + "</td><td>" + item.opened_by + "</td><td>" + item.date_opened + "</td><td>" + item.action_required + "</td><td>" + item.assigned_to + "</td><td>" + item.date_opened + "</td><td>" + item.due_date + "</td><td>b</td><td>c</td><td>d</td><td><a href='#' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-comment ui-btn-icon-left ui-btn-a' onclick='viewResolutions(" + item.id + ")'>View &nbsp&nbsp&nbsp&nbsp<span class='ui-li-has-count ui-btn-up-c ui-btn-corner-all'>" + item.number_resolutions + "</span></a><a href='#' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-plus ui-btn-icon-left ui-btn-a' onclick='addResolutions(" + item.id + ")'>Resolve &nbsp&nbsp&nbsp&nbsp</a><a href='#' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-plus ui-btn-icon-left ui-btn-a' onclick='addItemComment(" + item.id + ")'>Comment &nbsp&nbsp&nbsp&nbsp</a></td></tr>");
 								$("#mcs_open_points_action_items_table").table("refresh");
 							}
 						} else {
@@ -904,6 +903,9 @@ under the License.
 				//		alert("user Sign in Clicked");
 				//	$.mobile.changePage( "#home", { transition: "fade", changeHash: false, reloadPage: true });
 			}
+			function updateUserPreferences(){
+				alert("SMS notifications are currently only supported for Verizon. Additional support is coming soon.");
+			}
 			function userSignOut(){
 				window.username=0;
 			}
@@ -984,6 +986,20 @@ under the License.
 				background-color: rgba(0,0,255,0.5);
 				border: 3px solid blue
 			}
+			
+			/** CSS for Scrolling panels */
+		    .ui-panel.ui-panel-open {
+		        position:fixed;
+		    }
+		    .ui-panel-inner {
+		        position: absolute;
+		        top: 1px;
+		        left: 0;
+		        right: 0;
+		        bottom: 0px;
+		        overflow: scroll;
+		        -webkit-overflow-scrolling: touch;
+		    }  /***/
         </style>
         <style> /* class="my-page" custom styling */
 			
@@ -1237,62 +1253,109 @@ under the License.
 
             </div>
         </div>
+        <div data-role="page" class="ubm_page" id="ubmsuite_UserPreferences" data-theme="a">
+        	<!-- No Panel on this page, instead only back button is needed.-->
+            <div data-role="header" data-position="fixed" data-fullscreen="true">
+                <a href="#" class="back_btn" data-icon="arrow-l" data-iconpos="notext">Back</a>
+                <div id"ubmsuite_UserPreferences_header_headerRecord_center" style="text-align: center">
+                    <div id="ubmsuite_UserPreferences_header_headerRecord_center_legalentity">
+                        Legal Entity: Cindt, LLC
+                    </div>
+                    <div id="ubmsuite_UserPreferences_header_headerRecord_center_systemtitle">
+                        System Title: UBM v 3.3.0
+                    </div>
+                    <div id="ubmsuite_UserPreferences_header_headerRecord_center_modelapptitle">
+                        Model / App Title: Universal Business Model Suite - Automated Prototype
+                    </div>
+                    <div id="ubmsuite_UserPreferences_header_headerRecord_center_pagetitle">
+                        User Preferences
+                    </div>
+                </div>
+            </div>
+            <div data-role="content">
+                <!-- Open Items Popup -->
+                <div data-role="popup" id="ubmsuite_UserPreferences_openItem_popup" data-theme="b">
+                    <form id="ubmsuite_UserPreferences_open_items_form" name="open_items_form">
+                        <ul data-role="listview" data-inset="true" style="min-width:210px;">
+                            <li data-role="list-divider">
+                                Write a Review Point</br>or Open Item
+                            </li>
+                            <li>
+                                <input type="text" id="ubmsuite_UserPreferences_submitreviewpoint_formref" name="submitreviewpoint_formref" value="" placeholder="Form Ref...">
+                            </li>
+                            <li>
+                                <select  id="ubmsuite_UserPreferences_submitreviewpoint_priority" value="Select" data-native-menu="false">
+                                    <option>Priority...</option>
+                                    <option value="A1">A1</option>
+                                    <option value="A2">A2</option>
+                                    <option value="A3">A3</option>
+                                    <option value="B1">B1</option>
+                                    <option value="B2">B2</option>
+                                    <option value="B3">B3</option>
+                                    <option value="C1">C1</option>
+                                    <option value="C2">C2</option>
+                                    <option value="C3">C3</option>
+                                </select>
+                            </li>
+                            <li>
+                                <textarea data-mini="true" cols="40" rows="8" id="ubmsuite_UserPreferences_submitreviewpoint_actionrequired" placeholder="Action Required..."></textarea>
+                            </li>
+                            <li>
+                                <select  id="ubmsuite_UserPreferences_submitreviewpoint_assignedto" value="Select" data-native-menu="false">
+                                    <option>Assigned To...</option>
+                                    <option value="Jesse Spencer">Jesse Spencer</option>
+                                    <option value="Adam Gustafson">Adam Gustafson</option>
+                                </select>
+                            </li>
+                            <li>
+                                <label for="datetime-4">Due Datetime</label>
+                                <input type="datetime-local" data-clear-btn="true"  id="ubmsuite_UserPreferences_submitreviewpoint_duedatetime" value="" placeholder="Due Datetime...">
+                            </li>
+                            <li>
+                                <input type="button" data-enhanced="true" value="Submit Review Point" onclick="submitReviewPoint('ubmsuite_UserPreferences_');">
+                            </li>
+                        </ul>
+                    </form>
+                </div>
+                <!-- End Open Items Popup -->
+				<div class="ui-grid-a">
+				    <div class="ui-block-a">
+						<fieldset data-role="controlgroup">
+						    <legend>Select your wireless carrier. This will allow you to receive notifications from the UBM: </legend>
+						        <input type="radio" name="ubmsuite_UserPreferences_wirelesscarrier_verizon" id="ubmsuite_UserPreferences_wirelesscarrier_verizon" value="verizon" checked="checked">
+						        <label for="ubmsuite_UserPreferences_wirelesscarrier_verizon">Verizon</label>
+						        <input disabled="disabled" type="radio" name="ubmsuite_UserPreferences_wirelesscarrier_sprint" id="ubmsuite_UserPreferences_wirelesscarrier_sprint" value="sprint">
+						        <label for="ubmsuite_UserPreferences_wirelesscarrier_sprint">Sprint</label>
+						        <input disabled="disabled" type="radio" name="ubmsuite_UserPreferences_wirelesscarrier_tmobile" id="ubmsuite_UserPreferences_wirelesscarrier_tmobile" value="tmobile">
+						        <label for="ubmsuite_UserPreferences_wirelesscarrier_tmobile">T-Mobile</label>
+						        <input disabled="disabled" type="radio" name="ubmsuite_UserPreferences_wirelesscarrier_atandt" id="ubmsuite_UserPreferences_wirelesscarrier_atandt" value="atandt">
+						        <label for="ubmsuite_UserPreferences_wirelesscarrier_atandt">AT&T</label>
+						</fieldset>	
+						<input type="tel" data-clear-btn="false" name="tel-1" placeholder="10 Digit cell phone number" id="ubmsuite_UserPreferences_cell" value="">				    	
+						<button class="ui-btn ui-shadow ui-corner-all ui-btn-icon-left ui-icon-forward" onclick="updateUserPreferences()">Update</button>		    	
+				    </div>
+				    <div class="ui-block-b">
+
+				    </div>
+				</div><!-- /grid-a -->			
+            </div>
+            <div data-role="footer" data-position="fixed" data-fullscreen="true"></div>
+        </div>
         <div data-role="page" class="ubm_page" id="ubmsuite_SelectBusinessModel">  <!-- Select Business Model -->
             <div data-role="panel" id="ubmsuite_table_of_contents_lpanel" data-display="overlay" data-position="left">
                 <ul data-role="listview">
-                    <li>
-                        <a href="#gettingStarted">Getting Started</a>
+                    <li data-icon="home"><a href="#ubmsuite_SelectBusinessModel" >My Models</a></li>
+                    <li><a href="#ubmsuite_table_of_contents">UBM Suite Table of Contents</a></li>
+                    <li><a href="#creator_table_of_contents">Model Creator Table of Contents</a></li>
+                    <li><a href="#ubmsuite_table_of_contents">UBM Suite Table of Contents</a></li>
+                    <li><a href="#mcs_setup_checklist_setup">Model Creation Suite</a></li>
+                    <li><a href="#management_reporting">Management Reporting</a>
                     </li>
                     <li>
-                        <a href="#identification_setup">Identification Setup</a>
-                    </li>
-                    <li>
-                        <a href="#ubmsuite_table_of_contents">UBM Suite Table of Contents</a>
-                    </li>
-                    <li>
-                        <a href="#creator_table_of_contents">Model Creator Table of Contents</a>
-                    </li>
-                    <li>
-                        <a href="#ubmsuite_table_of_contents">UBM Suite Table of Contents</a>
-                    </li>
-                    <li>
-                        <a href="#mcs_setup_checklist_setup">MCS Setup</a>
-                    </li>
-                    <li>
-                        <a href="#management_reporting">Management Reporting</a>
-                    </li>
-                    <li>
-                        <a href="#mcs_setup_checklist_CS">Control Section</a>
-                    </li>
-                    <li>
-                        <a href="#mcs_setup_checklist_p1">Phase 1</a>
-                    </li>
-                    <li>
-                        <a href="#mcs_setup_checklist_p2">Phase 2</a>
-                    </li>
-                    <li>
-                        <a href="#mcs_setup_checklist_p3">Phase 3</a>
-                    </li>
-                    <li>
-                        <a href="#mcs_setup_checklist_p4">Phase 4</a>
-                    </li>
-                    <li>
-                        <a href="#mcs_setup_checklist_p5">Phase 5</a>
-                    </li>
-                    <li>
-                        <a href="#mcs_setup_checklist_p6">Phase 6</a>
-                    </li>
-                    <li>
-                        <a href="#mcs_setup_checklist_p7">Phase 7</a>
-                    </li>
-                    <li>
-                        <a href="#mcs_setup_checklist_p8">Phase 8</a>
+                        <a href="#ubmsuite_UserPreferences">User Preferences</a>
                     </li>
                     <li>
                         <a href="#open_points_action_items">Open Points Action Items</a>
-                    </li>
-                    <li data-icon="delete">
-                        <a href="#" data-rel="close">Close menu</a>
                     </li>
                     <li data-icon="delete">
                         <a href="#sign_in_sign_up">Sign Out</a>
@@ -1312,7 +1375,7 @@ under the License.
                         Model / App Title: Universal Business Model Suite - Automated Prototype
                     </div>
                     <div id="creator_table_of_contents_header_headerRecord_center_pagetitle">
-                        My Models Page
+                        Select Models Page
                     </div>
                 </div>
                 <a href="#" data-icon="refresh" data-iconpos="notext" onclick="getMyModels()">Refresh</a>
@@ -1514,7 +1577,7 @@ under the License.
             </div>
             <div data-role="footer" data-position="fixed" data-fullscreen="true"></div>
         </div>
-        <div data-role="page" class="ubm_page my-page" id="ubmsuite_EditSharedBusinessModel" data-theme="b">
+        <div data-role="page" class="ubm_page my-page" id="ubmsuite_EditSharedBusinessModel" data-theme="b">  <!-- Business Model Creator Settings -->
             <div data-role="header">
                 <a href="#" class="back_btn" data-icon="arrow-l" data-iconpos="notext">Back</a>
                 <div id"ubmsuite_EditSharedBusinessModel_header_headerRecord_center" style="text-align: center">
@@ -1635,15 +1698,12 @@ under the License.
             </div>
             <div data-role="footer" data-position="fixed" data-fullscreen="true"></div>
         </div>
-        <!-- Business Model Creator Settings -->
         <div data-role="page" class="ubm_page" id="gettingStarted">
             <div data-role="panel" id="mcs_gettingStarted_lpanel" data-display="overlay" data-position="left">
                 <ul data-role="listview">
+                    <li data-icon="home"><a href="#ubmsuite_SelectBusinessModel" >My Models</a></li>
                     <li>
-                        <a href="#gettingStarted">Getting Started</a>
-                    </li>
-                    <li>
-                        <a href="#identification_setup">Identification Setup</a>
+                         
                     </li>
                     <li>
                         <a href="#creator_table_of_contents">Model Creator Table of Contents</a>
@@ -1942,16 +2002,112 @@ under the License.
                 <!-- End Share Model Popup -->
 				<fieldset class="ui-grid-a" >
 				    <div class="ui-block-a">
+    	                <a data-rel="popup" data-transition="slideup" href="#ubmsuite_modelSettings_shareModel_popup" class="ui-btn ui-shadow">Click to give another user access to this model.</a>
 						<ul data-role="listview" id="ubmsuite_modelSettings_modelusers_ul" data-filter="true" data-filter-placeholder="Users with access to this model..." data-theme="b" data-autodividers="true" data-inset="true" data-scroll="true">
 
 						</ul>				    
 				    </div>
 				    <div class="ui-block-b">
-    	                <a data-rel="popup" data-transition="slideup" href="#ubmsuite_modelSettings_shareModel_popup" class="ui-btn ui-shadow">Click to give another user access to this model.</a>
 				    </div>
 				</fieldset>
-
-            </div>
+				<fieldset class="ui-grid-b" >
+				    <div class="ui-block-a">
+		                <label for="text-6">Model Owner Legal Entity:</label>
+		                <input type="text" name="text-6" id="text-6" value="" placeholder="Legal Entity">
+		                <label for="text-6">CCODE:</label>
+		                <input type="text" name="text-6" id="text-6" value="" placeholder="CCODE">
+		                <label for="text-6">Contact Name:</label>
+		                <input type="text" name="text-6" id="text-6" value="" placeholder="Contact Name">
+		                <label for="text-6">Client Phone:</label>
+		                <input type="text" name="text-6" id="text-6" value="" placeholder="Client Phone">
+		                <label for="text-6">Model Title:</label>
+		                <input type="text" name="text-6" id="text-6" value="" placeholder="Model Title">
+						<fieldset data-role="controlgroup">
+						    <legend>Category:</legend>
+						    <input type="checkbox" name="ubmsuite_modelSettings_category_business" id="ubmsuite_modelSettings_category_business" checked="">
+						    <label for="ubmsuite_modelSettings_category_business">Business</label>
+						    <input type="checkbox" name="ubmsuite_modelSettings_category_education" id="ubmsuite_modelSettings_category_education">
+						    <label for="ubmsuite_modelSettings_category_education">Education</label>
+						    <input type="checkbox" name="ubmsuite_modelSettings_category_family" id="ubmsuite_modelSettings_category_family">
+						    <label for="checkbox-3a">Family</label>
+						    <input type="checkbox" name="ubmsuite_modelSettings_category_health" id="ubmsuite_modelSettings_category_health">
+						    <label for="checkbox-4a">Health</label>
+						    <input type="checkbox" name="ubmsuite_modelSettings_category_medical" id="ubmsuite_modelSettings_category_medical" checked="">
+						    <label for="checkbox-1a">Medical</label>
+						    <input type="checkbox" name="ubmsuite_modelSettings_category_productivity" id="ubmsuite_modelSettings_category_productivity">
+						    <label for="checkbox-2a">Productivity</label>
+						    <input type="checkbox" name="ubmsuite_modelSettings_category_utilities" id="ubmsuite_modelSettings_category_utilities">
+						    <label for="checkbox-3a">Utilities</label>
+						    <input type="checkbox" name="ubmsuite_modelSettings_category_church" id="ubmsuite_modelSettings_category_church">
+						    <label for="checkbox-4a">Church</label>
+						    <input type="checkbox" name="ubmsuite_modelSettings_category_coop" id="ubmsuite_modelSettings_category_coop">
+						    <label for="checkbox-3a">Coop</label>
+						    <input type="checkbox" name="ubmsuite_modelSettings_category_other" id="ubmsuite_modelSettings_category_other">
+						    <label for="checkbox-4a">Other</label>
+						</fieldset>
+		                <label for="text-6">Model(s) Compatible with:</label>
+		                <input type="text" name="text-6" id="text-6" value="" placeholder="UBM, UFM, UCM, UEM, Other">
+		                <label for="text-6">Model(s) Sub Type:</label>
+		                <input type="text" name="text-6" id="text-6" value="" placeholder="Retail, Professional Services, Propery Owner, Other">
+		                <label for="text-6">Hardware Requirements:</label>
+		                <input type="text" name="text-6" id="text-6" value="" placeholder="PC, Mac, Smartphone, Tablet, None, Other">
+		                <label for="text-6">Operating Systems Supported:</label>
+		                <input type="text" name="text-6" id="text-6" value="" placeholder="Windows, IOS, Android, OSX, None, Other">
+		                <label for="text-6">UBM Services Required:</label>
+		                <input type="text" name="text-6" id="text-6" value="" placeholder="App Store, None, Other">
+		                <label for="text-6">Description:</label>
+		                <input type="text" name="text-6" id="text-6" value="" placeholder="Description">
+		                <label for="text-6">Purpose/Goal:</label>
+		                <input type="text" name="text-6" id="text-6" value="" placeholder="Purpose/Goal">
+		                <label for="text-6">Scope:</label>
+		                <input type="text" name="text-6" id="text-6" value="" placeholder="Scope">
+		                <label for="text-6">What Features Must This Model Create, Do, Process, etc.:</label>
+		                <input type="text" name="text-6" id="text-6" value="" placeholder="What Features Must This Model Create, Do, Process, etc.">
+		                <label for="text-6">What Products Must This Model Create or Generate:</label>
+		                <input type="text" name="text-6" id="text-6" value="" placeholder="What Products Must This Model Create or Generate">
+		                <div id="submit_button">
+		                    <a href="#" data-role="button" data-inline="true">Submit</a>
+		                    <a href="#primary_objects_setup_table" data-role="button" data-inline="true">Continue</a>
+		                </div>	
+				    </div>
+				    <div class="ui-block-b">
+				    </div>
+				    <div class="ui-block-c">
+		                <label for="text-6">Conceptual Definitions</label>
+		                <input type="text" name="text-6" id="text-6" value="" placeholder="Conceptual Definitions (Refer to 01.01.02.01 in the Reference Manual)">
+		                <label for="text-6">Entity/Model Description</label>
+		                <input type="text" name="text-6" id="text-6" value="" placeholder="Entity/Model Description (Refer to 01.01.02.13  in the Reference Manual)">
+		                <label for="text-6">Mission Statement</label>
+		                <input type="text" name="text-6" id="text-6" value="" placeholder="Mission Statement (Refer to 01.01.02.02  in the Reference Manual)">
+		                <label for="text-6">Vision Statement</label>
+		                <input type="text" name="text-6" id="text-6" value="" placeholder="Vision Statement (Refer to 01.01.02.03  in the Reference Manual)">
+		                <label for="text-6">Core Values</label>
+		                <input type="text" name="text-6" id="text-6" value="" placeholder="Core Values (Refer to 01.01.02.04  in the Reference Manual)">
+		                <label for="text-6">My Customer</label>
+		                <input type="text" name="text-6" id="text-6" value="" placeholder="My Customer (Refer to 01.01.02.05  in the Reference Manual)">
+		                <label for="text-6">Products and Service</label>
+		                <input type="text" name="text-6" id="text-6" value="" placeholder="Product & Service (Refer to 01.01.02.06  in the Reference Manual)">
+		                <label for="text-6">Organizational Structure</label>
+		                <input type="text" name="text-6" id="text-6" value="" placeholder="Organizational Structure (Refer to 01.01.01.04 in the Reference Manual)">
+		                <label for="text-6">Physical Facilities</label>
+		                <input type="text" name="text-6" id="text-6" value="" placeholder="Physical Facilities (Refer to 01.01.02.10  in the Reference Manual)">
+		                <label for="text-6">Physical Facilites By Position</label>
+		                <input type="text" name="text-6" id="text-6" value="" placeholder="Physical Facilities By Position (Refer to 01.01.02.10  in the Reference Manual)">
+		                <label for="text-6">Strategic Positioning Questions</label>
+		                <input type="text" name="text-6" id="text-6" value="" placeholder="Strategic Positioning Questions (Refer to 01.01.02.07  in the Reference Manual)">
+		                <label for="text-6">Strategic Alliances</label>
+		                <input type="text" name="text-6" id="text-6" value="" placeholder="Strategic Alliances (Refer to 01.01.02.14 in the Reference Manual)">
+		                <!--submit button-->
+		                <div id="submit_button">
+		                    <a href="#" data-role="button" data-inline="true">Submit</a>
+		                </div>
+		                <!--continue button-->
+		                <div class="continue_button">
+		                    <a href="#possible_alternitives" data-role="button" data-inline="true">Continue</a>
+		                </div>
+				    </div>
+				</fieldset>
+			</div>
             <div data-role="footer" data-position="fixed" data-fullscreen="true">
             	
             </div>
@@ -1959,11 +2115,9 @@ under the License.
         <div data-role="page" class="ubm_page" id="ubmsuite_table_of_contents">   <!-- UBM Suite Table of Contents Page-->
             <div data-role="panel" id="ubmsuite_table_of_contents_lpanel" data-display="overlay" data-position="left">
                 <ul data-role="listview">
+                    <li data-icon="home"><a href="#ubmsuite_SelectBusinessModel" >My Models</a></li>
                     <li>
-                        <a href="#gettingStarted">Getting Started</a>
-                    </li>
-                    <li>
-                        <a href="#identification_setup">Identification Setup</a>
+                         
                     </li>
                     <li>
                         <a href="#ubmsuite_table_of_contents">UBM Suite Table of Contents</a>
@@ -2130,11 +2284,9 @@ under the License.
         <div data-role="page" class="ubm_page" id="creator_table_of_contents">
             <div data-role="panel" id="mcs_creator_table_of_contents_lpanel" data-display="overlay" data-position="left">
                 <ul data-role="listview">
+                    <li data-icon="home"><a href="#ubmsuite_SelectBusinessModel" >My Models</a></li>
                     <li>
-                        <a href="#gettingStarted">Getting Started</a>
-                    </li>
-                    <li>
-                        <a href="#identification_setup">Identification Setup</a>
+                         
                     </li>
                     <li>
                         <a href="#creator_table_of_contents">Model Creator Table of Contents</a>
@@ -2287,165 +2439,6 @@ under the License.
 
             </div>
         </div>
-        <div data-role="page" class="ubm_page" id="identification_setup">
-            <div data-role="panel" id="mcs_identification_setup_lpanel" data-display="overlay" data-position="left">
-                <ul data-role="listview">
-                    <li>
-                        <a href="#gettingStarted">Getting Started</a>
-                    </li>
-                    <li>
-                        <a href="#identification_setup">Identification Setup</a>
-                    </li>
-                    <li>
-                        <a href="#creator_table_of_contents">Model Creator Table of Contents</a>
-                    </li>
-                    <li>
-                        <a href="#mcs_setup_checklist_setup">MCS Setup</a>
-                    </li>
-                    <li>
-                        <a href="#management_reporting">Management Reporting</a>
-                    </li>
-                    <li>
-                        <a href="#mcs_setup_checklist_CS">Control Section</a>
-                    </li>
-                    <li>
-                        <a href="#mcs_setup_checklist_p1">Phase 1</a>
-                    </li>
-                    <li>
-                        <a href="#mcs_setup_checklist_p2">Phase 2</a>
-                    </li>
-                    <li>
-                        <a href="#mcs_setup_checklist_p3">Phase 3</a>
-                    </li>
-                    <li>
-                        <a href="#mcs_setup_checklist_p4">Phase 4</a>
-                    </li>
-                    <li>
-                        <a href="#mcs_setup_checklist_p5">Phase 5</a>
-                    </li>
-                    <li>
-                        <a href="#mcs_setup_checklist_p6">Phase 6</a>
-                    </li>
-                    <li>
-                        <a href="#mcs_setup_checklist_p7">Phase 7</a>
-                    </li>
-                    <li>
-                        <a href="#mcs_setup_checklist_p8">Phase 8</a>
-                    </li>
-                    <li>
-                        <a href="#open_points_action_items">Open Points Action Items</a>
-                    </li>
-                    <li data-icon="delete">
-                        <a href="#" data-rel="close">Close menu</a>
-                    </li>
-                    <li data-icon="delete">
-                        <a href="#sign_in_sign_up">Sign Out</a>
-                    </li>
-                </ul>
-            </div><!-- /panel -->
-            <div data-role="header">
-                <a href="#mcs_identification_setup_lpanel" data-icon="arrow-r" data-iconpos="notext">Menu</a>
-                <div id"identification_setup_header_headerRecord_center" style="text-align: center">
-                    <div id="identification_setup_header_headerRecord_center_legalentity">
-                        Legal Entity: Cindt, LLC
-                    </div>
-                    <div id="identification_setup_header_headerRecord_center_systemtitle">
-                        System Title: UBM v 3.3.0
-                    </div>
-                    <div id="identification_setup_header_headerRecord_center_modelapptitle">
-                        Model / App Title: UBM Model Creation Suite Automated Prototype
-                    </div>
-                    <div id="identification_setup_header_headerRecord_center_pagetitle">
-                        Table of Contents
-                    </div>
-                </div>
-            </div>
-            <div data-role="content" id="identification_setup_content">
-                <!-- Open Items Popup -->
-                <div data-role="popup" id="identification_setup_openItem_popup" data-theme="b">
-                    <form id="identification_setup_open_items_form" name="open_items_form">
-                        <ul data-role="listview" data-inset="true" style="min-width:210px;">
-                            <li data-role="list-divider">
-                                Write a Review Point</br>or Open Item
-                            </li>
-                            <li>
-                                <input type="text" id="identification_setup_submitreviewpoint_formref" name="submitreviewpoint_formref" value="" placeholder="Form Ref...">
-                            </li>
-                            <select  id="identification_setup_submitreviewpoint_priority" value="Select" data-native-menu="false">
-                                <option>Priority...</option>
-                                <option value="A1">A1</option>
-                                <option value="A2">A2</option>
-                                <option value="A3">A3</option>
-                                <option value="B1">B1</option>
-                                <option value="B2">B2</option>
-                                <option value="B3">B3</option>
-                                <option value="C1">C1</option>
-                                <option value="C2">C2</option>
-                                <option value="C3">C3</option>
-                            </select>
-                            </li>
-                            <li>
-                                <textarea data-mini="true" cols="40" rows="8" id="identification_setup_submitreviewpoint_actionrequired" placeholder="Action Required..."></textarea>
-                            </li>
-                            <li>
-                                <select  id="identification_setup_submitreviewpoint_assignedto" value="Select" data-native-menu="false">
-                                    <option>Assigned To...</option>
-                                    <option value="Jesse Spencer">Jesse Spencer</option>
-                                    <option value="Adam Gustafson">Adam Gustafson</option>
-                                </select>
-                            </li>
-                            <li>
-                                <label for="datetime-4">Due Datetime</label>
-                                <input type="datetime-local" data-clear-btn="true"  id="identification_setup_submitreviewpoint_duedatetime" value="" placeholder="Due Datetime...">
-                            </li>
-                            <li>
-                                <input type="button" data-enhanced="true" value="Submit Review Point" onclick="submitReviewPoint('identification_setup_');">
-                            </li>
-                        </ul>
-                    </form>
-                </div>
-                <!-- End Open Items Popup -->
-                <label for="text-6">Model Owner Legal Entity:</label>
-                <input type="text" name="text-6" id="text-6" value="" placeholder="Legal Entity">
-                <label for="text-6">CCODE:</label>
-                <input type="text" name="text-6" id="text-6" value="" placeholder="CCODE">
-                <label for="text-6">Contact Name:</label>
-                <input type="text" name="text-6" id="text-6" value="" placeholder="Contact Name">
-                <label for="text-6">Client Phone:</label>
-                <input type="text" name="text-6" id="text-6" value="" placeholder="Client Phone">
-                <label for="text-6">Model Title:</label>
-                <input type="text" name="text-6" id="text-6" value="" placeholder="Model Title">
-                <label for="text-6">Category:</label>
-                <input type="text" name="text-6" id="text-6" value="" placeholder="Business, Education, Family, Health, Medical, Productivity, Utilities, Church, Coop, Other">
-                <label for="text-6">Model(s) Compatible with:</label>
-                <input type="text" name="text-6" id="text-6" value="" placeholder="UBM, UFM, UCM, UEM, Other">
-                <label for="text-6">Model(s) Sub Type:</label>
-                <input type="text" name="text-6" id="text-6" value="" placeholder="Retail, Professional Services, Propery Owner, Other">
-                <label for="text-6">Hardware Requirements:</label>
-                <input type="text" name="text-6" id="text-6" value="" placeholder="PC, Mac, Smartphone, Tablet, None, Other">
-                <label for="text-6">Operating Systems Supported:</label>
-                <input type="text" name="text-6" id="text-6" value="" placeholder="Windows, IOS, Android, OSX, None, Other">
-                <label for="text-6">UBM Services Required:</label>
-                <input type="text" name="text-6" id="text-6" value="" placeholder="App Store, None, Other">
-                <label for="text-6">Description:</label>
-                <input type="text" name="text-6" id="text-6" value="" placeholder="Description">
-                <label for="text-6">Purpose/Goal:</label>
-                <input type="text" name="text-6" id="text-6" value="" placeholder="Purpose/Goal">
-                <label for="text-6">Scope:</label>
-                <input type="text" name="text-6" id="text-6" value="" placeholder="Scope">
-                <label for="text-6">What Features Must This Model Create, Do, Process, etc.:</label>
-                <input type="text" name="text-6" id="text-6" value="" placeholder="What Features Must This Model Create, Do, Process, etc.">
-                <label for="text-6">What Products Must This Model Create or Generate:</label>
-                <input type="text" name="text-6" id="text-6" value="" placeholder="What Products Must This Model Create or Generate">
-                <div id="submit_button">
-                    <a href="#" data-role="button" data-inline="true">Submit</a>
-                    <a href="#primary_objects_setup_table" data-role="button" data-inline="true">Continue</a>
-                </div>
-            </div>
-            <div data-role="footer">
-
-            </div>
-        </div>
         <!-- Primary Objects Setup Table -->
         <div data-role="page" class="ubm_page" id="primary_objects_setup_table">
             <div data-role="header">
@@ -2566,11 +2559,9 @@ under the License.
 
             <div data-role="panel" id="mcs_management_reporting_upper_left_panel" data-display="overlay" data-position="left">
                 <ul data-role="listview">
+                    <li data-icon="home"><a href="#ubmsuite_SelectBusinessModel" >My Models</a></li>
                     <li>
-                        <a href="#gettingStarted">Getting Started</a>
-                    </li>
-                    <li>
-                        <a href="#identification_setup">Identification Setup</a>
+                         
                     </li>
                     <li>
                         <a href="#creator_table_of_contents">Model Creator Table of Contents</a>
@@ -3118,11 +3109,9 @@ under the License.
         <div data-role="page" class="ubm_page" id="mcs_setup_checklist_setup">
             <div data-role="panel" id="mcs_setup_checklist_setup_lpanel" data-display="overlay" data-position="left">
                 <ul data-role="listview">
+                    <li data-icon="home"><a href="#ubmsuite_SelectBusinessModel" >My Models</a></li>
                     <li>
-                        <a href="#gettingStarted">Getting Started</a>
-                    </li>
-                    <li>
-                        <a href="#identification_setup">Identification Setup</a>
+                         
                     </li>
                     <li>
                         <a href="#creator_table_of_contents">Model Creator Table of Contents</a>
@@ -3593,11 +3582,9 @@ under the License.
         <div data-role="page" class="ubm_page" id="mcs_setup_checklist_CS">
             <div data-role="panel" id="mcs_identification_setup_lpanel" data-display="overlay" data-position="left">
                 <ul data-role="listview">
+                    <li data-icon="home"><a href="#ubmsuite_SelectBusinessModel" >My Models</a></li>
                     <li>
-                        <a href="#gettingStarted">Getting Started</a>
-                    </li>
-                    <li>
-                        <a href="#identification_setup">Identification Setup</a>
+                         
                     </li>
                     <li>
                         <a href="#creator_table_of_contents">Model Creator Table of Contents</a>
@@ -3913,11 +3900,9 @@ under the License.
         <div data-role="page" class="ubm_page" id="mcs_setup_checklist_p1">
             <div data-role="panel" id="mcs_identification_setup_lpanel" data-display="overlay" data-position="left">
                 <ul data-role="listview">
+                    <li data-icon="home"><a href="#ubmsuite_SelectBusinessModel" >My Models</a></li>
                     <li>
-                        <a href="#gettingStarted">Getting Started</a>
-                    </li>
-                    <li>
-                        <a href="#identification_setup">Identification Setup</a>
+                         
                     </li>
                     <li>
                         <a href="#creator_table_of_contents">Model Creator Table of Contents</a>
@@ -4277,11 +4262,9 @@ under the License.
         <div data-role="page" class="ubm_page" id="mcs_setup_checklist_p2">
             <div data-role="panel" id="mcs_setup_checklist_p2_lpanel" data-display="overlay" data-position="left">
                 <ul data-role="listview">
+                    <li data-icon="home"><a href="#ubmsuite_SelectBusinessModel" >My Models</a></li>
                     <li>
-                        <a href="#gettingStarted">Getting Started</a>
-                    </li>
-                    <li>
-                        <a href="#identification_setup">Identification Setup</a>
+                         
                     </li>
                     <li>
                         <a href="#creator_table_of_contents">Model Creator Table of Contents</a>
@@ -4735,11 +4718,9 @@ under the License.
         <div data-role="page" class="ubm_page" id="mcs_setup_checklist_p3">
             <div data-role="panel" id="mcs_setup_checklist_p3_lpanel" data-display="overlay" data-position="left">
                 <ul data-role="listview">
+                    <li data-icon="home"><a href="#ubmsuite_SelectBusinessModel" >My Models</a></li>
                     <li>
-                        <a href="#gettingStarted">Getting Started</a>
-                    </li>
-                    <li>
-                        <a href="#identification_setup">Identification Setup</a>
+                         
                     </li>
                     <li>
                         <a href="#creator_table_of_contents">Model Creator Table of Contents</a>
@@ -5099,11 +5080,9 @@ under the License.
         <div data-role="page" class="ubm_page" id="mcs_setup_checklist_p4_b1">
             <div data-role="panel" id="mcs_setup_checklist_p4_b1_lpanel" data-display="overlay" data-position="left">
                 <ul data-role="listview">
+                    <li data-icon="home"><a href="#ubmsuite_SelectBusinessModel" >My Models</a></li>
                     <li>
-                        <a href="#gettingStarted">Getting Started</a>
-                    </li>
-                    <li>
-                        <a href="#identification_setup">Identification Setup</a>
+                         
                     </li>
                     <li>
                         <a href="#creator_table_of_contents">Model Creator Table of Contents</a>
@@ -5557,11 +5536,9 @@ under the License.
         <div data-role="page" class="ubm_page" id="mcs_setup_checklist_p4_b2">
             <div data-role="panel" id="mcs_setup_checklist_p4_b2_lpanel" data-display="overlay" data-position="left">
                 <ul data-role="listview">
+                    <li data-icon="home"><a href="#ubmsuite_SelectBusinessModel" >My Models</a></li>
                     <li>
-                        <a href="#gettingStarted">Getting Started</a>
-                    </li>
-                    <li>
-                        <a href="#identification_setup">Identification Setup</a>
+                         
                     </li>
                     <li>
                         <a href="#creator_table_of_contents">Model Creator Table of Contents</a>
@@ -5921,11 +5898,9 @@ under the License.
         <div data-role="page" class="ubm_page" id="mcs_setup_checklist_p4_b3">
             <div data-role="panel" id="mcs_setup_checklist_p4_b3_lpanel" data-display="overlay" data-position="left">
                 <ul data-role="listview">
+                    <li data-icon="home"><a href="#ubmsuite_SelectBusinessModel" >My Models</a></li>
                     <li>
-                        <a href="#gettingStarted">Getting Started</a>
-                    </li>
-                    <li>
-                        <a href="#identification_setup">Identification Setup</a>
+                         
                     </li>
                     <li>
                         <a href="#creator_table_of_contents">Model Creator Table of Contents</a>
@@ -6285,11 +6260,9 @@ under the License.
         <div data-role="page" class="ubm_page" id="mcs_setup_checklist_p4_b4">
             <div data-role="panel" id="mcs_setup_checklist_p4_b4_lpanel" data-display="overlay" data-position="left">
                 <ul data-role="listview">
+                    <li data-icon="home"><a href="#ubmsuite_SelectBusinessModel" >My Models</a></li>
                     <li>
-                        <a href="#gettingStarted">Getting Started</a>
-                    </li>
-                    <li>
-                        <a href="#identification_setup">Identification Setup</a>
+                         
                     </li>
                     <li>
                         <a href="#creator_table_of_contents">Model Creator Table of Contents</a>
@@ -6649,11 +6622,9 @@ under the License.
         <div data-role="page" class="ubm_page" id="mcs_setup_checklist_p4_b5">
             <div data-role="panel" id="mcs_setup_checklist_p4_b5_lpanel" data-display="overlay" data-position="left">
                 <ul data-role="listview">
+                    <li data-icon="home"><a href="#ubmsuite_SelectBusinessModel" >My Models</a></li>
                     <li>
-                        <a href="#gettingStarted">Getting Started</a>
-                    </li>
-                    <li>
-                        <a href="#identification_setup">Identification Setup</a>
+                         
                     </li>
                     <li>
                         <a href="#creator_table_of_contents">Model Creator Table of Contents</a>
@@ -7013,11 +6984,9 @@ under the License.
         <div data-role="page" class="ubm_page" id="mcs_setup_checklist_p4_b6">
             <div data-role="panel" id="mcs_setup_checklist_p4_b6_lpanel" data-display="overlay" data-position="left">
                 <ul data-role="listview">
+                    <li data-icon="home"><a href="#ubmsuite_SelectBusinessModel" >My Models</a></li>
                     <li>
-                        <a href="#gettingStarted">Getting Started</a>
-                    </li>
-                    <li>
-                        <a href="#identification_setup">Identification Setup</a>
+                         
                     </li>
                     <li>
                         <a href="#creator_table_of_contents">Model Creator Table of Contents</a>
@@ -7377,11 +7346,9 @@ under the License.
         <div data-role="page" class="ubm_page" id="mcs_setup_checklist_p4_b7">
             <div data-role="panel" id="mcs_setup_checklist_p4_b7_lpanel" data-display="overlay" data-position="left">
                 <ul data-role="listview">
+                    <li data-icon="home"><a href="#ubmsuite_SelectBusinessModel" >My Models</a></li>
                     <li>
-                        <a href="#gettingStarted">Getting Started</a>
-                    </li>
-                    <li>
-                        <a href="#identification_setup">Identification Setup</a>
+                         
                     </li>
                     <li>
                         <a href="#creator_table_of_contents">Model Creator Table of Contents</a>
@@ -7741,11 +7708,9 @@ under the License.
         <div data-role="page" class="ubm_page" id="mcs_setup_checklist_p4_b8">
             <div data-role="panel" id="mcs_setup_checklist_p4_b8_lpanel" data-display="overlay" data-position="left">
                 <ul data-role="listview">
+                    <li data-icon="home"><a href="#ubmsuite_SelectBusinessModel" >My Models</a></li>
                     <li>
-                        <a href="#gettingStarted">Getting Started</a>
-                    </li>
-                    <li>
-                        <a href="#identification_setup">Identification Setup</a>
+                         
                     </li>
                     <li>
                         <a href="#creator_table_of_contents">Model Creator Table of Contents</a>
@@ -8105,11 +8070,9 @@ under the License.
         <div data-role="page" class="ubm_page" id="mcs_setup_checklist_p4_b9">
             <div data-role="panel" id="mcs_setup_checklist_p4_b9_lpanel" data-display="overlay" data-position="left">
                 <ul data-role="listview">
+                    <li data-icon="home"><a href="#ubmsuite_SelectBusinessModel" >My Models</a></li>
                     <li>
-                        <a href="#gettingStarted">Getting Started</a>
-                    </li>
-                    <li>
-                        <a href="#identification_setup">Identification Setup</a>
+                         
                     </li>
                     <li>
                         <a href="#creator_table_of_contents">Model Creator Table of Contents</a>
@@ -8469,11 +8432,9 @@ under the License.
         <div data-role="page" class="ubm_page" id="mcs_setup_checklist_p4_b10">
             <div data-role="panel" id="mcs_setup_checklist_p4_b10_lpanel" data-display="overlay" data-position="left">
                 <ul data-role="listview">
+                    <li data-icon="home"><a href="#ubmsuite_SelectBusinessModel" >My Models</a></li>
                     <li>
-                        <a href="#gettingStarted">Getting Started</a>
-                    </li>
-                    <li>
-                        <a href="#identification_setup">Identification Setup</a>
+                         
                     </li>
                     <li>
                         <a href="#creator_table_of_contents">Model Creator Table of Contents</a>
@@ -8833,11 +8794,9 @@ under the License.
         <div data-role="page" class="ubm_page" id="mcs_setup_checklist_p4_b11">
             <div data-role="panel" id="mcs_setup_checklist_p4_b11_lpanel" data-display="overlay" data-position="left">
                 <ul data-role="listview">
+                    <li data-icon="home"><a href="#ubmsuite_SelectBusinessModel" >My Models</a></li>
                     <li>
-                        <a href="#gettingStarted">Getting Started</a>
-                    </li>
-                    <li>
-                        <a href="#identification_setup">Identification Setup</a>
+                         
                     </li>
                     <li>
                         <a href="#creator_table_of_contents">Model Creator Table of Contents</a>
@@ -9197,11 +9156,9 @@ under the License.
         <div data-role="page" class="ubm_page" id="mcs_setup_checklist_p4_b12">
             <div data-role="panel" id="mcs_setup_checklist_p4_b12_lpanel" data-display="overlay" data-position="left">
                 <ul data-role="listview">
+                    <li data-icon="home"><a href="#ubmsuite_SelectBusinessModel" >My Models</a></li>
                     <li>
-                        <a href="#gettingStarted">Getting Started</a>
-                    </li>
-                    <li>
-                        <a href="#identification_setup">Identification Setup</a>
+                         
                     </li>
                     <li>
                         <a href="#creator_table_of_contents">Model Creator Table of Contents</a>
@@ -9561,11 +9518,9 @@ under the License.
         <div data-role="page" class="ubm_page" id="mcs_setup_checklist_p5">
             <div data-role="panel" id="mcs_setup_checklist_p5_lpanel" data-display="overlay" data-position="left">
                 <ul data-role="listview">
+                    <li data-icon="home"><a href="#ubmsuite_SelectBusinessModel" >My Models</a></li>
                     <li>
-                        <a href="#gettingStarted">Getting Started</a>
-                    </li>
-                    <li>
-                        <a href="#identification_setup">Identification Setup</a>
+                         
                     </li>
                     <li>
                         <a href="#creator_table_of_contents">Model Creator Table of Contents</a>
@@ -9925,11 +9880,9 @@ under the License.
         <div data-role="page" class="ubm_page" id="mcs_setup_checklist_p6">
             <div data-role="panel" id="mcs_setup_checklist_p6_lpanel" data-display="overlay" data-position="left">
                 <ul data-role="listview">
+                    <li data-icon="home"><a href="#ubmsuite_SelectBusinessModel" >My Models</a></li>
                     <li>
-                        <a href="#gettingStarted">Getting Started</a>
-                    </li>
-                    <li>
-                        <a href="#identification_setup">Identification Setup</a>
+                         
                     </li>
                     <li>
                         <a href="#creator_table_of_contents">Model Creator Table of Contents</a>
@@ -10289,11 +10242,9 @@ under the License.
         <div data-role="page" class="ubm_page" id="mcs_setup_checklist_p7">
             <div data-role="panel" id="mcs_setup_checklist_p7_lpanel" data-display="overlay" data-position="left">
                 <ul data-role="listview">
+                    <li data-icon="home"><a href="#ubmsuite_SelectBusinessModel" >My Models</a></li>
                     <li>
-                        <a href="#gettingStarted">Getting Started</a>
-                    </li>
-                    <li>
-                        <a href="#identification_setup">Identification Setup</a>
+                         
                     </li>
                     <li>
                         <a href="#creator_table_of_contents">Model Creator Table of Contents</a>
@@ -10650,11 +10601,9 @@ under the License.
         <div data-role="page" class="ubm_page" id="mcs_setup_checklist_p8">
             <div data-role="panel" id="mcs_setup_checklist_p8_lpanel" data-display="overlay" data-position="left">
                 <ul data-role="listview">
+                    <li data-icon="home"><a href="#ubmsuite_SelectBusinessModel" >My Models</a></li>
                     <li>
-                        <a href="#gettingStarted">Getting Started</a>
-                    </li>
-                    <li>
-                        <a href="#identification_setup">Identification Setup</a>
+                         
                     </li>
                     <li>
                         <a href="#creator_table_of_contents">Model Creator Table of Contents</a>
@@ -11054,11 +11003,9 @@ under the License.
         <div data-role="page" class="ubm_page" id="open_points_action_items">
             <div data-role="panel" id="mcs_creator_table_of_contents_lpanel" data-display="overlay" data-position="left">
                 <ul data-role="listview">
+                    <li data-icon="home"><a href="#ubmsuite_SelectBusinessModel" >My Models</a></li>
                     <li>
-                        <a href="#gettingStarted">Getting Started</a>
-                    </li>
-                    <li>
-                        <a href="#identification_setup">Identification Setup</a>
+                         
                     </li>
                     <li>
                         <a href="#creator_table_of_contents">Model Creator Table of Contents</a>
@@ -11185,6 +11132,9 @@ under the License.
                         <h1>Resolutions</h1>
                     </div>
                     <div role="main" class="ui-content">
+                        <ul data-role="listview" data-inset="false" id="mcs_open_points_action_items_resolution_popup_ul" >
+
+                        </ul>                        
                         <ul data-role="listview" data-inset="false" id="mcs_open_points_action_items_comment_popup_ul" >
 
                         </ul>
