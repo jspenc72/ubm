@@ -239,7 +239,11 @@ under the License.
 					disposition : document.getElementById("open_points_action_items_submitResolution_form_disposition").value,
 					githuburl : document.getElementById("open_points_action_items_submitResolution_form_githuturl").value
 				}, function(res, status) {
-					alert("json returned successfully! " + status);
+					if(status="SUCCESS"){																					//If request is successful, empty the form.
+						$('#open_points_action_items_submitResolution_form').each(function() {
+							this.reset();
+						});
+					}
 				});
 				setTimeout(function() {
 				}, 1500);
@@ -1702,54 +1706,21 @@ under the License.
             <div data-role="panel" id="mcs_gettingStarted_lpanel" data-display="overlay" data-position="left">
                 <ul data-role="listview">
                     <li data-icon="home"><a href="#ubmsuite_SelectBusinessModel" >My Models</a></li>
-                    <li>
-                         
-                    </li>
-                    <li>
-                        <a href="#creator_table_of_contents">Model Creator Table of Contents</a>
-                    </li>
-                    <li>
-                        <a href="#mcs_setup_checklist_setup">MCS Setup</a>
-                    </li>
-                    <li>
-                        <a href="#management_reporting">Management Reporting</a>
-                    </li>
-                    <li>
-                        <a href="#mcs_setup_checklist_CS">Control Section</a>
-                    </li>
-                    <li>
-                        <a href="#mcs_setup_checklist_p1">Phase 1</a>
-                    </li>
-                    <li>
-                        <a href="#mcs_setup_checklist_p2">Phase 2</a>
-                    </li>
-                    <li>
-                        <a href="#mcs_setup_checklist_p3">Phase 3</a>
-                    </li>
-                    <li>
-                        <a href="#mcs_setup_checklist_p4">Phase 4</a>
-                    </li>
-                    <li>
-                        <a href="#mcs_setup_checklist_p5">Phase 5</a>
-                    </li>
-                    <li>
-                        <a href="#mcs_setup_checklist_p6">Phase 6</a>
-                    </li>
-                    <li>
-                        <a href="#mcs_setup_checklist_p7">Phase 7</a>
-                    </li>
-                    <li>
-                        <a href="#mcs_setup_checklist_p8">Phase 8</a>
-                    </li>
-                    <li>
-                        <a href="#open_points_action_items">Open Points Action Items</a>
-                    </li>
-                    <li data-icon="delete">
-                        <a href="#" data-rel="close">Close menu</a>
-                    </li>
-                    <li data-icon="delete">
-                        <a href="#sign_in_sign_up">Sign Out</a>
-                    </li>
+                    <li><a href="#creator_table_of_contents">Model Creator Table of Contents</a></li>
+                    <li><a href="#mcs_setup_checklist_setup">MCS Setup</a></li>
+                    <li><a href="#management_reporting">Management Reporting</a></li>
+                    <li><a href="#mcs_setup_checklist_CS">Control Section</a></li>
+                    <li><a href="#mcs_setup_checklist_p1">Phase 1</a></li>
+                    <li><a href="#mcs_setup_checklist_p2">Phase 2</a></li>
+                    <li><a href="#mcs_setup_checklist_p3">Phase 3</a></li>
+                    <li><a href="#mcs_setup_checklist_p4">Phase 4</a></li>
+                    <li><a href="#mcs_setup_checklist_p5">Phase 5</a></li>
+                    <li><a href="#mcs_setup_checklist_p6">Phase 6</a></li>
+                    <li><a href="#mcs_setup_checklist_p7">Phase 7</a></li>
+                    <li><a href="#mcs_setup_checklist_p8">Phase 8</a></li>
+                    <li><a href="#open_points_action_items">Open Points Action Items</a></li>
+                    <li data-icon="delete"><a href="#" data-rel="close">Close menu</a></li>
+                    <li data-icon="delete"><a href="#sign_in_sign_up">Sign Out</a></li>
                 </ul>
             </div><!-- /panel -->
             <div data-role="header">
@@ -2285,54 +2256,21 @@ under the License.
             <div data-role="panel" id="mcs_creator_table_of_contents_lpanel" data-display="overlay" data-position="left">
                 <ul data-role="listview">
                     <li data-icon="home"><a href="#ubmsuite_SelectBusinessModel" >My Models</a></li>
-                    <li>
-                         
-                    </li>
-                    <li>
-                        <a href="#creator_table_of_contents">Model Creator Table of Contents</a>
-                    </li>
-                    <li>
-                        <a href="#mcs_setup_checklist_setup">MCS Setup</a>
-                    </li>
-                    <li>
-                        <a href="#management_reporting">Management Reporting</a>
-                    </li>
-                    <li>
-                        <a href="#mcs_setup_checklist_CS">Control Section</a>
-                    </li>
-                    <li>
-                        <a href="#mcs_setup_checklist_p1">Phase 1</a>
-                    </li>
-                    <li>
-                        <a href="#mcs_setup_checklist_p2">Phase 2</a>
-                    </li>
-                    <li>
-                        <a href="#mcs_setup_checklist_p3">Phase 3</a>
-                    </li>
-                    <li>
-                        <a href="#mcs_setup_checklist_p4">Phase 4</a>
-                    </li>
-                    <li>
-                        <a href="#mcs_setup_checklist_p5">Phase 5</a>
-                    </li>
-                    <li>
-                        <a href="#mcs_setup_checklist_p6">Phase 6</a>
-                    </li>
-                    <li>
-                        <a href="#mcs_setup_checklist_p7">Phase 7</a>
-                    </li>
-                    <li>
-                        <a href="#mcs_setup_checklist_p8">Phase 8</a>
-                    </li>
-                    <li>
-                        <a href="#open_points_action_items">Open Points Action Items</a>
-                    </li>
-                    <li data-icon="delete">
-                        <a href="#" data-rel="close">Close menu</a>
-                    </li>
-                    <li data-icon="delete">
-                        <a href="#sign_in_sign_up">Sign Out</a>
-                    </li>
+                    <li><a href="#creator_table_of_contents">Model Creator Table of Contents</a></li>
+                    <li><a href="#mcs_setup_checklist_setup">MCS Setup</a></li>
+                    <li><a href="#management_reporting">Management Reporting</a></li>
+                    <li><a href="#mcs_setup_checklist_CS">Control Section</a></li>
+                    <li><a href="#mcs_setup_checklist_p1">Phase 1</a></li>
+                    <li><a href="#mcs_setup_checklist_p2">Phase 2</a></li>
+                    <li><a href="#mcs_setup_checklist_p3">Phase 3</a></li>
+                    <li><a href="#mcs_setup_checklist_p4">Phase 4</a></li>
+                    <li><a href="#mcs_setup_checklist_p5">Phase 5</a></li>
+                    <li><a href="#mcs_setup_checklist_p6">Phase 6</a></li>
+                    <li><a href="#mcs_setup_checklist_p7">Phase 7</a></li>
+                    <li><a href="#mcs_setup_checklist_p8">Phase 8</a></li>
+                    <li><a href="#open_points_action_items">Open Points Action Items</a></li>
+                    <li data-icon="delete"><a href="#" data-rel="close">Close menu</a></li>
+                    <li data-icon="delete"><a href="#sign_in_sign_up">Sign Out</a></li>
                 </ul>
             </div><!-- /panel -->
             <div data-role="header">
@@ -2439,101 +2377,6 @@ under the License.
 
             </div>
         </div>
-        <!-- Primary Objects Setup Table -->
-        <div data-role="page" class="ubm_page" id="primary_objects_setup_table">
-            <div data-role="header">
-                <div id="header">
-                    <h1> Primary Objects Setup Table</h1>
-                    <div class="reference">
-                        <p>
-                            00.02
-                        </p>
-                    </div>
-                </div>
-            </div>
-            <div data-role="content">
-                <!-- Open Items Popup -->
-                <div data-role="popup" id="primary_objects_setup_table_openItem_popup" data-theme="b">
-                    <form id="primary_objects_setup_table_open_items_form" name="open_items_form">
-                        <ul data-role="listview" data-inset="true" style="min-width:210px;">
-                            <li data-role="list-divider">
-                                Write a Review Point</br>or Open Item
-                            </li>
-                            <li>
-                                <input type="text" id="primary_objects_setup_table_submitreviewpoint_formref" name="submitreviewpoint_formref" value="" placeholder="Form Ref...">
-                            </li>
-                            <select  id="primary_objects_setup_table_submitreviewpoint_priority" value="Select" data-native-menu="false">
-                                <option>Priority...</option>
-                                <option value="A1">A1</option>
-                                <option value="A2">A2</option>
-                                <option value="A3">A3</option>
-                                <option value="B1">B1</option>
-                                <option value="B2">B2</option>
-                                <option value="B3">B3</option>
-                                <option value="C1">C1</option>
-                                <option value="C2">C2</option>
-                                <option value="C3">C3</option>
-                            </select>
-                            </li>
-                            <li>
-                                <textarea data-mini="true" cols="40" rows="8" id="primary_objects_setup_table_submitreviewpoint_actionrequired" placeholder="Action Required..."></textarea>
-                            </li>
-                            <li>
-                                <select  id="primary_objects_setup_table_submitreviewpoint_assignedto" value="Select" data-native-menu="false">
-                                    <option>Assigned To...</option>
-                                    <option value="Jesse Spencer">Jesse Spencer</option>
-                                    <option value="Adam Gustafson">Adam Gustafson</option>
-                                </select>
-                            </li>
-                            <li>
-                                <label for="datetime-4">Due Datetime</label>
-                                <input type="datetime-local" data-clear-btn="true"  id="primary_objects_setup_table_submitreviewpoint_duedatetime" value="" placeholder="Due Datetime...">
-                            </li>
-                            <li>
-                                <input type="button" data-enhanced="true" value="Submit Review Point" onclick="submitReviewPoint('primary_objects_setup_table_');">
-                            </li>
-                        </ul>
-                    </form>
-                </div>
-                <!-- End Open Items Popup -->
-                <label for="text-6">Conceptual Definitions</label>
-                <input type="text" name="text-6" id="text-6" value="" placeholder="Conceptual Definitions (Refer to 01.01.02.01 in the Reference Manual)">
-                <label for="text-6">Entity/Model Description</label>
-                <input type="text" name="text-6" id="text-6" value="" placeholder="Entity/Model Description (Refer to 01.01.02.13  in the Reference Manual)">
-                <label for="text-6">Mission Statement</label>
-                <input type="text" name="text-6" id="text-6" value="" placeholder="Mission Statement (Refer to 01.01.02.02  in the Reference Manual)">
-                <label for="text-6">Vision Statement</label>
-                <input type="text" name="text-6" id="text-6" value="" placeholder="Vision Statement (Refer to 01.01.02.03  in the Reference Manual)">
-                <label for="text-6">Core Values</label>
-                <input type="text" name="text-6" id="text-6" value="" placeholder="Core Values (Refer to 01.01.02.04  in the Reference Manual)">
-                <label for="text-6">My Customer</label>
-                <input type="text" name="text-6" id="text-6" value="" placeholder="My Customer (Refer to 01.01.02.05  in the Reference Manual)">
-                <label for="text-6">Products and Service</label>
-                <input type="text" name="text-6" id="text-6" value="" placeholder="Product & Service (Refer to 01.01.02.06  in the Reference Manual)">
-                <label for="text-6">Organizational Structure</label>
-                <input type="text" name="text-6" id="text-6" value="" placeholder="Organizational Structure (Refer to 01.01.01.04 in the Reference Manual)">
-                <label for="text-6">Physical Facilities</label>
-                <input type="text" name="text-6" id="text-6" value="" placeholder="Physical Facilities (Refer to 01.01.02.10  in the Reference Manual)">
-                <label for="text-6">Physical Facilites By Position</label>
-                <input type="text" name="text-6" id="text-6" value="" placeholder="Physical Facilities By Position (Refer to 01.01.02.10  in the Reference Manual)">
-                <label for="text-6">Strategic Positioning Questions</label>
-                <input type="text" name="text-6" id="text-6" value="" placeholder="Strategic Positioning Questions (Refer to 01.01.02.07  in the Reference Manual)">
-                <label for="text-6">Strategic Alliances</label>
-                <input type="text" name="text-6" id="text-6" value="" placeholder="Strategic Alliances (Refer to 01.01.02.14 in the Reference Manual)">
-                <!--submit button-->
-                <div id="submit_button">
-                    <a href="#" data-role="button" data-inline="true">Submit</a>
-                </div>
-                <!--continue button-->
-                <div class="continue_button">
-                    <a href="#possible_alternitives" data-role="button" data-inline="true">Continue</a>
-                </div>
-
-            </div>
-            <div data-role="footer">
-
-            </div>
-        </div>
         <!-- List of Possible Alternitives -->
         <div data-role="page" class="ubm_page" id="possible_alternitives">
 
@@ -2560,54 +2403,21 @@ under the License.
             <div data-role="panel" id="mcs_management_reporting_upper_left_panel" data-display="overlay" data-position="left">
                 <ul data-role="listview">
                     <li data-icon="home"><a href="#ubmsuite_SelectBusinessModel" >My Models</a></li>
-                    <li>
-                         
-                    </li>
-                    <li>
-                        <a href="#creator_table_of_contents">Model Creator Table of Contents</a>
-                    </li>
-                    <li>
-                        <a href="#mcs_setup_checklist_setup">MCS Setup</a>
-                    </li>
-                    <li>
-                        <a href="#management_reporting">Management Reporting</a>
-                    </li>
-                    <li>
-                        <a href="#mcs_setup_checklist_CS">Control Section</a>
-                    </li>
-                    <li>
-                        <a href="#mcs_setup_checklist_p1">Phase 1</a>
-                    </li>
-                    <li>
-                        <a href="#mcs_setup_checklist_p2">Phase 2</a>
-                    </li>
-                    <li>
-                        <a href="#mcs_setup_checklist_p3">Phase 3</a>
-                    </li>
-                    <li>
-                        <a href="#mcs_setup_checklist_p4">Phase 4</a>
-                    </li>
-                    <li>
-                        <a href="#mcs_setup_checklist_p5">Phase 5</a>
-                    </li>
-                    <li>
-                        <a href="#mcs_setup_checklist_p6">Phase 6</a>
-                    </li>
-                    <li>
-                        <a href="#mcs_setup_checklist_p7">Phase 7</a>
-                    </li>
-                    <li>
-                        <a href="#mcs_setup_checklist_p8">Phase 8</a>
-                    </li>
-                    <li>
-                        <a href="#open_points_action_items">Open Points Action Items</a>
-                    </li>
-                    <li data-icon="delete">
-                        <a href="#" data-rel="close">Close menu</a>
-                    </li>
-                    <li data-icon="delete">
-                        <a href="#sign_in_sign_up">Sign Out</a>
-                    </li>
+                    <li><a href="#creator_table_of_contents">Model Creator Table of Contents</a></li>
+                    <li><a href="#mcs_setup_checklist_setup">MCS Setup</a></li>
+                    <li><a href="#management_reporting">Management Reporting</a></li>
+                    <li><a href="#mcs_setup_checklist_CS">Control Section</a></li>
+                    <li><a href="#mcs_setup_checklist_p1">Phase 1</a></li>
+                    <li><a href="#mcs_setup_checklist_p2">Phase 2</a></li>
+                    <li><a href="#mcs_setup_checklist_p3">Phase 3</a></li>
+                    <li><a href="#mcs_setup_checklist_p4">Phase 4</a></li>
+                    <li><a href="#mcs_setup_checklist_p5">Phase 5</a></li>
+                    <li><a href="#mcs_setup_checklist_p6">Phase 6</a></li>
+                    <li><a href="#mcs_setup_checklist_p7">Phase 7</a></li>
+                    <li><a href="#mcs_setup_checklist_p8">Phase 8</a></li>
+                    <li><a href="#open_points_action_items">Open Points Action Items</a></li>
+                    <li data-icon="delete"><a href="#" data-rel="close">Close menu</a></li>
+                    <li data-icon="delete"><a href="#sign_in_sign_up">Sign Out</a></li>
                 </ul>
             </div><!-- /panel -->
             <div data-role="panel" id="mcs_management_reporting_entitynavigation_panel" data-display="overlay" data-position="left">
@@ -3110,54 +2920,21 @@ under the License.
             <div data-role="panel" id="mcs_setup_checklist_setup_lpanel" data-display="overlay" data-position="left">
                 <ul data-role="listview">
                     <li data-icon="home"><a href="#ubmsuite_SelectBusinessModel" >My Models</a></li>
-                    <li>
-                         
-                    </li>
-                    <li>
-                        <a href="#creator_table_of_contents">Model Creator Table of Contents</a>
-                    </li>
-                    <li>
-                        <a href="#mcs_setup_checklist_setup">MCS Setup</a>
-                    </li>
-                    <li>
-                        <a href="#management_reporting">Management Reporting</a>
-                    </li>
-                    <li>
-                        <a href="#mcs_setup_checklist_CS">Control Section</a>
-                    </li>
-                    <li>
-                        <a href="#mcs_setup_checklist_p1">Phase 1</a>
-                    </li>
-                    <li>
-                        <a href="#mcs_setup_checklist_p2">Phase 2</a>
-                    </li>
-                    <li>
-                        <a href="#mcs_setup_checklist_p3">Phase 3</a>
-                    </li>
-                    <li>
-                        <a href="#mcs_setup_checklist_p4">Phase 4</a>
-                    </li>
-                    <li>
-                        <a href="#mcs_setup_checklist_p5">Phase 5</a>
-                    </li>
-                    <li>
-                        <a href="#mcs_setup_checklist_p6">Phase 6</a>
-                    </li>
-                    <li>
-                        <a href="#mcs_setup_checklist_p7">Phase 7</a>
-                    </li>
-                    <li>
-                        <a href="#mcs_setup_checklist_p8">Phase 8</a>
-                    </li>
-                    <li>
-                        <a href="#open_points_action_items">Open Points Action Items</a>
-                    </li>
-                    <li data-icon="delete">
-                        <a href="#" data-rel="close">Close menu</a>
-                    </li>
-                    <li data-icon="delete">
-                        <a href="#sign_in_sign_up">Sign Out</a>
-                    </li>
+                    <li><a href="#creator_table_of_contents">Model Creator Table of Contents</a></li>
+                    <li><a href="#mcs_setup_checklist_setup">MCS Setup</a></li>
+                    <li><a href="#management_reporting">Management Reporting</a></li>
+                    <li><a href="#mcs_setup_checklist_CS">Control Section</a></li>
+                    <li><a href="#mcs_setup_checklist_p1">Phase 1</a></li>
+                    <li><a href="#mcs_setup_checklist_p2">Phase 2</a></li>
+                    <li><a href="#mcs_setup_checklist_p3">Phase 3</a></li>
+                    <li><a href="#mcs_setup_checklist_p4">Phase 4</a></li>
+                    <li><a href="#mcs_setup_checklist_p5">Phase 5</a></li>
+                    <li><a href="#mcs_setup_checklist_p6">Phase 6</a></li>
+                    <li><a href="#mcs_setup_checklist_p7">Phase 7</a></li>
+                    <li><a href="#mcs_setup_checklist_p8">Phase 8</a></li>
+                    <li><a href="#open_points_action_items">Open Points Action Items</a></li>
+                    <li data-icon="delete"><a href="#" data-rel="close">Close menu</a></li>
+                    <li data-icon="delete"><a href="#sign_in_sign_up">Sign Out</a></li>
                 </ul>
             </div><!-- /panel -->
             <div data-role="header" data-position="fixed">
@@ -3583,54 +3360,21 @@ under the License.
             <div data-role="panel" id="mcs_identification_setup_lpanel" data-display="overlay" data-position="left">
                 <ul data-role="listview">
                     <li data-icon="home"><a href="#ubmsuite_SelectBusinessModel" >My Models</a></li>
-                    <li>
-                         
-                    </li>
-                    <li>
-                        <a href="#creator_table_of_contents">Model Creator Table of Contents</a>
-                    </li>
-                    <li>
-                        <a href="#mcs_setup_checklist_setup">MCS Setup</a>
-                    </li>
-                    <li>
-                        <a href="#management_reporting">Management Reporting</a>
-                    </li>
-                    <li>
-                        <a href="#mcs_setup_checklist_CS">Control Section</a>
-                    </li>
-                    <li>
-                        <a href="#mcs_setup_checklist_p1">Phase 1</a>
-                    </li>
-                    <li>
-                        <a href="#mcs_setup_checklist_p2">Phase 2</a>
-                    </li>
-                    <li>
-                        <a href="#mcs_setup_checklist_p3">Phase 3</a>
-                    </li>
-                    <li>
-                        <a href="#mcs_setup_checklist_p4">Phase 4</a>
-                    </li>
-                    <li>
-                        <a href="#mcs_setup_checklist_p5">Phase 5</a>
-                    </li>
-                    <li>
-                        <a href="#mcs_setup_checklist_p6">Phase 6</a>
-                    </li>
-                    <li>
-                        <a href="#mcs_setup_checklist_p7">Phase 7</a>
-                    </li>
-                    <li>
-                        <a href="#mcs_setup_checklist_p8">Phase 8</a>
-                    </li>
-                    <li>
-                        <a href="#open_points_action_items">Open Points Action Items</a>
-                    </li>
-                    <li data-icon="delete">
-                        <a href="#" data-rel="close">Close menu</a>
-                    </li>
-                    <li data-icon="delete">
-                        <a href="#sign_in_sign_up">Sign Out</a>
-                    </li>
+                    <li><a href="#creator_table_of_contents">Model Creator Table of Contents</a></li>
+                    <li><a href="#mcs_setup_checklist_setup">MCS Setup</a></li>
+                    <li><a href="#management_reporting">Management Reporting</a></li>
+                    <li><a href="#mcs_setup_checklist_CS">Control Section</a></li>
+                    <li><a href="#mcs_setup_checklist_p1">Phase 1</a></li>
+                    <li><a href="#mcs_setup_checklist_p2">Phase 2</a></li>
+                    <li><a href="#mcs_setup_checklist_p3">Phase 3</a></li>
+                    <li><a href="#mcs_setup_checklist_p4">Phase 4</a></li>
+                    <li><a href="#mcs_setup_checklist_p5">Phase 5</a></li>
+                    <li><a href="#mcs_setup_checklist_p6">Phase 6</a></li>
+                    <li><a href="#mcs_setup_checklist_p7">Phase 7</a></li>
+                    <li><a href="#mcs_setup_checklist_p8">Phase 8</a></li>
+                    <li><a href="#open_points_action_items">Open Points Action Items</a></li>
+                    <li data-icon="delete"><a href="#" data-rel="close">Close menu</a></li>
+                    <li data-icon="delete"><a href="#sign_in_sign_up">Sign Out</a></li>
                 </ul>
             </div><!-- /panel -->
             <div data-role="header" data-position="fixed">
@@ -3901,54 +3645,21 @@ under the License.
             <div data-role="panel" id="mcs_identification_setup_lpanel" data-display="overlay" data-position="left">
                 <ul data-role="listview">
                     <li data-icon="home"><a href="#ubmsuite_SelectBusinessModel" >My Models</a></li>
-                    <li>
-                         
-                    </li>
-                    <li>
-                        <a href="#creator_table_of_contents">Model Creator Table of Contents</a>
-                    </li>
-                    <li>
-                        <a href="#mcs_setup_checklist_setup">MCS Setup</a>
-                    </li>
-                    <li>
-                        <a href="#management_reporting">Management Reporting</a>
-                    </li>
-                    <li>
-                        <a href="#mcs_setup_checklist_CS">Control Section</a>
-                    </li>
-                    <li>
-                        <a href="#mcs_setup_checklist_p1">Phase 1</a>
-                    </li>
-                    <li>
-                        <a href="#mcs_setup_checklist_p2">Phase 2</a>
-                    </li>
-                    <li>
-                        <a href="#mcs_setup_checklist_p3">Phase 3</a>
-                    </li>
-                    <li>
-                        <a href="#mcs_setup_checklist_p4">Phase 4</a>
-                    </li>
-                    <li>
-                        <a href="#mcs_setup_checklist_p5">Phase 5</a>
-                    </li>
-                    <li>
-                        <a href="#mcs_setup_checklist_p6">Phase 6</a>
-                    </li>
-                    <li>
-                        <a href="#mcs_setup_checklist_p7">Phase 7</a>
-                    </li>
-                    <li>
-                        <a href="#mcs_setup_checklist_p8">Phase 8</a>
-                    </li>
-                    <li>
-                        <a href="#open_points_action_items">Open Points Action Items</a>
-                    </li>
-                    <li data-icon="delete">
-                        <a href="#" data-rel="close">Close menu</a>
-                    </li>
-                    <li data-icon="delete">
-                        <a href="#sign_in_sign_up">Sign Out</a>
-                    </li>
+                    <li><a href="#creator_table_of_contents">Model Creator Table of Contents</a></li>
+                    <li><a href="#mcs_setup_checklist_setup">MCS Setup</a></li>
+                    <li><a href="#management_reporting">Management Reporting</a></li>
+                    <li><a href="#mcs_setup_checklist_CS">Control Section</a></li>
+                    <li><a href="#mcs_setup_checklist_p1">Phase 1</a></li>
+                    <li><a href="#mcs_setup_checklist_p2">Phase 2</a></li>
+                    <li><a href="#mcs_setup_checklist_p3">Phase 3</a></li>
+                    <li><a href="#mcs_setup_checklist_p4">Phase 4</a></li>
+                    <li><a href="#mcs_setup_checklist_p5">Phase 5</a></li>
+                    <li><a href="#mcs_setup_checklist_p6">Phase 6</a></li>
+                    <li><a href="#mcs_setup_checklist_p7">Phase 7</a></li>
+                    <li><a href="#mcs_setup_checklist_p8">Phase 8</a></li>
+                    <li><a href="#open_points_action_items">Open Points Action Items</a></li>
+                    <li data-icon="delete"><a href="#" data-rel="close">Close menu</a></li>
+                    <li data-icon="delete"><a href="#sign_in_sign_up">Sign Out</a></li>
                 </ul>
             </div><!-- /panel -->
             <div data-role="header" data-position="fixed">
@@ -4263,54 +3974,21 @@ under the License.
             <div data-role="panel" id="mcs_setup_checklist_p2_lpanel" data-display="overlay" data-position="left">
                 <ul data-role="listview">
                     <li data-icon="home"><a href="#ubmsuite_SelectBusinessModel" >My Models</a></li>
-                    <li>
-                         
-                    </li>
-                    <li>
-                        <a href="#creator_table_of_contents">Model Creator Table of Contents</a>
-                    </li>
-                    <li>
-                        <a href="#mcs_setup_checklist_setup">MCS Setup</a>
-                    </li>
-                    <li>
-                        <a href="#management_reporting">Management Reporting</a>
-                    </li>
-                    <li>
-                        <a href="#mcs_setup_checklist_CS">Control Section</a>
-                    </li>
-                    <li>
-                        <a href="#mcs_setup_checklist_p1">Phase 1</a>
-                    </li>
-                    <li>
-                        <a href="#mcs_setup_checklist_p2">Phase 2</a>
-                    </li>
-                    <li>
-                        <a href="#mcs_setup_checklist_p3">Phase 3</a>
-                    </li>
-                    <li>
-                        <a href="#mcs_setup_checklist_p4">Phase 4</a>
-                    </li>
-                    <li>
-                        <a href="#mcs_setup_checklist_p5">Phase 5</a>
-                    </li>
-                    <li>
-                        <a href="#mcs_setup_checklist_p6">Phase 6</a>
-                    </li>
-                    <li>
-                        <a href="#mcs_setup_checklist_p7">Phase 7</a>
-                    </li>
-                    <li>
-                        <a href="#mcs_setup_checklist_p8">Phase 8</a>
-                    </li>
-                    <li>
-                        <a href="#open_points_action_items">Open Points Action Items</a>
-                    </li>
-                    <li data-icon="delete">
-                        <a href="#" data-rel="close">Close menu</a>
-                    </li>
-                    <li data-icon="delete">
-                        <a href="#sign_in_sign_up">Sign Out</a>
-                    </li>
+                    <li><a href="#creator_table_of_contents">Model Creator Table of Contents</a></li>
+                    <li><a href="#mcs_setup_checklist_setup">MCS Setup</a></li>
+                    <li><a href="#management_reporting">Management Reporting</a></li>
+                    <li><a href="#mcs_setup_checklist_CS">Control Section</a></li>
+                    <li><a href="#mcs_setup_checklist_p1">Phase 1</a></li>
+                    <li><a href="#mcs_setup_checklist_p2">Phase 2</a></li>
+                    <li><a href="#mcs_setup_checklist_p3">Phase 3</a></li>
+                    <li><a href="#mcs_setup_checklist_p4">Phase 4</a></li>
+                    <li><a href="#mcs_setup_checklist_p5">Phase 5</a></li>
+                    <li><a href="#mcs_setup_checklist_p6">Phase 6</a></li>
+                    <li><a href="#mcs_setup_checklist_p7">Phase 7</a></li>
+                    <li><a href="#mcs_setup_checklist_p8">Phase 8</a></li>
+                    <li><a href="#open_points_action_items">Open Points Action Items</a></li>
+                    <li data-icon="delete"><a href="#" data-rel="close">Close menu</a></li>
+                    <li data-icon="delete"><a href="#sign_in_sign_up">Sign Out</a></li>
                 </ul>
             </div><!-- /panel -->
             <div data-role="header" data-position="fixed">
@@ -4719,54 +4397,21 @@ under the License.
             <div data-role="panel" id="mcs_setup_checklist_p3_lpanel" data-display="overlay" data-position="left">
                 <ul data-role="listview">
                     <li data-icon="home"><a href="#ubmsuite_SelectBusinessModel" >My Models</a></li>
-                    <li>
-                         
-                    </li>
-                    <li>
-                        <a href="#creator_table_of_contents">Model Creator Table of Contents</a>
-                    </li>
-                    <li>
-                        <a href="#mcs_setup_checklist_setup">MCS Setup</a>
-                    </li>
-                    <li>
-                        <a href="#management_reporting">Management Reporting</a>
-                    </li>
-                    <li>
-                        <a href="#mcs_setup_checklist_CS">Control Section</a>
-                    </li>
-                    <li>
-                        <a href="#mcs_setup_checklist_p1">Phase 1</a>
-                    </li>
-                    <li>
-                        <a href="#mcs_setup_checklist_p2">Phase 2</a>
-                    </li>
-                    <li>
-                        <a href="#mcs_setup_checklist_p3">Phase 3</a>
-                    </li>
-                    <li>
-                        <a href="#mcs_setup_checklist_p4">Phase 4</a>
-                    </li>
-                    <li>
-                        <a href="#mcs_setup_checklist_p5">Phase 5</a>
-                    </li>
-                    <li>
-                        <a href="#mcs_setup_checklist_p6">Phase 6</a>
-                    </li>
-                    <li>
-                        <a href="#mcs_setup_checklist_p7">Phase 7</a>
-                    </li>
-                    <li>
-                        <a href="#mcs_setup_checklist_p8">Phase 8</a>
-                    </li>
-                    <li>
-                        <a href="#open_points_action_items">Open Points Action Items</a>
-                    </li>
-                    <li data-icon="delete">
-                        <a href="#" data-rel="close">Close menu</a>
-                    </li>
-                    <li data-icon="delete">
-                        <a href="#sign_in_sign_up">Sign Out</a>
-                    </li>
+                    <li><a href="#creator_table_of_contents">Model Creator Table of Contents</a></li>
+                    <li><a href="#mcs_setup_checklist_setup">MCS Setup</a></li>
+                    <li><a href="#management_reporting">Management Reporting</a></li>
+                    <li><a href="#mcs_setup_checklist_CS">Control Section</a></li>
+                    <li><a href="#mcs_setup_checklist_p1">Phase 1</a></li>
+                    <li><a href="#mcs_setup_checklist_p2">Phase 2</a></li>
+                    <li><a href="#mcs_setup_checklist_p3">Phase 3</a></li>
+                    <li><a href="#mcs_setup_checklist_p4">Phase 4</a></li>
+                    <li><a href="#mcs_setup_checklist_p5">Phase 5</a></li>
+                    <li><a href="#mcs_setup_checklist_p6">Phase 6</a></li>
+                    <li><a href="#mcs_setup_checklist_p7">Phase 7</a></li>
+                    <li><a href="#mcs_setup_checklist_p8">Phase 8</a></li>
+                    <li><a href="#open_points_action_items">Open Points Action Items</a></li>
+                    <li data-icon="delete"><a href="#" data-rel="close">Close menu</a></li>
+                    <li data-icon="delete"><a href="#sign_in_sign_up">Sign Out</a></li>
                 </ul>
             </div><!-- /panel -->
             <div data-role="header" data-position="fixed">
@@ -5081,54 +4726,21 @@ under the License.
             <div data-role="panel" id="mcs_setup_checklist_p4_b1_lpanel" data-display="overlay" data-position="left">
                 <ul data-role="listview">
                     <li data-icon="home"><a href="#ubmsuite_SelectBusinessModel" >My Models</a></li>
-                    <li>
-                         
-                    </li>
-                    <li>
-                        <a href="#creator_table_of_contents">Model Creator Table of Contents</a>
-                    </li>
-                    <li>
-                        <a href="#mcs_setup_checklist_setup">MCS Setup</a>
-                    </li>
-                    <li>
-                        <a href="#management_reporting">Management Reporting</a>
-                    </li>
-                    <li>
-                        <a href="#mcs_setup_checklist_CS">Control Section</a>
-                    </li>
-                    <li>
-                        <a href="#mcs_setup_checklist_p1">Phase 1</a>
-                    </li>
-                    <li>
-                        <a href="#mcs_setup_checklist_p2">Phase 2</a>
-                    </li>
-                    <li>
-                        <a href="#mcs_setup_checklist_p3">Phase 3</a>
-                    </li>
-                    <li>
-                        <a href="#mcs_setup_checklist_p4">Phase 4</a>
-                    </li>
-                    <li>
-                        <a href="#mcs_setup_checklist_p5">Phase 5</a>
-                    </li>
-                    <li>
-                        <a href="#mcs_setup_checklist_p6">Phase 6</a>
-                    </li>
-                    <li>
-                        <a href="#mcs_setup_checklist_p7">Phase 7</a>
-                    </li>
-                    <li>
-                        <a href="#mcs_setup_checklist_p8">Phase 8</a>
-                    </li>
-                    <li>
-                        <a href="#open_points_action_items">Open Points Action Items</a>
-                    </li>
-                    <li data-icon="delete">
-                        <a href="#" data-rel="close">Close menu</a>
-                    </li>
-                    <li data-icon="delete">
-                        <a href="#sign_in_sign_up">Sign Out</a>
-                    </li>
+                    <li><a href="#creator_table_of_contents">Model Creator Table of Contents</a></li>
+                    <li><a href="#mcs_setup_checklist_setup">MCS Setup</a></li>
+                    <li><a href="#management_reporting">Management Reporting</a></li>
+                    <li><a href="#mcs_setup_checklist_CS">Control Section</a></li>
+                    <li><a href="#mcs_setup_checklist_p1">Phase 1</a></li>
+                    <li><a href="#mcs_setup_checklist_p2">Phase 2</a></li>
+                    <li><a href="#mcs_setup_checklist_p3">Phase 3</a></li>
+                    <li><a href="#mcs_setup_checklist_p4">Phase 4</a></li>
+                    <li><a href="#mcs_setup_checklist_p5">Phase 5</a></li>
+                    <li><a href="#mcs_setup_checklist_p6">Phase 6</a></li>
+                    <li><a href="#mcs_setup_checklist_p7">Phase 7</a></li>
+                    <li><a href="#mcs_setup_checklist_p8">Phase 8</a></li>
+                    <li><a href="#open_points_action_items">Open Points Action Items</a></li>
+                    <li data-icon="delete"><a href="#" data-rel="close">Close menu</a></li>
+                    <li data-icon="delete"><a href="#sign_in_sign_up">Sign Out</a></li>
                 </ul>
             </div><!-- /panel -->
             <div data-role="header" data-position="fixed">
@@ -5537,54 +5149,21 @@ under the License.
             <div data-role="panel" id="mcs_setup_checklist_p4_b2_lpanel" data-display="overlay" data-position="left">
                 <ul data-role="listview">
                     <li data-icon="home"><a href="#ubmsuite_SelectBusinessModel" >My Models</a></li>
-                    <li>
-                         
-                    </li>
-                    <li>
-                        <a href="#creator_table_of_contents">Model Creator Table of Contents</a>
-                    </li>
-                    <li>
-                        <a href="#mcs_setup_checklist_setup">MCS Setup</a>
-                    </li>
-                    <li>
-                        <a href="#management_reporting">Management Reporting</a>
-                    </li>
-                    <li>
-                        <a href="#mcs_setup_checklist_CS">Control Section</a>
-                    </li>
-                    <li>
-                        <a href="#mcs_setup_checklist_p1">Phase 1</a>
-                    </li>
-                    <li>
-                        <a href="#mcs_setup_checklist_p2">Phase 2</a>
-                    </li>
-                    <li>
-                        <a href="#mcs_setup_checklist_p3">Phase 3</a>
-                    </li>
-                    <li>
-                        <a href="#mcs_setup_checklist_p4">Phase 4</a>
-                    </li>
-                    <li>
-                        <a href="#mcs_setup_checklist_p5">Phase 5</a>
-                    </li>
-                    <li>
-                        <a href="#mcs_setup_checklist_p6">Phase 6</a>
-                    </li>
-                    <li>
-                        <a href="#mcs_setup_checklist_p7">Phase 7</a>
-                    </li>
-                    <li>
-                        <a href="#mcs_setup_checklist_p8">Phase 8</a>
-                    </li>
-                    <li>
-                        <a href="#open_points_action_items">Open Points Action Items</a>
-                    </li>
-                    <li data-icon="delete">
-                        <a href="#" data-rel="close">Close menu</a>
-                    </li>
-                    <li data-icon="delete">
-                        <a href="#sign_in_sign_up">Sign Out</a>
-                    </li>
+                    <li><a href="#creator_table_of_contents">Model Creator Table of Contents</a></li>
+                    <li><a href="#mcs_setup_checklist_setup">MCS Setup</a></li>
+                    <li><a href="#management_reporting">Management Reporting</a></li>
+                    <li><a href="#mcs_setup_checklist_CS">Control Section</a></li>
+                    <li><a href="#mcs_setup_checklist_p1">Phase 1</a></li>
+                    <li><a href="#mcs_setup_checklist_p2">Phase 2</a></li>
+                    <li><a href="#mcs_setup_checklist_p3">Phase 3</a></li>
+                    <li><a href="#mcs_setup_checklist_p4">Phase 4</a></li>
+                    <li><a href="#mcs_setup_checklist_p5">Phase 5</a></li>
+                    <li><a href="#mcs_setup_checklist_p6">Phase 6</a></li>
+                    <li><a href="#mcs_setup_checklist_p7">Phase 7</a></li>
+                    <li><a href="#mcs_setup_checklist_p8">Phase 8</a></li>
+                    <li><a href="#open_points_action_items">Open Points Action Items</a></li>
+                    <li data-icon="delete"><a href="#" data-rel="close">Close menu</a></li>
+                    <li data-icon="delete"><a href="#sign_in_sign_up">Sign Out</a></li>
                 </ul>
             </div><!-- /panel -->
             <div data-role="header" data-position="fixed">
@@ -5899,54 +5478,21 @@ under the License.
             <div data-role="panel" id="mcs_setup_checklist_p4_b3_lpanel" data-display="overlay" data-position="left">
                 <ul data-role="listview">
                     <li data-icon="home"><a href="#ubmsuite_SelectBusinessModel" >My Models</a></li>
-                    <li>
-                         
-                    </li>
-                    <li>
-                        <a href="#creator_table_of_contents">Model Creator Table of Contents</a>
-                    </li>
-                    <li>
-                        <a href="#mcs_setup_checklist_setup">MCS Setup</a>
-                    </li>
-                    <li>
-                        <a href="#management_reporting">Management Reporting</a>
-                    </li>
-                    <li>
-                        <a href="#mcs_setup_checklist_CS">Control Section</a>
-                    </li>
-                    <li>
-                        <a href="#mcs_setup_checklist_p1">Phase 1</a>
-                    </li>
-                    <li>
-                        <a href="#mcs_setup_checklist_p2">Phase 2</a>
-                    </li>
-                    <li>
-                        <a href="#mcs_setup_checklist_p3">Phase 3</a>
-                    </li>
-                    <li>
-                        <a href="#mcs_setup_checklist_p4">Phase 4</a>
-                    </li>
-                    <li>
-                        <a href="#mcs_setup_checklist_p5">Phase 5</a>
-                    </li>
-                    <li>
-                        <a href="#mcs_setup_checklist_p6">Phase 6</a>
-                    </li>
-                    <li>
-                        <a href="#mcs_setup_checklist_p7">Phase 7</a>
-                    </li>
-                    <li>
-                        <a href="#mcs_setup_checklist_p8">Phase 8</a>
-                    </li>
-                    <li>
-                        <a href="#open_points_action_items">Open Points Action Items</a>
-                    </li>
-                    <li data-icon="delete">
-                        <a href="#" data-rel="close">Close menu</a>
-                    </li>
-                    <li data-icon="delete">
-                        <a href="#sign_in_sign_up">Sign Out</a>
-                    </li>
+                    <li><a href="#creator_table_of_contents">Model Creator Table of Contents</a></li>
+                    <li><a href="#mcs_setup_checklist_setup">MCS Setup</a></li>
+                    <li><a href="#management_reporting">Management Reporting</a></li>
+                    <li><a href="#mcs_setup_checklist_CS">Control Section</a></li>
+                    <li><a href="#mcs_setup_checklist_p1">Phase 1</a></li>
+                    <li><a href="#mcs_setup_checklist_p2">Phase 2</a></li>
+                    <li><a href="#mcs_setup_checklist_p3">Phase 3</a></li>
+                    <li><a href="#mcs_setup_checklist_p4">Phase 4</a></li>
+                    <li><a href="#mcs_setup_checklist_p5">Phase 5</a></li>
+                    <li><a href="#mcs_setup_checklist_p6">Phase 6</a></li>
+                    <li><a href="#mcs_setup_checklist_p7">Phase 7</a></li>
+                    <li><a href="#mcs_setup_checklist_p8">Phase 8</a></li>
+                    <li><a href="#open_points_action_items">Open Points Action Items</a></li>
+                    <li data-icon="delete"><a href="#" data-rel="close">Close menu</a></li>
+                    <li data-icon="delete"><a href="#sign_in_sign_up">Sign Out</a></li>
                 </ul>
             </div><!-- /panel -->
             <div data-role="header" data-position="fixed">
@@ -6261,54 +5807,21 @@ under the License.
             <div data-role="panel" id="mcs_setup_checklist_p4_b4_lpanel" data-display="overlay" data-position="left">
                 <ul data-role="listview">
                     <li data-icon="home"><a href="#ubmsuite_SelectBusinessModel" >My Models</a></li>
-                    <li>
-                         
-                    </li>
-                    <li>
-                        <a href="#creator_table_of_contents">Model Creator Table of Contents</a>
-                    </li>
-                    <li>
-                        <a href="#mcs_setup_checklist_setup">MCS Setup</a>
-                    </li>
-                    <li>
-                        <a href="#management_reporting">Management Reporting</a>
-                    </li>
-                    <li>
-                        <a href="#mcs_setup_checklist_CS">Control Section</a>
-                    </li>
-                    <li>
-                        <a href="#mcs_setup_checklist_p1">Phase 1</a>
-                    </li>
-                    <li>
-                        <a href="#mcs_setup_checklist_p2">Phase 2</a>
-                    </li>
-                    <li>
-                        <a href="#mcs_setup_checklist_p3">Phase 3</a>
-                    </li>
-                    <li>
-                        <a href="#mcs_setup_checklist_p4">Phase 4</a>
-                    </li>
-                    <li>
-                        <a href="#mcs_setup_checklist_p5">Phase 5</a>
-                    </li>
-                    <li>
-                        <a href="#mcs_setup_checklist_p6">Phase 6</a>
-                    </li>
-                    <li>
-                        <a href="#mcs_setup_checklist_p7">Phase 7</a>
-                    </li>
-                    <li>
-                        <a href="#mcs_setup_checklist_p8">Phase 8</a>
-                    </li>
-                    <li>
-                        <a href="#open_points_action_items">Open Points Action Items</a>
-                    </li>
-                    <li data-icon="delete">
-                        <a href="#" data-rel="close">Close menu</a>
-                    </li>
-                    <li data-icon="delete">
-                        <a href="#sign_in_sign_up">Sign Out</a>
-                    </li>
+                    <li><a href="#creator_table_of_contents">Model Creator Table of Contents</a></li>
+                    <li><a href="#mcs_setup_checklist_setup">MCS Setup</a></li>
+                    <li><a href="#management_reporting">Management Reporting</a></li>
+                    <li><a href="#mcs_setup_checklist_CS">Control Section</a></li>
+                    <li><a href="#mcs_setup_checklist_p1">Phase 1</a></li>
+                    <li><a href="#mcs_setup_checklist_p2">Phase 2</a></li>
+                    <li><a href="#mcs_setup_checklist_p3">Phase 3</a></li>
+                    <li><a href="#mcs_setup_checklist_p4">Phase 4</a></li>
+                    <li><a href="#mcs_setup_checklist_p5">Phase 5</a></li>
+                    <li><a href="#mcs_setup_checklist_p6">Phase 6</a></li>
+                    <li><a href="#mcs_setup_checklist_p7">Phase 7</a></li>
+                    <li><a href="#mcs_setup_checklist_p8">Phase 8</a></li>
+                    <li><a href="#open_points_action_items">Open Points Action Items</a></li>
+                    <li data-icon="delete"><a href="#" data-rel="close">Close menu</a></li>
+                    <li data-icon="delete"><a href="#sign_in_sign_up">Sign Out</a></li>
                 </ul>
             </div><!-- /panel -->
             <div data-role="header" data-position="fixed">
@@ -6623,54 +6136,21 @@ under the License.
             <div data-role="panel" id="mcs_setup_checklist_p4_b5_lpanel" data-display="overlay" data-position="left">
                 <ul data-role="listview">
                     <li data-icon="home"><a href="#ubmsuite_SelectBusinessModel" >My Models</a></li>
-                    <li>
-                         
-                    </li>
-                    <li>
-                        <a href="#creator_table_of_contents">Model Creator Table of Contents</a>
-                    </li>
-                    <li>
-                        <a href="#mcs_setup_checklist_setup">MCS Setup</a>
-                    </li>
-                    <li>
-                        <a href="#management_reporting">Management Reporting</a>
-                    </li>
-                    <li>
-                        <a href="#mcs_setup_checklist_CS">Control Section</a>
-                    </li>
-                    <li>
-                        <a href="#mcs_setup_checklist_p1">Phase 1</a>
-                    </li>
-                    <li>
-                        <a href="#mcs_setup_checklist_p2">Phase 2</a>
-                    </li>
-                    <li>
-                        <a href="#mcs_setup_checklist_p3">Phase 3</a>
-                    </li>
-                    <li>
-                        <a href="#mcs_setup_checklist_p4">Phase 4</a>
-                    </li>
-                    <li>
-                        <a href="#mcs_setup_checklist_p5">Phase 5</a>
-                    </li>
-                    <li>
-                        <a href="#mcs_setup_checklist_p6">Phase 6</a>
-                    </li>
-                    <li>
-                        <a href="#mcs_setup_checklist_p7">Phase 7</a>
-                    </li>
-                    <li>
-                        <a href="#mcs_setup_checklist_p8">Phase 8</a>
-                    </li>
-                    <li>
-                        <a href="#open_points_action_items">Open Points Action Items</a>
-                    </li>
-                    <li data-icon="delete">
-                        <a href="#" data-rel="close">Close menu</a>
-                    </li>
-                    <li data-icon="delete">
-                        <a href="#sign_in_sign_up">Sign Out</a>
-                    </li>
+                    <li><a href="#creator_table_of_contents">Model Creator Table of Contents</a></li>
+                    <li><a href="#mcs_setup_checklist_setup">MCS Setup</a></li>
+                    <li><a href="#management_reporting">Management Reporting</a></li>
+                    <li><a href="#mcs_setup_checklist_CS">Control Section</a></li>
+                    <li><a href="#mcs_setup_checklist_p1">Phase 1</a></li>
+                    <li><a href="#mcs_setup_checklist_p2">Phase 2</a></li>
+                    <li><a href="#mcs_setup_checklist_p3">Phase 3</a></li>
+                    <li><a href="#mcs_setup_checklist_p4">Phase 4</a></li>
+                    <li><a href="#mcs_setup_checklist_p5">Phase 5</a></li>
+                    <li><a href="#mcs_setup_checklist_p6">Phase 6</a></li>
+                    <li><a href="#mcs_setup_checklist_p7">Phase 7</a></li>
+                    <li><a href="#mcs_setup_checklist_p8">Phase 8</a></li>
+                    <li><a href="#open_points_action_items">Open Points Action Items</a></li>
+                    <li data-icon="delete"><a href="#" data-rel="close">Close menu</a></li>
+                    <li data-icon="delete"><a href="#sign_in_sign_up">Sign Out</a></li>
                 </ul>
             </div><!-- /panel -->
             <div data-role="header" data-position="fixed">
@@ -6985,54 +6465,21 @@ under the License.
             <div data-role="panel" id="mcs_setup_checklist_p4_b6_lpanel" data-display="overlay" data-position="left">
                 <ul data-role="listview">
                     <li data-icon="home"><a href="#ubmsuite_SelectBusinessModel" >My Models</a></li>
-                    <li>
-                         
-                    </li>
-                    <li>
-                        <a href="#creator_table_of_contents">Model Creator Table of Contents</a>
-                    </li>
-                    <li>
-                        <a href="#mcs_setup_checklist_setup">MCS Setup</a>
-                    </li>
-                    <li>
-                        <a href="#management_reporting">Management Reporting</a>
-                    </li>
-                    <li>
-                        <a href="#mcs_setup_checklist_CS">Control Section</a>
-                    </li>
-                    <li>
-                        <a href="#mcs_setup_checklist_p1">Phase 1</a>
-                    </li>
-                    <li>
-                        <a href="#mcs_setup_checklist_p2">Phase 2</a>
-                    </li>
-                    <li>
-                        <a href="#mcs_setup_checklist_p3">Phase 3</a>
-                    </li>
-                    <li>
-                        <a href="#mcs_setup_checklist_p4">Phase 4</a>
-                    </li>
-                    <li>
-                        <a href="#mcs_setup_checklist_p5">Phase 5</a>
-                    </li>
-                    <li>
-                        <a href="#mcs_setup_checklist_p6">Phase 6</a>
-                    </li>
-                    <li>
-                        <a href="#mcs_setup_checklist_p7">Phase 7</a>
-                    </li>
-                    <li>
-                        <a href="#mcs_setup_checklist_p8">Phase 8</a>
-                    </li>
-                    <li>
-                        <a href="#open_points_action_items">Open Points Action Items</a>
-                    </li>
-                    <li data-icon="delete">
-                        <a href="#" data-rel="close">Close menu</a>
-                    </li>
-                    <li data-icon="delete">
-                        <a href="#sign_in_sign_up">Sign Out</a>
-                    </li>
+                    <li><a href="#creator_table_of_contents">Model Creator Table of Contents</a></li>
+                    <li><a href="#mcs_setup_checklist_setup">MCS Setup</a></li>
+                    <li><a href="#management_reporting">Management Reporting</a></li>
+                    <li><a href="#mcs_setup_checklist_CS">Control Section</a></li>
+                    <li><a href="#mcs_setup_checklist_p1">Phase 1</a></li>
+                    <li><a href="#mcs_setup_checklist_p2">Phase 2</a></li>
+                    <li><a href="#mcs_setup_checklist_p3">Phase 3</a></li>
+                    <li><a href="#mcs_setup_checklist_p4">Phase 4</a></li>
+                    <li><a href="#mcs_setup_checklist_p5">Phase 5</a></li>
+                    <li><a href="#mcs_setup_checklist_p6">Phase 6</a></li>
+                    <li><a href="#mcs_setup_checklist_p7">Phase 7</a></li>
+                    <li><a href="#mcs_setup_checklist_p8">Phase 8</a></li>
+                    <li><a href="#open_points_action_items">Open Points Action Items</a></li>
+                    <li data-icon="delete"><a href="#" data-rel="close">Close menu</a></li>
+                    <li data-icon="delete"><a href="#sign_in_sign_up">Sign Out</a></li>
                 </ul>
             </div><!-- /panel -->
             <div data-role="header" data-position="fixed">
@@ -7347,54 +6794,21 @@ under the License.
             <div data-role="panel" id="mcs_setup_checklist_p4_b7_lpanel" data-display="overlay" data-position="left">
                 <ul data-role="listview">
                     <li data-icon="home"><a href="#ubmsuite_SelectBusinessModel" >My Models</a></li>
-                    <li>
-                         
-                    </li>
-                    <li>
-                        <a href="#creator_table_of_contents">Model Creator Table of Contents</a>
-                    </li>
-                    <li>
-                        <a href="#mcs_setup_checklist_setup">MCS Setup</a>
-                    </li>
-                    <li>
-                        <a href="#management_reporting">Management Reporting</a>
-                    </li>
-                    <li>
-                        <a href="#mcs_setup_checklist_CS">Control Section</a>
-                    </li>
-                    <li>
-                        <a href="#mcs_setup_checklist_p1">Phase 1</a>
-                    </li>
-                    <li>
-                        <a href="#mcs_setup_checklist_p2">Phase 2</a>
-                    </li>
-                    <li>
-                        <a href="#mcs_setup_checklist_p3">Phase 3</a>
-                    </li>
-                    <li>
-                        <a href="#mcs_setup_checklist_p4">Phase 4</a>
-                    </li>
-                    <li>
-                        <a href="#mcs_setup_checklist_p5">Phase 5</a>
-                    </li>
-                    <li>
-                        <a href="#mcs_setup_checklist_p6">Phase 6</a>
-                    </li>
-                    <li>
-                        <a href="#mcs_setup_checklist_p7">Phase 7</a>
-                    </li>
-                    <li>
-                        <a href="#mcs_setup_checklist_p8">Phase 8</a>
-                    </li>
-                    <li>
-                        <a href="#open_points_action_items">Open Points Action Items</a>
-                    </li>
-                    <li data-icon="delete">
-                        <a href="#" data-rel="close">Close menu</a>
-                    </li>
-                    <li data-icon="delete">
-                        <a href="#sign_in_sign_up">Sign Out</a>
-                    </li>
+                    <li><a href="#creator_table_of_contents">Model Creator Table of Contents</a></li>
+                    <li><a href="#mcs_setup_checklist_setup">MCS Setup</a></li>
+                    <li><a href="#management_reporting">Management Reporting</a></li>
+                    <li><a href="#mcs_setup_checklist_CS">Control Section</a></li>
+                    <li><a href="#mcs_setup_checklist_p1">Phase 1</a></li>
+                    <li><a href="#mcs_setup_checklist_p2">Phase 2</a></li>
+                    <li><a href="#mcs_setup_checklist_p3">Phase 3</a></li>
+                    <li><a href="#mcs_setup_checklist_p4">Phase 4</a></li>
+                    <li><a href="#mcs_setup_checklist_p5">Phase 5</a></li>
+                    <li><a href="#mcs_setup_checklist_p6">Phase 6</a></li>
+                    <li><a href="#mcs_setup_checklist_p7">Phase 7</a></li>
+                    <li><a href="#mcs_setup_checklist_p8">Phase 8</a></li>
+                    <li><a href="#open_points_action_items">Open Points Action Items</a></li>
+                    <li data-icon="delete"><a href="#" data-rel="close">Close menu</a></li>
+                    <li data-icon="delete"><a href="#sign_in_sign_up">Sign Out</a></li>
                 </ul>
             </div><!-- /panel -->
             <div data-role="header" data-position="fixed">
@@ -7709,54 +7123,21 @@ under the License.
             <div data-role="panel" id="mcs_setup_checklist_p4_b8_lpanel" data-display="overlay" data-position="left">
                 <ul data-role="listview">
                     <li data-icon="home"><a href="#ubmsuite_SelectBusinessModel" >My Models</a></li>
-                    <li>
-                         
-                    </li>
-                    <li>
-                        <a href="#creator_table_of_contents">Model Creator Table of Contents</a>
-                    </li>
-                    <li>
-                        <a href="#mcs_setup_checklist_setup">MCS Setup</a>
-                    </li>
-                    <li>
-                        <a href="#management_reporting">Management Reporting</a>
-                    </li>
-                    <li>
-                        <a href="#mcs_setup_checklist_CS">Control Section</a>
-                    </li>
-                    <li>
-                        <a href="#mcs_setup_checklist_p1">Phase 1</a>
-                    </li>
-                    <li>
-                        <a href="#mcs_setup_checklist_p2">Phase 2</a>
-                    </li>
-                    <li>
-                        <a href="#mcs_setup_checklist_p3">Phase 3</a>
-                    </li>
-                    <li>
-                        <a href="#mcs_setup_checklist_p4">Phase 4</a>
-                    </li>
-                    <li>
-                        <a href="#mcs_setup_checklist_p5">Phase 5</a>
-                    </li>
-                    <li>
-                        <a href="#mcs_setup_checklist_p6">Phase 6</a>
-                    </li>
-                    <li>
-                        <a href="#mcs_setup_checklist_p7">Phase 7</a>
-                    </li>
-                    <li>
-                        <a href="#mcs_setup_checklist_p8">Phase 8</a>
-                    </li>
-                    <li>
-                        <a href="#open_points_action_items">Open Points Action Items</a>
-                    </li>
-                    <li data-icon="delete">
-                        <a href="#" data-rel="close">Close menu</a>
-                    </li>
-                    <li data-icon="delete">
-                        <a href="#sign_in_sign_up">Sign Out</a>
-                    </li>
+                    <li><a href="#creator_table_of_contents">Model Creator Table of Contents</a></li>
+                    <li><a href="#mcs_setup_checklist_setup">MCS Setup</a></li>
+                    <li><a href="#management_reporting">Management Reporting</a></li>
+                    <li><a href="#mcs_setup_checklist_CS">Control Section</a></li>
+                    <li><a href="#mcs_setup_checklist_p1">Phase 1</a></li>
+                    <li><a href="#mcs_setup_checklist_p2">Phase 2</a></li>
+                    <li><a href="#mcs_setup_checklist_p3">Phase 3</a></li>
+                    <li><a href="#mcs_setup_checklist_p4">Phase 4</a></li>
+                    <li><a href="#mcs_setup_checklist_p5">Phase 5</a></li>
+                    <li><a href="#mcs_setup_checklist_p6">Phase 6</a></li>
+                    <li><a href="#mcs_setup_checklist_p7">Phase 7</a></li>
+                    <li><a href="#mcs_setup_checklist_p8">Phase 8</a></li>
+                    <li><a href="#open_points_action_items">Open Points Action Items</a></li>
+                    <li data-icon="delete"><a href="#" data-rel="close">Close menu</a></li>
+                    <li data-icon="delete"><a href="#sign_in_sign_up">Sign Out</a></li>
                 </ul>
             </div><!-- /panel -->
             <div data-role="header" data-position="fixed">
@@ -8071,54 +7452,21 @@ under the License.
             <div data-role="panel" id="mcs_setup_checklist_p4_b9_lpanel" data-display="overlay" data-position="left">
                 <ul data-role="listview">
                     <li data-icon="home"><a href="#ubmsuite_SelectBusinessModel" >My Models</a></li>
-                    <li>
-                         
-                    </li>
-                    <li>
-                        <a href="#creator_table_of_contents">Model Creator Table of Contents</a>
-                    </li>
-                    <li>
-                        <a href="#mcs_setup_checklist_setup">MCS Setup</a>
-                    </li>
-                    <li>
-                        <a href="#management_reporting">Management Reporting</a>
-                    </li>
-                    <li>
-                        <a href="#mcs_setup_checklist_CS">Control Section</a>
-                    </li>
-                    <li>
-                        <a href="#mcs_setup_checklist_p1">Phase 1</a>
-                    </li>
-                    <li>
-                        <a href="#mcs_setup_checklist_p2">Phase 2</a>
-                    </li>
-                    <li>
-                        <a href="#mcs_setup_checklist_p3">Phase 3</a>
-                    </li>
-                    <li>
-                        <a href="#mcs_setup_checklist_p4">Phase 4</a>
-                    </li>
-                    <li>
-                        <a href="#mcs_setup_checklist_p5">Phase 5</a>
-                    </li>
-                    <li>
-                        <a href="#mcs_setup_checklist_p6">Phase 6</a>
-                    </li>
-                    <li>
-                        <a href="#mcs_setup_checklist_p7">Phase 7</a>
-                    </li>
-                    <li>
-                        <a href="#mcs_setup_checklist_p8">Phase 8</a>
-                    </li>
-                    <li>
-                        <a href="#open_points_action_items">Open Points Action Items</a>
-                    </li>
-                    <li data-icon="delete">
-                        <a href="#" data-rel="close">Close menu</a>
-                    </li>
-                    <li data-icon="delete">
-                        <a href="#sign_in_sign_up">Sign Out</a>
-                    </li>
+                    <li><a href="#creator_table_of_contents">Model Creator Table of Contents</a></li>
+                    <li><a href="#mcs_setup_checklist_setup">MCS Setup</a></li>
+                    <li><a href="#management_reporting">Management Reporting</a></li>
+                    <li><a href="#mcs_setup_checklist_CS">Control Section</a></li>
+                    <li><a href="#mcs_setup_checklist_p1">Phase 1</a></li>
+                    <li><a href="#mcs_setup_checklist_p2">Phase 2</a></li>
+                    <li><a href="#mcs_setup_checklist_p3">Phase 3</a></li>
+                    <li><a href="#mcs_setup_checklist_p4">Phase 4</a></li>
+                    <li><a href="#mcs_setup_checklist_p5">Phase 5</a></li>
+                    <li><a href="#mcs_setup_checklist_p6">Phase 6</a></li>
+                    <li><a href="#mcs_setup_checklist_p7">Phase 7</a></li>
+                    <li><a href="#mcs_setup_checklist_p8">Phase 8</a></li>
+                    <li><a href="#open_points_action_items">Open Points Action Items</a></li>
+                    <li data-icon="delete"><a href="#" data-rel="close">Close menu</a></li>
+                    <li data-icon="delete"><a href="#sign_in_sign_up">Sign Out</a></li>
                 </ul>
             </div><!-- /panel -->
             <div data-role="header" data-position="fixed">
@@ -8433,54 +7781,21 @@ under the License.
             <div data-role="panel" id="mcs_setup_checklist_p4_b10_lpanel" data-display="overlay" data-position="left">
                 <ul data-role="listview">
                     <li data-icon="home"><a href="#ubmsuite_SelectBusinessModel" >My Models</a></li>
-                    <li>
-                         
-                    </li>
-                    <li>
-                        <a href="#creator_table_of_contents">Model Creator Table of Contents</a>
-                    </li>
-                    <li>
-                        <a href="#mcs_setup_checklist_setup">MCS Setup</a>
-                    </li>
-                    <li>
-                        <a href="#management_reporting">Management Reporting</a>
-                    </li>
-                    <li>
-                        <a href="#mcs_setup_checklist_CS">Control Section</a>
-                    </li>
-                    <li>
-                        <a href="#mcs_setup_checklist_p1">Phase 1</a>
-                    </li>
-                    <li>
-                        <a href="#mcs_setup_checklist_p2">Phase 2</a>
-                    </li>
-                    <li>
-                        <a href="#mcs_setup_checklist_p3">Phase 3</a>
-                    </li>
-                    <li>
-                        <a href="#mcs_setup_checklist_p4">Phase 4</a>
-                    </li>
-                    <li>
-                        <a href="#mcs_setup_checklist_p5">Phase 5</a>
-                    </li>
-                    <li>
-                        <a href="#mcs_setup_checklist_p6">Phase 6</a>
-                    </li>
-                    <li>
-                        <a href="#mcs_setup_checklist_p7">Phase 7</a>
-                    </li>
-                    <li>
-                        <a href="#mcs_setup_checklist_p8">Phase 8</a>
-                    </li>
-                    <li>
-                        <a href="#open_points_action_items">Open Points Action Items</a>
-                    </li>
-                    <li data-icon="delete">
-                        <a href="#" data-rel="close">Close menu</a>
-                    </li>
-                    <li data-icon="delete">
-                        <a href="#sign_in_sign_up">Sign Out</a>
-                    </li>
+                    <li><a href="#creator_table_of_contents">Model Creator Table of Contents</a></li>
+                    <li><a href="#mcs_setup_checklist_setup">MCS Setup</a></li>
+                    <li><a href="#management_reporting">Management Reporting</a></li>
+                    <li><a href="#mcs_setup_checklist_CS">Control Section</a></li>
+                    <li><a href="#mcs_setup_checklist_p1">Phase 1</a></li>
+                    <li><a href="#mcs_setup_checklist_p2">Phase 2</a></li>
+                    <li><a href="#mcs_setup_checklist_p3">Phase 3</a></li>
+                    <li><a href="#mcs_setup_checklist_p4">Phase 4</a></li>
+                    <li><a href="#mcs_setup_checklist_p5">Phase 5</a></li>
+                    <li><a href="#mcs_setup_checklist_p6">Phase 6</a></li>
+                    <li><a href="#mcs_setup_checklist_p7">Phase 7</a></li>
+                    <li><a href="#mcs_setup_checklist_p8">Phase 8</a></li>
+                    <li><a href="#open_points_action_items">Open Points Action Items</a></li>
+                    <li data-icon="delete"><a href="#" data-rel="close">Close menu</a></li>
+                    <li data-icon="delete"><a href="#sign_in_sign_up">Sign Out</a></li>
                 </ul>
             </div><!-- /panel -->
             <div data-role="header" data-position="fixed">
@@ -8795,54 +8110,21 @@ under the License.
             <div data-role="panel" id="mcs_setup_checklist_p4_b11_lpanel" data-display="overlay" data-position="left">
                 <ul data-role="listview">
                     <li data-icon="home"><a href="#ubmsuite_SelectBusinessModel" >My Models</a></li>
-                    <li>
-                         
-                    </li>
-                    <li>
-                        <a href="#creator_table_of_contents">Model Creator Table of Contents</a>
-                    </li>
-                    <li>
-                        <a href="#mcs_setup_checklist_setup">MCS Setup</a>
-                    </li>
-                    <li>
-                        <a href="#management_reporting">Management Reporting</a>
-                    </li>
-                    <li>
-                        <a href="#mcs_setup_checklist_CS">Control Section</a>
-                    </li>
-                    <li>
-                        <a href="#mcs_setup_checklist_p1">Phase 1</a>
-                    </li>
-                    <li>
-                        <a href="#mcs_setup_checklist_p2">Phase 2</a>
-                    </li>
-                    <li>
-                        <a href="#mcs_setup_checklist_p3">Phase 3</a>
-                    </li>
-                    <li>
-                        <a href="#mcs_setup_checklist_p4">Phase 4</a>
-                    </li>
-                    <li>
-                        <a href="#mcs_setup_checklist_p5">Phase 5</a>
-                    </li>
-                    <li>
-                        <a href="#mcs_setup_checklist_p6">Phase 6</a>
-                    </li>
-                    <li>
-                        <a href="#mcs_setup_checklist_p7">Phase 7</a>
-                    </li>
-                    <li>
-                        <a href="#mcs_setup_checklist_p8">Phase 8</a>
-                    </li>
-                    <li>
-                        <a href="#open_points_action_items">Open Points Action Items</a>
-                    </li>
-                    <li data-icon="delete">
-                        <a href="#" data-rel="close">Close menu</a>
-                    </li>
-                    <li data-icon="delete">
-                        <a href="#sign_in_sign_up">Sign Out</a>
-                    </li>
+                    <li><a href="#creator_table_of_contents">Model Creator Table of Contents</a></li>
+                    <li><a href="#mcs_setup_checklist_setup">MCS Setup</a></li>
+                    <li><a href="#management_reporting">Management Reporting</a></li>
+                    <li><a href="#mcs_setup_checklist_CS">Control Section</a></li>
+                    <li><a href="#mcs_setup_checklist_p1">Phase 1</a></li>
+                    <li><a href="#mcs_setup_checklist_p2">Phase 2</a></li>
+                    <li><a href="#mcs_setup_checklist_p3">Phase 3</a></li>
+                    <li><a href="#mcs_setup_checklist_p4">Phase 4</a></li>
+                    <li><a href="#mcs_setup_checklist_p5">Phase 5</a></li>
+                    <li><a href="#mcs_setup_checklist_p6">Phase 6</a></li>
+                    <li><a href="#mcs_setup_checklist_p7">Phase 7</a></li>
+                    <li><a href="#mcs_setup_checklist_p8">Phase 8</a></li>
+                    <li><a href="#open_points_action_items">Open Points Action Items</a></li>
+                    <li data-icon="delete"><a href="#" data-rel="close">Close menu</a></li>
+                    <li data-icon="delete"><a href="#sign_in_sign_up">Sign Out</a></li>
                 </ul>
             </div><!-- /panel -->
             <div data-role="header" data-position="fixed">
@@ -9157,54 +8439,21 @@ under the License.
             <div data-role="panel" id="mcs_setup_checklist_p4_b12_lpanel" data-display="overlay" data-position="left">
                 <ul data-role="listview">
                     <li data-icon="home"><a href="#ubmsuite_SelectBusinessModel" >My Models</a></li>
-                    <li>
-                         
-                    </li>
-                    <li>
-                        <a href="#creator_table_of_contents">Model Creator Table of Contents</a>
-                    </li>
-                    <li>
-                        <a href="#mcs_setup_checklist_setup">MCS Setup</a>
-                    </li>
-                    <li>
-                        <a href="#management_reporting">Management Reporting</a>
-                    </li>
-                    <li>
-                        <a href="#mcs_setup_checklist_CS">Control Section</a>
-                    </li>
-                    <li>
-                        <a href="#mcs_setup_checklist_p1">Phase 1</a>
-                    </li>
-                    <li>
-                        <a href="#mcs_setup_checklist_p2">Phase 2</a>
-                    </li>
-                    <li>
-                        <a href="#mcs_setup_checklist_p3">Phase 3</a>
-                    </li>
-                    <li>
-                        <a href="#mcs_setup_checklist_p4">Phase 4</a>
-                    </li>
-                    <li>
-                        <a href="#mcs_setup_checklist_p5">Phase 5</a>
-                    </li>
-                    <li>
-                        <a href="#mcs_setup_checklist_p6">Phase 6</a>
-                    </li>
-                    <li>
-                        <a href="#mcs_setup_checklist_p7">Phase 7</a>
-                    </li>
-                    <li>
-                        <a href="#mcs_setup_checklist_p8">Phase 8</a>
-                    </li>
-                    <li>
-                        <a href="#open_points_action_items">Open Points Action Items</a>
-                    </li>
-                    <li data-icon="delete">
-                        <a href="#" data-rel="close">Close menu</a>
-                    </li>
-                    <li data-icon="delete">
-                        <a href="#sign_in_sign_up">Sign Out</a>
-                    </li>
+                    <li><a href="#creator_table_of_contents">Model Creator Table of Contents</a></li>
+                    <li><a href="#mcs_setup_checklist_setup">MCS Setup</a></li>
+                    <li><a href="#management_reporting">Management Reporting</a></li>
+                    <li><a href="#mcs_setup_checklist_CS">Control Section</a></li>
+                    <li><a href="#mcs_setup_checklist_p1">Phase 1</a></li>
+                    <li><a href="#mcs_setup_checklist_p2">Phase 2</a></li>
+                    <li><a href="#mcs_setup_checklist_p3">Phase 3</a></li>
+                    <li><a href="#mcs_setup_checklist_p4">Phase 4</a></li>
+                    <li><a href="#mcs_setup_checklist_p5">Phase 5</a></li>
+                    <li><a href="#mcs_setup_checklist_p6">Phase 6</a></li>
+                    <li><a href="#mcs_setup_checklist_p7">Phase 7</a></li>
+                    <li><a href="#mcs_setup_checklist_p8">Phase 8</a></li>
+                    <li><a href="#open_points_action_items">Open Points Action Items</a></li>
+                    <li data-icon="delete"><a href="#" data-rel="close">Close menu</a></li>
+                    <li data-icon="delete"><a href="#sign_in_sign_up">Sign Out</a></li>
                 </ul>
             </div><!-- /panel -->
             <div data-role="header" data-position="fixed">
@@ -9519,54 +8768,21 @@ under the License.
             <div data-role="panel" id="mcs_setup_checklist_p5_lpanel" data-display="overlay" data-position="left">
                 <ul data-role="listview">
                     <li data-icon="home"><a href="#ubmsuite_SelectBusinessModel" >My Models</a></li>
-                    <li>
-                         
-                    </li>
-                    <li>
-                        <a href="#creator_table_of_contents">Model Creator Table of Contents</a>
-                    </li>
-                    <li>
-                        <a href="#mcs_setup_checklist_setup">MCS Setup</a>
-                    </li>
-                    <li>
-                        <a href="#management_reporting">Management Reporting</a>
-                    </li>
-                    <li>
-                        <a href="#mcs_setup_checklist_CS">Control Section</a>
-                    </li>
-                    <li>
-                        <a href="#mcs_setup_checklist_p1">Phase 1</a>
-                    </li>
-                    <li>
-                        <a href="#mcs_setup_checklist_p2">Phase 2</a>
-                    </li>
-                    <li>
-                        <a href="#mcs_setup_checklist_p3">Phase 3</a>
-                    </li>
-                    <li>
-                        <a href="#mcs_setup_checklist_p4">Phase 4</a>
-                    </li>
-                    <li>
-                        <a href="#mcs_setup_checklist_p5">Phase 5</a>
-                    </li>
-                    <li>
-                        <a href="#mcs_setup_checklist_p6">Phase 6</a>
-                    </li>
-                    <li>
-                        <a href="#mcs_setup_checklist_p7">Phase 7</a>
-                    </li>
-                    <li>
-                        <a href="#mcs_setup_checklist_p8">Phase 8</a>
-                    </li>
-                    <li>
-                        <a href="#open_points_action_items">Open Points Action Items</a>
-                    </li>
-                    <li data-icon="delete">
-                        <a href="#" data-rel="close">Close menu</a>
-                    </li>
-                    <li data-icon="delete">
-                        <a href="#sign_in_sign_up">Sign Out</a>
-                    </li>
+                    <li><a href="#creator_table_of_contents">Model Creator Table of Contents</a></li>
+                    <li><a href="#mcs_setup_checklist_setup">MCS Setup</a></li>
+                    <li><a href="#management_reporting">Management Reporting</a></li>
+                    <li><a href="#mcs_setup_checklist_CS">Control Section</a></li>
+                    <li><a href="#mcs_setup_checklist_p1">Phase 1</a></li>
+                    <li><a href="#mcs_setup_checklist_p2">Phase 2</a></li>
+                    <li><a href="#mcs_setup_checklist_p3">Phase 3</a></li>
+                    <li><a href="#mcs_setup_checklist_p4">Phase 4</a></li>
+                    <li><a href="#mcs_setup_checklist_p5">Phase 5</a></li>
+                    <li><a href="#mcs_setup_checklist_p6">Phase 6</a></li>
+                    <li><a href="#mcs_setup_checklist_p7">Phase 7</a></li>
+                    <li><a href="#mcs_setup_checklist_p8">Phase 8</a></li>
+                    <li><a href="#open_points_action_items">Open Points Action Items</a></li>
+                    <li data-icon="delete"><a href="#" data-rel="close">Close menu</a></li>
+                    <li data-icon="delete"><a href="#sign_in_sign_up">Sign Out</a></li>
                 </ul>
             </div><!-- /panel -->
             <div data-role="header" data-position="fixed">
@@ -9880,55 +9096,23 @@ under the License.
         <div data-role="page" class="ubm_page" id="mcs_setup_checklist_p6">
             <div data-role="panel" id="mcs_setup_checklist_p6_lpanel" data-display="overlay" data-position="left">
                 <ul data-role="listview">
+                <ul data-role="listview">
                     <li data-icon="home"><a href="#ubmsuite_SelectBusinessModel" >My Models</a></li>
-                    <li>
-                         
-                    </li>
-                    <li>
-                        <a href="#creator_table_of_contents">Model Creator Table of Contents</a>
-                    </li>
-                    <li>
-                        <a href="#mcs_setup_checklist_setup">MCS Setup</a>
-                    </li>
-                    <li>
-                        <a href="#management_reporting">Management Reporting</a>
-                    </li>
-                    <li>
-                        <a href="#mcs_setup_checklist_CS">Control Section</a>
-                    </li>
-                    <li>
-                        <a href="#mcs_setup_checklist_p1">Phase 1</a>
-                    </li>
-                    <li>
-                        <a href="#mcs_setup_checklist_p2">Phase 2</a>
-                    </li>
-                    <li>
-                        <a href="#mcs_setup_checklist_p3">Phase 3</a>
-                    </li>
-                    <li>
-                        <a href="#mcs_setup_checklist_p4">Phase 4</a>
-                    </li>
-                    <li>
-                        <a href="#mcs_setup_checklist_p5">Phase 5</a>
-                    </li>
-                    <li>
-                        <a href="#mcs_setup_checklist_p6">Phase 6</a>
-                    </li>
-                    <li>
-                        <a href="#mcs_setup_checklist_p7">Phase 7</a>
-                    </li>
-                    <li>
-                        <a href="#mcs_setup_checklist_p8">Phase 8</a>
-                    </li>
-                    <li>
-                        <a href="#open_points_action_items">Open Points Action Items</a>
-                    </li>
-                    <li data-icon="delete">
-                        <a href="#" data-rel="close">Close menu</a>
-                    </li>
-                    <li data-icon="delete">
-                        <a href="#sign_in_sign_up">Sign Out</a>
-                    </li>
+                    <li><a href="#creator_table_of_contents">Model Creator Table of Contents</a></li>
+                    <li><a href="#mcs_setup_checklist_setup">MCS Setup</a></li>
+                    <li><a href="#management_reporting">Management Reporting</a></li>
+                    <li><a href="#mcs_setup_checklist_CS">Control Section</a></li>
+                    <li><a href="#mcs_setup_checklist_p1">Phase 1</a></li>
+                    <li><a href="#mcs_setup_checklist_p2">Phase 2</a></li>
+                    <li><a href="#mcs_setup_checklist_p3">Phase 3</a></li>
+                    <li><a href="#mcs_setup_checklist_p4">Phase 4</a></li>
+                    <li><a href="#mcs_setup_checklist_p5">Phase 5</a></li>
+                    <li><a href="#mcs_setup_checklist_p6">Phase 6</a></li>
+                    <li><a href="#mcs_setup_checklist_p7">Phase 7</a></li>
+                    <li><a href="#mcs_setup_checklist_p8">Phase 8</a></li>
+                    <li><a href="#open_points_action_items">Open Points Action Items</a></li>
+                    <li data-icon="delete"><a href="#" data-rel="close">Close menu</a></li>
+                    <li data-icon="delete"><a href="#sign_in_sign_up">Sign Out</a></li>
                 </ul>
             </div><!-- /panel -->
             <div data-role="header" data-position="fixed">
@@ -10243,51 +9427,21 @@ under the License.
             <div data-role="panel" id="mcs_setup_checklist_p7_lpanel" data-display="overlay" data-position="left">
                 <ul data-role="listview">
                     <li data-icon="home"><a href="#ubmsuite_SelectBusinessModel" >My Models</a></li>
-                    <li>
-                         
-                    </li>
-                    <li>
-                        <a href="#creator_table_of_contents">Model Creator Table of Contents</a>
-                    </li>
-                    <li>
-                        <a href="#mcs_setup_checklist_setup">MCS Setup</a>
-                    </li>
-                    <li>
-                        <a href="#management_reporting">Management Reporting</a>
-                    </li>
-                    <li>
-                        <a href="#mcs_setup_checklist_CS">Control Section</a>
-                    </li>
-                    <li>
-                        <a href="#mcs_setup_checklist_p1">Phase 1</a>
-                    </li>
-                    <li>
-                        <a href="#mcs_setup_checklist_p2">Phase 2</a>
-                    </li>
-                    <li>
-                        <a href="#mcs_setup_checklist_p3">Phase 3</a>
-                    </li>
-                    <li>
-                        <a href="#mcs_setup_checklist_p4">Phase 4</a>
-                    </li>
-                    <li>
-                        <a href="#mcs_setup_checklist_p5">Phase 5</a>
-                    </li>
-                    <li>
-                        <a href="#mcs_setup_checklist_p6">Phase 6</a>
-                    </li>
-                    <li>
-                        <a href="#mcs_setup_checklist_p7">Phase 7</a>
-                    </li>
-                    <li>
-                        <a href="#mcs_setup_checklist_p8">Phase 8</a>
-                    </li>
-                    <li data-icon="delete">
-                        <a href="#" data-rel="close">Close menu</a>
-                    </li>
-                    <li data-icon="delete">
-                        <a href="#sign_in_sign_up">Sign Out</a>
-                    </li>
+                    <li><a href="#creator_table_of_contents">Model Creator Table of Contents</a></li>
+                    <li><a href="#mcs_setup_checklist_setup">MCS Setup</a></li>
+                    <li><a href="#management_reporting">Management Reporting</a></li>
+                    <li><a href="#mcs_setup_checklist_CS">Control Section</a></li>
+                    <li><a href="#mcs_setup_checklist_p1">Phase 1</a></li>
+                    <li><a href="#mcs_setup_checklist_p2">Phase 2</a></li>
+                    <li><a href="#mcs_setup_checklist_p3">Phase 3</a></li>
+                    <li><a href="#mcs_setup_checklist_p4">Phase 4</a></li>
+                    <li><a href="#mcs_setup_checklist_p5">Phase 5</a></li>
+                    <li><a href="#mcs_setup_checklist_p6">Phase 6</a></li>
+                    <li><a href="#mcs_setup_checklist_p7">Phase 7</a></li>
+                    <li><a href="#mcs_setup_checklist_p8">Phase 8</a></li>
+                    <li><a href="#open_points_action_items">Open Points Action Items</a></li>
+                    <li data-icon="delete"><a href="#" data-rel="close">Close menu</a></li>
+                    <li data-icon="delete"><a href="#sign_in_sign_up">Sign Out</a></li>
                 </ul>
             </div><!-- /panel -->
             <div data-role="header" data-position="fixed">
@@ -10602,54 +9756,21 @@ under the License.
             <div data-role="panel" id="mcs_setup_checklist_p8_lpanel" data-display="overlay" data-position="left">
                 <ul data-role="listview">
                     <li data-icon="home"><a href="#ubmsuite_SelectBusinessModel" >My Models</a></li>
-                    <li>
-                         
-                    </li>
-                    <li>
-                        <a href="#creator_table_of_contents">Model Creator Table of Contents</a>
-                    </li>
-                    <li>
-                        <a href="#mcs_setup_checklist_setup">MCS Setup</a>
-                    </li>
-                    <li>
-                        <a href="#management_reporting">Management Reporting</a>
-                    </li>
-                    <li>
-                        <a href="#mcs_setup_checklist_CS">Control Section</a>
-                    </li>
-                    <li>
-                        <a href="#mcs_setup_checklist_p1">Phase 1</a>
-                    </li>
-                    <li>
-                        <a href="#mcs_setup_checklist_p2">Phase 2</a>
-                    </li>
-                    <li>
-                        <a href="#mcs_setup_checklist_p3">Phase 3</a>
-                    </li>
-                    <li>
-                        <a href="#mcs_setup_checklist_p4">Phase 4</a>
-                    </li>
-                    <li>
-                        <a href="#mcs_setup_checklist_p5">Phase 5</a>
-                    </li>
-                    <li>
-                        <a href="#mcs_setup_checklist_p6">Phase 6</a>
-                    </li>
-                    <li>
-                        <a href="#mcs_setup_checklist_p7">Phase 7</a>
-                    </li>
-                    <li>
-                        <a href="#mcs_setup_checklist_p8">Phase 8</a>
-                    </li>
-                    <li>
-                        <a href="#open_points_action_items">Open Points Action Items</a>
-                    </li>
-                    <li data-icon="delete">
-                        <a href="#" data-rel="close">Close menu</a>
-                    </li>
-                    <li data-icon="delete">
-                        <a href="#sign_in_sign_up">Sign Out</a>
-                    </li>
+                    <li><a href="#creator_table_of_contents">Model Creator Table of Contents</a></li>
+                    <li><a href="#mcs_setup_checklist_setup">MCS Setup</a></li>
+                    <li><a href="#management_reporting">Management Reporting</a></li>
+                    <li><a href="#mcs_setup_checklist_CS">Control Section</a></li>
+                    <li><a href="#mcs_setup_checklist_p1">Phase 1</a></li>
+                    <li><a href="#mcs_setup_checklist_p2">Phase 2</a></li>
+                    <li><a href="#mcs_setup_checklist_p3">Phase 3</a></li>
+                    <li><a href="#mcs_setup_checklist_p4">Phase 4</a></li>
+                    <li><a href="#mcs_setup_checklist_p5">Phase 5</a></li>
+                    <li><a href="#mcs_setup_checklist_p6">Phase 6</a></li>
+                    <li><a href="#mcs_setup_checklist_p7">Phase 7</a></li>
+                    <li><a href="#mcs_setup_checklist_p8">Phase 8</a></li>
+                    <li><a href="#open_points_action_items">Open Points Action Items</a></li>
+                    <li data-icon="delete"><a href="#" data-rel="close">Close menu</a></li>
+                    <li data-icon="delete"><a href="#sign_in_sign_up">Sign Out</a></li>
                 </ul>
             </div><!-- /panel -->
             <div data-role="header" data-position="fixed">
@@ -11004,54 +10125,21 @@ under the License.
             <div data-role="panel" id="mcs_creator_table_of_contents_lpanel" data-display="overlay" data-position="left">
                 <ul data-role="listview">
                     <li data-icon="home"><a href="#ubmsuite_SelectBusinessModel" >My Models</a></li>
-                    <li>
-                         
-                    </li>
-                    <li>
-                        <a href="#creator_table_of_contents">Model Creator Table of Contents</a>
-                    </li>
-                    <li>
-                        <a href="#mcs_setup_checklist_setup">MCS Setup</a>
-                    </li>
-                    <li>
-                        <a href="#management_reporting">Management Reporting</a>
-                    </li>
-                    <li>
-                        <a href="#mcs_setup_checklist_CS">Control Section</a>
-                    </li>
-                    <li>
-                        <a href="#mcs_setup_checklist_p1">Phase 1</a>
-                    </li>
-                    <li>
-                        <a href="#mcs_setup_checklist_p2">Phase 2</a>
-                    </li>
-                    <li>
-                        <a href="#mcs_setup_checklist_p3">Phase 3</a>
-                    </li>
-                    <li>
-                        <a href="#mcs_setup_checklist_p4">Phase 4</a>
-                    </li>
-                    <li>
-                        <a href="#mcs_setup_checklist_p5">Phase 5</a>
-                    </li>
-                    <li>
-                        <a href="#mcs_setup_checklist_p6">Phase 6</a>
-                    </li>
-                    <li>
-                        <a href="#mcs_setup_checklist_p7">Phase 7</a>
-                    </li>
-                    <li>
-                        <a href="#mcs_setup_checklist_p8">Phase 8</a>
-                    </li>
-                    <li>
-                        <a href="#open_points_action_items">Open Points Action Items</a>
-                    </li>
-                    <li data-icon="delete">
-                        <a href="#" data-rel="close">Close menu</a>
-                    </li>
-                    <li data-icon="delete">
-                        <a href="#sign_in_sign_up">Sign Out</a>
-                    </li>
+                    <li><a href="#creator_table_of_contents">Model Creator Table of Contents</a></li>
+                    <li><a href="#mcs_setup_checklist_setup">MCS Setup</a></li>
+                    <li><a href="#management_reporting">Management Reporting</a></li>
+                    <li><a href="#mcs_setup_checklist_CS">Control Section</a></li>
+                    <li><a href="#mcs_setup_checklist_p1">Phase 1</a></li>
+                    <li><a href="#mcs_setup_checklist_p2">Phase 2</a></li>
+                    <li><a href="#mcs_setup_checklist_p3">Phase 3</a></li>
+                    <li><a href="#mcs_setup_checklist_p4">Phase 4</a></li>
+                    <li><a href="#mcs_setup_checklist_p5">Phase 5</a></li>
+                    <li><a href="#mcs_setup_checklist_p6">Phase 6</a></li>
+                    <li><a href="#mcs_setup_checklist_p7">Phase 7</a></li>
+                    <li><a href="#mcs_setup_checklist_p8">Phase 8</a></li>
+                    <li><a href="#open_points_action_items">Open Points Action Items</a></li>
+                    <li data-icon="delete"><a href="#" data-rel="close">Close menu</a></li>
+                    <li data-icon="delete"><a href="#sign_in_sign_up">Sign Out</a></li>
                 </ul>
             </div><!-- /panel -->
             <div data-role="header" id="open_points_action_items_header" data-fullscreen="true" data-position="fixed">
