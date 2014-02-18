@@ -118,7 +118,6 @@ under the License.
 					$("#mcs_open_points_action_items_table").trigger("create");
 				});
 			}
-
 			function getOnlyStatusClosedItems() {
 				$.getJSON('http://www.findmydriver.com/ubmopenitemsonlystatuscloseditems.php?callback=?', {//JSONP Request to Open Items Page setup tables
 				}, function(res, status) {
@@ -171,7 +170,6 @@ under the License.
 					$("#mcs_open_points_action_items_table").trigger("create");
 				});
 			}
-
 			function getMyOpenItems() {
 				$.getJSON('http://www.findmydriver.com/ubmopenitemsonlystatusopenitemscurrentuser.php?callback=?', {//JSONP Request to Open Items Page setup tables
 					username : window.username
@@ -226,19 +224,16 @@ under the License.
 				});
 
 			}
-
 			function addItemComment(id) {
 				window.openitemid = id;
 				$("#mcs_open_points_action_items_submitcomment_popup").popup('open');
 			}
-
 			function addResolutions(id) {
 				window.openitemid = id;
 				$("#mcs_open_points_action_items_submitresolution_popup").popup('open');
 				//window.openitemid = id;
 				//submitResolution();
 			}
-
 			function submitResolution() {
 				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_openitem_createresolutions1.php?callback=?', {//JSONP Request to Open Items Page setup tables
 					openitemid : window.openitemid,
@@ -255,7 +250,6 @@ under the License.
 				setTimeout(function() {
 				}, 1500);
 			}
-
 			function viewResolutions(id) {
 				$.getJSON('http://www.findmydriver.com/ubmselectallresolutions.php?callback=?', {//JSONP Request to Open Items Page setup tables
 					openitemid : id,
@@ -404,126 +398,126 @@ under the License.
 				window.selectedModelUserId = selectedUserId;
 				$("#ubmsuite_modelSettings_modifyUser_popup").popup('open');
 			}
+			function getModelCreationSuiteChecklistItems(){
+//					alert(window.activeModelId);
 
-			function onLoadBody() {
-				$.getJSON('http://www.findmydriver.com/ubmopenitemsonlystatusopenitems.php?callback=?', {//JSONP Request to Open Items Page setup tables
+				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_getallchecklistitems.php?callback=?', {//JSONP Request to Checklist Setup Table
+					activeModelId: window.activeModelId
 				}, function(res, status) {
-					//	alert("request for open items was a success!");
-					$.each(res, function(i, item) {
-						if (window.accounttype == "admin") {//If user accounttype is admin, allow user to add new resolutions. If not, only allow them to view existing resolutions.
-							//alert(window.accounttype);
-							if (item.number_resolutions !== "0") {//If item doesnt have any resolutions associated with it, use theme a for the "View" Resolutions button
-								$('#mcs_open_points_action_items_table_body').append("<tr ><th class='label'>" + item.id + "</th><td>" + item.form_ref + "</td><td>" + item.priority + "</td><td>" + item.opened_by + "</td><td>" + item.date_opened + "</td><td>" + item.action_required + "</td><td>" + item.assigned_to + "</td><td>" + item.date_opened + "</td><td>" + item.due_date + "</td><td>b</td><td>c</td><td>d</td><td><a href='#' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-comment ui-btn-icon-left ui-btn-b' onclick='viewResolutions(" + item.id + ")'>View &nbsp&nbsp&nbsp&nbsp<span class='ui-li-has-count ui-btn-up-c ui-btn-corner-all'>" + item.number_resolutions + "</span></a><a href='#' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-plus ui-btn-icon-left ui-btn-a' onclick='addResolutions(" + item.id + ")'>Resolve &nbsp&nbsp&nbsp&nbsp</a><a href='#' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-plus ui-btn-icon-left ui-btn-a' onclick='addItemComment(" + item.id + ")'>Comment &nbsp&nbsp&nbsp&nbsp</a></td></tr>");
-							} else {
-								$('#mcs_open_points_action_items_table_body').append("<tr ><th class='label'>" + item.id + "</th><td>" + item.form_ref + "</td><td>" + item.priority + "</td><td>" + item.opened_by + "</td><td>" + item.date_opened + "</td><td>" + item.action_required + "</td><td>" + item.assigned_to + "</td><td>" + item.date_opened + "</td><td>" + item.due_date + "</td><td>b</td><td>c</td><td>d</td><td><a href='#' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-comment ui-btn-icon-left ui-btn-a' onclick='viewResolutions(" + item.id + ")'>View &nbsp&nbsp&nbsp&nbsp<span class='ui-li-has-count ui-btn-up-c ui-btn-corner-all'>" + item.number_resolutions + "</span></a><a href='#' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-plus ui-btn-icon-left ui-btn-a' onclick='addResolutions(" + item.id + ")'>Resolve &nbsp&nbsp&nbsp&nbsp</a><a href='#' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-plus ui-btn-icon-left ui-btn-a' onclick='addItemComment(" + item.id + ")'>Comment &nbsp&nbsp&nbsp&nbsp</a></td></tr>");
-								$("#mcs_open_points_action_items_table").table("refresh");
-							}
-						} else {
-							if (item.number_resolutions !== "0") {//If item has one or more resolutions associated with it, use theme b for the "View" Resolutions button
-								$('#mcs_open_points_action_items_table_body').append("<tr ><th class='label'>" + item.id + "</th><td>" + item.form_ref + "</td><td>" + item.priority + "</td><td>" + item.opened_by + "</td><td>" + item.date_opened + "</td><td>" + item.action_required + "</td><td>" + item.assigned_to + "</td><td>" + item.date_opened + "</td><td>" + item.due_date + "</td><td>b</td><td>c</td><td>d</td><td><a href='#' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-comment ui-btn-icon-left ui-btn-b' onclick='viewResolutions(" + item.id + ")'>View &nbsp&nbsp&nbsp&nbsp<span class='ui-li-has-count ui-btn-up-c ui-btn-corner-all'>" + item.number_resolutions + "</span></a></td></tr>");
-							} else {
-								$('#mcs_open_points_action_items_table_body').append("<tr ><th class='label'>" + item.id + "</th><td>" + item.form_ref + "</td><td>" + item.priority + "</td><td>" + item.opened_by + "</td><td>" + item.date_opened + "</td><td>" + item.action_required + "</td><td>" + item.assigned_to + "</td><td>" + item.date_opened + "</td><td>" + item.due_date + "</td><td>b</td><td>c</td><td>d</td><td><a href='#' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-comment ui-btn-icon-left ui-btn-a' onclick='viewResolutions(" + item.id + ")'>View &nbsp&nbsp&nbsp&nbsp<span class='ui-li-has-count ui-btn-up-c ui-btn-corner-all'>" + item.number_resolutions + "</span></a></td></tr>");
-								$("#mcs_open_points_action_items_table").table("refresh");
-							}
-						}
-					})
-				});
-
-				$.getJSON('http://www.findmydriver.com/ubmmcsallitems.php?callback=?', {//JSONP Request to Checklist Setup Table
-				}, function(res, status) {
-					alert("init: " + status);
+					//alert("init: " + status);
+					$('#mcs_setup_checklist_setup_mfi_table_body > tr').remove();
+					$('#mcs_setup_checklist_CS_mfi_table_body > tr').remove();
+					$('#mcs_setup_checklist_p1_mfi_table_body > tr').remove();
+					$('#mcs_setup_checklist_p2_mfi_table_body > tr').remove();
+					$('#mcs_setup_checklist_p3_mfi_table_body > tr').remove();
+					$('#mcs_setup_checklist_p4_b1_mfi_table_body > tr').remove();
+					$('#mcs_setup_checklist_p4_b2_mfi_table_body > tr').remove();
+					$('#mcs_setup_checklist_p4_b3_mfi_table_body > tr').remove();
+					$('#mcs_setup_checklist_p4_b4_mfi_table_body > tr').remove();
+					$('#mcs_setup_checklist_p4_b5_mfi_table_body > tr').remove();
+					$('#mcs_setup_checklist_p4_b6_mfi_table_body > tr').remove();
+					$('#mcs_setup_checklist_p4_b7_mfi_table_body > tr').remove();
+					$('#mcs_setup_checklist_p4_b8_mfi_table_body > tr').remove();
+					$('#mcs_setup_checklist_p4_b9_mfi_table_body > tr').remove();
+					$('#mcs_setup_checklist_p4_b10_mfi_table_body > tr').remove();
+					$('#mcs_setup_checklist_p4_b11_mfi_table_body > tr').remove();
+					$('#mcs_setup_checklist_p4_b12_mfi_table_body > tr').remove();
+					$('#mcs_setup_checklist_p5_mfi_table_body > tr').remove();
+					$('#mcs_setup_checklist_p6_mfi_table_body > tr').remove();
+					$('#mcs_setup_checklist_p7_mfi_table_body > tr').remove();
+					$('#mcs_setup_checklist_p8_mfi_table_body > tr').remove();
 					$.each(res, function(i, item) {
 						if (item.phase_id == "MFIS") {
 							//	$( "#mcs_setup_checklist_setup_mfi_table" ).table( "refresh" );
 							if (item.line_number == 1) {
-								$('#mcs_setup_checklist_setup_mfi_table_body').append("<tr ><th class='label'>" + item.line_number + "</th><td>a</td><td>b</td><td>c</td><td>d</td><td>e</td><td>f</td><td>" + item.mfi_explanation_ref + "</td><td>" + item.mfi_template_process_ref + "</td><td>" + item.source_model_mfi_ref + "</td><td><div data-role='controlgroup' data-type='horizontal' ><a href='#" + item.href + "' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a'><div style='white-space:normal'>" + item.instruction_detail + "</div></a></div></td><td>" + item.budgeted_hours + "</td><td>l</td><td>m</td><td>n</td></tr>");
+								$('#mcs_setup_checklist_setup_mfi_table_body').append("<tr ><th class='label'>" + item.line_number + "</th><td>"+ item.final_reviewer_username +"</td><td>"+ item.final_review_date +"</td><td>"+ item.reviewer_username +"</td><td>"+ item.review_date +"</td><td>"+ item.preparer_username +"</td><td>"+ item.prepared_date +"</td><td>" + item.mfi_explanation_ref + "</td><td>" + item.mfi_template_process_ref + "</td><td>" + item.source_model_mfi_ref + "</td><td><div data-role='controlgroup' data-type='horizontal' ><a href='#" + item.href + "' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a'><div style='white-space:normal'>" + item.instruction_detail + "</div></a></div></td><td>" + item.budgeted_hours + "</td><td>l</td><td>m</td><td>n</td></tr>");
 							} else {
-								$('#mcs_setup_checklist_setup_mfi_table_body').append("<tr ><th class='label'>" + item.line_number + "</th><td>a</td><td>b</td><td>c</td><td>d</td><td>e</td><td>f</td><td>" + item.mfi_explanation_ref + "</td><td>" + item.mfi_template_process_ref + "</td><td>" + item.source_model_mfi_ref + "</td><td><div data-role='controlgroup' data-type='horizontal' ><a href='#" + item.href + "' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a'><div style='white-space:normal'>" + item.instruction_detail + "</div></a></div></td><td>" + item.budgeted_hours + "</td><td>l</td><td>m</td><td>n</td></tr>");
+								$('#mcs_setup_checklist_setup_mfi_table_body').append("<tr ><th class='label'>" + item.line_number + "</th><td>"+ item.final_reviewer_username +"</td><td>"+ item.final_review_date +"</td><td>"+ item.reviewer_username +"</td><td>"+ item.review_date +"</td><td>"+ item.preparer_username +"</td><td>"+ item.prepared_date +"</td><td>" + item.mfi_explanation_ref + "</td><td>" + item.mfi_template_process_ref + "</td><td>" + item.source_model_mfi_ref + "</td><td><div data-role='controlgroup' data-type='horizontal' ><a href='#" + item.href + "' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a'><div style='white-space:normal'>" + item.instruction_detail + "</div></a></div></td><td>" + item.budgeted_hours + "</td><td>l</td><td>m</td><td>n</td></tr>");
 							}
 							//$( "#mcs_setup_checklist_setup_mfi_table" ).table( "refresh" );
 							//	$( "#mcs_setup_checklist_setup_mfi_table" ).trigger( "create" );
 						} else {
 							if (item.phase_id == "CS") {
-								$('#mcs_setup_checklist_CS_mfi_table_body').append("<tr ><th class='label'>" + item.line_number + "</th><td>a</td><td>b</td><td>c</td><td>d</td><td>e</td><td>f</td><td>" + item.mfi_explanation_ref + "</td><td>" + item.mfi_template_process_ref + "</td><td>" + item.source_model_mfi_ref + "</td><td><div data-role='controlgroup' data-type='horizontal' ><a href='#" + item.href + "' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a'><div style='white-space:normal'>" + item.instruction_detail + "</div></a></div></td><td>" + item.budgeted_hours + "</td><td>l</td><td>m</td><td>n</td></tr>");
+								$('#mcs_setup_checklist_CS_mfi_table_body').append("<tr ><th class='label'>" + item.line_number + "</th><td>"+ item.final_reviewer_username +"</td><td>"+ item.final_review_date +"</td><td>"+ item.reviewer_username +"</td><td>"+ item.review_date +"</td><td>"+ item.preparer_username +"</td><td>"+ item.prepared_date +"</td><td>" + item.mfi_explanation_ref + "</td><td>" + item.mfi_template_process_ref + "</td><td>" + item.source_model_mfi_ref + "</td><td><div data-role='controlgroup' data-type='horizontal' ><a href='#" + item.href + "' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a'><div style='white-space:normal'>" + item.instruction_detail + "</div></a></div></td><td>" + item.budgeted_hours + "</td><td>l</td><td>m</td><td>n</td></tr>");
 								//	$( "#mcs_setup_checklist_CS_mfi_table" ).table( "refresh" );
 								//	$( "#mcs_setup_checklist_CS_mfi_table" ).trigger( "create" );
 								//alert("Item is CS");
 							} else {
 								if (item.phase_id == "MFIS") {
-									//	$('#mcs_setup_checklist_setup_mfi_table_body').append("<tr ><th class='label'>"+ item.line_number + "</th><td>a</td><td>b</td><td>c</td><td>d</td><td>e</td><td>f</td><td>"+ item.mfi_explanation_ref +"</td><td>"+ item.mfi_template_process_ref +"</td><td>"+ item.source_model_mfi_ref +"</td><td><div data-role='controlgroup' data-type='horizontal' ><a href='#mcs_setup_1_popUp' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a'><div style='white-space:normal'>" + item.instruction_detail + "</div></a></div></td><td>"+ item.budgeted_hours +"</td><td>l</td><td>m</td><td>n</td></tr>");
+									//	$('#mcs_setup_checklist_setup_mfi_table_body').append("<tr ><th class='label'>"+ item.line_number + "</th><td>a</td><td>"+ item.final_review_date +"</td><td>"+ item.reviewer_username +"</td><td>"+ item.review_date +"</td><td>"+ item.preparer_username +"</td><td>"+ item.prepared_date +"</td><td>"+ item.mfi_explanation_ref +"</td><td>"+ item.mfi_template_process_ref +"</td><td>"+ item.source_model_mfi_ref +"</td><td><div data-role='controlgroup' data-type='horizontal' ><a href='#mcs_setup_1_popUp' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a'><div style='white-space:normal'>" + item.instruction_detail + "</div></a></div></td><td>"+ item.budgeted_hours +"</td><td>l</td><td>m</td><td>n</td></tr>");
 									//	alert("Item is MFIS");
 								} else {
 									if (item.phase_id == "P1") {
-										$('#mcs_setup_checklist_p1_mfi_table_body').append("<tr ><th class='label'>" + item.line_number + "</th><td>a</td><td>b</td><td>c</td><td>d</td><td>e</td><td>f</td><td>" + item.mfi_explanation_ref + "</td><td>" + item.mfi_template_process_ref + "</td><td>" + item.source_model_mfi_ref + "</td><td><div data-role='controlgroup' data-type='horizontal' ><a href='#" + item.href + "' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a'><div style='white-space:normal'>" + item.instruction_detail + "</div></a></div></td><td>" + item.budgeted_hours + "</td><td>l</td><td>m</td><td>n</td></tr>");
+										$('#mcs_setup_checklist_p1_mfi_table_body').append("<tr ><th class='label'>" + item.line_number + "</th><td>"+ item.final_reviewer_username +"</td><td>"+ item.final_review_date +"</td><td>"+ item.reviewer_username +"</td><td>"+ item.review_date +"</td><td>"+ item.preparer_username +"</td><td>"+ item.prepared_date +"</td><td>" + item.mfi_explanation_ref + "</td><td>" + item.mfi_template_process_ref + "</td><td>" + item.source_model_mfi_ref + "</td><td><div data-role='controlgroup' data-type='horizontal' ><a href='#" + item.href + "' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a'><div style='white-space:normal'>" + item.instruction_detail + "</div></a></div></td><td>" + item.budgeted_hours + "</td><td>l</td><td>m</td><td>n</td></tr>");
 									} else {
 										if (item.phase_id == "P2") {
-											$('#mcs_setup_checklist_p2_mfi_table_body').append("<tr ><th class='label'>" + item.line_number + "</th><td>a</td><td>b</td><td>c</td><td>d</td><td>e</td><td>f</td><td>" + item.mfi_explanation_ref + "</td><td>" + item.mfi_template_process_ref + "</td><td>" + item.source_model_mfi_ref + "</td><td><div data-role='controlgroup' data-type='horizontal' ><a href='#" + item.href + "' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a'><div style='white-space:normal'>" + item.instruction_detail + "</div></a></div></td><td>" + item.budgeted_hours + "</td><td>l</td><td>m</td><td>n</td></tr>");
+											$('#mcs_setup_checklist_p2_mfi_table_body').append("<tr ><th class='label'>" + item.line_number + "</th><td>"+ item.final_reviewer_username +"</td><td>"+ item.final_review_date +"</td><td>"+ item.reviewer_username +"</td><td>"+ item.review_date +"</td><td>"+ item.preparer_username +"</td><td>"+ item.prepared_date +"</td><td>" + item.mfi_explanation_ref + "</td><td>" + item.mfi_template_process_ref + "</td><td>" + item.source_model_mfi_ref + "</td><td><div data-role='controlgroup' data-type='horizontal' ><a href='#" + item.href + "' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a'><div style='white-space:normal'>" + item.instruction_detail + "</div></a></div></td><td>" + item.budgeted_hours + "</td><td>l</td><td>m</td><td>n</td></tr>");
 										} else {
 											if (item.phase_id == "P3") {
-												$('#mcs_setup_checklist_p3_mfi_table_body').append("<tr ><th class='label'>" + item.line_number + "</th><td>a</td><td>b</td><td>c</td><td>d</td><td>e</td><td>f</td><td>" + item.mfi_explanation_ref + "</td><td>" + item.mfi_template_process_ref + "</td><td>" + item.source_model_mfi_ref + "</td><td><div data-role='controlgroup' data-type='horizontal' ><a href='#" + item.href + "' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a'><div style='white-space:normal'>" + item.instruction_detail + "</div></a></div></td><td>" + item.budgeted_hours + "</td><td>l</td><td>m</td><td>n</td></tr>");
+												$('#mcs_setup_checklist_p3_mfi_table_body').append("<tr ><th class='label'>" + item.line_number + "</th><td>"+ item.final_reviewer_username +"</td><td>"+ item.final_review_date +"</td><td>"+ item.reviewer_username +"</td><td>"+ item.review_date +"</td><td>"+ item.preparer_username +"</td><td>"+ item.prepared_date +"</td><td>" + item.mfi_explanation_ref + "</td><td>" + item.mfi_template_process_ref + "</td><td>" + item.source_model_mfi_ref + "</td><td><div data-role='controlgroup' data-type='horizontal' ><a href='#" + item.href + "' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a'><div style='white-space:normal'>" + item.instruction_detail + "</div></a></div></td><td>" + item.budgeted_hours + "</td><td>l</td><td>m</td><td>n</td></tr>");
 
 											} else {
 												if (item.phase_id == "P4B1") {
-													$('#mcs_setup_checklist_p4_b1_mfi_table_body').append("<tr ><th class='label'>" + item.line_number + "</th><td>a</td><td>b</td><td>c</td><td>d</td><td>e</td><td>f</td><td>" + item.mfi_explanation_ref + "</td><td>" + item.mfi_template_process_ref + "</td><td>" + item.source_model_mfi_ref + "</td><td><div data-role='controlgroup' data-type='horizontal' ><a href='#" + item.href + "' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a'><div style='white-space:normal'>" + item.instruction_detail + "</div></a></div></td><td>" + item.budgeted_hours + "</td><td>l</td><td>m</td><td>n</td></tr>");
+													$('#mcs_setup_checklist_p4_b1_mfi_table_body').append("<tr ><th class='label'>" + item.line_number + "</th><td>"+ item.final_reviewer_username +"</td><td>"+ item.final_review_date +"</td><td>"+ item.reviewer_username +"</td><td>"+ item.review_date +"</td><td>"+ item.preparer_username +"</td><td>"+ item.prepared_date +"</td><td>" + item.mfi_explanation_ref + "</td><td>" + item.mfi_template_process_ref + "</td><td>" + item.source_model_mfi_ref + "</td><td><div data-role='controlgroup' data-type='horizontal' ><a href='#" + item.href + "' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a'><div style='white-space:normal'>" + item.instruction_detail + "</div></a></div></td><td>" + item.budgeted_hours + "</td><td>l</td><td>m</td><td>n</td></tr>");
 												} else {
 													if (item.phase_id == "P4B2") {
-														$('#mcs_setup_checklist_p4_b2_mfi_table_body').append("<tr ><th class='label'>" + item.line_number + "</th><td>a</td><td>b</td><td>c</td><td>d</td><td>e</td><td>f</td><td>" + item.mfi_explanation_ref + "</td><td>" + item.mfi_template_process_ref + "</td><td>" + item.source_model_mfi_ref + "</td><td><div data-role='controlgroup' data-type='horizontal' ><a href='#" + item.href + "' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a'><div style='white-space:normal'>" + item.instruction_detail + "</div></a></div></td><td>" + item.budgeted_hours + "</td><td>l</td><td>m</td><td>n</td></tr>");
+														$('#mcs_setup_checklist_p4_b2_mfi_table_body').append("<tr ><th class='label'>" + item.line_number + "</th><td>"+ item.final_reviewer_username +"</td><td>"+ item.final_review_date +"</td><td>"+ item.reviewer_username +"</td><td>"+ item.review_date +"</td><td>"+ item.preparer_username +"</td><td>"+ item.prepared_date +"</td><td>" + item.mfi_explanation_ref + "</td><td>" + item.mfi_template_process_ref + "</td><td>" + item.source_model_mfi_ref + "</td><td><div data-role='controlgroup' data-type='horizontal' ><a href='#" + item.href + "' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a'><div style='white-space:normal'>" + item.instruction_detail + "</div></a></div></td><td>" + item.budgeted_hours + "</td><td>l</td><td>m</td><td>n</td></tr>");
 
 													} else {
 														if (item.phase_id == "P4B3") {
-															$('#mcs_setup_checklist_p4_b3_mfi_table_body').append("<tr ><th class='label'>" + item.line_number + "</th><td>a</td><td>b</td><td>c</td><td>d</td><td>e</td><td>f</td><td>" + item.mfi_explanation_ref + "</td><td>" + item.mfi_template_process_ref + "</td><td>" + item.source_model_mfi_ref + "</td><td><div data-role='controlgroup' data-type='horizontal' ><a href='#" + item.href + "' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a'><div style='white-space:normal'>" + item.instruction_detail + "</div></a></div></td><td>" + item.budgeted_hours + "</td><td>l</td><td>m</td><td>n</td></tr>");
+															$('#mcs_setup_checklist_p4_b3_mfi_table_body').append("<tr ><th class='label'>" + item.line_number + "</th><td>"+ item.final_reviewer_username +"</td><td>"+ item.final_review_date +"</td><td>"+ item.reviewer_username +"</td><td>"+ item.review_date +"</td><td>"+ item.preparer_username +"</td><td>"+ item.prepared_date +"</td><td>" + item.mfi_explanation_ref + "</td><td>" + item.mfi_template_process_ref + "</td><td>" + item.source_model_mfi_ref + "</td><td><div data-role='controlgroup' data-type='horizontal' ><a href='#" + item.href + "' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a'><div style='white-space:normal'>" + item.instruction_detail + "</div></a></div></td><td>" + item.budgeted_hours + "</td><td>l</td><td>m</td><td>n</td></tr>");
 
 														} else {
 															if (item.phase_id == "P4B4") {
-																$('#mcs_setup_checklist_p4_b4_mfi_table_body').append("<tr ><th class='label'>" + item.line_number + "</th><td>a</td><td>b</td><td>c</td><td>d</td><td>e</td><td>f</td><td>" + item.mfi_explanation_ref + "</td><td>" + item.mfi_template_process_ref + "</td><td>" + item.source_model_mfi_ref + "</td><td><div data-role='controlgroup' data-type='horizontal' ><a href='#" + item.href + "' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a'><div style='white-space:normal'>" + item.instruction_detail + "</div></a></div></td><td>" + item.budgeted_hours + "</td><td>l</td><td>m</td><td>n</td></tr>");
+																$('#mcs_setup_checklist_p4_b4_mfi_table_body').append("<tr ><th class='label'>" + item.line_number + "</th><td>"+ item.final_reviewer_username +"</td><td>"+ item.final_review_date +"</td><td>"+ item.reviewer_username +"</td><td>"+ item.review_date +"</td><td>"+ item.preparer_username +"</td><td>"+ item.prepared_date +"</td><td>" + item.mfi_explanation_ref + "</td><td>" + item.mfi_template_process_ref + "</td><td>" + item.source_model_mfi_ref + "</td><td><div data-role='controlgroup' data-type='horizontal' ><a href='#" + item.href + "' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a'><div style='white-space:normal'>" + item.instruction_detail + "</div></a></div></td><td>" + item.budgeted_hours + "</td><td>l</td><td>m</td><td>n</td></tr>");
 
 															} else {
 																if (item.phase_id == "P4B5") {
-																	$('#mcs_setup_checklist_p4_b5_mfi_table_body').append("<tr ><th class='label'>" + item.line_number + "</th><td>a</td><td>b</td><td>c</td><td>d</td><td>e</td><td>f</td><td>" + item.mfi_explanation_ref + "</td><td>" + item.mfi_template_process_ref + "</td><td>" + item.source_model_mfi_ref + "</td><td><div data-role='controlgroup' data-type='horizontal' ><a href='#" + item.href + "' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a'><div style='white-space:normal'>" + item.instruction_detail + "</div></a></div></td><td>" + item.budgeted_hours + "</td><td>l</td><td>m</td><td>n</td></tr>");
+																	$('#mcs_setup_checklist_p4_b5_mfi_table_body').append("<tr ><th class='label'>" + item.line_number + "</th><td>"+ item.final_reviewer_username +"</td><td>"+ item.final_review_date +"</td><td>"+ item.reviewer_username +"</td><td>"+ item.review_date +"</td><td>"+ item.preparer_username +"</td><td>"+ item.prepared_date +"</td><td>" + item.mfi_explanation_ref + "</td><td>" + item.mfi_template_process_ref + "</td><td>" + item.source_model_mfi_ref + "</td><td><div data-role='controlgroup' data-type='horizontal' ><a href='#" + item.href + "' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a'><div style='white-space:normal'>" + item.instruction_detail + "</div></a></div></td><td>" + item.budgeted_hours + "</td><td>l</td><td>m</td><td>n</td></tr>");
 
 																} else {
 																	if (item.phase_id == "P4B6") {
-																		$('#mcs_setup_checklist_p4_b6_mfi_table_body').append("<tr ><th class='label'>" + item.line_number + "</th><td>a</td><td>b</td><td>c</td><td>d</td><td>e</td><td>f</td><td>" + item.mfi_explanation_ref + "</td><td>" + item.mfi_template_process_ref + "</td><td>" + item.source_model_mfi_ref + "</td><td><div data-role='controlgroup' data-type='horizontal' ><a href='#" + item.href + "' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a'><div style='white-space:normal'>" + item.instruction_detail + "</div></a></div></td><td>" + item.budgeted_hours + "</td><td>l</td><td>m</td><td>n</td></tr>");
+																		$('#mcs_setup_checklist_p4_b6_mfi_table_body').append("<tr ><th class='label'>" + item.line_number + "</th><td>"+ item.final_reviewer_username +"</td><td>"+ item.final_review_date +"</td><td>"+ item.reviewer_username +"</td><td>"+ item.review_date +"</td><td>"+ item.preparer_username +"</td><td>"+ item.prepared_date +"</td><td>" + item.mfi_explanation_ref + "</td><td>" + item.mfi_template_process_ref + "</td><td>" + item.source_model_mfi_ref + "</td><td><div data-role='controlgroup' data-type='horizontal' ><a href='#" + item.href + "' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a'><div style='white-space:normal'>" + item.instruction_detail + "</div></a></div></td><td>" + item.budgeted_hours + "</td><td>l</td><td>m</td><td>n</td></tr>");
 
 																	} else {
 																		if (item.phase_id == "P4B7") {
-																			$('#mcs_setup_checklist_p4_b7_mfi_table_body').append("<tr ><th class='label'>" + item.line_number + "</th><td>a</td><td>b</td><td>c</td><td>d</td><td>e</td><td>f</td><td>" + item.mfi_explanation_ref + "</td><td>" + item.mfi_template_process_ref + "</td><td>" + item.source_model_mfi_ref + "</td><td><div data-role='controlgroup' data-type='horizontal' ><a href='#" + item.href + "' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a'><div style='white-space:normal'>" + item.instruction_detail + "</div></a></div></td><td>" + item.budgeted_hours + "</td><td>l</td><td>m</td><td>n</td></tr>");
+																			$('#mcs_setup_checklist_p4_b7_mfi_table_body').append("<tr ><th class='label'>" + item.line_number + "</th><td>"+ item.final_reviewer_username +"</td><td>"+ item.final_review_date +"</td><td>"+ item.reviewer_username +"</td><td>"+ item.review_date +"</td><td>"+ item.preparer_username +"</td><td>"+ item.prepared_date +"</td><td>" + item.mfi_explanation_ref + "</td><td>" + item.mfi_template_process_ref + "</td><td>" + item.source_model_mfi_ref + "</td><td><div data-role='controlgroup' data-type='horizontal' ><a href='#" + item.href + "' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a'><div style='white-space:normal'>" + item.instruction_detail + "</div></a></div></td><td>" + item.budgeted_hours + "</td><td>l</td><td>m</td><td>n</td></tr>");
 
 																		} else {
 																			if (item.phase_id == "P4B8") {
-																				$('#mcs_setup_checklist_p4_b8_mfi_table_body').append("<tr ><th class='label'>" + item.line_number + "</th><td>a</td><td>b</td><td>c</td><td>d</td><td>e</td><td>f</td><td>" + item.mfi_explanation_ref + "</td><td>" + item.mfi_template_process_ref + "</td><td>" + item.source_model_mfi_ref + "</td><td><div data-role='controlgroup' data-type='horizontal' ><a href='#" + item.href + "' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a'><div style='white-space:normal'>" + item.instruction_detail + "</div></a></div></td><td>" + item.budgeted_hours + "</td><td>l</td><td>m</td><td>n</td></tr>");
+																				$('#mcs_setup_checklist_p4_b8_mfi_table_body').append("<tr ><th class='label'>" + item.line_number + "</th><td>"+ item.final_reviewer_username +"</td><td>"+ item.final_review_date +"</td><td>"+ item.reviewer_username +"</td><td>"+ item.review_date +"</td><td>"+ item.preparer_username +"</td><td>"+ item.prepared_date +"</td><td>" + item.mfi_explanation_ref + "</td><td>" + item.mfi_template_process_ref + "</td><td>" + item.source_model_mfi_ref + "</td><td><div data-role='controlgroup' data-type='horizontal' ><a href='#" + item.href + "' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a'><div style='white-space:normal'>" + item.instruction_detail + "</div></a></div></td><td>" + item.budgeted_hours + "</td><td>l</td><td>m</td><td>n</td></tr>");
 
 																			} else {
 																				if (item.phase_id == "P4B9") {
-																					$('#mcs_setup_checklist_p4_b9_mfi_table_body').append("<tr ><th class='label'>" + item.line_number + "</th><td>a</td><td>b</td><td>c</td><td>d</td><td>e</td><td>f</td><td>" + item.mfi_explanation_ref + "</td><td>" + item.mfi_template_process_ref + "</td><td>" + item.source_model_mfi_ref + "</td><td><div data-role='controlgroup' data-type='horizontal' ><a href='#" + item.href + "' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a'><div style='white-space:normal'>" + item.instruction_detail + "</div></a></div></td><td>" + item.budgeted_hours + "</td><td>l</td><td>m</td><td>n</td></tr>");
+																					$('#mcs_setup_checklist_p4_b9_mfi_table_body').append("<tr ><th class='label'>" + item.line_number + "</th><td>"+ item.final_reviewer_username +"</td><td>"+ item.final_review_date +"</td><td>"+ item.reviewer_username +"</td><td>"+ item.review_date +"</td><td>"+ item.preparer_username +"</td><td>"+ item.prepared_date +"</td><td>" + item.mfi_explanation_ref + "</td><td>" + item.mfi_template_process_ref + "</td><td>" + item.source_model_mfi_ref + "</td><td><div data-role='controlgroup' data-type='horizontal' ><a href='#" + item.href + "' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a'><div style='white-space:normal'>" + item.instruction_detail + "</div></a></div></td><td>" + item.budgeted_hours + "</td><td>l</td><td>m</td><td>n</td></tr>");
 
 																				} else {
 																					if (item.phase_id == "P4B10") {
-																						$('#mcs_setup_checklist_p4_b10_mfi_table_body').append("<tr ><th class='label'>" + item.line_number + "</th><td>a</td><td>b</td><td>c</td><td>d</td><td>e</td><td>f</td><td>" + item.mfi_explanation_ref + "</td><td>" + item.mfi_template_process_ref + "</td><td>" + item.source_model_mfi_ref + "</td><td><div data-role='controlgroup' data-type='horizontal' ><a href='#" + item.href + "' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a'><div style='white-space:normal'>" + item.instruction_detail + "</div></a></div></td><td>" + item.budgeted_hours + "</td><td>l</td><td>m</td><td>n</td></tr>");
+																						$('#mcs_setup_checklist_p4_b10_mfi_table_body').append("<tr ><th class='label'>" + item.line_number + "</th><td>"+ item.final_reviewer_username +"</td><td>"+ item.final_review_date +"</td><td>"+ item.reviewer_username +"</td><td>"+ item.review_date +"</td><td>"+ item.preparer_username +"</td><td>"+ item.prepared_date +"</td><td>" + item.mfi_explanation_ref + "</td><td>" + item.mfi_template_process_ref + "</td><td>" + item.source_model_mfi_ref + "</td><td><div data-role='controlgroup' data-type='horizontal' ><a href='#" + item.href + "' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a'><div style='white-space:normal'>" + item.instruction_detail + "</div></a></div></td><td>" + item.budgeted_hours + "</td><td>l</td><td>m</td><td>n</td></tr>");
 
 																					} else {
 																						if (item.phase_id == "P4B11") {
-																							$('#mcs_setup_checklist_p4_b11_mfi_table_body').append("<tr ><th class='label'>" + item.line_number + "</th><td>a</td><td>b</td><td>c</td><td>d</td><td>e</td><td>f</td><td>" + item.mfi_explanation_ref + "</td><td>" + item.mfi_template_process_ref + "</td><td>" + item.source_model_mfi_ref + "</td><td><div data-role='controlgroup' data-type='horizontal' ><a href='#" + item.href + "' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a'><div style='white-space:normal'>" + item.instruction_detail + "</div></a></div></td><td>" + item.budgeted_hours + "</td><td>l</td><td>m</td><td>n</td></tr>");
+																							$('#mcs_setup_checklist_p4_b11_mfi_table_body').append("<tr ><th class='label'>" + item.line_number + "</th><td>"+ item.final_reviewer_username +"</td><td>"+ item.final_review_date +"</td><td>"+ item.reviewer_username +"</td><td>"+ item.review_date +"</td><td>"+ item.preparer_username +"</td><td>"+ item.prepared_date +"</td><td>" + item.mfi_explanation_ref + "</td><td>" + item.mfi_template_process_ref + "</td><td>" + item.source_model_mfi_ref + "</td><td><div data-role='controlgroup' data-type='horizontal' ><a href='#" + item.href + "' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a'><div style='white-space:normal'>" + item.instruction_detail + "</div></a></div></td><td>" + item.budgeted_hours + "</td><td>l</td><td>m</td><td>n</td></tr>");
 
 																						} else {
 																							if (item.phase_id == "P4B12") {
-																								$('#mcs_setup_checklist_p4_b12_mfi_table_body').append("<tr ><th class='label'>" + item.line_number + "</th><td>a</td><td>b</td><td>c</td><td>d</td><td>e</td><td>f</td><td>" + item.mfi_explanation_ref + "</td><td>" + item.mfi_template_process_ref + "</td><td>" + item.source_model_mfi_ref + "</td><td><div data-role='controlgroup' data-type='horizontal' ><a href='#" + item.href + "' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a'><div style='white-space:normal'>" + item.instruction_detail + "</div></a></div></td><td>" + item.budgeted_hours + "</td><td>l</td><td>m</td><td>n</td></tr>");
+																								$('#mcs_setup_checklist_p4_b12_mfi_table_body').append("<tr ><th class='label'>" + item.line_number + "</th><td>"+ item.final_reviewer_username +"</td><td>"+ item.final_review_date +"</td><td>"+ item.reviewer_username +"</td><td>"+ item.review_date +"</td><td>"+ item.preparer_username +"</td><td>"+ item.prepared_date +"</td><td>" + item.mfi_explanation_ref + "</td><td>" + item.mfi_template_process_ref + "</td><td>" + item.source_model_mfi_ref + "</td><td><div data-role='controlgroup' data-type='horizontal' ><a href='#" + item.href + "' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a'><div style='white-space:normal'>" + item.instruction_detail + "</div></a></div></td><td>" + item.budgeted_hours + "</td><td>l</td><td>m</td><td>n</td></tr>");
 
 																							} else {
 																								if (item.phase_id == "P5") {
-																									$('#mcs_setup_checklist_p5_mfi_table_body').append("<tr ><th class='label'>" + item.line_number + "</th><td>a</td><td>b</td><td>c</td><td>d</td><td>e</td><td>f</td><td>" + item.mfi_explanation_ref + "</td><td>" + item.mfi_template_process_ref + "</td><td>" + item.source_model_mfi_ref + "</td><td><div data-role='controlgroup' data-type='horizontal' ><a href='#" + item.href + "' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a'><div style='white-space:normal'>" + item.instruction_detail + "</div></a></div></td><td>" + item.budgeted_hours + "</td><td>l</td><td>m</td><td>n</td></tr>");
+																									$('#mcs_setup_checklist_p5_mfi_table_body').append("<tr ><th class='label'>" + item.line_number + "</th><td>"+ item.final_reviewer_username +"</td><td>"+ item.final_review_date +"</td><td>"+ item.reviewer_username +"</td><td>"+ item.review_date +"</td><td>"+ item.preparer_username +"</td><td>"+ item.prepared_date +"</td><td>" + item.mfi_explanation_ref + "</td><td>" + item.mfi_template_process_ref + "</td><td>" + item.source_model_mfi_ref + "</td><td><div data-role='controlgroup' data-type='horizontal' ><a href='#" + item.href + "' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a'><div style='white-space:normal'>" + item.instruction_detail + "</div></a></div></td><td>" + item.budgeted_hours + "</td><td>l</td><td>m</td><td>n</td></tr>");
 
 																								} else {
 																									if (item.phase_id == "P6") {
-																										$('#mcs_setup_checklist_p6_mfi_table_body').append("<tr ><th class='label'>" + item.line_number + "</th><td>a</td><td>b</td><td>c</td><td>d</td><td>e</td><td>f</td><td>" + item.mfi_explanation_ref + "</td><td>" + item.mfi_template_process_ref + "</td><td>" + item.source_model_mfi_ref + "</td><td><div data-role='controlgroup' data-type='horizontal' ><a href='#" + item.href + "' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a'><div style='white-space:normal'>" + item.instruction_detail + "</div></a></div></td><td>" + item.budgeted_hours + "</td><td>l</td><td>m</td><td>n</td></tr>");
+																										$('#mcs_setup_checklist_p6_mfi_table_body').append("<tr ><th class='label'>" + item.line_number + "</th><td>"+ item.final_reviewer_username +"</td><td>"+ item.final_review_date +"</td><td>"+ item.reviewer_username +"</td><td>"+ item.review_date +"</td><td>"+ item.preparer_username +"</td><td>"+ item.prepared_date +"</td><td>" + item.mfi_explanation_ref + "</td><td>" + item.mfi_template_process_ref + "</td><td>" + item.source_model_mfi_ref + "</td><td><div data-role='controlgroup' data-type='horizontal' ><a href='#" + item.href + "' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a'><div style='white-space:normal'>" + item.instruction_detail + "</div></a></div></td><td>" + item.budgeted_hours + "</td><td>l</td><td>m</td><td>n</td></tr>");
 
 																									} else {
 																										if (item.phase_id == "P7") {
-																											$('#mcs_setup_checklist_p7_mfi_table_body').append("<tr ><th class='label'>" + item.line_number + "</th><td>a</td><td>b</td><td>c</td><td>d</td><td>e</td><td>f</td><td>" + item.mfi_explanation_ref + "</td><td>" + item.mfi_template_process_ref + "</td><td>" + item.source_model_mfi_ref + "</td><td><div data-role='controlgroup' data-type='horizontal' ><a href='#" + item.href + "' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a'><div style='white-space:normal'>" + item.instruction_detail + "</div></a></div></td><td>" + item.budgeted_hours + "</td><td>l</td><td>m</td><td>n</td></tr>");
+																											$('#mcs_setup_checklist_p7_mfi_table_body').append("<tr ><th class='label'>" + item.line_number + "</th><td>"+ item.final_reviewer_username +"</td><td>"+ item.final_review_date +"</td><td>"+ item.reviewer_username +"</td><td>"+ item.review_date +"</td><td>"+ item.preparer_username +"</td><td>"+ item.prepared_date +"</td><td>" + item.mfi_explanation_ref + "</td><td>" + item.mfi_template_process_ref + "</td><td>" + item.source_model_mfi_ref + "</td><td><div data-role='controlgroup' data-type='horizontal' ><a href='#" + item.href + "' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a'><div style='white-space:normal'>" + item.instruction_detail + "</div></a></div></td><td>" + item.budgeted_hours + "</td><td>l</td><td>m</td><td>n</td></tr>");
 
 																										} else {
 																											if (item.phase_id == "P8") {
-																												$('#mcs_setup_checklist_p8_mfi_table_body').append("<tr ><th class='label'>" + item.line_number + "</th><td>a</td><td>b</td><td>c</td><td>d</td><td>e</td><td>f</td><td>" + item.mfi_explanation_ref + "</td><td>" + item.mfi_template_process_ref + "</td><td>" + item.source_model_mfi_ref + "</td><td><div data-role='controlgroup' data-type='horizontal' ><a href='#" + item.href + "' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a'><div style='white-space:normal'>" + item.instruction_detail + "</div></a></div></td><td>" + item.budgeted_hours + "</td><td>l</td><td>m</td><td>n</td></tr>");
+																												$('#mcs_setup_checklist_p8_mfi_table_body').append("<tr ><th class='label'>" + item.line_number + "</th><td>"+ item.final_reviewer_username +"</td><td>"+ item.final_review_date +"</td><td>"+ item.reviewer_username +"</td><td>"+ item.review_date +"</td><td>"+ item.preparer_username +"</td><td>"+ item.prepared_date +"</td><td>" + item.mfi_explanation_ref + "</td><td>" + item.mfi_template_process_ref + "</td><td>" + item.source_model_mfi_ref + "</td><td><div data-role='controlgroup' data-type='horizontal' ><a href='#" + item.href + "' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a'><div style='white-space:normal'>" + item.instruction_detail + "</div></a></div></td><td>" + item.budgeted_hours + "</td><td>l</td><td>m</td><td>n</td></tr>");
 
 																											}
 																										}
@@ -548,7 +542,56 @@ under the License.
 							}
 						}
 					});
+				$( "#mcs_setup_checklist_setup_mfi_table" ).table( "rebuild" );
+				$( "#mcs_setup_checklist_CS_mfi_table" ).table( "rebuild" );
+				$( "#mcs_setup_checklist_p1_mfi_table" ).table( "rebuild" );
+				$( "#mcs_setup_checklist_p2_mfi_table" ).table( "rebuild" );
+				$( "#mcs_setup_checklist_p3_mfi_table" ).table( "rebuild" );
+				$( "#mcs_setup_checklist_p4_b1_mfi_table" ).table( "rebuild" );
+				$( "#mcs_setup_checklist_p4_b2_mfi_table" ).table( "rebuild" );
+				$( "#mcs_setup_checklist_p4_b3_mfi_table" ).table( "rebuild" );
+				$( "#mcs_setup_checklist_p4_b4_mfi_table" ).table( "rebuild" );
+				$( "#mcs_setup_checklist_p4_b5_mfi_table" ).table( "rebuild" );
+				$( "#mcs_setup_checklist_p4_b6_mfi_table" ).table( "rebuild" );
+				$( "#mcs_setup_checklist_p4_b7_mfi_table" ).table( "rebuild" );
+				$( "#mcs_setup_checklist_p4_b8_mfi_table" ).table( "rebuild" );
+				$( "#mcs_setup_checklist_p4_b9_mfi_table" ).table( "rebuild" );
+				$( "#mcs_setup_checklist_p4_b10_mfi_table" ).table( "rebuild" );
+				$( "#mcs_setup_checklist_p4_b11_mfi_table" ).table( "rebuild" );
+				$( "#mcs_setup_checklist_p4_b12_mfi_table" ).table( "rebuild" );
+				$( "#mcs_setup_checklist_p5_mfi_table" ).table( "rebuild" );
+				$( "#mcs_setup_checklist_p6_mfi_table" ).table( "rebuild" );
+				$( "#mcs_setup_checklist_p7_mfi_table" ).table( "rebuild" );
+				$( "#mcs_setup_checklist_p8_mfi_table" ).table( "rebuild" );
+
+				});				
+			}
+			function onLoadBody() {
+				$.getJSON('http://www.findmydriver.com/ubmopenitemsonlystatusopenitems.php?callback=?', {//JSONP Request to Open Items Page setup tables
+				
+				}, function(res, status) {
+					//	alert("request for open items was a success!");
+					$.each(res, function(i, item) {
+						if (window.accounttype == "admin") {//If user accounttype is admin, allow user to add new resolutions. If not, only allow them to view existing resolutions.
+							//alert(window.accounttype);
+							if (item.number_resolutions !== "0") {//If item doesnt have any resolutions associated with it, use theme a for the "View" Resolutions button
+								$('#mcs_open_points_action_items_table_body').append("<tr ><th class='label'>" + item.id + "</th><td>" + item.form_ref + "</td><td>" + item.priority + "</td><td>" + item.opened_by + "</td><td>" + item.date_opened + "</td><td>" + item.action_required + "</td><td>" + item.assigned_to + "</td><td>" + item.date_opened + "</td><td>" + item.due_date + "</td><td>b</td><td>c</td><td>d</td><td><a href='#' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-comment ui-btn-icon-left ui-btn-b' onclick='viewResolutions(" + item.id + ")'>View &nbsp&nbsp&nbsp&nbsp<span class='ui-li-has-count ui-btn-up-c ui-btn-corner-all'>" + item.number_resolutions + "</span></a><a href='#' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-plus ui-btn-icon-left ui-btn-a' onclick='addResolutions(" + item.id + ")'>Resolve &nbsp&nbsp&nbsp&nbsp</a><a href='#' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-plus ui-btn-icon-left ui-btn-a' onclick='addItemComment(" + item.id + ")'>Comment &nbsp&nbsp&nbsp&nbsp</a></td></tr>");
+							} else {
+								$('#mcs_open_points_action_items_table_body').append("<tr ><th class='label'>" + item.id + "</th><td>" + item.form_ref + "</td><td>" + item.priority + "</td><td>" + item.opened_by + "</td><td>" + item.date_opened + "</td><td>" + item.action_required + "</td><td>" + item.assigned_to + "</td><td>" + item.date_opened + "</td><td>" + item.due_date + "</td><td>b</td><td>c</td><td>d</td><td><a href='#' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-comment ui-btn-icon-left ui-btn-a' onclick='viewResolutions(" + item.id + ")'>View &nbsp&nbsp&nbsp&nbsp<span class='ui-li-has-count ui-btn-up-c ui-btn-corner-all'>" + item.number_resolutions + "</span></a><a href='#' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-plus ui-btn-icon-left ui-btn-a' onclick='addResolutions(" + item.id + ")'>Resolve &nbsp&nbsp&nbsp&nbsp</a><a href='#' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-plus ui-btn-icon-left ui-btn-a' onclick='addItemComment(" + item.id + ")'>Comment &nbsp&nbsp&nbsp&nbsp</a></td></tr>");
+								$("#mcs_open_points_action_items_table").table("refresh");
+							}
+						} else {
+							if (item.number_resolutions !== "0") {//If item has one or more resolutions associated with it, use theme b for the "View" Resolutions button
+								$('#mcs_open_points_action_items_table_body').append("<tr ><th class='label'>" + item.id + "</th><td>" + item.form_ref + "</td><td>" + item.priority + "</td><td>" + item.opened_by + "</td><td>" + item.date_opened + "</td><td>" + item.action_required + "</td><td>" + item.assigned_to + "</td><td>" + item.date_opened + "</td><td>" + item.due_date + "</td><td>b</td><td>c</td><td>d</td><td><a href='#' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-comment ui-btn-icon-left ui-btn-b' onclick='viewResolutions(" + item.id + ")'>View &nbsp&nbsp&nbsp&nbsp<span class='ui-li-has-count ui-btn-up-c ui-btn-corner-all'>" + item.number_resolutions + "</span></a></td></tr>");
+							} else {
+								$('#mcs_open_points_action_items_table_body').append("<tr ><th class='label'>" + item.id + "</th><td>" + item.form_ref + "</td><td>" + item.priority + "</td><td>" + item.opened_by + "</td><td>" + item.date_opened + "</td><td>" + item.action_required + "</td><td>" + item.assigned_to + "</td><td>" + item.date_opened + "</td><td>" + item.due_date + "</td><td>b</td><td>c</td><td>d</td><td><a href='#' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-comment ui-btn-icon-left ui-btn-a' onclick='viewResolutions(" + item.id + ")'>View &nbsp&nbsp&nbsp&nbsp<span class='ui-li-has-count ui-btn-up-c ui-btn-corner-all'>" + item.number_resolutions + "</span></a></td></tr>");
+								$("#mcs_open_points_action_items_table").table("refresh");
+							}
+						}
+					})
 				});
+				
+
 				//	alert("This is an Alert!");
 				$('.back_btn').click(function() {
 					parent.history.back();
@@ -1738,7 +1781,7 @@ under the License.
                 <!-- End Open Items Popup -->
                 <ul data-role="listview" data-inset="true">
                     <li>
-                        <a href="#"> <img src="img/apple.png" class="ui-li-thumb"> <h2>Master File Index</h2>
+                        <a href="#"> <img src="img/book.jpg" class="ui-li-thumb"> <h2>Master File Index</h2>
                         <p>
                             Setting up your model.
                         </p>
@@ -1747,7 +1790,7 @@ under the License.
                         </p> </a>
                     </li>
                     <li>
-                        <a href="#"> <img src="img/apple.png" class="ui-li-thumb"> <h2>Process Management</h2>
+                        <a href="#"> <img src="img/assembly_line.png" class="ui-li-thumb"> <h2>Process Management</h2>
                         <p>
                             Forms </br> Packets
                         </p>
@@ -1756,7 +1799,7 @@ under the License.
                         </p></a>
                     </li>
                     <li>
-                        <a href="#"> <img src="img/lumia_800.png" class="ui-li-thumb"> <h2>Alternatives</h2>
+                        <a href="#"> <img src="img/alternitives.jpg" class="ui-li-thumb"> <h2>Alternatives</h2>
                         <p>
                             <strong>Possible</strong> and <strong>Selected</strong></br>ROI, Risk Analysis, Projected Financial Statement
                         </p>
@@ -1765,7 +1808,7 @@ under the License.
                         </p></a>
                     </li>
                     <li>
-                        <a href="#creator_table_of_contents"> <img src="img/galaxy_express.png" class="ui-li-thumb"> <h2>Model Creation Suite</h2>
+                        <a href="#creator_table_of_contents"> <img src="img/creation.jpg" class="ui-li-thumb"> <h2>Model Creation Suite</h2>
                         <p>
                             Create your model.
                         </p>
@@ -1774,7 +1817,7 @@ under the License.
                         </p></a>
                     </li>
                     <li>
-                        <a href="#"> <img src="img/galaxy_express.png" class="ui-li-thumb"><h2>App Creation Suite</h2>
+                        <a href="#"> <img src="img/creation.jpg" class="ui-li-thumb"><h2>App Creation Suite</h2>
                         <p>
                             Create your App.
                         </p>
@@ -1783,7 +1826,7 @@ under the License.
                         </p></a>
                     </li>
                     <li>
-                        <a href="#"> <img src="img/galaxy_express.png" class="ui-li-thumb"><h2>Product Creation Suite</h2>
+                        <a href="#"> <img src="img/lightbulb.jpg" class="ui-li-thumb"><h2>Product Creation Suite</h2>
                         <p>
                             Create your Product.
                         </p>
@@ -1792,7 +1835,7 @@ under the License.
                         </p></a>
                     </li>
                     <li>
-                        <a href="#ubmsuite_modelSettings"> <img src="img/apple.png" class="ui-li-thumb"> <h2>Reference Manual</h2>
+                        <a href="#ubmsuite_modelSettings"> <img src="img/reference.jpg" class="ui-li-thumb"> <h2>Reference Manual</h2>
                         <p>
                             Your portal to understanding all things UBM.
                         </p>
@@ -1801,7 +1844,7 @@ under the License.
                         </p></a>
                     </li>
                     <li>
-                        <a href="#ubmsuite_modelSettings"> <img src="img/apple.png" class="ui-li-thumb"> <h2>Model Settings</h2>
+                        <a href="#ubmsuite_modelSettings"> <img src="img/gear.png" class="ui-li-thumb"> <h2>Model Settings</h2>
                         <p>
                             Modify user access, Edit Model Properties, etc...
                         </p>
@@ -3907,7 +3950,7 @@ under the License.
                     </ul>
                 </div><!-- /Phase 4 Popup-->
                 <table data-role="table" id="mcs_setup_checklist_CS_mfi_table" data-mode="columntoggle" data-filter="false" data-column-btn-text="Select Column..." data-column-btn-theme="a" class="phone-compare ui-shadow table-stroke">
-                    <thead>
+                    <thead id="mcs_setup_checklist_CS_mfi_table_head">
                         <tr>
                             <th data-priority="1">Model Creation Suite</th>
                             <th data-priority="1"><h4>Final RB </br>Date</h4></th>
@@ -4268,7 +4311,7 @@ under the License.
                     </ul>
                 </div><!-- /Phase 4 Popup-->
                 <table data-role="table" id="mcs_setup_checklist_p1_mfi_table" data-mode="columntoggle" data-filter="false" data-column-btn-text="Select Column..." data-column-btn-theme="a" class="phone-compare ui-shadow table-stroke">
-                    <thead>
+                    <thead id="mcs_setup_checklist_p1_mfi_table_head">
                         <tr>
                             <th data-priority="1">Model Creation Suite</th>
                             <th data-priority="1"><h4>Final RB </br>Date</h4></th>
@@ -4723,7 +4766,7 @@ under the License.
                     </ul>
                 </div><!-- /Phase 4 Popup-->
                 <table data-role="table" id="mcs_setup_checklist_p2_mfi_table" data-mode="columntoggle" data-filter="false" data-column-btn-text="Select Column..." data-column-btn-theme="a" class="phone-compare ui-shadow table-stroke">
-                    <thead>
+                    <thead id="mcs_setup_checklist_p2_mfi_table_head">
                         <tr>
                             <th data-priority="1">Model Creation Suite</th>
                             <th data-priority="1"><h4>Final RB </br>Date</h4></th>
@@ -5083,8 +5126,8 @@ under the License.
                         </li>
                     </ul>
                 </div><!-- /Phase 4 Popup-->
-                <table data-role="table" id="mcs_setup_checklist_p3_mfi_table" data-mode="columntoggle" data-filter="false" data-column-btn-text="Select Column..." data-column-btn-theme="a" class="phone-compare ui-shadow table-stroke">
-                    <thead>
+                <table data-role="table" id="mcs_setup_checklist_p3_mfi_table" data-mode="columntoggle" data-filter="false" data-column-btn-text="Select Column..." data-column-btn-theme="a" class="phone-compare ui-shadow ui-responsive table-stroke">
+                    <thead id="mcs_setup_checklist_p3_mfi_table_head">
                         <tr>
                             <th data-priority="1">Model Creation Suite</th>
                             <th data-priority="1"><h4>Final RB </br>Date</h4></th>
@@ -5539,7 +5582,7 @@ under the License.
                     </ul>
                 </div><!-- /Phase 4 Popup-->
                 <table data-role="table" id="mcs_setup_checklist_p4_b1_mfi_table" data-mode="columntoggle" data-filter="false" data-column-btn-text="Select Column..." data-column-btn-theme="a" class="phone-compare ui-shadow table-stroke">
-                    <thead>
+                    <thead id="mcs_setup_checklist_p4_b1_mfi_table_head">
                         <tr>
                             <th data-priority="1">Model Creation Suite</th>
                             <th data-priority="1"><h4>Final RB </br>Date</h4></th>
@@ -5900,7 +5943,7 @@ under the License.
                     </ul>
                 </div><!-- /Phase 4 Popup-->
                 <table data-role="table" id="mcs_setup_checklist_p4_b2_mfi_table" data-mode="columntoggle" data-filter="false" data-column-btn-text="Select Column..." data-column-btn-theme="a" class="phone-compare ui-shadow table-stroke">
-                    <thead>
+                    <thead id="mcs_setup_checklist_p4_b2_mfi_table_head">
                         <tr>
                             <th data-priority="1">Model Creation Suite</th>
                             <th data-priority="1"><h4>Final RB </br>Date</h4></th>
@@ -11297,7 +11340,18 @@ under the License.
 				}
 			}
 
+			$(document).on("pageshow", "#ubmsuite_EditMyBusinessModel", function() {
+				setTimeout(function() {
+					getModelCreationSuiteChecklistItems();
 
+				}, 100);
+			});
+			$(document).on("pageshow", "#ubmsuite_EditSharedBusinessModel", function() {
+				setTimeout(function() {
+					getModelCreationSuiteChecklistItems();
+
+				}, 100);
+			});
 			$(document).on("pageshow", "#ubmsuite_SelectBusinessModel", function() {
 				setTimeout(function() {
 					getMyModels();
@@ -11308,6 +11362,7 @@ under the License.
 				model_getuserswithaccess();
 			});
 			$(document).on("pageshow", ".ubm_page", function() {
+				
 				//alert(window.activeubm_page);
 				$.getJSON('http://www.findmydriver.com/ubm_get_page_ref.php?callback=?', {//JSONP Request to Open Items Page setup tables
 					activeubm_page : window.activeubm_page
