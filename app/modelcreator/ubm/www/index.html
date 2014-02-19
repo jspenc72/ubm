@@ -404,14 +404,8 @@ under the License.
 				window.selectedModelUserId = selectedUserId;
 				$("#ubmsuite_modelSettings_modifyUser_popup").popup('open');
 			}
-<<<<<<< HEAD
 			function getModelCreationSuiteChecklistItems(){
-=======
 
-			function getModelCreationSuiteChecklistItems() {
-				//					alert(window.activeModelId);
-
->>>>>>> ba52dbb48cbb027cb28cfd845edc57bc8b8a4c73
 				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_getallchecklistitems.php?callback=?', {//JSONP Request to Checklist Setup Table
 					activeModelId : window.activeModelId
 				}, function(res, status) {
@@ -768,8 +762,6 @@ under the License.
 				});
 			}
 
-<<<<<<< HEAD
-=======
 			function setActivePreparedByTime(itemId) {
 				var date = new Date();
 				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_setActivePreparedByTime.php?callback=?', {//JSONP Request
@@ -802,9 +794,6 @@ under the License.
 					alert(res.message);
 				});
 			}
-
-
->>>>>>> ba52dbb48cbb027cb28cfd845edc57bc8b8a4c73
 			window.c = 0;
 			//Set window variable so that the counter persists each time the function is called.
 			function addField(c, cloned) {
