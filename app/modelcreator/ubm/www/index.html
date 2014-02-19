@@ -399,12 +399,9 @@ under the License.
 				$("#ubmsuite_modelSettings_modifyUser_popup").popup('open');
 			}
 			function getModelCreationSuiteChecklistItems(){
-//					alert(window.activeModelId);
-
 				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_getallchecklistitems.php?callback=?', {//JSONP Request to Checklist Setup Table
 					activeModelId: window.activeModelId
 				}, function(res, status) {
-					//alert("init: " + status);
 					$('#mcs_setup_checklist_setup_mfi_table_body > tr').remove();
 					$('#mcs_setup_checklist_CS_mfi_table_body > tr').remove();
 					$('#mcs_setup_checklist_p1_mfi_table_body > tr').remove();
@@ -427,6 +424,20 @@ under the License.
 					$('#mcs_setup_checklist_p7_mfi_table_body > tr').remove();
 					$('#mcs_setup_checklist_p8_mfi_table_body > tr').remove();
 					$.each(res, function(i, item) {
+						if(item.preparer_username==null){					//Check whether item has been prepared
+									$('#mcs_setup_checklist_CS_mfi_table_body').append("<tr ><th class='label'>" + item.line_number + "</th><td></td><td></td><td></td><td></td><td><a href='#popupParis' data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/checklisticons/redMinus.png' alt='PreparedBy' style='width:30%'></a></td><td></td><td>" + item.mfi_explanation_ref + "</td><td>" + item.mfi_template_process_ref + "</td><td>" + item.source_model_mfi_ref + "</td><td><div data-role='controlgroup' data-type='horizontal' ><a href='#" + item.href + "' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a'><div style='white-space:normal'>" + item.instruction_detail + "</div></a></div></td><td>" + item.budgeted_hours + "</td><td>l</td><td>m</td><td>n</td></tr>");
+						}else{
+							if(item.reviewer_username==null){				//Check whether item has been reviewed
+									$('#mcs_setup_checklist_CS_mfi_table_body').append("<tr ><th class='label'>" + item.line_number + "</th><td></td><td></td><td><a href='#popupParis' data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/checklisticons/redMinus.png' alt='ReviewedBy' style='width:30%'></a></td><td></td><td>"+ item.preparer_username +"<a href='#popupParis' data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/checklisticons/greenCheck.png' alt='PreparedBy' style='width:30%'></a></td><td>"+ item.prepared_date +"</td><td>" + item.mfi_explanation_ref + "</td><td>" + item.mfi_template_process_ref + "</td><td>" + item.source_model_mfi_ref + "</td><td><div data-role='controlgroup' data-type='horizontal' ><a href='#" + item.href + "' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a'><div style='white-space:normal'>" + item.instruction_detail + "</div></a></div></td><td>" + item.budgeted_hours + "</td><td>l</td><td>m</td><td>n</td></tr>");
+							}else{
+								if(item.final_reviewer_username==null){		//Check whether item has received its final review
+									$('#mcs_setup_checklist_CS_mfi_table_body').append("<tr ><th class='label'>" + item.line_number + "</th><td><a href='#popupParis' data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/checklisticons/redMinus.png' alt='PreparedBy' style='width:30%'></a></td><td></td><td>"+ item.reviewer_username +"<a href='#popupParis' data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/checklisticons/greenCheck.png' alt='PreparedBy' style='width:30%'></a></td><td>"+ item.review_date +"</td><td>"+ item.preparer_username +"<a href='#popupParis' data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/checklisticons/greenCheck.png' alt='PreparedBy' style='width:30%'></a></td><td>"+ item.prepared_date +"</td><td>" + item.mfi_explanation_ref + "</td><td>" + item.mfi_template_process_ref + "</td><td>" + item.source_model_mfi_ref + "</td><td><div data-role='controlgroup' data-type='horizontal' ><a href='#" + item.href + "' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a'><div style='white-space:normal'>" + item.instruction_detail + "</div></a></div></td><td>" + item.budgeted_hours + "</td><td>l</td><td>m</td><td>n</td></tr>");
+								}else{
+									$('#mcs_setup_checklist_CS_mfi_table_body').append("<tr ><th class='label'>" + item.line_number + "</th><td>"+ item.final_reviewer_username +"<a href='#popupParis' data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/checklisticons/greenCheck.png' alt='PreparedBy' style='width:30%'></a></td><td>"+ item.final_review_date +"</td><td>"+ item.reviewer_username +"<a href='#popupParis' data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/checklisticons/greenCheck.png' alt='PreparedBy' style='width:30%'></a></td><td>"+ item.review_date +"</td><td>"+ item.preparer_username +"<a href='#popupParis' data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/checklisticons/greenCheck.png' alt='PreparedBy' style='width:30%'></a></td><td>"+ item.prepared_date +"</td><td>" + item.mfi_explanation_ref + "</td><td>" + item.mfi_template_process_ref + "</td><td>" + item.source_model_mfi_ref + "</td><td><div data-role='controlgroup' data-type='horizontal' ><a href='#" + item.href + "' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a'><div style='white-space:normal'>" + item.instruction_detail + "</div></a></div></td><td>" + item.budgeted_hours + "</td><td>l</td><td>m</td><td>n</td></tr>");									
+								}
+							}
+							
+						}
 						if (item.phase_id == "MFIS") {
 							//	$( "#mcs_setup_checklist_setup_mfi_table" ).table( "refresh" );
 							if (item.line_number == 1) {
@@ -743,7 +754,6 @@ under the License.
 
 				});
 			}
-
 
 			window.c = 0;
 			//Set window variable so that the counter persists each time the function is called.
@@ -3653,7 +3663,8 @@ under the License.
                         </tr>
                     </thead>
                     <tbody id="mcs_setup_checklist_setup_mfi_table_body">
-                        <!-- <tr ><th class="label">Photo</th><td>a</td><td>b</td><td>c</td><td>d</td><td>e</td><td>f</td><td>g</td><td>h</td><td>i</td><td>j</td><td>k</td><td>l</td><td>m</td><td>n</td></tr> -->
+                         <!--<tr ><th class="label">Photo</th><td>a</td><td>b</td><td>c</td><td>d</td><td>e</td><td>f</td><td><a href='#popupParis' data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/greenCheck.png' alt='PreparedBy' style='width:30%'></a></td><td>h</td><td>i</td><td>j</td><td>k</td><td>l</td><td>m</td><td>n</td></tr>-->
+                    
                     </tbody>
                 </table>
             </div><!-- /content -->
@@ -3676,7 +3687,7 @@ under the License.
         </div>
         <!-- Control -->
         <div data-role="page" class="ubm_page" id="mcs_setup_checklist_CS">
-            <div data-role="panel" id="mcs_identification_setup_lpanel" data-display="overlay" data-position="left">
+            <div data-role="panel" id="mcs_setup_checklist_CS_lpanel" data-display="overlay" data-position="left">
                 <ul data-role="listview">
                     <li data-icon="home">
                         <a href="#ubmsuite_SelectBusinessModel" >My Models</a>
@@ -3993,7 +4004,7 @@ under the License.
         </div>
         <!-- Phase 1-->
         <div data-role="page" class="ubm_page" id="mcs_setup_checklist_p1">
-            <div data-role="panel" id="mcs_identification_setup_lpanel" data-display="overlay" data-position="left">
+            <div data-role="panel" id="mcs_setup_checklist_p1_lpanel" data-display="overlay" data-position="left">
                 <ul data-role="listview">
                     <li data-icon="home">
                         <a href="#ubmsuite_SelectBusinessModel" >My Models</a>
