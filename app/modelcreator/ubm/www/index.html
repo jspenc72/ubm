@@ -432,23 +432,7 @@ under the License.
 					$('#mcs_setup_checklist_p7_mfi_table_body > tr').remove();
 					$('#mcs_setup_checklist_p8_mfi_table_body > tr').remove();
 					$.each(res, function(i, item) {
-<<<<<<< HEAD
-=======
-						if (item.preparer_username == null) {//Check whether item has been prepared
-							$('#mcs_setup_checklist_CS_mfi_table_body').append("<tr ><th class='label'>" + item.line_number + "</th><td></td><td></td><td></td><td></td><td><a href='#popupParis' data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/checklisticons/redMinus.png' alt='PreparedBy' style='width:30%'></a></td><td></td><td>" + item.mfi_explanation_ref + "</td><td>" + item.mfi_template_process_ref + "</td><td>" + item.source_model_mfi_ref + "</td><td><div data-role='controlgroup' data-type='horizontal' ><a href='#" + item.href + "' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a'><div style='white-space:normal'>" + item.instruction_detail + "</div></a></div></td><td>" + item.budgeted_hours + "</td><td>l</td><td>m</td><td>n</td></tr>");
-						} else {
-							if (item.reviewer_username == null) {//Check whether item has been reviewed
-								$('#mcs_setup_checklist_CS_mfi_table_body').append("<tr ><th class='label'>" + item.line_number + "</th><td></td><td></td><td><a href='#popupParis' data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/checklisticons/redMinus.png' alt='ReviewedBy' style='width:30%'></a></td><td></td><td>" + item.preparer_username + "<a href='#popupParis' data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/checklisticons/greenCheck.png' alt='PreparedBy' style='width:30%'></a></td><td>" + item.prepared_date + "</td><td>" + item.mfi_explanation_ref + "</td><td>" + item.mfi_template_process_ref + "</td><td>" + item.source_model_mfi_ref + "</td><td><div data-role='controlgroup' data-type='horizontal' ><a href='#" + item.href + "' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a'><div style='white-space:normal'>" + item.instruction_detail + "</div></a></div></td><td>" + item.budgeted_hours + "</td><td>l</td><td>m</td><td>n</td></tr>");
-							} else {
-								if (item.final_reviewer_username == null) {//Check whether item has received its final review
-									$('#mcs_setup_checklist_CS_mfi_table_body').append("<tr ><th class='label'>" + item.line_number + "</th><td><a href='#popupParis' data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/checklisticons/redMinus.png' alt='PreparedBy' style='width:30%'></a></td><td></td><td>" + item.reviewer_username + "<a href='#popupParis' data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/checklisticons/greenCheck.png' alt='PreparedBy' style='width:30%'></a></td><td>" + item.review_date + "</td><td>" + item.preparer_username + "<a href='#popupParis' data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/checklisticons/greenCheck.png' alt='PreparedBy' style='width:30%'></a></td><td>" + item.prepared_date + "</td><td>" + item.mfi_explanation_ref + "</td><td>" + item.mfi_template_process_ref + "</td><td>" + item.source_model_mfi_ref + "</td><td><div data-role='controlgroup' data-type='horizontal' ><a href='#" + item.href + "' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a'><div style='white-space:normal'>" + item.instruction_detail + "</div></a></div></td><td>" + item.budgeted_hours + "</td><td>l</td><td>m</td><td>n</td></tr>");
-								} else {
-									$('#mcs_setup_checklist_CS_mfi_table_body').append("<tr ><th class='label'>" + item.line_number + "</th><td>" + item.final_reviewer_username + "<a href='#popupParis' data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/checklisticons/greenCheck.png' alt='PreparedBy' style='width:30%'></a></td><td>" + item.final_review_date + "</td><td>" + item.reviewer_username + "<a href='#popupParis' data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/checklisticons/greenCheck.png' alt='PreparedBy' style='width:30%'></a></td><td>" + item.review_date + "</td><td>" + item.preparer_username + "<a href='#popupParis' data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/checklisticons/greenCheck.png' alt='PreparedBy' style='width:30%'></a></td><td>" + item.prepared_date + "</td><td>" + item.mfi_explanation_ref + "</td><td>" + item.mfi_template_process_ref + "</td><td>" + item.source_model_mfi_ref + "</td><td><div data-role='controlgroup' data-type='horizontal' ><a href='#" + item.href + "' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a'><div style='white-space:normal'>" + item.instruction_detail + "</div></a></div></td><td>" + item.budgeted_hours + "</td><td>l</td><td>m</td><td>n</td></tr>");
-								}
-							}
 
-						}
->>>>>>> 0a9a563eea557d35bae7dcb5601a8d604b026070
 						if (item.phase_id == "MFIS") {
 							//	$( "#mcs_setup_checklist_setup_mfi_table" ).table( "refresh" );
 							if (item.line_number == 1) {
@@ -4780,10 +4764,6 @@ under the License.
             <div role="content" class="ui-content">
                 <!-- Read Phase Two User Guide Popup -->
                 <div data-role="popup" id="mcs_setup_checklist_p2_userGuide_popup" data-theme="b">
-                    <<<<<<< HEAD
-                    <<<<<<< HEAD
-                    =======
-                    =======
                     <form id="mcs_setup_checklist_p2_open_items_form" name="open_items_form">
                         <ul data-role="listview" data-inset="true" style="min-width:210px;">
                             <li data-role="list-divider">
@@ -4828,7 +4808,6 @@ under the License.
                 <!-- End Read Phase Two User Guide Popup -->
                 <!-- Open Items Popup -->
                 <div data-role="popup" id="mcs_setup_checklist_p2_openItem_popup" data-theme="b">
-                    >>>>>>> de3eb3acfe3483f84d1d91c851052a930e22a068
                     <form id="mcs_setup_checklist_p2_open_items_form" name="open_items_form">
                         <ul data-role="listview" data-inset="true" style="min-width:210px;">
                             <li data-role="list-divider">
@@ -4873,7 +4852,6 @@ under the License.
                 <!-- End Read Phase Two User Guide Popup -->
                 <!-- Open Items Popup -->
                 <div data-role="popup" id="mcs_setup_checklist_p2_openItem_popup" data-theme="b">
-                    >>>>>>> de3eb3acfe3483f84d1d91c851052a930e22a068
                     <form id="mcs_setup_checklist_p2_open_items_form" name="open_items_form">
                         <ul data-role="listview" data-inset="true" style="min-width:210px;">
                             <li data-role="list-divider">
@@ -5615,8 +5593,7 @@ under the License.
             <div role="content" class="ui-content">
                 <!-- Read Phase Four Book 1 User Guide Popup -->
                 <div data-role="popup" id="mcs_setup_checklist_p4_b1_userGuide_popup" data-theme="b">
-                    <<<<<<< HEAD
-                    <<<<<<< HEAD
+
                     <form id="mcs_setup_checklist_p4_b1_open_items_form" name="open_items_form">
                         <ul data-role="listview" data-inset="true" style="min-width:210px;">
                             <li data-role="list-divider">
@@ -5661,8 +5638,7 @@ under the License.
                 <!-- End Read Phase Four Book 1 User Guide Popup  -->
                 <!-- Open Items Popup -->
                 <div data-role="popup" id="mcs_setup_checklist_p4_b1_openItem_popup" data-theme="b">
-                    =======
-                    >>>>>>> de3eb3acfe3483f84d1d91c851052a930e22a068
+
                     <form id="mcs_setup_checklist_p4_b1_open_items_form" name="open_items_form">
                         <ul data-role="listview" data-inset="true" style="min-width:210px;">
                             <li data-role="list-divider">
@@ -5707,8 +5683,7 @@ under the License.
                 <!-- End Read Phase Four Book 1 User Guide Popup  -->
                 <!-- Open Items Popup -->
                 <div data-role="popup" id="mcs_setup_checklist_p4_b1_openItem_popup" data-theme="b">
-                    =======
-                    >>>>>>> de3eb3acfe3483f84d1d91c851052a930e22a068
+
                     <form id="mcs_setup_checklist_p4_b1_open_items_form" name="open_items_form">
                         <ul data-role="listview" data-inset="true" style="min-width:210px;">
                             <li data-role="list-divider">
