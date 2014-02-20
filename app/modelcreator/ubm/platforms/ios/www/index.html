@@ -404,7 +404,7 @@ under the License.
 				$("#ubmsuite_modelSettings_modifyUser_popup").popup('open');
 			}
 		</script>
-		<script>		//Model Creation Suite Checklist
+		<script>		//Refresh Model Creation Suite Checklist
 			function getModelCreationSuiteChecklistItems() {
 
 				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_getallchecklistitems.php?callback=?', {//JSONP Request to Checklist Setup Table
@@ -989,6 +989,8 @@ under the License.
 
 				});
 			}
+		</script>
+		<script>		//Complete MCS Checklist Tasks
 			function setActiveTaskId(MCSTaskId){
 				//alert("The active task is: "+MCSTaskId);
 				window.MCSTaskId = MCSTaskId;
@@ -1047,8 +1049,8 @@ under the License.
 				}
 
 			}
-			function submitMCS_phaseSetup_submitT4(TaskId){
-				if(TaskId==4){
+			function submitMCS_phaseSetup_submitT4(MCSTaskId){
+				if(MCSTaskId==4){
 					var modelOwnerLegalEntityVal = document.getElementById("mcs_setup_checklist_setup_identification_setup_popup_form_legalentity").value;
 					var modelOwnerCCODEVal = document.getElementById("mcs_setup_checklist_setup_identification_setup_popup_form_ccode").value;
 					var modelContactNameVal = document.getElementById("mcs_setup_checklist_setup_identification_setup_popup_form_model_contactname").value;
@@ -1142,15 +1144,19 @@ under the License.
 							}
 						}
 					});	
+
+				setActiveTaskId(MCSTaskId);
+				setTimeout(function() {
+					submitMCSTaskPreparedByRecord();
+				}, 1000);				
 				}else{
-					if(TaskId==5){
+					if(MCSTaskId==5){
 						
 					}else{
 						
 					}
 				}			
 			}
-
 			function setReviewedByStartTime(itemId) {
 				var date = new Date();
 				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_setActiveReviewedByTime.php?callback=?', {//JSONP Request
