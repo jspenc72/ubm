@@ -404,6 +404,104 @@ under the License.
 				$("#ubmsuite_modelSettings_modifyUser_popup").popup('open');
 			}
 		</script>
+		
+		<script>		//Model Core Values 
+			function getMyModelsCoreValues(){			//Populates Core Value Listview on Model Settings Page
+				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_model_getCurrentModel_CoreValues.php?callback=?', {//JSONP Request to Open Items Page setup tables
+					activeModelId : window.activeModelId
+				}, function(res, status) {
+					//	alert("request for open items was a success!");
+					$.each(res, function(i, item) {
+						
+					})
+				});				
+			}
+			function getListofPossibleCoreValues(){		//Populates Core Value Listview on Possible CoreValue Popup
+				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_model_getAll_CoreValues.php?callback=?', {//JSONP Request to Open Items Page setup tables
+				}, function(res, status) {
+					//	alert("request for open items was a success!");
+					$.each(res, function(i, item) {
+						
+					})
+				});					
+			}
+			function addCoreValueToMyModel(coreValueId){	//Called when the user selects an item from the Core Value Listview in the Possible CoreValues Popup
+				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_model_getAll_CoreValues.php?callback=?', {//JSONP Request to Open Items Page setup tables
+				}, function(res, status) {
+					//	alert("request for open items was a success!");
+					$.each(res, function(i, item) {
+						
+					})
+				});					
+			}
+			function creatNewCoreValueAddtoMyModel(coreValueId){	//Called when the user submits the create new CoreValue Form
+				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_model_getAll_CoreValues.php?callback=?', {//JSONP Request to Open Items Page setup tables
+				}, function(res, status) {
+					//	alert("request for open items was a success!");
+					$.each(res, function(i, item) {
+						
+					})
+				});					
+			}
+			function removeCorevalueFromMyModel(coreValueId){	//Called when the user selects the side button for each item in the My Models Has Core Values Listview
+				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_model_getAll_CoreValues.php?callback=?', {//JSONP Request to Open Items Page setup tables
+				}, function(res, status) {
+					//	alert("request for open items was a success!");
+					$.each(res, function(i, item) {
+						
+					})
+				});					
+			}
+		</script>
+		<script>
+			function getMyModelsCustomers(){			//Populates Customer  Listview on Model Settings Page
+				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_model_getCurrentModel_Customers.php?callback=?', {//JSONP Request to Open Items Page setup tables
+					activeModelId : window.activeModelId
+				}, function(res, status) {
+					//	alert("request for open items was a success!");
+					$.each(res, function(i, item) {
+						
+					})
+				});				
+			}
+			function getListofPossibleCustomers(){		//Populates Customer Listview on Possible CoreValue Popup
+				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_model_getAll_CoreValues.php?callback=?', {//JSONP Request to Open Items Page setup tables
+				}, function(res, status) {
+					//	alert("request for open items was a success!");
+					$.each(res, function(i, item) {
+						
+					})
+				});					
+			}
+			function addCustomerToMyModel(coreValueId){	//Called when the user selects an item from the Customer Listview in the Possible Customer Popup
+				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_model_getAll_CoreValues.php?callback=?', {//JSONP Request to Open Items Page setup tables
+				}, function(res, status) {
+					//	alert("request for open items was a success!");
+					$.each(res, function(i, item) {
+						
+					})
+				});					
+			}
+			function creatNewCustomerAddtoMyModel(coreValueId){	//Called when the user submits the create new Customer Form
+				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_model_getAll_CoreValues.php?callback=?', {//JSONP Request to Open Items Page setup tables
+				}, function(res, status) {
+					//	alert("request for open items was a success!");
+					$.each(res, function(i, item) {
+						
+					})
+				});					
+			}
+			function removeCustomerFromMyModel(coreValueId){	//Called when the user selects the side button for each item in the My Models Has Core Values Listview
+				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_model_getAll_CoreValues.php?callback=?', {//JSONP Request to Open Items Page setup tables
+				}, function(res, status) {
+					//	alert("request for open items was a success!");
+					$.each(res, function(i, item) {
+						
+					})
+				});					
+			}			
+		</script>
+
 		<script>		//Refresh Model Creation Suite Checklist
 			function getModelCreationSuiteChecklistItems() {
 
