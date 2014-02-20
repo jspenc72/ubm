@@ -808,6 +808,7 @@ under the License.
 					$("#mcs_setup_checklist_p6_mfi_table").table("rebuild");
 					$("#mcs_setup_checklist_p7_mfi_table").table("rebuild");
 					$("#mcs_setup_checklist_p8_mfi_table").table("rebuild");
+					$("#mcs_setup_checklist_p8_mfi_table").table("rebuild");
 
 				});
 			}
@@ -1310,6 +1311,12 @@ under the License.
 						$('#open_points_action_items_open_items_form').each(function() {
 							this.reset();
 						});
+						$('#ubmsuite_SelectBusinessModel_open_items_form').each(function() {
+							this.reset();
+						});
+						$('#ubmsuite_modelSettings_open_items_form').each(function() {
+							this.reset();
+						});
 					}
 					//Start Show Loading Message
 					$.mobile.loading("hide");
@@ -1717,7 +1724,9 @@ under the License.
                             </select>
                             </li>
                             <li>
-                                <textarea data-mini="true" cols="40" rows="8" id="sign_in_sign_up_submitreviewpoint_actionrequired" placeholder="Action Required..."></textarea>
+                                <textarea data-mini="true" cols="40" rows="8" id="sign_in_sign_up_submitreviewpoint_actionrequired" placeholder="Action Required...">
+                                    
+                                </textarea>
                             </li>
                             <li>
                                 <select  id="sign_in_sign_up_submitreviewpoint_assignedto" value="Select" data-native-menu="false">
@@ -1737,6 +1746,7 @@ under the License.
 
                     </form>
                 </div>
+                <!-- End Open Items Popup -->
                 <form>
                     <div style="padding:120px 20px;">
                         <label for="un" class="ui-hidden-accessible">Username:</label>
@@ -1748,10 +1758,12 @@ under the License.
                         </button>
                     </div>
                 </form>
-                <div id="result" style="background-color: white;"></div>
-                <center>
+                <div id="result" style="background-color: white;">
+                    
+                </div>
+                <div align="center">
                     <a href="#popupRegister" data-rel="popup" data-position-to="window" data-role="button" data-inline="true" data-icon="check" data-theme="b" data-transition="pop">Register</a>
-                </center>
+                </div>
                 <div data-role="popup" id="popupRegister" data-theme="a">
                     <form>
                         <div style="padding:10px 20px;">
@@ -1767,15 +1779,17 @@ under the License.
                             </button>
                         </div>
                     </form>
-                    <div id="result" style="background-color: white;"></div>
+                    <div id="result" style="background-color: white;">
+                        
+                    </div>
                 </div>
             </div>
             <div data-role="footer" data-theme="a" data-position="fixed" data-fullscreen="true">
-                <center>
+                <div align="center">
                     <p>
                         Alpha
                     </p>
-                </center>
+                </div>
                 <button data-theme="b" data-icon="check" onclick="checkConnection()">
                     Check Connection!
                 </button>
@@ -1838,7 +1852,9 @@ under the License.
                                 </select>
                             </li>
                             <li>
-                                <textarea data-mini="true" cols="40" rows="8" id="ubmsuite_UserPreferences_submitreviewpoint_actionrequired" placeholder="Action Required..."></textarea>
+                                <textarea data-mini="true" cols="40" rows="8" id="ubmsuite_UserPreferences_submitreviewpoint_actionrequired" placeholder="Action Required...">
+                                    
+                                </textarea>
                             </li>
                             <li>
                                 <select  id="ubmsuite_UserPreferences_submitreviewpoint_assignedto" value="Select" data-native-menu="false">
@@ -1866,7 +1882,7 @@ under the License.
                             <option value="Verizon">Verizon</option>
                             <option value="Sprint">Sprint</option>
                             <option value="T-Mobile">T-Mobile</option>
-                            <option value="AT&T">AT&T</option>
+                            <option value="AT&T">AT&amp; T</option>
                         </select>
                         <input type="tel" data-clear-btn="false" name="tel-1" placeholder="10 Digit cell phone number" id="ubmsuite_UserPreferences_cell" value="">
                         <button class="ui-btn ui-shadow ui-corner-all ui-btn-icon-left ui-icon-forward" onclick="updateUserPreferences()">
@@ -1880,7 +1896,9 @@ under the License.
                     </div>
                 </div><!-- /grid-a -->
             </div>
-            <div data-role="footer" data-position="fixed" data-fullscreen="true"></div>
+            <div data-role="footer" data-position="fixed" data-fullscreen="true">
+                
+            </div>
         </div>
         <div data-role="page" class="ubm_page" id="ubmsuite_SelectBusinessModel">
             <!-- Select Business Model -->
@@ -1916,8 +1934,54 @@ under the License.
                 </ul>
             </div><!-- /panel -->
             <div data-role="header">
+                <!-- Open Items Popup -->
+                <div data-role="popup" id="ubmsuite_SelectBusinessModel_openItem_popup" data-theme="b">
+                    <form id="ubmsuite_SelectBusinessModel_open_items_form" name="open_items_form">
+                        <ul data-role="listview" data-inset="true" style="min-width:210px;">
+                            <li data-role="list-divider">
+                                Write a Review Point</br>or Open Item
+                            </li>
+                            <li>
+                                <input type="text" id="ubmsuite_SelectBusinessModel_submitreviewpoint_formref" name="submitreviewpoint_formref" value="" placeholder="Form Ref...">
+                            </li>
+                            <select  id="ubmsuite_SelectBusinessModel_submitreviewpoint_priority" value="Select" data-native-menu="false">
+                                <option>Priority...</option>
+                                <option value="A1">A1</option>
+                                <option value="A2">A2</option>
+                                <option value="A3">A3</option>
+                                <option value="B1">B1</option>
+                                <option value="B2">B2</option>
+                                <option value="B3">B3</option>
+                                <option value="C1">C1</option>
+                                <option value="C2">C2</option>
+                                <option value="C3">C3</option>
+                            </select>
+                            </li>
+                            <li>
+                                <textarea data-mini="true" cols="40" rows="8" id="management_reporting_submitreviewpoint_actionrequired" placeholder="Action Required...">
+                                    
+                                </textarea>
+                            </li>
+                            <li>
+                                <select  id="ubmsuite_SelectBusinessModel_submitreviewpoint_assignedto" value="Select" data-native-menu="false">
+                                    <option>Assigned To...</option>
+                                    <option value="Jesse Spencer">Jesse Spencer</option>
+                                    <option value="Adam Gustafson">Adam Gustafson</option>
+                                </select>
+                            </li>
+                            <li>
+                                <label for="datetime-4">Due Datetime</label>
+                                <input type="datetime-local" data-clear-btn="true"  id="ubmsuite_SelectBusinessModel_submitreviewpoint_duedatetime" value="" placeholder="Due Datetime...">
+                            </li>
+                            <li>
+                                <input type="button" data-enhanced="true" value="Submit Review Point" onclick="submitReviewPoint('ubmsuite_SelectBusinessModel_');">
+                            </li>
+                        </ul>
+                    </form>
+                </div>
+                <!-- End Open Items Popup -->
                 <a href="#ubmsuite_table_of_contents_lpanel" data-icon="arrow-r" data-iconpos="notext">Menu</a>
-                <div id"ubmsuite_table_of_contents_header_headerRecord_center" style="text-align: center">
+                <div id="ubmsuite_table_of_contents_header_headerRecord_center" style="text-align: center">
                     <div id="creator_table_of_contents_header_headerRecord_center_legalentity">
                         Legal Entity: Cindt, LLC
                     </div>
@@ -1973,7 +2037,9 @@ under the License.
                                 </select>
                             </li>
                             <li>
-                                <textarea data-mini="true" cols="40" rows="8" id="ubmsuite_table_of_contents_submitreviewpoint_actionrequired" placeholder="Action Required..."></textarea>
+                                <textarea data-mini="true" cols="40" rows="8" id="ubmsuite_table_of_contents_submitreviewpoint_actionrequired" placeholder="Action Required...">
+                                    
+                                </textarea>
                             </li>
                             <li>
                                 <select  id="ubmsuite_table_of_contents_submitreviewpoint_assignedto" value="Select" data-native-menu="false">
@@ -1993,15 +2059,15 @@ under the License.
                     </form>
                 </div>
                 <!-- End Open Items Popup -->
-                <center>
+                <div align="center">
                     <a href="#popupParis" data-rel="popup" data-position-to="window" data-transition="fade"><img src="img/03 UBM Flowchart.png" width="60" style="position:center; width:25%; height:;"></a>
                     <div data-role="popup" id="popupParis" data-overlay-theme="b" data-theme="b" data-corners="false">
                         <a href="#" data-rel="back" class="ui-btn ui-corner-all ui-shadow ui-btn-a ui-icon-delete ui-btn-icon-notext ui-btn-right">Close</a><img class="popphoto" src="img/03 UBM Flowchart.png" style="max-height:700px;" alt="UBM Flow Chart">
                     </div>
-                </center>
-                <center>
+                </div>
+                <div align="center">
                     <a href="#ubmsuite_createModel_popup" data-rel="popup" data-role="button" data-inline="true"  >Create New Model</a>
-                </center>
+                </div>
                 </br>
                 <ul data-role='listview' data-inset='true' id='ubmsuite_SelectBusinessModel_MyModels_ul'>
                     <!-- <li data-role='list-divider'>creator_id</li><li><a href='index.html'><h2>Model Title</h2><p><strong>Reference: </strong></p><p>Description: </p><p class='ui-li-aside'><strong>Creation Date: </strong></p></a></li>-->
@@ -2010,13 +2076,15 @@ under the License.
 
                 </ul>
             </div>
-            <div data-role="footer" data-position="fixed" data-fullscreen="true"></div>
+            <div data-role="footer" data-position="fixed" data-fullscreen="true">
+                
+            </div>
         </div>
         <div data-role="page" class="ubm_page" id="ubmsuite_EditMyBusinessModel" data-theme="a">
             <!-- No Panel on this page, instead only back button is needed.-->
             <div data-role="header">
                 <a href="#" class="back_btn" data-icon="arrow-l" data-iconpos="notext">Back</a>
-                <div id"ubmsuite_EditMyBusinessModel_header_headerRecord_center" style="text-align: center">
+                <div id="ubmsuite_EditMyBusinessModel_header_headerRecord_center" style="text-align: center">
                     <div id="ubmsuite_EditMyBusinessModel_header_headerRecord_center_legalentity">
                         Legal Entity: Cindt, LLC
                     </div>
@@ -2057,7 +2125,9 @@ under the License.
                                 </select>
                             </li>
                             <li>
-                                <textarea data-mini="true" cols="40" rows="8" id="ubmsuite_EditMyBusinessModel_submitreviewpoint_actionrequired" placeholder="Action Required..."></textarea>
+                                <textarea data-mini="true" cols="40" rows="8" id="ubmsuite_EditMyBusinessModel_submitreviewpoint_actionrequired" placeholder="Action Required...">
+                                    
+                                </textarea>
                             </li>
                             <li>
                                 <select  id="ubmsuite_EditMyBusinessModel_submitreviewpoint_assignedto" value="Select" data-native-menu="false">
@@ -2152,13 +2222,15 @@ under the License.
                     </li>
                 </ul>
             </div>
-            <div data-role="footer" data-position="fixed" data-fullscreen="true"></div>
+            <div data-role="footer" data-position="fixed" data-fullscreen="true">
+                
+            </div>
         </div>
         <div data-role="page" class="ubm_page my-page" id="ubmsuite_EditSharedBusinessModel" data-theme="b">
             <!-- Business Model Creator Settings -->
             <div data-role="header">
                 <a href="#" class="back_btn" data-icon="arrow-l" data-iconpos="notext">Back</a>
-                <div id"ubmsuite_EditSharedBusinessModel_header_headerRecord_center" style="text-align: center">
+                <div id="ubmsuite_EditSharedBusinessModel_header_headerRecord_center" style="text-align: center">
                     <div id="ubmsuite_EditSharedBusinessModel_header_headerRecord_center_legalentity">
                         Legal Entity: Cindt, LLC
                     </div>
@@ -2199,7 +2271,9 @@ under the License.
                                 </select>
                             </li>
                             <li>
-                                <textarea data-mini="true" cols="40" rows="8" id="ubmsuite_EditSharedBusinessModel_submitreviewpoint_actionrequired" placeholder="Action Required..."></textarea>
+                                <textarea data-mini="true" cols="40" rows="8" id="ubmsuite_EditSharedBusinessModel_submitreviewpoint_actionrequired" placeholder="Action Required...">
+                                    
+                                </textarea>
                             </li>
                             <li>
                                 <select  id="ubmsuite_EditSharedBusinessModel_submitreviewpoint_assignedto" value="Select" data-native-menu="false">
@@ -2294,7 +2368,9 @@ under the License.
                     </li>
                 </ul>
             </div>
-            <div data-role="footer" data-position="fixed" data-fullscreen="true"></div>
+            <div data-role="footer" data-position="fixed" data-fullscreen="true">
+                
+            </div>
         </div>
         <div data-role="page" class="ubm_page" id="gettingStarted">
             <div data-role="panel" id="mcs_gettingStarted_lpanel" data-display="overlay" data-position="left">
@@ -2355,7 +2431,7 @@ under the License.
             </div><!-- /panel -->
             <div data-role="header">
                 <a href="#mcs_gettingStarted_lpanel" data-icon="arrow-r" data-iconpos="notext">Menu</a>
-                <div id"gettingStarted_header_headerRecord_center" style="text-align: center">
+                <div id="gettingStarted_header_headerRecord_center" style="text-align: center">
                     <div id="gettingStarted_header_headerRecord_center_legalentity">
                         Legal Entity: Cindt, LLC
                     </div>
@@ -2395,7 +2471,9 @@ under the License.
                             </select>
                             </li>
                             <li>
-                                <textarea data-mini="true" cols="40" rows="8" id="gettingStarted_submitreviewpoint_actionrequired" placeholder="Action Required..."></textarea>
+                                <textarea data-mini="true" cols="40" rows="8" id="gettingStarted_submitreviewpoint_actionrequired" placeholder="Action Required...">
+                                    
+                                </textarea>
                             </li>
                             <li>
                                 <select  id="gettingStarted_submitreviewpoint_assignedto" value="Select" data-native-menu="false">
@@ -2491,7 +2569,9 @@ under the License.
                 <div data-role="popup" id="popupParis" data-overlay-theme="b" data-theme="b" data-corners="false">
                     <a href="#" data-rel="back" class="ui-btn ui-corner-all ui-shadow ui-btn-a ui-icon-delete ui-btn-icon-notext ui-btn-right">Close</a><img class="popphoto" src="img/03 UBM Flowchart.png" style="max-height:700px;" alt="UBM Flow Chart">
                 </div>
-                <div data-role="footer"></div>
+                <div data-role="footer">
+                    
+                </div>
                 <div id="continue_button">
                     <a href="#ubmsuite_SelectBusinessModel" data-role="button" data-inline="true">Continue to The Model Creation Suite</a>
                 </div>
@@ -2557,7 +2637,9 @@ under the License.
                                 </select>
                             </li>
                             <li>
-                                <textarea data-mini="true" cols="40" rows="8" id="ubmsuite_modelSettings_submitreviewpoint_actionrequired" placeholder="Action Required..."></textarea>
+                                <textarea data-mini="true" cols="40" rows="8" id="ubmsuite_modelSettings_submitreviewpoint_actionrequired" placeholder="Action Required...">
+                                    
+                                </textarea>
                             </li>
                             <li>
                                 <select  id="ubmsuite_modelSettings_submitreviewpoint_assignedto" value="Select" data-native-menu="false">
@@ -2640,7 +2722,9 @@ under the License.
 
                         </ul>
                     </div>
-                    <div class="ui-block-b"></div>
+                    <div class="ui-block-b">
+                        
+                    </div>
                 </fieldset>
                 <fieldset class="ui-grid-b" >
                     <div style="padding-left:1em;" class="ui-block-a">
@@ -2815,7 +2899,7 @@ under the License.
             </div><!-- /panel -->
             <div data-role="header">
                 <a href="#ubmsuite_table_of_contents_lpanel" data-icon="arrow-r" data-iconpos="notext">Menu</a>
-                <div id"ubmsuite_table_of_contents_header_headerRecord_center" style="text-align: center">
+                <div id="ubmsuite_table_of_contents_header_headerRecord_center" style="text-align: center">
                     <div id="creator_table_of_contents_header_headerRecord_center_legalentity">
                         Legal Entity: Cindt, LLC
                     </div>
@@ -2919,7 +3003,9 @@ under the License.
                     </p>
                 </div>
             </div>
-            <div data-role="footer"></div>
+            <div data-role="footer">
+                
+            </div>
         </div>
         <!-- Creator Table of Contents Page-->
         <div data-role="page" class="ubm_page" id="creator_table_of_contents">
@@ -2981,7 +3067,7 @@ under the License.
             </div><!-- /panel -->
             <div data-role="header">
                 <a href="#mcs_creator_table_of_contents_lpanel" data-icon="arrow-r" data-iconpos="notext">Menu</a>
-                <div id"creator_table_of_contents_header_headerRecord_center" style="text-align: center">
+                <div id="creator_table_of_contents_header_headerRecord_center" style="text-align: center">
                     <div id="creator_table_of_contents_header_headerRecord_center_legalentity">
                         Legal Entity: Cindt, LLC
                     </div>
@@ -3005,7 +3091,7 @@ under the License.
                                 Write a Review Point</br>or Open Item
                             </li>
                             <li>
-                                <input type="text" id="creator_table_of_contents_submitreviewpoint_formref" name="submitreviewpoint_formref" value="" placeholder="Form Ref...">
+                                <input type="text" id="creator_table_of_contents_submitreviewpoint_formref" name="submitreviewpoint_formref" value="item.headerRecord_right_formref" placeholder="Form Ref...">
                             </li>
                             <li>
                                 <select  id="creator_table_of_contents_submitreviewpoint_priority" value="Select" data-native-menu="false">
@@ -3022,7 +3108,9 @@ under the License.
                                 </select>
                             </li>
                             <li>
-                                <textarea data-mini="true" cols="40" rows="8" id="creator_table_of_contents_submitreviewpoint_actionrequired" placeholder="Action Required..."></textarea>
+                                <textarea data-mini="true" cols="40" rows="8" id="creator_table_of_contents_submitreviewpoint_actionrequired" placeholder="Action Required...">
+                                    
+                                </textarea>
                             </li>
                             <li>
                                 <select  id="creator_table_of_contents_submitreviewpoint_assignedto" value="Select" data-native-menu="false">
@@ -3437,7 +3525,9 @@ under the License.
                             </select>
                             </li>
                             <li>
-                                <textarea data-mini="true" cols="40" rows="8" id="management_reporting_submitreviewpoint_actionrequired" placeholder="Action Required..."></textarea>
+                                <textarea data-mini="true" cols="40" rows="8" id="management_reporting_submitreviewpoint_actionrequired" placeholder="Action Required...">
+                                    
+                                </textarea>
                             </li>
                             <li>
                                 <select  id="management_reporting_submitreviewpoint_assignedto" value="Select" data-native-menu="false">
@@ -3655,7 +3745,9 @@ under the License.
                     </p>
                 </div>
             </div>
-            <div data-role="footer" data-position="fixed" data-fullscreen="true"></div>
+            <div data-role="footer" data-position="fixed" data-fullscreen="true">
+                
+            </div>
         </div>
         <!-- Setup -->
         <div data-role="page" class="ubm_page" id="mcs_setup_checklist_setup">
@@ -3717,9 +3809,9 @@ under the License.
             </div><!-- /panel -->
             <div data-role="header" data-position="fixed">
                 <a href="#mcs_setup_checklist_setup_lpanel" data-icon="arrow-r" data-iconpos="notext">Menu</a>
-                <center>
+                <div align="center">
                     <a href="#mcs_setup_checklist_setup_searchPopup" data-rel="popup" data-role="button">Model Creation Suite - Setup</a>
-                </center>
+                </div>
             </div><!-- /header -->
             <div data-role="content">
                 <div data-role="popup" id="mcs_UBMFlowchart" data-overlay-theme="b" data-theme="b" data-corners="false">
@@ -3808,7 +3900,7 @@ under the License.
                                     <p>
                                         a.Business Model Consulting LLC (BMC) is the owner of software, documents, copyrights, and other intellectual property, including computer files and hard copies, comprising the Universal Business Model (the UBM). BMC grants you a limited right to install the UBM on your computer systems, and to use the UBM to develop customized documents, policies, procedures, manuals, and training programs for your company’s internal use only. You will not use the UBM for any other purpose.
                                         </br>b.	THIS LICENSE DOES NOT TRANSFER OWNERSHIP OF ANY PART OF THE UBM TO YOU. All legal and equitable title to the UBM, and copyrights, trade secrets, patents, and confidential and proprietary information related to the UBM, remain the exclusive property of BMC.
-                                        </br>c.	“Universal Business Model” and “UBM” are trademarks of BMC. You do not have the right to use those or any other trademarks, trade names, service marks, logos, and/or trade names of BMC.
+                                        </br>c.	“Universal Business Model�? and “UBM�? are trademarks of BMC. You do not have the right to use those or any other trademarks, trade names, service marks, logos, and/or trade names of BMC.
                                     </p>
                                 </li>
                                 <div data-role="controlgroup">
@@ -3836,7 +3928,7 @@ under the License.
                                 </legend>
                                 <li>
                                     <p>
-                                        <strong>a.	BMC LICENSES THE UBM TO YOU “AS IS”, WITHOUT WARRANTY OF ANY KIND. YOU USE THE UBM AT YOUR OWN RISK
+                                        <strong>a.	BMC LICENSES THE UBM TO YOU “AS IS�?, WITHOUT WARRANTY OF ANY KIND. YOU USE THE UBM AT YOUR OWN RISK
                                         </br>b.	BMC EXPRESSLY EXCLUDES AND DISCLAIMS ANY AND ALL WARRANTIES, REPRESENTATIONS, AND GUARANTEES WITH RESPECT TO THE UBM WHETHER EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO ANY WARRANTY OF MERCHANTABILITY, QUALITY, AND FITNESS FOR A PARTICULAR PURPOSE </strong></br>c.	Full use of some features of the UBM may require internet access, and may be limited by other software and technological limitations. BMC expressly excludes and disclaims any warranty about your ability to access those features of the UBM. Any inability to access or use those features of the UBM will not be a limitation on or a breach of your license by BMC
                                         </br>d.	BMC does not provide you with legal advice, via the UBM or otherwise. BMC recommends that you consult your own attorneys and other professionals in connection with your use of the UBM, and your use of any documents, policies, procedures, manuals, and training programs you may develop from the UBM
                                     </p>
@@ -3854,7 +3946,7 @@ under the License.
                                     <p>
                                         a.Business Model Consulting LLC (BMC) is the owner of software, documents, copyrights, and other intellectual property, including computer files and hard copies, comprising the Universal Business Model (the UBM). BMC grants you a limited right to install the UBM on your computer systems, and to use the UBM to develop customized documents, policies, procedures, manuals, and training programs for your company’s internal use only. You will not use the UBM for any other purpose.
                                         </br>b.	THIS LICENSE DOES NOT TRANSFER OWNERSHIP OF ANY PART OF THE UBM TO YOU. All legal and equitable title to the UBM, and copyrights, trade secrets, patents, and confidential and proprietary information related to the UBM, remain the exclusive property of BMC.
-                                        </br>c.	“Universal Business Model” and “UBM” are trademarks of BMC. You do not have the right to use those or any other trademarks, trade names, service marks, logos, and/or trade names of BMC.
+                                        </br>c.	“Universal Business Model�? and “UBM�? are trademarks of BMC. You do not have the right to use those or any other trademarks, trade names, service marks, logos, and/or trade names of BMC.
                                     </p>
                                 </li>
                                 <div data-role="controlgroup">
@@ -3870,7 +3962,7 @@ under the License.
                                     <p>
                                         a.Business Model Consulting LLC (BMC) is the owner of software, documents, copyrights, and other intellectual property, including computer files and hard copies, comprising the Universal Business Model (the UBM). BMC grants you a limited right to install the UBM on your computer systems, and to use the UBM to develop customized documents, policies, procedures, manuals, and training programs for your company’s internal use only. You will not use the UBM for any other purpose.
                                         </br>b.	THIS LICENSE DOES NOT TRANSFER OWNERSHIP OF ANY PART OF THE UBM TO YOU. All legal and equitable title to the UBM, and copyrights, trade secrets, patents, and confidential and proprietary information related to the UBM, remain the exclusive property of BMC.
-                                        </br>c.	“Universal Business Model” and “UBM” are trademarks of BMC. You do not have the right to use those or any other trademarks, trade names, service marks, logos, and/or trade names of BMC.
+                                        </br>c.	“Universal Business Model�? and “UBM�? are trademarks of BMC. You do not have the right to use those or any other trademarks, trade names, service marks, logos, and/or trade names of BMC.
                                     </p>
                                 </li>
 
@@ -3927,7 +4019,9 @@ under the License.
                             </select>
                             </li>
                             <li>
-                                <textarea data-mini="true" cols="40" rows="8" id="mcs_setup_checklist_setup_submitreviewpoint_actionrequired" placeholder="Action Required..."></textarea>
+                                <textarea data-mini="true" cols="40" rows="8" id="mcs_setup_checklist_setup_submitreviewpoint_actionrequired" placeholder="Action Required...">
+                                    
+                                </textarea>
                             </li>
                             <li>
                                 <select  id="mcs_setup_checklist_setup_submitreviewpoint_assignedto" value="Select" data-native-menu="false">
@@ -3975,7 +4069,9 @@ under the License.
                             </p></a><a href="#purchase" data-rel="popup" data-position-to="window" data-transition="pop">Purchase album</a>
                         </li>
                         <li>
-                            <a href="#mcs_setup_checklist_CS"><img src="img/control.jpg" /><h3>Control Section</h3><p></p></a><a href="#purchase" data-rel="popup" data-position-to="window" data-transition="pop">Purchase album</a>
+                            <a href="#mcs_setup_checklist_CS"><img src="img/control.jpg" /><h3>Control Section</h3><p>
+                                
+                            </p></a><a href="#purchase" data-rel="popup" data-position-to="window" data-transition="pop">Purchase album</a>
                         </li>
                         <li>
                             <a href="#mcs_setup_checklist_p1"><img src="img/conceptual_definition.png" /><h3>Phase 1</h3>
@@ -4194,7 +4290,7 @@ under the License.
                 </table>
             </div><!-- /content -->
             <div data-role="footer" data-fullscreen="true" data-position="fixed">
-                <center>
+                <div align="center">
                     <div data-role="controlgroup" data-type="horizontal" data-mini="true">
                         <a href="#mcs_setup_checklist_setup" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-grid ui-btn-b ui-btn-active">Setup</a>
                         <a href="#mcs_setup_checklist_CS" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-grid ui-btn-b">Control </a>
@@ -4207,7 +4303,7 @@ under the License.
                         <a href="#mcs_setup_checklist_p7" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-grid ui-btn-b">Phase 7</a>
                         <a href="#mcs_setup_checklist_p8" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-grid ui-btn-b">Phase 8</a>
                     </div>
-                </center>
+                </div>
             </div><!-- /footer -->
         </div>
         <!-- Control -->
@@ -4270,9 +4366,9 @@ under the License.
             </div><!-- /panel -->
             <div data-role="header" data-position="fixed">
                 <a href="#mcs_setup_checklist_CS_lpanel" data-icon="arrow-r" data-iconpos="notext">Menu</a>
-                <center>
+                <div align="center">
                     <a href="#mcs_setup_checklist_CS_searchPopup" data-rel="popup" data-role="button">Model Creation Suite - Control</a>
-                </center>
+                </div>
             </div><!-- /header -->
             <div role="content" class="ui-content">
                 <!-- Open Items Popup -->
@@ -4299,7 +4395,9 @@ under the License.
                             </select>
                             </li>
                             <li>
-                                <textarea data-mini="true" cols="40" rows="8" id="mcs_setup_checklist_CS_submitreviewpoint_actionrequired" placeholder="Action Required..."></textarea>
+                                <textarea data-mini="true" cols="40" rows="8" id="mcs_setup_checklist_CS_submitreviewpoint_actionrequired" placeholder="Action Required...">
+                                    
+                                </textarea>
                             </li>
                             <li>
                                 <select  id="mcs_setup_checklist_CS_submitreviewpoint_assignedto" value="Select" data-native-menu="false">
@@ -4328,7 +4426,9 @@ under the License.
                             </p></a><a href="#purchase" data-rel="popup" data-position-to="window" data-transition="pop">Purchase album</a>
                         </li>
                         <li>
-                            <a href="#mcs_setup_checklist_CS"><img src="img/control.jpg" /><h3>Control Section</h3><p></p></a><a href="#purchase" data-rel="popup" data-position-to="window" data-transition="pop">Purchase album</a>
+                            <a href="#mcs_setup_checklist_CS"><img src="img/control.jpg" /><h3>Control Section</h3><p>
+                                
+                            </p></a><a href="#purchase" data-rel="popup" data-position-to="window" data-transition="pop">Purchase album</a>
                         </li>
                         <li>
                             <a href="#mcs_setup_checklist_p1"><img src="img/conceptual_definition.png" /><h3>Phase 1</h3>
@@ -4545,7 +4645,7 @@ under the License.
                 </table>
             </div>
             <div data-role="footer" data-fullscreen="true" data-position="fixed">
-                <center>
+                <div align="center">
                     <div data-role="controlgroup" data-type="horizontal" data-mini="true">
                         <a href="#mcs_setup_checklist_setup" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-grid ui-btn-b">Setup</a>
                         <a href="#mcs_setup_checklist_CS" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-grid ui-btn-b ui-btn-active">Control </a>
@@ -4558,7 +4658,7 @@ under the License.
                         <a href="#mcs_setup_checklist_p7" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-grid ui-btn-b">Phase 7</a>
                         <a href="#mcs_setup_checklist_p8" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-grid ui-btn-b">Phase 8</a>
                     </div>
-                </center>
+                </div>
             </div>
         </div>
         <!-- Phase 1-->
@@ -4621,9 +4721,9 @@ under the License.
             </div><!-- /panel -->
             <div data-role="header" data-position="fixed">
                 <a href="#mcs_setup_checklist_p1_lpanel" data-icon="arrow-r" data-iconpos="notext">Menu</a>
-                <center>
+                <div align="center">
                     <a href="#mcs_setup_checklist_p1_searchPopup" data-rel="popup" data-role="button">Model Creation Suite - Phase 1</a>
-                </center>
+                </div>
             </div><!-- /header -->
             <div role="content" class="ui-content">
                 <!-- Phase One User Guide Popup-->
@@ -4650,7 +4750,9 @@ under the License.
                             </select>
                             </li>
                             <li>
-                                <textarea data-mini="true" cols="40" rows="8" id="mcs_setup_checklist_p1_submitreviewpoint_actionrequired" placeholder="Action Required..."></textarea>
+                                <textarea data-mini="true" cols="40" rows="8" id="mcs_setup_checklist_p1_submitreviewpoint_actionrequired" placeholder="Action Required...">
+                                    
+                                </textarea>
                             </li>
                             <li>
                                 <select  id="mcs_setup_checklist_p1_submitreviewpoint_assignedto" value="Select" data-native-menu="false">
@@ -4723,7 +4825,9 @@ under the License.
                             </p></a><a href="#purchase" data-rel="popup" data-position-to="window" data-transition="pop">Purchase album</a>
                         </li>
                         <li>
-                            <a href="#mcs_setup_checklist_CS"><img src="img/control.jpg" /><h3>Control Section</h3><p></p></a><a href="#purchase" data-rel="popup" data-position-to="window" data-transition="pop">Purchase album</a>
+                            <a href="#mcs_setup_checklist_CS"><img src="img/control.jpg" /><h3>Control Section</h3><p>
+                                
+                            </p></a><a href="#purchase" data-rel="popup" data-position-to="window" data-transition="pop">Purchase album</a>
                         </li>
                         <li>
                             <a href="#mcs_setup_checklist_p1"><img src="img/conceptual_definition.png" /><h3>Phase 1</h3>
@@ -4940,7 +5044,7 @@ under the License.
                 </table>
             </div>
             <div data-role="footer" data-fullscreen="true" data-position="fixed">
-                <center>
+                <div align="center">
                     <div data-role="controlgroup" data-type="horizontal" data-mini="true">
                         <a href="#mcs_setup_checklist_setup" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-grid ui-btn-b">Setup</a>
                         <a href="#mcs_setup_checklist_CS" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-grid ui-btn-b">Control </a>
@@ -4953,7 +5057,7 @@ under the License.
                         <a href="#mcs_setup_checklist_p7" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-grid ui-btn-b">Phase 7</a>
                         <a href="#mcs_setup_checklist_p8" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-grid ui-btn-b">Phase 8</a>
                     </div>
-                </center>
+                </div>
             </div>
         </div>
         <!-- Phase 2-->
@@ -12558,9 +12662,11 @@ under the License.
 						//alert(item.headerRecord_right_formref);
 						$('#headerRecord_right_formref').empty();
 						$('#headerRecord_right_formref').append(item.headerRecord_right_formref);
+						window.activeUbmPageReference = item.headerRecord_right_formref;
 					})
 					//alert("jsonp request returned: " + status);
 				});
+
 				setTimeout(function() {
 					checkConnection();
 				}, 3000);
