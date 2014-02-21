@@ -1,201 +1,68 @@
-<!DOCTYPE html>
-<!--
-Licensed to the Apache Software Foundation (ASF) under one
-or more contributor license agreements.  See the NOTICE file
-distributed with this work for additional information
-regarding copyright ownership.  The ASF licenses this file
-to you under the Apache License, Version 2.0 (the
-"License"); you may not use this file except in compliance
-with the License.  You may obtain a copy of the License at
-
-http://www.apache.org/licenses/LICENSE-2.0
-
-Unless required by applicable law or agreed to in writing,
-software distributed under the License is distributed on an
-"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-KIND, either express or implied.  See the License for the
-specific language governing permissions and limitations
-under the License.
--->
-<html>
-    <head>
-        <meta charset="utf-8" />
-        <meta name="format-detection" content="telephone=no" />
-        <!-- WARNING: for iOS 7, remove the width=device-width and height=device-height attributes. See https://issues.apache.org/jira/browse/CB-4323 -->
-        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
-        <link rel="stylesheet" type="text/css" href="css/index.css" />
-        <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.0/jquery.mobile-1.4.0.min.css" />
-        <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
-        <script src="http://code.jquery.com/mobile/1.4.0/jquery.mobile-1.4.0.min.js"></script>
-        <script src="js/jquery.bxslider.js"></script>
-        <link href="css/jquery.bxslider.css" rel="stylesheet" />
-        
-
-    </head>
-
-    <body>
-        <!-- Business Model Creator Settings -->
-        <div data-role="page" class="ubm_page" id="ubmsuite_creatorSettings" data-theme="a">
-            <div data-role="panel" id="ubmsuite_creatorSettings_lpanel" data-display="overlay" data-position="left">
-                <ul data-role="listview">
-                    <li>
-                        <a href="#gettingStarted">Getting Started</a>
-                    </li>
-                    <li>
-                        <a href="#identification_setup">Identification Setup</a>
-                    </li>
-                    <li>
-                        <a href="#ubmsuite_table_of_contents">UBM Suite Table of Contents</a>
-                    </li>
-                    <li>
-                        <a href="#creator_table_of_contents">Model Creator Table of Contents</a>
-                    </li>
-                    <li>
-                        <a href="#ubmsuite_table_of_contents">UBM Suite Table of Contents</a>
-                    </li>
-                    <li>
-                        <a href="#mcs_setup_checklist_setup">MCS Setup</a>
-                    </li>
-                    <li>
-                        <a href="#management_reporting">Management Reporting</a>
-                    </li>
-                    <li>
-                        <a href="#mcs_setup_checklist_CS">Control Section</a>
-                    </li>
-                    <li>
-                        <a href="#mcs_setup_checklist_p1">Phase 1</a>
-                    </li>
-                    <li>
-                        <a href="#mcs_setup_checklist_p2">Phase 2</a>
-                    </li>
-                    <li>
-                        <a href="#mcs_setup_checklist_p3">Phase 3</a>
-                    </li>
-                    <li>
-                        <a href="#mcs_setup_checklist_p4">Phase 4</a>
-                    </li>
-                    <li>
-                        <a href="#mcs_setup_checklist_p5">Phase 5</a>
-                    </li>
-                    <li>
-                        <a href="#mcs_setup_checklist_p6">Phase 6</a>
-                    </li>
-                    <li>
-                        <a href="#mcs_setup_checklist_p7">Phase 7</a>
-                    </li>
-                    <li>
-                        <a href="#mcs_setup_checklist_p8">Phase 8</a>
-                    </li>
-                    <li>
-                        <a href="#open_points_action_items">Open Points Action Items</a>
-                    </li>
-                    <li data-icon="delete">
-                        <a href="#" data-rel="close">Close menu</a>
-                    </li>
-                    <li data-icon="delete">
-                        <a href="#sign_in_sign_up">Sign Out</a>
-                    </li>
-                </ul>
-            </div><!-- /panel -->
-            <div data-role="header">
-                <a href="#ubmsuite_creatorSettings_lpanel" data-icon="arrow-r" data-iconpos="notext">Menu</a>
-                <div id="ubmsuite_creatorSettings_header_headerRecord_center" style="text-align: center">
-                    <div id="ubmsuite_creatorSettings_header_headerRecord_center_legalentity">
-                        Legal Entity: Cindt, LLC
-                    </div>
-                    <div id="ubmsuite_creatorSettings_header_headerRecord_center_systemtitle">
-                        System Title: UBM v 3.3.0
-                    </div>
-                    <div id="ubmsuite_creatorSettings_header_headerRecord_center_modelapptitle">
-                        Model / App Title: Universal Business Model Suite - Automated Prototype
-                    </div>
-                    <div id="ubmsuite_creatorSettings_header_headerRecord_center_pagetitle">
-                        Creator Settings
-                    </div>
-                </div>
-            </div>
-            <div data-role="content">
-                <!-- Open Items Popup -->
-                <div data-role="popup" id="ubmsuite_creatorSettings_openItem_popup" data-theme="b">
-                    <form id="ubmsuite_creatorSettings_open_items_form" name="open_items_form">
-                        <ul data-role="listview" data-inset="true" style="min-width:210px;">
-                            <li data-role="list-divider">
-                                Write a Review Point</br>or Open Item
-                            </li>
-                            <li>
-                                <input type="text" id="ubmsuite_creatorSettings_submitreviewpoint_formref" name="submitreviewpoint_formref" value="" placeholder="Form Ref...">
-                            </li>
-                            <li>
-                                <select  id="ubmsuite_creatorSettings_submitreviewpoint_priority" value="Select" data-native-menu="false">
-                                    <option>Priority...</option>
-                                    <option value="A1">A1</option>
-                                    <option value="A2">A2</option>
-                                    <option value="A3">A3</option>
-                                    <option value="B1">B1</option>
-                                    <option value="B2">B2</option>
-                                    <option value="B3">B3</option>
-                                    <option value="C1">C1</option>
-                                    <option value="C2">C2</option>
-                                    <option value="C3">C3</option>
-                                </select>
-                            </li>
-                            <li>
-                                <textarea data-mini="true" cols="40" rows="8" id="ubmsuite_creatorSettings_submitreviewpoint_actionrequired" placeholder="Action Required..."></textarea>
-                            </li>
-                            <li>
-                                <select  id="ubmsuite_creatorSettings_submitreviewpoint_assignedto" value="Select" data-native-menu="false">
-                                    <option>Assigned To...</option>
-                                    <option value="Jesse Spencer">Jesse Spencer</option>
-                                    <option value="Adam Gustafson">Adam Gustafson</option>
-                                </select>
-                            </li>
-                            <li>
-                                <label for="datetime-4">Due Datetime</label>
-                                <input type="datetime-local" data-clear-btn="true"  id="ubmsuite_creatorSettings_submitreviewpoint_duedatetime" value="" placeholder="Due Datetime...">
-                            </li>
-                            <li>
-                                <input type="button" data-enhanced="true" value="Submit Review Point" onclick="submitReviewPoint('ubmsuite_creatorSettings_');">
-                            </li>
-                        </ul>
-                    </form>
-                </div>
-                <!-- End Open Items Popup -->
-                <!-- Share Model Popup -->
-                <a data-rel="popup" data-transition="slideup" href="#ubmsuite_creatorSettings_shareModel_popup" class="ui-btn ui-shadow">Share Business Model...</a>
-                <div data-role="popup" id="ubmsuite_creatorSettings_shareModel_popup" data-theme="b" data-dismissible="false">
-                   <form>
+                <!-- My Core Values -->
+                <a href="#ubmsuite_modelSettings_myCoreValues_popup" data-rel="popup" data-transition="slideup" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a">My Core Values</a>
+                <div data-role="popup" id="ubmsuite_modelSettings_myCoreValues_popup" data-theme="b">
                     <ul data-role="listview" data-inset="true" style="min-width:210px;">
-                        <li style="text-align: center;" data-role="list-divider">
-                            Share Your Model
+                        <li data-role="list-divider">
+                            All UBM Core Values
                         </li>
+                    </ul>
+                    <ul data-role="listview" data-inset="true" data-filter="true" data-filter-placeholder="Search My Core Values">
                         <li>
-                            <input data-clear-btn="true" type="email" name="email" placeholder="Email Address">
-                        </li>
-                        <li>
-                            <select  id="ubmsuite_creatorSettings_shareModel_setRole" value="Select" data-native-menu="false">
-                                <option>Set Role...</option>
-                                <option value="Level1">Level 1</option>
-                                <option value="Level2">Level 2</option>
-                                <option value="Level3">Level 3</option>
-                            </select>
-                        </li>
-                            </li>
+                            <!-- Create Core Value -->
+                            <a href="#ubmsuite_modelSettings_createCoreValue_popup" data-rel="popup" data-transition="slideup" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a">Create A New Core Value</a>
+                            <div data-role="popup" id="ubmsuite_modelSettings_createCoreValue_popup" data-theme="b">
+                                <ul data-role="listview" data-inset="true" style="min-width:210px;">
+                                    <li style="text-align: center;" data-role="list-divider">
+                                        Create Core Value
+                                    </li>
+                                    <li>
+                                        <input data-clear-btn="true" type="email" id="ubmsuite_modelSettings_createCoreValue_title" placeholder="Title">
+                                    </li>
+                                    <li>
+                                        <input data-clear-btn="true" type="email" id="ubmsuite_modelSettings_createCoreValue_summary" placeholder="Summary">
+                                    </li>
+                                </ul>
+                                <a style="margin-left:10px;" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b" data-transition="flow">Submit</a>
+                                <a type="reset" href="#" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b" data-rel="back" data-transition="flow">Cancel</a>
+                            </div>
 
-                            </ul>
-                            
-                            <a style="margin-left:10px;" href="#" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b" data-transition="flow">Share Model </a>
-                            <a type="reset" href="#" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b" data-rel="back" data-transition="flow">Cancel</a>
-                            </form>
+                            <!-- End Create Core Value -->
+                        </li>
+                        <li>
+                            <!-- Select from pre defined core values popup/list  -->
+                            <a href="#ubmsuite_modelSettings_coreValues_popup" data-rel="popup" data-transition="slideup" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a">Select From Pre-Defined Core Values</a>
+                            <div data-role="popup" id="ubmsuite_modelSettings_coreValues_popup" data-theme="b">
+                                <ul data-role="listview" data-inset="true" style="min-width:210px;">
+                                    <li data-role="list-divider">
+                                        All UBM Core Values
+                                    </li>
+                                </ul>
+                                <ul data-role="listview" data-inset="true" data-filter="true" data-filter-placeholder="Search Core Values">
+
+                                    <li>
+                                        <a href="#"><img src="img/gre3nCheck.png" alt="United States" class="ui-li-icon ui-corner-none">United States</a>
+                                    </li>
+                                    <li>
+                                        <a href="#"><img src="img/gre3nCheck.png" alt="United States" class="ui-li-icon ui-corner-none">The Moon</a>
+                                    </li>
+                                    <li>
+                                        <a href="#"><img src="img/gre3nCheck.png" alt="United States" class="ui-li-icon ui-corner-none">The Earth</a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <!-- End Select from pre defined core values popup/list-->
+
+                        </li>
+                        <li>
+                            <a href="#"><img src="img/gre3nCheck.png" alt="United States" class="ui-li-icon ui-corner-none">United States</a>
+                        </li>
+                        <li>
+                            <a href="#"><img src="img/gre3nCheck.png" alt="United States" class="ui-li-icon ui-corner-none">The Moon</a>
+                        </li>
+                        <li>
+                            <a href="#"><img src="img/gre3nCheck.png" alt="United States" class="ui-li-icon ui-corner-none">The Earth</a>
+                        </li>
+                    </ul>
                 </div>
-                <!-- End Share Model Popup -->
 
-            </div>
-            <div data-role="footer" data-position="fixed" data-fullscreen="true"></div>
-        </div>
-        <script type="text/javascript" src="cordova.js"></script>
-        <script type="text/javascript" src="js/index.js"></script>
-        <script type="text/javascript">
-			app.initialize();
-        </script>
-    </body>
-</html>
+                <!-- End My Core Values -->
