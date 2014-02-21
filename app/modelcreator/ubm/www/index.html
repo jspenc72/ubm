@@ -414,35 +414,51 @@ under the License.
 				window.activeCoreValueId = activeCoreValueId;
 			}
 			//Model Core Values
-			function getMyModelsCoreValues() {//Populates Core Value Listview on Model Settings Page
+			function getMyModelsCoreValues() {
 				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_model_getCurrentModel_CoreValues.php?callback=?', {//JSONP Request to Open Items Page setup tables
 					activeModelId : window.activeModelId
 				}, function(res, status) {
-					//	alert("request for open items was a success!");
+//						alert(status);
+						$('#ubmsuite_modelSettings_myCoreValues_ul').empty();
+						$('#ubmsuite_modelSettings_myCoreValues_ul').append("<a data-rel='popup' data-transition='slideup' href='#ubmsuite_modelSettings_coreValues_popup' class='ui-btn ui-shadow'>UBM core values. </a>");		
 					$.each(res, function(i, item) {
-						$('#ubmsuite_modelSettings_coreValues_popup_listview').append(" <li><a href='#'><img src='img/gre3nCheck.png'><h2>" + item.value_title +"</h2><p>" + item.value_summary + "</p></a><a href='#ubmsuite_modelSettings_confirm_remove_CoreValue_popup' data-rel='popup' data-position-to='window' data-transition='pop' onclick='setActiveCoreValueId("+ item.id + ")'>Remove Core Value</a></li>");
+						$('#ubmsuite_modelSettings_myCoreValues_ul').append("<li><a href='#'><img src='img/gre3nCheck.png'><h2>" + item.value_title +"</h2><p>" + item.value_summary + "</p></a><a href='#ubmsuite_modelSettings_confirm_remove_CoreValue_popup' data-rel='popup' data-position-to='window' data-transition='pop' onclick='setActiveCoreValueId("+ item.id + ")'>Remove Core Value</a></li>");
+						$('#ubmsuite_modelSettings_myCoreValues_ul').listview("refresh");
 					})
-				});
+						$('#ubmsuite_modelSettings_myCoreValues_ul').append("<a data-rel='popup' data-transition='slideup' href='#ubmsuite_modelSettings_createCoreValue_popup' class='ui-btn ui-shadow'>Create new!</a>");
+						$('#ubmsuite_modelSettings_myCoreValues_ul').listview("refresh");
+
+				});	
 			}
 
 			function getListofPossibleCoreValues() {//Populates Core Value Listview on Possible CoreValue Popup
 				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_model_getAll_CoreValues.php?callback=?', {//JSONP Request to Open Items Page setup tables
-				}, function(res, status) {
-					//	alert("request for open items was a success!");
-					$.each(res, function(i, item) {
 
+				}, function(res, status) {
+//						alert(status);
+						$('#ubmsuite_modelSettings_coreValues_popup_listview').empty();
+					$.each(res, function(i, item) {
+						$('#ubmsuite_modelSettings_coreValues_popup_listview').append("<li><a href='#'><p>" + item.value_title + "</p></a><a href='#' onclick='addCoreValueToMyModel(" + item.id + ")'>Add Core Value</a></li>");
+						$('#ubmsuite_modelSettings_coreValues_popup_listview').listview("refresh");
 					})
-				});
+				});	
 			}
 
 			function addCoreValueToMyModel(coreValueId) {//Called when the user selects an item from the Core Value Listview in the Possible CoreValues Popup
-				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_model_getAll_CoreValues.php?callback=?', {//JSONP Request to Open Items Page setup tables
+				//(coreValueId+" will be added to this model");
+				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_model_add_CoreValue.php?callback=?', {//JSONP Request to Open Items Page setup tables
+					activeModelId : window.activeModelId,
+					activeCoreValueId: coreValueId
 				}, function(res, status) {
-					//	alert("request for open items was a success!");
+						alert(status);
+						$('#ubmsuite_modelSettings_coreValues_popup_listview').empty();
 					$.each(res, function(i, item) {
-
+						$('#ubmsuite_modelSettings_coreValues_popup_listview').append("<li><a href='#'><p>" + item.value_title + "</p></a><a href='#' onclick='addCoreValueToMyModel(" + item.id + ")'>Add Core Value</a></li>");
+						$('#ubmsuite_modelSettings_coreValues_popup_listview').listview("refresh");
 					})
 				});
+				getMyModelsCoreValues();	
+				getListofPossibleCoreValues();
 			}
 			function createNewCoreValueAddtoMyModel(){	//Called when the user submits the create new CoreValue Form
 				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_model_create_CoreValue.php?callback=?', {//JSONP Request to Open Items Page setup tables
@@ -452,17 +468,19 @@ under the License.
 					activeModelId : window.activeModelId
 				}, function(res, status) {
 						alert(res.message);
-				});					
+				});	
+				getMyModelsCoreValues();
 			}
-
 			function removeCorevalueFromMyModel(coreValueId) {//Called when the user selects the side button for each item in the My Models Has Core Values Listview
-				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_model_getAll_CoreValues.php?callback=?', {//JSONP Request to Open Items Page setup tables
+				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_model_remove_CoreValue.php/callback=?', {//JSONP Request to Open Items Page setup tables
+					activeCoreValueId: window.activeCoreValueId,
+					activeModelId : window.activeModelId
 				}, function(res, status) {
-					//	alert("request for open items was a success!");
-					$.each(res, function(i, item) {
+						alert(res.message);
+				});					
+				
+				getMyModelsCoreValues();
 
-					})
-				});
 			}
         </script>
         <script>
@@ -471,6 +489,8 @@ under the License.
             }
             
 			function getMyModelsCustomers() {//Populates Customer  Listview on Model Settings Page
+								//alert("Customers was called");
+
 				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_model_getCurrentModel_Customers.php?callback=?', {//JSONP Request to Open Items Page setup tables
 					activeModelId : window.activeModelId
 				}, function(res, status) {
@@ -1261,7 +1281,11 @@ under the License.
 
 													}, function(res, status) {
 														if (status == "success") {
-															alert(res.message);
+															//alert(res.message);
+															setActiveTaskId(MCSTaskId);
+															setTimeout(function() {
+																submitMCSTaskPreparedByRecord();
+															}, 1000);
 														}
 													});
 												}
@@ -1273,10 +1297,6 @@ under the License.
 						}
 					});
 
-					setActiveTaskId(MCSTaskId);
-					setTimeout(function() {
-						submitMCSTaskPreparedByRecord();
-					}, 1000);
 				} else {
 					if (MCSTaskId == 5) {
 
@@ -1642,6 +1662,13 @@ under the License.
 			}
         </script>
         <style>
+        /* Styling for Model Listview Popups*/
+			#ubmsuite_modelSettings_coreValues_popup
+			{
+			width:230px;
+			height:400px;
+			overflow-y:scroll;
+			}
 			/* styling for overlay test, which is the red review point tool */
 			#overlayTest {
 				width: 40px;
@@ -2828,7 +2855,6 @@ under the License.
                     </div>
                     <div role="main" class="ui-content">
                         <h3 class="ui-title">What Would You Like To Do?</h3>
-
                         <a onclick="confirmationPopup()" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b" id="ubmsuite_modelSettings_modifyUser_popup_remove_button"data-transition="flow">Remove User</a>
                         <a href="#" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b" id="ubmsuite_modelSettings_modifyUser_popup_permission_button"data-transition="flow">Change User Permission Level</a>
                         <a href="#" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b" data-rel="back">Cancel</a>
@@ -2852,31 +2878,18 @@ under the License.
                 </div>
                 <!-- End Remove User Popup -->
                 <!-- Select from pre defined core values popup/list  -->
-               <div data-role="popup" id="ubmsuite_modelSettings_coreValues_popup" data-theme="b">
-					<ul data-role="listview" data-inset="true" style="min-width:210px;">
-						<li data-role="list-divider">
-							All UBM Core Values
-						</li>
-					</ul>
-                    <ul data-role="listview" data-inset="true" data-filter="true" data-filter-placeholder="Search Core Values">
-                            
-                        <li><a href="#"><img src="img/gre3nCheck.png" alt="United States" class="ui-li-icon ui-corner-none">United States</a></li>
-                        <li><a href="#"><img src="img/gre3nCheck.png" alt="United States" class="ui-li-icon ui-corner-none">The Moon</a></li>
-                        <li><a href="#"><img src="img/gre3nCheck.png" alt="United States" class="ui-li-icon ui-corner-none">The Earth</a></li>
-                    </ul>
-               </div>
 				<div data-role="popup" id="ubmsuite_modelSettings_confirm_remove_CoreValue_popup" data-theme="a" data-overlay-theme="b" class="ui-content" style="max-width:340px; padding-bottom:2em;">
 				    <h3>Remove Core Value?</h3>
 				    <a href="index.html" data-rel="back" class="ui-shadow ui-btn ui-corner-all ui-btn-b ui-icon-check ui-btn-icon-left ui-btn-inline ui-mini" onclick="removeCorevalueFromMyModel()">Confirm Remove Core Value</a>
 				    <a href="index.html" data-rel="back" class="ui-shadow ui-btn ui-corner-all ui-btn-inline ui-mini">Cancel</a>
 				</div>
+                <!-- End Confirm Remove CoreValue Popup-->
 				<div data-role="popup" id="ubmsuite_modelSettings_confirm_remove_Customer_popup" data-theme="a" data-overlay-theme="b" class="ui-content" style="max-width:340px; padding-bottom:2em;">
 				    <h3>Remove Customer?</h3>
 				    <a href="index.html" data-rel="back" class="ui-shadow ui-btn ui-corner-all ui-btn-b ui-icon-check ui-btn-icon-left ui-btn-inline ui-mini" onclick="removeCustomerFromMyModel()">Confirm Remove Customer</a>
 				    <a href="index.html" data-rel="back" class="ui-shadow ui-btn ui-corner-all ui-btn-inline ui-mini">Cancel</a>
 				</div>
-                <!-- End Select from pre defined core values popup/list-->
-                
+                <!-- End Confirm Remove Customer Popup-->
                 <!-- Create Core Value -->
          		<div data-role="popup" id="ubmsuite_modelSettings_createCoreValue_popup" data-theme="b">
 					<ul data-role="listview" data-inset="true" style="min-width:210px;">
@@ -2894,30 +2907,40 @@ under the License.
 					<a type="reset" href="#" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b" data-rel="back" data-transition="flow">Cancel</a>
 				</div>
                 <!-- End Create Core Value -->
+                <!-- Create Customer Value -->
+         		<div data-role="popup" id="ubmsuite_modelSettings_createCustomer_popup" data-theme="b">
+					<ul data-role="listview" data-inset="true" style="min-width:210px;">
+						<li style="text-align: center;" data-role="list-divider">
+							Create Customer
+						</li>
+						<li>
+							<input data-clear-btn="true" type="email" id="ubmsuite_modelSettings_createCustomer_popup_createCustomer_name" placeholder="Title">
+						</li>
+					</ul>
+					<a style="margin-left:10px;" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b" data-transition="flow" onclick="createNewCoreValueAddtoMyModel()">Submit</a>
+					<a type="reset" href="#" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b" data-rel="back" data-transition="flow">Cancel</a>
+				</div>
+                <!-- End Create Customer Value -->
 				<div data-role="popup" id="ubmsuite_modelSettings_coreValues_popup" data-theme="b">
 					<ul data-role="listview" data-inset="true" style="min-width:210px;">
 						<li data-role="list-divider">
 							All UBM Core Values
 						</li>
 					</ul>
-					<ul data-role="listview" id="ubmsuite_modelSettings_coreValues_popup_listview"data-inset="true" data-filter="true" data-filter-placeholder="Search Core Values">
-  						<li><a href='#'><img src='img/gre3nCheck.png'><h2>Broken Bells</h2><p>Broken Bells</p></a><a href='#purchase' data-rel='popup' data-position-to='window' data-transition='pop'>Purchase album</a></li>						
+					<ul data-role="listview" id="ubmsuite_modelSettings_coreValues_popup_listview"data-inset="true" data-filter="true" data-filter-placeholder="Search Core Values" style="max-height:400px padding-bottom:2em;">
 					</ul>
 				</div>
 	            <!-- End Select from pre defined core values popup/list-->
 				<div data-role="popup" id="ubmsuite_modelSettings_customers_popup" data-theme="b">
 					<ul data-role="listview" data-inset="true" style="min-width:210px;">
 						<li data-role="list-divider">
-							All UBM Core Values
+							All UBM Customers
 						</li>
 					</ul>
 					<ul data-role="listview" id="ubmsuite_modelSettings_customers_popup_listview"data-inset="true" data-filter="true" data-filter-placeholder="Search Core Values">
-						<li><a href="#"><img src="img/gre3nCheck.png" alt="United States" class="ui-li-icon ui-corner-none">United States</a></li>
 					</ul>
 				</div>
 	            <!-- End Select from pre defined Customer popup/list-->
-	
-
 				<fieldset class="ui-grid-b" >
 					<div style="padding-left:1em;" class="ui-block-a">
 						<a data-rel="popup" data-transition="slideup" href="#ubmsuite_modelSettings_shareModel_popup" class="ui-btn ui-shadow">Click to give another user access to this model.</a>
@@ -2929,118 +2952,94 @@ under the License.
 
 					</div>
 					<div class="ui-block-c" style="padding-right:1em; padding-bottom:5em;">
+						<p>Refer to 01.01.02.04 in the Reference Manual</p>
+						<ul data-role="listview" id="ubmsuite_modelSettings_myCoreValues_ul" data-filter="true" data-filter-placeholder="My Core values..." data-theme="b" data-autodividers="true" data-inset="true" data-scroll="true">
 
-						<ul data-role="listview" id="ubmsuite_modelSettings_myCoreValues_ul" data-filter="true" data-filter-placeholder="Search my core values" data-theme="b" data-inset="true" data-scroll="true">
-							<li>
-								<a data-rel="popup" data-transition="slideup" href="#ubmsuite_modelSettings_coreValues_popup" class="ui-btn ui-shadow">Click here to add pre-defined core value. </a>
-							</li>
-							<li>
-								<a data-rel="popup" data-transition="slideup" href="#ubmsuite_modelSettings_createCoreValue_popup" class="ui-btn ui-shadow">Click here to create your own core value.</a>
-							</li>
 						</ul>
 					</div>
 
 
                 </fieldset>
 
-                                <fieldset class="ui-grid-b" >
-									<div style="padding-left:1em;" class="ui-block-a">
-										<label for="text-6">Model Owner Legal Entity:</label>
-										<input type="text" name="text-6" id="text-6" value="" placeholder="Legal Entity">
-										<label for="text-6">CCODE:</label>
-										<input type="text" name="text-6" id="text-6" value="" placeholder="CCODE">
-										<label for="text-6">Contact Name:</label>
-										<input type="text" name="text-6" id="text-6" value="" placeholder="Contact Name">
-										<label for="text-6">Client Phone:</label>
-										<input type="text" name="text-6" id="text-6" value="" placeholder="Client Phone">
-										<label for="text-6">Model Title:</label>
-										<input type="text" name="text-6" id="text-6" value="" placeholder="Model Title">
-	
-										<fieldset data-role="controlgroup">
-											<legend>
-												Category:
-											</legend>
-											<input type="checkbox" name="ubmsuite_modelSettings_category_business" id="ubmsuite_modelSettings_category_business" checked="">
-											<label for="ubmsuite_modelSettings_category_business">Business</label>
-											<input type="checkbox" name="ubmsuite_modelSettings_category_education" id="ubmsuite_modelSettings_category_education">
-											<label for="ubmsuite_modelSettings_category_education">Education</label>
-											<input type="checkbox" name="ubmsuite_modelSettings_category_family" id="ubmsuite_modelSettings_category_family">
-											<label for="ubmsuite_modelSettings_category_family">Family</label>
-											<input type="checkbox" name="ubmsuite_modelSettings_category_health" id="ubmsuite_modelSettings_category_health">
-											<label for="ubmsuite_modelSettings_category_health">Health</label>
-											<input type="checkbox" name="ubmsuite_modelSettings_category_medical" id="ubmsuite_modelSettings_category_medical" checked="">
-											<label for="ubmsuite_modelSettings_category_medical">Medical</label>
-											<input type="checkbox" name="ubmsuite_modelSettings_category_productivity" id="ubmsuite_modelSettings_category_productivity">
-											<label for="ubmsuite_modelSettings_category_productivity">Productivity</label>
-											<input type="checkbox" name="ubmsuite_modelSettings_category_utilities" id="ubmsuite_modelSettings_category_utilities">
-											<label for="ubmsuite_modelSettings_category_utilities">Utilities</label>
-											<input type="checkbox" name="ubmsuite_modelSettings_category_church" id="ubmsuite_modelSettings_category_church">
-											<label for="ubmsuite_modelSettings_category_church">Church</label>
-											<input type="checkbox" name="ubmsuite_modelSettings_category_coop" id="ubmsuite_modelSettings_category_coop">
-											<label for="ubmsuite_modelSettings_category_coop">Coop</label>
-											<input type="checkbox" name="ubmsuite_modelSettings_category_other" id="ubmsuite_modelSettings_category_other">
-											<label for="ubmsuite_modelSettings_category_other">Other</label>
-										</fieldset>
-	
-										<label for="text-6">Model(s) Compatible with:</label>
-										<input type="text" name="text-6" id="text-6" value="" placeholder="UBM, UFM, UCM, UEM, Other">
-										<label for="text-6">Model(s) Sub Type:</label>
-										<input type="text" name="text-6" id="text-6" value="" placeholder="Retail, Professional Services, Propery Owner, Other">
-										<label for="text-6">Hardware Requirements:</label>
-										<input type="text" name="text-6" id="text-6" value="" placeholder="PC, Mac, Smartphone, Tablet, None, Other">
-										<label for="text-6">Operating Systems Supported:</label>
-										<input type="text" name="text-6" id="text-6" value="" placeholder="Windows, IOS, Android, OSX, None, Other">
-										<label for="text-6">UBM Services Required:</label>
-										<input type="text" name="text-6" id="text-6" value="" placeholder="App Store, None, Other">
-										<label for="text-6">Description:</label>
-										<input type="text" name="text-6" id="text-6" value="" placeholder="Description">
-										<label for="text-6">Purpose/Goal:</label>
-										<input type="text" name="text-6" id="text-6" value="" placeholder="Purpose/Goal">
-										<label for="text-6">Scope:</label>
-										<input type="text" name="text-6" id="text-6" value="" placeholder="Scope">
-										<label for="text-6">What Features Must This Model Create, Do, Process, etc.:</label>
-										<input type="text" name="text-6" id="text-6" value="" placeholder="What Features Must This Model Create, Do, Process, etc.">
-										<label for="text-6">What Products Must This Model Create or Generate:</label>
-										<input type="text" name="text-6" id="text-6" value="" placeholder="What Products Must This Model Create or Generate">
-											<a href="#" data-role="button" data-inline="true">Submit</a>
-											<a href="#primary_objects_setup_table" data-role="button" data-inline="true">Continue</a>
-									</div>
-	                                <div class="ui-block-b">
-	                                	
-	                                </div>
-                              		<div style="padding-right:1em;" class="ui-block-c">
-										<label for="text-6">Conceptual Definitions</label>
-										<input type="text" name="text-6" id="text-6" value="" placeholder="Conceptual Definitions (Refer to 01.01.02.01 in the Reference Manual)">
-										<label for="text-6">Entity/Model Description</label>
-										<input type="text" name="text-6" id="text-6" value="" placeholder="Entity/Model Description (Refer to 01.01.02.13  in the Reference Manual)">
-										<label for="text-6">Mission Statement</label>
-										<input type="text" name="text-6" id="text-6" value="" placeholder="Mission Statement (Refer to 01.01.02.02  in the Reference Manual)">
-										<label for="text-6">Vision Statement</label>
-										<input type="text" name="text-6" id="text-6" value="" placeholder="Vision Statement (Refer to 01.01.02.03  in the Reference Manual)">
-										<label for="text-6">Core Values</label>
-										<input type="text" name="text-6" id="text-6" value="" placeholder="Core Values (Refer to 01.01.02.04  in the Reference Manual)">
-										<label for="text-6">My Customer</label>
-										<input type="text" name="text-6" id="text-6" value="" placeholder="My Customer (Refer to 01.01.02.05  in the Reference Manual)">
-										<label for="text-6">Products and Service</label>
-										<input type="text" name="text-6" id="text-6" value="" placeholder="Product & Service (Refer to 01.01.02.06  in the Reference Manual)">
-										<label for="text-6">Organizational Structure</label>
-										<input type="text" name="text-6" id="text-6" value="" placeholder="Organizational Structure (Refer to 01.01.01.04 in the Reference Manual)">
-										<label for="text-6">Physical Facilities</label>
-										<input type="text" name="text-6" id="text-6" value="" placeholder="Physical Facilities (Refer to 01.01.02.10  in the Reference Manual)">
-										<label for="text-6">Physical Facilites By Position</label>
-										<input type="text" name="text-6" id="text-6" value="" placeholder="Physical Facilities By Position (Refer to 01.01.02.10  in the Reference Manual)">
-										<label for="text-6">Strategic Positioning Questions</label>
-										<input type="text" name="text-6" id="text-6" value="" placeholder="Strategic Positioning Questions (Refer to 01.01.02.07  in the Reference Manual)">
-										<label for="text-6">Strategic Alliances</label>
-										<input type="text" name="text-6" id="text-6" value="" placeholder="Strategic Alliances (Refer to 01.01.02.14 in the Reference Manual)">
-										<!--submit button-->
-										<div id="submit_button">
-											<a href="#" data-role="button" data-inline="true">Submit</a>
-										</div>
-										<!--continue button-->
-											<a href="#possible_alternitives" data-role="button" data-inline="true">Continue</a>
-									</div>
-								</div>
+                <fieldset class="ui-grid-b" >
+					<div style="padding-left:1em;" class="ui-block-a">
+						<p>Refer to 01.01.02.05 in the Reference Manual</p>
+						<ul data-role="listview" id="ubmsuite_modelSettings_myCustomers_ul" data-filter="true" data-filter-placeholder="My Customers..." data-theme="b" data-autodividers="true" data-inset="true" data-scroll="true">
+
+						</ul>
+						<p>Refer to 01.01.02.06  in the Reference Manual</p>
+						<ul data-role="listview" id="ubmsuite_modelSettings_myProducts_ul" data-filter="true" data-filter-placeholder="My Products..." data-theme="b" data-autodividers="true" data-inset="true" data-scroll="true">
+
+						</ul>
+						<p>Refer to 01.01.02.06  in the Reference Manual</p>
+						<ul data-role="listview" id="ubmsuite_modelSettings_myServices_ul" data-filter="true" data-filter-placeholder="My Services..." data-theme="b" data-autodividers="true" data-inset="true" data-scroll="true">
+
+						</ul>
+						<p>Refer to 01.01.01.04 in the Reference Manual</p>
+						<ul data-role="listview" id="ubmsuite_modelSettings_myOrganizationalStructure_ul" data-filter="true" data-filter-placeholder="My Organizational Structure..." data-theme="b" data-autodividers="true" data-inset="true" data-scroll="true">
+
+						</ul>
+						<p>Refer to 01.01.02.10  in the Reference Manual</p>	
+						<ul data-role="listview" id="ubmsuite_modelSettings_myPhysicalFacilities_ul" data-filter="true" data-filter-placeholder="My Physical Facilities..." data-theme="b" data-autodividers="true" data-inset="true" data-scroll="true">
+
+						</ul>											
+						<label for="text-6">Model Owner Legal Entity:</label>
+						<input type="text" name="text-6" id="text-6" value="" placeholder="Legal Entity">
+						<label for="text-6">CCODE:</label>
+						<input type="text" name="text-6" id="text-6" value="" placeholder="CCODE">
+						<label for="text-6">Contact Name:</label>
+						<input type="text" name="text-6" id="text-6" value="" placeholder="Contact Name">
+						<label for="text-6">Client Phone:</label>
+						<input type="text" name="text-6" id="text-6" value="" placeholder="Client Phone">
+						<label for="text-6">Model Title:</label>
+						<input type="text" name="text-6" id="text-6" value="" placeholder="Model Title">
+						<label for="text-6">Model(s) Compatible with:</label>
+						<input type="text" name="text-6" id="text-6" value="" placeholder="UBM, UFM, UCM, UEM, Other">
+						<label for="text-6">Model(s) Sub Type:</label>
+						<input type="text" name="text-6" id="text-6" value="" placeholder="Retail, Professional Services, Propery Owner, Other">
+						<label for="text-6">Hardware Requirements:</label>
+						<input type="text" name="text-6" id="text-6" value="" placeholder="PC, Mac, Smartphone, Tablet, None, Other">
+						<label for="text-6">Operating Systems Supported:</label>
+						<input type="text" name="text-6" id="text-6" value="" placeholder="Windows, IOS, Android, OSX, None, Other">
+						<label for="text-6">UBM Services Required:</label>
+						<input type="text" name="text-6" id="text-6" value="" placeholder="App Store, None, Other">
+						<label for="text-6">Description:</label>
+						<input type="text" name="text-6" id="text-6" value="" placeholder="Description">
+						<label for="text-6">Purpose/Goal:</label>
+						<input type="text" name="text-6" id="text-6" value="" placeholder="Purpose/Goal">
+						<label for="text-6">Scope:</label>
+						<input type="text" name="text-6" id="text-6" value="" placeholder="Scope">
+						<label for="text-6">What Features Must This Model Create, Do, Process, etc.:</label>
+						<input type="text" name="text-6" id="text-6" value="" placeholder="What Features Must This Model Create, Do, Process, etc.">
+						<label for="text-6">What Products Must This Model Create or Generate:</label>
+						<input type="text" name="text-6" id="text-6" value="" placeholder="What Products Must This Model Create or Generate">
+							<a href="#" data-role="button" data-inline="true">Submit</a>
+							<a href="#primary_objects_setup_table" data-role="button" data-inline="true">Continue</a>
+					</div>
+                    <div class="ui-block-b">
+                    	
+                    </div>
+              		<div style="padding-right:1em;" class="ui-block-c">
+						<label for="text-6">Conceptual Definitions</label>
+						<input type="text" name="text-6" id="text-6" value="" placeholder="Conceptual Definitions (Refer to 01.01.02.01 in the Reference Manual)">
+						<label for="text-6">Entity/Model Description</label>
+						<input type="text" name="text-6" id="text-6" value="" placeholder="Entity/Model Description (Refer to 01.01.02.13  in the Reference Manual)">
+						<label for="text-6">Mission Statement</label>
+						<input type="text" name="text-6" id="text-6" value="" placeholder="Mission Statement (Refer to 01.01.02.02  in the Reference Manual)">
+						<label for="text-6">Vision Statement</label>
+						<input type="text" name="text-6" id="text-6" value="" placeholder="Vision Statement (Refer to 01.01.02.03  in the Reference Manual)">
+						<label for="text-6">Strategic Positioning Questions</label>
+						<input type="text" name="text-6" id="text-6" value="" placeholder="Strategic Positioning Questions (Refer to 01.01.02.07  in the Reference Manual)">
+						<label for="text-6">Strategic Alliances</label>
+						<input type="text" name="text-6" id="text-6" value="" placeholder="Strategic Alliances (Refer to 01.01.02.14 in the Reference Manual)">
+						<!--submit button-->
+						<div id="submit_button">
+							<a href="#" data-role="button" data-inline="true">Submit</a>
+						</div>
+						<!--continue button-->
+							<a href="#possible_alternitives" data-role="button" data-inline="true">Continue</a>
+					</div>
+				</div>
 			</div>
 			
 		</div>
@@ -12968,18 +12967,30 @@ under the License.
 				}
 			}
 			$(document).on("pageshow", "#ubmsuite_EditMyBusinessModel", function() {
+			    var maxHeight = $(window).height() - 30;
+			    $('#ubmsuite_modelSettings_coreValues_popup').css('max-height', maxHeight + 'px');
+				$('#ubmsuite_modelSettings_coreValues_popup').css('overflow-y', 'scroll');    
+
 				setTimeout(function() {
 					getModelCreationSuiteChecklistItems();
-					getMyModelsCoreValues();
 
 				}, 100);
+				setTimeout(function() {					
+					getMyModelsCoreValues();
+					getMyModelsCustomers();
+					getListofPossibleCoreValues();
+				}, 2000);
 			});
 			$(document).on("pageshow", "#ubmsuite_EditSharedBusinessModel", function() {
 				setTimeout(function() {
 					getModelCreationSuiteChecklistItems();
-					getMyModelsCoreValues();
 
 				}, 100);
+				setTimeout(function() {					
+					getMyModelsCoreValues();
+					getMyModelsCustomers();
+					getListofPossibleCoreValues();
+				}, 2000);
 			});
 			$(document).on("pageshow", "#ubmsuite_SelectBusinessModel", function() {
 				setTimeout(function() {
