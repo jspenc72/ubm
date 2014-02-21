@@ -410,6 +410,9 @@ under the License.
         </script>
 
         <script>
+			function setActiveCoreValueId(activeCoreValueId){
+				window.activeCoreValueId = activeCoreValueId;
+			}
 			//Model Core Values
 			function getMyModelsCoreValues() {//Populates Core Value Listview on Model Settings Page
 				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_model_getCurrentModel_CoreValues.php?callback=?', {//JSONP Request to Open Items Page setup tables
@@ -417,7 +420,7 @@ under the License.
 				}, function(res, status) {
 					//	alert("request for open items was a success!");
 					$.each(res, function(i, item) {
-
+						$('#ubmsuite_modelSettings_coreValues_popup_listview').append(" <li><a href='#'><img src='img/gre3nCheck.png'><h2>" + item.value_title +"</h2><p>" + item.value_summary + "</p></a><a href='#ubmsuite_modelSettings_confirm_remove_CoreValue_popup' data-rel='popup' data-position-to='window' data-transition='pop' onclick='setActiveCoreValueId("+ item.id + ")'>Remove Core Value</a></li>");
 					})
 				});
 			}
@@ -2857,6 +2860,16 @@ under the License.
                         <li><a href="#"><img src="img/gre3nCheck.png" alt="United States" class="ui-li-icon ui-corner-none">The Earth</a></li>
                     </ul>
                </div>
+				<div data-role="popup" id="ubmsuite_modelSettings_confirm_remove_CoreValue_popup" data-theme="a" data-overlay-theme="b" class="ui-content" style="max-width:340px; padding-bottom:2em;">
+				    <h3>Remove Core Value?</h3>
+				    <a href="index.html" data-rel="back" class="ui-shadow ui-btn ui-corner-all ui-btn-b ui-icon-check ui-btn-icon-left ui-btn-inline ui-mini" onclick="removeCorevalueFromMyModel()">Confirm Remove Core Value</a>
+				    <a href="index.html" data-rel="back" class="ui-shadow ui-btn ui-corner-all ui-btn-inline ui-mini">Cancel</a>
+				</div>
+				<div data-role="popup" id="ubmsuite_modelSettings_confirm_remove_Customer_popup" data-theme="a" data-overlay-theme="b" class="ui-content" style="max-width:340px; padding-bottom:2em;">
+				    <h3>Remove Customer?</h3>
+				    <a href="index.html" data-rel="back" class="ui-shadow ui-btn ui-corner-all ui-btn-b ui-icon-check ui-btn-icon-left ui-btn-inline ui-mini" onclick="removeCustomerFromMyModel()">Confirm Remove Customer</a>
+				    <a href="index.html" data-rel="back" class="ui-shadow ui-btn ui-corner-all ui-btn-inline ui-mini">Cancel</a>
+				</div>
                 <!-- End Select from pre defined core values popup/list-->
                 
                 <!-- Create Core Value -->
@@ -2877,51 +2890,53 @@ under the License.
 				</div>
                 <!-- End Create Core Value -->
 				<div data-role="popup" id="ubmsuite_modelSettings_coreValues_popup" data-theme="b">
-								<ul data-role="listview" data-inset="true" style="min-width:210px;">
-									<li data-role="list-divider">
-										All UBM Core Values
-									</li>
-								</ul>
-								<ul data-role="listview" data-inset="true" data-filter="true" data-filter-placeholder="Search Core Values">
-	
-									<li>
-										<a href="#"><img src="img/gre3nCheck.png" alt="United States" class="ui-li-icon ui-corner-none">United States</a>
-									</li>
-									<li>
-										<a href="#"><img src="img/gre3nCheck.png" alt="United States" class="ui-li-icon ui-corner-none">The Moon</a>
-									</li>
-									<li>
-										<a href="#"><img src="img/gre3nCheck.png" alt="United States" class="ui-li-icon ui-corner-none">The Earth</a>
-									</li>
-								</ul>
+					<ul data-role="listview" data-inset="true" style="min-width:210px;">
+						<li data-role="list-divider">
+							All UBM Core Values
+						</li>
+					</ul>
+					<ul data-role="listview" id="ubmsuite_modelSettings_coreValues_popup_listview"data-inset="true" data-filter="true" data-filter-placeholder="Search Core Values">
+  						<li><a href='#'><img src='img/gre3nCheck.png'><h2>Broken Bells</h2><p>Broken Bells</p></a><a href='#purchase' data-rel='popup' data-position-to='window' data-transition='pop'>Purchase album</a></li>						
+					</ul>
 				</div>
 	            <!-- End Select from pre defined core values popup/list-->
+				<div data-role="popup" id="ubmsuite_modelSettings_customers_popup" data-theme="b">
+					<ul data-role="listview" data-inset="true" style="min-width:210px;">
+						<li data-role="list-divider">
+							All UBM Core Values
+						</li>
+					</ul>
+					<ul data-role="listview" id="ubmsuite_modelSettings_customers_popup_listview"data-inset="true" data-filter="true" data-filter-placeholder="Search Core Values">
+						<li><a href="#"><img src="img/gre3nCheck.png" alt="United States" class="ui-li-icon ui-corner-none">United States</a></li>
+					</ul>
+				</div>
+	            <!-- End Select from pre defined Customer popup/list-->
 	
-								<fieldset class="ui-grid-b" >
-									<div style="padding-left:1em;" class="ui-block-a">
-										<a data-rel="popup" data-transition="slideup" href="#ubmsuite_modelSettings_shareModel_popup" class="ui-btn ui-shadow">Click to give another user access to this model.</a>
-										<ul data-role="listview" id="ubmsuite_modelSettings_modelusers_ul" data-filter="true" data-filter-placeholder="Users with access to this model..." data-theme="b" data-autodividers="true" data-inset="true" data-scroll="true">
-	
-										</ul>
-									</div>
-									<div class="ui-block-b">
-	
-									</div>
-									<div class="ui-block-c" style="padding-right:1em; padding-bottom:5em;">
-	
-										<ul data-role="listview" id="ubmsuite_modelSettings_myCoreValues_ul" data-filter="true" data-filter-placeholder="Search my core values" data-theme="b" data-inset="true" data-scroll="true">
-											<li>
-												<a data-rel="popup" data-transition="slideup" href="#ubmsuite_modelSettings_coreValues_popup" class="ui-btn ui-shadow">Click here to add pre-defined core value. </a>
-											</li>
-											<li>
-												<a data-rel="popup" data-transition="slideup" href="#ubmsuite_modelSettings_createCoreValue_popup" class="ui-btn ui-shadow">Click here to create your own core value.</a>
-											</li>
-										</ul>
-									</div>
-	
+				<fieldset class="ui-grid-b" >
+					<div style="padding-left:1em;" class="ui-block-a">
+						<a data-rel="popup" data-transition="slideup" href="#ubmsuite_modelSettings_shareModel_popup" class="ui-btn ui-shadow">Click to give another user access to this model.</a>
+						<ul data-role="listview" id="ubmsuite_modelSettings_modelusers_ul" data-filter="true" data-filter-placeholder="Users with access to this model..." data-theme="b" data-autodividers="true" data-inset="true" data-scroll="true">
 
-                                </fieldset>
-                                <fieldset class="ui-grid-b" >
+						</ul>
+					</div>
+					<div class="ui-block-b">
+
+					</div>
+					<div class="ui-block-c" style="padding-right:1em; padding-bottom:5em;">
+
+						<ul data-role="listview" id="ubmsuite_modelSettings_myCoreValues_ul" data-filter="true" data-filter-placeholder="Search my core values" data-theme="b" data-inset="true" data-scroll="true">
+							<li>
+								<a data-rel="popup" data-transition="slideup" href="#ubmsuite_modelSettings_coreValues_popup" class="ui-btn ui-shadow">Click here to add pre-defined core value. </a>
+							</li>
+							<li>
+								<a data-rel="popup" data-transition="slideup" href="#ubmsuite_modelSettings_createCoreValue_popup" class="ui-btn ui-shadow">Click here to create your own core value.</a>
+							</li>
+						</ul>
+					</div>
+
+
+                </fieldset>
+                <fieldset class="ui-grid-b" >
 									<div style="padding-left:1em;" class="ui-block-a">
 										<label for="text-6">Model Owner Legal Entity:</label>
 										<input type="text" name="text-6" id="text-6" value="" placeholder="Legal Entity">
