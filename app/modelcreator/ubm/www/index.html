@@ -466,13 +466,18 @@ under the License.
 			}
         </script>
         <script>
+            function setActiveCustomerId(activeCustomerId) {
+                window.activeCustomerId = activeCusomerId;
+            }
+            
 			function getMyModelsCustomers() {//Populates Customer  Listview on Model Settings Page
 				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_model_getCurrentModel_Customers.php?callback=?', {//JSONP Request to Open Items Page setup tables
 					activeModelId : window.activeModelId
 				}, function(res, status) {
 					//	alert("request for open items was a success!");
 					$.each(res, function(i, item) {
-
+                         $('#ubmsuite_modelSettings_customers_popup_listview').append("<li><a href='#'><img src='img/gre3nCheck.png'><h2>" + item.name + "</h2></a><a href='#ubmsuite_modelSettings_confirm_remove_Customer_popup' data-rel='popup' data-position-to='window' data-transition='pop' onclick='setActiveCustomerId( "+ item.id +")'>Remove Customer</a></li></a></li>");
+                         
 					})
 				});
 			}
@@ -2912,6 +2917,7 @@ under the License.
 				</div>
 	            <!-- End Select from pre defined Customer popup/list-->
 	
+<<<<<<< Updated upstream
 				<fieldset class="ui-grid-b" >
 					<div style="padding-left:1em;" class="ui-block-a">
 						<a data-rel="popup" data-transition="slideup" href="#ubmsuite_modelSettings_shareModel_popup" class="ui-btn ui-shadow">Click to give another user access to this model.</a>
@@ -2937,6 +2943,32 @@ under the License.
 
                 </fieldset>
                 <fieldset class="ui-grid-b" >
+
+								<fieldset class="ui-grid-b" >
+									<div style="padding-left:1em;" class="ui-block-a">
+										<a data-rel="popup" data-transition="slideup" href="#ubmsuite_modelSettings_shareModel_popup" class="ui-btn ui-shadow">Click to give another user access to this model.</a>
+										<ul data-role="listview" id="ubmsuite_modelSettings_modelusers_ul" data-filter="true" data-filter-placeholder="Users with access to this model..." data-theme="b" data-autodividers="true" data-inset="true" data-scroll="true">
+	
+										</ul>
+									</div>
+									<div class="ui-block-b">
+	
+									</div>
+									<div class="ui-block-c" style="padding-right:1em; padding-bottom:2em;">
+	
+										<ul data-role="listview" id="ubmsuite_modelSettings_myCoreValues_ul" data-filter="true" data-filter-placeholder="Search my core values" data-theme="b" data-inset="true" data-scroll="true">
+											<li>
+												<a data-rel="popup" data-transition="slideup" href="#ubmsuite_modelSettings_coreValues_popup" class="ui-btn ui-shadow">Click here to add pre-defined core value. </a>
+											</li>
+											<li>
+												<a data-rel="popup" data-transition="slideup" href="#ubmsuite_modelSettings_createCoreValue_popup" class="ui-btn ui-shadow">Click here to create your own core value.</a>
+											</li>
+										</ul>
+									</div>
+	
+
+                                </fieldset>
+                                <fieldset class="ui-grid-b" >
 									<div style="padding-left:1em;" class="ui-block-a">
 										<label for="text-6">Model Owner Legal Entity:</label>
 										<input type="text" name="text-6" id="text-6" value="" placeholder="Legal Entity">
