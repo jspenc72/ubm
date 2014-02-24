@@ -3327,7 +3327,7 @@ under the License.
         <!-- Model Settings -->
         <div data-role="page" class="ubm_page" id="ubmsuite_modelSettings" data-theme="a">
             <!-- No Panel on this page, instead only back button is needed.-->
-            <div data-role="header">
+            <div data-role="header" data-position="fixed" data-fullscreen="true">
                 <a href="#" class="back_btn" data-icon="arrow-l" data-iconpos="notext">Back</a>
                 <div id="ubmsuite_modelSettings_header_headerRecord_center" style="text-align: center">
                     <div id="ubmsuite_modelSettings_header_headerRecord_center_legalentity">
@@ -3528,7 +3528,7 @@ under the License.
          			<form id="ubmsuite_modelSettings_createCustomer_popup_form">
 						<ul data-role="listview" data-inset="true" style="min-width:210px;">
 							<li style="text-align: center;" data-role="list-divider">
-								Create Customer
+								<h1>Create Customer</h1>
 							</li>
 							<li>
 								<input data-clear-btn="true" type="email" id="ubmsuite_modelSettings_createCustomer_popup_createCustomer_name" placeholder="Customer Name">
@@ -3775,56 +3775,64 @@ under the License.
 					<ul id="tiles">
 						<!-- These are our grid blocks -->
 						<li>
-							<a data-rel="popup" data-transition="slideup" href="#ubmsuite_modelSettings_shareModel_popup" class="ui-btn ui-shadow">Click to give another user access to this model.</a>
+							<a href="#" class="ui-btn ui-shadow ui-corner-all ui-icon-refresh ui-btn-icon-notext ui-btn-a ui-btn-inline" onclick="model_getuserswithaccess()">Refresh</a>
+							<p>Refer to 01.01.02.XX in the Reference Manual</p>
 							<ul data-role="listview" id="ubmsuite_modelSettings_modelusers_ul" data-filter="true" data-filter-placeholder="Users with access to this model..." data-inset="true" data-theme="b" data-scroll="true">
 		
 							</ul>					
+							<a data-rel="popup" data-mini="true" data-transition="slideup" href="#ubmsuite_modelSettings_shareModel_popup" class="ui-btn ui-shadow">Click to give another user </br>access to this model.</a>
 						</li>
 						<li>
+							<a href="#" class="ui-btn ui-shadow ui-corner-all ui-icon-refresh ui-btn-icon-notext ui-btn-a ui-btn-inline" onclick="getMyModelsCoreValues()">Refresh</a>
 							<p>Refer to 01.01.02.04 in the Reference Manual</p>
 							<ul data-role="listview" id="ubmsuite_modelSettings_myCoreValues_ul" data-filter="true" data-filter-placeholder="My Core values..." data-theme="b" data-inset="true" data-scroll="true">
 		
 							</ul>					
 						</li>
 						<li>
-							<p>
-								Refer to 01.01.02.05 in the Reference Manual
-							</p>
+							<a href="#" class="ui-btn ui-shadow ui-corner-all ui-icon-refresh ui-btn-icon-notext ui-btn-a ui-btn-inline" onclick="getMyModelsCustomers()">Refresh</a>
+							<p>Refer to 01.01.02.05 in the Reference Manual</p>
 							<ul data-role="listview" id="ubmsuite_modelSettings_myCustomers_ul" data-filter="true" data-filter-placeholder="My Customers..." data-theme="b" data-inset="true" data-scroll="true" style="width:100%">
 		
 							</ul>
 						</li>
 						<li>
+							<a href="#" class="ui-btn ui-shadow ui-corner-all ui-icon-refresh ui-btn-icon-notext ui-btn-a ui-btn-inline" onclick="getMyModelsServices()">Refresh</a>
 							<p>Refer to 01.01.02.06  in the Reference Manual</p>
 							<ul data-role="listview" id="ubmsuite_modelSettings_myServices_ul" data-filter="true" data-filter-placeholder="My Services..." data-theme="b"   data-inset="true" data-scroll="true">
 		
 							</ul>
 						</li>
 						<li>
+							<a href="#" class="ui-btn ui-shadow ui-corner-all ui-icon-refresh ui-btn-icon-notext ui-btn-a ui-btn-inline" onclick="getMyModelsOrganizationalStructures()">Refresh</a>
 							<p>Refer to 01.01.01.04 in the Reference Manual</p>
 							<ul data-role="listview" id="ubmsuite_modelSettings_myOrganizationalStructure_ul" data-filter="true" data-filter-placeholder="My Organizational Structure..." data-theme="b"   data-inset="true" data-scroll="true">
 		
 							</ul>
 						</li>
 						<li>
+							<a href="#" class="ui-btn ui-shadow ui-corner-all ui-icon-refresh ui-btn-icon-notext ui-btn-a ui-btn-inline" onclick="getMyModelsPhysicalFacilities()">Refresh</a>
 							<p>Refer to 01.01.02.10  in the Reference Manual</p>	
 							<ul data-role="listview" id="ubmsuite_modelSettings_myPhysicalFacilities_ul" data-filter="true" data-filter-placeholder="My Physical Facilities..." data-theme="b"   data-inset="true" data-scroll="true">
 		
 							</ul>					
 						</li>
 						<li>
+							<a href="#" class="ui-btn ui-shadow ui-corner-all ui-icon-refresh ui-btn-icon-notext ui-btn-a ui-btn-inline" onclick="getMyModelsStrategicAlliances()">Refresh</a>
 							<p>Refer to 01.01.02.14 in the Reference Manual</p>
 							<ul data-role="listview" id="ubmsuite_modelSettings_myStrategicAlliances_ul" data-filter="true" data-filter-placeholder="My Strategic Alliances..." data-theme="b"   data-inset="true" data-scroll="true">
 		
 							</ul>					
 						</li>
 						<li>
+							<a href="#" class="ui-btn ui-shadow ui-corner-all ui-icon-refresh ui-btn-icon-notext ui-btn-a ui-btn-inline" onclick="getMyModelsStrategicPositioningQuestions()">Refresh</a>
 							<p>Refer to 01.01.02.07  in the Reference Manual</p>
 							<ul data-role="listview" id="ubmsuite_modelSettings_myStrategicPositioningQuestions_ul" data-filter="true" data-filter-placeholder="Strategic Positioning..." data-theme="b"   data-inset="true" data-scroll="true">
 		
 							</ul>					
 						</li>
 						<li>
+							<a href="#" class="ui-btn ui-shadow ui-corner-all ui-icon-refresh ui-btn-icon-notext ui-btn-a ui-btn-inline" onclick="getMyModelsFeatures()">Refresh</a>							
 							<p>What Features Must This Model Create, Do, Process, etc? </p>
 							<p>Refer to 01.01.02.XX  in the Reference Manual</p>
 							<ul data-role="listview" id="ubmsuite_modelSettings_myFeatures_ul" data-filter="true" data-filter-placeholder="Features..." data-theme="b"  data-inset="true" data-scroll="true">
@@ -3832,6 +3840,7 @@ under the License.
 							</ul>	
 						</li>
 						<li>
+							<a href="#" class="ui-btn ui-shadow ui-corner-all ui-icon-refresh ui-btn-icon-notext ui-btn-a ui-btn-inline" onclick="getMyModels()">Refresh</a>							
 							<p>What Products Must This Model Create or Generate?</p>
 							<p>Refer to 01.01.02.06  in the Reference Manual</p>
 							<ul data-role="listview" id="ubmsuite_modelSettings_myProducts_ul" data-filter="true" data-filter-placeholder="My Products..." data-theme="b"   data-inset="true" data-scroll="true">
@@ -13761,7 +13770,6 @@ under the License.
             </div>
             <script type="text/javascript" src="cordova.js"></script>
             <script type="text/javascript" src="js/index.js"></script>
-
             <script type="text/javascript">
 			function checkConnection() {
 				var networkState = navigator.connection.type;
@@ -13890,7 +13898,6 @@ under the License.
 				});
 				app.initialize();
             </script>
-
 		  <!-- Include the imagesLoaded plug-in -->
 		  <script src="js/libs/jquery.imagesloaded.js"></script>
 		  <!-- Include the plug-in -->
