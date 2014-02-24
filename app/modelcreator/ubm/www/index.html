@@ -2438,7 +2438,7 @@ under the License.
                     <form id="sign_in_sign_up_open_items_form" name="open_items_form">
                         <ul data-role="listview" data-inset="true" style="min-width:210px;">
                             <li class="open_point_form_header"data-role="list-divider">
-                                Write a Review Point</br>or Open Item
+                                Write a Review Point</br>or Open Item</h1>
                             </li>
                             <li>
                                 <input type="text" id="sign_in_sign_up_submitreviewpoint_formref" name="submitreviewpoint_formref" value="" placeholder="Form Ref...">
@@ -13865,6 +13865,31 @@ under the License.
 						getSharedModels();
 					}, 1000);
 				});
+				
+				$(document).on("pageshow", "#sign_in_sign_up", function() {
+                    setTimeout(function() {
+                        $( "#sign_in_sign_up_openItem_popup" ).draggable({ handle: "#open_point_form_header" });
+                    $( "#sign_in_sign_up_openItem_popup" ).draggable({ handle: "#open_point_form_header" });
+                    $( "#ubmsuite_SelectBusinessModel_openItem_popup" ).draggable({ handle: "#open_point_form_header" });
+                    $( "#ubmsuite_table_of_contents_openItem_popup" ).draggable({ handle: "#open_point_form_header" });
+                    $( "#ubmsuite_EditMyBusinessModel_openItem_popup" ).draggable({ handle: "#open_point_form_header" });
+                    $( "#ubmsuite_EditSharedBusinessModel_openItem_popup" ).draggable({ handle: "#open_point_form_header" });
+                    $( "#gettingStarted_openItem_popup" ).draggable({ handle: "#open_point_form_header" });
+                    $( "#ubmsuite_modelSettings_openItem_popup" ).draggable({ handle: "#open_point_form_header" });
+                    $( "#mcs_setup_checklist_p4_b12_userGuide_popup" ).draggable({ handle: "#open_point_form_header" });
+                    $( "#mcs_setup_checklist_p4_b12_openItem_popup" ).draggable({ handle: "#open_point_form_header" });
+                    $( "#mcs_setup_checklist_p5_userGuide_popup" ).draggable({ handle: "#open_point_form_header" });
+                    $( "#mcs_setup_checklist_p5_openItem_popup" ).draggable({ handle: "#open_point_form_header" });
+                    $( "#mcs_setup_checklist_p6_userGuide_popup" ).draggable({ handle: "#open_point_form_header" });
+                    $( "#mcs_setup_checklist_p6_openItem_popup" ).draggable({ handle: "#open_point_form_header" });
+                    $( "#mcs_setup_checklist_p7_openItem_popup" ).draggable({ handle: "#open_point_form_header" });
+                    $( "#mcs_setup_checklist_p7_openItem_popup" ).draggable({ handle: "#open_point_form_header" });
+                    $( "#mcs_setup_checklist_p8_userGuide_popup" ).draggable({ handle: "#open_point_form_header" });
+                    $( "#mcs_setup_checklist_p8_openItem_popup" ).draggable({ handle: "#open_point_form_header" });
+                    $( "#open_points_action_items_openItem_popup" ).draggable({ handle: "#open_point_form_header" });  
+                    }, 1000);
+                });
+				
 				$(document).on("pageshow", "#ubmsuite_modelSettings", function() {
 					model_getuserswithaccess();
 	
@@ -13909,31 +13934,11 @@ under the License.
 						//alert("jsonp request returned: " + status);
 					});
 					setTimeout(function() {
-                    $( "#sign_in_sign_up_openItem_popup" ).draggable({ handle: "open_point_form_header" });
-                    $( "#sign_in_sign_up_openItem_popup" ).draggable({ handle: "open_point_form_header" });
-                    $( "#ubmsuite_SelectBusinessModel_openItem_popup" ).draggable({ handle: "open_point_form_header" });
-                    $( "#ubmsuite_table_of_contents_openItem_popup" ).draggable({ handle: "open_point_form_header" });
-                    $( "#ubmsuite_EditMyBusinessModel_openItem_popup" ).draggable({ handle: "open_point_form_header" });
-                    $( "#ubmsuite_EditSharedBusinessModel_openItem_popup" ).draggable({ handle: "open_point_form_header" });
-                    $( "#gettingStarted_openItem_popup" ).draggable({ handle: "open_point_form_header" });
-                    $( "#ubmsuite_modelSettings_openItem_popup" ).draggable({ handle: "open_point_form_header" });
-                    $( "#mcs_setup_checklist_p4_b12_userGuide_popup" ).draggable({ handle: "open_point_form_header" });
-                    $( "#mcs_setup_checklist_p4_b12_openItem_popup" ).draggable({ handle: "open_point_form_header" });
-                    $( "#mcs_setup_checklist_p5_userGuide_popup" ).draggable({ handle: "open_point_form_header" });
-                    $( "#mcs_setup_checklist_p5_openItem_popup" ).draggable({ handle: "open_point_form_header" });
-                    $( "#mcs_setup_checklist_p6_userGuide_popup" ).draggable({ handle: "open_point_form_header" });
-                    $( "#mcs_setup_checklist_p6_openItem_popup" ).draggable({ handle: "open_point_form_header" });
-                    $( "#mcs_setup_checklist_p7_openItem_popup" ).draggable({ handle: "open_point_form_header" });
-                    $( "#mcs_setup_checklist_p7_openItem_popup" ).draggable({ handle: "open_point_form_header" });
-                    $( "#mcs_setup_checklist_p8_userGuide_popup" ).draggable({ handle: "open_point_form_header" });
-                    $( "#mcs_setup_checklist_p8_openItem_popup" ).draggable({ handle: "open_point_form_header" });
-                    $( "#open_points_action_items_openItem_popup" ).draggable({ handle: "open_point_form_header" });
                     
-
-    
-                    }, 2000);
-	                
+                    }, 2000);	
+                                    
 					setTimeout(function() {
+					    
 						checkConnection();
 					}, 3000);
 				});
