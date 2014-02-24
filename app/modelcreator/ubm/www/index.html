@@ -13798,7 +13798,6 @@ under the License.
 				}
 			}
 				$(document).on("pageshow", "#ubmsuite_EditMyBusinessModel", function() {
-	
 					setTimeout(function() {
 						getModelCreationSuiteChecklistItems();
 	
@@ -13807,19 +13806,26 @@ under the License.
 						getMyModelsCoreValues();
 						getMyModelsCustomers();
 						getMyModelsProducts();
+						
+						
 						getListofPossibleCoreValues();
 						getListofPossibleCustomers();
-						getListofPossibleProducts()
-						
-	
+						getListofPossibleProducts();
 					}, 2000);
 					setTimeout(function() {
 						getMyModelsServices();
 						getMyModelsPhysicalFacilities();
+						getMyModelsStrategicAlliances();
+						getMyModelsStrategicPositioningQuestions();
+						getMyModelsFeatures();
+						getMyModelsOrganizationalStructures();
 						
 						getListofPossibleServices();
 						getListofPossiblePhysicalFacilities();
-	
+						getListofPossibleStrategicAlliances();
+						getListofPossibleStrategicPositioningQuestions();
+						getListofPossibleFeatures();
+						getListofPossibleOrganizationalStructures();
 					}, 2000);
 				});
 				$(document).on("pageshow", "#ubmsuite_EditSharedBusinessModel", function() {
