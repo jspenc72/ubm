@@ -1104,20 +1104,37 @@ under the License.
 					$.each(res, function(i, item) {
 						if (item.phase_id == "MFIS") {
 							//	$( "#mcs_setup_checklist_setup_mfi_table" ).table( "refresh" );
-
-							if (item.preparer_username == null) {//Check whether item has been prepared
-								$('#mcs_setup_checklist_setup_mfi_table_body').append("<tr ><th class='label'>" + item.line_number + "</th><td>.</td><td>.</td><td>.</td><td>.</td><td><a href='#" + item.preparedBy_href + "' onclick='setActiveTaskId(" + item.line_number + ")'  data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/redMinus.png' alt='PreparedBy' style='width:60%'></a></td><td></td><td>" + item.mfi_explanation_ref + "</td><td>" + item.mfi_template_process_ref + "</td><td>" + item.source_model_mfi_ref + "</td><td><div data-role='controlgroup' data-type='horizontal' ><a href='#" + item.href + "'onclick='setActiveTaskId(" + item.line_number + ")'  data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a'><div style='white-space:normal'>" + item.instruction_detail + "</div></a></div></td><td>" + item.budgeted_hours + "</td><td>l</td><td>m</td><td>n</td></tr>");
-							} else {
-								if (item.reviewer_username == null) {//Check whether item has been reviewed
-									$('#mcs_setup_checklist_setup_mfi_table_body').append("<tr ><th class='label'>" + item.line_number + "</th><td>.</td><td>.</td><td><a href='#" + item.reviewedBy_href + "' data-rel='popup' onclick='setActiveTaskId(" + item.line_number + ")'  data-position-to='window' data-transition='fade'><img class='popphoto' src='img/redMinus.png' alt='ReviewedBy' style='width:60%'></a></td><td></td><td>" + item.preparer_username + "<a href='#popupParis' data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/greenCheck.png' alt='PreparedBy' style='width:60%'></a></td><td>" + item.prepared_date + "</td><td>" + item.mfi_explanation_ref + "</td><td>" + item.mfi_template_process_ref + "</td><td>" + item.source_model_mfi_ref + "</td><td><div data-role='controlgroup' data-type='horizontal' ><a href='#" + item.href + "' data-rel='popup' data-transition='slideup' class='ui-btn ui-disabled ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a'><div style='white-space:normal'>" + item.instruction_detail + "</div></a></div></td><td>" + item.budgeted_hours + "</td><td>l</td><td>m</td><td>n</td></tr>");
+							if(item.event_type == "POPUP"){
+								if (item.preparer_username == null) {//Check whether item has been prepared
+									$('#mcs_setup_checklist_setup_mfi_table_body').append("<tr ><th class='label'>" + item.line_number + "</th><td>.</td><td>.</td><td>.</td><td>.</td><td><a href='#" + item.preparedBy_href + "' onclick='setActiveTaskId(" + item.line_number + ")'  data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/redMinus.png' alt='PreparedBy' style='width:60%'></a></td><td></td><td>" + item.mfi_explanation_ref + "</td><td>" + item.mfi_template_process_ref + "</td><td>" + item.source_model_mfi_ref + "</td><td><div data-role='controlgroup' data-type='horizontal' ><a href='#" + item.href + "'onclick='setActiveTaskId(" + item.line_number + ")'  data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a'><div style='white-space:normal'>" + item.instruction_detail + "</div></a></div></td><td>" + item.budgeted_hours + "</td><td>l</td><td>m</td><td>n</td></tr>");
 								} else {
-									if (item.final_reviewer_username == null) {//Check whether item has received its final review
-										$('#mcs_setup_checklist_setup_mfi_table_body').append("<tr ><th class='label'>" + item.line_number + "</th><td><a href='#" + item.finalReviewedBy_href + "' data-rel='popup' onclick='setActiveTaskId(" + item.line_number + ")' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/redMinus.png' alt='PreparedBy' style='width:60%'></a></td><td></td><td>" + item.reviewer_username + "<a href='#popupParis' data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/greenCheck.png' alt='PreparedBy' style='width:60%'></a></td><td>" + item.review_date + "</td><td>" + item.preparer_username + "<a href='#popupParis' data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/greenCheck.png' alt='PreparedBy' style='width:60%'></a></td><td>" + item.prepared_date + "</td><td>" + item.mfi_explanation_ref + "</td><td>" + item.mfi_template_process_ref + "</td><td>" + item.source_model_mfi_ref + "</td><td><div data-role='controlgroup' data-type='horizontal' ><a href='#" + item.href + "' data-rel='popup' data-transition='slideup' class='ui-btn ui-disabled  ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a'><div style='white-space:normal'>" + item.instruction_detail + "</div></a></div></td><td>" + item.budgeted_hours + "</td><td>l</td><td>m</td><td>n</td></tr>");
+									if (item.reviewer_username == null) {//Check whether item has been reviewed
+										$('#mcs_setup_checklist_setup_mfi_table_body').append("<tr ><th class='label'>" + item.line_number + "</th><td>.</td><td>.</td><td><a href='#" + item.reviewedBy_href + "' data-rel='popup' onclick='setActiveTaskId(" + item.line_number + ")'  data-position-to='window' data-transition='fade'><img class='popphoto' src='img/redMinus.png' alt='ReviewedBy' style='width:60%'></a></td><td></td><td>" + item.preparer_username + "<a href='#popupParis' data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/greenCheck.png' alt='PreparedBy' style='width:60%'></a></td><td>" + item.prepared_date + "</td><td>" + item.mfi_explanation_ref + "</td><td>" + item.mfi_template_process_ref + "</td><td>" + item.source_model_mfi_ref + "</td><td><div data-role='controlgroup' data-type='horizontal' ><a href='#" + item.href + "' data-rel='popup' data-transition='slideup' class='ui-btn ui-disabled ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a'><div style='white-space:normal'>" + item.instruction_detail + "</div></a></div></td><td>" + item.budgeted_hours + "</td><td>l</td><td>m</td><td>n</td></tr>");
 									} else {
-										$('#mcs_setup_checklist_setup_mfi_table_body').append("<tr ><th class='label'>" + item.line_number + "</th><td>" + item.final_reviewer_username + "<a href='#' data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/greenCheck.png' alt='PreparedBy' style='width:60%'></a></td><td>" + item.final_review_date + "</td><td>" + item.reviewer_username + "<a href='#popupParis' data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/greenCheck.png' alt='PreparedBy' style='width:60%'></a></td><td>" + item.review_date + "</td><td>" + item.preparer_username + "<a href='#popupParis' data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/greenCheck.png' alt='PreparedBy' style='width:60%'></a></td><td>" + item.prepared_date + "</td><td>" + item.mfi_explanation_ref + "</td><td>" + item.mfi_template_process_ref + "</td><td>" + item.source_model_mfi_ref + "</td><td><div data-role='controlgroup' data-type='horizontal' ><a href='#" + item.href + "' data-rel='popup' data-transition='slideup' class='ui-btn ui-disabled ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a'><div style='white-space:normal'>" + item.instruction_detail + "</div></a></div></td><td>" + item.budgeted_hours + "</td><td>l</td><td>m</td><td>n</td></tr>");
+										if (item.final_reviewer_username == null) {//Check whether item has received its final review
+											$('#mcs_setup_checklist_setup_mfi_table_body').append("<tr ><th class='label'>" + item.line_number + "</th><td><a href='#" + item.finalReviewedBy_href + "' data-rel='popup' onclick='setActiveTaskId(" + item.line_number + ")' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/redMinus.png' alt='PreparedBy' style='width:60%'></a></td><td></td><td>" + item.reviewer_username + "<a href='#popupParis' data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/greenCheck.png' alt='PreparedBy' style='width:60%'></a></td><td>" + item.review_date + "</td><td>" + item.preparer_username + "<a href='#popupParis' data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/greenCheck.png' alt='PreparedBy' style='width:60%'></a></td><td>" + item.prepared_date + "</td><td>" + item.mfi_explanation_ref + "</td><td>" + item.mfi_template_process_ref + "</td><td>" + item.source_model_mfi_ref + "</td><td><div data-role='controlgroup' data-type='horizontal' ><a href='#" + item.href + "' data-rel='popup' data-transition='slideup' class='ui-btn ui-disabled  ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a'><div style='white-space:normal'>" + item.instruction_detail + "</div></a></div></td><td>" + item.budgeted_hours + "</td><td>l</td><td>m</td><td>n</td></tr>");
+										} else {
+											$('#mcs_setup_checklist_setup_mfi_table_body').append("<tr ><th class='label'>" + item.line_number + "</th><td>" + item.final_reviewer_username + "<a href='#' data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/greenCheck.png' alt='PreparedBy' style='width:60%'></a></td><td>" + item.final_review_date + "</td><td>" + item.reviewer_username + "<a href='#popupParis' data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/greenCheck.png' alt='PreparedBy' style='width:60%'></a></td><td>" + item.review_date + "</td><td>" + item.preparer_username + "<a href='#popupParis' data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/greenCheck.png' alt='PreparedBy' style='width:60%'></a></td><td>" + item.prepared_date + "</td><td>" + item.mfi_explanation_ref + "</td><td>" + item.mfi_template_process_ref + "</td><td>" + item.source_model_mfi_ref + "</td><td><div data-role='controlgroup' data-type='horizontal' ><a href='#" + item.href + "' data-rel='popup' data-transition='slideup' class='ui-btn ui-disabled ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a'><div style='white-space:normal'>" + item.instruction_detail + "</div></a></div></td><td>" + item.budgeted_hours + "</td><td>l</td><td>m</td><td>n</td></tr>");
+										}
 									}
 								}
-
+							}else{
+								if(item.event_type == "LINKTOPAGE"){
+									if (item.preparer_username == null) {//Check whether item has been prepared
+										$('#mcs_setup_checklist_setup_mfi_table_body').append("<tr ><th class='label'>" + item.line_number + "</th><td>.</td><td>.</td><td>.</td><td>.</td><td><a href='#" + item.preparedBy_href + "' onclick='setActiveTaskId(" + item.line_number + ")'  data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/redMinus.png' alt='PreparedBy' style='width:60%'></a></td><td></td><td>" + item.mfi_explanation_ref + "</td><td>" + item.mfi_template_process_ref + "</td><td>" + item.source_model_mfi_ref + "</td><td><div data-role='controlgroup' data-type='horizontal' ><a href='#" + item.href + "'onclick='setActiveTaskId(" + item.line_number + ")' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a'><div style='white-space:normal'>" + item.instruction_detail + "</div></a></div></td><td>" + item.budgeted_hours + "</td><td>l</td><td>m</td><td>n</td></tr>");
+									} else {
+										if (item.reviewer_username == null) {//Check whether item has been reviewed
+											$('#mcs_setup_checklist_setup_mfi_table_body').append("<tr ><th class='label'>" + item.line_number + "</th><td>.</td><td>.</td><td><a href='#" + item.reviewedBy_href + "' data-rel='popup' onclick='setActiveTaskId(" + item.line_number + ")'  data-position-to='window' data-transition='fade'><img class='popphoto' src='img/redMinus.png' alt='ReviewedBy' style='width:60%'></a></td><td></td><td>" + item.preparer_username + "<a href='#popupParis' data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/greenCheck.png' alt='PreparedBy' style='width:60%'></a></td><td>" + item.prepared_date + "</td><td>" + item.mfi_explanation_ref + "</td><td>" + item.mfi_template_process_ref + "</td><td>" + item.source_model_mfi_ref + "</td><td><div data-role='controlgroup' data-type='horizontal' ><a href='#" + item.href + "' class='ui-btn ui-disabled ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a'><div style='white-space:normal'>" + item.instruction_detail + "</div></a></div></td><td>" + item.budgeted_hours + "</td><td>l</td><td>m</td><td>n</td></tr>");
+										} else {
+											if (item.final_reviewer_username == null) {//Check whether item has received its final review
+												$('#mcs_setup_checklist_setup_mfi_table_body').append("<tr ><th class='label'>" + item.line_number + "</th><td><a href='#" + item.finalReviewedBy_href + "' data-rel='popup' onclick='setActiveTaskId(" + item.line_number + ")' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/redMinus.png' alt='PreparedBy' style='width:60%'></a></td><td></td><td>" + item.reviewer_username + "<a href='#popupParis' data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/greenCheck.png' alt='PreparedBy' style='width:60%'></a></td><td>" + item.review_date + "</td><td>" + item.preparer_username + "<a href='#popupParis' data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/greenCheck.png' alt='PreparedBy' style='width:60%'></a></td><td>" + item.prepared_date + "</td><td>" + item.mfi_explanation_ref + "</td><td>" + item.mfi_template_process_ref + "</td><td>" + item.source_model_mfi_ref + "</td><td><div data-role='controlgroup' data-type='horizontal' ><a href='#" + item.href + "' class='ui-btn ui-disabled  ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a'><div style='white-space:normal'>" + item.instruction_detail + "</div></a></div></td><td>" + item.budgeted_hours + "</td><td>l</td><td>m</td><td>n</td></tr>");
+											} else {
+												$('#mcs_setup_checklist_setup_mfi_table_body').append("<tr ><th class='label'>" + item.line_number + "</th><td>" + item.final_reviewer_username + "<a href='#' data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/greenCheck.png' alt='PreparedBy' style='width:60%'></a></td><td>" + item.final_review_date + "</td><td>" + item.reviewer_username + "<a href='#popupParis' data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/greenCheck.png' alt='PreparedBy' style='width:60%'></a></td><td>" + item.review_date + "</td><td>" + item.preparer_username + "<a href='#popupParis' data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/greenCheck.png' alt='PreparedBy' style='width:60%'></a></td><td>" + item.prepared_date + "</td><td>" + item.mfi_explanation_ref + "</td><td>" + item.mfi_template_process_ref + "</td><td>" + item.source_model_mfi_ref + "</td><td><div data-role='controlgroup' data-type='horizontal' ><a href='#" + item.href + "'  class='ui-btn ui-disabled ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a'><div style='white-space:normal'>" + item.instruction_detail + "</div></a></div></td><td>" + item.budgeted_hours + "</td><td>l</td><td>m</td><td>n</td></tr>");
+											}
+										}
+		
+									}
+								}
 							}
 
 							//$( "#mcs_setup_checklist_setup_mfi_table" ).table( "refresh" );
@@ -1687,9 +1704,7 @@ under the License.
 				var currentPage;
 				window.activeubm_page = currentPage;
 				//$("#" + currentPage + "_prepareTaskPopup").popup('open');
-
 			}
-
 			function submitMCSTaskPreparedByRecord() {
 				if (window.MCSTaskId > 0) {
 					$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_submitTaskPreparedBy.php?callback=?', {//JSONP Request
@@ -1704,9 +1719,7 @@ under the License.
 				} else {
 
 				}
-
 			}
-
 			function submitMCSTaskReviewedByRecord() {
 				if (window.MCSTaskId > 0) {
 					$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_submitTaskReviewedBy.php?callback=?', {//JSONP Request
@@ -1721,9 +1734,7 @@ under the License.
 				} else {
 
 				}
-
 			}
-
 			function submitMCSTaskFinalReviewedByRecord() {
 				if (window.MCSTaskId > 0) {
 					$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_submitTaskFinalReviewedBy.php?callback=?', {//JSONP Request
@@ -1738,9 +1749,7 @@ under the License.
 				} else {
 
 				}
-
 			}
-
 			function submitMCS_phaseSetup_submitT4(MCSTaskId) {
 				if (MCSTaskId == 4) {
 					var modelOwnerLegalEntityVal = document.getElementById("mcs_setup_checklist_setup_identification_setup_popup_form_legalentity").value;
@@ -1849,7 +1858,57 @@ under the License.
 					}
 				}
 			}
+			function submitMCS_phase1_submitT17(MCSTaskId){
+				if (MCSTaskId == 17) {
+					var conceptualDefinition = document.getElementById("mcs_setup_checklist_p1_primaryObjects_setup_popup_form_conceptualDefinition").value;
+					var missionStatement = document.getElementById("mcs_setup_checklist_p1_primaryObjects_setup_popup_form_missionStatement").value;
+					var visionStatement = document.getElementById("mcs_setup_checklist_p1_primaryObjects_setup_popup_form_visionStatement").value;
+					var formStringArray = new Array();
+					
+					formStringArray.push({
+						conceptualDefinition : conceptualDefinition,
+						missionStatement : missionStatement,
+						visionStatement : visionStatement,
+					});
+					$.each(formStringArray, function(index, val) {
+						if (!val.conceptualDefinition) {
+							alert('Your model must have at least one conceptual definition.');
+						} else {
+							if (!val.missionStatement) {
+								alert('Your model must have a mission statement.');
+							} else {
+								if (!val.visionStatement) {
+									alert('A model must have a vision statement.');
+								} else {
+									$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_phase1_submitT17.php?callback=?', {//JSONP Request
+										username : window.username,
+										activeModelId : window.activeModelId,
+										conceptualDefinition : conceptualDefinition,
+										missionStatement : missionStatement,
+										visionStatement : visionStatement
+									}, function(res, status) {
+										alert(status);
+										if (status == "success") {
+											//alert(res.message);
+											setActiveTaskId(MCSTaskId);
+											setTimeout(function() {
+												submitMCSTaskPreparedByRecord();
+											}, 1000);
+										}
+									});
+								}
+							}
+						}
+					});
 
+				} else {
+					if (MCSTaskId == 5) {
+
+					} else {
+
+					}
+				}				
+			}
 			function setReviewedByStartTime(itemId) {
 				var date = new Date();
 				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_setActiveReviewedByTime.php?callback=?', {//JSONP Request
@@ -2986,6 +3045,15 @@ under the License.
                         </p></a>
                     </li>
                     <li>
+                        <a href="#ubmsuite_mcs_my_organizational_chart"> <img src="img/orgChartIcon.jpg" class="ui-li-thumb"> <h2>Model Organizational Chart</h2>
+                        <p>
+                            The Hiarchical View of Your model.
+                        </p>
+                        <p class="ui-li-aside">
+                            OC
+                        </p></a>
+                    </li>
+                    <li>
                         <a href="#ubmsuite_modelSettings"> <img src="img/reference.jpg" class="ui-li-thumb"> <h2>Reference Manual</h2>
                         <p>
                             Your portal to understanding all things UBM.
@@ -3098,7 +3166,7 @@ under the License.
                     <li>
                         <a href="#"> <img src="img/alternitives.jpg" class="ui-li-thumb"> <h2>Alternatives</h2>
                         <p>
-                            <strong>Possible</strong> and <strong>Selected</strong></br>ROI, Risk Analysis, Projected Financial Statement
+                            ROI, Risk Analysis, Project Financial Statement
                         </p>
                         <p class="ui-li-aside">
                             A
@@ -3129,6 +3197,15 @@ under the License.
                         </p>
                         <p class="ui-li-aside">
                             PCS
+                        </p></a>
+                    </li>
+                    <li>
+                        <a href="#ubmsuite_mcs_my_organizational_chart"> <img src="img/orgChartIcon.jpg" class="ui-li-thumb"> <h2>Model Organizational Chart</h2>
+                        <p>
+                            The Hiarchical View of Your model.
+                        </p>
+                        <p class="ui-li-aside">
+                            OC
                         </p></a>
                     </li>
                     <li>
@@ -3338,8 +3415,7 @@ under the License.
 			<div data-role="content" id="ubmsuite_mcs_my_organizational_chart_content">
     
 			    <ul id="org" style="display:none">
-			    <li>
-			       Board of Directors
+			    <li>Board of Directors
 					<ul>
 						<li>CEO
 						   <ul>
@@ -3378,7 +3454,7 @@ under the License.
 					</ul>
 			     </li>
 			   </ul>            
-			    
+		    
 			    <div id="chart" class="orgChart" style="padding:75px 10px 75px 10px;"></div>						
 			</div>
 		</div>
@@ -3611,7 +3687,7 @@ under the License.
                     <li>
                         <div class="GS">
                             <p>
-                                Keep Track of your time for each step when creating your model (use the columns to the right of each step on the checklist
+                                Keep Track of your time for each step when creating your model (use the columns to the right of each step on the checklist.
                             </p>
                         </div>
                     </li>
@@ -4146,7 +4222,16 @@ under the License.
 							<a data-rel="popup" data-mini="true" data-transition="slideup" href="#ubmsuite_modelSettings_shareModel_popup" class="ui-btn ui-shadow">Click to give another user </br>access to this model.</a>
 						</li>
 						<li>
+							<a href="#" class="ui-btn ui-shadow ui-corner-all ui-icon-refresh ui-btn-icon-notext ui-btn-a ui-btn-inline" onclick="getMyModelsStrategicAlliances()">Refresh</a>
+							<p>Phase 3</p>
+							<p>Refer to 01.01.02.14 in the Reference Manual</p>
+							<ul data-role="listview" id="ubmsuite_modelSettings_myStrategicAlliances_ul" data-filter="true" data-filter-placeholder="My Strategic Alliances..." data-theme="b"   data-inset="true" data-scroll="true">
+		
+							</ul>					
+						</li>
+						<li>
 							<a href="#" class="ui-btn ui-shadow ui-corner-all ui-icon-refresh ui-btn-icon-notext ui-btn-a ui-btn-inline" onclick="getMyModelsCoreValues()">Refresh</a>
+							<p>Phase 4 Book 1</p>
 							<p>Refer to 01.01.02.04 in the Reference Manual</p>
 							<ul data-role="listview" id="ubmsuite_modelSettings_myCoreValues_ul" data-filter="true" data-filter-placeholder="My Core values..." data-theme="b" data-inset="true" data-scroll="true">
 		
@@ -4154,53 +4239,11 @@ under the License.
 						</li>
 						<li>
 							<a href="#" class="ui-btn ui-shadow ui-corner-all ui-icon-refresh ui-btn-icon-notext ui-btn-a ui-btn-inline" onclick="getMyModelsCustomers()">Refresh</a>
+							<p>Phase 4 Book 1</p>
 							<p>Refer to 01.01.02.05 in the Reference Manual</p>
 							<ul data-role="listview" id="ubmsuite_modelSettings_myCustomers_ul" data-filter="true" data-filter-placeholder="My Customers..." data-theme="b" data-inset="true" data-scroll="true" style="width:100%">
 		
 							</ul>
-						</li>
-						<li>
-							<a href="#" class="ui-btn ui-shadow ui-corner-all ui-icon-refresh ui-btn-icon-notext ui-btn-a ui-btn-inline" onclick="getMyModelsServices()">Refresh</a>
-							<p>Refer to 01.01.02.06  in the Reference Manual</p>
-							<ul data-role="listview" id="ubmsuite_modelSettings_myServices_ul" data-filter="true" data-filter-placeholder="My Services..." data-theme="b"   data-inset="true" data-scroll="true">
-		
-							</ul>
-						</li>
-						<li>
-							<a href="#" class="ui-btn ui-shadow ui-corner-all ui-icon-refresh ui-btn-icon-notext ui-btn-a ui-btn-inline" onclick="getMyModelsOrganizationalStructures()">Refresh</a>
-							<p>Refer to 01.01.01.04 in the Reference Manual</p>
-							<ul data-role="listview" id="ubmsuite_modelSettings_myOrganizationalStructure_ul" data-filter="true" data-filter-placeholder="My Organizational Structure..." data-theme="b"   data-inset="true" data-scroll="true">
-		
-							</ul>
-						</li>
-						<li>
-							<a href="#" class="ui-btn ui-shadow ui-corner-all ui-icon-refresh ui-btn-icon-notext ui-btn-a ui-btn-inline" onclick="getMyModelsPhysicalFacilities()">Refresh</a>
-							<p>Refer to 01.01.02.10  in the Reference Manual</p>	
-							<ul data-role="listview" id="ubmsuite_modelSettings_myPhysicalFacilities_ul" data-filter="true" data-filter-placeholder="My Physical Facilities..." data-theme="b"   data-inset="true" data-scroll="true">
-		
-							</ul>					
-						</li>
-						<li>
-							<a href="#" class="ui-btn ui-shadow ui-corner-all ui-icon-refresh ui-btn-icon-notext ui-btn-a ui-btn-inline" onclick="getMyModelsStrategicAlliances()">Refresh</a>
-							<p>Refer to 01.01.02.14 in the Reference Manual</p>
-							<ul data-role="listview" id="ubmsuite_modelSettings_myStrategicAlliances_ul" data-filter="true" data-filter-placeholder="My Strategic Alliances..." data-theme="b"   data-inset="true" data-scroll="true">
-		
-							</ul>					
-						</li>
-						<li>
-							<a href="#" class="ui-btn ui-shadow ui-corner-all ui-icon-refresh ui-btn-icon-notext ui-btn-a ui-btn-inline" onclick="getMyModelsStrategicPositioningQuestions()">Refresh</a>
-							<p>Refer to 01.01.02.07  in the Reference Manual</p>
-							<ul data-role="listview" id="ubmsuite_modelSettings_myStrategicPositioningQuestions_ul" data-filter="true" data-filter-placeholder="Strategic Positioning..." data-theme="b"   data-inset="true" data-scroll="true">
-		
-							</ul>					
-						</li>
-						<li>
-							<a href="#" class="ui-btn ui-shadow ui-corner-all ui-icon-refresh ui-btn-icon-notext ui-btn-a ui-btn-inline" onclick="getMyModelsFeatures()">Refresh</a>							
-							<p>What Features Must This Model Create, Do, Process, etc? </p>
-							<p>Refer to 01.01.02.XX  in the Reference Manual</p>
-							<ul data-role="listview" id="ubmsuite_modelSettings_myFeatures_ul" data-filter="true" data-filter-placeholder="Features..." data-theme="b"  data-inset="true" data-scroll="true">
-		
-							</ul>	
 						</li>
 						<li>
 							<a href="#" class="ui-btn ui-shadow ui-corner-all ui-icon-refresh ui-btn-icon-notext ui-btn-a ui-btn-inline" onclick="getMyModels()">Refresh</a>							
@@ -4210,34 +4253,50 @@ under the License.
 		
 							</ul>
 						</li>
+						<li>
+							<a href="#" class="ui-btn ui-shadow ui-corner-all ui-icon-refresh ui-btn-icon-notext ui-btn-a ui-btn-inline" onclick="getMyModelsServices()">Refresh</a>
+							<p>Phase 4 Book 1</p>
+							<p>Refer to 01.01.02.06  in the Reference Manual</p>
+							<ul data-role="listview" id="ubmsuite_modelSettings_myServices_ul" data-filter="true" data-filter-placeholder="My Services..." data-theme="b"   data-inset="true" data-scroll="true">
+		
+							</ul>
+						</li>
+						<li>
+							<a href="#" class="ui-btn ui-shadow ui-corner-all ui-icon-refresh ui-btn-icon-notext ui-btn-a ui-btn-inline" onclick="getMyModelsStrategicPositioningQuestions()">Refresh</a>
+							<p>Refer to 01.01.02.07  in the Reference Manual</p>
+							<ul data-role="listview" id="ubmsuite_modelSettings_myStrategicPositioningQuestions_ul" data-filter="true" data-filter-placeholder="Strategic Positioning..." data-theme="b"   data-inset="true" data-scroll="true">
+		
+							</ul>					
+						</li>
+						<li>
+							<a href="#" class="ui-btn ui-shadow ui-corner-all ui-icon-refresh ui-btn-icon-notext ui-btn-a ui-btn-inline" onclick="getMyModelsOrganizationalStructures()">Refresh</a>
+							<p>Phase 4 Book 1</p>
+							<p>Refer to 01.01.01.04 in the Reference Manual</p>
+							<ul data-role="listview" id="ubmsuite_modelSettings_myOrganizationalStructure_ul" data-filter="true" data-filter-placeholder="My Organizational Structure..." data-theme="b"   data-inset="true" data-scroll="true">
+		
+							</ul>
+						</li>
+						<li>
+							<a href="#" class="ui-btn ui-shadow ui-corner-all ui-icon-refresh ui-btn-icon-notext ui-btn-a ui-btn-inline" onclick="getMyModelsPhysicalFacilities()">Refresh</a>
+							<p>Phase 4 Book 2</p>
+							<p>Refer to 01.01.02.10  in the Reference Manual</p>	
+							<ul data-role="listview" id="ubmsuite_modelSettings_myPhysicalFacilities_ul" data-filter="true" data-filter-placeholder="My Physical Facilities..." data-theme="b"   data-inset="true" data-scroll="true">
+		
+							</ul>					
+						</li>
+						<li>
+							<a href="#" class="ui-btn ui-shadow ui-corner-all ui-icon-refresh ui-btn-icon-notext ui-btn-a ui-btn-inline" onclick="getMyModelsFeatures()">Refresh</a>							
+							<p>Phase 4 Book 2</p>
+							<p>What Features Must This Model Create, Do, Process, etc? </p>
+							<p>Refer to 01.01.02.XX  in the Reference Manual</p>
+							<ul data-role="listview" id="ubmsuite_modelSettings_myFeatures_ul" data-filter="true" data-filter-placeholder="Features..." data-theme="b"  data-inset="true" data-scroll="true">		
+
+							</ul>	
+						</li>
 						<!-- End of grid blocks -->
 					</ul>
-			</div>
-
-                <fieldset class="ui-grid-b" >
-					<div style="padding-left:1em;" class="ui-block-a">
-
-					</div>											                     
-					<div class="ui-block-b">
-                    	
-                    </div>
-              		<div style="padding-right:1em;" class="ui-block-c">
-						<label for="text-6">Conceptual Definitions</label>
-						<input type="text" name="text-6" id="text-6" value="" placeholder="Conceptual Definitions (Refer to 01.01.02.01 in the Reference Manual)">
-						<label for="text-6">Entity/Model Description</label>
-						<input type="text" name="text-6" id="text-6" value="" placeholder="Entity/Model Description (Refer to 01.01.02.13  in the Reference Manual)">
-						<label for="text-6">Mission Statement</label>
-						<input type="text" name="text-6" id="text-6" value="" placeholder="Mission Statement (Refer to 01.01.02.02  in the Reference Manual)">
-						<label for="text-6">Vision Statement</label>
-						<input type="text" name="text-6" id="text-6" value="" placeholder="Vision Statement (Refer to 01.01.02.03  in the Reference Manual)">
-						<!--submit button-->
-						<div id="submit_button">
-							<a href="#" data-role="button" data-inline="true">Submit</a>
-						</div>
-						<!--continue button-->
-							<a href="#possible_alternitives" data-role="button" data-inline="true">Continue</a>
-					</div>
 				</div>
+			</div>
 		</div>
 		<div data-role="page" class="ubm_page" id="ubmsuite_table_of_contents">
 			<!-- UBM Suite Table of Contents Page-->
@@ -5312,7 +5371,7 @@ under the License.
 							<a href="#" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b" data-rel="back" data-transition="flow" onclick="submitMCS_phaseSetup_submitT4(4)" >Submit!</a>
 						</form>
 					</div>
-				</div><!-- /popup -->
+				</div><!-- /Identification Setup popup -->
 				<div data-role="popup" id="mcs_setup_1_popUp" data-theme="b" data-position-to="window" data-dismissible="false">
 					<div data-role="header" data-theme="a">
 						<h1>License Agreement</h1>
@@ -5408,21 +5467,14 @@ under the License.
 						<a href="#" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b" data-rel="back" data-transition="flow">Continue</a>
 					</div>
 				</div><!-- /popup -->
-				<!-- Read the Setup User Guide -->
 				<div data-role="popup" id="mcs_setup_checklist_setup_userGuide_Popup" data-theme="b">
 					<div data-role="header" data-theme="a">
-						<h1>UBM Setup User Guide</h1>
+						<h1>UBM PreBackbone Setup User Guide</h1>
 					</div>
 					<div role="main" class="ui-content">
-						<h3 class="ui-title"></h3>
-						<p>
-							<input type="text" name="textinput-6" id="textinput-6" placeholder="Enter something worth noting!" value="" data-mini="true">
-							<fieldset data-role="controlgroup">
-								<label for="checkbox-2">Check off this step!</label>
-								<input type="checkbox" name="checkbox-2" id="checkbox-2">
-							</fieldset>
-							<a href="#" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b" data-rel="back" data-transition="flow">Your Ok, Dismiss</a>
-							<a href="#" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b" data-rel="back" data-transition="flow">Im Ok, Dismiss</a>
+						<h3 class="ui-title">A.	Pre-Backbone / Master File Index:</h3>
+						<p>This section will guide you through the steps necessary to complete your setup information that will preload many of your forms in the UBM database. </p>
+							<a href="#" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b" data-rel="back" data-transition="flow">Dismiss</a>
 					</div>
 				</div>
 				<!-- End Read the Setup User Guide-->
@@ -5808,6 +5860,19 @@ under the License.
 				</div>
 			</div><!-- /header -->
 			<div role="content" class="ui-content">
+				<div data-role="popup" id="mcs_setup_checklist_CS_userGuide_popup" data-theme="b">
+					<div data-role="header" data-theme="a">
+						<h1>UBM Control Section User Guide</h1>
+					</div>
+					<div role="main" class="ui-content">
+						<h3 class="ui-title">B.	Control Section: </h3>
+						<p>
+							This section will guide you through the steps necessary to complete your process management information. This section is not required and only should be completed if you have at least half a dozen different people working to complete your model
+						</p>
+							<a href="#" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b" data-rel="back" data-transition="flow">Dismiss</a>
+					</div>
+				</div>
+				<!-- End Control Section User Guide Popup -->				
 				<!-- Open Items Popup -->
 				<div data-role="popup" id="mcs_setup_checklist_CS_openItem_popup" data-theme="b">
 					<form id="mcs_setup_checklist_CS_open_items_form" name="open_items_form">
@@ -5832,9 +5897,7 @@ under the License.
 							</select>
 							</li>
 							<li>
-								<textarea data-mini="true" cols="40" rows="8" id="mcs_setup_checklist_CS_submitreviewpoint_actionrequired" placeholder="Action Required...">
-		
-		</textarea>
+								<textarea data-mini="true" cols="40" rows="8" id="mcs_setup_checklist_CS_submitreviewpoint_actionrequired" placeholder="Action Required..."></textarea>
 							</li>
 							<li>
 								<select  id="mcs_setup_checklist_CS_submitreviewpoint_assignedto" value="Select" data-native-menu="false">
@@ -6171,48 +6234,16 @@ under the License.
 			<div role="content" class="ui-content">
 				<!-- Phase One User Guide Popup-->
 				<div data-role="popup" id="mcs_setup_checklist_p1_userGuide_popup" data-theme="b">
-					<form id="mcs_setup_checklist_p1_open_items_form" name="open_items_form">
-						<ul data-role="listview" data-inset="true" style="min-width:210px;">
-							<li data-role="list-divider">
-								<h1>User Guide</h1>
-							</li>
-							<li>
-								<input type="text" id="mcs_setup_checklist_p1_submitreviewpoint_formref" name="submitreviewpoint_formref" value="" placeholder="Form Ref...">
-							</li>
-							<select  id="mcs_setup_checklist_p1_submitreviewpoint_priority" value="Select" data-native-menu="false">
-								<option>Priority...</option>
-								<option value="A1">A1</option>
-								<option value="A2">A2</option>
-								<option value="A3">A3</option>
-								<option value="B1">B1</option>
-								<option value="B2">B2</option>
-								<option value="B3">B3</option>
-								<option value="C1">C1</option>
-								<option value="C2">C2</option>
-								<option value="C3">C3</option>
-							</select>
-							</li>
-							<li>
-								<textarea data-mini="true" cols="40" rows="8" id="mcs_setup_checklist_p1_submitreviewpoint_actionrequired" placeholder="Action Required...">
-		
-		</textarea>
-							</li>
-							<li>
-								<select  id="mcs_setup_checklist_p1_submitreviewpoint_assignedto" value="Select" data-native-menu="false">
-									<option>Assigned To...</option>
-									<option value="Jesse Spencer">Jesse Spencer</option>
-									<option value="Adam Gustafson">Adam Gustafson</option>
-								</select>
-							</li>
-							<li>
-								<label for="datetime-4">Due Datetime</label>
-								<input type="datetime-local" data-clear-btn="true"  id="mcs_setup_checklist_p1_submitreviewpoint_duedatetime" value="" placeholder="Due Datetime...">
-							</li>
-							<li>
-								<input type="button" data-enhanced="true" value="Submit Review Point" onclick="submitReviewPoint('mcs_setup_checklist_p1_');">
-							</li>
-						</ul>
-					</form>
+					<div data-role="header" data-theme="a">
+						<h1>UBM Phase 1 User Guide</h1>
+					</div>
+					<div role="main" class="ui-content">
+						<h3 class="ui-title">C.	Phase 1 Conceptual Definition / Mission / Vision: </h3>
+						<p>
+							This phase will guide you through the steps necessary to make an initial plan / mission / vision for the entity, which is result and purpose focused. It will also narrow down the goals, results, scope and purpose of the entity. 							
+						</p>
+							<a href="#" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b" data-rel="back" data-transition="flow">Dismiss</a>
+					</div>
 				</div>
 				<!-- End Phase One User Guide Popup -->
 				<!-- Open Items Popup -->
@@ -6467,6 +6498,23 @@ under the License.
 						<a href="#" onclick="submitMCSTaskFinalReviewedByRecord()" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b" data-rel="back" data-transition="flow">Give the Final Review for this Step</a>
 					</div>
 				</div><!-- /Final Review popup -->
+				<div data-role="popup" id="mcs_setup_checklist_p1_primaryObjects_setup_popup" data-theme="b" data-position-to="window" data-dismissible="false">
+					<div data-role="header" data-theme="a">
+						<h1>Primary Objects Setup</h1>
+					</div>
+					<div role="main" class="ui-content">
+						<p>
+							Provide information to define your Primary Objects Setup, as per your business model managers instructions.
+						</p>
+						<form id="mcs_setup_checklist_p1_primaryObjects_setup_popup">
+							<textarea name="mcs_setup_checklist_p1_primaryObjects_setup_popup_form_conceptualDefinition" id="mcs_setup_checklist_p1_primaryObjects_setup_popup_form_conceptualDefinition" placeholder="Conceptual Definitions: (Refer to 01.01.02.01  in the Reference Manual)"></textarea>
+							<textarea name="mcs_setup_checklist_p1_primaryObjects_setup_popup_form_missionStatement" id="mcs_setup_checklist_p1_primaryObjects_setup_popup_form_missionStatement" placeholder="Mission Statement: Carefully compose a mission statement for your model. (Refer to 01.01.02.02  in the Reference Manual)"></textarea>
+							<textarea name="mcs_setup_checklist_p1_primaryObjects_setup_popup_form_visionStatement" id="mcs_setup_checklist_p1_primaryObjects_setup_popup_form_visionStatement" placeholder="Vision Statement: Carefully compose a Vision statement for your model. (Refer to 01.01.02.03  in the Reference Manual)"></textarea>
+
+							<a href="#" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b" data-rel="back" data-transition="flow" onclick="submitMCS_phase1_submitT17(17)" >Submit!</a>
+						</form>
+					</div>
+				</div><!-- /Primary Objects Setup popup -->
 				<table data-role="table" id="mcs_setup_checklist_p1_mfi_table" data-mode="columntoggle" data-filter="false" data-column-btn-text="Select Column..." data-column-btn-theme="a" class="phone-compare ui-shadow table-stroke">
 					<thead id="mcs_setup_checklist_p1_mfi_table_head">
 						<tr>
@@ -6576,46 +6624,16 @@ under the License.
 			<div role="content" class="ui-content">
 				<!-- Read Phase Two User Guide Popup -->
 				<div data-role="popup" id="mcs_setup_checklist_p2_userGuide_popup" data-theme="b">
-					<form id="mcs_setup_checklist_p2_open_items_form" name="open_items_form">
-						<ul data-role="listview" data-inset="true" style="min-width:210px;">
-							<li data-role="list-divider">
-								<h1>User Guide</h1>
-							</li>
-							<li>
-								<input type="text" id="mcs_setup_checklist_p2_submitreviewpoint_formref" name="submitreviewpoint_formref" value="" placeholder="Form Ref...">
-							</li>
-							<select  id="mcs_setup_checklist_p2_submitreviewpoint_priority" value="Select" data-native-menu="false">
-								<option>Priority...</option>
-								<option value="A1">A1</option>
-								<option value="A2">A2</option>
-								<option value="A3">A3</option>
-								<option value="B1">B1</option>
-								<option value="B2">B2</option>
-								<option value="B3">B3</option>
-								<option value="C1">C1</option>
-								<option value="C2">C2</option>
-								<option value="C3">C3</option>
-							</select>
-							</li>
-							<li>
-								<textarea data-mini="true" cols="40" rows="8" id="mcs_setup_checklist_p2_submitreviewpoint_actionrequired" placeholder="Action Required..."></textarea>
-							</li>
-							<li>
-								<select  id="mcs_setup_checklist_p2_submitreviewpoint_assignedto" value="Select" data-native-menu="false">
-									<option>Assigned To...</option>
-									<option value="Jesse Spencer">Jesse Spencer</option>
-									<option value="Adam Gustafson">Adam Gustafson</option>
-								</select>
-							</li>
-							<li>
-								<label for="datetime-4">Due Datetime</label>
-								<input type="datetime-local" data-clear-btn="true"  id="mcs_setup_checklist_p2_submitreviewpoint_duedatetime" value="" placeholder="Due Datetime...">
-							</li>
-							<li>
-								<input type="button" data-enhanced="true" value="Submit Review Point" onclick="submitReviewPoint('mcs_setup_checklist_p2_');">
-							</li>
-						</ul>
-					</form>
+					<div data-role="header" data-theme="a">
+						<h1>UBM Phase 2 User Guide</h1>
+					</div>
+					<div role="main" class="ui-content">
+						<h3 class="ui-title">D.	Phase 2 Order of Magnitude Studies:  </h3>
+						<p>
+							This phase will guide you through the steps necessary to make list of reasonable alternatives that will accomplish Phase 1:  mission and vision statements for your proposed entity.  It will help consider all options in order to determine the most effective, valuable way to reach the entity goals. 						
+						</p>
+							<a href="#" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b" data-rel="back" data-transition="flow">Dismiss</a>
+					</div>
 				</div>
 				<!-- End Read Phase Two User Guide Popup -->
 				<!-- Open Items Popup -->
@@ -6977,46 +6995,16 @@ under the License.
 			<div role="content" class="ui-content">
 				<!-- Read Phase Three User Guide Popup -->
 				<div data-role="popup" id="mcs_setup_checklist_p3_userGuide_popup" data-theme="b">
-					<form id="mcs_setup_checklist_p3_open_items_form" name="open_items_form">
-						<ul data-role="listview" data-inset="true" style="min-width:210px;">
-							<li data-role="list-divider">
-								<h1>User Guide</h1>
-							</li>
-							<li>
-								<input type="text" id="mcs_setup_checklist_p3_submitreviewpoint_formref" name="submitreviewpoint_formref" value="" placeholder="Form Ref...">
-							</li>
-							<select  id="mcs_setup_checklist_p3_submitreviewpoint_priority" value="Select" data-native-menu="false">
-								<option>Priority...</option>
-								<option value="A1">A1</option>
-								<option value="A2">A2</option>
-								<option value="A3">A3</option>
-								<option value="B1">B1</option>
-								<option value="B2">B2</option>
-								<option value="B3">B3</option>
-								<option value="C1">C1</option>
-								<option value="C2">C2</option>
-								<option value="C3">C3</option>
-							</select>
-							</li>
-							<li>
-								<textarea data-mini="true" cols="40" rows="8" id="mcs_setup_checklist_p3_submitreviewpoint_actionrequired" placeholder="Action Required..."></textarea>
-							</li>
-							<li>
-								<select  id="mcs_setup_checklist_p3_submitreviewpoint_assignedto" value="Select" data-native-menu="false">
-									<option>Assigned To...</option>
-									<option value="Jesse Spencer">Jesse Spencer</option>
-									<option value="Adam Gustafson">Adam Gustafson</option>
-								</select>
-							</li>
-							<li>
-								<label for="datetime-4">Due Datetime</label>
-								<input type="datetime-local" data-clear-btn="true"  id="mcs_setup_checklist_p3_submitreviewpoint_duedatetime" value="" placeholder="Due Datetime...">
-							</li>
-							<li>
-								<input type="button" data-enhanced="true" value="Submit Review Point" onclick="submitReviewPoint('mcs_setup_checklist_p3_');">
-							</li>
-						</ul>
-					</form>
+					<div data-role="header" data-theme="a">
+						<h1>UBM Phase 3 User Guide</h1>
+					</div>
+					<div role="main" class="ui-content">
+						<h3 class="ui-title">E.	Phase 3 Select The Best Alternative and Feasibility : </h3>
+						<p>
+							This phase is where you choose the best alternative based on phase 1 and phase 2 research. Phase 3 includes the following chapters.
+						</p>
+							<a href="#" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b" data-rel="back" data-transition="flow">Dismiss</a>
+					</div>
 				</div>
 				<!-- End Read Phase Three User Guide Popup -->
 				<!-- Open Items Popup -->
@@ -7376,49 +7364,30 @@ under the License.
 				</center>
 			</div><!-- /header -->
 			<div role="content" class="ui-content">
-				<!-- Read Phase Four Book 1 User Guide Popup -->
+				<div data-role="popup" id="mcs_setup_checklist_p4_userGuide_popup" data-theme="b">
+					<div data-role="header" data-theme="a">
+						<h1>UBM Phase 4 User Guide Summary</h1>
+					</div>
+					<div role="main" class="ui-content">
+						<h3 class="ui-title">F.	Phase 4: Universal Business Model Development: </h3>
+						<p>
+							This phase is where you create your model sturcture (your day to day business operations). It will walk you through the steps necessary to setup your organizational structure correctly. 
+						</p>
+							<a href="#" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b" data-rel="back" data-transition="flow">Dismiss</a>
+					</div>
+				</div>
+				<!-- End Read Phase Four User Guide Summary Popup  -->
 				<div data-role="popup" id="mcs_setup_checklist_p4_b1_userGuide_popup" data-theme="b">
-
-					<form id="mcs_setup_checklist_p4_b1_open_items_form" name="open_items_form">
-						<ul data-role="listview" data-inset="true" style="min-width:210px;">
-							<li data-role="list-divider">
-								<h1>User Guide</h1>
-							</li>
-							<li>
-								<input type="text" id="mcs_setup_checklist_p4_b1_submitreviewpoint_formref" name="submitreviewpoint_formref" value="" placeholder="Form Ref...">
-							</li>
-							<select  id="mcs_setup_checklist_p4_b1_submitreviewpoint_priority" value="Select" data-native-menu="false">
-								<option>Priority...</option>
-								<option value="A1">A1</option>
-								<option value="A2">A2</option>
-								<option value="A3">A3</option>
-								<option value="B1">B1</option>
-								<option value="B2">B2</option>
-								<option value="B3">B3</option>
-								<option value="C1">C1</option>
-								<option value="C2">C2</option>
-								<option value="C3">C3</option>
-							</select>
-							</li>
-							<li>
-								<textarea data-mini="true" cols="40" rows="8" id="mcs_setup_checklist_p4_b1_submitreviewpoint_actionrequired" placeholder="Action Required..."></textarea>
-							</li>
-							<li>
-								<select  id="mcs_setup_checklist_p4_b1_submitreviewpoint_assignedto" value="Select" data-native-menu="false">
-									<option>Assigned To...</option>
-									<option value="Jesse Spencer">Jesse Spencer</option>
-									<option value="Adam Gustafson">Adam Gustafson</option>
-								</select>
-							</li>
-							<li>
-								<label for="datetime-4">Due Datetime</label>
-								<input type="datetime-local" data-clear-btn="true"  id="mcs_setup_checklist_p4_b1_submitreviewpoint_duedatetime" value="" placeholder="Due Datetime...">
-							</li>
-							<li>
-								<input type="button" data-enhanced="true" value="Submit Review Point" onclick="submitReviewPoint('mcs_setup_checklist_p4_b1_');">
-							</li>
-						</ul>
-					</form>
+					<div data-role="header" data-theme="a">
+						<h1>UBM Phase 4 Book 1 User Guide</h1>
+					</div>
+					<div role="main" class="ui-content">
+						<h3 class="ui-title">i.	Book 1 BM Conceptual Definitions: </h3>
+						<p>
+							This book will guide you through the steps necessary to start your Business Model and it will ask a series of questions to help you begin to setup your business organization structure, policies & procedures, customer lists, future goals, etc. 
+						</p>
+							<a href="#" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b" data-rel="back" data-transition="flow">Dismiss</a>
+					</div>
 				</div>
 				<!-- End Read Phase Four Book 1 User Guide Popup  -->
 				<!-- Open Items Popup -->
@@ -7781,46 +7750,16 @@ under the License.
 			<div data-role="content">
 				<!-- Read Phase 4 Book 2 User Guide Popup -->
 				<div data-role="popup" id="mcs_setup_checklist_p4_b2_userGuide_popup" data-theme="b">
-					<form id="mcs_setup_checklist_p4_b2_open_items_form" name="open_items_form">
-						<ul data-role="listview" data-inset="true" style="min-width:210px;">
-							<li data-role="list-divider">
-								<h1>User Guide</h1>
-							</li>
-							<li>
-								<input type="text" id="mcs_setup_checklist_p4_b2_submitreviewpoint_formref" name="submitreviewpoint_formref" value="" placeholder="Form Ref...">
-							</li>
-							<select  id="mcs_setup_checklist_p4_b2_submitreviewpoint_priority" value="Select" data-native-menu="false">
-								<option>Priority...</option>
-								<option value="A1">A1</option>
-								<option value="A2">A2</option>
-								<option value="A3">A3</option>
-								<option value="B1">B1</option>
-								<option value="B2">B2</option>
-								<option value="B3">B3</option>
-								<option value="C1">C1</option>
-								<option value="C2">C2</option>
-								<option value="C3">C3</option>
-							</select>
-							</li>
-							<li>
-								<textarea data-mini="true" cols="40" rows="8" id="mcs_setup_checklist_p4_b2_submitreviewpoint_actionrequired" placeholder="Action Required..."></textarea>
-							</li>
-							<li>
-								<select  id="mcs_setup_checklist_p4_b2_submitreviewpoint_assignedto" value="Select" data-native-menu="false">
-									<option>Assigned To...</option>
-									<option value="Jesse Spencer">Jesse Spencer</option>
-									<option value="Adam Gustafson">Adam Gustafson</option>
-								</select>
-							</li>
-							<li>
-								<label for="datetime-4">Due Datetime</label>
-								<input type="datetime-local" data-clear-btn="true"  id="mcs_setup_checklist_p4_b2_submitreviewpoint_duedatetime" value="" placeholder="Due Datetime...">
-							</li>
-							<li>
-								<input type="button" data-enhanced="true" value="Submit Review Point" onclick="submitReviewPoint('mcs_setup_checklist_p4_b2_');">
-							</li>
-						</ul>
-					</form>
+					<div data-role="header" data-theme="a">
+						<h1>UBM Phase 4 Book 2 User Guide</h1>
+					</div>
+					<div role="main" class="ui-content">
+						<h3 class="ui-title">ii.	Book 2 Organizational Structure: </h3>
+						<p>
+							This book is where you will store your organizational structure and policy and procedure manual. It will contain all of your hierarchy objects which include your positions with their job descriptions, their policies, procedures and their products (documents) that are used to manage and control each position. (Every position in the organization must have a policy and procedure to manage and direct that position). 
+						</p>
+							<a href="#" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b" data-rel="back" data-transition="flow">Dismiss</a>
+					</div>
 				</div>
 				<!-- End Read Phase 4 Book 2 User Guide -->
 				<!-- Open Items Popup -->
@@ -8182,46 +8121,16 @@ under the License.
 			<div data-role="content">
 				<!-- Read Phase 4 Book 3 User Guide Popup -->
 				<div data-role="popup" id="mcs_setup_checklist_p4_b3_userGuide_popup" data-theme="b">
-					<form id="mcs_setup_checklist_p4_b3_open_items_form" name="open_items_form">
-						<ul data-role="listview" data-inset="true" style="min-width:210px;">
-							<li data-role="list-divider">
-								<h1>User Guide</h1>
-							</li>
-							<li>
-								<input type="text" id="mcs_setup_checklist_p4_b3_submitreviewpoint_formref" name="submitreviewpoint_formref" value="" placeholder="Form Ref...">
-							</li>
-							<select  id="mcs_setup_checklist_p4_b3_submitreviewpoint_priority" value="Select" data-native-menu="false">
-								<option>Priority...</option>
-								<option value="A1">A1</option>
-								<option value="A2">A2</option>
-								<option value="A3">A3</option>
-								<option value="B1">B1</option>
-								<option value="B2">B2</option>
-								<option value="B3">B3</option>
-								<option value="C1">C1</option>
-								<option value="C2">C2</option>
-								<option value="C3">C3</option>
-							</select>
-							</li>
-							<li>
-								<textarea data-mini="true" cols="40" rows="8" id="mcs_setup_checklist_p4_b3_submitreviewpoint_actionrequired" placeholder="Action Required..."></textarea>
-							</li>
-							<li>
-								<select  id="mcs_setup_checklist_p4_b3_submitreviewpoint_assignedto" value="Select" data-native-menu="false">
-									<option>Assigned To...</option>
-									<option value="Jesse Spencer">Jesse Spencer</option>
-									<option value="Adam Gustafson">Adam Gustafson</option>
-								</select>
-							</li>
-							<li>
-								<label for="datetime-4">Due Datetime</label>
-								<input type="datetime-local" data-clear-btn="true"  id="mcs_setup_checklist_p4_b3_submitreviewpoint_duedatetime" value="" placeholder="Due Datetime...">
-							</li>
-							<li>
-								<input type="button" data-enhanced="true" value="Submit Review Point" onclick="submitReviewPoint('mcs_setup_checklist_p4_b3_');">
-							</li>
-						</ul>
-					</form>
+					<div data-role="header" data-theme="a">
+						<h1>UBM Phase 4 Book 3 User Guide</h1>
+					</div>
+					<div role="main" class="ui-content">
+						<h3 class="ui-title">iii.	Book 3 Owner: </h3>
+						<p>
+							This book will contain the Owner’s/shareholder’s Foundation block (Owner’s Operational System). It will contain the list of owners, owner summaries, responsibilities, Tasks, the Owner Periodic Management reports and Checklists. (The use of the words owners, shareholders, and stockholders will be used throughout this book and all refer to the same thing). 
+						</p>
+							<a href="#" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b" data-rel="back" data-transition="flow">Dismiss</a>
+					</div>
 				</div>
 				<!-- End Read Phase 4 Book 3 User Guide Popup -->
 				<!-- Open Items Popup -->
@@ -8583,46 +8492,16 @@ under the License.
 			<div data-role="content">
 				<!-- Read Phase 4 Book 4 User Guide Popup -->
 				<div data-role="popup" id="mcs_setup_checklist_p4_b4_userGuide_popup" data-theme="b">
-					<form id="mcs_setup_checklist_p4_b4_open_items_form" name="open_items_form">
-						<ul data-role="listview" data-inset="true" style="min-width:210px;">
-							<li data-role="list-divider">
-								<h1>User Guide</h1>
-							</li>
-							<li>
-								<input type="text" id="mcs_setup_checklist_p4_b4_submitreviewpoint_formref" name="submitreviewpoint_formref" value="" placeholder="Form Ref...">
-							</li>
-							<select  id="mcs_setup_checklist_p4_b4_submitreviewpoint_priority" value="Select" data-native-menu="false">
-								<option>Priority...</option>
-								<option value="A1">A1</option>
-								<option value="A2">A2</option>
-								<option value="A3">A3</option>
-								<option value="B1">B1</option>
-								<option value="B2">B2</option>
-								<option value="B3">B3</option>
-								<option value="C1">C1</option>
-								<option value="C2">C2</option>
-								<option value="C3">C3</option>
-							</select>
-							</li>
-							<li>
-								<textarea data-mini="true" cols="40" rows="8" id="mcs_setup_checklist_p4_b4_submitreviewpoint_actionrequired" placeholder="Action Required..."></textarea>
-							</li>
-							<li>
-								<select  id="mcs_setup_checklist_p4_b4_submitreviewpoint_assignedto" value="Select" data-native-menu="false">
-									<option>Assigned To...</option>
-									<option value="Jesse Spencer">Jesse Spencer</option>
-									<option value="Adam Gustafson">Adam Gustafson</option>
-								</select>
-							</li>
-							<li>
-								<label for="datetime-4">Due Datetime</label>
-								<input type="datetime-local" data-clear-btn="true"  id="mcs_setup_checklist_p4_b4_submitreviewpoint_duedatetime" value="" placeholder="Due Datetime...">
-							</li>
-							<li>
-								<input type="button" data-enhanced="true" value="Submit Review Point" onclick="submitReviewPoint('mcs_setup_checklist_p4_b4_');">
-							</li>
-						</ul>
-					</form>
+					<div data-role="header" data-theme="a">
+						<h1>UBM Phase 4 Book 4 User Guide</h1>
+					</div>
+					<div role="main" class="ui-content">
+						<h3 class="ui-title">iv.	Book 4 Board of Directors: </h3>
+						<p>
+							This book will contain the Board’s Foundation Block (Board Operational System). It will help them function and make actuate business decisions. It will contain the Board’s meeting application which will include the board meeting minute forms and the board meeting agenda forms. It will also include the Board’s Monthly summary reports from each of the critical success factors, foundation blocks, effort summaries, etc. (The summary reports are summaries of Book 6 and 7 summary reports). 
+						</p>
+							<a href="#" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b" data-rel="back" data-transition="flow">Dismiss</a>
+					</div>
 				</div>
 				<!-- End Read Phase 4 Book 4 User Guide Popup -->
 				<!-- Open Items Popup -->
@@ -8984,46 +8863,16 @@ under the License.
 			<div data-role="content">
 				<!-- Read Phase Four Book Five User Guide Popup -->
 				<div data-role="popup" id="mcs_setup_checklist_p4_b5_userGuide_popup" data-theme="b">
-					<form id="mcs_setup_checklist_p4_b5_open_items_form" name="open_items_form">
-						<ul data-role="listview" data-inset="true" style="min-width:210px;">
-							<li data-role="list-divider">
-								<h1>User Guide</h1>
-							</li>
-							<li>
-								<input type="text" id="mcs_setup_checklist_p4_b5_submitreviewpoint_formref" name="submitreviewpoint_formref" value="" placeholder="Form Ref...">
-							</li>
-							<select  id="mcs_setup_checklist_p4_b5_submitreviewpoint_priority" value="Select" data-native-menu="false">
-								<option>Priority...</option>
-								<option value="A1">A1</option>
-								<option value="A2">A2</option>
-								<option value="A3">A3</option>
-								<option value="B1">B1</option>
-								<option value="B2">B2</option>
-								<option value="B3">B3</option>
-								<option value="C1">C1</option>
-								<option value="C2">C2</option>
-								<option value="C3">C3</option>
-							</select>
-							</li>
-							<li>
-								<textarea data-mini="true" cols="40" rows="8" id="mcs_setup_checklist_p4_b5_submitreviewpoint_actionrequired" placeholder="Action Required..."></textarea>
-							</li>
-							<li>
-								<select  id="mcs_setup_checklist_p4_b5_submitreviewpoint_assignedto" value="Select" data-native-menu="false">
-									<option>Assigned To...</option>
-									<option value="Jesse Spencer">Jesse Spencer</option>
-									<option value="Adam Gustafson">Adam Gustafson</option>
-								</select>
-							</li>
-							<li>
-								<label for="datetime-4">Due Datetime</label>
-								<input type="datetime-local" data-clear-btn="true"  id="mcs_setup_checklist_p4_b5_submitreviewpoint_duedatetime" value="" placeholder="Due Datetime...">
-							</li>
-							<li>
-								<input type="button" data-enhanced="true" value="Submit Review Point" onclick="submitReviewPoint('mcs_setup_checklist_p4_b5_');">
-							</li>
-						</ul>
-					</form>
+					<div data-role="header" data-theme="a">
+						<h1>UBM Phase 4 Book 5 User Guide</h1>
+					</div>
+					<div role="main" class="ui-content">
+						<h3 class="ui-title">v.	Book 5 CEO Command Center: </h3>
+						<p>
+							This book will contain the CEO’s Foundation block (CEO’s Operational System). It will contain the CEO’s checklist and weekly and/or monthly summary reports for each foundation block and whatever other summary report the CEO requires to see. 
+						</p>
+							<a href="#" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b" data-rel="back" data-transition="flow">Dismiss</a>
+					</div>
 				</div>
 				<!-- End Read Phase Four Book Five User Guide Popup -->
 				<!-- Open Items Popup -->
@@ -9385,46 +9234,16 @@ under the License.
 			<div data-role="content">
 				<!-- Read Phase Four Book Six User Guide Popup -->
 				<div data-role="popup" id="mcs_setup_checklist_p4_b6_userGuide_popup" data-theme="b">
-					<form id="mcs_setup_checklist_p4_b6_open_items_form" name="open_items_form">
-						<ul data-role="listview" data-inset="true" style="min-width:210px;">
-							<li data-role="list-divider">
-								<h1>User Guide</h1>
-							</li>
-							<li>
-								<input type="text" id="mcs_setup_checklist_p4_b6_submitreviewpoint_formref" name="submitreviewpoint_formref" value="" placeholder="Form Ref...">
-							</li>
-							<select  id="mcs_setup_checklist_p4_b6_submitreviewpoint_priority" value="Select" data-native-menu="false">
-								<option>Priority...</option>
-								<option value="A1">A1</option>
-								<option value="A2">A2</option>
-								<option value="A3">A3</option>
-								<option value="B1">B1</option>
-								<option value="B2">B2</option>
-								<option value="B3">B3</option>
-								<option value="C1">C1</option>
-								<option value="C2">C2</option>
-								<option value="C3">C3</option>
-							</select>
-							</li>
-							<li>
-								<textarea data-mini="true" cols="40" rows="8" id="mcs_setup_checklist_p4_b6_submitreviewpoint_actionrequired" placeholder="Action Required..."></textarea>
-							</li>
-							<li>
-								<select  id="mcs_setup_checklist_p4_b6_submitreviewpoint_assignedto" value="Select" data-native-menu="false">
-									<option>Assigned To...</option>
-									<option value="Jesse Spencer">Jesse Spencer</option>
-									<option value="Adam Gustafson">Adam Gustafson</option>
-								</select>
-							</li>
-							<li>
-								<label for="datetime-4">Due Datetime</label>
-								<input type="datetime-local" data-clear-btn="true"  id="mcs_setup_checklist_p4_b6_submitreviewpoint_duedatetime" value="" placeholder="Due Datetime...">
-							</li>
-							<li>
-								<input type="button" data-enhanced="true" value="Submit Review Point" onclick="submitReviewPoint('mcs_setup_checklist_p4_b6_');">
-							</li>
-						</ul>
-					</form>
+					<div data-role="header" data-theme="a">
+						<h1>UBM Phase 4 Book 6 User Guide</h1>
+					</div>
+					<div role="main" class="ui-content">
+						<h3 class="ui-title">vi.	Book 6 Management Reporting System: </h3>
+						<p>
+							This book is for management reporting on VP level positions. This book will function the exact same as book 3, 4, and 5 management reporting sections except they will be for the VP level positions only. 
+						</p>
+							<a href="#" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b" data-rel="back" data-transition="flow">Dismiss</a>
+					</div>
 				</div>
 				<!-- End Read Phase Four Book Six User Guide Popup  -->
 				<!-- Open Items Popup -->
@@ -9786,46 +9605,16 @@ under the License.
 			<div data-role="content">
 				<!-- Read Phase Four Book Seven Popup -->
 				<div data-role="popup" id="mcs_setup_checklist_p4_b7_userGuide_popup" data-theme="b">
-					<form id="mcs_setup_checklist_p4_b7_open_items_form" name="open_items_form">
-						<ul data-role="listview" data-inset="true" style="min-width:210px;">
-							<li data-role="list-divider">
-								<h1>User Guide</h1>
-							</li>
-							<li>
-								<input type="text" id="mcs_setup_checklist_p4_b7_submitreviewpoint_formref" name="submitreviewpoint_formref" value="" placeholder="Form Ref...">
-							</li>
-							<select  id="mcs_setup_checklist_p4_b7_submitreviewpoint_priority" value="Select" data-native-menu="false">
-								<option>Priority...</option>
-								<option value="A1">A1</option>
-								<option value="A2">A2</option>
-								<option value="A3">A3</option>
-								<option value="B1">B1</option>
-								<option value="B2">B2</option>
-								<option value="B3">B3</option>
-								<option value="C1">C1</option>
-								<option value="C2">C2</option>
-								<option value="C3">C3</option>
-							</select>
-							</li>
-							<li>
-								<textarea data-mini="true" cols="40" rows="8" id="mcs_setup_checklist_p4_b7_submitreviewpoint_actionrequired" placeholder="Action Required..."></textarea>
-							</li>
-							<li>
-								<select  id="mcs_setup_checklist_p4_b7_submitreviewpoint_assignedto" value="Select" data-native-menu="false">
-									<option>Assigned To...</option>
-									<option value="Jesse Spencer">Jesse Spencer</option>
-									<option value="Adam Gustafson">Adam Gustafson</option>
-								</select>
-							</li>
-							<li>
-								<label for="datetime-4">Due Datetime</label>
-								<input type="datetime-local" data-clear-btn="true"  id="mcs_setup_checklist_p4_b7_submitreviewpoint_duedatetime" value="" placeholder="Due Datetime...">
-							</li>
-							<li>
-								<input type="button" data-enhanced="true" value="Submit Review Point" onclick="submitReviewPoint('mcs_setup_checklist_p4_b7_');">
-							</li>
-						</ul>
-					</form>
+					<div data-role="header" data-theme="a">
+						<h1>UBM Phase 4 Book 7 User Guide</h1>
+					</div>
+					<div role="main" class="ui-content">
+						<h3 class="ui-title">vii.	Book 7 Operation Systems: </h3>
+						<p>
+							This book is for management reporting of the foundation blocks. It will include each foundation blocks flowchart (with processes), and each foundation blocks daily, weekly and/or monthly summary reports that will be turned into the managers of the critical success factors and/or managers of the foundation block. (Every procedure must be reported somewhere on these reports to ensure compliance for each position). 
+						</p>
+							<a href="#" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b" data-rel="back" data-transition="flow">Dismiss</a>
+					</div>
 				</div>
 				<!-- End Read Phase Four Book Seven Popup -->
 				<!-- Open Items Popup -->
@@ -10187,46 +9976,16 @@ under the License.
 			<div data-role="content">
 				<!-- Read Phase Book Eight Popup -->
 				<div data-role="popup" id="mcs_setup_checklist_p4_b8_userGuide_popup" data-theme="b">
-					<form id="mcs_setup_checklist_p4_b8_open_items_form" name="open_items_form">
-						<ul data-role="listview" data-inset="true" style="min-width:210px;">
-							<li data-role="list-divider">
-								<h1>User Guide</h1>
-							</li>
-							<li>
-								<input type="text" id="mcs_setup_checklist_p4_b8_submitreviewpoint_formref" name="submitreviewpoint_formref" value="" placeholder="Form Ref...">
-							</li>
-							<select  id="mcs_setup_checklist_p4_b8_submitreviewpoint_priority" value="Select" data-native-menu="false">
-								<option>Priority...</option>
-								<option value="A1">A1</option>
-								<option value="A2">A2</option>
-								<option value="A3">A3</option>
-								<option value="B1">B1</option>
-								<option value="B2">B2</option>
-								<option value="B3">B3</option>
-								<option value="C1">C1</option>
-								<option value="C2">C2</option>
-								<option value="C3">C3</option>
-							</select>
-							</li>
-							<li>
-								<textarea data-mini="true" cols="40" rows="8" id="mcs_setup_checklist_p4_b8_submitreviewpoint_actionrequired" placeholder="Action Required..."></textarea>
-							</li>
-							<li>
-								<select  id="mcs_setup_checklist_p4_b8_submitreviewpoint_assignedto" value="Select" data-native-menu="false">
-									<option>Assigned To...</option>
-									<option value="Jesse Spencer">Jesse Spencer</option>
-									<option value="Adam Gustafson">Adam Gustafson</option>
-								</select>
-							</li>
-							<li>
-								<label for="datetime-4">Due Datetime</label>
-								<input type="datetime-local" data-clear-btn="true"  id="mcs_setup_checklist_p4_b8_submitreviewpoint_duedatetime" value="" placeholder="Due Datetime...">
-							</li>
-							<li>
-								<input type="button" data-enhanced="true" value="Submit Review Point" onclick="submitReviewPoint('mcs_setup_checklist_p4_b8_');">
-							</li>
-						</ul>
-					</form>
+					<div data-role="header" data-theme="a">
+						<h1>UBM Phase 4 Book 8 User Guide</h1>
+					</div>
+					<div role="main" class="ui-content">
+						<h3 class="ui-title">viii.	Book 8 Funding: </h3>
+						<p>
+							This book will guide you through the steps necessary to get setup legally with the state and to get the funding needed to start your new entity. 
+						</p>
+							<a href="#" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b" data-rel="back" data-transition="flow">Dismiss</a>
+					</div>
 				</div>
 				<!-- End Read Phase Book Eight Popup-->
 				<!-- Open Items Popup -->
@@ -10588,46 +10347,16 @@ under the License.
 			<div data-role="content">
 				<!-- Read Phase Four Book Nine Popup -->
 				<div data-role="popup" id="mcs_setup_checklist_p4_b9_userGuide_popup" data-theme="b">
-					<form id="mcs_setup_checklist_p4_b9_open_items_form" name="open_items_form">
-						<ul data-role="listview" data-inset="true" style="min-width:210px;">
-							<li data-role="list-divider">
-								<h1>User Guide</h1>
-							</li>
-							<li>
-								<input type="text" id="mcs_setup_checklist_p4_b9_submitreviewpoint_formref" name="submitreviewpoint_formref" value="" placeholder="Form Ref...">
-							</li>
-							<select  id="mcs_setup_checklist_p4_b9_submitreviewpoint_priority" value="Select" data-native-menu="false">
-								<option>Priority...</option>
-								<option value="A1">A1</option>
-								<option value="A2">A2</option>
-								<option value="A3">A3</option>
-								<option value="B1">B1</option>
-								<option value="B2">B2</option>
-								<option value="B3">B3</option>
-								<option value="C1">C1</option>
-								<option value="C2">C2</option>
-								<option value="C3">C3</option>
-							</select>
-							</li>
-							<li>
-								<textarea data-mini="true" cols="40" rows="8" id="mcs_setup_checklist_p4_b9_submitreviewpoint_actionrequired" placeholder="Action Required..."></textarea>
-							</li>
-							<li>
-								<select  id="mcs_setup_checklist_p4_b9_submitreviewpoint_assignedto" value="Select" data-native-menu="false">
-									<option>Assigned To...</option>
-									<option value="Jesse Spencer">Jesse Spencer</option>
-									<option value="Adam Gustafson">Adam Gustafson</option>
-								</select>
-							</li>
-							<li>
-								<label for="datetime-4">Due Datetime</label>
-								<input type="datetime-local" data-clear-btn="true"  id="mcs_setup_checklist_p4_b9_submitreviewpoint_duedatetime" value="" placeholder="Due Datetime...">
-							</li>
-							<li>
-								<input type="button" data-enhanced="true" value="Submit Review Point" onclick="submitReviewPoint('mcs_setup_checklist_p4_b9_');">
-							</li>
-						</ul>
-					</form>
+					<div data-role="header" data-theme="a">
+						<h1>UBM Phase 4 Book 9 User Guide</h1>
+					</div>
+					<div role="main" class="ui-content">
+						<h3 class="ui-title">ix.	Book 9 Begin Operations </h3>
+						<p>
+							This book will guide you through the steps necessary to begin operations. It will walk you through the most common steps you will need to take to start operations. 
+						</p>
+							<a href="#" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b" data-rel="back" data-transition="flow">Dismiss</a>
+					</div>
 				</div>
 				<!-- End Read Phase Four Book Nine Popup -->
 				<!-- Open Items Popup -->
@@ -10989,46 +10718,16 @@ under the License.
 			<div data-role="content">
 				<!-- Read Phase Four Book Ten User Guide Popup -->
 				<div data-role="popup" id="mcs_setup_checklist_p4_b10_userGuide_popup" data-theme="b">
-					<form id="mcs_setup_checklist_p4_b10_open_items_form" name="open_items_form">
-						<ul data-role="listview" data-inset="true" style="min-width:210px;">
-							<li data-role="list-divider">
-								<h1>User Guide</h1>
-							</li>
-							<li>
-								<input type="text" id="mcs_setup_checklist_p4_b10_submitreviewpoint_formref" name="submitreviewpoint_formref" value="" placeholder="Form Ref...">
-							</li>
-							<select  id="mcs_setup_checklist_p4_b10_submitreviewpoint_priority" value="Select" data-native-menu="false">
-								<option>Priority...</option>
-								<option value="A1">A1</option>
-								<option value="A2">A2</option>
-								<option value="A3">A3</option>
-								<option value="B1">B1</option>
-								<option value="B2">B2</option>
-								<option value="B3">B3</option>
-								<option value="C1">C1</option>
-								<option value="C2">C2</option>
-								<option value="C3">C3</option>
-							</select>
-							</li>
-							<li>
-								<textarea data-mini="true" cols="40" rows="8" id="mcs_setup_checklist_p4_b10_submitreviewpoint_actionrequired" placeholder="Action Required..."></textarea>
-							</li>
-							<li>
-								<select  id="mcs_setup_checklist_p4_b10_submitreviewpoint_assignedto" value="Select" data-native-menu="false">
-									<option>Assigned To...</option>
-									<option value="Jesse Spencer">Jesse Spencer</option>
-									<option value="Adam Gustafson">Adam Gustafson</option>
-								</select>
-							</li>
-							<li>
-								<label for="datetime-4">Due Datetime</label>
-								<input type="datetime-local" data-clear-btn="true"  id="mcs_setup_checklist_p4_b10_submitreviewpoint_duedatetime" value="" placeholder="Due Datetime...">
-							</li>
-							<li>
-								<input type="button" data-enhanced="true" value="Submit Review Point" onclick="submitReviewPoint('mcs_setup_checklist_p4_b10_');">
-							</li>
-						</ul>
-					</form>
+					<div data-role="header" data-theme="a">
+						<h1>UBM Phase 4 Book 10 User Guide</h1>
+					</div>
+					<div role="main" class="ui-content">
+						<h3 class="ui-title">x.	Book 10 Ongoing Operations. </h3>
+						<p>
+							This book will guide you through the steps necessary to help you maintain and stay current on your business model. Also it will help you stay up to date on any UBM update. 
+						</p>
+							<a href="#" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b" data-rel="back" data-transition="flow">Dismiss</a>
+					</div>
 				</div>
 				<!-- End Read Phase Four Book Ten User Guide Popup -->
 				<!-- Open Items Popup -->
@@ -11390,46 +11089,16 @@ under the License.
 			<div data-role="content">
 				<!-- Read Phase Four Book Eleven User Guide Popup -->
 				<div data-role="popup" id="mcs_setup_checklist_p4_b11_userGuide_popup" data-theme="b">
-					<form id="mcs_setup_checklist_p4_b11_open_items_form" name="open_items_form">
-						<ul data-role="listview" data-inset="true" style="min-width:210px;">
-							<li data-role="list-divider">
-								<h1>User Guide</h1>
-							</li>
-							<li>
-								<input type="text" id="mcs_setup_checklist_p4_b11_submitreviewpoint_formref" name="submitreviewpoint_formref" value="" placeholder="Form Ref...">
-							</li>
-							<select  id="mcs_setup_checklist_p4_b11_submitreviewpoint_priority" value="Select" data-native-menu="false">
-								<option>Priority...</option>
-								<option value="A1">A1</option>
-								<option value="A2">A2</option>
-								<option value="A3">A3</option>
-								<option value="B1">B1</option>
-								<option value="B2">B2</option>
-								<option value="B3">B3</option>
-								<option value="C1">C1</option>
-								<option value="C2">C2</option>
-								<option value="C3">C3</option>
-							</select>
-							</li>
-							<li>
-								<textarea data-mini="true" cols="40" rows="8" id="mcs_setup_checklist_p4_b11_submitreviewpoint_actionrequired" placeholder="Action Required..."></textarea>
-							</li>
-							<li>
-								<select  id="mcs_setup_checklist_p4_b11_submitreviewpoint_assignedto" value="Select" data-native-menu="false">
-									<option>Assigned To...</option>
-									<option value="Jesse Spencer">Jesse Spencer</option>
-									<option value="Adam Gustafson">Adam Gustafson</option>
-								</select>
-							</li>
-							<li>
-								<label for="datetime-4">Due Datetime</label>
-								<input type="datetime-local" data-clear-btn="true"  id="mcs_setup_checklist_p4_b11_submitreviewpoint_duedatetime" value="" placeholder="Due Datetime...">
-							</li>
-							<li>
-								<input type="button" data-enhanced="true" value="Submit Review Point" onclick="submitReviewPoint('mcs_setup_checklist_p4_b11_');">
-							</li>
-						</ul>
-					</form>
+					<div data-role="header" data-theme="a">
+						<h1>UBM Phase 4 Book 11 User Guide</h1>
+					</div>
+					<div role="main" class="ui-content">
+						<h3 class="ui-title">xi.	Book 11 Company Applications:  </h3>
+						<p>
+							This book is where the company applications are stored. It will include the applications chosen from the app store or the applications you personally use or developed. 
+						</p>
+							<a href="#" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b" data-rel="back" data-transition="flow">Dismiss</a>
+					</div>
 				</div>
 				<!-- End Read Phase Four Book Eleven User Guide Popup-->
 				<!-- Open Items Popup -->
@@ -11791,46 +11460,16 @@ under the License.
                 <div data-role="content">
                     <!-- Read Phase Four Book Twelve User Guide Popup -->
                     <div data-role="popup" id="mcs_setup_checklist_p4_b12_userGuide_popup" data-theme="b">
-                        <form id="mcs_setup_checklist_p4_b12_open_items_form" name="open_items_form">
-                            <ul data-role="listview" data-inset="true" style="min-width:210px;">
-                                <li class="open_point_form_header" data-role="list-divider">
-                                    <h1>User Guide</h1>
-                                </li>
-                                <li>
-                                    <input type="text" id="mcs_setup_checklist_p4_b12_submitreviewpoint_formref" name="submitreviewpoint_formref" value="" placeholder="Form Ref...">
-                                </li>
-                                <select  id="mcs_setup_checklist_p4_b12_submitreviewpoint_priority" value="Select" data-native-menu="false">
-                                    <option>Priority...</option>
-                                    <option value="A1">A1</option>
-                                    <option value="A2">A2</option>
-                                    <option value="A3">A3</option>
-                                    <option value="B1">B1</option>
-                                    <option value="B2">B2</option>
-                                    <option value="B3">B3</option>
-                                    <option value="C1">C1</option>
-                                    <option value="C2">C2</option>
-                                    <option value="C3">C3</option>
-                                </select>
-                                </li>
-                                <li>
-                                    <textarea data-mini="true" cols="40" rows="8" id="mcs_setup_checklist_p4_b12_submitreviewpoint_actionrequired" placeholder="Action Required..."></textarea>
-                                </li>
-                                <li>
-                                    <select  id="mcs_setup_checklist_p4_b12_submitreviewpoint_assignedto" value="Select" data-native-menu="false">
-                                        <option>Assigned To...</option>
-                                        <option value="Jesse Spencer">Jesse Spencer</option>
-                                        <option value="Adam Gustafson">Adam Gustafson</option>
-                                    </select>
-                                </li>
-                                <li>
-                                    <label for="datetime-4">Due Datetime</label>
-                                    <input type="datetime-local" data-clear-btn="true"  id="mcs_setup_checklist_p4_b12_submitreviewpoint_duedatetime" value="" placeholder="Due Datetime...">
-                                </li>
-                                <li>
-                                    <input type="button" data-enhanced="true" value="Submit Review Point" onclick="submitReviewPoint('mcs_setup_checklist_p4_b12_');">
-                                </li>
-                            </ul>
-                        </form>
+						<div data-role="header" data-theme="a">
+							<h1>UBM Phase 4 Book 12 User Guide</h1>
+						</div>
+						<div role="main" class="ui-content">
+							<h3 class="ui-title">xii.	Book 12 Available Applications:  </h3>
+							<p>
+								This book is a library of the available applications in the UBM app store. It will include a list of any recommend application from any of the Stewards/Stewardships, any applications developed by the Stewards/Stewardships, Droid applications, Apple Store apps, etc. 
+							</p>
+								<a href="#" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b" data-rel="back" data-transition="flow">Dismiss</a>
+						</div>
                     </div>
                     <!-- End Read Phase Four Book Twelve User Guide Popup -->
                     <!-- Open Items Popup -->
@@ -12192,46 +11831,16 @@ under the License.
                 <div role="content" class="ui-content">
                     <!-- Read Phase Five User Guide Popup -->
                     <div data-role="popup" id="mcs_setup_checklist_p5_userGuide_popup" data-theme="b">
-                        <form id="mcs_setup_checklist_p5_open_items_form" name="open_items_form">
-                            <ul data-role="listview" data-inset="true" style="min-width:210px;">
-                                <li class="open_point_form_header" data-role="list-divider">
-                                    <h1>User Guide</h1>
-                                </li>
-                                <li>
-                                    <input type="text" id="mcs_setup_checklist_p5_submitreviewpoint_formref" name="submitreviewpoint_formref" value="" placeholder="Form Ref...">
-                                </li>
-                                <select  id="mcs_setup_checklist_p5_submitreviewpoint_priority" value="Select" data-native-menu="false">
-                                    <option>Priority...</option>
-                                    <option value="A1">A1</option>
-                                    <option value="A2">A2</option>
-                                    <option value="A3">A3</option>
-                                    <option value="B1">B1</option>
-                                    <option value="B2">B2</option>
-                                    <option value="B3">B3</option>
-                                    <option value="C1">C1</option>
-                                    <option value="C2">C2</option>
-                                    <option value="C3">C3</option>
-                                </select>
-                                </li>
-                                <li>
-                                    <textarea data-mini="true" cols="40" rows="8" id="mcs_setup_checklist_p5_submitreviewpoint_actionrequired" placeholder="Action Required..."></textarea>
-                                </li>
-                                <li>
-                                    <select  id="mcs_setup_checklist_p5_submitreviewpoint_assignedto" value="Select" data-native-menu="false">
-                                        <option>Assigned To...</option>
-                                        <option value="Jesse Spencer">Jesse Spencer</option>
-                                        <option value="Adam Gustafson">Adam Gustafson</option>
-                                    </select>
-                                </li>
-                                <li>
-                                    <label for="datetime-4">Due Datetime</label>
-                                    <input type="datetime-local" data-clear-btn="true"  id="mcs_setup_checklist_p5_submitreviewpoint_duedatetime" value="" placeholder="Due Datetime...">
-                                </li>
-                                <li>
-                                    <input type="button" data-enhanced="true" value="Submit Review Point" onclick="submitReviewPoint('mcs_setup_checklist_p5_');">
-                                </li>
-                            </ul>
-                        </form>
+						<div data-role="header" data-theme="a">
+							<h1>UBM Phase 5 User Guide</h1>
+						</div>
+						<div role="main" class="ui-content">
+							<h3 class="ui-title">G.	Phase 5 Computerized application </h3>
+							<p>
+								(only completed if developing a computerized application that will attach to a business model): This phase will guide you through the steps necessary to make your application computerized and easily uploaded to the UBM Database software
+							</p>
+								<a href="#" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b" data-rel="back" data-transition="flow">Dismiss</a>
+						</div>
                     </div>
                     <!-- End Read Phase Five User Guide Popup -->
                     <!-- Open Items Popup -->
@@ -12590,46 +12199,16 @@ under the License.
                 <div role="content" class="ui-content">
                     <!-- Read Phase Six User Guide Popup -->
                     <div data-role="popup" id="mcs_setup_checklist_p6_userGuide_popup" data-theme="b">
-                        <form id="mcs_setup_checklist_p6_open_items_form" name="open_items_form">
-                            <ul data-role="listview" data-inset="true" style="min-width:210px;">
-                                <li class="open_point_form_header" data-role="list-divider">
-                                    <h1>User Guide</h1>
-                                </li>
-                                <li>
-                                    <input type="text" id="mcs_setup_checklist_p6_submitreviewpoint_formref" name="submitreviewpoint_formref" value="" placeholder="Form Ref...">
-                                </li>
-                                <select  id="mcs_setup_checklist_p6_submitreviewpoint_priority" value="Select" data-native-menu="false">
-                                    <option>Priority...</option>
-                                    <option value="A1">A1</option>
-                                    <option value="A2">A2</option>
-                                    <option value="A3">A3</option>
-                                    <option value="B1">B1</option>
-                                    <option value="B2">B2</option>
-                                    <option value="B3">B3</option>
-                                    <option value="C1">C1</option>
-                                    <option value="C2">C2</option>
-                                    <option value="C3">C3</option>
-                                </select>
-                                </li>
-                                <li>
-                                    <textarea data-mini="true" cols="40" rows="8" id="mcs_setup_checklist_p6_submitreviewpoint_actionrequired" placeholder="Action Required..."></textarea>
-                                </li>
-                                <li>
-                                    <select  id="mcs_setup_checklist_p6_submitreviewpoint_assignedto" value="Select" data-native-menu="false">
-                                        <option>Assigned To...</option>
-                                        <option value="Jesse Spencer">Jesse Spencer</option>
-                                        <option value="Adam Gustafson">Adam Gustafson</option>
-                                    </select>
-                                </li>
-                                <li>
-                                    <label for="datetime-4">Due Datetime</label>
-                                    <input type="datetime-local" data-clear-btn="true"  id="mcs_setup_checklist_p6_submitreviewpoint_duedatetime" value="" placeholder="Due Datetime...">
-                                </li>
-                                <li>
-                                    <input type="button" data-enhanced="true" value="Submit Review Point" onclick="submitReviewPoint('mcs_setup_checklist_p6_');">
-                                </li>
-                            </ul>
-                        </form>
+						<div data-role="header" data-theme="a">
+							<h1>UBM Phase 6 User Guide</h1>
+						</div>
+						<div role="main" class="ui-content">
+							<h3 class="ui-title">H.	Phase 6 App Instructions / User Guide </h3>
+							<p>
+								(only completed if developing an application that will attach to a business model): This phase will guide you through the steps necessary to create a user guide and all setup information for your application. This will help you to write your application in the correct format to attach to your app store of the UBM app store.
+							</p>
+								<a href="#" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b" data-rel="back" data-transition="flow">Dismiss</a>
+						</div>
                     </div>
                     <!-- End Read Phase Six User Guide Popup-->
                     <!-- Open Items Popup -->
@@ -12989,6 +12568,19 @@ under the License.
                     </center>
                 </div><!-- /header -->
                 <div role="content" class="ui-content">
+                    <div data-role="popup" id="mcs_setup_checklist_p7_userGuide_popup" data-theme="b">
+						<div data-role="header" data-theme="a">
+							<h1>UBM Phase 7 User Guide</h1>
+						</div>
+						<div role="main" class="ui-content">
+							<h3 class="ui-title">I.	Phase 7 Harvest Application </h3>
+							<p>
+								(only completed if developing an application that will attach to a business model): This phase will guide you through the steps necessary to harvest or collect the pieces of your application into a packet that can be shared with others to attach & execute your application in their business model.
+							</p>
+								<a href="#" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b" data-rel="back" data-transition="flow">Dismiss</a>
+						</div>
+                    </div>
+                    <!-- End Read Phase Eight User Guide Popup-->
                     <!-- Open Items Popup -->
                     <div data-role="popup" id="mcs_setup_checklist_p7_openItem_popup" data-theme="b">
                         <form id="mcs_setup_checklist_p7_open_items_form" name="open_items_form">
@@ -13348,46 +12940,16 @@ under the License.
                 <div role="content" class="ui-content">
                     <!-- Read Phase Eight User Guide Popup -->
                     <div data-role="popup" id="mcs_setup_checklist_p8_userGuide_popup" data-theme="b">
-                        <form id="mcs_setup_checklist_p8_open_items_form" name="open_items_form">
-                            <ul data-role="listview" data-inset="true" style="min-width:210px;">
-                                <li class="open_point_form_header" data-role="list-divider">
-                                    <h1>User Guide</h1>
-                                </li>
-                                <li>
-                                    <input type="text" id="mcs_setup_checklist_p8_submitreviewpoint_formref" name="submitreviewpoint_formref" value="" placeholder="Form Ref...">
-                                </li>
-                                <select  id="mcs_setup_checklist_p8_submitreviewpoint_priority" value="Select" data-native-menu="false">
-                                    <option>Priority...</option>
-                                    <option value="A1">A1</option>
-                                    <option value="A2">A2</option>
-                                    <option value="A3">A3</option>
-                                    <option value="B1">B1</option>
-                                    <option value="B2">B2</option>
-                                    <option value="B3">B3</option>
-                                    <option value="C1">C1</option>
-                                    <option value="C2">C2</option>
-                                    <option value="C3">C3</option>
-                                </select>
-                                </li>
-                                <li>
-                                    <textarea data-mini="true" cols="40" rows="8" id="mcs_setup_checklist_p8_submitreviewpoint_actionrequired" placeholder="Action Required..."></textarea>
-                                </li>
-                                <li>
-                                    <select  id="mcs_setup_checklist_p8_submitreviewpoint_assignedto" value="Select" data-native-menu="false">
-                                        <option>Assigned To...</option>
-                                        <option value="Jesse Spencer">Jesse Spencer</option>
-                                        <option value="Adam Gustafson">Adam Gustafson</option>
-                                    </select>
-                                </li>
-                                <li>
-                                    <label for="datetime-4">Due Datetime</label>
-                                    <input type="datetime-local" data-clear-btn="true"  id="mcs_setup_checklist_p8_submitreviewpoint_duedatetime" value="" placeholder="Due Datetime...">
-                                </li>
-                                <li>
-                                    <input type="button" data-enhanced="true" value="Submit Review Point" onclick="submitReviewPoint('mcs_setup_checklist_p8_');">
-                                </li>
-                            </ul>
-                        </form>
+						<div data-role="header" data-theme="a">
+							<h1>UBM Phase 8User Guide</h1>
+						</div>
+						<div role="main" class="ui-content">
+							<h3 class="ui-title">J.	Phase 8 Upload to App Store and App Store Purchases </h3>
+							<p>
+								(only completed if developing an application that will attach to a business model): This phase will guide you through the steps necessary to upload or attach your application to the UBM app store or your app store and make it available for download to others.
+							</p>
+								<a href="#" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b" data-rel="back" data-transition="flow">Dismiss</a>
+						</div>
                     </div>
                     <!-- End Read Phase Eight User Guide Popup-->
                     <!-- Open Items Popup -->
