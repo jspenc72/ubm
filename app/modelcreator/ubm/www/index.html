@@ -2122,13 +2122,11 @@ under the License.
                     if (terms_of_service == false) {
                         alert("You Must Agree to the Terms of Service!");
                                     $.mobile.loading("hide");
-
                         return false;
                     } else {
                         if (license_agreement == false) {
                             alert("You Must Agree to the License Agreement!");
                                     $.mobile.loading("hide");
-
                             return false;
                             }
                         else {
@@ -2138,7 +2136,6 @@ under the License.
                             if (!filter.test(reg_email)) {
                             alert('Please provide a valid email address');
                                     $.mobile.loading("hide");
-
                             reg_email.focus;
                             return false;
                          }
