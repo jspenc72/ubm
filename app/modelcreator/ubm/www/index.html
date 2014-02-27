@@ -24,6 +24,7 @@ under the License.
         <!-- WARNING: for iOS 7, remove the width=device-width and height=device-height attributes. See https://issues.apache.org/jira/browse/CB-4323 -->
         <meta name="viewport" content="user-scalable=yes, initial-scale=1, maximum-scale=5.0, minimum-scale=1.0, width=device-width, height=device-height, target-densitydpi=device-dpi" />
 
+		<link rel="stylesheet" type="text/css" media="screen, print" href="css/slickmap.css" />
         <link rel="stylesheet" type="text/css" href="css/index.css" />
         <link rel="stylesheet" href="css/jquery.mobile-1.4.0.min.css" />
 
@@ -3085,7 +3086,7 @@ under the License.
                         </p></a>
                     </li>
                     <li>
-                        <a href="#ubmsuite_mcs_my_organizational_chart"> <img src="img/model-visual.jpg" class="ui-li-thumb"> <h2>Model Visual</h2>
+                        <a href="#ubmsuite_mcs_model_visual"> <img src="img/model-visual.jpg" class="ui-li-thumb"> <h2>Model Visual</h2>
                         <p>
                             The Visual Representation of Your Model
                         </p>
@@ -3249,7 +3250,7 @@ under the License.
                         </p></a>
                     </li>
                     <li>
-                        <a href="#ubmsuite_mcs_my_organizational_chart"> <img src="img/model-visual.jpg" class="ui-li-thumb"> <h2>Model Visual</h2>
+                        <a href="#ubmsuite_mcs_model_visual"> <img src="img/model-visual.jpg" class="ui-li-thumb"> <h2>Model Visual</h2>
                         <p>
                             The Visual Representation of You Model
                         </p>
@@ -3505,6 +3506,162 @@ under the License.
 			   </ul>            
 		    
 			    <div id="chart" class="orgChart" style="padding:75px 10px 75px 10px;"></div>						
+			</div>
+		</div>
+		<div data-role="page" class="ubm_page" id="ubmsuite_mcs_model_visual">
+			<!-- UBM Suite Model Visual Page-->
+			<div data-role="panel" id="ubmsuite_mcs_model_visual_lpanel" data-display="overlay" data-position="left">
+					<ul data-role="listview">
+						<li data-icon="home">
+							<a href="#ubmsuite_SelectBusinessModel" >My Models</a>
+						</li>
+						<li data-icon="home">
+							<a href="#ubmsuite_modelDashboard" >Edit Model</a>
+						</li>
+						<li>
+							<a href="#ubmsuite_table_of_contents">UBM Suite Table of Contents</a>
+						</li>
+						<li>
+							<a href="#creator_table_of_contents">Model Creator Table of Contents</a>
+						</li>
+						<li>
+							<a href="#ubmsuite_table_of_contents">UBM Suite Table of Contents</a>
+						</li>
+						<li>
+							<a href="#mcs_setup_checklist_setup">MCS Setup</a>
+						</li>
+						<li>
+							<a href="#management_reporting">Management Reporting</a>
+						</li>
+						<li>
+							<a href="#mcs_setup_checklist_CS">Control Section</a>
+						</li>
+						<li>
+							<a href="#mcs_setup_checklist_p1">Phase 1</a>
+						</li>
+						<li>
+							<a href="#mcs_setup_checklist_p2">Phase 2</a>
+						</li>
+						<li>
+							<a href="#mcs_setup_checklist_p3">Phase 3</a>
+						</li>
+						<li>
+							<a href="#mcs_setup_checklist_p4">Phase 4</a>
+						</li>
+						<li>
+							<a href="#mcs_setup_checklist_p5">Phase 5</a>
+						</li>
+						<li>
+							<a href="#mcs_setup_checklist_p6">Phase 6</a>
+						</li>
+						<li>
+							<a href="#mcs_setup_checklist_p7">Phase 7</a>
+						</li>
+						<li>
+							<a href="#mcs_setup_checklist_p8">Phase 8</a>
+						</li>
+						<li>
+							<a href="#open_points_action_items">Open Points Action Items</a>
+						</li>
+						<li data-icon="delete">
+							<a href="#" data-rel="close">Close menu</a>
+						</li>
+						<li data-icon="delete">
+							<a href="#sign_in_sign_up">Sign Out</a>
+						</li>
+					</ul>
+				</div><!-- /panel -->
+			<div data-role="header" data-position="fixed" data-fullscreen="true">
+                <a href="#" class="back_btn" data-icon="arrow-l" data-iconpos="notext">Back</a>
+				<div id="ubmsuite_mcs_model_visual_header_headerRecord_center" style="text-align: center">
+					<div id="ubmsuite_mcs_model_visual_header_headerRecord_center_legalentity">
+						Legal Entity: Cindt, LLC
+					</div>
+					<div id="ubmsuite_mcs_model_visual_header_headerRecord_center_systemtitle">
+						System Title: UBM v 3.3.0
+					</div>
+					<div id="ubmsuite_mcs_model_visual_header_headerRecord_center_modelapptitle">
+						Model / App Title: UBM Suite
+					</div>
+					<div id="ubmsuite_mcs_model_visual_header_headerRecord_center_pagetitle">
+						MCS Model Visual Representation
+					</div>
+				</div>
+			</div>
+			<div data-role="content" id="ubmsuite_mcs_model_visual_content">
+				<div id="SlickMapDiv" style="width:80%; padding:75px 10px 75px 10px;">
+					<ul id="primaryNavSlickMap" class="col10">
+						<li id="home"><a href="http://sitetitle.com">Model</a></li>
+						<li><a href="/about">About Us</a>
+							<ul>
+								<li><a href="/history">Our History</a></li>
+								<li><a href="/conceptualdefinitions">Conceptual Definitions</a></li>
+		
+								<li><a href="/mission">Mission Statement</a></li>
+								<li><a href="/vision">Vision Statement</a></li>
+		
+								<li><a href="/principals">Principals</a></li>
+							</ul>
+						</li>				
+						<li><a href="/strategicalliance">Strategic Alliance</a></li>
+						<li><a href="/customers">Customers</a>
+							<ul>
+								<li><a href="/customers/customer1">Customer 1</a></li>
+							</ul>
+						</li>	
+						<li><a href="/corevalue">Core Values</a>
+							<ul>
+								<li><a href="/corevalue/corevalue1">Value 1</a></li>
+							</ul>
+						</li>	
+						<li><a href="/services">Services</a>
+							<ul>
+								<li><a href="/services/design">Graphic Design</a></li>
+								<li><a href="/services/development">Web Development</a></li>
+								<li><a href="/services/marketing">Internet Marketing</a>
+									<ul>
+										<li><a href="/social-media">Social Media</a></li>
+										<li><a href="/optimization">Search Optimization</a></li>
+										<li><a href="/adwords">Google AdWords</a></li>
+									</ul>
+								</li>
+								<li><a href="/services/copywriting">Copywriting</a></li>
+								<li><a href="/services/photography">Photography</a></li>
+							</ul>
+						</li>
+						<li><a href="/products">Products</a>
+							<ul>
+								<li><a href="/products/product1">Product 1</a></li>
+							</ul>
+						</li>
+						<li><a href="/strategicpositioningquestions">Strategic Positioning Questions</a>
+							<ul>
+								<li><a href="/strategicpositioningquestions/spq1">SP Question 1</a></li>
+							</ul>
+						</li>
+						<li><a href="/features">Features</a>
+							<ul>
+								<li><a href="/features/feature1">Feature 1</a></li>
+							</ul>
+						</li>
+						<li><a href="/physicalfacility">Physical Facility</a>
+							<ul>
+								<li><a href="/physicalfacility/facility1">Facility 1</a></li>
+							</ul>
+						</li>
+						<li><a href="/contact">Contact</a>
+							<ul>
+								<li><a href="/contact/offices">Offices</a>
+									<ul>
+										<li><a href="contact/map">Map</a></li>
+										<li><a href="contact/form">Contact Form</a></li>
+									</ul>
+								</li>
+							</ul>
+						</li>		
+						
+					</ul>		
+				</div>					
 			</div>
 		</div>
 		<div data-role="page" class="ubm_page" id="ubmsuite_mcs_management_reporting">
