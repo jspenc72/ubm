@@ -333,7 +333,7 @@ under the License.
 					$('#ubmsuite_SelectBusinessModel_MyModels_ul').listview("refresh");
 
 					$.each(res, function(i, item) {
-						$('#ubmsuite_SelectBusinessModel_MyModels_ul').append("<li><a href='#ubmsuite_EditMyBusinessModel' onclick='setActiveModel(" + item.id + ")'><h2>Model Title: " + item.title + "</h2><p><strong>Model Reference: " + item.reference + "</strong></p><p>" + item.description + "</p><p class='ui-li-aside'>Creation Date: <strong>" + item.created_date + "</strong></p></a></li>");
+						$('#ubmsuite_SelectBusinessModel_MyModels_ul').append("<li><a href='#ubmsuite_modelDashboard' onclick='setActiveModel(" + item.id + ")'><h2>Model Title: " + item.title + "</h2><p><strong>Model Reference: " + item.reference + "</strong></p><p>" + item.description + "</p><p class='ui-li-aside'>Creation Date: <strong>" + item.created_date + "</strong></p></a></li>");
 						$('#ubmsuite_SelectBusinessModel_MyModels_ul').listview("refresh");
 					})
 				});
@@ -350,7 +350,7 @@ under the License.
 					$.each(res, function(i, item) {
 						if (window.username !== item.creator_id) {
 							$('#ubmsuite_SelectBusinessModel_SharedModels_ul').append("<li data-role='list-divider'>Model Creator: " + item.creator_id + "</li>");
-							$('#ubmsuite_SelectBusinessModel_SharedModels_ul').append("<li><a href='#ubmsuite_EditSharedBusinessModel' onclick='setActiveModel(" + item.id + ")'><h2>Model Title: " + item.title + "</h2><p><strong>Model Reference: " + item.reference + "</strong></p><p>" + item.description + "</p><p class='ui-li-aside'>Creation Date: <strong>" + item.created_date + "</strong></p></a></li>");
+							$('#ubmsuite_SelectBusinessModel_SharedModels_ul').append("<li><a href='#ubmsuite_sharedModelDashboard' onclick='setActiveModel(" + item.id + ")'><h2>Model Title: " + item.title + "</h2><p><strong>Model Reference: " + item.reference + "</strong></p><p>" + item.description + "</p><p class='ui-li-aside'>Creation Date: <strong>" + item.created_date + "</strong></p></a></li>");
 							$('#ubmsuite_SelectBusinessModel_SharedModels_ul').listview("refresh");
 						}
 					})
@@ -1072,7 +1072,10 @@ under the License.
 
 			}
         </script>
-        
+        <script>
+        	
+        </script>
+		<!-- End Org Chart Functions -->
         <script>
 			//Refresh Model Creation Suite Checklist
 			function getModelCreationSuiteChecklistItems() {
@@ -1655,10 +1658,10 @@ under the License.
 																								link.setAttribute("href", '#ubmsuite_SelectBusinessModel_openItem_popup');
 																								//Set the Attribute of the open item button to the popup on the current page.
 																							}else{
-																								if(strarray[1] == "ubmsuite_EditMyBusinessModel"){
+																								if(strarray[1] == "ubmsuite_modelDashboard"){
 																									var link = document.getElementById("openItem_popup_button");
 																									//Get the popup on the current page.
-																									link.setAttribute("href", '#ubmsuite_EditMyBusinessModel_openItem_popup');
+																									link.setAttribute("href", '#ubmsuite_modelDashboard_openItem_popup');
 																									//Set the Attribute of the open item button to the popup on the current page.																									
 																								}
 																							}
@@ -2855,7 +2858,7 @@ under the License.
                         Model / App Title: UBM Suite
                     </div>
                     <div id="creator_table_of_contents_header_headerRecord_center_pagetitle">
-                        Select Models Page
+                        UBM Control Panel
                     </div>
                 </div>
                 <a href="#" data-icon="refresh" data-iconpos="notext" onclick="getMyModels()">Refresh</a>
@@ -2932,50 +2935,56 @@ under the License.
                 </div>
                 <div align="center">
                     <a href="#ubmsuite_createModel_popup" data-rel="popup" data-role="button" data-inline="true"  >Create New Model</a>
+                    <a href="#ubmsuite_createModel_popup" data-rel="popup" data-role="button" data-inline="true" class="ui-disabled">Create New Project</a>
+
                 </div>
                 </br>
-                <ul data-role='listview' data-inset='true' id='ubmsuite_SelectBusinessModel_MyModels_ul'>
-                    <!-- <li data-role='list-divider'>creator_id</li><li><a href='index.html'><h2>Model Title</h2><p><strong>Reference: </strong></p><p>Description: </p><p class='ui-li-aside'><strong>Creation Date: </strong></p></a></li>-->
-                </ul>
-                <ul data-role='listview' data-inset='true' id='ubmsuite_SelectBusinessModel_SharedModels_ul' data-theme="b">
-
-                </ul>
+                <div style="min-width:450px; width:50%">
+	                <ul data-role='listview' data-inset='true' id='ubmsuite_SelectBusinessModel_MyModels_ul'>
+	                    <!-- <li data-role='list-divider'>creator_id</li><li><a href='index.html'><h2>Model Title</h2><p><strong>Reference: </strong></p><p>Description: </p><p class='ui-li-aside'><strong>Creation Date: </strong></p></a></li>-->
+	                </ul>                	
+                </div>
+				<div style="min-width:450px; width:50%">
+	                <ul data-role='listview' data-inset='true' id='ubmsuite_SelectBusinessModel_SharedModels_ul' data-theme="b">
+	
+	                </ul>					
+				</div>
             </div>
             <div data-role="footer" data-position="fixed" data-fullscreen="true">
 
             </div>
         </div>
-        <div data-role="page" class="ubm_page" id="ubmsuite_EditMyBusinessModel" data-theme="a">
+        <div data-role="page" class="ubm_page" id="ubmsuite_modelDashboard" data-theme="a">
             <!-- No Panel on this page, instead only back button is needed.-->
             <div data-role="header">
                 <a href="#" class="back_btn" data-icon="arrow-l" data-iconpos="notext">Back</a>
-                <div id="ubmsuite_EditMyBusinessModel_header_headerRecord_center" style="text-align: center">
-                    <div id="ubmsuite_EditMyBusinessModel_header_headerRecord_center_legalentity">
+                <div id="ubmsuite_modelDashboard_header_headerRecord_center" style="text-align: center">
+                    <div id="ubmsuite_modelDashboard_header_headerRecord_center_legalentity">
                         Legal Entity: Cindt, LLC
                     </div>
-                    <div id="ubmsuite_EditMyBusinessModel_header_headerRecord_center_systemtitle">
+                    <div id="ubmsuite_modelDashboard_header_headerRecord_center_systemtitle">
                         System Title: UBM v 3.3.0
                     </div>
-                    <div id="ubmsuite_EditMyBusinessModel_header_headerRecord_center_modelapptitle">
+                    <div id="ubmsuite_modelDashboard_header_headerRecord_center_modelapptitle">
                         Model / App Title: UBM Suite
                     </div>
-                    <div id="ubmsuite_EditMyBusinessModel_header_headerRecord_center_pagetitle">
-                        Edit Model
+                    <div id="ubmsuite_modelDashboard_header_headerRecord_center_pagetitle">
+                        Model Dashboard
                     </div>
                 </div>
             </div>
             <div data-role="content" class="my-page">
-                <div data-role="popup" id="ubmsuite_EditMyBusinessModel_openItem_popup" data-theme="b">
-                    <form id="ubmsuite_EditMyBusinessModel_open_items_form" name="open_items_form">
+                <div data-role="popup" id="ubmsuite_modelDashboard_openItem_popup" data-theme="b">
+                    <form id="ubmsuite_modelDashboard_open_items_form" name="open_items_form">
                         <ul data-role="listview" data-inset="true" style="min-width:210px;">
                             <li class="open_point_form_header" data-role="list-divider">
                                 <h1>Write a Review Point</br>or Open Item</h1>
                             </li>
                             <li>
-                                <input type="text" id="ubmsuite_EditMyBusinessModel_submitreviewpoint_formref" name="submitreviewpoint_formref" value="" placeholder="Form Ref...">
+                                <input type="text" id="ubmsuite_modelDashboard_submitreviewpoint_formref" name="submitreviewpoint_formref" value="" placeholder="Form Ref...">
                             </li>
                             <li>
-                                <select  id="ubmsuite_EditMyBusinessModel_submitreviewpoint_priority" value="Select" data-native-menu="false">
+                                <select  id="ubmsuite_modelDashboard_submitreviewpoint_priority" value="Select" data-native-menu="false">
                                     <option>Priority...</option>
                                     <option value="A1">A1</option>
                                     <option value="A2">A2</option>
@@ -2989,12 +2998,12 @@ under the License.
                                 </select>
                             </li>
                             <li>
-                                <textarea data-mini="true" cols="40" rows="8" id="ubmsuite_EditMyBusinessModel_submitreviewpoint_actionrequired" placeholder="Action Required...">
+                                <textarea data-mini="true" cols="40" rows="8" id="ubmsuite_modelDashboard_submitreviewpoint_actionrequired" placeholder="Action Required...">
                                     
                                 </textarea>
                             </li>
                             <li>
-                                <select  id="ubmsuite_EditMyBusinessModel_submitreviewpoint_assignedto" value="Select" data-native-menu="false">
+                                <select  id="ubmsuite_modelDashboard_submitreviewpoint_assignedto" value="Select" data-native-menu="false">
                                     <option>Assigned To...</option>
                                     <option value="Jesse Spencer">Jesse Spencer</option>
                                     <option value="Adam Gustafson">Adam Gustafson</option>
@@ -3002,10 +3011,10 @@ under the License.
                             </li>
                             <li>
                                 <label for="datetime-4">Due Datetime</label>
-                                <input type="datetime-local" data-clear-btn="true"  id="ubmsuite_EditMyBusinessModel_submitreviewpoint_duedatetime" value="" placeholder="Due Datetime...">
+                                <input type="datetime-local" data-clear-btn="true"  id="ubmsuite_modelDashboard_submitreviewpoint_duedatetime" value="" placeholder="Due Datetime...">
                             </li>
                             <li>
-                                <input type="button" data-enhanced="true" value="Submit Review Point" onclick="submitReviewPoint('ubmsuite_EditMyBusinessModel_');">
+                                <input type="button" data-enhanced="true" value="Submit Review Point" onclick="submitReviewPoint('ubmsuite_modelDashboard_');">
                             </li>
                         </ul>
                     </form>
@@ -3073,6 +3082,15 @@ under the License.
                         </p>
                         <p class="ui-li-aside">
                             OC
+                        </p></a>
+                    </li>
+                    <li>
+                        <a href="#ubmsuite_mcs_my_organizational_chart"> <img src="img/model-visual.jpg" class="ui-li-thumb"> <h2>Model Visual</h2>
+                        <p>
+                            The Visual Representation of Your Model
+                        </p>
+                        <p class="ui-li-aside">
+                            VR
                         </p></a>
                     </li>
                     <li>
@@ -3099,38 +3117,38 @@ under the License.
 
             </div>
         </div>
-        <div data-role="page" class="ubm_page my-page" id="ubmsuite_EditSharedBusinessModel" data-theme="b">
+        <div data-role="page" class="ubm_page my-page" id="ubmsuite_sharedModelDashboard" data-theme="b">
             <!-- Business Model Creator Settings -->
             <div data-role="header">
                 <a href="#" class="back_btn" data-icon="arrow-l" data-iconpos="notext">Back</a>
-                <div id="ubmsuite_EditSharedBusinessModel_header_headerRecord_center" style="text-align: center">
-                    <div id="ubmsuite_EditSharedBusinessModel_header_headerRecord_center_legalentity">
+                <div id="ubmsuite_sharedModelDashboard_header_headerRecord_center" style="text-align: center">
+                    <div id="ubmsuite_sharedModelDashboard_header_headerRecord_center_legalentity">
                         Legal Entity: Cindt, LLC
                     </div>
-                    <div id="ubmsuite_EditSharedBusinessModel_header_headerRecord_center_systemtitle">
+                    <div id="ubmsuite_sharedModelDashboard_header_headerRecord_center_systemtitle">
                         System Title: UBM v 3.3.0
                     </div>
-                    <div id="ubmsuite_EditSharedBusinessModel_header_headerRecord_center_modelapptitle">
+                    <div id="ubmsuite_sharedModelDashboard_header_headerRecord_center_modelapptitle">
                         Model / App Title: UBM Suite
                     </div>
-                    <div id="ubmsuite_EditSharedBusinessModel_header_headerRecord_center_pagetitle">
-                        Edit Model
+                    <div id="ubmsuite_sharedModelDashboard_header_headerRecord_center_pagetitle">
+                       Shared Model Dashboard
                     </div>
                 </div>
             </div>
             <div data-role="content">
                 <!-- Open Items Popup -->
-                <div data-role="popup" id="ubmsuite_EditSharedBusinessModel_openItem_popup" data-theme="b">
-                    <form id="ubmsuite_EditSharedBusinessModel_open_items_form" name="open_items_form">
+                <div data-role="popup" id="ubmsuite_sharedModelDashboard_openItem_popup" data-theme="b">
+                    <form id="ubmsuite_sharedModelDashboard_open_items_form" name="open_items_form">
                         <ul data-role="listview" data-inset="true" style="min-width:210px;">
                             <li class="open_point_form_header" data-role="list-divider">
                                 <h1>Write a Review Point</br>or Open Item</h1>
                             </li>
                             <li>
-                                <input type="text" id="ubmsuite_EditSharedBusinessModel_submitreviewpoint_formref" name="submitreviewpoint_formref" value="" placeholder="Form Ref...">
+                                <input type="text" id="ubmsuite_sharedModelDashboard_submitreviewpoint_formref" name="submitreviewpoint_formref" value="" placeholder="Form Ref...">
                             </li>
                             <li>
-                                <select  id="ubmsuite_EditSharedBusinessModel_submitreviewpoint_priority" value="Select" data-native-menu="false">
+                                <select  id="ubmsuite_sharedModelDashboard_submitreviewpoint_priority" value="Select" data-native-menu="false">
                                     <option>Priority...</option>
                                     <option value="A1">A1</option>
                                     <option value="A2">A2</option>
@@ -3144,12 +3162,12 @@ under the License.
                                 </select>
                             </li>
                             <li>
-                                <textarea data-mini="true" cols="40" rows="8" id="ubmsuite_EditSharedBusinessModel_submitreviewpoint_actionrequired" placeholder="Action Required...">
+                                <textarea data-mini="true" cols="40" rows="8" id="ubmsuite_sharedModelDashboard_submitreviewpoint_actionrequired" placeholder="Action Required...">
                                     
                                 </textarea>
                             </li>
                             <li>
-                                <select  id="ubmsuite_EditSharedBusinessModel_submitreviewpoint_assignedto" value="Select" data-native-menu="false">
+                                <select  id="ubmsuite_sharedModelDashboard_submitreviewpoint_assignedto" value="Select" data-native-menu="false">
                                     <option>Assigned To...</option>
                                     <option value="Jesse Spencer">Jesse Spencer</option>
                                     <option value="Adam Gustafson">Adam Gustafson</option>
@@ -3157,10 +3175,10 @@ under the License.
                             </li>
                             <li>
                                 <label for="datetime-4">Due Datetime</label>
-                                <input type="datetime-local" data-clear-btn="true"  id="ubmsuite_EditSharedBusinessModel_submitreviewpoint_duedatetime" value="" placeholder="Due Datetime...">
+                                <input type="datetime-local" data-clear-btn="true"  id="ubmsuite_sharedModelDashboard_submitreviewpoint_duedatetime" value="" placeholder="Due Datetime...">
                             </li>
                             <li>
-                                <input type="button" data-enhanced="true" value="Submit Review Point" onclick="submitReviewPoint('ubmsuite_EditSharedBusinessModel_');">
+                                <input type="button" data-enhanced="true" value="Submit Review Point" onclick="submitReviewPoint('ubmsuite_sharedModelDashboard_');">
                             </li>
                         </ul>
                     </form>
@@ -3228,6 +3246,15 @@ under the License.
                         </p>
                         <p class="ui-li-aside">
                             OC
+                        </p></a>
+                    </li>
+                    <li>
+                        <a href="#ubmsuite_mcs_my_organizational_chart"> <img src="img/model-visual.jpg" class="ui-li-thumb"> <h2>Model Visual</h2>
+                        <p>
+                            The Visual Representation of You Model
+                        </p>
+                        <p class="ui-li-aside">
+                            VR
                         </p></a>
                     </li>
                     <li>
@@ -3263,7 +3290,7 @@ under the License.
 							<a href="#ubmsuite_SelectBusinessModel" >My Models</a>
 						</li>
 						<li data-icon="home">
-							<a href="#ubmsuite_EditMyBusinessModel" >Edit Model</a>
+							<a href="#ubmsuite_modelDashboard" >Edit Model</a>
 						</li>
 						<li>
 							<a href="#ubmsuite_table_of_contents">UBM Suite Table of Contents</a>
@@ -3362,7 +3389,7 @@ under the License.
 							<a href="#ubmsuite_SelectBusinessModel" >My Models</a>
 						</li>
 						<li data-icon="home">
-							<a href="#ubmsuite_EditMyBusinessModel" >Edit Model</a>
+							<a href="#ubmsuite_modelDashboard" >Edit Model</a>
 						</li>
 						<li>
 							<a href="#ubmsuite_table_of_contents">UBM Suite Table of Contents</a>
@@ -3488,7 +3515,7 @@ under the License.
 							<a href="#ubmsuite_SelectBusinessModel" >My Models</a>
 						</li>
 						<li data-icon="home">
-							<a href="#ubmsuite_EditMyBusinessModel" >Edit Model</a>
+							<a href="#ubmsuite_modelDashboard" >Edit Model</a>
 						</li>
 						<li>
 							<a href="#ubmsuite_table_of_contents">UBM Suite Table of Contents</a>
@@ -3571,7 +3598,7 @@ under the License.
                         <a href="#ubmsuite_SelectBusinessModel" >My Models</a>
                     </li>
                     <li data-icon="home">
-                        <a href="#ubmsuite_EditMyBusinessModel" >Edit Model</a>
+                        <a href="#ubmsuite_modelDashboard" >Edit Model</a>
                     </li>
 
                     <li>
@@ -4328,7 +4355,7 @@ under the License.
 							<a href="#ubmsuite_SelectBusinessModel" >My Models</a>
 						</li>
 						<li data-icon="home">
-							<a href="#ubmsuite_EditMyBusinessModel" >Edit Model</a>
+							<a href="#ubmsuite_modelDashboard" >Edit Model</a>
 						</li>
 						<li>
 							<a href="#ubmsuite_table_of_contents">UBM Suite Table of Contents</a>
@@ -4525,7 +4552,7 @@ under the License.
 						<a href="#ubmsuite_SelectBusinessModel" >My Models</a>
 					</li>
 					<li data-icon="home">
-						<a href="#ubmsuite_EditMyBusinessModel" >Edit Model</a>
+						<a href="#ubmsuite_modelDashboard" >Edit Model</a>
 					</li>
 
 					<li>
@@ -4692,7 +4719,7 @@ under the License.
 						<a href="#ubmsuite_SelectBusinessModel" >My Models</a>
 					</li>
 					<li data-icon="home">
-						<a href="#ubmsuite_EditMyBusinessModel" >Edit Model</a>
+						<a href="#ubmsuite_modelDashboard" >Edit Model</a>
 					</li>
 
 					<li>
@@ -5269,7 +5296,7 @@ under the License.
 						<a href="#ubmsuite_SelectBusinessModel" >My Models</a>
 					</li>
 					<li data-icon="home">
-						<a href="#ubmsuite_EditMyBusinessModel" >Edit Model</a>
+						<a href="#ubmsuite_modelDashboard" >Edit Model</a>
 					</li>
 
 					<li>
@@ -5825,7 +5852,7 @@ under the License.
 						<a href="#ubmsuite_SelectBusinessModel" >My Models</a>
 					</li>
 					<li data-icon="home">
-						<a href="#ubmsuite_EditMyBusinessModel" >Edit Model</a>
+						<a href="#ubmsuite_modelDashboard" >Edit Model</a>
 					</li>
 
 					<li>
@@ -6197,7 +6224,7 @@ under the License.
 						<a href="#ubmsuite_SelectBusinessModel" >My Models</a>
 					</li>
 					<li data-icon="home">
-						<a href="#ubmsuite_EditMyBusinessModel" >Edit Model</a>
+						<a href="#ubmsuite_modelDashboard" >Edit Model</a>
 					</li>
 
 					<li>
@@ -6587,7 +6614,7 @@ under the License.
 						<a href="#ubmsuite_SelectBusinessModel" >My Models</a>
 					</li>
 					<li data-icon="home">
-						<a href="#ubmsuite_EditMyBusinessModel" >Edit Model</a>
+						<a href="#ubmsuite_modelDashboard" >Edit Model</a>
 					</li>
 
 					<li>
@@ -6958,7 +6985,7 @@ under the License.
 						<a href="#ubmsuite_SelectBusinessModel" >My Models</a>
 					</li>
 					<li data-icon="home">
-						<a href="#ubmsuite_EditMyBusinessModel" >Edit Model</a>
+						<a href="#ubmsuite_modelDashboard" >Edit Model</a>
 					</li>
 
 					<li>
@@ -7329,7 +7356,7 @@ under the License.
 						<a href="#ubmsuite_SelectBusinessModel" >My Models</a>
 					</li>
 					<li data-icon="home">
-						<a href="#ubmsuite_EditMyBusinessModel" >Edit Model</a>
+						<a href="#ubmsuite_modelDashboard" >Edit Model</a>
 					</li>
 
 					<li>
@@ -7712,7 +7739,7 @@ under the License.
 						<a href="#ubmsuite_SelectBusinessModel" >My Models</a>
 					</li>
 					<li data-icon="home">
-						<a href="#ubmsuite_EditMyBusinessModel" >Edit Model</a>
+						<a href="#ubmsuite_modelDashboard" >Edit Model</a>
 					</li>
 
 					<li>
@@ -8084,7 +8111,7 @@ under the License.
 						<a href="#ubmsuite_SelectBusinessModel" >My Models</a>
 					</li>
 					<li data-icon="home">
-						<a href="#ubmsuite_EditMyBusinessModel" >Edit Model</a>
+						<a href="#ubmsuite_modelDashboard" >Edit Model</a>
 					</li>
 
 					<li>
@@ -8455,7 +8482,7 @@ under the License.
 						<a href="#ubmsuite_SelectBusinessModel" >My Models</a>
 					</li>
 					<li data-icon="home">
-						<a href="#ubmsuite_EditMyBusinessModel" >Edit Model</a>
+						<a href="#ubmsuite_modelDashboard" >Edit Model</a>
 					</li>
 
 					<li>
@@ -8826,7 +8853,7 @@ under the License.
 						<a href="#ubmsuite_SelectBusinessModel" >My Models</a>
 					</li>
 					<li data-icon="home">
-						<a href="#ubmsuite_EditMyBusinessModel" >Edit Model</a>
+						<a href="#ubmsuite_modelDashboard" >Edit Model</a>
 					</li>
 
 					<li>
@@ -9197,7 +9224,7 @@ under the License.
 						<a href="#ubmsuite_SelectBusinessModel" >My Models</a>
 					</li>
 					<li data-icon="home">
-						<a href="#ubmsuite_EditMyBusinessModel" >Edit Model</a>
+						<a href="#ubmsuite_modelDashboard" >Edit Model</a>
 					</li>
 
 					<li>
@@ -9568,7 +9595,7 @@ under the License.
 						<a href="#ubmsuite_SelectBusinessModel" >My Models</a>
 					</li>
 					<li data-icon="home">
-						<a href="#ubmsuite_EditMyBusinessModel" >Edit Model</a>
+						<a href="#ubmsuite_modelDashboard" >Edit Model</a>
 					</li>
 
 					<li>
@@ -9939,7 +9966,7 @@ under the License.
 						<a href="#ubmsuite_SelectBusinessModel" >My Models</a>
 					</li>
 					<li data-icon="home">
-						<a href="#ubmsuite_EditMyBusinessModel" >Edit Model</a>
+						<a href="#ubmsuite_modelDashboard" >Edit Model</a>
 					</li>
 
 					<li>
@@ -10310,7 +10337,7 @@ under the License.
 						<a href="#ubmsuite_SelectBusinessModel" >My Models</a>
 					</li>
 					<li data-icon="home">
-						<a href="#ubmsuite_EditMyBusinessModel" >Edit Model</a>
+						<a href="#ubmsuite_modelDashboard" >Edit Model</a>
 					</li>
 
 					<li>
@@ -10681,7 +10708,7 @@ under the License.
 						<a href="#ubmsuite_SelectBusinessModel" >My Models</a>
 					</li>
 					<li data-icon="home">
-						<a href="#ubmsuite_EditMyBusinessModel" >Edit Model</a>
+						<a href="#ubmsuite_modelDashboard" >Edit Model</a>
 					</li>
 
 					<li>
@@ -11052,7 +11079,7 @@ under the License.
 						<a href="#ubmsuite_SelectBusinessModel" >My Models</a>
 					</li>
 					<li data-icon="home">
-						<a href="#ubmsuite_EditMyBusinessModel" >Edit Model</a>
+						<a href="#ubmsuite_modelDashboard" >Edit Model</a>
 					</li>
 
 					<li>
@@ -11423,7 +11450,7 @@ under the License.
                                         <a href="#ubmsuite_SelectBusinessModel" >My Models</a>
                                     </li>
                                     <li data-icon="home">
-                                        <a href="#ubmsuite_EditMyBusinessModel" >Edit Model</a>
+                                        <a href="#ubmsuite_modelDashboard" >Edit Model</a>
                                     </li>
 
                                     <li>
@@ -11794,7 +11821,7 @@ under the License.
                             <a href="#ubmsuite_SelectBusinessModel" >My Models</a>
                         </li>
                         <li data-icon="home">
-                            <a href="#ubmsuite_EditMyBusinessModel" >Edit Model</a>
+                            <a href="#ubmsuite_modelDashboard" >Edit Model</a>
                         </li>
 
                         <li>
@@ -12533,7 +12560,7 @@ under the License.
                             <a href="#ubmsuite_SelectBusinessModel" >My Models</a>
                         </li>
                         <li data-icon="home">
-                            <a href="#ubmsuite_EditMyBusinessModel" >Edit Model</a>
+                            <a href="#ubmsuite_modelDashboard" >Edit Model</a>
                         </li>
 
                         <li>
@@ -12903,7 +12930,7 @@ under the License.
                             <a href="#ubmsuite_SelectBusinessModel" >My Models</a>
                         </li>
                         <li data-icon="home">
-                            <a href="#ubmsuite_EditMyBusinessModel" >Edit Model</a>
+                            <a href="#ubmsuite_modelDashboard" >Edit Model</a>
                         </li>
 
                         <li>
@@ -13290,7 +13317,7 @@ under the License.
                             <a href="#ubmsuite_SelectBusinessModel" >My Models</a>
                         </li>
                         <li data-icon="home">
-                            <a href="#ubmsuite_EditMyBusinessModel" >Edit Model</a>
+                            <a href="#ubmsuite_modelDashboard" >Edit Model</a>
                         </li>
 
                         <li>
@@ -13547,7 +13574,7 @@ under the License.
 					$(".offline").css("visibility", "hidden");
 				}
 			}
-				$(document).on("pageshow", "#ubmsuite_EditMyBusinessModel", function() {
+				$(document).on("pageshow", "#ubmsuite_modelDashboard", function() {
 					setTimeout(function() {
 						getModelCreationSuiteChecklistItems();
 	
@@ -13578,7 +13605,7 @@ under the License.
 						getListofPossibleOrganizationalStructures();
 					}, 2000);
 				});
-				$(document).on("pageshow", "#ubmsuite_EditSharedBusinessModel", function() {
+				$(document).on("pageshow", "#ubmsuite_sharedModelDashboard", function() {
 					setTimeout(function() {
 						getModelCreationSuiteChecklistItems();
 	
@@ -13666,8 +13693,8 @@ under the License.
 	                    $( "#mcs_setup_checklist_p2_openItem_popup" ).draggable({ handle: "h1" });
 	                    $( "#ubmsuite_SelectBusinessModel_openItem_popup" ).draggable({ handle: "h1" });
 	                    $( "#ubmsuite_table_of_contents_openItem_popup" ).draggable({ handle: "h1" });
-	                    $( "#ubmsuite_EditMyBusinessModel_openItem_popup" ).draggable({ handle: "h1" });
-	                    $( "#ubmsuite_EditSharedBusinessModel_openItem_popup" ).draggable({ handle: "h1" });
+	                    $( "#ubmsuite_modelDashboard_openItem_popup" ).draggable({ handle: "h1" });
+	                    $( "#ubmsuite_sharedModelDashboard_openItem_popup" ).draggable({ handle: "h1" });
 	                    $( "#gettingStarted_openItem_popup" ).draggable({ handle: "h1" });
 	                    $( "#ubmsuite_modelSettings_openItem_popup" ).draggable({ handle: "h1" });
 	                    $( "#mcs_setup_checklist_setup_openItem_popup" ).draggable({ handle: "h1" });
