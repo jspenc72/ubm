@@ -422,7 +422,7 @@ under the License.
         </script>
         <script>
 			function setActiveCoreValueId(activeCoreValueId){
-				window.activeCoreValueId = activeCoreValueId;
+				window.activeueId = activeCoreValueId;
 			}
 			//Model Core Values
 			function getMyModelsCoreValues() {
@@ -433,11 +433,16 @@ under the License.
 						$('#ubmsuite_modelSettings_myCoreValues_ul').empty();
 						$('#ubmsuite_modelSettings_myCoreValues_ul').append("<li><a data-rel='popup' data-mini='true' data-transition='slideup' href='#ubmsuite_modelSettings_coreValues_popup' class='ui-btn ui-shadow'>UBM core values. </a></li>");		
 						$('#ubmsuite_modelSettings_myCoreValues_ul').append("<li><a data-rel='popup' data-transition='slideup' href='#ubmsuite_modelSettings_createCoreValue_popup' class='ui-btn ui-shadow'>Create new!</a></li>");
+						//Visual Representation
+						$('#ubmsuite_mcs_model_visual_content_core_values_ul').empty();
 					$.each(res, function(i, item) {
+						$('#ubmsuite_mcs_model_visual_content_core_values_ul').append("<li><a>" + item.value_title +"</a></li>");
+						$('#ubmsuite_mcs_model_visual_content_core_values_ul').listview("refresh");
 						$('#ubmsuite_modelSettings_myCoreValues_ul').append("<li><a data-mini='true' href='#'><h2 style='white-space:normal;'>" + item.value_title +"</h2><p style='white-space:normal;'>" + item.value_summary + "</p></a><a href='#ubmsuite_modelSettings_confirm_remove_CoreValue_popup' data-mini='true' data-rel='popup' data-position-to='window' data-transition='pop' onclick='setActiveCoreValueId("+ item.id + ")'>Remove Core Value</a></li>");
 						$('#ubmsuite_modelSettings_myCoreValues_ul').listview("refresh");
 					})
 						$('#ubmsuite_modelSettings_myCoreValues_ul').listview("refresh");
+						$('#ubmsuite_mcs_model_visual_content_core_values_ul').listview("refresh");
 				});	
 				setTimeout(function() {
 					$('#tiles').trigger('refreshWookmark');													//Layout items in Wookmark Grid
@@ -511,12 +516,16 @@ under the License.
 				}, function(res, status) {
 //						alert(status);
 						$('#ubmsuite_modelSettings_myCustomers_ul').empty();
+						$('#ubmsuite_mcs_model_visual_content_customers_ul').empty();
 						$('#ubmsuite_modelSettings_myCustomers_ul').append("<li><a data-rel='popup' data-transition='slideup' href='#ubmsuite_modelSettings_customers_popup' class='ui-btn ui-shadow'>UBM Customers. </a></li>");		
 						$('#ubmsuite_modelSettings_myCustomers_ul').append("<li><a data-rel='popup' data-transition='slideup' href='#ubmsuite_modelSettings_createCustomer_popup' class='ui-btn ui-shadow'>Create new!</a></li>");
 					$.each(res, function(i, item) {
+						$('#ubmsuite_mcs_model_visual_content_customers_ul').append("<li><a>" + item.name +"</a></li>");
+						$('#ubmsuite_mcs_model_visual_content_customers_ul').listview("refresh");
 						$('#ubmsuite_modelSettings_myCustomers_ul').append("<li><a href='#'> <h2 style='white-space:normal;'>" + item.name +"</h2><p>" + item.id + "</p></a><a href='#ubmsuite_modelSettings_confirm_remove_Customer_popup' data-rel='popup' data-position-to='window' data-transition='pop' onclick='setActiveCustomerId("+ item.id + ")'>Remove Customer</a></li>");
 						$('#ubmsuite_modelSettings_myCustomers_ul').listview("refresh");
 					})
+						$('#ubmsuite_mcs_model_visual_content_customers_ul').listview("refresh");
 						$('#ubmsuite_modelSettings_myCustomers_ul').listview("refresh");
 				});
 
@@ -584,13 +593,18 @@ under the License.
 					activeModelId : window.activeModelId
 				}, function(res, status) {
 //						alert(status);
+						$('#ubmsuite_mcs_model_visual_content_products_ul').empty();
 						$('#ubmsuite_modelSettings_myProducts_ul').empty();
 						$('#ubmsuite_modelSettings_myProducts_ul').append("<li><a data-rel='popup' data-transition='slideup' href='#ubmsuite_modelSettings_products_popup' class='ui-btn ui-shadow'>UBM Products. </a></li>");		
 						$('#ubmsuite_modelSettings_myProducts_ul').append("<li><a data-rel='popup' data-transition='slideup' href='#ubmsuite_modelSettings_createProduct_popup' class='ui-btn ui-shadow'>Create new!</a></li>");
 					$.each(res, function(i, item) {
+						$('#ubmsuite_mcs_model_visual_content_products_ul').append("<li><a>" + item.title +"</a></li>");
+						$('#ubmsuite_mcs_model_visual_content_products_ul').listview("refresh");
 						$('#ubmsuite_modelSettings_myProducts_ul').append("<li><a href='#'> <h2 style='white-space:normal;'>" + item.title +"</h2><p>" + item.id + "</p></a><a href='#ubmsuite_modelSettings_confirm_remove_Product_popup' data-rel='popup' data-position-to='window' data-transition='pop' onclick='setActiveProductId("+ item.id + ")'>Remove Product</a></li>");
 						$('#ubmsuite_modelSettings_myProducts_ul').listview("refresh");
+						
 					})
+						$('#ubmsuite_mcs_model_visual_content_products_ul').listview("refresh");
 						$('#ubmsuite_modelSettings_myProducts_ul').listview("refresh");
 				});
 
@@ -655,14 +669,19 @@ under the License.
 					activeModelId : window.activeModelId
 				}, function(res, status) {
 //						alert(status);
+						$('#ubmsuite_mcs_model_visual_content_services_ul').empty();
 						$('#ubmsuite_modelSettings_myServices_ul').empty();
 						$('#ubmsuite_modelSettings_myServices_ul').append("<li><a data-rel='popup' data-transition='slideup' href='#ubmsuite_modelSettings_services_popup' class='ui-btn ui-shadow'>UBM Services. </a></li>");		
 						$('#ubmsuite_modelSettings_myServices_ul').append("<li><a data-rel='popup' data-transition='slideup' href='#ubmsuite_modelSettings_createService_popup' class='ui-btn ui-shadow'>Create new!</a></li>");
 					$.each(res, function(i, item) {
+						$('#ubmsuite_mcs_model_visual_content_services_ul').append("<li><a>" + item.title +"</a></li>");
+						$('#ubmsuite_mcs_model_visual_content_services_ul').listview("refresh");
 						$('#ubmsuite_modelSettings_myServices_ul').append("<li><a href='#'> <h2 style='white-space:normal;'>" + item.title +"</h2><p>" + item.id + "</p></a><a href='#ubmsuite_modelSettings_confirm_remove_Service_popup' data-rel='popup' data-position-to='window' data-transition='pop' onclick='setActiveServiceId("+ item.id + ")'>Remove Service</a></li>");
 						$('#ubmsuite_modelSettings_myServices_ul').listview("refresh");
 					})
+						$('#ubmsuite_mcs_model_visual_content_services_ul').listview("refresh");
 						$('#ubmsuite_modelSettings_myServices_ul').listview("refresh");
+						
 				});
 				setTimeout(function() {
 					$('#tiles').trigger('refreshWookmark');													//Layout items in Wookmark Grid
@@ -725,13 +744,17 @@ under the License.
 					activeModelId : window.activeModelId
 				}, function(res, status) {
 //						alert(status);
+						$('#ubmsuite_mcs_model_visual_content_physical_facilitiei_ul').empty();
 						$('#ubmsuite_modelSettings_myPhysicalFacilities_ul').empty();
 						$('#ubmsuite_modelSettings_myPhysicalFacilities_ul').append("<li><a data-rel='popup' data-transition='slideup' href='#ubmsuite_modelSettings_physicalfacilities_popup' class='ui-btn ui-shadow'>UBM Physical Facilities. </a></li>");		
 						$('#ubmsuite_modelSettings_myPhysicalFacilities_ul').append("<li><a data-rel='popup' data-transition='slideup' href='#ubmsuite_modelSettings_createPhysicalFacility_popup' class='ui-btn ui-shadow'>Create new!</a></li>");
 					$.each(res, function(i, item) {
+						$('#ubmsuite_mcs_model_visual_content_physical_facilitiei_ul').append("<li><a>" + item.facility_title +"</a></li>");
+						$('#ubmsuite_mcs_model_visual_content_physical_facilitiei_ul').listview("refresh");
 						$('#ubmsuite_modelSettings_myPhysicalFacilities_ul').append("<li><a href='#'> <h2 style='white-space:normal;'>" + item.facility_title +"</h2><p>" + item.id + "</p></a><a href='#ubmsuite_modelSettings_confirm_remove_PhysicalFacility_popup' data-rel='popup' data-position-to='window' data-transition='pop' onclick='setActivePhysicalFacilityId("+ item.id + ")'>Remove Physical Facility</a></li>");
 						$('#ubmsuite_modelSettings_myPhysicalFacilities_ul').listview("refresh");
 					})
+						$('#ubmsuite_mcs_model_visual_content_physical_facilitiei_ul').listview("refresh");
 						$('#ubmsuite_modelSettings_myPhysicalFacilities_ul').listview("refresh");
 				});
 				setTimeout(function() {
@@ -794,13 +817,17 @@ under the License.
 					activeModelId : window.activeModelId
 				}, function(res, status) {
 //						alert(status);
+						$('#ubmsuite_mcs_model_visual_content_organizational_structure_ul').empty();
 						$('#ubmsuite_modelSettings_myOrganizationalStructure_ul').empty();
 						$('#ubmsuite_modelSettings_myOrganizationalStructure_ul').append("<li><a data-rel='popup' data-transition='slideup' href='#ubmsuite_modelSettings_organizationalstructure_popup' class='ui-btn ui-shadow'>UBM Organizational Structure. </a></li>");		
 						$('#ubmsuite_modelSettings_myOrganizationalStructure_ul').append("<li><a data-rel='popup' data-transition='slideup' href='#ubmsuite_modelSettings_createOrganizationalStructure_popup' class='ui-btn ui-shadow'>Create new!</a></li>");
 					$.each(res, function(i, item) {
+						$('#ubmsuite_mcs_model_visual_content_organizational_structure_ul').append("<li><a>" + item.structure_title +"</a></li>");
+						$('#ubmsuite_mcs_model_visual_content_organizational_structure_ul').listview("refresh");
 						$('#ubmsuite_modelSettings_myOrganizationalStructure_ul').append("<li><a href='#'> <h2 style='white-space:normal;'>" + item.structure_title +"</h2><p>" + item.id + "</p></a><a href='#ubmsuite_modelSettings_confirm_remove_OrganizationalStructure_popup' data-rel='popup' data-position-to='window' data-transition='pop' onclick='setActiveOrganizationalStructureId("+ item.id + ")'>Remove Organizational Structure</a></li>");
 						$('#ubmsuite_modelSettings_myOrganizationalStructure_ul').listview("refresh");
 					})
+						$('#ubmsuite_mcs_model_visual_content_contact_ul').listview("refresh");
 						$('#ubmsuite_modelSettings_myOrganizationalStructure_ul').listview("refresh");
 				});
 				setTimeout(function() {
@@ -862,15 +889,19 @@ under the License.
 					activeModelId : window.activeModelId
 				}, function(res, status) {
 //						alert(status);
+						$('#ubmsuite_mcs_model_visual_content_strategic_alliances_ul').empty();
 						$('#ubmsuite_modelSettings_myStrategicAlliances_ul').empty();
 						$('#ubmsuite_modelSettings_myStrategicAlliances_ul').append("<li><a data-rel='popup' data-transition='slideup' href='#ubmsuite_modelSettings_strategicalliances_popup' class='ui-btn ui-shadow'>UBM Strategic Alliance. </a></li>");		
 						$('#ubmsuite_modelSettings_myOrganizationalStructure_ul').append("<li><a data-rel='popup' data-transition='slideup' href='#ubmsuite_modelSettings_createOrganizationalStructure_popup' class='ui-btn ui-shadow'>Create new!</a></li>");
 					$.each(res, function(i, item) {
+						$('#ubmsuite_mcs_model_visual_content_strategic_alliances_ul').append("<li><a>" + item.strategicalliance_comment +"</a></li>");
+						$('#ubmsuite_mcs_model_visual_content_strategic_alliances_ul').listview("refresh");
 						$('#ubmsuite_modelSettings_myStrategicAlliances_ul').append("<li><a href='#'> <h2 style='white-space:normal;'>" + item.strategicalliance_comment +"</h2><p>" + item.strategicalliance_description + "</p></a><a href='#ubmsuite_modelSettings_confirm_remove_StrategicAlliance_popup' data-rel='popup' data-position-to='window' data-transition='pop' onclick='setActiveStrategicAllianceId("+ item.id + ")'>Remove Strategic Alliance</a></li>");
 						$('#ubmsuite_modelSettings_myStrategicAlliances_ul').listview("refresh");
 					})
 						$('#ubmsuite_modelSettings_myStrategicAlliances_ul').append("<li><a data-rel='popup' data-transition='slideup' href='#ubmsuite_modelSettings_createStrategicAlliance_popup' class='ui-btn ui-shadow'>Create new!</a></li>");
 						$('#ubmsuite_modelSettings_myStrategicAlliances_ul').listview("refresh");
+						$('#ubmsuite_mcs_model_visual_content_strategic_alliances_ul').listview("refresh");
 				});
 				setTimeout(function() {
 					$('#tiles').trigger('refreshWookmark');													//Layout items in Wookmark Grid
@@ -932,13 +963,17 @@ under the License.
 					activeModelId : window.activeModelId
 				}, function(res, status) {
 //						alert(status);
+						$('#ubmsuite_mcs_model_visual_content_strategic_positioning_questions_ul').empty();
 						$('#ubmsuite_modelSettings_myStrategicPositioningQuestions_ul').empty();
 						$('#ubmsuite_modelSettings_myStrategicPositioningQuestions_ul').append("<li><a data-rel='popup' data-transition='slideup' href='#ubmsuite_modelSettings_strategicpositioningquestions_popup' class='ui-btn ui-shadow'>UBM Strategic Positioning Question. </a></li>");		
 						$('#ubmsuite_modelSettings_myStrategicPositioningQuestions_ul').append("<li><a data-rel='popup' data-transition='slideup' href='#ubmsuite_modelSettings_createStrategicPositioningQuestion_popup' class='ui-btn ui-shadow'>Create new!</a></li>");
 					$.each(res, function(i, item) {
+						$('#ubmsuite_mcs_model_visual_content_strategic_positioning_questions_ul').append("<li><a>" + item.question +"</a></li>");
+						$('#ubmsuite_mcs_model_visual_content_strategic_positioning_questions_ul').listview("refresh");
 						$('#ubmsuite_modelSettings_myStrategicPositioningQuestions_ul').append("<li><a href='#'> <h2 style='white-space:normal;'>" + item.question +"</h2><p>" + item.id + "</p></a><a href='#ubmsuite_modelSettings_confirm_remove_StrategicPositioningQuestion_popup' data-rel='popup' data-position-to='window' data-transition='pop' onclick='setActiveStrategicPositioningQuestionId("+ item.id + ")'>Remove Strategic Positioning Question</a></li>");
 						$('#ubmsuite_modelSettings_myStrategicPositioningQuestions_ul').listview("refresh");
 					})
+						$('#ubmsuite_mcs_model_visual_content_strategic_positioning_questions_ul').listview("refresh");
 						$('#ubmsuite_modelSettings_myStrategicPositioningQuestions_ul').listview("refresh");
 				});
 				$('#tiles').trigger('refreshWookmark');													//Layout items in Wookmark Grid
@@ -998,13 +1033,17 @@ under the License.
 					activeModelId : window.activeModelId
 				}, function(res, status) {
 //						alert(status);
+						$('#ubmsuite_mcs_model_visual_content_features_ul').empty();
 						$('#ubmsuite_modelSettings_myFeatures_ul').empty();
 						$('#ubmsuite_modelSettings_myFeatures_ul').append("<li><a data-rel='popup' data-transition='slideup' href='#ubmsuite_modelSettings_features_popup' class='ui-btn ui-shadow'>UBM Features. </a></li>");		
 						$('#ubmsuite_modelSettings_myFeatures_ul').append("<li><a data-rel='popup' data-transition='slideup' href='#ubmsuite_modelSettings_createFeature_popup' class='ui-btn ui-shadow'>Create new!</a></li>");
 					$.each(res, function(i, item) {
+						$('#ubmsuite_mcs_model_visual_content_features_ul').append("<li><a>" + item.feature_title +"</a></li>");
+						$('#ubmsuite_mcs_model_visual_content_features_ul').listview("refresh");
 						$('#ubmsuite_modelSettings_myFeatures_ul').append("<li><a href='#'> <h2 style='white-space:normal;'>" + item.feature_title +"</h2><p>" + item.feature_description + "</p></a><a href='#ubmsuite_modelSettings_confirm_remove_Feature_popup' data-rel='popup' data-position-to='window' data-transition='pop' onclick='setActiveFeatureId("+ item.id + ")'>Remove Feature</a></li>");
 						$('#ubmsuite_modelSettings_myFeatures_ul').listview("refresh");
 					})
+						$('#ubmsuite_mcs_model_visual_content_features_ul').listview("refresh");
 						$('#ubmsuite_modelSettings_myFeatures_ul').listview("refresh");
 				});
 				$('#tiles').trigger('refreshWookmark');													//Layout items in Wookmark Grid
@@ -3511,68 +3550,68 @@ under the License.
 		<div data-role="page" class="ubm_page" id="ubmsuite_mcs_model_visual">
 			<!-- UBM Suite Model Visual Page-->
 			<div data-role="panel" id="ubmsuite_mcs_model_visual_lpanel" data-display="overlay" data-position="left">
-					<ul data-role="listview">
-						<li data-icon="home">
-							<a href="#ubmsuite_SelectBusinessModel" >My Models</a>
-						</li>
-						<li data-icon="home">
-							<a href="#ubmsuite_modelDashboard" >Edit Model</a>
-						</li>
-						<li>
-							<a href="#ubmsuite_table_of_contents">UBM Suite Table of Contents</a>
-						</li>
-						<li>
-							<a href="#creator_table_of_contents">Model Creator Table of Contents</a>
-						</li>
-						<li>
-							<a href="#ubmsuite_table_of_contents">UBM Suite Table of Contents</a>
-						</li>
-						<li>
-							<a href="#mcs_setup_checklist_setup">MCS Setup</a>
-						</li>
-						<li>
-							<a href="#management_reporting">Management Reporting</a>
-						</li>
-						<li>
-							<a href="#mcs_setup_checklist_CS">Control Section</a>
-						</li>
-						<li>
-							<a href="#mcs_setup_checklist_p1">Phase 1</a>
-						</li>
-						<li>
-							<a href="#mcs_setup_checklist_p2">Phase 2</a>
-						</li>
-						<li>
-							<a href="#mcs_setup_checklist_p3">Phase 3</a>
-						</li>
-						<li>
-							<a href="#mcs_setup_checklist_p4">Phase 4</a>
-						</li>
-						<li>
-							<a href="#mcs_setup_checklist_p5">Phase 5</a>
-						</li>
-						<li>
-							<a href="#mcs_setup_checklist_p6">Phase 6</a>
-						</li>
-						<li>
-							<a href="#mcs_setup_checklist_p7">Phase 7</a>
-						</li>
-						<li>
-							<a href="#mcs_setup_checklist_p8">Phase 8</a>
-						</li>
-						<li>
-							<a href="#open_points_action_items">Open Points Action Items</a>
-						</li>
-						<li data-icon="delete">
-							<a href="#" data-rel="close">Close menu</a>
-						</li>
-						<li data-icon="delete">
-							<a href="#sign_in_sign_up">Sign Out</a>
-						</li>
-					</ul>
-				</div><!-- /panel -->
+				<ul data-role="listview">
+					<li data-icon="home">
+						<a href="#ubmsuite_SelectBusinessModel" >My Models</a>
+					</li>
+					<li data-icon="home">
+						<a href="#ubmsuite_modelDashboard" >Edit Model</a>
+					</li>
+					<li>
+						<a href="#ubmsuite_table_of_contents">UBM Suite Table of Contents</a>
+					</li>
+					<li>
+						<a href="#creator_table_of_contents">Model Creator Table of Contents</a>
+					</li>
+					<li>
+						<a href="#ubmsuite_table_of_contents">UBM Suite Table of Contents</a>
+					</li>
+					<li>
+						<a href="#mcs_setup_checklist_setup">MCS Setup</a>
+					</li>
+					<li>
+						<a href="#management_reporting">Management Reporting</a>
+					</li>
+					<li>
+						<a href="#mcs_setup_checklist_CS">Control Section</a>
+					</li>
+					<li>
+						<a href="#mcs_setup_checklist_p1">Phase 1</a>
+					</li>
+					<li>
+						<a href="#mcs_setup_checklist_p2">Phase 2</a>
+					</li>
+					<li>
+						<a href="#mcs_setup_checklist_p3">Phase 3</a>
+					</li>
+					<li>
+						<a href="#mcs_setup_checklist_p4">Phase 4</a>
+					</li>
+					<li>
+						<a href="#mcs_setup_checklist_p5">Phase 5</a>
+					</li>
+					<li>
+						<a href="#mcs_setup_checklist_p6">Phase 6</a>
+					</li>
+					<li>
+						<a href="#mcs_setup_checklist_p7">Phase 7</a>
+					</li>
+					<li>
+						<a href="#mcs_setup_checklist_p8">Phase 8</a>
+					</li>
+					<li>
+						<a href="#open_points_action_items">Open Points Action Items</a>
+					</li>
+					<li data-icon="delete">
+						<a href="#" data-rel="close">Close menu</a>
+					</li>
+					<li data-icon="delete">
+						<a href="#sign_in_sign_up">Sign Out</a>
+					</li>
+				</ul>
+			</div><!-- /panel -->
 			<div data-role="header" data-position="fixed" data-fullscreen="true">
-                <a href="#" class="back_btn" data-icon="arrow-l" data-iconpos="notext">Back</a>
+				<a href="#" class="back_btn" data-icon="arrow-l" data-iconpos="notext">Back</a>
 				<div id="ubmsuite_mcs_model_visual_header_headerRecord_center" style="text-align: center">
 					<div id="ubmsuite_mcs_model_visual_header_headerRecord_center_legalentity">
 						Legal Entity: Cindt, LLC
@@ -3592,76 +3631,65 @@ under the License.
 				<div id="SlickMapDiv" style="width:80%; padding:75px 10px 75px 10px;">
 					<ul id="primaryNavSlickMap" class="col10">
 						<li id="home"><a href="http://sitetitle.com">Model</a></li>
-						<li><a href="/about">About Us</a>
-							<ul>
-								<li><a href="/history">Our History</a></li>
-								<li><a href="/conceptualdefinitions">Conceptual Definitions</a></li>
+						<ul>
+							<li><a href="/about">About Us</a></li>
+								<ul>
+									<li><a href="/history">Our History</a></li>
+									<li><a href="/conceptualdefinitions">Conceptual Definitions</a></li>
+			
+									<li><a href="/mission">Mission Statement</a></li>
+									<li><a href="/vision">Vision Statement</a></li>
+			
+									<li><a href="/principals">Principals</a></li>
+								</ul>
+					
+
+							<li><a href="/strategicalliance">Strategic Alliance</a></li>
+								<ul id="ubmsuite_mcs_model_visual_content_strategic_alliances_ul">
+
+								</ul>
+					
+							<li><a href="/customers">Customers</a></li>
+								<ul id="ubmsuite_mcs_model_visual_content_customers_ul">
 		
-								<li><a href="/mission">Mission Statement</a></li>
-								<li><a href="/vision">Vision Statement</a></li>
+								</ul>					
+							<li><a href="/corevalue">Core Values</a></li>
+								<ul id="ubmsuite_mcs_model_visual_content_core_values_ul">
 		
-								<li><a href="/principals">Principals</a></li>
-							</ul>
-						</li>				
-						<li><a href="/strategicalliance">Strategic Alliance</a></li>
-						<li><a href="/customers">Customers</a>
-							<ul>
-								<li><a href="/customers/customer1">Customer 1</a></li>
-							</ul>
-						</li>	
-						<li><a href="/corevalue">Core Values</a>
-							<ul>
-								<li><a href="/corevalue/corevalue1">Value 1</a></li>
-							</ul>
-						</li>	
-						<li><a href="/services">Services</a>
-							<ul>
-								<li><a href="/services/design">Graphic Design</a></li>
-								<li><a href="/services/development">Web Development</a></li>
-								<li><a href="/services/marketing">Internet Marketing</a>
-									<ul>
-										<li><a href="/social-media">Social Media</a></li>
-										<li><a href="/optimization">Search Optimization</a></li>
-										<li><a href="/adwords">Google AdWords</a></li>
-									</ul>
-								</li>
-								<li><a href="/services/copywriting">Copywriting</a></li>
-								<li><a href="/services/photography">Photography</a></li>
-							</ul>
-						</li>
-						<li><a href="/products">Products</a>
-							<ul>
-								<li><a href="/products/product1">Product 1</a></li>
-							</ul>
-						</li>
-						<li><a href="/strategicpositioningquestions">Strategic Positioning Questions</a>
-							<ul>
-								<li><a href="/strategicpositioningquestions/spq1">SP Question 1</a></li>
-							</ul>
-						</li>
-						<li><a href="/features">Features</a>
-							<ul>
-								<li><a href="/features/feature1">Feature 1</a></li>
-							</ul>
-						</li>
-						<li><a href="/physicalfacility">Physical Facility</a>
-							<ul>
-								<li><a href="/physicalfacility/facility1">Facility 1</a></li>
-							</ul>
-						</li>
-						<li><a href="/contact">Contact</a>
-							<ul>
-								<li><a href="/contact/offices">Offices</a>
-									<ul>
-										<li><a href="contact/map">Map</a></li>
+								</ul>				
+							<li><a href="/services">Services</a></li>
+								<ul id="ubmsuite_mcs_model_visual_content_services_ul">
+		
+								</ul>
+							
+							<li><a href="/products">Products</a></li>
+								<ul id="ubmsuite_mcs_model_visual_content_products_ul">
+		
+								</ul>
+							
+							<li><a href="/strategicpositioningquestions">Strategic Positioning Questions</a></li>
+								<ul id="ubmsuite_mcs_model_visual_content_strategic_positioning_questions_ul">
+		
+								</ul>
+							
+							<li><a href="/features">Features</a></li>
+								<ul id="ubmsuite_mcs_model_visual_content_features_ul">
+		
+								</ul>
+							
+							<li><a href="/physicalfacility">Physical Facility</a></li>
+								<ul id="ubmsuite_mcs_model_visual_content_physical_facilitiei_ul">
+		
+								</ul>
+							
+							<li><a href="/contact">Contact</a></li>
+								<ul>
+									<li><a href="contact/map">Map</a></li>
 										<li><a href="contact/form">Contact Form</a></li>
-									</ul>
-								</li>
-							</ul>
-						</li>		
-						
-					</ul>		
-				</div>					
+								</ul>
+						</ul>
+					</ul>
+				</div>
 			</div>
 		</div>
 		<div data-role="page" class="ubm_page" id="ubmsuite_mcs_management_reporting">
