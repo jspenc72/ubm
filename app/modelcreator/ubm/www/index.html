@@ -429,7 +429,7 @@ under the License.
 				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_model_getCurrentModel_CoreValues.php?callback=?', {//JSONP Request to Open Items Page setup tables
 					activeModelId : window.activeModelId
 				}, function(res, status) {
-//						alert(status);
+					//alert(status);
 						$('#ubmsuite_modelSettings_myCoreValues_ul').empty();
 						$('#ubmsuite_modelSettings_myCoreValues_ul').append("<li><a data-rel='popup' data-mini='true' data-transition='slideup' href='#ubmsuite_modelSettings_coreValues_popup' class='ui-btn ui-shadow'>UBM core values. </a></li>");		
 						$('#ubmsuite_modelSettings_myCoreValues_ul').append("<li><a data-rel='popup' data-transition='slideup' href='#ubmsuite_modelSettings_createCoreValue_popup' class='ui-btn ui-shadow'>Create new!</a></li>");
@@ -437,7 +437,7 @@ under the License.
 						$('#ubmsuite_mcs_model_visual_content_core_values_ul').empty();
 					$.each(res, function(i, item) {
 						$('#ubmsuite_mcs_model_visual_content_core_values_ul').append("<li><a>" + item.value_title +"</a></li>");
-						$('#ubmsuite_mcs_model_visual_content_core_values_ul').listview("refresh");
+						//$('#ubmsuite_mcs_model_visual_content_core_values_ul').listview("refresh");
 						$('#ubmsuite_modelSettings_myCoreValues_ul').append("<li><a data-mini='true' href='#'><h2 style='white-space:normal;'>" + item.value_title +"</h2><p style='white-space:normal;'>" + item.value_summary + "</p></a><a href='#ubmsuite_modelSettings_confirm_remove_CoreValue_popup' data-mini='true' data-rel='popup' data-position-to='window' data-transition='pop' onclick='setActiveCoreValueId("+ item.id + ")'>Remove Core Value</a></li>");
 						$('#ubmsuite_modelSettings_myCoreValues_ul').listview("refresh");
 					})
@@ -521,7 +521,7 @@ under the License.
 						$('#ubmsuite_modelSettings_myCustomers_ul').append("<li><a data-rel='popup' data-transition='slideup' href='#ubmsuite_modelSettings_createCustomer_popup' class='ui-btn ui-shadow'>Create new!</a></li>");
 					$.each(res, function(i, item) {
 						$('#ubmsuite_mcs_model_visual_content_customers_ul').append("<li><a>" + item.name +"</a></li>");
-						$('#ubmsuite_mcs_model_visual_content_customers_ul').listview("refresh");
+						//$('#ubmsuite_mcs_model_visual_content_customers_ul').listview("refresh");
 						$('#ubmsuite_modelSettings_myCustomers_ul').append("<li><a href='#'> <h2 style='white-space:normal;'>" + item.name +"</h2><p>" + item.id + "</p></a><a href='#ubmsuite_modelSettings_confirm_remove_Customer_popup' data-rel='popup' data-position-to='window' data-transition='pop' onclick='setActiveCustomerId("+ item.id + ")'>Remove Customer</a></li>");
 						$('#ubmsuite_modelSettings_myCustomers_ul').listview("refresh");
 					})
@@ -599,7 +599,7 @@ under the License.
 						$('#ubmsuite_modelSettings_myProducts_ul').append("<li><a data-rel='popup' data-transition='slideup' href='#ubmsuite_modelSettings_createProduct_popup' class='ui-btn ui-shadow'>Create new!</a></li>");
 					$.each(res, function(i, item) {
 						$('#ubmsuite_mcs_model_visual_content_products_ul').append("<li><a>" + item.title +"</a></li>");
-						$('#ubmsuite_mcs_model_visual_content_products_ul').listview("refresh");
+						//$('#ubmsuite_mcs_model_visual_content_products_ul').listview("refresh");
 						$('#ubmsuite_modelSettings_myProducts_ul').append("<li><a href='#'> <h2 style='white-space:normal;'>" + item.title +"</h2><p>" + item.id + "</p></a><a href='#ubmsuite_modelSettings_confirm_remove_Product_popup' data-rel='popup' data-position-to='window' data-transition='pop' onclick='setActiveProductId("+ item.id + ")'>Remove Product</a></li>");
 						$('#ubmsuite_modelSettings_myProducts_ul').listview("refresh");
 						
@@ -675,7 +675,7 @@ under the License.
 						$('#ubmsuite_modelSettings_myServices_ul').append("<li><a data-rel='popup' data-transition='slideup' href='#ubmsuite_modelSettings_createService_popup' class='ui-btn ui-shadow'>Create new!</a></li>");
 					$.each(res, function(i, item) {
 						$('#ubmsuite_mcs_model_visual_content_services_ul').append("<li><a>" + item.title +"</a></li>");
-						$('#ubmsuite_mcs_model_visual_content_services_ul').listview("refresh");
+						//$('#ubmsuite_mcs_model_visual_content_services_ul').listview("refresh");
 						$('#ubmsuite_modelSettings_myServices_ul').append("<li><a href='#'> <h2 style='white-space:normal;'>" + item.title +"</h2><p>" + item.id + "</p></a><a href='#ubmsuite_modelSettings_confirm_remove_Service_popup' data-rel='popup' data-position-to='window' data-transition='pop' onclick='setActiveServiceId("+ item.id + ")'>Remove Service</a></li>");
 						$('#ubmsuite_modelSettings_myServices_ul').listview("refresh");
 					})
@@ -750,7 +750,7 @@ under the License.
 						$('#ubmsuite_modelSettings_myPhysicalFacilities_ul').append("<li><a data-rel='popup' data-transition='slideup' href='#ubmsuite_modelSettings_createPhysicalFacility_popup' class='ui-btn ui-shadow'>Create new!</a></li>");
 					$.each(res, function(i, item) {
 						$('#ubmsuite_mcs_model_visual_content_physical_facilitiei_ul').append("<li><a>" + item.facility_title +"</a></li>");
-						$('#ubmsuite_mcs_model_visual_content_physical_facilitiei_ul').listview("refresh");
+						//$('#ubmsuite_mcs_model_visual_content_physical_facilitiei_ul').listview("refresh");
 						$('#ubmsuite_modelSettings_myPhysicalFacilities_ul').append("<li><a href='#'> <h2 style='white-space:normal;'>" + item.facility_title +"</h2><p>" + item.id + "</p></a><a href='#ubmsuite_modelSettings_confirm_remove_PhysicalFacility_popup' data-rel='popup' data-position-to='window' data-transition='pop' onclick='setActivePhysicalFacilityId("+ item.id + ")'>Remove Physical Facility</a></li>");
 						$('#ubmsuite_modelSettings_myPhysicalFacilities_ul').listview("refresh");
 					})
@@ -823,7 +823,7 @@ under the License.
 						$('#ubmsuite_modelSettings_myOrganizationalStructure_ul').append("<li><a data-rel='popup' data-transition='slideup' href='#ubmsuite_modelSettings_createOrganizationalStructure_popup' class='ui-btn ui-shadow'>Create new!</a></li>");
 					$.each(res, function(i, item) {
 						$('#ubmsuite_mcs_model_visual_content_organizational_structure_ul').append("<li><a>" + item.structure_title +"</a></li>");
-						$('#ubmsuite_mcs_model_visual_content_organizational_structure_ul').listview("refresh");
+						//$('#ubmsuite_mcs_model_visual_content_organizational_structure_ul').listview("refresh");
 						$('#ubmsuite_modelSettings_myOrganizationalStructure_ul').append("<li><a href='#'> <h2 style='white-space:normal;'>" + item.structure_title +"</h2><p>" + item.id + "</p></a><a href='#ubmsuite_modelSettings_confirm_remove_OrganizationalStructure_popup' data-rel='popup' data-position-to='window' data-transition='pop' onclick='setActiveOrganizationalStructureId("+ item.id + ")'>Remove Organizational Structure</a></li>");
 						$('#ubmsuite_modelSettings_myOrganizationalStructure_ul').listview("refresh");
 					})
@@ -894,9 +894,15 @@ under the License.
 						$('#ubmsuite_modelSettings_myStrategicAlliances_ul').append("<li><a data-rel='popup' data-transition='slideup' href='#ubmsuite_modelSettings_strategicalliances_popup' class='ui-btn ui-shadow'>UBM Strategic Alliance. </a></li>");		
 						$('#ubmsuite_modelSettings_myOrganizationalStructure_ul').append("<li><a data-rel='popup' data-transition='slideup' href='#ubmsuite_modelSettings_createOrganizationalStructure_popup' class='ui-btn ui-shadow'>Create new!</a></li>");
 					$.each(res, function(i, item) {
+<<<<<<< HEAD
 						$('#ubmsuite_mcs_model_visual_content_strategic_alliances_ul').append("<li><a>" + item.strategicalliance_description +"</a></li>");
 						//$('#ubmsuite_mcs_model_visual_content_strategic_alliances_ul').listview("refresh");
 						$('#ubmsuite_modelSettings_myStrategicAlliances_ul').append("<li><a href='#'> <h2 style='white-space:normal;'>" + item.strategicalliance_description +"</h2><p>" + item.strategicalliance_description + "</p></a><a href='#ubmsuite_modelSettings_confirm_remove_StrategicAlliance_popup' data-rel='popup' data-position-to='window' data-transition='pop' onclick='setActiveStrategicAllianceId("+ item.id + ")'>Remove Strategic Alliance</a></li>");
+=======
+						$('#ubmsuite_mcs_model_visual_content_strategic_alliances_ul').append("<li><a>" + item.strategicalliance_comment +"</a></li>");
+						//$('#ubmsuite_mcs_model_visual_content_strategic_alliances_ul').listview("refresh");
+						$('#ubmsuite_modelSettings_myStrategicAlliances_ul').append("<li><a href='#'> <h2 style='white-space:normal;'>" + item.strategicalliance_comment +"</h2><p>" + item.strategicalliance_description + "</p></a><a href='#ubmsuite_modelSettings_confirm_remove_StrategicAlliance_popup' data-rel='popup' data-position-to='window' data-transition='pop' onclick='setActiveStrategicAllianceId("+ item.id + ")'>Remove Strategic Alliance</a></li>");
+>>>>>>> f0cb5066f65ef784d2950cb67beab3d04902ac95
 						$('#ubmsuite_modelSettings_myStrategicAlliances_ul').listview("refresh");
 					})
 						$('#ubmsuite_modelSettings_myStrategicAlliances_ul').append("<li><a data-rel='popup' data-transition='slideup' href='#ubmsuite_modelSettings_createStrategicAlliance_popup' class='ui-btn ui-shadow'>Create new!</a></li>");
@@ -968,8 +974,13 @@ under the License.
 						$('#ubmsuite_modelSettings_myStrategicPositioningQuestions_ul').append("<li><a data-rel='popup' data-transition='slideup' href='#ubmsuite_modelSettings_strategicpositioningquestions_popup' class='ui-btn ui-shadow'>UBM Strategic Positioning Question. </a></li>");		
 						$('#ubmsuite_modelSettings_myStrategicPositioningQuestions_ul').append("<li><a data-rel='popup' data-transition='slideup' href='#ubmsuite_modelSettings_createStrategicPositioningQuestion_popup' class='ui-btn ui-shadow'>Create new!</a></li>");
 					$.each(res, function(i, item) {
+<<<<<<< HEAD
 						$('#ubmsuite_mcs_model_visual_content_strategic_positioning_questions_ul').append("<li><a>" + item.id +"</a></li>");
 						$('#ubmsuite_mcs_model_visual_content_strategic_positioning_questions_ul').listview("refresh");
+=======
+						$('#ubmsuite_mcs_model_visual_content_strategic_positioning_questions_ul').append("<li><a>" + item.question +"</a></li>");
+						//$('#ubmsuite_mcs_model_visual_content_strategic_positioning_questions_ul').listview("refresh");
+>>>>>>> f0cb5066f65ef784d2950cb67beab3d04902ac95
 						$('#ubmsuite_modelSettings_myStrategicPositioningQuestions_ul').append("<li><a href='#'> <h2 style='white-space:normal;'>" + item.question +"</h2><p>" + item.id + "</p></a><a href='#ubmsuite_modelSettings_confirm_remove_StrategicPositioningQuestion_popup' data-rel='popup' data-position-to='window' data-transition='pop' onclick='setActiveStrategicPositioningQuestionId("+ item.id + ")'>Remove Strategic Positioning Question</a></li>");
 						$('#ubmsuite_modelSettings_myStrategicPositioningQuestions_ul').listview("refresh");
 					})
@@ -1039,7 +1050,7 @@ under the License.
 						$('#ubmsuite_modelSettings_myFeatures_ul').append("<li><a data-rel='popup' data-transition='slideup' href='#ubmsuite_modelSettings_createFeature_popup' class='ui-btn ui-shadow'>Create new!</a></li>");
 					$.each(res, function(i, item) {
 						$('#ubmsuite_mcs_model_visual_content_features_ul').append("<li><a>" + item.feature_title +"</a></li>");
-						$('#ubmsuite_mcs_model_visual_content_features_ul').listview("refresh");
+						//$('#ubmsuite_mcs_model_visual_content_features_ul').listview("refresh");
 						$('#ubmsuite_modelSettings_myFeatures_ul').append("<li><a href='#'> <h2 style='white-space:normal;'>" + item.feature_title +"</h2><p>" + item.feature_description + "</p></a><a href='#ubmsuite_modelSettings_confirm_remove_Feature_popup' data-rel='popup' data-position-to='window' data-transition='pop' onclick='setActiveFeatureId("+ item.id + ")'>Remove Feature</a></li>");
 						$('#ubmsuite_modelSettings_myFeatures_ul').listview("refresh");
 					})
