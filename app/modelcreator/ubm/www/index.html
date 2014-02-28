@@ -895,12 +895,9 @@ under the License.
 						$('#ubmsuite_modelSettings_myOrganizationalStructure_ul').append("<li><a data-rel='popup' data-transition='slideup' href='#ubmsuite_modelSettings_createOrganizationalStructure_popup' class='ui-btn ui-shadow'>Create new!</a></li>");
 					$.each(res, function(i, item) {
 
+						
 						$('#ubmsuite_mcs_model_visual_content_strategic_alliances_ul').append("<li><a>" + item.strategicalliance_description +"</a></li>");
-						//$('#ubmsuite_mcs_model_visual_content_strategic_alliances_ul').listview("refresh");
-						$('#ubmsuite_modelSettings_myStrategicAlliances_ul').append("<li><a href='#'> <h2 style='white-space:normal;'>" + item.strategicalliance_description +"</h2><p>" + item.strategicalliance_description + "</p></a><a href='#ubmsuite_modelSettings_confirm_remove_StrategicAlliance_popup' data-rel='popup' data-position-to='window' data-transition='pop' onclick='setActiveStrategicAllianceId("+ item.id + ")'>Remove Strategic Alliance</a></li>");
-
-						$('#ubmsuite_mcs_model_visual_content_strategic_alliances_ul').append("<li><a>" + item.strategicalliance_comment +"</a></li>");
-						//$('#ubmsuite_mcs_model_visual_content_strategic_alliances_ul').listview("refresh");
+						
 						$('#ubmsuite_modelSettings_myStrategicAlliances_ul').append("<li><a href='#'> <h2 style='white-space:normal;'>" + item.strategicalliance_comment +"</h2><p>" + item.strategicalliance_description + "</p></a><a href='#ubmsuite_modelSettings_confirm_remove_StrategicAlliance_popup' data-rel='popup' data-position-to='window' data-transition='pop' onclick='setActiveStrategicAllianceId("+ item.id + ")'>Remove Strategic Alliance</a></li>");
 
 						$('#ubmsuite_modelSettings_myStrategicAlliances_ul').listview("refresh");
@@ -977,9 +974,7 @@ under the License.
 
 						$('#ubmsuite_mcs_model_visual_content_strategic_positioning_questions_ul').append("<li><a>" + item.id +"</a></li>");
 
-						$('#ubmsuite_mcs_model_visual_content_strategic_positioning_questions_ul').append("<li><a>" + item.question +"</a></li>");
-						//$('#ubmsuite_mcs_model_visual_content_strategic_positioning_questions_ul').listview("refresh");
-
+						
 						$('#ubmsuite_modelSettings_myStrategicPositioningQuestions_ul').append("<li><a href='#'> <h2 style='white-space:normal;'>" + item.question +"</h2><p>" + item.id + "</p></a><a href='#ubmsuite_modelSettings_confirm_remove_StrategicPositioningQuestion_popup' data-rel='popup' data-position-to='window' data-transition='pop' onclick='setActiveStrategicPositioningQuestionId("+ item.id + ")'>Remove Strategic Positioning Question</a></li>");
 						$('#ubmsuite_modelSettings_myStrategicPositioningQuestions_ul').listview("refresh");
 					})
