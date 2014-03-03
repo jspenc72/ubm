@@ -27,16 +27,22 @@ under the License.
 		<!-- Font Awesome CSS -->
 	    <link rel="stylesheet" href="lib/font-awesome/css/font-awesome.min.css"/>
 
+		<!-- Pie-Menu CSS -->
+				<link rel="stylesheet" href="css/piemenu.css">
+		<!-- SlickMap, Model Visual Representation CSS -->
 		<link rel="stylesheet" type="text/css" media="screen, print" href="css/slickmap.css" />
         <link rel="stylesheet" type="text/css" href="css/index.css" />
         <link rel="stylesheet" href="css/jquery.mobile-1.4.0.min.css" />
 
         <script src="js/jquery-1.9.1.min.js"></script>
         <script src="js/jquery-mobile-1.4.0.min.js"></script>
+		<!-- Begin Pie-Menu JS-->
+		<script src="js/jquery.menu.js"></script>
+
         <!--Begin Jquery UI and touchpounch -->
         <link rel="stylesheet" href="css/jquery-ui.css">
 
-		<!-- CSS Reset -->
+		<!-- WOOKMARK CSS Reset -->
 		<link rel="stylesheet" href="css/wookmark/reset.css">
 		<!-- Global CSS for the page and tiles -->
 		<link rel="stylesheet" href="css/wookmark/main.css">
@@ -1226,6 +1232,7 @@ under the License.
 			}
 
 		</script>      
+		<!-- End Position JavaScript-->
         <script>
         function getMyModelsOrgChart(){
 					$('#ubmsuite_mcs_my_organizational_chart_L0_ul').empty();
@@ -1702,6 +1709,26 @@ under the License.
 			}
         </script>
         <script>
+			function PieMenuInit(){		
+				$('#overlayTest').PieMenu({
+					'starting_angel':35,
+					'angel_difference' : 270,
+					'radius':50,
+				});			
+			}
+			$(function() {          
+				$("#submit_button").click(function() {reset(); }); 
+				//$( "#overlayTest" ).draggable();
+				PieMenuInit();
+				
+			});
+			function reset(){
+				if($(".menu_button").hasClass('btn-rotate'))
+				$(".menu_button").trigger('click');
+				
+				$("#info").fadeIn("slow").fadeOut("slow");
+				PieMenuInit();
+			}
 			//Generic Init variables and functions
 			function onLoadBody() {
 				$.getJSON('http://www.findmydriver.com/ubmopenitemsonlystatusopenitems.php?callback=?', {//JSONP Request to Open Items Page setup tables
@@ -2586,8 +2613,8 @@ under the License.
 
 			/* styling for overlay test, which is the red review point tool */
 			#overlayTest {
-				width: 40px;
-				height: 40px;
+				width: 31px;
+				height: 31px;
 				padding: 0.5em;
 				float: left;
 				margin: 30px 10px 10px 0;
@@ -2600,10 +2627,10 @@ under the License.
 				behavior: url(PIE.htc);
 			}
 			.type1 {
-				width: 40px;
-				height: 40px;
-				background-color: rgba(255,0,0,0.5);
-				border: 3px solid red
+				width: 30px;
+				height: 30px;
+				background-color: rgba(0,0,0,0.5);
+				border: 3px solid blue
 			}
 			.type2 {
 				width: 40px;
@@ -2794,9 +2821,19 @@ under the License.
         </div>
     </div>
     <body onload="onLoadBody()">
-        <div id="overlayTest" class="circleBase type1" style="z-index: 99999; position:fixed; right:20px; top:300px;">
-            <a href="#sign_in_sign_up_openItem_popup" id="openItem_popup_button" data-rel="popup" data-transition="slideup" class="ui-btn ui-icon-action ui-btn-icon-notext ui-corner-all">No text</a>
+        <div id="overlayTest" class="circleBase type1 outer_container" style="z-index: 99999; position:fixed; right:20px; top:300px;">
+            
+				
+				<a class="menu_button" href="#" title="Toggle"><span>Menu Toggle</span></a>
+				<ul class="menu_option">
+				  <li><a href="#sign_in_sign_up_openItem_popup" id="openItem_popup_button" data-rel="popup" data-transition="slideup" class="ui-btn ui-icon-action ui-btn-icon-notext ui-corner-all">No text</a></li>
+				  <li><a href="#"><span>Item</span></a></li>
+				  <li><a href="#"><span>Item</span></a></li>
+				  <li><a href="#"><span>Item</span></a></li>
+				  <li><a href="#"><span>Item</span></a></li>
+				</ul>
         </div>
+	  
         <!-- Start of first page -->
         <div data-role="page" class="ubm_page" id="sign_in_sign_up">
             <div data-role="header" data-theme="a">
@@ -2804,6 +2841,7 @@ under the License.
             </div>
             <div data-role="content" id="sign_in_sign_up_content" >
                 <!-- Open Items Popup -->
+
                 <div data-role="popup" id="sign_in_sign_up_openItem_popup" data-theme="b">
                     <form id="sign_in_sign_up_open_items_form" name="open_items_form">
                         <ul data-role="listview" data-inset="true" style="min-width:210px;">
@@ -13566,7 +13604,6 @@ under the License.
             </div>
             </div>
             <!-- Open Points Action Items-->
-            
             <div data-role="page" class="ubm_page" id="open_points_action_items">
                 <div data-role="panel" id="mcs_creator_table_of_contents_lpanel" data-display="overlay" data-position="left">
                     <ul data-role="listview">
@@ -13943,7 +13980,7 @@ under the License.
 					}, 2000);
 				});
 				$(document).on("pageshow", ".ubm_page", function() {
-
+					PieMenuInit();
 					setTimeout(function() {
 	                    $( "#sign_in_sign_up_openItem_popup" ).draggable({ handle: "h1" });
 	                    $( "#mcs_setup_checklist_p2_openItem_popup" ).draggable({ handle: "h1" });
