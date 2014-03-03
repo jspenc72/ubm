@@ -27,16 +27,22 @@ under the License.
 		<!-- Font Awesome CSS -->
 	    <link rel="stylesheet" href="lib/font-awesome/css/font-awesome.min.css"/>
 
+		<!-- Pie-Menu CSS -->
+				<link rel="stylesheet" href="css/piemenu.css">
+		<!-- SlickMap, Model Visual Representation CSS -->
 		<link rel="stylesheet" type="text/css" media="screen, print" href="css/slickmap.css" />
         <link rel="stylesheet" type="text/css" href="css/index.css" />
         <link rel="stylesheet" href="css/jquery.mobile-1.4.0.min.css" />
 
         <script src="js/jquery-1.9.1.min.js"></script>
         <script src="js/jquery-mobile-1.4.0.min.js"></script>
+		<!-- Begin Pie-Menu JS-->
+		<script src="js/jquery.menu.js"></script>
+
         <!--Begin Jquery UI and touchpounch -->
         <link rel="stylesheet" href="css/jquery-ui.css">
 
-		<!-- CSS Reset -->
+		<!-- WOOKMARK CSS Reset -->
 		<link rel="stylesheet" href="css/wookmark/reset.css">
 		<!-- Global CSS for the page and tiles -->
 		<link rel="stylesheet" href="css/wookmark/main.css">
@@ -51,6 +57,26 @@ under the License.
 
         <title>UBM</title>
         <script>
+			function showLoader(){
+				//Show Loader Message
+
+				var $this = $("#page_loading_message"), theme = $this.jqmData("theme") || $.mobile.loader.prototype.options.theme, msgText = $this.jqmData("msgtext") || $.mobile.loader.prototype.options.text, textVisible = $this.jqmData("textvisible") || $.mobile.loader.prototype.options.textVisible, textonly = !!$this.jqmData("textonly");
+				html = $this.jqmData("html") || "";
+
+				$.mobile.loading("show", {
+					text : msgText,
+					textVisible : textVisible,
+					theme : theme,
+					textonly : textonly,
+					html : html
+				});
+
+				//End Show Loader Message				
+			}
+			function hideLoader(){
+				$.mobile.loading("hide");
+				
+			}
 			//Open Item Functions
 			function confirmCloseOpenItem(id) {
 				$("#mcs_open_points_action_items_closeitem_popup").popup('open');
@@ -257,9 +283,13 @@ under the License.
 					comment : document.getElementById("open_points_action_items_submitComment_form_comment").value,
 					type : document.getElementById("open_points_action_items_submitResolution_form_githuturl").value
 				}, function(res, status) {
-					alert("json returned successfully! " + status);
+					alert("Comment Submission Satus! " + status);
+						$('#open_points_action_items_submitComment_form').each(function() {
+							this.reset();
+						});
+						$('mcs_open_points_action_items_submitcomment_popup').popup("close");
 				});
-
+				
 			}
 
 			function addResolutions(id) {
@@ -287,7 +317,8 @@ under the License.
 			}
 
 			function viewResolutions(id) {
-				$.getJSON('http://www.findmydriver.com/ubmselectallresolutions.php?callback=?', {//JSONP Request to Open Items Page setup tables
+				showLoader();
+				$.getJSON('http://www.findmydriver.com/ubm_selectallresolutions.php?callback=?', {//JSONP Request to Open Items Page setup tables
 					openitemid : id,
 					username : window.username
 				}, function(res, status) {
@@ -295,15 +326,32 @@ under the License.
 					$('#mcs_open_points_action_items_resolution_popup_ul').empty();
 					$.each(res, function(i, item) {
 						//alert(item.disposition);
-						$('#mcs_open_points_action_items_resolution_popup_ul').append("<li><a href='#' data-rel='popup' data-position-to='window' data-transition='pop'><h1>" + item.closed_by + "</h1><p style='white-space:normal;'>" + item.disposition + "</p></a></li>");
+						$('#mcs_open_points_action_items_resolution_popup_ul').append("<li><a href='#' data-rel='popup' data-position-to='window' data-transition='pop'><h1>" + item.closed_by + "</h1><p style='white-space:normal;'>" + item.disposition + "</p><p class='ui-li-aside'>Resolution Date:</br> <strong>" + item.resolution_date + "</strong></p></a></li>");
 						$('#mcs_open_points_action_items_resolution_popup_ul').append("<li data-role='list-divider' >" + item.githuburl + "</p></li>");
 						//$('#mcs_open_points_action_items_resolution_popup_ul').append("<div style='height:200px; width:200px; text-wrap: normal;'>New Resolution: " + item.disposition + "</div>");
 						$('#mcs_open_points_action_items_resolution_popup_ul').listview("refresh");
 					})
 				});
+				$.getJSON('http://www.findmydriver.com/ubm_select_allActiveOpenItemComments.php?callback=?', {//JSONP Request to Open Items Page setup tables
+					openitemid : id,
+					username : window.username
+				}, function(res, status) {
+					//alert("json returned successfully! " + status);
+					$('#mcs_open_points_action_items_comment_popup_ul').empty();
+
+					$.each(res, function(i, item) {
+						//alert(item.disposition);
+						$('#mcs_open_points_action_items_comment_popup_ul').append("<li><a href='#' data-rel='popup' data-position-to='window' data-transition='pop'><h1>" + item.author + "</h1><p style='white-space:normal;'>" + item.comment + "</p><p class='ui-li-aside'>Comment Date:</br> <strong>" + item.date_added + "</strong></p></a></li>");
+						//$('#mcs_open_points_action_items_resolution_popup_ul').append("<div style='height:200px; width:200px; text-wrap: normal;'>New Resolution: " + item.disposition + "</div>");
+						$('#mcs_open_points_action_items_comment_popup_ul').listview("refresh");
+					})
+				});
+
+
 				$('#mcs_open_points_action_items_resolution_popup_ul').listview("refresh");
 				setTimeout(function() {
 					$("#mcs_open_points_action_items_resolution_popup").popup('open');
+					hideLoader();
 				}, 1500);
 			}
         </script>
@@ -330,6 +378,7 @@ under the License.
 			}
 
 			function getMyModels() {//Get all models in database where current user is the creator.
+				showLoader();
 				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_getMyModels.php?callback=?', {//JSONP Request to Create new model
 					username : window.username
 				}, function(res, status) {
@@ -339,14 +388,16 @@ under the License.
 					$('#ubmsuite_SelectBusinessModel_MyModels_ul').listview("refresh");
 
 					$.each(res, function(i, item) {
-						$('#ubmsuite_SelectBusinessModel_MyModels_ul').append("<li><a href='#ubmsuite_modelDashboard' onclick='setActiveModel(" + item.id + ")'></br></br></br><h2>Title: " + item.title + "</h2><p><strong>Model Reference: " + item.reference + "</strong></p><p style='white-space:normal;'>" + item.description + "</p><p class='ui-li-aside'>Creation Date:</br> <strong>" + item.created_date + "</strong></p></a></li>");
+						$('#ubmsuite_SelectBusinessModel_MyModels_ul').append("<li><a href='#ubmsuite_modelDashboard' onclick='setActiveModel(" + item.id + ")'></br></br></br><h2 style='white-space:normal;'>Title: " + item.title + "</h2><p><strong>Model Reference: " + item.reference + "</strong></p><p style='white-space:normal;'>" + item.description + "</p><p class='ui-li-aside'>Creation Date:</br> <strong>" + item.created_date + "</strong></p></a></li>");
 						$('#ubmsuite_SelectBusinessModel_MyModels_ul').listview("refresh");
 					})
 				});
+				hideLoader();
 
 			}
 
 			function getSharedModels() {//Get all models in database where current user is the creator.
+				showLoader();
 				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_getSharedModels.php?callback=?', {//JSONP Request to Create new model
 					username : window.username
 				}, function(res, status) {
@@ -356,11 +407,13 @@ under the License.
 					$.each(res, function(i, item) {
 						if (window.username !== item.creator_id) {
 							$('#ubmsuite_SelectBusinessModel_SharedModels_ul').append("<li data-role='list-divider'>Model Creator: " + item.creator_id + "</li>");
-							$('#ubmsuite_SelectBusinessModel_SharedModels_ul').append("<li><a href='#ubmsuite_sharedModelDashboard' onclick='setActiveModel(" + item.id + ")'></br></br></br><h2>Title: " + item.title + "</h2><p><strong>Model Reference: " + item.reference + "</strong></p><p style='white-space:normal;'>" + item.description + "</p><p class='ui-li-aside'>Creation Date:</br> <strong>" + item.created_date + "</strong></p></a></li>");
+							$('#ubmsuite_SelectBusinessModel_SharedModels_ul').append("<li><a href='#ubmsuite_sharedModelDashboard' onclick='setActiveModel(" + item.id + ")'></br></br></br><h2 style='white-space:normal;'>Title: " + item.title + "</h2><p><strong>Model Reference: " + item.reference + "</strong></p><p style='white-space:normal;'>" + item.description + "</p><p class='ui-li-aside'>Creation Date:</br> <strong>" + item.created_date + "</strong></p></a></li>");
 							$('#ubmsuite_SelectBusinessModel_SharedModels_ul').listview("refresh");
 						}
 					})
 				});
+				hideLoader();
+				
 			}
 
 			function model_getuserswithaccess() {
@@ -1215,6 +1268,9 @@ under the License.
 				//3. If user is not the creator, user is notified that only the creator may modify a position and give them the option to copy the position.
 				
 			}
+			function viewActivePositionHierachyObjects(){
+				alert("This Functionality is still in development.");
+			}
 			function getPositionsThatReporttoActivePosition(){
 				//1. Add position popup should have a listview filled with positions that report to the active position.
 				//2. This function will retrieve all model_positions that report to the active position and will populate the listview with those positions. 
@@ -1223,6 +1279,7 @@ under the License.
 			}
 
 		</script>      
+		<!-- End Position JavaScript-->
         <script>
         function getMyModelsOrgChart(){
 					$('#ubmsuite_mcs_my_organizational_chart_L0_ul').empty();
@@ -1699,31 +1756,30 @@ under the License.
 			}
         </script>
         <script>
+			function PieMenuInit(){		
+				$('#overlayTest').PieMenu({
+					'starting_angel':35,
+					'angel_difference' : 270,
+					'radius':50,
+				});			
+			}
+			$(function() {          
+				$("#submit_button").click(function() {reset(); }); 
+				//$( "#overlayTest" ).draggable();
+				PieMenuInit();
+				
+			});
+			function reset(){
+				if($(".menu_button").hasClass('btn-rotate'))
+				$(".menu_button").trigger('click');
+				
+				$("#info").fadeIn("slow").fadeOut("slow");
+				PieMenuInit();
+			}
+		//End Pie Menu
+
 			//Generic Init variables and functions
 			function onLoadBody() {
-				$.getJSON('http://www.findmydriver.com/ubmopenitemsonlystatusopenitems.php?callback=?', {//JSONP Request to Open Items Page setup tables
-
-				}, function(res, status) {
-					//	alert("request for open items was a success!");
-					$.each(res, function(i, item) {
-						if (window.accounttype == "admin") {//If user accounttype is admin, allow user to add new resolutions. If not, only allow them to view existing resolutions.
-							//alert(window.accounttype);
-							if (item.number_resolutions !== "0") {//If item doesnt have any resolutions associated with it, use theme a for the "View" Resolutions button
-								$('#mcs_open_points_action_items_table_body').append("<tr ><th class='label'>" + item.id + "</th><td>" + item.form_ref + "</td><td>" + item.priority + "</td><td>" + item.opened_by + "</td><td>" + item.date_opened + "</td><td>" + item.action_required + "</td><td>" + item.assigned_to + "</td><td>" + item.date_opened + "</td><td>" + item.due_date + "</td><td>b</td><td>c</td><td>d</td><td><a href='#' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-comment ui-btn-icon-left ui-btn-b' onclick='viewResolutions(" + item.id + ")'>View &nbsp&nbsp&nbsp&nbsp<span class='ui-li-has-count ui-btn-up-c ui-btn-corner-all'>" + item.number_resolutions + "</span></a><a href='#' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-plus ui-btn-icon-left ui-btn-a' onclick='addResolutions(" + item.id + ")'>Resolve &nbsp&nbsp&nbsp&nbsp</a><a href='#' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-plus ui-btn-icon-left ui-btn-a' onclick='addItemComment(" + item.id + ")'>Comment &nbsp&nbsp&nbsp&nbsp</a></td></tr>");
-							} else {
-								$('#mcs_open_points_action_items_table_body').append("<tr ><th class='label'>" + item.id + "</th><td>" + item.form_ref + "</td><td>" + item.priority + "</td><td>" + item.opened_by + "</td><td>" + item.date_opened + "</td><td>" + item.action_required + "</td><td>" + item.assigned_to + "</td><td>" + item.date_opened + "</td><td>" + item.due_date + "</td><td>b</td><td>c</td><td>d</td><td><a href='#' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-comment ui-btn-icon-left ui-btn-a' onclick='viewResolutions(" + item.id + ")'>View &nbsp&nbsp&nbsp&nbsp<span class='ui-li-has-count ui-btn-up-c ui-btn-corner-all'>" + item.number_resolutions + "</span></a><a href='#' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-plus ui-btn-icon-left ui-btn-a' onclick='addResolutions(" + item.id + ")'>Resolve &nbsp&nbsp&nbsp&nbsp</a><a href='#' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-plus ui-btn-icon-left ui-btn-a' onclick='addItemComment(" + item.id + ")'>Comment &nbsp&nbsp&nbsp&nbsp</a></td></tr>");
-								$("#mcs_open_points_action_items_table").table("refresh");
-							}
-						} else {
-							if (item.number_resolutions !== "0") {//If item has one or more resolutions associated with it, use theme b for the "View" Resolutions button
-								$('#mcs_open_points_action_items_table_body').append("<tr ><th class='label'>" + item.id + "</th><td>" + item.form_ref + "</td><td>" + item.priority + "</td><td>" + item.opened_by + "</td><td>" + item.date_opened + "</td><td>" + item.action_required + "</td><td>" + item.assigned_to + "</td><td>" + item.date_opened + "</td><td>" + item.due_date + "</td><td>b</td><td>c</td><td>d</td><td><a href='#' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-comment ui-btn-icon-left ui-btn-b' onclick='viewResolutions(" + item.id + ")'>View &nbsp&nbsp&nbsp&nbsp<span class='ui-li-has-count ui-btn-up-c ui-btn-corner-all'>" + item.number_resolutions + "</span></a></td></tr>");
-							} else {
-								$('#mcs_open_points_action_items_table_body').append("<tr ><th class='label'>" + item.id + "</th><td>" + item.form_ref + "</td><td>" + item.priority + "</td><td>" + item.opened_by + "</td><td>" + item.date_opened + "</td><td>" + item.action_required + "</td><td>" + item.assigned_to + "</td><td>" + item.date_opened + "</td><td>" + item.due_date + "</td><td>b</td><td>c</td><td>d</td><td><a href='#' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-comment ui-btn-icon-left ui-btn-a' onclick='viewResolutions(" + item.id + ")'>View &nbsp&nbsp&nbsp&nbsp<span class='ui-li-has-count ui-btn-up-c ui-btn-corner-all'>" + item.number_resolutions + "</span></a></td></tr>");
-								$("#mcs_open_points_action_items_table").table("refresh");
-							}
-						}
-					})
-				});
 
 				//	alert("This is an Alert!");
 				$('.back_btn').click(function() {
@@ -2583,8 +2639,8 @@ under the License.
 
 			/* styling for overlay test, which is the red review point tool */
 			#overlayTest {
-				width: 40px;
-				height: 40px;
+				width: 31px;
+				height: 31px;
 				padding: 0.5em;
 				float: left;
 				margin: 30px 10px 10px 0;
@@ -2597,10 +2653,10 @@ under the License.
 				behavior: url(PIE.htc);
 			}
 			.type1 {
-				width: 40px;
-				height: 40px;
-				background-color: rgba(255,0,0,0.5);
-				border: 3px solid red
+				width: 30px;
+				height: 30px;
+				background-color: rgba(0,0,0,0.5);
+				border: 3px solid blue
 			}
 			.type2 {
 				width: 40px;
@@ -2757,10 +2813,10 @@ under the License.
 			}
 			/* For this demo we used images with a size of 310x310 pixels. Just before the second breakpoint the images reach their max width: 1019px - 2 x 9px padding = 1001px x 30.9333% = ~310px */
         </style>
-		  <!-- Specific CSS for the example -->
+		  <!-- WOOKMARK CSS  -->
 		<style>
 		    /**
-		     * Grid items
+		     * WOOKMARK Grid items
 		     */
 		    #tiles li {
 		      -moz-box-sizing: border-box;
@@ -2791,9 +2847,17 @@ under the License.
         </div>
     </div>
     <body onload="onLoadBody()">
-        <div id="overlayTest" class="circleBase type1" style="z-index: 99999; position:fixed; right:20px; top:300px;">
-            <a href="#sign_in_sign_up_openItem_popup" id="openItem_popup_button" data-rel="popup" data-transition="slideup" class="ui-btn ui-icon-action ui-btn-icon-notext ui-corner-all">No text</a>
+        <div id="overlayTest" class="circleBase type1 outer_container" style="z-index: 99999; position:fixed; right:20px; top:300px;">
+			<a class="menu_button" href="#" title="Toggle"><span>Menu</span></a>
+			<ul class="menu_option">
+			  <li><a href="#sign_in_sign_up_openItem_popup" id="openItem_popup_button" data-rel="popup" data-transition="slideup" class="ui-btn ui-icon-action ui-btn-icon-notext ui-corner-all">No text</a></li>
+			  <li><a href="#"><span>Item</span></a></li>
+			  <li><a href="#"><span>Item</span></a></li>
+			  <li><a href="#"><span>Item</span></a></li>
+			  <li><a href="#"><span>Item</span></a></li>
+			</ul>
         </div>
+	  
         <!-- Start of first page -->
         <div data-role="page" class="ubm_page" id="sign_in_sign_up">
             <div data-role="header" data-theme="a">
@@ -2801,6 +2865,7 @@ under the License.
             </div>
             <div data-role="content" id="sign_in_sign_up_content" >
                 <!-- Open Items Popup -->
+
                 <div data-role="popup" id="sign_in_sign_up_openItem_popup" data-theme="b">
                     <form id="sign_in_sign_up_open_items_form" name="open_items_form">
                         <ul data-role="listview" data-inset="true" style="min-width:210px;">
@@ -3012,25 +3077,16 @@ under the License.
                         <a href="#ubmsuite_SelectBusinessModel" >My Models</a>
                     </li>
                     <li>
-                        <a href="#ubmsuite_table_of_contents">UBM Suite Table of Contents</a>
+                        <a href="#ubmsuite_table_of_contents">UBM Suite </br>Table of Contents</a>
                     </li>
                     <li>
-                        <a href="#creator_table_of_contents">Model Creator Table of Contents</a>
-                    </li>
-                    <li>
-                        <a href="#ubmsuite_table_of_contents">UBM Suite Table of Contents</a>
-                    </li>
-                    <li>
-                        <a href="#mcs_setup_checklist_setup">Model Creation Suite</a>
-                    </li>
-                    <li>
-                        <a href="#management_reporting">Management Reporting</a>
+                        <a href="#creator_table_of_contents">Model Creator </br>Table of Contents</a>
                     </li>
                     <li>
                         <a href="#ubmsuite_UserPreferences">User Preferences</a>
                     </li>
                     <li>
-                        <a href="#open_points_action_items">Open Points Action Items</a>
+                        <a href="#open_points_action_items">Application </br>Open Points /</br>Action Items</a>
                     </li>
                     <li data-icon="delete">
                         <a href="#sign_in_sign_up">Sign Out</a>
@@ -3117,8 +3173,6 @@ under the License.
                     </form>
                 </div>
                 <!-- End Create Model Popup -->
-
-
                 <!-- End Open Items Popup -->
                 <div align="center">
                     <a href="#popupParis" data-rel="popup" data-position-to="window" data-transition="fade"><img src="img/03 UBM Flowchart.png" width="60" style="position:center; width:25%; height:;"></a>
@@ -3132,19 +3186,16 @@ under the License.
 
                 </div>
                 </br>
-                <div style="min-width:450px; width:50%">
+                <div style="min-width:250px; width:50%; float:left;" >
 	                <ul data-role='listview' data-inset='true' id='ubmsuite_SelectBusinessModel_MyModels_ul'>
 	                    <!-- <li data-role='list-divider'>creator_id</li><li><a href='index.html'><h2>Model Title</h2><p><strong>Reference: </strong></p><p>Description: </p><p class='ui-li-aside'><strong>Creation Date: </strong></p></a></li>-->
 	                </ul>                	
                 </div>
-				<div style="min-width:450px; width:50%">
+				<div style="min-width:250px; width:50%; float:left;">
 	                <ul data-role='listview' data-inset='true' id='ubmsuite_SelectBusinessModel_SharedModels_ul' data-theme="b">
 	
 	                </ul>					
 				</div>
-            </div>
-            <div data-role="footer" data-position="fixed" data-fullscreen="true">
-
             </div>
         </div>
         <div data-role="page" class="ubm_page" id="ubmsuite_modelDashboard" data-theme="a">
@@ -3624,7 +3675,8 @@ under the License.
 									<li class='demo_li'><a href='#' onclick='openCreateNewPositionPopup()'><div><i class='fa fa-edit'></i></div><p>Create New</p></a></li>
 									<li class='demo_li'><a href='#' onclick='addChildPositiontoActivePosition()'><div><i class='fa fa-plus-circle'></i></div><p>Select from UBM</p></a></li>
 									<li class='demo_li'><a href='#' onclick='confirmRemoveActivePosition()'><div><i class='fa fa-minus-circle'></i></div><p>Remove</p></a></li>
-									<li class='demo_li'><a href='#' onclick='modifyActivePosition()'><div><i class='fa fa-edit'></i></div><p>Modify</p></a></li>
+									<li class='demo_li'><a href='#' onclick='modifyActivePosition()'><div><i class='fa fa-edit'></i></div><p>Modify Position</p></a></li>
+									<li class='demo_li'><a href='#' onclick='viewActivePositionHierachyObjects()'><div><i class='fa fa-sitemap'></i></div><p>View Hierarchical Objects</p></a></li>
 								</ul>
 							</div>
 						</center>
@@ -13562,17 +13614,12 @@ under the License.
             </div>
             </div>
             <!-- Open Points Action Items-->
-            
             <div data-role="page" class="ubm_page" id="open_points_action_items">
                 <div data-role="panel" id="mcs_creator_table_of_contents_lpanel" data-display="overlay" data-position="left">
                     <ul data-role="listview">
                         <li data-icon="home">
                             <a href="#ubmsuite_SelectBusinessModel" >My Models</a>
                         </li>
-                        <li data-icon="home">
-                            <a href="#ubmsuite_modelDashboard" >Edit Model</a>
-                        </li>
-
                         <li>
                             <a href="#creator_table_of_contents">Model Creator Table of Contents</a>
                         </li>
@@ -13695,13 +13742,13 @@ under the License.
                     <!-- End Open Items Popup -->
                     <div data-role="popup" id="mcs_open_points_action_items_resolution_popup" data-position-to="window" data-overlay-theme="b" data-theme="b">
                         <div data-role="header" data-theme="a">
-                            <h1>Resolutions</h1>
+                            <h1>Comments and Resolutions</h1>
                         </div>
                         <div role="main" class="ui-content">
                             <ul data-role="listview" data-inset="false" id="mcs_open_points_action_items_resolution_popup_ul" >
 
                             </ul>
-                            <ul data-role="listview" data-inset="false" id="mcs_open_points_action_items_comment_popup_ul" >
+                            <ul data-role="listview" data-inset="false" data-theme='a' id="mcs_open_points_action_items_comment_popup_ul" >
 
                             </ul>
                         </div>
@@ -13795,11 +13842,8 @@ under the License.
                 </div>
                 <div data-role="footer" data-fullscreen="true" data-position="fixed"></div>
             </div>
-
             <script type="text/javascript" src="cordova.js"></script>
-
             <script type="text/javascript" src="js/index.js"></script>
-
             <script type="text/javascript">
 			function checkConnection() {
 				var networkState = navigator.connection.type;
@@ -13902,6 +13946,11 @@ under the License.
                         
                     }, 1000);
                 });
+                $(document).on("pageshow", "#open_points_action_items", function() {
+                    setTimeout(function() {
+						refreshOpenItemsList();
+                    }, 1000);
+                });
                 $(document).on("pageshow", "#sign_in_sign_up", function() {
                     setTimeout(function() {
 
@@ -13939,7 +13988,7 @@ under the License.
 					}, 2000);
 				});
 				$(document).on("pageshow", ".ubm_page", function() {
-
+					PieMenuInit();
 					setTimeout(function() {
 	                    $( "#sign_in_sign_up_openItem_popup" ).draggable({ handle: "h1" });
 	                    $( "#mcs_setup_checklist_p2_openItem_popup" ).draggable({ handle: "h1" });
@@ -14013,11 +14062,9 @@ under the License.
 				app.initialize();
             </script>
 		  <!-- Include the imagesLoaded plug-in -->
-
 		  <script src="js/libs/jquery.imagesloaded.js"></script>
 		  <!-- Include the plug-in -->
 		  <script src="js/libs/jquery.wookmark.js"></script>
-
 		 <script type="text/javascript">	//WOOKMARK
 		    (function ($){
 		      $('#tiles').imagesLoaded(function() {
@@ -14052,6 +14099,5 @@ under the License.
 		      });
 		    })(jQuery);
 		  </script>
-
     </body>
 </html>
