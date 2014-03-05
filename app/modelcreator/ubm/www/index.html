@@ -1188,23 +1188,18 @@ under the License.
 				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_getMasterFileIndexItems.php?callback=?', {//JSONP Request to Open Items Page setup tables
 					activeModelId : window.activeModelId
 				}, function(res, status) {
-
+					$('#ubmsuite_mcs_master_file_index_tree').empty();
 					$.each(res, function(i, item) {
 						if (item.ubm_required == "yes") {
-							$('#ubmsuite_mcs_master_file_index_tree').append("<li><input disabled='' class='mfi_checkbox' type='checkbox' checked/></i>" + item.mfi_ref + "<span>&nbsp &nbsp " + item.title + " </span><ul id='mfi_firstChild_" + item.id + "'></ul></li>");
+							$('#ubmsuite_mcs_master_file_index_tree').append("<li><input disabled='' type='checkbox' checked/><a>" + item.mfi_ref + "&nbsp &nbsp " + item.title + "</a> <ul id='mfi_firstChild_" + item.id + "'></ul></li>");
 						} else {
-							$('#ubmsuite_mcs_master_file_index_tree').append("<li><input class='mfi_checkbox' type='checkbox'/></i>" + item.mfi_ref + "<span> &nbsp &nbsp " + item.title + " </span><ul id='mfi_firstChild_" + item.id + "'></ul></li>");
+							$('#ubmsuite_mcs_master_file_index_tree').append("<li><input type='checkbox'/><a>" + item.mfi_ref + " &nbsp &nbsp " + item.title + " </a><ul id='mfi_firstChild_" + item.id + "'></ul></li>");
 						}
 					});
 					getMasterFileIndexItems01();
 					getMasterFileIndexItems00();
 					coolify();
-					
 				});
-				
-					
-					
-
 			}
 
         </script>
