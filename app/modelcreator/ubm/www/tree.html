@@ -1,6 +1,6 @@
 <html>
 	<head>
-		<script src="js/bootstrap-tree.js"></script>
+	
 		<script src="js/jquery-1.9.1.min.js"></script>
 		<script src="js/jquery-mobile-1.4.0.min.js"></script>
 		
@@ -9,23 +9,50 @@
 		<!--Begin Jquery UI and touchpounch -->
 		<link rel="stylesheet" href="css/jquery-ui.css">
 		<link rel="stylesheet" href="css/bootstrap-combinedtree.min.css">
-		<link rel="stylesheet" href="css/bootstrap-combinedtree.min.css">
+		<script src="js/bootstrap-tree.js"></script>
         <link rel="stylesheet" href="css/jquery.mobile-1.4.0.min.css" />
 		<script>
+			function getMasterFileIndexItems00() {
+				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_getMasterFileIndexItems_00.php?callback=?', {//JSONP Request to Open Items Page setup tables
+					activeModelId : window.activeModelId
+				}, function(res, status) {
+					$.each(res, function(i, item) {
+						$('#mfi_firstChild_1').append("<li>" + item.name + "</li>");
+					});
+				});
+
+			}
+
+			function getMasterFileIndexItems01() {
+				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_getMasterFileIndexItems_01.php?callback=?', {//JSONP Request to Open Items Page setup tables
+					activeModelId : window.activeModelId
+				}, function(res, status) {
+					$.each(res, function(i, item) {
+						$('#mfi_firstChild_2').append("<li>" + item.name + "</li>");
+					});
+
+				});
+			}
+
 			function getMasterFileIndexItems() {
-				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_getMasterFileIndexItems.php?callback=?',{//JSONP Request to Open Items Page setup tables
+				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_getMasterFileIndexItems.php?callback=?', {//JSONP Request to Open Items Page setup tables
 					activeModelId : window.activeModelId
 				}, function(res, status) {
 
 					$.each(res, function(i, item) {
-						if (item.ubm_required == "yes"){
-						$('#ubmsuite_mcs_master_file_index_tree').append("<li><input disabled='' type='checkbox' checked/><span></i>" + item.mfi_ref + " &nbsp &nbsp " + item.title + "</span><ul><li id='mfi_firstChild" + item.name + "><span><i class='icon-minus-sign'></i>" + item.name + "</span></li></ul></li>");
-						}else {
-						$('#ubmsuite_mcs_master_file_index_tree').append("<li><input type='checkbox'/><span></i>" + item.mfi_ref + " &nbsp &nbsp " + item.title + "</span><ul><li><span><i class='icon-minus-sign'></i>" + item.name + "</span></li></ul></li>");
+						if (item.ubm_required == "yes") {
+							$('#ubmsuite_mcs_master_file_index_tree').append("<li><input disabled='' type='checkbox' checked/><span></i>" + item.mfi_ref + " &nbsp &nbsp " + item.title + " </span><ul id='mfi_firstChild_" + item.id + "'></ul></li>");
+						} else {
+							$('#ubmsuite_mcs_master_file_index_tree').append("<li><input type='checkbox'/><span></i>" + item.mfi_ref + " &nbsp &nbsp " + item.title + " </span><ul id='mfi_firstChild_" + item.id + "'></ul></li>");
 						}
 					});
+					getMasterFileIndexItems01();
+					getMasterFileIndexItems00();
 					coolify();
 				});
+				
+					
+					
 
 			}
 
