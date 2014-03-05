@@ -26,7 +26,8 @@ under the License.
 
 		<!-- Font Awesome CSS -->
 	    <link rel="stylesheet" href="lib/font-awesome/css/font-awesome.min.css"/>
-
+		<!-- Bootstrap Tree CSS -->
+		<link rel="stylesheet" href="css/bootstrap-combinedtree.min.css">
 		<!-- Pie-Menu CSS -->
 				<link rel="stylesheet" href="css/piemenu.css">
 		<!-- SlickMap, Model Visual Representation CSS -->
@@ -39,7 +40,8 @@ under the License.
         <script src="js/jquery-mobile-1.4.0.min.js"></script>
 		<!-- Begin Pie-Menu JS-->
 		<script src="js/jquery.menu.js"></script>
-
+		<!-- Boostrap Tree JS -->
+		<script src="js/bootstrap-tree.js"></script>
         <!--Begin Jquery UI and touchpounch -->
         <link rel="stylesheet" href="css/jquery-ui.css">
 
@@ -1159,22 +1161,53 @@ under the License.
 			}
 		</script>
 		<!-- End Features JavaScript -->
+        <!-- Master File Index -->
         <script>
+			function getMasterFileIndexItems00() {
+				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_getMasterFileIndexItems_00.php?callback=?', {//JSONP Request to Open Items Page setup tables
+					activeModelId : window.activeModelId
+				}, function(res, status) {
+					$.each(res, function(i, item) {
+						$('#mfi_firstChild_1').append("<li>" + item.name + "</li>");
+					});
+				});
+
+			}
+
+			function getMasterFileIndexItems01() {
+				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_getMasterFileIndexItems_01.php?callback=?', {//JSONP Request to Open Items Page setup tables
+					activeModelId : window.activeModelId
+				}, function(res, status) {
+					$.each(res, function(i, item) {
+						$('#mfi_firstChild_2').append("<li>" + item.name + "</li>");
+					});
+
+				});
+			}
+
 			function getMasterFileIndexItems() {
 				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_getMasterFileIndexItems.php?callback=?', {//JSONP Request to Open Items Page setup tables
 					activeModelId : window.activeModelId
 				}, function(res, status) {
-					                     alert(status);
-					$('#ubmsuite_mcs_master_file_index_table_body').empty();
-					$.each(res, function(i, item) {
-					    
-						$('#ubmsuite_mcs_master_file_index_table_body').append("<tr> <td><input type='checkbox'></td><td style='color:red;'> " + item.mfi_ref + " </td><td> " + item.title + " </td><td> " + item.description + " </td></tr> ")
-					})
-					$("#ubmsuite_mcs_master_file_index_table_body").table("rebuild");
 
+					$.each(res, function(i, item) {
+						if (item.ubm_required == "yes") {
+							$('#ubmsuite_mcs_master_file_index_tree').append("<li><input disabled='' type='checkbox' checked/><span></i>" + item.mfi_ref + " &nbsp &nbsp " + item.title + " </span><ul id='mfi_firstChild_" + item.id + "'></ul></li>");
+						} else {
+							$('#ubmsuite_mcs_master_file_index_tree').append("<li><input type='checkbox'/><span></i>" + item.mfi_ref + " &nbsp &nbsp " + item.title + " </span><ul id='mfi_firstChild_" + item.id + "'></ul></li>");
+						}
+					});
+					setTimeout(function() {
+					      coolify();
+					}, 1000);
+					
 				});
+				
+					
+					
 
 			}
+
         </script>
 		<script>
 			function setActivePosition(activeReportsToPosition){
@@ -3618,10 +3651,14 @@ under the License.
                                
                             </tr>
                         </thead> 
-                        <tbody id="ubmsuite_mcs_master_file_index_table_body">
-                            
-                        </tbody>
+                        
 				</table>
+				<div class="tree">
+					<ul id="ubmsuite_mcs_master_file_index_tree">
+
+					</ul>
+				</div>
+
 				</div>
 			</div>
 		</div>
@@ -13942,6 +13979,8 @@ under the License.
 				
 				$(document).on("pageshow", "#ubmsuite_mcs_master_file_index", function() {
 				    getMasterFileIndexItems();
+				    getMasterFileIndexItems01();
+					getMasterFileIndexItems00();
                     setTimeout(function() {
                         
                     }, 1000);
