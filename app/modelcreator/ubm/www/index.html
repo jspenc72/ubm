@@ -34,7 +34,6 @@ under the License.
 		<link rel="stylesheet" type="text/css" media="screen, print" href="css/slickmap.css" />
         <link rel="stylesheet" type="text/css" href="css/index.css" />
         <link rel="stylesheet" href="css/jquery.mobile-1.4.0.min.css" />
-        <link rel="stylesheet" href="css/bootstrap-combinedtree.min.css">
 
         <script src="js/jquery-1.9.1.min.js"></script>
         <script src="js/jquery-mobile-1.4.0.min.js"></script>
@@ -1168,7 +1167,7 @@ under the License.
 					activeModelId : window.activeModelId
 				}, function(res, status) {
 					$.each(res, function(i, item) {
-						$('#mfi_firstChild_1').append("<li>" + item.name + "</li>");
+						$('#mfi_firstChild_1').append("<li><span>" + item.name + "</span></li>");
 					});
 				});
 
@@ -1179,7 +1178,7 @@ under the License.
 					activeModelId : window.activeModelId
 				}, function(res, status) {
 					$.each(res, function(i, item) {
-						$('#mfi_firstChild_2').append("<li>" + item.name + "</li>");
+						$('#mfi_firstChild_2').append("<li><span>" + item.name + "</span></li>");
 					});
 
 				});
@@ -1192,14 +1191,14 @@ under the License.
 
 					$.each(res, function(i, item) {
 						if (item.ubm_required == "yes") {
-							$('#ubmsuite_mcs_master_file_index_tree').append("<li><input disabled='' type='checkbox' checked/><span></i>" + item.mfi_ref + " &nbsp &nbsp " + item.title + " </span><ul id='mfi_firstChild_" + item.id + "'></ul></li>");
+							$('#ubmsuite_mcs_master_file_index_tree').append("<li><input disabled='' type='checkbox' checked/><span id='mfi_ref'></i>" + item.mfi_ref + " </span><span>&nbsp &nbsp " + item.title + " </span><ul id='mfi_firstChild_" + item.id + "'></ul></li>");
 						} else {
-							$('#ubmsuite_mcs_master_file_index_tree').append("<li><input type='checkbox'/><span></i>" + item.mfi_ref + " &nbsp &nbsp " + item.title + " </span><ul id='mfi_firstChild_" + item.id + "'></ul></li>");
+							$('#ubmsuite_mcs_master_file_index_tree').append("<li><input type='checkbox'/><span id='mfi_ref'></i>" + item.mfi_ref + "</span><span> &nbsp &nbsp " + item.title + " </span><ul id='mfi_firstChild_" + item.id + "'></ul></li>");
 						}
 					});
-					setTimeout(function() {
-					      coolify();
-					}, 1000);
+					getMasterFileIndexItems01();
+					getMasterFileIndexItems00();
+					coolify();
 					
 				});
 				
@@ -13979,8 +13978,6 @@ under the License.
 				
 				$(document).on("pageshow", "#ubmsuite_mcs_master_file_index", function() {
 				    getMasterFileIndexItems();
-				    getMasterFileIndexItems01();
-					getMasterFileIndexItems00();
                     setTimeout(function() {
                         
                     }, 1000);
