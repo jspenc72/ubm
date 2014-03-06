@@ -54,6 +54,8 @@ under the License.
 		<!-- Begin JORG Chart Builder-->
 		<script type="text/javascript" src="js/jquery.jOrgChart.js"></script>
 		<link rel="stylesheet" href="css/jquery.jOrgChart.css"/> 
+		<!-- Hierarchical Object -->
+		<link rel="stylesheet" href="css/heirarchicalChart.css"/>
 		<!-- Font Awesome JS -->
 	    <script src="src/jquery.popmenu.js"></script>
 
@@ -3719,7 +3721,87 @@ under the License.
 						</li>
 				   </ul>            
 			    </div>
-			    <div id="chart" class="orgChart" style="overflow-y:scroll; overflow-x:scroll; padding:75px 10px 75px 10px;"></div>						
+			    <div id="chart" class="orgChart" style="overflow-y:scroll; overflow-x:scroll; width:60%; padding:75px 10px 75px 10px;">
+			    	
+			    </div>		
+					<div id="heirarchyObjectTree_container">
+						<!--
+						heirarchyObjectTree uses CSS(3) to display objects.
+						-->
+						<center>Hierarchical Objects</center>
+						<div id="heirarchyObjectTree" class="heirarchyObjectTree" >
+							<ul>
+								<li>
+									<a href="#">PS-1</a>
+									<ul>
+										<li>
+											<a href="#">JD-1</a>
+											<ul>
+												<li>
+													<a href="#">PL-1</a>
+		
+												</li>
+		
+												<li>
+													<a href="#">PL-2</a>
+													<ul>
+														<li><a href="#">PR-2</a></li>
+														<li>
+															<a href="#">PR-1</a>
+															<ul>
+																<li>
+																	<a href="#">ST-1</a>
+																	<ul>
+																		<li>
+																			<a href="#">TK-1</a>
+																		</li>
+																		<li>
+																			<a href="#">TK-2</a>
+																		</li>
+																		<li>
+																			<a href="#">TK-3</a>
+																		</li>
+																	</ul>
+																</li>
+																<li>
+																	<a href="#">ST-2</a>
+																</li>
+																<li>
+																	<a href="#">PD-1</a>
+		
+																</li>
+															</ul>
+														</li>
+													</ul>
+												</li>
+												<li>
+													<a href="#">PL-3</a>
+		
+												</li>
+											</ul>
+										</li>
+										<li>
+											<a href="#">JD-2</a>
+										</li>
+										<li>
+											<a href="#">JD-3</a>
+										</li>
+										<li>
+											<a href="#">JD-4</a>
+										</li>
+										<li>
+											<a href="#">JD-5</a>
+										</li>
+										<li>
+											<a href="#">JD-6</a>
+										</li>
+									</ul>
+								</li>
+							</ul>
+						</div>					
+					</div>
+
+			    		
 			</div>
 		</div>
 		<div data-role="page" class="ubm_page" id="ubmsuite_mcs_model_visual">
@@ -13966,7 +14048,6 @@ under the License.
 						getSharedModels();
 					}, 1000);
 				});
-				
 				$(document).on("pageshow", "#ubmsuite_mcs_master_file_index", function() {
 				    getMasterFileIndexItems();
                     setTimeout(function() {
@@ -13984,9 +14065,15 @@ under the License.
                     }, 1000);
                 });
 				$(document).on("pageshow", "#ubmsuite_mcs_my_organizational_chart", function() {
+					/*** /$( "#heirarchyObjectTree_container_frame" ).draggable().resizable({
+				      maxHeight: 550,
+				      maxWidth: $( window ).width()*2,
+				      minHeight: 250,
+				      minWidth: 200
+				    });/***/
+
 					$('#chart').empty();
 			        getMyModelsOrgChart();			
-
 	
 				});
 				$(document).on("pageshow", "#ubmsuite_modelSettings", function() {
