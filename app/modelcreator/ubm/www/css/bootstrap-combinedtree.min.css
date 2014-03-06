@@ -1,8 +1,12 @@
+.tree input[disabled=''] {
+	cursor:not-allowed;
+}
 .tree li {
     margin: 0px 0;
     list-style-type: none;
     position: relative;
     padding: 20px 5px 0px 5px;
+
 }
 .tree li::before {
     content:'';
@@ -36,6 +40,7 @@
     border-radius: 5px;
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
+    cursor:pointer;
 }
 /*Remove connectors before root*/
  .tree > ul > li::before, .tree > ul > li::after {
@@ -49,14 +54,15 @@
 
 /*We will apply the hover effect the the lineage of the element also*/
  .tree li a:hover, .tree li a:hover+ul li a {
-    background: #c8e4f8;
+    background: #99D699;
     color: #000;
-    border: 1px solid #94a0b4;
+    border: 1px solid #000000;
 }
 /*Connector styles on hover*/
  .tree li a:hover+ul li::after, .tree li a:hover+ul li::before, .tree li a:hover+ul::before, .tree li a:hover+ul ul::before {
-    border-color: #94a0b4;
+    border-color: #CCCCFF;
 }
 .tree li ul > li {
     display: none;
 }
+
