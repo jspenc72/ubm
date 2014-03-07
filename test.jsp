@@ -19,7 +19,6 @@
 	out.println("<BR>"+request.getParameter("username"));
 	}
 	if(request.getParameter("password") == null){
-
 	out.println("<BR>Please Enter your password");
 	}else{
 	out.println("<BR>"+request.getParameter("password"));
