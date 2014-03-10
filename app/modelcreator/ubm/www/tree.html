@@ -1,22 +1,21 @@
 <html>
 	<head>
-	
+
 		<script src="js/jquery-1.9.1.min.js"></script>
 		<script src="js/jquery-mobile-1.4.0.min.js"></script>
-		
 
 		<!--Begin Jquery UI and touchpounch -->
 		<link rel="stylesheet" href="css/jquery-ui.css">
 		<link rel="stylesheet" href="css/bootstrap-combinedtree.min.css">
 		<script src="js/bootstrap-tree.js"></script>
-        <link rel="stylesheet" href="css/jquery.mobile-1.4.0.min.css" />
+		<link rel="stylesheet" href="css/jquery.mobile-1.4.0.min.css" />
 		<script>
 			function getMasterFileIndexItems00() {
 				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_getMasterFileIndexItems_00.php?callback=?', {//JSONP Request to Open Items Page setup tables
 					activeModelId : window.activeModelId
 				}, function(res, status) {
 					$.each(res, function(i, item) {
-						$('#mfi_firstChild_1').append("<li><span>" + item.name + "</span></li>");
+						$('#mfi_firstChild_1').append("<li><div class='child_checkbox'><input type='checkbox'/></div><span>" + item.name + "</span></li>");
 					});
 				});
 
@@ -27,7 +26,7 @@
 					activeModelId : window.activeModelId
 				}, function(res, status) {
 					$.each(res, function(i, item) {
-						$('#mfi_firstChild_2').append("<li><span>" + item.name + "</span></li>");
+						$('#mfi_firstChild_2').append("<li><div class='child_checkbox'><input type='checkbox'/></div><span>" + item.name + "</span></li>");
 					});
 
 				});
@@ -51,13 +50,14 @@
 				});
 			}
 
-        </script>
+		</script>
 
 	</head>
 	<body onload="getMasterFileIndexItems()">
 
 		<div data-role="page">
 			<div data-role="header" data-theme="b">
+
 			</div>
 			<div role="main" clrear="ui-content">
 
@@ -69,7 +69,7 @@
 
 			</div>
 			<div data-role="footer">
-				
+
 			</div>
 		</div>
 	</body>

@@ -1,5 +1,8 @@
 .tree input[disabled=''] {
-	cursor:not-allowed;
+	cursor:url ('Unavailable.ani');
+}
+.tree input[type='checkbox'] {
+	padding-right:5px;
 }
 .tree li {
     margin: 0px 0;
@@ -65,4 +68,8 @@
 .tree li ul > li {
     display: none;
 }
-
+.child_checkbox {
+	position:relative;
+	float:left;
+	right:10px;
+}

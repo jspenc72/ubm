@@ -203,7 +203,7 @@ under the License.
 									$("#mcs_open_points_action_items_table").table("refresh");
 								}
 							} else {
-								//alert(window.accounttype);
+								//alert(wi/ndow.accounttype);
 								if (item.number_resolutions !== "0") {//If item doesnt have any resolutions associated with it, use theme a for the "View" Resolutions button
 									$('#mcs_open_points_action_items_table_body').append("<tr ><th class='label'>" + item.id + "</th><td>" + item.form_ref + "</td><td>" + item.priority + "</td><td>" + item.opened_by + "</td><td>" + item.date_opened + "</td><td>" + item.action_required + "</td><td>" + item.assigned_to + "</td><td>" + item.date_opened + "</td><td>" + item.due_date + "</td><td>b</td><td>c</td><td>d</td><td><a href='#' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-comment ui-btn-icon-left ui-btn-b' onclick='viewResolutions(" + item.id + ")'>View &nbsp&nbsp&nbsp&nbsp<span class='ui-li-has-count ui-btn-up-c ui-btn-corner-all'>" + item.number_resolutions + "</span></a><a href='#' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-plus ui-btn-icon-left ui-btn-a' onclick='addResolutions(" + item.id + ")'>Resolve &nbsp&nbsp&nbsp&nbsp</a><a href='#' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-plus ui-btn-icon-left ui-btn-a' onclick='addItemComment(" + item.id + ")'>Comment &nbsp&nbsp&nbsp&nbsp</a></td></tr>");
 								} else {
@@ -383,6 +383,13 @@ under the License.
 
 			function getMyModels() {//Get all models in database where current user is the creator.
 				showLoader();
+				/*$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_getMyModelsCreatorName.php?callback=?', {//JSONP Request to Create new model
+				},
+					$.each(res, function(i, item) {
+						window.firstName = item.first_name;
+						window lastName = item.last_name;
+					})
+				);*/
 				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_getMyModels.php?callback=?', {//JSONP Request to Create new model
 					username : window.username
 				}, function(res, status) {
