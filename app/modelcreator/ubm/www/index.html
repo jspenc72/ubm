@@ -30,13 +30,15 @@ under the License.
 		<link rel="stylesheet" href="css/bootstrap-combinedtree.min.css">
 		<!-- Pie-Menu CSS -->
 		<link rel="stylesheet" href="css/piemenu.css">
+
 		<!-- SlickMap, Model Visual Representation CSS -->
 		<link rel="stylesheet" type="text/css" media="screen, print" href="css/slickmap.css" />
         <link rel="stylesheet" type="text/css" href="css/index.css" />
         <link rel="stylesheet" href="css/jquery.mobile-1.4.0.min.css" />
+
+		<link rel="stylesheet" href="themes/ubm_v3.3.1.min.css" />
 		<!-- Model Summary CSS -->
 		<link media="all" rel="stylesheet" type="text/css" href="css/allModelSummary.css" />
-		
         <script src="js/jquery-1.9.1.min.js"></script>
         <script src="js/jquery-mobile-1.4.0.min.js"></script>
 		<!-- Begin Pie-Menu JS-->
@@ -81,7 +83,6 @@ under the License.
 			}
 			function hideLoader(){
 				$.mobile.loading("hide");
-				
 			}
 			//Open Item Functions
 			function confirmCloseOpenItem(id) {
@@ -1171,7 +1172,6 @@ under the License.
 			}
 		</script>
 		<!-- End Features JavaScript -->
-        <!-- Master File Index -->
         <script>
 			function getMasterFileIndexItems00() {
 				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_getMasterFileIndexItems_00.php?callback=?', {//JSONP Request to Open Items Page setup tables
@@ -1214,6 +1214,7 @@ under the License.
 			}
 
         </script>
+        <!-- End Master File Index -->
 		<script>
 			function setActivePosition(activeReportsToPosition){
 				window.activeReportsToPosition = activeReportsToPosition;
@@ -1277,7 +1278,6 @@ under the License.
 				//4. User selects the "reports to position from a list of existing positions attached to their model.
 				//3. If user selects yes, the relationships between the activeModelId and the active position as well as all positions that report to it are created in the the model_has_positions table. 
 				//4. If user selects "no, add this position without any positions that report to it." 
-				
 			}
 			function removeActivePositionfromMyModel(){
 				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_model_remove_Positions.php?callback=?', {//JSONP Request to Open Items Page setup tables
@@ -1287,25 +1287,20 @@ under the License.
 				}, function(res, status) {
 					alert(res.message);
 				});
-					getMyModelsOrgChart();					
-
+					getMyModelsOrgChart();
 			}
 			function confirmRemoveActivePosition(){
 					$("#ubmsuite_mcs_my_organizational_chart_content_modifyPositionPopUp").popup('close');
 				setTimeout(function() {
 					alert("Caution! Removing a position will also remove all positions that report to it. ");
 					$("#ubmsuite_mcs_my_organizational_chart_confirm_remove_Position_popup").popup('open');
-
 				}, 1000);
-
-				
 			}
 			function modifyActivePosition(){
 				alert(window.activeReportsToPosition);
 				//1. Checks to see if the currently active user is the creator of the active position.
 				//2. If user is creator, allows user to modify the position.
 				//3. If user is not the creator, user is notified that only the creator may modify a position and give them the option to copy the position.
-				
 			}
 			function viewActivePositionHierachyObjects(){
 				alert("This Functionality is still in development.");
@@ -1313,14 +1308,11 @@ under the License.
 			function getPositionsThatReporttoActivePosition(){
 				//1. Add position popup should have a listview filled with positions that report to the active position.
 				//2. This function will retrieve all model_positions that report to the active position and will populate the listview with those positions. 
-
-
 			}
-
 		</script>      
 		<!-- End Position JavaScript-->
         <script>
-        function getMyModelsOrgChart(){
+        function getMyModelsOrgChartgetMyModelsOrgChart(){
 					$('#ubmsuite_mcs_my_organizational_chart_L0_ul').empty();
 				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_getActiveModelPositionsforOrgChart.php?callback=?', {//JSONP Request to Open Items Page setup tables
 					activeModelId:window.activeModelId
@@ -1365,6 +1357,218 @@ under the License.
         }
         </script>
 		<!-- End Org Chart Functions -->
+		<script>
+				function newLowSum() {		//Calculates the Sum of the Low Annual Expected ROI Costs and Benefits 
+				    var sum=0;
+				    var thisRow = $(this).closest('tr');
+				    
+				    var total=0;
+				
+				    //iterate through each input and add to sum
+				    $(thisRow).find(".low_col_num").each(function() {
+				            sum += parseInt(this.value);                     
+				    }); 
+				    //change value of total
+				    $(thisRow).find(".low_total").html(sum);
+				    
+				     
+				     // the grand total
+				    /*** / $('.total').each(function() {
+				         total += parseInt($(this).html());
+				     });/***/
+				      
+				   // $('.result').val(total);
+				}
+				function newHighSum() {		//Calculates the Sum of the Low Annual Expected ROI Costs and Benefits 
+				    var sum=0;
+				    var thisRow = $(this).closest('tr');
+				    var total=0;				
+				    //iterate through each input and add to sum
+				    $(thisRow).find("td:not(.total) .high_col_num").each(function() {
+				            sum += parseInt(this.value);                     
+				    }); 
+				    //change value of total
+				    $(thisRow).find(".high_total").html(sum);
+				     // the grand total
+				     $('.high_total').each(function() {
+				         total += parseInt($(this).html());
+				     });
+				    $('.result').val(total);
+				}
+				function setActiveAlternativePro(activeModelAlternativeProId){
+					window.activeModelAlternativeProId = activeModelAlternativeProId;
+				}
+				function setActiveAlternativeCon(activeModelAlternativeConId){
+					window.activeModelAlternativeConId = activeModelAlternativeConId;
+				}
+				function setActiveAlternative(activeModelAlternativeId){
+					window.activeModelAlternativeId = activeModelAlternativeId;
+					alert(window.activeModelAlternativeId);
+					setTimeout(function() {
+						getActivelternativeListofPros();
+						getActivelternativeListofCons();
+					}, 1000);						
+				}
+				function getMyModelsListofAlternatives(){
+					showLoader();
+					$('#possible_alternitives_table_body').empty();
+					$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_model_getCurrentModel_Alternatives.php?callback=?', {//JSONP Request to Open Items Page setup tables
+						activeModelId : window.activeModelId,
+					}, function(res, status) {
+						$.each(res, function(i, item) {
+							if(item.decision=="Use Now"){
+								$('#possible_alternitives_table_body').append("<tr><td>" + item.id + "<a href='#' onclick='setActiveAlternative(" + item.id + ")' class='ui-btn ui-icon-tag ui-btn-icon-notext ui-corner-all'>No text</a></td><td>" + item.description + "</td><td><a href='#' class='ui-btn'>" + item.decision + "</a></td><td><input class='high_col_num' value = '" + item.annual_cost_high + "'/></td><td><input class='low_col_num' value = '" + item.annual_cost_low + "'/></td><td><input class='high_col_num' value = '" + item.annual_benefit_high + "'/></td><td><input class='low_col_num' value = '" + item.annual_benefit_low + "'/></td><td class='high_total'>High ROI</td><td class='low_total'>Low ROI</td></tr>");							
+							}else{
+								$('#possible_alternitives_table_body').append("<tr><td>" + item.id + "<a href='#' onclick='setActiveAlternative(" + item.id + ")' class='ui-btn ui-icon-tag ui-btn-icon-notext ui-corner-all'>No text</a></td><td>" + item.description + "</td><td>" + item.decision + "</td><td><input class='high_col_num' value = '" + item.annual_cost_high + "'/></td><td><input class='low_col_num' value = '" + item.annual_cost_low + "'/></td><td><input class='high_col_num' value = '" + item.annual_benefit_high + "'/></td><td><input class='low_col_num' value = '" + item.annual_benefit_low + "'/></td><td class='high_total'>High ROI</td><td class='low_total'>Low ROI</td></tr>");
+							}
+								$( "#possible_alternitives_table" ).table( "refresh" );
+						});
+					});				
+					setTimeout(function() {
+					    $(".low_col_num").each(function() {				
+					        $(this).keyup(function(){				//Call the newSum function each time a keystroke is activated in any of the inputs with col_num as the class.
+					            newLowSum.call(this);
+					        });
+					    });
+					    $(".high_col_num").each(function() {				
+					        $(this).keyup(function(){				//Call the newSum function each time a keystroke is activated in any of the inputs with col_num as the class.
+					            newHighSum.call(this);
+					        });
+					    });
+
+						hideLoader();
+					}, 5000);
+				}
+				function getActivelternativeListofPros(){
+					showLoader();
+					$('#possible_alternitives_pros_table_body').empty();
+
+					$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_model_getCurrentModel_activeAlternativePros.php?callback=?', {//JSONP Request to Open Items Page setup tables
+						activeModelAlternativeId : window.activeModelAlternativeId,
+					}, function(res, status) {
+						if(status=="success"){
+							setTimeout(function() {
+								hideLoader();
+							}, 1000);							
+						}
+						$.each(res, function(i, item) {
+							$('#possible_alternitives_pros_table_body').append("<tr><td>" + item.id + "<a href='#' onclick='setActiveAlternativePro(" + item.id + ")' class='ui-btn ui-icon-tag ui-btn-icon-notext ui-corner-all'>No text</a></td><td>" + item.description + "</td><td><input class='high_col_num' value = '" + item.benefit_high + "'/></td><td><input class='low_col_num' value = '" + item.benefit_low + "'/></td></tr>");
+							$( "#possible_alternitives_pros_table" ).table( "refresh" );
+						});
+					});						
+				}
+				function getActivelternativeListofCons(){
+					showLoader();
+					$('#possible_alternitives_cons_table_body').empty();
+					$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_model_getCurrentModel_activeAlternativeCons.php?callback=?', {//JSONP Request to Open Items Page setup tables
+						activeModelAlternativeId : window.activeModelAlternativeId,
+					}, function(res, status) {
+						if(status=="success"){
+							setTimeout(function() {
+								hideLoader();
+							}, 1000);							
+						}
+						$.each(res, function(i, item) {
+							$('#possible_alternitives_cons_table_body').append("<tr><td>" + item.id + "<a href='#' onclick='setActiveAlternativeCon(" + item.id + ")' class='ui-btn ui-icon-tag ui-btn-icon-notext ui-corner-all'>No text</a></td><td>" + item.description + "</td><td><input class='high_col_num' value = '" + item.cost_low + "'/></td><td><input class='low_col_num' value = '" + item.cost_high + "'/></td></tr>");
+							$( "#possible_alternitives_cons_table" ).table( "refresh" );
+						});
+
+					});						
+				}
+				function createNewAlternative(){
+					showLoader();
+
+					$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_model_create_Alternative.php?callback=?', {//JSONP Request to Open Items Page setup tables
+						activeModelId : window.activeModelId,
+						alternativeDescription : document.getElementById("possible_alternatives_alternativeDescription").value,
+						alternativeDecision : document.getElementById("possible_alternatives_alternativeDecision").value,
+						username : window.username
+					}, function(res, status) {
+						if(status=="success"){
+							setTimeout(function() {
+								getMyModelsListofAlternatives();
+								hideLoader();
+							}, 1000);							
+						}
+					});
+				}
+				function createNewProforactiveModelAlternative(){
+					showLoader();
+					$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_model_create_Alternative_Pro.php?callback=?', {//JSONP Request to Open Items Page setup tables
+						activeModelId : window.activeModelId,
+						activeModelAlternativeId : window.activeModelAlternativeId,
+						alternativeProDescription : document.getElementById("possible_alternatives_alternativeProDescription").value,
+						alternativeProROIRef : document.getElementById("possible_alternatives_alternativeProROIRef").value,
+						alternativeProHighBenefit : document.getElementById("possible_alternatives_pro_monetary_gain_input_high").value,
+						alternativeProLowBenefit : document.getElementById("possible_alternatives_pro_monetary_gain_input_low").value,
+						username : window.username
+					}, function(res, status) {
+						if(status=="success"){
+							setTimeout(function() {
+								getMyModelsListofAlternatives();
+								getActivelternativeListofPros();
+								hideLoader();
+							}, 1000);							
+						}
+					});
+				}
+				function createNewConforactiveModelAlternative(){
+					showLoader();
+					$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_model_create_Alternative_Con.php?callback=?', {//JSONP Request to Open Items Page setup tables
+						activeModelId : window.activeModelId,
+						activeModelAlternativeId : window.activeModelAlternativeId,
+						alternativeConDescription : document.getElementById("possible_alternatives_alternativeConDescription").value,
+						alternativeConROIRef : document.getElementById("possible_alternatives_alternativeConROIRef").value,
+						alternativeConHighCost : document.getElementById("possible_alternatives_con_monetary_cost_input_low").value,
+						alternativeConLowCost : document.getElementById("possible_alternatives_con_monetary_cost_input_high").value,
+						username : window.username
+					}, function(res, status) {
+						alert(status);
+						if(status=="success"){
+							setTimeout(function() {
+								getMyModelsListofAlternatives();
+								getActivelternativeListofCons();
+								hideLoader();
+							}, 1000);							
+						}
+					});
+				}
+//Initialize Slider for Pro Hi and Low Monetary Benefit
+				  $(function() {
+				    $( "#possible_alternatives_pro_monetary_gain_slider" ).slider({
+				      range: true,
+				      min: 0,
+				      max: 500,
+				      values: [ 75, 300 ],
+				      slide: function( event, ui ) {
+				    		$( "#possible_alternatives_pro_monetary_gain_input" ).val( "$" + ui.values[ 0 ] + " - $" + ui.values[ 1 ] ); //Populate the text input with the Low and High values from the slider.
+					      $("#possible_alternatives_pro_monetary_gain_input_low").val(ui.values[ 0 ]);
+					      $("#possible_alternatives_pro_monetary_gain_input_high").val(ui.values[ 1 ]);	      
+				      }
+				    });
+				    $( "#possible_alternatives_pro_monetary_gain_input" ).val( "$" + $( "#possible_alternatives_pro_monetary_gain_slider" ).slider( "values", 0 ) +
+				      " - $" + $( "#possible_alternatives_pro_monetary_gain_slider" ).slider( "values", 1 ) );
+				      $("#possible_alternatives_pro_monetary_gain_input_low").val($( "#possible_alternatives_pro_monetary_gain_slider" ).slider("values", 0));
+				      $("#possible_alternatives_pro_monetary_gain_input_high").val($( "#possible_alternatives_pro_monetary_gain_slider" ).slider("values", 1));
+				  });
+//Initialize Slider for Con Hi and Low Monetary Benefit
+				  $(function() {
+				    $( "#possible_alternatives_con_monetary_cost_slider" ).slider({
+				      range: true,
+				      min: -1000,
+				      max: 0,
+				      values: [ -500, -10 ],
+				      slide: function( event, ui ) {
+				        $( "#possible_alternatives_con_monetary_cost_input" ).val( "$" + ui.values[ 0 ] + " - $" + ui.values[ 1 ] ); //Populate the text input with the Low and High values from the slider.
+				      }
+				    });
+				    $( "#possible_alternatives_con_monetary_cost_input" ).val( "$" + $( "#possible_alternatives_con_monetary_cost_slider" ).slider( "values", 0 ) +
+				      " - $" + $( "#possible_alternatives_con_monetary_cost_slider" ).slider( "values", 1 ) );
+				      $("#possible_alternatives_con_monetary_cost_input_low").val($( "#possible_alternatives_con_monetary_cost_slider" ).slider("values", 0));
+				      $("#possible_alternatives_con_monetary_cost_input_high").val($( "#possible_alternatives_con_monetary_cost_slider" ).slider("values", 1));
+				  });
+	  </script>
+		<!-- End Model Alternatives Functions-->
         <script>
 			//Refresh Model Creation Suite Checklist
 			function getModelCreationSuiteChecklistItems() {
@@ -1428,61 +1632,108 @@ under the License.
 									}
 								}
 							}
-
-							//$( "#mcs_setup_checklist_setup_mfi_table" ).table( "refresh" );
-							//	$( "#mcs_setup_checklist_setup_mfi_table" ).trigger( "create" );
 						} else {
 							if (item.phase_id == "CS") {
-								if (item.preparer_username == null) {//Check whether item has been prepared
-									$('#mcs_setup_checklist_CS_mfi_table_body').append("<tr ><th class='label'>" + item.line_number + "</th><td>.</td><td>.</td><td>.</td><td>.</td><td><a href='#" + item.preparedBy_href + "' onclick='setActiveTaskId(" + item.line_number + ")'  data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/redMinus.png' alt='PreparedBy' style='width:60%'></a></td><td></td><td>" + item.mfi_explanation_ref + "</td><td>" + item.mfi_template_process_ref + "</td><td>" + item.source_model_mfi_ref + "</td><td><div data-role='controlgroup' data-type='horizontal' ><a href='#" + item.href + "'onclick='setActiveTaskId(" + item.line_number + ")'  data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a'><div style='white-space:normal'>" + item.instruction_detail + "</div></a></div></td><td>" + item.budgeted_hours + "</td><td>l</td><td>m</td><td>n</td></tr>");
-								} else {
-									if (item.reviewer_username == null) {//Check whether item has been reviewed
-										$('#mcs_setup_checklist_CS_mfi_table_body').append("<tr ><th class='label'>" + item.line_number + "</th><td></td><td></td><td><a href='#" + item.reviewedBy_href + "' data-rel='popup' onclick='setActiveTaskId(" + item.line_number + ")'  data-position-to='window' data-transition='fade'><img class='popphoto' src='img/redMinus.png' alt='ReviewedBy' style='width:60%'></a></td><td></td><td>" + item.preparer_username + "<a href='#popupParis' data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/greenCheck.png' alt='PreparedBy' style='width:60%'></a></td><td>" + item.prepared_date + "</td><td>" + item.mfi_explanation_ref + "</td><td>" + item.mfi_template_process_ref + "</td><td>" + item.source_model_mfi_ref + "</td><td><div data-role='controlgroup' data-type='horizontal' ><a href='#" + item.href + "' data-rel='popup' data-transition='slideup' class='ui-btn ui-disabled ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a'><div style='white-space:normal'>" + item.instruction_detail + "</div></a></div></td><td>" + item.budgeted_hours + "</td><td>l</td><td>m</td><td>n</td></tr>");
+								if(item.event_type == "POPUP"){
+									if (item.preparer_username == null) {//Check whether item has been prepared
+										$('#mcs_setup_checklist_CS_mfi_table_body').append("<tr ><th class='label'>" + item.line_number + "</th><td>.</td><td>.</td><td>.</td><td>.</td><td><a href='#" + item.preparedBy_href + "' onclick='setActiveTaskId(" + item.line_number + ")'  data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/redMinus.png' alt='PreparedBy' style='width:60%'></a></td><td></td><td>" + item.mfi_explanation_ref + "</td><td>" + item.mfi_template_process_ref + "</td><td>" + item.source_model_mfi_ref + "</td><td><div data-role='controlgroup' data-type='horizontal' ><a href='#" + item.href + "'onclick='setActiveTaskId(" + item.line_number + ")'  data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a'><div style='white-space:normal'>" + item.instruction_detail + "</div></a></div></td><td>" + item.budgeted_hours + "</td><td>l</td><td>m</td><td>n</td></tr>");
 									} else {
-										if (item.final_reviewer_username == null) {//Check whether item has received its final review
-											$('#mcs_setup_checklist_CS_mfi_table_body').append("<tr ><th class='label'>" + item.line_number + "</th><td><a href='#" + item.finalReviewedBy_href + "' data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/redMinus.png' alt='PreparedBy' style='width:60%'></a></td><td></td><td>" + item.reviewer_username + "<a href='#popupParis' data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/greenCheck.png' alt='PreparedBy' style='width:60%'></a></td><td>" + item.review_date + "</td><td>" + item.preparer_username + "<a href='#popupParis' data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/greenCheck.png' alt='PreparedBy' style='width:60%'></a></td><td>" + item.prepared_date + "</td><td>" + item.mfi_explanation_ref + "</td><td>" + item.mfi_template_process_ref + "</td><td>" + item.source_model_mfi_ref + "</td><td><div data-role='controlgroup' data-type='horizontal' ><a href='#" + item.href + "' data-rel='popup' data-transition='slideup' class='ui-btn ui-disabled ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a'><div style='white-space:normal'>" + item.instruction_detail + "</div></a></div></td><td>" + item.budgeted_hours + "</td><td>l</td><td>m</td><td>n</td></tr>");
+										if (item.reviewer_username == null) {//Check whether item has been reviewed
+											$('#mcs_setup_checklist_CS_mfi_table_body').append("<tr ><th class='label'>" + item.line_number + "</th><td></td><td></td><td><a href='#" + item.reviewedBy_href + "' data-rel='popup' onclick='setActiveTaskId(" + item.line_number + ")'  data-position-to='window' data-transition='fade'><img class='popphoto' src='img/redMinus.png' alt='ReviewedBy' style='width:60%'></a></td><td></td><td>" + item.preparer_username + "<a href='#popupParis' data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/greenCheck.png' alt='PreparedBy' style='width:60%'></a></td><td>" + item.prepared_date + "</td><td>" + item.mfi_explanation_ref + "</td><td>" + item.mfi_template_process_ref + "</td><td>" + item.source_model_mfi_ref + "</td><td><div data-role='controlgroup' data-type='horizontal' ><a href='#" + item.href + "' data-rel='popup' data-transition='slideup' class='ui-btn ui-disabled ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a'><div style='white-space:normal'>" + item.instruction_detail + "</div></a></div></td><td>" + item.budgeted_hours + "</td><td>l</td><td>m</td><td>n</td></tr>");
 										} else {
-											$('#mcs_setup_checklist_CS_mfi_table_body').append("<tr ><th class='label'>" + item.line_number + "</th><td>" + item.final_reviewer_username + "<a href='#' data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/greenCheck.png' alt='PreparedBy' style='width:60%'></a></td><td>" + item.final_review_date + "</td><td>" + item.reviewer_username + "<a href='#popupParis' data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/greenCheck.png' alt='PreparedBy' style='width:60%'></a></td><td>" + item.review_date + "</td><td>" + item.preparer_username + "<a href='#popupParis' data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/greenCheck.png' alt='PreparedBy' style='width:60%'></a></td><td>" + item.prepared_date + "</td><td>" + item.mfi_explanation_ref + "</td><td>" + item.mfi_template_process_ref + "</td><td>" + item.source_model_mfi_ref + "</td><td><div data-role='controlgroup' data-type='horizontal' ><a href='#" + item.href + "' data-rel='popup' data-transition='slideup' class='ui-btn ui-disabled ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a'><div style='white-space:normal'>" + item.instruction_detail + "</div></a></div></td><td>" + item.budgeted_hours + "</td><td>l</td><td>m</td><td>n</td></tr>");
+											if (item.final_reviewer_username == null) {//Check whether item has received its final review
+												$('#mcs_setup_checklist_CS_mfi_table_body').append("<tr ><th class='label'>" + item.line_number + "</th><td><a href='#" + item.finalReviewedBy_href + "' data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/redMinus.png' alt='PreparedBy' style='width:60%'></a></td><td></td><td>" + item.reviewer_username + "<a href='#popupParis' data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/greenCheck.png' alt='PreparedBy' style='width:60%'></a></td><td>" + item.review_date + "</td><td>" + item.preparer_username + "<a href='#popupParis' data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/greenCheck.png' alt='PreparedBy' style='width:60%'></a></td><td>" + item.prepared_date + "</td><td>" + item.mfi_explanation_ref + "</td><td>" + item.mfi_template_process_ref + "</td><td>" + item.source_model_mfi_ref + "</td><td><div data-role='controlgroup' data-type='horizontal' ><a href='#" + item.href + "' data-rel='popup' data-transition='slideup' class='ui-btn ui-disabled ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a'><div style='white-space:normal'>" + item.instruction_detail + "</div></a></div></td><td>" + item.budgeted_hours + "</td><td>l</td><td>m</td><td>n</td></tr>");
+											} else {
+												$('#mcs_setup_checklist_CS_mfi_table_body').append("<tr ><th class='label'>" + item.line_number + "</th><td>" + item.final_reviewer_username + "<a href='#' data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/greenCheck.png' alt='PreparedBy' style='width:60%'></a></td><td>" + item.final_review_date + "</td><td>" + item.reviewer_username + "<a href='#popupParis' data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/greenCheck.png' alt='PreparedBy' style='width:60%'></a></td><td>" + item.review_date + "</td><td>" + item.preparer_username + "<a href='#popupParis' data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/greenCheck.png' alt='PreparedBy' style='width:60%'></a></td><td>" + item.prepared_date + "</td><td>" + item.mfi_explanation_ref + "</td><td>" + item.mfi_template_process_ref + "</td><td>" + item.source_model_mfi_ref + "</td><td><div data-role='controlgroup' data-type='horizontal' ><a href='#" + item.href + "' data-rel='popup' data-transition='slideup' class='ui-btn ui-disabled ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a'><div style='white-space:normal'>" + item.instruction_detail + "</div></a></div></td><td>" + item.budgeted_hours + "</td><td>l</td><td>m</td><td>n</td></tr>");
+											}
 										}
 									}
-
-								}
-							} else {
-								if (item.phase_id == "MFIS") {
-									//	$('#mcs_setup_checklist_setup_mfi_table_body').append("<tr ><th class='label'>"+ item.line_number + "</th><td>a</td><td>"+ item.final_review_date +"</td><td>"+ item.reviewer_username +"</td><td>"+ item.review_date +"</td><td>"+ item.preparer_username +"</td><td>"+ item.prepared_date +"</td><td>"+ item.mfi_explanation_ref +"</td><td>"+ item.mfi_template_process_ref +"</td><td>"+ item.source_model_mfi_ref +"</td><td><div data-role='controlgroup' data-type='horizontal' ><a href='#mcs_setup_1_popUp' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a'><div style='white-space:normal'>" + item.instruction_detail + "</div></a></div></td><td>"+ item.budgeted_hours +"</td><td>l</td><td>m</td><td>n</td></tr>");
-									//	alert("Item is MFIS");
-								} else {
-									if (item.phase_id == "P1") {
+								}else{
+									if(item.event_type == "LINKTOPAGE"){
 										if (item.preparer_username == null) {//Check whether item has been prepared
-											$('#mcs_setup_checklist_p1_mfi_table_body').append("<tr ><th class='label'>" + item.line_number + "</th><td>.</td><td>.</td><td>.</td><td>.</td><td><a href='#" + item.preparedBy_href + "' onclick='setActiveTaskId(" + item.line_number + ")'  data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/redMinus.png' alt='PreparedBy' style='width:60%'></a></td><td></td><td>" + item.mfi_explanation_ref + "</td><td>" + item.mfi_template_process_ref + "</td><td>" + item.source_model_mfi_ref + "</td><td><div data-role='controlgroup' data-type='horizontal' ><a href='#" + item.href + "'onclick='setActiveTaskId(" + item.line_number + ")'  data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a'><div style='white-space:normal'>" + item.instruction_detail + "</div></a></div></td><td>" + item.budgeted_hours + "</td><td>l</td><td>m</td><td>n</td></tr>");
+											$('#mcs_setup_checklist_CS_mfi_table_body').append("<tr ><th class='label'>" + item.line_number + "</th><td>.</td><td>.</td><td>.</td><td>.</td><td><a href='#" + item.preparedBy_href + "' onclick='setActiveTaskId(" + item.line_number + ")'  data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/redMinus.png' alt='PreparedBy' style='width:60%'></a></td><td></td><td>" + item.mfi_explanation_ref + "</td><td>" + item.mfi_template_process_ref + "</td><td>" + item.source_model_mfi_ref + "</td><td><div data-role='controlgroup' data-type='horizontal' ><a href='#" + item.href + "'onclick='setActiveTaskId(" + item.line_number + ")' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a'><div style='white-space:normal'>" + item.instruction_detail + "</div></a></div></td><td>" + item.budgeted_hours + "</td><td>l</td><td>m</td><td>n</td></tr>");
 										} else {
 											if (item.reviewer_username == null) {//Check whether item has been reviewed
-												$('#mcs_setup_checklist_p1_mfi_table_body').append("<tr ><th class='label'>" + item.line_number + "</th><td></td><td></td><td><a href='#" + item.reviewedBy_href + "' data-rel='popup' onclick='setActiveTaskId(" + item.line_number + ")'  data-position-to='window' data-transition='fade'><img class='popphoto' src='img/redMinus.png' alt='ReviewedBy' style='width:60%'></a></td><td></td><td>" + item.preparer_username + "<a href='#popupParis' data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/greenCheck.png' alt='PreparedBy' style='width:60%'></a></td><td>" + item.prepared_date + "</td><td>" + item.mfi_explanation_ref + "</td><td>" + item.mfi_template_process_ref + "</td><td>" + item.source_model_mfi_ref + "</td><td><div data-role='controlgroup' data-type='horizontal' ><a href='#" + item.href + "' data-rel='popup' data-transition='slideup' class='ui-btn ui-disabled ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a'><div style='white-space:normal'>" + item.instruction_detail + "</div></a></div></td><td>" + item.budgeted_hours + "</td><td>l</td><td>m</td><td>n</td></tr>");
+												$('#mcs_setup_checklist_CS_mfi_table_body').append("<tr ><th class='label'>" + item.line_number + "</th><td>.</td><td>.</td><td><a href='#" + item.reviewedBy_href + "' data-rel='popup' onclick='setActiveTaskId(" + item.line_number + ")'  data-position-to='window' data-transition='fade'><img class='popphoto' src='img/redMinus.png' alt='ReviewedBy' style='width:60%'></a></td><td></td><td>" + item.preparer_username + "<a href='#popupParis' data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/greenCheck.png' alt='PreparedBy' style='width:60%'></a></td><td>" + item.prepared_date + "</td><td>" + item.mfi_explanation_ref + "</td><td>" + item.mfi_template_process_ref + "</td><td>" + item.source_model_mfi_ref + "</td><td><div data-role='controlgroup' data-type='horizontal' ><a href='#" + item.href + "' class='ui-btn ui-disabled ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a'><div style='white-space:normal'>" + item.instruction_detail + "</div></a></div></td><td>" + item.budgeted_hours + "</td><td>l</td><td>m</td><td>n</td></tr>");
 											} else {
 												if (item.final_reviewer_username == null) {//Check whether item has received its final review
-													$('#mcs_setup_checklist_p1_mfi_table_body').append("<tr ><th class='label'>" + item.line_number + "</th><td><a href='#" + item.finalReviewedBy_href + "' data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/redMinus.png' alt='PreparedBy' style='width:60%'></a></td><td></td><td>" + item.reviewer_username + "<a href='#popupParis' data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/greenCheck.png' alt='PreparedBy' style='width:60%'></a></td><td>" + item.review_date + "</td><td>" + item.preparer_username + "<a href='#popupParis' data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/greenCheck.png' alt='PreparedBy' style='width:60%'></a></td><td>" + item.prepared_date + "</td><td>" + item.mfi_explanation_ref + "</td><td>" + item.mfi_template_process_ref + "</td><td>" + item.source_model_mfi_ref + "</td><td><div data-role='controlgroup' data-type='horizontal' ><a href='#" + item.href + "' data-rel='popup' data-transition='slideup' class='ui-btn ui-disabled ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a'><div style='white-space:normal'>" + item.instruction_detail + "</div></a></div></td><td>" + item.budgeted_hours + "</td><td>l</td><td>m</td><td>n</td></tr>");
+													$('#mcs_setup_checklist_CS_mfi_table_body').append("<tr ><th class='label'>" + item.line_number + "</th><td><a href='#" + item.finalReviewedBy_href + "' data-rel='popup' onclick='setActiveTaskId(" + item.line_number + ")' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/redMinus.png' alt='PreparedBy' style='width:60%'></a></td><td></td><td>" + item.reviewer_username + "<a href='#popupParis' data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/greenCheck.png' alt='PreparedBy' style='width:60%'></a></td><td>" + item.review_date + "</td><td>" + item.preparer_username + "<a href='#popupParis' data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/greenCheck.png' alt='PreparedBy' style='width:60%'></a></td><td>" + item.prepared_date + "</td><td>" + item.mfi_explanation_ref + "</td><td>" + item.mfi_template_process_ref + "</td><td>" + item.source_model_mfi_ref + "</td><td><div data-role='controlgroup' data-type='horizontal' ><a href='#" + item.href + "' class='ui-btn ui-disabled  ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a'><div style='white-space:normal'>" + item.instruction_detail + "</div></a></div></td><td>" + item.budgeted_hours + "</td><td>l</td><td>m</td><td>n</td></tr>");
 												} else {
-													$('#mcs_setup_checklist_p1_mfi_table_body').append("<tr ><th class='label'>" + item.line_number + "</th><td>" + item.final_reviewer_username + "<a href='#' data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/greenCheck.png' alt='PreparedBy' style='width:60%'></a></td><td>" + item.final_review_date + "</td><td>" + item.reviewer_username + "<a href='#popupParis' data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/greenCheck.png' alt='PreparedBy' style='width:60%'></a></td><td>" + item.review_date + "</td><td>" + item.preparer_username + "<a href='#popupParis' data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/greenCheck.png' alt='PreparedBy' style='width:60%'></a></td><td>" + item.prepared_date + "</td><td>" + item.mfi_explanation_ref + "</td><td>" + item.mfi_template_process_ref + "</td><td>" + item.source_model_mfi_ref + "</td><td><div data-role='controlgroup' data-type='horizontal' ><a href='#" + item.href + "' data-rel='popup' data-transition='slideup' class='ui-btn ui-disabled ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a'><div style='white-space:normal'>" + item.instruction_detail + "</div></a></div></td><td>" + item.budgeted_hours + "</td><td>l</td><td>m</td><td>n</td></tr>");
+													$('#mcs_setup_checklist_CS_mfi_table_body').append("<tr ><th class='label'>" + item.line_number + "</th><td>" + item.final_reviewer_username + "<a href='#' data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/greenCheck.png' alt='PreparedBy' style='width:60%'></a></td><td>" + item.final_review_date + "</td><td>" + item.reviewer_username + "<a href='#popupParis' data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/greenCheck.png' alt='PreparedBy' style='width:60%'></a></td><td>" + item.review_date + "</td><td>" + item.preparer_username + "<a href='#popupParis' data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/greenCheck.png' alt='PreparedBy' style='width:60%'></a></td><td>" + item.prepared_date + "</td><td>" + item.mfi_explanation_ref + "</td><td>" + item.mfi_template_process_ref + "</td><td>" + item.source_model_mfi_ref + "</td><td><div data-role='controlgroup' data-type='horizontal' ><a href='#" + item.href + "'  class='ui-btn ui-disabled ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a'><div style='white-space:normal'>" + item.instruction_detail + "</div></a></div></td><td>" + item.budgeted_hours + "</td><td>l</td><td>m</td><td>n</td></tr>");
 												}
 											}
-
+			
+										}										
+									}
+								}
+							} else {
+									if (item.phase_id == "P1") {
+										if(item.event_type == "POPUP"){
+											if (item.preparer_username == null) {//Check whether item has been prepared
+												$('#mcs_setup_checklist_p1_mfi_table_body').append("<tr ><th class='label'>" + item.line_number + "</th><td>.</td><td>.</td><td>.</td><td>.</td><td><a href='#" + item.preparedBy_href + "' onclick='setActiveTaskId(" + item.line_number + ")'  data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/redMinus.png' alt='PreparedBy' style='width:60%'></a></td><td></td><td>" + item.mfi_explanation_ref + "</td><td>" + item.mfi_template_process_ref + "</td><td>" + item.source_model_mfi_ref + "</td><td><div data-role='controlgroup' data-type='horizontal' ><a href='#" + item.href + "'onclick='setActiveTaskId(" + item.line_number + ")'  data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a'><div style='white-space:normal'>" + item.instruction_detail + "</div></a></div></td><td>" + item.budgeted_hours + "</td><td>l</td><td>m</td><td>n</td></tr>");
+											} else {
+												if (item.reviewer_username == null) {//Check whether item has been reviewed
+													$('#mcs_setup_checklist_p1_mfi_table_body').append("<tr ><th class='label'>" + item.line_number + "</th><td></td><td></td><td><a href='#" + item.reviewedBy_href + "' data-rel='popup' onclick='setActiveTaskId(" + item.line_number + ")'  data-position-to='window' data-transition='fade'><img class='popphoto' src='img/redMinus.png' alt='ReviewedBy' style='width:60%'></a></td><td></td><td>" + item.preparer_username + "<a href='#popupParis' data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/greenCheck.png' alt='PreparedBy' style='width:60%'></a></td><td>" + item.prepared_date + "</td><td>" + item.mfi_explanation_ref + "</td><td>" + item.mfi_template_process_ref + "</td><td>" + item.source_model_mfi_ref + "</td><td><div data-role='controlgroup' data-type='horizontal' ><a href='#" + item.href + "' data-rel='popup' data-transition='slideup' class='ui-btn ui-disabled ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a'><div style='white-space:normal'>" + item.instruction_detail + "</div></a></div></td><td>" + item.budgeted_hours + "</td><td>l</td><td>m</td><td>n</td></tr>");
+												} else {
+													if (item.final_reviewer_username == null) {//Check whether item has received its final review
+														$('#mcs_setup_checklist_p1_mfi_table_body').append("<tr ><th class='label'>" + item.line_number + "</th><td><a href='#" + item.finalReviewedBy_href + "' data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/redMinus.png' alt='PreparedBy' style='width:60%'></a></td><td></td><td>" + item.reviewer_username + "<a href='#popupParis' data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/greenCheck.png' alt='PreparedBy' style='width:60%'></a></td><td>" + item.review_date + "</td><td>" + item.preparer_username + "<a href='#popupParis' data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/greenCheck.png' alt='PreparedBy' style='width:60%'></a></td><td>" + item.prepared_date + "</td><td>" + item.mfi_explanation_ref + "</td><td>" + item.mfi_template_process_ref + "</td><td>" + item.source_model_mfi_ref + "</td><td><div data-role='controlgroup' data-type='horizontal' ><a href='#" + item.href + "' data-rel='popup' data-transition='slideup' class='ui-btn ui-disabled ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a'><div style='white-space:normal'>" + item.instruction_detail + "</div></a></div></td><td>" + item.budgeted_hours + "</td><td>l</td><td>m</td><td>n</td></tr>");
+													} else {
+														$('#mcs_setup_checklist_p1_mfi_table_body').append("<tr ><th class='label'>" + item.line_number + "</th><td>" + item.final_reviewer_username + "<a href='#' data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/greenCheck.png' alt='PreparedBy' style='width:60%'></a></td><td>" + item.final_review_date + "</td><td>" + item.reviewer_username + "<a href='#popupParis' data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/greenCheck.png' alt='PreparedBy' style='width:60%'></a></td><td>" + item.review_date + "</td><td>" + item.preparer_username + "<a href='#popupParis' data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/greenCheck.png' alt='PreparedBy' style='width:60%'></a></td><td>" + item.prepared_date + "</td><td>" + item.mfi_explanation_ref + "</td><td>" + item.mfi_template_process_ref + "</td><td>" + item.source_model_mfi_ref + "</td><td><div data-role='controlgroup' data-type='horizontal' ><a href='#" + item.href + "' data-rel='popup' data-transition='slideup' class='ui-btn ui-disabled ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a'><div style='white-space:normal'>" + item.instruction_detail + "</div></a></div></td><td>" + item.budgeted_hours + "</td><td>l</td><td>m</td><td>n</td></tr>");
+													}
+												}
+	
+											}
+										}else{
+											if(item.event_type == "LINKTOPAGE"){
+												if (item.preparer_username == null) {//Check whether item has been prepared
+													$('#mcs_setup_checklist_p1_mfi_table_body').append("<tr ><th class='label'>" + item.line_number + "</th><td>.</td><td>.</td><td>.</td><td>.</td><td><a href='#" + item.preparedBy_href + "' onclick='setActiveTaskId(" + item.line_number + ")'  data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/redMinus.png' alt='PreparedBy' style='width:60%'></a></td><td></td><td>" + item.mfi_explanation_ref + "</td><td>" + item.mfi_template_process_ref + "</td><td>" + item.source_model_mfi_ref + "</td><td><div data-role='controlgroup' data-type='horizontal' ><a href='#" + item.href + "'onclick='setActiveTaskId(" + item.line_number + ")' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a'><div style='white-space:normal'>" + item.instruction_detail + "</div></a></div></td><td>" + item.budgeted_hours + "</td><td>l</td><td>m</td><td>n</td></tr>");
+												} else {
+													if (item.reviewer_username == null) {//Check whether item has been reviewed
+														$('#mcs_setup_checklist_p1_mfi_table_body').append("<tr ><th class='label'>" + item.line_number + "</th><td>.</td><td>.</td><td><a href='#" + item.reviewedBy_href + "' data-rel='popup' onclick='setActiveTaskId(" + item.line_number + ")'  data-position-to='window' data-transition='fade'><img class='popphoto' src='img/redMinus.png' alt='ReviewedBy' style='width:60%'></a></td><td></td><td>" + item.preparer_username + "<a href='#popupParis' data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/greenCheck.png' alt='PreparedBy' style='width:60%'></a></td><td>" + item.prepared_date + "</td><td>" + item.mfi_explanation_ref + "</td><td>" + item.mfi_template_process_ref + "</td><td>" + item.source_model_mfi_ref + "</td><td><div data-role='controlgroup' data-type='horizontal' ><a href='#" + item.href + "' class='ui-btn ui-disabled ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a'><div style='white-space:normal'>" + item.instruction_detail + "</div></a></div></td><td>" + item.budgeted_hours + "</td><td>l</td><td>m</td><td>n</td></tr>");
+													} else {
+														if (item.final_reviewer_username == null) {//Check whether item has received its final review
+															$('#mcs_setup_checklist_p1_mfi_table_body').append("<tr ><th class='label'>" + item.line_number + "</th><td><a href='#" + item.finalReviewedBy_href + "' data-rel='popup' onclick='setActiveTaskId(" + item.line_number + ")' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/redMinus.png' alt='PreparedBy' style='width:60%'></a></td><td></td><td>" + item.reviewer_username + "<a href='#popupParis' data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/greenCheck.png' alt='PreparedBy' style='width:60%'></a></td><td>" + item.review_date + "</td><td>" + item.preparer_username + "<a href='#popupParis' data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/greenCheck.png' alt='PreparedBy' style='width:60%'></a></td><td>" + item.prepared_date + "</td><td>" + item.mfi_explanation_ref + "</td><td>" + item.mfi_template_process_ref + "</td><td>" + item.source_model_mfi_ref + "</td><td><div data-role='controlgroup' data-type='horizontal' ><a href='#" + item.href + "' class='ui-btn ui-disabled  ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a'><div style='white-space:normal'>" + item.instruction_detail + "</div></a></div></td><td>" + item.budgeted_hours + "</td><td>l</td><td>m</td><td>n</td></tr>");
+														} else {
+															$('#mcs_setup_checklist_p1_mfi_table_body').append("<tr ><th class='label'>" + item.line_number + "</th><td>" + item.final_reviewer_username + "<a href='#' data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/greenCheck.png' alt='PreparedBy' style='width:60%'></a></td><td>" + item.final_review_date + "</td><td>" + item.reviewer_username + "<a href='#popupParis' data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/greenCheck.png' alt='PreparedBy' style='width:60%'></a></td><td>" + item.review_date + "</td><td>" + item.preparer_username + "<a href='#popupParis' data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/greenCheck.png' alt='PreparedBy' style='width:60%'></a></td><td>" + item.prepared_date + "</td><td>" + item.mfi_explanation_ref + "</td><td>" + item.mfi_template_process_ref + "</td><td>" + item.source_model_mfi_ref + "</td><td><div data-role='controlgroup' data-type='horizontal' ><a href='#" + item.href + "'  class='ui-btn ui-disabled ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a'><div style='white-space:normal'>" + item.instruction_detail + "</div></a></div></td><td>" + item.budgeted_hours + "</td><td>l</td><td>m</td><td>n</td></tr>");
+														}
+													}
+					
+												}												
+											}
 										}
 									} else {
 										if (item.phase_id == "P2") {
-											if (item.preparer_username == null) {//Check whether item has been prepared
-												$('#mcs_setup_checklist_p2_mfi_table_body').append("<tr ><th class='label'>" + item.line_number + "</th><td>.</td><td>.</td><td>.</td><td>.</td><td><a href='#" + item.preparedBy_href + "' onclick='setActiveTaskId(" + item.line_number + ")'  data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/redMinus.png' alt='PreparedBy' style='width:60%'></a></td><td></td><td>" + item.mfi_explanation_ref + "</td><td>" + item.mfi_template_process_ref + "</td><td>" + item.source_model_mfi_ref + "</td><td><div data-role='controlgroup' data-type='horizontal' ><a href='#" + item.href + "'onclick='setActiveTaskId(" + item.line_number + ")'  data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a'><div style='white-space:normal'>" + item.instruction_detail + "</div></a></div></td><td>" + item.budgeted_hours + "</td><td>l</td><td>m</td><td>n</td></tr>");
-											} else {
-												if (item.reviewer_username == null) {//Check whether item has been reviewed
-													$('#mcs_setup_checklist_p2_mfi_table_body').append("<tr ><th class='label'>" + item.line_number + "</th><td></td><td></td><td><a href='#" + item.reviewedBy_href + "' data-rel='popup' onclick='setActiveTaskId(" + item.line_number + ")'  data-position-to='window' data-transition='fade'><img class='popphoto' src='img/redMinus.png' alt='ReviewedBy' style='width:60%'></a></td><td></td><td>" + item.preparer_username + "<a href='#popupParis' data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/greenCheck.png' alt='PreparedBy' style='width:60%'></a></td><td>" + item.prepared_date + "</td><td>" + item.mfi_explanation_ref + "</td><td>" + item.mfi_template_process_ref + "</td><td>" + item.source_model_mfi_ref + "</td><td><div data-role='controlgroup' data-type='horizontal' ><a href='#" + item.href + "' data-rel='popup' data-transition='slideup' class='ui-btn ui-disabled ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a'><div style='white-space:normal'>" + item.instruction_detail + "</div></a></div></td><td>" + item.budgeted_hours + "</td><td>l</td><td>m</td><td>n</td></tr>");
-												} else {
-													if (item.final_reviewer_username == null) {//Check whether item has received its final review
-														$('#mcs_setup_checklist_p2_mfi_table_body').append("<tr ><th class='label'>" + item.line_number + "</th><td><a href='#" + item.finalReviewedBy_href + "' data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/redMinus.png' alt='PreparedBy' style='width:60%'></a></td><td></td><td>" + item.reviewer_username + "<a href='#popupParis' data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/greenCheck.png' alt='PreparedBy' style='width:60%'></a></td><td>" + item.review_date + "</td><td>" + item.preparer_username + "<a href='#popupParis' data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/greenCheck.png' alt='PreparedBy' style='width:60%'></a></td><td>" + item.prepared_date + "</td><td>" + item.mfi_explanation_ref + "</td><td>" + item.mfi_template_process_ref + "</td><td>" + item.source_model_mfi_ref + "</td><td><div data-role='controlgroup' data-type='horizontal' ><a href='#" + item.href + "' data-rel='popup' data-transition='slideup' class='ui-btn ui-disabled ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a'><div style='white-space:normal'>" + item.instruction_detail + "</div></a></div></td><td>" + item.budgeted_hours + "</td><td>l</td><td>m</td><td>n</td></tr>");
+											if(item.event_type == "POPUP"){
+													if (item.preparer_username == null) {//Check whether item has been prepared
+														$('#mcs_setup_checklist_p2_mfi_table_body').append("<tr ><th class='label'>" + item.line_number + "</th><td>.</td><td>.</td><td>.</td><td>.</td><td><a href='#" + item.preparedBy_href + "' onclick='setActiveTaskId(" + item.line_number + ")'  data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/redMinus.png' alt='PreparedBy' style='width:60%'></a></td><td></td><td>" + item.mfi_explanation_ref + "</td><td>" + item.mfi_template_process_ref + "</td><td>" + item.source_model_mfi_ref + "</td><td><div data-role='controlgroup' data-type='horizontal' ><a href='#" + item.href + "'onclick='setActiveTaskId(" + item.line_number + ")'  data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a'><div style='white-space:normal'>" + item.instruction_detail + "</div></a></div></td><td>" + item.budgeted_hours + "</td><td>l</td><td>m</td><td>n</td></tr>");
 													} else {
-														$('#mcs_setup_checklist_p2_mfi_table_body').append("<tr ><th class='label'>" + item.line_number + "</th><td>" + item.final_reviewer_username + "<a href='#' data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/greenCheck.png' alt='PreparedBy' style='width:60%'></a></td><td>" + item.final_review_date + "</td><td>" + item.reviewer_username + "<a href='#popupParis' data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/greenCheck.png' alt='PreparedBy' style='width:60%'></a></td><td>" + item.review_date + "</td><td>" + item.preparer_username + "<a href='#popupParis' data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/greenCheck.png' alt='PreparedBy' style='width:60%'></a></td><td>" + item.prepared_date + "</td><td>" + item.mfi_explanation_ref + "</td><td>" + item.mfi_template_process_ref + "</td><td>" + item.source_model_mfi_ref + "</td><td><div data-role='controlgroup' data-type='horizontal' ><a href='#" + item.href + "' data-rel='popup' data-transition='slideup' class='ui-btn ui-disabled ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a'><div style='white-space:normal'>" + item.instruction_detail + "</div></a></div></td><td>" + item.budgeted_hours + "</td><td>l</td><td>m</td><td>n</td></tr>");
+														if (item.reviewer_username == null) {//Check whether item has been reviewed
+															$('#mcs_setup_checklist_p2_mfi_table_body').append("<tr ><th class='label'>" + item.line_number + "</th><td></td><td></td><td><a href='#" + item.reviewedBy_href + "' data-rel='popup' onclick='setActiveTaskId(" + item.line_number + ")'  data-position-to='window' data-transition='fade'><img class='popphoto' src='img/redMinus.png' alt='ReviewedBy' style='width:60%'></a></td><td></td><td>" + item.preparer_username + "<a href='#popupParis' data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/greenCheck.png' alt='PreparedBy' style='width:60%'></a></td><td>" + item.prepared_date + "</td><td>" + item.mfi_explanation_ref + "</td><td>" + item.mfi_template_process_ref + "</td><td>" + item.source_model_mfi_ref + "</td><td><div data-role='controlgroup' data-type='horizontal' ><a href='#" + item.href + "' data-rel='popup' data-transition='slideup' class='ui-btn ui-disabled ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a'><div style='white-space:normal'>" + item.instruction_detail + "</div></a></div></td><td>" + item.budgeted_hours + "</td><td>l</td><td>m</td><td>n</td></tr>");
+														} else {
+															if (item.final_reviewer_username == null) {//Check whether item has received its final review
+																$('#mcs_setup_checklist_p2_mfi_table_body').append("<tr ><th class='label'>" + item.line_number + "</th><td><a href='#" + item.finalReviewedBy_href + "' data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/redMinus.png' alt='PreparedBy' style='width:60%'></a></td><td></td><td>" + item.reviewer_username + "<a href='#popupParis' data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/greenCheck.png' alt='PreparedBy' style='width:60%'></a></td><td>" + item.review_date + "</td><td>" + item.preparer_username + "<a href='#popupParis' data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/greenCheck.png' alt='PreparedBy' style='width:60%'></a></td><td>" + item.prepared_date + "</td><td>" + item.mfi_explanation_ref + "</td><td>" + item.mfi_template_process_ref + "</td><td>" + item.source_model_mfi_ref + "</td><td><div data-role='controlgroup' data-type='horizontal' ><a href='#" + item.href + "' data-rel='popup' data-transition='slideup' class='ui-btn ui-disabled ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a'><div style='white-space:normal'>" + item.instruction_detail + "</div></a></div></td><td>" + item.budgeted_hours + "</td><td>l</td><td>m</td><td>n</td></tr>");
+															} else {
+																$('#mcs_setup_checklist_p2_mfi_table_body').append("<tr ><th class='label'>" + item.line_number + "</th><td>" + item.final_reviewer_username + "<a href='#' data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/greenCheck.png' alt='PreparedBy' style='width:60%'></a></td><td>" + item.final_review_date + "</td><td>" + item.reviewer_username + "<a href='#popupParis' data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/greenCheck.png' alt='PreparedBy' style='width:60%'></a></td><td>" + item.review_date + "</td><td>" + item.preparer_username + "<a href='#popupParis' data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/greenCheck.png' alt='PreparedBy' style='width:60%'></a></td><td>" + item.prepared_date + "</td><td>" + item.mfi_explanation_ref + "</td><td>" + item.mfi_template_process_ref + "</td><td>" + item.source_model_mfi_ref + "</td><td><div data-role='controlgroup' data-type='horizontal' ><a href='#" + item.href + "' data-rel='popup' data-transition='slideup' class='ui-btn ui-disabled ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a'><div style='white-space:normal'>" + item.instruction_detail + "</div></a></div></td><td>" + item.budgeted_hours + "</td><td>l</td><td>m</td><td>n</td></tr>");
+															}
+														}
+													}
+												}else{
+													if(item.event_type == "LINKTOPAGE"){
+														if (item.preparer_username == null) {//Check whether item has been prepared
+															$('#mcs_setup_checklist_p2_mfi_table_body').append("<tr ><th class='label'>" + item.line_number + "</th><td>.</td><td>.</td><td>.</td><td>.</td><td><a href='#" + item.preparedBy_href + "' onclick='setActiveTaskId(" + item.line_number + ")'  data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/redMinus.png' alt='PreparedBy' style='width:60%'></a></td><td></td><td>" + item.mfi_explanation_ref + "</td><td>" + item.mfi_template_process_ref + "</td><td>" + item.source_model_mfi_ref + "</td><td><div data-role='controlgroup' data-type='horizontal' ><a href='#" + item.href + "'onclick='setActiveTaskId(" + item.line_number + ")' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a'><div style='white-space:normal'>" + item.instruction_detail + "</div></a></div></td><td>" + item.budgeted_hours + "</td><td>l</td><td>m</td><td>n</td></tr>");
+														} else {
+															if (item.reviewer_username == null) {//Check whether item has been reviewed
+																$('#mcs_setup_checklist_p2_mfi_table_body').append("<tr ><th class='label'>" + item.line_number + "</th><td>.</td><td>.</td><td><a href='#" + item.reviewedBy_href + "' data-rel='popup' onclick='setActiveTaskId(" + item.line_number + ")'  data-position-to='window' data-transition='fade'><img class='popphoto' src='img/redMinus.png' alt='ReviewedBy' style='width:60%'></a></td><td></td><td>" + item.preparer_username + "<a href='#popupParis' data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/greenCheck.png' alt='PreparedBy' style='width:60%'></a></td><td>" + item.prepared_date + "</td><td>" + item.mfi_explanation_ref + "</td><td>" + item.mfi_template_process_ref + "</td><td>" + item.source_model_mfi_ref + "</td><td><div data-role='controlgroup' data-type='horizontal' ><a href='#" + item.href + "' class='ui-btn ui-disabled ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a'><div style='white-space:normal'>" + item.instruction_detail + "</div></a></div></td><td>" + item.budgeted_hours + "</td><td>l</td><td>m</td><td>n</td></tr>");
+															} else {
+																if (item.final_reviewer_username == null) {//Check whether item has received its final review
+																	$('#mcs_setup_checklist_p2_mfi_table_body').append("<tr ><th class='label'>" + item.line_number + "</th><td><a href='#" + item.finalReviewedBy_href + "' data-rel='popup' onclick='setActiveTaskId(" + item.line_number + ")' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/redMinus.png' alt='PreparedBy' style='width:60%'></a></td><td></td><td>" + item.reviewer_username + "<a href='#popupParis' data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/greenCheck.png' alt='PreparedBy' style='width:60%'></a></td><td>" + item.review_date + "</td><td>" + item.preparer_username + "<a href='#popupParis' data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/greenCheck.png' alt='PreparedBy' style='width:60%'></a></td><td>" + item.prepared_date + "</td><td>" + item.mfi_explanation_ref + "</td><td>" + item.mfi_template_process_ref + "</td><td>" + item.source_model_mfi_ref + "</td><td><div data-role='controlgroup' data-type='horizontal' ><a href='#" + item.href + "' class='ui-btn ui-disabled  ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a'><div style='white-space:normal'>" + item.instruction_detail + "</div></a></div></td><td>" + item.budgeted_hours + "</td><td>l</td><td>m</td><td>n</td></tr>");
+																} else {
+																	$('#mcs_setup_checklist_p2_mfi_table_body').append("<tr ><th class='label'>" + item.line_number + "</th><td>" + item.final_reviewer_username + "<a href='#' data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/greenCheck.png' alt='PreparedBy' style='width:60%'></a></td><td>" + item.final_review_date + "</td><td>" + item.reviewer_username + "<a href='#popupParis' data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/greenCheck.png' alt='PreparedBy' style='width:60%'></a></td><td>" + item.review_date + "</td><td>" + item.preparer_username + "<a href='#popupParis' data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/greenCheck.png' alt='PreparedBy' style='width:60%'></a></td><td>" + item.prepared_date + "</td><td>" + item.mfi_explanation_ref + "</td><td>" + item.mfi_template_process_ref + "</td><td>" + item.source_model_mfi_ref + "</td><td><div data-role='controlgroup' data-type='horizontal' ><a href='#" + item.href + "'  class='ui-btn ui-disabled ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a'><div style='white-space:normal'>" + item.instruction_detail + "</div></a></div></td><td>" + item.budgeted_hours + "</td><td>l</td><td>m</td><td>n</td></tr>");
+																}
+															}
+														}														
 													}
 												}
-
-											}
 										} else {
 											if (item.phase_id == "P3") {
 												if (item.preparer_username == null) {//Check whether item has been prepared
@@ -1763,7 +2014,6 @@ under the License.
 										}
 									}
 								}
-							}
 						}
 					});
 					$("#mcs_setup_checklist_setup_mfi_table").table("rebuild");
@@ -1970,7 +2220,7 @@ under the License.
 					return false;
 				});
 				$(".ubm_page").on("pageremove", function(event) {
-					alert("beforeshow!");
+					//alert("beforeshow!");
 				});
 				$(".ubm_page").on("pageshow", function(event) {//bind to a ubm page change event!
 					var str = window.location.hash;
@@ -3041,8 +3291,8 @@ under the License.
 			</ul>
         </div>
 		<!-- Start of first page -->
-        <div data-role="page" class="ubm_page" id="sign_in_sign_up">
-            <div data-role="header" data-theme="a">
+        <div data-role="page" class="ubm_page" id="sign_in_sign_up" data-theme="f">
+            <div data-role="header"  data-theme="f">
                 <h1>UBM Login</h1>
             </div>
             <div data-role="content" id="sign_in_sign_up_content" >
@@ -3065,9 +3315,9 @@ under the License.
                 <form>
                     <div style="padding:120px 20px;">
                         <label for="un" class="ui-hidden-accessible">Username:</label>
-                        <input type="text" name="si_user" id="si_email" value="" placeholder="Username" data-theme="a" />
+                        <input type="text" name="si_user" id="si_email" value="" placeholder="Username"  data-theme="f" />
                         <label for="pw" class="ui-hidden-accessible">Password:</label>
-                        <input type="password" name="si_pass" id="si_pw" value="" placeholder="Password" data-theme="a" />
+                        <input type="password" name="si_pass" id="si_pw" value="" placeholder="Password"  data-theme="f" />
                         <button data-theme="b" data-icon="check" onclick="userSignIn()">
                             Sign in
                         </button>
@@ -3079,21 +3329,21 @@ under the License.
                 <div align="center">
                     <a href="#popupRegister" data-rel="popup" data-position-to="window" data-role="button" data-inline="true" data-icon="check" data-theme="b" data-transition="pop">Register</a>
                 </div>
-                <div data-role="popup" id="popupRegister" data-theme="a">
+                <div data-role="popup" id="popupRegister"  data-theme="f">
                     <form id="registration_form">
                         <div style="padding:10px 20px;">
                             <h3>Registration is Free!</h3>
                             <label for="un" class="ui-hidden-accessible">Email:</label>
-                            <input type="email" name="reg_email" id="reg_email" value="" placeholder="Email" data-theme="a" />
+                            <input type="email" name="reg_email" id="reg_email" value="" placeholder="Email"  data-theme="f" />
                             <label for="reg_pw1" class="ui-hidden-accessible">Password:</label>
-                            <input type="password" name="reg_pass1" id="reg_pw1" value="" placeholder="Enter Password" data-theme="a" />
+                            <input type="password" name="reg_pass1" id="reg_pw1" value="" placeholder="Enter Password"  data-theme="f" />
                             <label for="reg_pw2" class="ui-hidden-accessible">Password:</label>
-                            <input type="password" name="reg_pass2" id="reg_pw2" value="" placeholder="Confirm Password" data-theme="a" />                          
+                            <input type="password" name="reg_pass2" id="reg_pw2" value="" placeholder="Confirm Password"  data-theme="f" />                          
                             <div id="registration_agree_checkboxes">
                                 <label for="register_license_agreement">I agree to the License Agreement</label>
-                                <input type="checkbox" name="register_license_agreement" id="register_license_agreement" vdata-theme="a" / >                         
+                                <input type="checkbox" name="register_license_agreement" id="register_license_agreement" v data-theme="f" / >                         
                                 <label for="register_termsOfService">I agree to the Terms of Service</label>
-                                <input type="checkbox" name="register_termsOfService" id="register_termsOfService" data-theme="a" />
+                                <input type="checkbox" name="register_termsOfService" id="register_termsOfService"  data-theme="f" />
                             </div>
                             <button data-theme="b" data-icon="check" onclick="userRegister()">
                                 Create Account!
@@ -3105,30 +3355,14 @@ under the License.
                     </div>
                 </div>
             </div>
-            <div data-role="footer" data-theme="a" data-position="fixed" data-fullscreen="true">
-                <div align="center">
+            <div data-role="footer"  data-theme="f" data-position="fixed" data-fullscreen="true">
                     <p>
                         Alpha
                     </p>
-                </div>
-                <button data-theme="b" data-icon="check" onclick="checkConnection()">
-                    Check Connection!
-                </button>
-                <h2 class="offline">Unable to connect to a Network
-                <br>
-                This app requires an internet connection.
-                <br>
-                Connect to the internet and restart this app to continue.</h2>
-                <h2 class="unknownnetwork">Unable to identify a Network
-                <br>
-                This app requires an internet connection.
-                <br>
-                This app may have limited functionality without a proper connection.</h2>
-
             </div>
         </div>
         <!-- User Preferences -->
-        <div data-role="page" class="ubm_page" id="ubmsuite_UserPreferences" data-theme="a">
+        <div data-role="page" class="ubm_page" id="ubmsuite_UserPreferences"  data-theme="f">
             <!-- No Panel on this page, instead only back button is needed.-->
             <div data-role="header" data-position="fixed" data-fullscreen="true">
                 <a href="#" class="back_btn" data-icon="arrow-l" data-iconpos="notext">Back</a>
@@ -3221,7 +3455,7 @@ under the License.
 
             </div>
         </div>
-        <div data-role="page" class="ubm_page" id="ubmsuite_SelectBusinessModel">
+        <div data-role="page" class="ubm_page" id="ubmsuite_SelectBusinessModel"  data-theme="f">
             <!-- Select Business Model -->
             <div data-role="panel" id="ubmsuite_table_of_contents_lpanel" data-display="overlay" data-position="left">
                 <ul data-role="listview">
@@ -3313,7 +3547,7 @@ under the License.
                 <!-- End Open Items Popup -->
                 <!-- Create Model Popup -->
                 <div data-role="popup" id="ubmsuite_createModel_popup" data-theme="b" data-position-to="window" data-dismissible="false">
-                    <div data-role="header" data-theme="a">
+                    <div data-role="header"  data-theme="f">
 						<div style="text-align:center"><h1>Create a Model</h1>
 					</div>
 					</div>
@@ -3345,13 +3579,13 @@ under the License.
 	                </ul>                	
                 </div>
 				<div style="min-width:250px; width:50%; float:left;">
-	                <ul data-role='listview' data-inset='true' id='ubmsuite_SelectBusinessModel_SharedModels_ul' data-theme="b">
+	                <ul data-role='listview' data-inset='true' id='ubmsuite_SelectBusinessModel_SharedModels_ul' data-theme="h">
 	
 	                </ul>					
 				</div>
             </div>
         </div>
-        <div data-role="page" class="ubm_page" id="ubmsuite_modelDashboard" data-theme="a">
+        <div data-role="page" class="ubm_page" id="ubmsuite_modelDashboard"  data-theme="f">
             <!-- No Panel on this page, instead only back button is needed.-->
             <div data-role="header">
                 <a href="#" class="back_btn" data-icon="arrow-l" data-iconpos="notext">Back</a>
@@ -3593,14 +3827,15 @@ under the License.
                 <!-- End Open Items Popup -->
                 <ul data-role="listview" data-inset="true">
                     <li>
-                        <a href="#ubmsuite_mcs_model_review"> <img src="img/book.jpg" class="ui-li-thumb"> <h2>Model Overview</h2>
-                        <p>
-                            General Information about your model.
-                        </p>
-                        <p class="ui-li-aside">
-                            MO
-                        </p> </a>
-                    </li>
+                        <a href="#ubmsuite_mcs_model_review"> <img src="img/time-for-review.jpg" class="ui-li-thumb"> <h2>Model Review</h2>
+	                        <p>
+	                            Review the details of your model.
+	                        </p>
+	                        <p class="ui-li-aside">
+	                            MR
+	                        </p> 
+                        </a>
+                    </li> 
                     <li>
                         <a href="#ubmsuite_mcs_master_file_index"> <img src="img/book.jpg" class="ui-li-thumb"> <h2>Master File Index</h2>
                         <p>
@@ -3697,7 +3932,7 @@ under the License.
 
             </div>
         </div>
-        <div data-role="page" class="ubm_page" id="ubmsuite_mcs_model_review" data-theme="a">
+        <div data-role="page" class="ubm_page" id="ubmsuite_mcs_model_review" data-theme="f">
             <!-- No Panel on this page, instead only back button is needed.-->
             <div data-role="header" data-position="fixed" data-fullscreen="true">
                 <a href="#" class="back_btn" data-icon="arrow-l" data-iconpos="notext">Back</a>
@@ -3819,7 +4054,7 @@ under the License.
             </div>
         </div>
 		<!-- Master File Index -->
-		<div data-role="page" class="ubm_page" id="ubmsuite_mcs_master_file_index">
+		<div data-role="page" class="ubm_page" id="ubmsuite_mcs_master_file_index" data-theme="f">
 			<!-- UBM Suite Table of Contents Page-->
 			<div data-role="panel" id="ubmsuite_mcs_master_file_index_lpanel" data-display="overlay" data-position="left">
 					<ul data-role="listview">
@@ -3943,23 +4178,23 @@ under the License.
 					<a href="#" class="ui-btn ui-shadow ui-corner-all ui-icon-refresh ui-btn-icon-notext" onclick="getMyModelsOrgChart()">Refresh</a>				
 			</div>
 			<div data-role="content" id="ubmsuite_mcs_my_organizational_chart_content">
-				<div data-role="popup" id="ubmsuite_mcs_my_organizational_chart_confirm_remove_Position_popup" data-theme="a" data-overlay-theme="b" class="ui-content" style="max-width:340px; padding-bottom:2em;">
+				<div data-role="popup" id="ubmsuite_mcs_my_organizational_chart_confirm_remove_Position_popup"  data-theme="f" data-overlay-theme="b" class="ui-content" style="max-width:340px; padding-bottom:2em;">
 				    <h3>Remove Position?</h3>
 				    <a href="index.html" data-rel="back" class="ui-shadow ui-btn ui-corner-all ui-btn-b ui-icon-check ui-btn-icon-left ui-btn-inline ui-mini" onclick="removeActivePositionfromMyModel()">Confirm Remove Position</a>
 				    <a href="index.html" data-rel="back" class="ui-shadow ui-btn ui-corner-all ui-btn-inline ui-mini">Cancel</a>
 				</div>				
-				<div data-role="popup" id="ubmsuite_mcs_my_organizational_chart_content_createNewPositionPopUp" data-theme="a" class="ui-corner-all">
+				<div data-role="popup" id="ubmsuite_mcs_my_organizational_chart_content_createNewPositionPopUp"  data-theme="f" class="ui-corner-all">
 				    <form id="ubmsuite_mcs_my_organizational_chart_content_createNewPositionPopUp_form_positionTitle_form">
 				        <div style="padding:10px 20px;">
 				            <h3>Create New Position</h3>
-				            <input type="text" name="ubmsuite_mcs_my_organizational_chart_content_createNewPositionPopUp_form_positionTitle" id="ubmsuite_mcs_my_organizational_chart_content_createNewPositionPopUp_form_positionTitle" value="" placeholder="Position Title" data-theme="a">
+				            <input type="text" name="ubmsuite_mcs_my_organizational_chart_content_createNewPositionPopUp_form_positionTitle" id="ubmsuite_mcs_my_organizational_chart_content_createNewPositionPopUp_form_positionTitle" value="" placeholder="Position Title"  data-theme="f">
 							<textarea data-mini="true" cols="40" rows="8" id="ubmsuite_mcs_my_organizational_chart_content_createNewPositionPopUp_form_positionDescription" placeholder="Position Description..."></textarea>
 				           <a href="#" class="ui-btn" onclick="createNewPositionAddtoMyModel()">Create Position</a>
 				        </div>
 				    </form>
 				</div>
 				<div data-role="popup" id="ubmsuite_mcs_my_organizational_chart_content_modifyPositionPopUp" data-overlay-theme="b" data-theme="b" data-dismissible="true" style="max-width:400px; min-width: 350px;">
-				    <div id="ubmsuite_mcs_my_organizational_chart_content_modifyPositionPopUp_header" data-role="header" data-theme="a">
+				    <div id="ubmsuite_mcs_my_organizational_chart_content_modifyPositionPopUp_header" data-role="header"  data-theme="f">
 						<h1>Manage Position</h1>
 				    </div>
 				    <div role="main" class="ui-content">
@@ -4070,7 +4305,7 @@ under the License.
 			    		
 			</div>
 		</div>
-		<div data-role="page" class="ubm_page" id="ubmsuite_mcs_model_visual">
+		<div data-role="page" class="ubm_page" id="ubmsuite_mcs_model_visual" data-theme="f">
 			<div data-role="header" data-position="fixed" data-fullscreen="true">
 				<a href="#" class="back_btn" data-icon="arrow-l" data-iconpos="notext">Back</a>
 				<div id="ubmsuite_mcs_model_visual_header_headerRecord_center" style="text-align: center">
@@ -4138,7 +4373,7 @@ under the License.
 				</div>
 			</div>
 		</div>
-		<div data-role="page" class="ubm_page" id="ubmsuite_mcs_management_reporting">
+		<div data-role="page" class="ubm_page" id="ubmsuite_mcs_management_reporting" data-theme="f">
 			<!-- UBM Suite Table of Contents Page-->
 			<div data-role="panel" id="ubmsuite_mcs_management_reporting_lpanel" data-display="overlay" data-position="left">
 					<ul data-role="listview">
@@ -4222,7 +4457,7 @@ under the License.
 				
 			</div>
 		</div>
-        <div data-role="page" class="ubm_page" id="gettingStarted">
+        <div data-role="page" class="ubm_page" id="gettingStarted" data-theme="f">
             <div data-role="panel" id="mcs_gettingStarted_lpanel" data-display="overlay" data-position="left">
                 <ul data-role="listview">
                     <li data-icon="home">
@@ -4442,7 +4677,7 @@ under the License.
 
         </div>
         <!-- Model Settings -->
-        <div data-role="page" class="ubm_page" id="ubmsuite_modelSettings" data-theme="a">
+        <div data-role="page" class="ubm_page" id="ubmsuite_modelSettings"  data-theme="f">
             <!-- No Panel on this page, instead only back button is needed.-->
             <div data-role="header" data-position="fixed" data-fullscreen="true">
                 <a href="#" class="back_btn" data-icon="arrow-l" data-iconpos="notext">Back</a>
@@ -4536,7 +4771,7 @@ under the License.
                 <!-- End Share Model Popup -->
                 <!-- Modify User Popup -->
                 <div id="ubmsuite_modelSettings_modifyUser_popup" data-role="popup" id="ubmsuite_modelSettings_modifyUser_popup" data-overlay-theme="b" data-theme="b" data-dismissible="false" style="max-width:400px;">
-                    <div data-role="header" data-theme="a">
+                    <div data-role="header"  data-theme="f">
                         <h1>Modify User</h1>
                     </div>
                     <div role="main" class="ui-content">
@@ -4549,7 +4784,7 @@ under the License.
                 <!-- End Modify User Popup -->
                 <!-- Remove User Popup -->
                 <div id="ubmsuite_modelSettings_removeUser_popup" data-role="popup" id="ubmsuite_modelSettings_removeUser_popup" data-overlay-theme="b" data-theme="b" data-dismissible="false" style="max-width:400px;">
-                    <div data-role="header" data-theme="a">
+                    <div data-role="header"  data-theme="f">
                         <h1>Remove User?</h1>
                     </div>
                     <div role="main" class="ui-content">
@@ -4564,67 +4799,67 @@ under the License.
                 </div>
                 <!-- End Remove User Popup -->
   <!-- Remove Hierarchy Objects from Models -->
-				<div data-role="popup" id="ubmsuite_modelSettings_confirm_remove_Position_popup" data-theme="a" data-overlay-theme="b" class="ui-content" style="max-width:340px; padding-bottom:2em;">
+				<div data-role="popup" id="ubmsuite_modelSettings_confirm_remove_Position_popup"  data-theme="f" data-overlay-theme="b" class="ui-content" style="max-width:340px; padding-bottom:2em;">
 				    <h3>Remove Position?</h3>
 				    <a href="index.html" data-rel="back" class="ui-shadow ui-btn ui-corner-all ui-btn-b ui-icon-check ui-btn-icon-left ui-btn-inline ui-mini" onclick="removePositionFromMyModel()">Confirm Remove Position</a>
 				    <a href="index.html" data-rel="back" class="ui-shadow ui-btn ui-corner-all ui-btn-inline ui-mini">Cancel</a>
 				</div>
   <!-- Remove Non Hierarchy Objects from Models -->
-				<div data-role="popup" id="ubmsuite_modelSettings_confirm_remove_CoreValue_popup" data-theme="a" data-overlay-theme="b" class="ui-content" style="max-width:340px; padding-bottom:2em;">
+				<div data-role="popup" id="ubmsuite_modelSettings_confirm_remove_CoreValue_popup"  data-theme="f" data-overlay-theme="b" class="ui-content" style="max-width:340px; padding-bottom:2em;">
 				    <h3>Remove Core Value?</h3>
 				    <a href="index.html" data-rel="back" class="ui-shadow ui-btn ui-corner-all ui-btn-b ui-icon-check ui-btn-icon-left ui-btn-inline ui-mini" onclick="removeCorevalueFromMyModel()">Confirm Remove Core Value</a>
 				    <a href="index.html" data-rel="back" class="ui-shadow ui-btn ui-corner-all ui-btn-inline ui-mini">Cancel</a>
 				</div>
                 <!-- End Confirm Remove CoreValue Popup-->
-				<div data-role="popup" id="ubmsuite_modelSettings_confirm_remove_Customer_popup" data-theme="a" data-overlay-theme="b" class="ui-content" style="max-width:340px; padding-bottom:2em;">
+				<div data-role="popup" id="ubmsuite_modelSettings_confirm_remove_Customer_popup"  data-theme="f" data-overlay-theme="b" class="ui-content" style="max-width:340px; padding-bottom:2em;">
 				    <h3>Remove This Customer?</h3>
 				    <a href="index.html" data-rel="back" class="ui-shadow ui-btn ui-corner-all ui-btn-b ui-icon-check ui-btn-icon-left ui-btn-inline ui-mini" onclick="removeCustomerFromMyModel()">Confirm Remove Customer</a>
 				    <a href="index.html" data-rel="back" class="ui-shadow ui-btn ui-corner-all ui-btn-inline ui-mini">Cancel</a>
 				</div>
                 <!-- End Confirm Remove Customer Popup-->
-				<div data-role="popup" id="ubmsuite_modelSettings_confirm_remove_Product_popup" data-theme="a" data-overlay-theme="b" class="ui-content" style="max-width:340px; padding-bottom:2em;">
+				<div data-role="popup" id="ubmsuite_modelSettings_confirm_remove_Product_popup"  data-theme="f" data-overlay-theme="b" class="ui-content" style="max-width:340px; padding-bottom:2em;">
 				    <h3>Remove Product?</h3>
 				    <a href="index.html" data-rel="back" class="ui-shadow ui-btn ui-corner-all ui-btn-b ui-icon-check ui-btn-icon-left ui-btn-inline ui-mini" onclick="removeProductFromMyModel()">Confirm Remove Product</a>
 				    <a href="index.html" data-rel="back" class="ui-shadow ui-btn ui-corner-all ui-btn-inline ui-mini">Cancel</a>
 				</div>
                 <!-- End Confirm Remove Products Popup-->
-				<div data-role="popup" id="ubmsuite_modelSettings_confirm_remove_Service_popup" data-theme="a" data-overlay-theme="b" class="ui-content" style="max-width:340px; padding-bottom:2em;">
+				<div data-role="popup" id="ubmsuite_modelSettings_confirm_remove_Service_popup"  data-theme="f" data-overlay-theme="b" class="ui-content" style="max-width:340px; padding-bottom:2em;">
 				    <h3>Remove Service?</h3>
 				    <a href="index.html" data-rel="back" class="ui-shadow ui-btn ui-corner-all ui-btn-b ui-icon-check ui-btn-icon-left ui-btn-inline ui-mini" onclick="removeServiceFromMyModel()">Confirm Remove Service</a>
 				    <a href="index.html" data-rel="back" class="ui-shadow ui-btn ui-corner-all ui-btn-inline ui-mini">Cancel</a>
 				</div>
                 <!-- End Confirm Remove Service Popup-->
-				<div data-role="popup" id="ubmsuite_modelSettings_confirm_remove_OrganizationalStructure_popup" data-theme="a" data-overlay-theme="b" class="ui-content" style="max-width:340px; padding-bottom:2em;">
+				<div data-role="popup" id="ubmsuite_modelSettings_confirm_remove_OrganizationalStructure_popup"  data-theme="f" data-overlay-theme="b" class="ui-content" style="max-width:340px; padding-bottom:2em;">
 				    <h3>Remove Organizational Structure?</h3>
 				    <a href="index.html" data-rel="back" class="ui-shadow ui-btn ui-corner-all ui-btn-b ui-icon-check ui-btn-icon-left ui-btn-inline ui-mini" onclick="removeOrganizationalStructureFromMyModel()">Confirm Remove Org Structure</a>
 				    <a href="index.html" data-rel="back" class="ui-shadow ui-btn ui-corner-all ui-btn-inline ui-mini">Cancel</a>
 				</div>
                 <!-- End Confirm Remove Organizational Structure Popup-->
-				<div data-role="popup" id="ubmsuite_modelSettings_confirm_remove_PhysicalFacility_popup" data-theme="a" data-overlay-theme="b" class="ui-content" style="max-width:340px; padding-bottom:2em;">
+				<div data-role="popup" id="ubmsuite_modelSettings_confirm_remove_PhysicalFacility_popup"  data-theme="f" data-overlay-theme="b" class="ui-content" style="max-width:340px; padding-bottom:2em;">
 				    <h3>Remove Physical Facility?</h3>
 				    <a href="index.html" data-rel="back" class="ui-shadow ui-btn ui-corner-all ui-btn-b ui-icon-check ui-btn-icon-left ui-btn-inline ui-mini" onclick="removePhysicalFacilityFromMyModel()">Confirm Remove Physical Facility</a>
 				    <a href="index.html" data-rel="back" class="ui-shadow ui-btn ui-corner-all ui-btn-inline ui-mini">Cancel</a>
 				</div>
                 <!-- End Confirm Remove Physical Facility Popup-->
-				<div data-role="popup" id="ubmsuite_modelSettings_confirm_remove_StrategicAlliance_popup" data-theme="a" data-overlay-theme="b" class="ui-content" style="max-width:340px; padding-bottom:2em;">
+				<div data-role="popup" id="ubmsuite_modelSettings_confirm_remove_StrategicAlliance_popup"  data-theme="f" data-overlay-theme="b" class="ui-content" style="max-width:340px; padding-bottom:2em;">
 				    <h3>Remove Strategic Alliance?</h3>
 				    <a href="index.html" data-rel="back" class="ui-shadow ui-btn ui-corner-all ui-btn-b ui-icon-check ui-btn-icon-left ui-btn-inline ui-mini" onclick="removeStrategicAllianceFromMyModel()">Confirm Remove Strategic Alliance</a>
 				    <a href="index.html" data-rel="back" class="ui-shadow ui-btn ui-corner-all ui-btn-inline ui-mini">Cancel</a>
 				</div>
                 <!-- End Confirm Remove Strategic Alliance Popup-->
-				<div data-role="popup" id="ubmsuite_modelSettings_confirm_remove_StrategicPositioningQuestion_popup" data-theme="a" data-overlay-theme="b" class="ui-content" style="max-width:340px; padding-bottom:2em;">
+				<div data-role="popup" id="ubmsuite_modelSettings_confirm_remove_StrategicPositioningQuestion_popup"  data-theme="f" data-overlay-theme="b" class="ui-content" style="max-width:340px; padding-bottom:2em;">
 				    <h3>Remove Strategic Positioning Question?</h3>
 				    <a href="index.html" data-rel="back" class="ui-shadow ui-btn ui-corner-all ui-btn-b ui-icon-check ui-btn-icon-left ui-btn-inline ui-mini" onclick="removeStrategicPositioningQuestionFromMyModel()">Confirm Remove Strategic Positioning Questions</a>
 				    <a href="index.html" data-rel="back" class="ui-shadow ui-btn ui-corner-all ui-btn-inline ui-mini">Cancel</a>
 				</div>
                 <!-- End Confirm Remove Strategic Positioning Question Popup-->
-				<div data-role="popup" id="ubmsuite_modelSettings_confirm_remove_Feature_popup" data-theme="a" data-overlay-theme="b" class="ui-content" style="max-width:340px; padding-bottom:2em;">
+				<div data-role="popup" id="ubmsuite_modelSettings_confirm_remove_Feature_popup"  data-theme="f" data-overlay-theme="b" class="ui-content" style="max-width:340px; padding-bottom:2em;">
 				    <h3>Remove Feature?</h3>
 				    <a href="index.html" data-rel="back" class="ui-shadow ui-btn ui-corner-all ui-btn-b ui-icon-check ui-btn-icon-left ui-btn-inline ui-mini" onclick="removeFeatureFromMyModel()">Confirm Remove Feature</a>
 				    <a href="index.html" data-rel="back" class="ui-shadow ui-btn ui-corner-all ui-btn-inline ui-mini">Cancel</a>
 				</div>
                 <!-- End Confirm Remove Feature Popup-->
-				<div data-role="popup" id="ubmsuite_modelSettings_confirm_remove_RequestedApplication_popup" data-theme="a" data-overlay-theme="b" class="ui-content" style="max-width:340px; padding-bottom:2em;">
+				<div data-role="popup" id="ubmsuite_modelSettings_confirm_remove_RequestedApplication_popup"  data-theme="f" data-overlay-theme="b" class="ui-content" style="max-width:340px; padding-bottom:2em;">
 				    <h3>Remove Requested Application?</h3>
 				    <a href="index.html" data-rel="back" class="ui-shadow ui-btn ui-corner-all ui-btn-b ui-icon-check ui-btn-icon-left ui-btn-inline ui-mini" onclick="removeRequestedApplicationFromMyModel()">Confirm Remove Requested Application</a>
 				    <a href="index.html" data-rel="back" class="ui-shadow ui-btn ui-corner-all ui-btn-inline ui-mini">Cancel</a>
@@ -5024,7 +5259,7 @@ under the License.
 				</div>
 			</div>
 		</div>
-		<div data-role="page" class="ubm_page" id="ubmsuite_table_of_contents">
+		<div data-role="page" class="ubm_page" id="ubmsuite_table_of_contents"  data-theme="f">
 			<!-- UBM Suite Table of Contents Page-->
 			<div data-role="panel" id="ubmsuite_table_of_contents_lpanel" data-display="overlay" data-position="left">
 					<ul data-role="listview">
@@ -5222,7 +5457,7 @@ under the License.
 			</div>
 		</div>
 		<!-- Creator Table of Contents Page-->
-		<div data-role="page" class="ubm_page" id="creator_table_of_contents">
+		<div data-role="page" class="ubm_page" id="creator_table_of_contents" data-theme="f">
 			<div data-role="panel" id="mcs_creator_table_of_contents_lpanel" data-display="overlay" data-position="left">
 				<ul data-role="listview">
 					<li data-icon="home">
@@ -5388,7 +5623,7 @@ under the License.
 			</div>
 		</div>
 		<!-- Management Reporting -->
-		<div data-role="page" class="ubm_page" id="management_reporting">
+		<div data-role="page" class="ubm_page" id="management_reporting"  data-theme="f">
 
 			<div data-role="panel" id="mcs_management_reporting_upper_left_panel" data-display="overlay" data-position="left">
 				<ul data-role="listview">
@@ -5946,27 +6181,130 @@ under the License.
 			</div>
 		</div>
 		<!-- List of Possible Alternitives -->
-		<div data-role="page" class="ubm_page" id="possible_alternitives">
-
+		<div data-role="page" class="ubm_page" id="possible_alternatives" data-theme="f">
 			<div data-role="header">
-				<div id="header">
-					<h1> List of Possible Alternitives</h1>
-					<div class="reference">
-						<p>
-							00.07
-						</p>
-					</div>
-				</div>
+                <a href="#" class="back_btn" data-icon="arrow-l" data-iconpos="notext">Back</a>
+					<h1> List of Possible Alternatives</h1>
 			</div>
 			<div data-role="content">
-				<a href="#creator_table_of_contents" data-role="button" data-inline="true">Continue</a>
-			</div>
-			<div data-role="footer">
-				...
+				<!-- multistep form -->
+				<div id="msform_container" style="height: 600px;">
+					<form id="msform">
+						<!-- progressbar -->
+						<ul id="progressbar">
+							<li class="active">Create Alternatives</li>
+							<li><p>List the Pros</p></li>
+							<li>List the Cons</li>
+						</ul>
+						<!-- fieldsets -->
+						<fieldset>
+							<h2 class="fs-title">Create Your List of Alternatives!</h2>
+							<h3 class="fs-subtitle">Does the desired alternative already exist? </br>If yes determine whether it is more profitable to interface or to create from scratch?</h3>
+							<textarea name="possible_alternatives_alternativeDescription" id="possible_alternatives_alternativeDescription" placeholder="Describe in detail the alternative you are considering..."></textarea>
+							<select name="possible_alternatives_alternativeDecision" id="possible_alternatives_alternativeDecision" data-mini="true" data-inline="true">
+							    <option value="Use Now">Use Now</option>
+							    <option value="Consider for the future">Consider for the future</option>
+							    <option value="Not a forseen use">Not a forseen use</option>
+							</select>
+							<a href="#" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-h" onclick="createNewAlternative()" >Create This Alternative!</a>
+							<input type="button" name="next" class="next action-button" value="Next" />
+						</fieldset>
+						<fieldset>
+							<h2 class="fs-title">Select an alternative above and add all known pros.</h2>
+							<h3 class="fs-subtitle">...</h3>
+							<textarea name="possible_alternatives_alternativeProsDescription" id="possible_alternatives_alternativeProDescription" placeholder="Pro Description"></textarea>
+								  <label for="possible_alternatives_pro_monetary_gain_input">Est Monitary Benefit: </label>
+								  <input type="text" id="possible_alternatives_pro_monetary_gain_input" style="border:0; color:#190773; font-weight:bold;">
+								  <input  id="possible_alternatives_pro_monetary_gain_input_low" type="hidden" />
+								  <input  id="possible_alternatives_pro_monetary_gain_input_high" type="hidden" />
+								  
+								<div id="possible_alternatives_pro_monetary_gain_slider"></div>	
+							<input type="text" name="possible_alternatives_alternativeProROIRef" id="possible_alternatives_alternativeProROIRef" placeholder="Backup Reference (ROI)" />
+							<input type="button" name="previous" class="previous action-button" value="Previous" />
+							<input type="button" name="next" class="next action-button" value="Next" />
+							<a href="#" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-h" onclick="createNewProforactiveModelAlternative()" >Add this to list of Pros</a>
+
+						</fieldset>
+						<fieldset>
+							<h2 class="fs-title">Select an alternative above and add all known cons.</h2>
+							<h3 class="fs-subtitle">...</h3>
+							<textarea name="possible_alternatives_alternativeConsDescription" id="possible_alternatives_alternativeConDescription" placeholder="Con Description"></textarea>
+							<label for="possible_alternatives_con_monetary_cost_input">Est Monitary Cost: </label>
+							<input type="text" id="possible_alternatives_con_monetary_cost_input" style="border:0; color:#190773; font-weight:bold;">
+								  <input  id="possible_alternatives_con_monetary_cost_input_low" type="hidden" />
+								  <input  id="possible_alternatives_con_monetary_cost_input_high" type="hidden" />
+							<div id="possible_alternatives_con_monetary_cost_slider"></div>	
+							<input type="text" name="possible_alternatives_alternativeConROIRef" id="possible_alternatives_alternativeConROIRef" placeholder="Backup Reference (ROI)" />
+							<input type="button" name="previous" class="previous action-button" value="Previous" />
+							<a href="#" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-h" onclick="createNewConforactiveModelAlternative()" >Add this to list of Cons</a>
+						</fieldset>
+					</form>									
+				</div>
+				<table data-role="table" id="possible_alternitives_table" data-mode="columntoggle" data-filter="false" data-column-btn-text="Select Column..." data-column-btn-theme="a" class="phone-compare ui-shadow table-stroke">
+					<caption><center><h1>List of Alternatives</h1></center</caption>					
+					<thead>
+						<tr>
+							<th data-priority="10">Alternative #</th>
+							<th data-priority="10"><h4>Alternative Description</h4></th>
+							<th data-priority="10"><h4>Decision</h4></th>
+							<th data-priority="10"><h4>Annual Cost </br>High</h4></th>
+							<th data-priority="10"><h4>Annual Cost </br>Low</h4></th>
+							<th data-priority="10"><h4>Annual Benefit </br>High</h4></th>
+							<th data-priority="10"><h4>Annual Benefit </br>Low</h4></th>
+							<th data-priority="10"><h4>High Annual </br>Expected ROI</h4></th>
+							<th data-priority="10"><h4>Low Annual </br>Expected ROI</h4></th>
+
+						</tr>
+					</thead>
+					<tbody id="possible_alternitives_table_body">
+
+					</tbody>
+				</table>
+				<fieldset class="ui-grid-a">
+				    <div class="ui-block-a">
+						<table data-role="table" id="possible_alternitives_pro_table" data-mode="columntoggle" data-filter="false" data-column-btn-text="Select Column..." data-column-btn-theme="a" class="phone-compare ui-shadow table-stroke">
+							<caption><center><h1>List of Pros</h1></center</caption>
+							<thead>
+								<tr>
+									<th data-priority="10">Pro #</th>
+									<th data-priority="10"><h4>Pro </br>Description</h4></th>
+									<th data-priority="10"><h4>High </br>Benefit</h4></th>
+									<th data-priority="10"><h4>Low </br>Benefit</h4></th>
+								</tr>
+							</thead>
+							<tbody id="possible_alternitives_pros_table_body">
+		
+							</tbody>
+						</table>
+				    </div>
+				    <div class="ui-block-b">
+						<table data-role="table" id="possible_alternitives_con_table" data-mode="columntoggle" data-filter="false" data-column-btn-text="Select Column..." data-column-btn-theme="a" class="phone-compare ui-shadow table-stroke">
+							<caption><center><h1>List of Cons</h1></center</caption>
+							<thead>
+								<tr>
+									<th data-priority="10">Con #</th>
+									<th data-priority="10"><h4>Con </br>Description</h4></th>
+									<th data-priority="10"><h4>High </br>Cost</h4></th>
+									<th data-priority="10"><h4>Low </br>Cost</h4></th>
+								</tr>
+							</thead>
+							<tbody id="possible_alternitives_cons_table_body">
+		
+							</tbody>
+						</table>
+				    </div>
+				</fieldset>	
+				<link rel="stylesheet" href="css/form_progress_bar.css">
+
+				<script src="js/form_progress_bar.js"
+				<!-- jQuery easing plugin -->
+				<script src="js/jquery.easing.min.js" type="text/javascript"></script>
+
+
 			</div>
 		</div>
 		<!-- Setup -->
-		<div data-role="page" class="ubm_page" id="mcs_setup_checklist_setup">
+		<div data-role="page" class="ubm_page" id="mcs_setup_checklist_setup" data-theme="f">
 			<div data-role="panel" id="mcs_setup_checklist_setup_lpanel" data-display="overlay" data-position="left">
 				<ul data-role="listview">
 					<li data-icon="home">
@@ -6034,7 +6372,7 @@ under the License.
 					<a href="#" data-rel="back" class="ui-btn ui-corner-all ui-shadow ui-btn-a ui-icon-delete ui-btn-icon-notext ui-btn-right">Close</a><img class="popphoto" src="img/03 UBM Flowchart.png" style="max-height:700px;" alt="UBM Flow Chart">
 				</div>
 				<div data-role="popup" id="mcs_template_popup" data-theme="b" data-position-to="window" data-dismissible="false">
-					<div data-role="header" data-theme="a">
+					<div data-role="header"  data-theme="f">
 						<h1>UBM Template Popup Form</h1>
 					</div>
 					<div role="main" class="ui-content">
@@ -6054,7 +6392,7 @@ under the License.
 					</div>
 				</div><!-- /popup -->
 				<div data-role="popup" id="mcs_setup_checklist_setup_identification_setup_popup" data-theme="b" data-position-to="window" data-dismissible="false">
-					<div data-role="header" data-theme="a">
+					<div data-role="header"  data-theme="f">
 						<h1>Identification Setup</h1>
 					</div>
 					<div role="main" class="ui-content">
@@ -6100,7 +6438,7 @@ under the License.
 					</div>
 				</div><!-- /Identification Setup popup -->
 				<div data-role="popup" id="mcs_setup_1_popUp" data-theme="b" data-position-to="window" data-dismissible="false">
-					<div data-role="header" data-theme="a">
+					<div data-role="header"  data-theme="f">
 						<h1>License Agreement</h1>
 					</div>
 					<div role="main" class="ui-content">
@@ -6195,7 +6533,7 @@ under the License.
 					</div>
 				</div><!-- /popup -->
 				<div data-role="popup" id="mcs_setup_checklist_setup_userGuide_Popup" data-theme="b">
-					<div data-role="header" data-theme="a">
+					<div data-role="header"  data-theme="f">
 						<h1>UBM PreBackbone Setup User Guide</h1>
 					</div>
 					<div role="main" class="ui-content">
@@ -6443,7 +6781,7 @@ under the License.
 					</ul>
 				</div><!-- /Phase 4 Popup-->
 				<div data-role="popup" id="mcs_setup_checklist_setup_prepareTaskPopup" data-theme="b" data-position-to="window" data-dismissible="true">
-					<div data-role="header" data-theme="a">
+					<div data-role="header"  data-theme="f">
 						<h1>Ready to complete this task?</h1>
 					</div>
 					<div role="main" class="ui-content">
@@ -6455,7 +6793,7 @@ under the License.
 					</div>
 				</div><!-- /popup -->
 				<div data-role="popup" id="mcs_setup_checklist_setup_reviewTaskPopup" data-theme="b" data-position-to="window" data-dismissible="true">
-					<div data-role="header" data-theme="a">
+					<div data-role="header"  data-theme="f">
 						<h1>Ready to Review this task?</h1>
 					</div>
 					<div role="main" class="ui-content">
@@ -6467,7 +6805,7 @@ under the License.
 					</div>
 				</div><!-- /Revied By popup -->
 				<div data-role="popup" id="mcs_setup_checklist_setup_finalReviewTaskPopup" data-theme="b" data-position-to="window" data-dismissible="true">
-					<div data-role="header" data-theme="a">
+					<div data-role="header"  data-theme="f">
 						<h1>Ready to add the Final Review to this task?</h1>
 					</div>
 					<div role="main" class="ui-content">
@@ -6523,7 +6861,7 @@ under the License.
 			</div><!-- /footer -->
 		</div>
 		<!-- Control -->
-		<div data-role="page" class="ubm_page" id="mcs_setup_checklist_CS">
+		<div data-role="page" class="ubm_page" id="mcs_setup_checklist_CS" data-theme="f">
 			<div data-role="panel" id="mcs_setup_checklist_CS_lpanel" data-display="overlay" data-position="left">
 				<ul data-role="listview">
 					<li data-icon="home">
@@ -6588,7 +6926,7 @@ under the License.
 			</div><!-- /header -->
 			<div role="content" class="ui-content">
 				<div data-role="popup" id="mcs_setup_checklist_CS_userGuide_popup" data-theme="b">
-					<div data-role="header" data-theme="a">
+					<div data-role="header"  data-theme="f">
 						<h1>UBM Control Section User Guide</h1>
 					</div>
 					<div role="main" class="ui-content">
@@ -6817,7 +7155,7 @@ under the License.
 					</ul>
 				</div><!-- /Phase 4 Popup-->
 				<div data-role="popup" id="mcs_setup_checklist_CS_prepareTaskPopup" data-theme="b" data-position-to="window" data-dismissible="true">
-					<div data-role="header" data-theme="a">
+					<div data-role="header"  data-theme="f">
 						<h1>Ready to complete this task?</h1>
 					</div>
 					<div role="main" class="ui-content">
@@ -6829,7 +7167,7 @@ under the License.
 					</div>
 				</div><!-- /popup -->
 				<div data-role="popup" id="mcs_setup_checklist_CS_reviewTaskPopup" data-theme="b" data-position-to="window" data-dismissible="true">
-					<div data-role="header" data-theme="a">
+					<div data-role="header"  data-theme="f">
 						<h1>Ready to Review this task?</h1>
 					</div>
 					<div role="main" class="ui-content">
@@ -6841,7 +7179,7 @@ under the License.
 					</div>
 				</div><!-- /Review popup -->
 				<div data-role="popup" id="mcs_setup_checklist_CS_finalReviewTaskPopup" data-theme="b" data-position-to="window" data-dismissible="true">
-					<div data-role="header" data-theme="a">
+					<div data-role="header"  data-theme="f">
 						<h1>Ready to add the Final Review to this task?</h1>
 					</div>
 					<div role="main" class="ui-content">
@@ -6895,7 +7233,7 @@ under the License.
 			</div>
 		</div>
 		<!-- Phase 1-->
-		<div data-role="page" class="ubm_page" id="mcs_setup_checklist_p1">
+		<div data-role="page" class="ubm_page" id="mcs_setup_checklist_p1" data-theme="f">
 			<div data-role="panel" id="mcs_setup_checklist_p1_lpanel" data-display="overlay" data-position="left">
 				<ul data-role="listview">
 					<li data-icon="home">
@@ -6961,7 +7299,7 @@ under the License.
 			<div role="content" class="ui-content">
 				<!-- Phase One User Guide Popup-->
 				<div data-role="popup" id="mcs_setup_checklist_p1_userGuide_popup" data-theme="b">
-					<div data-role="header" data-theme="a">
+					<div data-role="header"  data-theme="f">
 						<h1>UBM Phase 1 User Guide</h1>
 					</div>
 					<div role="main" class="ui-content">
@@ -7190,7 +7528,7 @@ under the License.
 					</ul>
 				</div><!-- /Phase 4 Popup-->
 				<div data-role="popup" id="mcs_setup_checklist_p1_prepareTaskPopup" data-theme="b" data-position-to="window" data-dismissible="true">
-					<div data-role="header" data-theme="a">
+					<div data-role="header"  data-theme="f">
 						<h1>Ready to complete this task?</h1>
 					</div>
 					<div role="main" class="ui-content">
@@ -7202,7 +7540,7 @@ under the License.
 					</div>
 				</div><!-- /popup -->
 				<div data-role="popup" id="mcs_setup_checklist_p1_reviewTaskPopup" data-theme="b" data-position-to="window" data-dismissible="true">
-					<div data-role="header" data-theme="a">
+					<div data-role="header"  data-theme="f">
 						<h1>Ready to Review this task?</h1>
 					</div>
 					<div role="main" class="ui-content">
@@ -7214,7 +7552,7 @@ under the License.
 					</div>
 				</div><!-- /Review popup -->
 				<div data-role="popup" id="mcs_setup_checklist_p1_finalReviewTaskPopup" data-theme="b" data-position-to="window" data-dismissible="true">
-					<div data-role="header" data-theme="a">
+					<div data-role="header"  data-theme="f">
 						<h1>Ready to add the Final Review to this task?</h1>
 					</div>
 					<div role="main" class="ui-content">
@@ -7226,7 +7564,7 @@ under the License.
 					</div>
 				</div><!-- /Final Review popup -->
 				<div data-role="popup" id="mcs_setup_checklist_p1_primaryObjects_setup_popup" data-theme="b" data-position-to="window" data-dismissible="false">
-					<div data-role="header" data-theme="a">
+					<div data-role="header"  data-theme="f">
 						<h1>Primary Objects Setup</h1>
 					</div>
 					<div role="main" class="ui-content">
@@ -7285,7 +7623,7 @@ under the License.
 			</div>
 		</div>
 		<!-- Phase 2-->
-		<div data-role="page" class="ubm_page" id="mcs_setup_checklist_p2">
+		<div data-role="page" class="ubm_page" id="mcs_setup_checklist_p2" data-theme="f">
 			<div data-role="panel" id="mcs_setup_checklist_p2_lpanel" data-display="overlay" data-position="left">
 				<ul data-role="listview">
 					<li data-icon="home">
@@ -7351,7 +7689,7 @@ under the License.
 			<div role="content" class="ui-content">
 				<!-- Read Phase Two User Guide Popup -->
 				<div data-role="popup" id="mcs_setup_checklist_p2_userGuide_popup" data-theme="b">
-					<div data-role="header" data-theme="a">
+					<div data-role="header"  data-theme="f">
 						<h1>UBM Phase 2 User Guide</h1>
 					</div>
 					<div role="main" class="ui-content">
@@ -7408,7 +7746,7 @@ under the License.
 				</div>
 				<!-- End Open Items Popup -->
 				<div data-role="popup" id="mcs_setup_checklist_p2_prepareTaskPopup" data-theme="b" data-position-to="window" data-dismissible="true">
-					<div data-role="header" data-theme="a">
+					<div data-role="header"  data-theme="f">
 						<h1>Ready to complete this task?</h1>
 					</div>
 					<div role="main" class="ui-content">
@@ -7420,7 +7758,7 @@ under the License.
 					</div>
 				</div><!-- /popup -->
 				<div data-role="popup" id="mcs_setup_checklist_p2_reviewTaskPopup" data-theme="b" data-position-to="window" data-dismissible="true">
-					<div data-role="header" data-theme="a">
+					<div data-role="header"  data-theme="f">
 						<h1>Ready to Review this task?</h1>
 					</div>
 					<div role="main" class="ui-content">
@@ -7432,7 +7770,7 @@ under the License.
 					</div>
 				</div><!-- /Review popup -->
 				<div data-role="popup" id="mcs_setup_checklist_p2_finalReviewTaskPopup" data-theme="b" data-position-to="window" data-dismissible="true">
-					<div data-role="header" data-theme="a">
+					<div data-role="header"  data-theme="f">
 						<h1>Ready to add the Final Review to this task?</h1>
 					</div>
 					<div role="main" class="ui-content">
@@ -7656,7 +7994,7 @@ under the License.
 			</div>
 		</div>
 		<!-- Phase 3-->
-		<div data-role="page" class="ubm_page" id="mcs_setup_checklist_p3">
+		<div data-role="page" class="ubm_page" id="mcs_setup_checklist_p3" data-theme="f">
 			<div data-role="panel" id="mcs_setup_checklist_p3_lpanel" data-display="overlay" data-position="left">
 				<ul data-role="listview">
 					<li data-icon="home">
@@ -7722,7 +8060,7 @@ under the License.
 			<div role="content" class="ui-content">
 				<!-- Read Phase Three User Guide Popup -->
 				<div data-role="popup" id="mcs_setup_checklist_p3_userGuide_popup" data-theme="b">
-					<div data-role="header" data-theme="a">
+					<div data-role="header"  data-theme="f">
 						<h1>UBM Phase 3 User Guide</h1>
 					</div>
 					<div role="main" class="ui-content">
@@ -7779,7 +8117,7 @@ under the License.
 				</div>
 				<!-- End Open Items Popup -->
 				<div data-role="popup" id="mcs_setup_checklist_p3_prepareTaskPopup" data-theme="b" data-position-to="window" data-dismissible="true">
-					<div data-role="header" data-theme="a">
+					<div data-role="header"  data-theme="f">
 						<h1>Ready to complete this task?</h1>
 					</div>
 					<div role="main" class="ui-content">
@@ -7791,7 +8129,7 @@ under the License.
 					</div>
 				</div><!-- /popup -->
 				<div data-role="popup" id="mcs_setup_checklist_p3_reviewTaskPopup" data-theme="b" data-position-to="window" data-dismissible="true">
-					<div data-role="header" data-theme="a">
+					<div data-role="header"  data-theme="f">
 						<h1>Ready to Review this task?</h1>
 					</div>
 					<div role="main" class="ui-content">
@@ -7803,7 +8141,7 @@ under the License.
 					</div>
 				</div><!-- /Review popup -->
 				<div data-role="popup" id="mcs_setup_checklist_p3_finalReviewTaskPopup" data-theme="b" data-position-to="window" data-dismissible="true">
-					<div data-role="header" data-theme="a">
+					<div data-role="header"  data-theme="f">
 						<h1>Ready to add the Final Review to this task?</h1>
 					</div>
 					<div role="main" class="ui-content">
@@ -8027,7 +8365,7 @@ under the License.
 			</div>
 		</div>
 		<!-- Phase 4 Book 1-->
-		<div data-role="page" class="ubm_page" id="mcs_setup_checklist_p4_b1">
+		<div data-role="page" class="ubm_page" id="mcs_setup_checklist_p4_b1" data-theme="f">
 			<div data-role="panel" id="mcs_setup_checklist_p4_b1_lpanel" data-display="overlay" data-position="left">
 				<ul data-role="listview">
 					<li data-icon="home">
@@ -8092,7 +8430,7 @@ under the License.
 			</div><!-- /header -->
 			<div role="content" class="ui-content">
 				<div data-role="popup" id="mcs_setup_checklist_p4_userGuide_popup" data-theme="b">
-					<div data-role="header" data-theme="a">
+					<div data-role="header"  data-theme="f">
 						<h1>UBM Phase 4 User Guide Summary</h1>
 					</div>
 					<div role="main" class="ui-content">
@@ -8105,7 +8443,7 @@ under the License.
 				</div>
 				<!-- End Read Phase Four User Guide Summary Popup  -->
 				<div data-role="popup" id="mcs_setup_checklist_p4_b1_userGuide_popup" data-theme="b">
-					<div data-role="header" data-theme="a">
+					<div data-role="header"  data-theme="f">
 						<h1>UBM Phase 4 Book 1 User Guide</h1>
 					</div>
 					<div role="main" class="ui-content">
@@ -8162,7 +8500,7 @@ under the License.
 				</div>
 				<!-- End Open Items Popup -->
 				<div data-role="popup" id="mcs_setup_checklist_p4_b1_prepareTaskPopup" data-theme="b" data-position-to="window" data-dismissible="true">
-					<div data-role="header" data-theme="a">
+					<div data-role="header"  data-theme="f">
 						<h1>Ready to complete this task?</h1>
 					</div>
 					<div role="main" class="ui-content">
@@ -8174,7 +8512,7 @@ under the License.
 					</div>
 				</div><!-- /popup -->
 				<div data-role="popup" id="mcs_setup_checklist_p4_b1_reviewTaskPopup" data-theme="b" data-position-to="window" data-dismissible="true">
-					<div data-role="header" data-theme="a">
+					<div data-role="header"  data-theme="f">
 						<h1>Ready to Review this task?</h1>
 					</div>
 					<div role="main" class="ui-content">
@@ -8186,7 +8524,7 @@ under the License.
 					</div>
 				</div><!-- /Review popup -->
 				<div data-role="popup" id="mcs_setup_checklist_p4_b1_finalReviewTaskPopup" data-theme="b" data-position-to="window" data-dismissible="true">
-					<div data-role="header" data-theme="a">
+					<div data-role="header"  data-theme="f">
 						<h1>Ready to add the Final Review to this task?</h1>
 					</div>
 					<div role="main" class="ui-content">
@@ -8410,7 +8748,7 @@ under the License.
 			</div>
 		</div>
 		<!-- Phase 4 Book 2-->
-		<div data-role="page" class="ubm_page" id="mcs_setup_checklist_p4_b2">
+		<div data-role="page" class="ubm_page" id="mcs_setup_checklist_p4_b2" data-theme="f">
 			<div data-role="panel" id="mcs_setup_checklist_p4_b2_lpanel" data-display="overlay" data-position="left">
 				<ul data-role="listview">
 					<li data-icon="home">
@@ -8477,7 +8815,7 @@ under the License.
 			<div data-role="content">
 				<!-- Read Phase 4 Book 2 User Guide Popup -->
 				<div data-role="popup" id="mcs_setup_checklist_p4_b2_userGuide_popup" data-theme="b">
-					<div data-role="header" data-theme="a">
+					<div data-role="header"  data-theme="f">
 						<h1>UBM Phase 4 Book 2 User Guide</h1>
 					</div>
 					<div role="main" class="ui-content">
@@ -8534,7 +8872,7 @@ under the License.
 				</div>
 				<!-- End Open Items Popup -->
 				<div data-role="popup" id="mcs_setup_checklist_p4_b2_prepareTaskPopup" data-theme="b" data-position-to="window" data-dismissible="true">
-					<div data-role="header" data-theme="a">
+					<div data-role="header"  data-theme="f">
 						<h1>Ready to complete this task?</h1>
 					</div>
 					<div role="main" class="ui-content">
@@ -8546,7 +8884,7 @@ under the License.
 					</div>
 				</div><!-- /popup -->
 				<div data-role="popup" id="mcs_setup_checklist_p4_b2_reviewTaskPopup" data-theme="b" data-position-to="window" data-dismissible="true">
-					<div data-role="header" data-theme="a">
+					<div data-role="header"  data-theme="f">
 						<h1>Ready to Review this task?</h1>
 					</div>
 					<div role="main" class="ui-content">
@@ -8558,7 +8896,7 @@ under the License.
 					</div>
 				</div><!-- /Review popup -->
 				<div data-role="popup" id="mcs_setup_checklist_p4_b2_finalReviewTaskPopup" data-theme="b" data-position-to="window" data-dismissible="true">
-					<div data-role="header" data-theme="a">
+					<div data-role="header"  data-theme="f">
 						<h1>Ready to add the Final Review to this task?</h1>
 					</div>
 					<div role="main" class="ui-content">
@@ -8782,7 +9120,7 @@ under the License.
 			</div>
 		</div>
 		<!-- Phase 4 Book 3-->
-		<div data-role="page" class="ubm_page" id="mcs_setup_checklist_p4_b3">
+		<div data-role="page" class="ubm_page" id="mcs_setup_checklist_p4_b3" data-theme="f">
 			<div data-role="panel" id="mcs_setup_checklist_p4_b3_lpanel" data-display="overlay" data-position="left">
 				<ul data-role="listview">
 					<li data-icon="home">
@@ -8848,7 +9186,7 @@ under the License.
 			<div data-role="content">
 				<!-- Read Phase 4 Book 3 User Guide Popup -->
 				<div data-role="popup" id="mcs_setup_checklist_p4_b3_userGuide_popup" data-theme="b">
-					<div data-role="header" data-theme="a">
+					<div data-role="header"  data-theme="f">
 						<h1>UBM Phase 4 Book 3 User Guide</h1>
 					</div>
 					<div role="main" class="ui-content">
@@ -8905,7 +9243,7 @@ under the License.
 				</div>
 				<!-- End Open Items Popup -->
 				<div data-role="popup" id="mcs_setup_checklist_p4_b3_prepareTaskPopup" data-theme="b" data-position-to="window" data-dismissible="true">
-					<div data-role="header" data-theme="a">
+					<div data-role="header"  data-theme="f">
 						<h1>Ready to complete this task?</h1>
 					</div>
 					<div role="main" class="ui-content">
@@ -8917,7 +9255,7 @@ under the License.
 					</div>
 				</div><!-- /popup -->
 				<div data-role="popup" id="mcs_setup_checklist_p4_b3_reviewTaskPopup" data-theme="b" data-position-to="window" data-dismissible="true">
-					<div data-role="header" data-theme="a">
+					<div data-role="header"  data-theme="f">
 						<h1>Ready to Review this task?</h1>
 					</div>
 					<div role="main" class="ui-content">
@@ -8929,7 +9267,7 @@ under the License.
 					</div>
 				</div><!-- /Review popup -->
 				<div data-role="popup" id="mcs_setup_checklist_p4_b3_finalReviewTaskPopup" data-theme="b" data-position-to="window" data-dismissible="true">
-					<div data-role="header" data-theme="a">
+					<div data-role="header"  data-theme="f">
 						<h1>Ready to add the Final Review to this task?</h1>
 					</div>
 					<div role="main" class="ui-content">
@@ -9153,7 +9491,7 @@ under the License.
 			</div>
 		</div>
 		<!-- Phase 4 Book 4-->
-		<div data-role="page" class="ubm_page" id="mcs_setup_checklist_p4_b4">
+		<div data-role="page" class="ubm_page" id="mcs_setup_checklist_p4_b4" data-theme="f">
 			<div data-role="panel" id="mcs_setup_checklist_p4_b4_lpanel" data-display="overlay" data-position="left">
 				<ul data-role="listview">
 					<li data-icon="home">
@@ -9219,7 +9557,7 @@ under the License.
 			<div data-role="content">
 				<!-- Read Phase 4 Book 4 User Guide Popup -->
 				<div data-role="popup" id="mcs_setup_checklist_p4_b4_userGuide_popup" data-theme="b">
-					<div data-role="header" data-theme="a">
+					<div data-role="header"  data-theme="f">
 						<h1>UBM Phase 4 Book 4 User Guide</h1>
 					</div>
 					<div role="main" class="ui-content">
@@ -9276,7 +9614,7 @@ under the License.
 				</div>
 				<!-- End Open Items Popup -->
 				<div data-role="popup" id="mcs_setup_checklist_p4_b4_prepareTaskPopup" data-theme="b" data-position-to="window" data-dismissible="true">
-					<div data-role="header" data-theme="a">
+					<div data-role="header"  data-theme="f">
 						<h1>Ready to complete this task?</h1>
 					</div>
 					<div role="main" class="ui-content">
@@ -9288,7 +9626,7 @@ under the License.
 					</div>
 				</div><!-- /popup -->
 				<div data-role="popup" id="mcs_setup_checklist_p4_b4_reviewTaskPopup" data-theme="b" data-position-to="window" data-dismissible="true">
-					<div data-role="header" data-theme="a">
+					<div data-role="header"  data-theme="f">
 						<h1>Ready to Review this task?</h1>
 					</div>
 					<div role="main" class="ui-content">
@@ -9300,7 +9638,7 @@ under the License.
 					</div>
 				</div><!-- /Review popup -->
 				<div data-role="popup" id="mcs_setup_checklist_p4_b4_finalReviewTaskPopup" data-theme="b" data-position-to="window" data-dismissible="true">
-					<div data-role="header" data-theme="a">
+					<div data-role="header"  data-theme="f">
 						<h1>Ready to add the Final Review to this task?</h1>
 					</div>
 					<div role="main" class="ui-content">
@@ -9524,7 +9862,7 @@ under the License.
 			</div>
 		</div>
 		<!-- Phase 4 Book 5-->
-		<div data-role="page" class="ubm_page" id="mcs_setup_checklist_p4_b5">
+		<div data-role="page" class="ubm_page" id="mcs_setup_checklist_p4_b5" data-theme="f">
 			<div data-role="panel" id="mcs_setup_checklist_p4_b5_lpanel" data-display="overlay" data-position="left">
 				<ul data-role="listview">
 					<li data-icon="home">
@@ -9590,7 +9928,7 @@ under the License.
 			<div data-role="content">
 				<!-- Read Phase Four Book Five User Guide Popup -->
 				<div data-role="popup" id="mcs_setup_checklist_p4_b5_userGuide_popup" data-theme="b">
-					<div data-role="header" data-theme="a">
+					<div data-role="header"  data-theme="f">
 						<h1>UBM Phase 4 Book 5 User Guide</h1>
 					</div>
 					<div role="main" class="ui-content">
@@ -9647,7 +9985,7 @@ under the License.
 				</div>
 				<!-- End Open Items Popup -->
 				<div data-role="popup" id="mcs_setup_checklist_p4_b5_prepareTaskPopup" data-theme="b" data-position-to="window" data-dismissible="true">
-					<div data-role="header" data-theme="a">
+					<div data-role="header"  data-theme="f">
 						<h1>Ready to complete this task?</h1>
 					</div>
 					<div role="main" class="ui-content">
@@ -9659,7 +9997,7 @@ under the License.
 					</div>
 				</div><!-- /popup -->
 				<div data-role="popup" id="mcs_setup_checklist_p4_b5_reviewTaskPopup" data-theme="b" data-position-to="window" data-dismissible="true">
-					<div data-role="header" data-theme="a">
+					<div data-role="header"  data-theme="f">
 						<h1>Ready to Review this task?</h1>
 					</div>
 					<div role="main" class="ui-content">
@@ -9671,7 +10009,7 @@ under the License.
 					</div>
 				</div><!-- /Review popup -->
 				<div data-role="popup" id="mcs_setup_checklist_p4_b5_finalReviewTaskPopup" data-theme="b" data-position-to="window" data-dismissible="true">
-					<div data-role="header" data-theme="a">
+					<div data-role="header"  data-theme="f">
 						<h1>Ready to add the Final Review to this task?</h1>
 					</div>
 					<div role="main" class="ui-content">
@@ -9895,7 +10233,7 @@ under the License.
 			</div>
 		</div>
 		<!-- Phase 4 Book 6-->
-		<div data-role="page" class="ubm_page" id="mcs_setup_checklist_p4_b6">
+		<div data-role="page" class="ubm_page" id="mcs_setup_checklist_p4_b6" data-theme="f">
 			<div data-role="panel" id="mcs_setup_checklist_p4_b6_lpanel" data-display="overlay" data-position="left">
 				<ul data-role="listview">
 					<li data-icon="home">
@@ -9961,7 +10299,7 @@ under the License.
 			<div data-role="content">
 				<!-- Read Phase Four Book Six User Guide Popup -->
 				<div data-role="popup" id="mcs_setup_checklist_p4_b6_userGuide_popup" data-theme="b">
-					<div data-role="header" data-theme="a">
+					<div data-role="header"  data-theme="f">
 						<h1>UBM Phase 4 Book 6 User Guide</h1>
 					</div>
 					<div role="main" class="ui-content">
@@ -10018,7 +10356,7 @@ under the License.
 				</div>
 				<!-- End Open Items Popup -->
 				<div data-role="popup" id="mcs_setup_checklist_p4_b6_prepareTaskPopup" data-theme="b" data-position-to="window" data-dismissible="true">
-					<div data-role="header" data-theme="a">
+					<div data-role="header"  data-theme="f">
 						<h1>Ready to complete this task?</h1>
 					</div>
 					<div role="main" class="ui-content">
@@ -10030,7 +10368,7 @@ under the License.
 					</div>
 				</div><!-- /popup -->
 				<div data-role="popup" id="mcs_setup_checklist_p4_b6_reviewTaskPopup" data-theme="b" data-position-to="window" data-dismissible="true">
-					<div data-role="header" data-theme="a">
+					<div data-role="header"  data-theme="f">
 						<h1>Ready to Review this task?</h1>
 					</div>
 					<div role="main" class="ui-content">
@@ -10042,7 +10380,7 @@ under the License.
 					</div>
 				</div><!-- /Review popup -->
 				<div data-role="popup" id="mcs_setup_checklist_p4_b6_finalReviewTaskPopup" data-theme="b" data-position-to="window" data-dismissible="true">
-					<div data-role="header" data-theme="a">
+					<div data-role="header"  data-theme="f">
 						<h1>Ready to add the Final Review to this task?</h1>
 					</div>
 					<div role="main" class="ui-content">
@@ -10266,7 +10604,7 @@ under the License.
 			</div>
 		</div>
 		<!-- Phase 4 Book 7-->
-		<div data-role="page" class="ubm_page" id="mcs_setup_checklist_p4_b7">
+		<div data-role="page" class="ubm_page" id="mcs_setup_checklist_p4_b7" data-theme="f">
 			<div data-role="panel" id="mcs_setup_checklist_p4_b7_lpanel" data-display="overlay" data-position="left">
 				<ul data-role="listview">
 					<li data-icon="home">
@@ -10332,7 +10670,7 @@ under the License.
 			<div data-role="content">
 				<!-- Read Phase Four Book Seven Popup -->
 				<div data-role="popup" id="mcs_setup_checklist_p4_b7_userGuide_popup" data-theme="b">
-					<div data-role="header" data-theme="a">
+					<div data-role="header"  data-theme="f">
 						<h1>UBM Phase 4 Book 7 User Guide</h1>
 					</div>
 					<div role="main" class="ui-content">
@@ -10389,7 +10727,7 @@ under the License.
 				</div>
 				<!-- End Open Items Popup -->
 				<div data-role="popup" id="mcs_setup_checklist_p4_b7_prepareTaskPopup" data-theme="b" data-position-to="window" data-dismissible="true">
-					<div data-role="header" data-theme="a">
+					<div data-role="header"  data-theme="f">
 						<h1>Ready to complete this task?</h1>
 					</div>
 					<div role="main" class="ui-content">
@@ -10401,7 +10739,7 @@ under the License.
 					</div>
 				</div><!-- /popup -->
 				<div data-role="popup" id="mcs_setup_checklist_p4_b7_reviewTaskPopup" data-theme="b" data-position-to="window" data-dismissible="true">
-					<div data-role="header" data-theme="a">
+					<div data-role="header"  data-theme="f">
 						<h1>Ready to Review this task?</h1>
 					</div>
 					<div role="main" class="ui-content">
@@ -10413,7 +10751,7 @@ under the License.
 					</div>
 				</div><!-- /Review popup -->
 				<div data-role="popup" id="mcs_setup_checklist_p4_b7_finalReviewTaskPopup" data-theme="b" data-position-to="window" data-dismissible="true">
-					<div data-role="header" data-theme="a">
+					<div data-role="header"  data-theme="f">
 						<h1>Ready to add the Final Review to this task?</h1>
 					</div>
 					<div role="main" class="ui-content">
@@ -10637,7 +10975,7 @@ under the License.
 			</div>
 		</div>
 		<!-- Phase 4 Book 8-->
-		<div data-role="page" class="ubm_page" id="mcs_setup_checklist_p4_b8">
+		<div data-role="page" class="ubm_page" id="mcs_setup_checklist_p4_b8" data-theme="f">
 			<div data-role="panel" id="mcs_setup_checklist_p4_b8_lpanel" data-display="overlay" data-position="left">
 				<ul data-role="listview">
 					<li data-icon="home">
@@ -10703,7 +11041,7 @@ under the License.
 			<div data-role="content">
 				<!-- Read Phase Book Eight Popup -->
 				<div data-role="popup" id="mcs_setup_checklist_p4_b8_userGuide_popup" data-theme="b">
-					<div data-role="header" data-theme="a">
+					<div data-role="header"  data-theme="f">
 						<h1>UBM Phase 4 Book 8 User Guide</h1>
 					</div>
 					<div role="main" class="ui-content">
@@ -10760,7 +11098,7 @@ under the License.
 				</div>
 				<!-- End Open Items Popup -->
 				<div data-role="popup" id="mcs_setup_checklist_p4_b8_prepareTaskPopup" data-theme="b" data-position-to="window" data-dismissible="true">
-					<div data-role="header" data-theme="a">
+					<div data-role="header"  data-theme="f">
 						<h1>Ready to complete this task?</h1>
 					</div>
 					<div role="main" class="ui-content">
@@ -10772,7 +11110,7 @@ under the License.
 					</div>
 				</div><!-- /popup -->
 				<div data-role="popup" id="mcs_setup_checklist_p4_b8_reviewTaskPopup" data-theme="b" data-position-to="window" data-dismissible="true">
-					<div data-role="header" data-theme="a">
+					<div data-role="header"  data-theme="f">
 						<h1>Ready to Review this task?</h1>
 					</div>
 					<div role="main" class="ui-content">
@@ -10784,7 +11122,7 @@ under the License.
 					</div>
 				</div><!-- /Review popup -->
 				<div data-role="popup" id="mcs_setup_checklist_p4_b8_finalReviewTaskPopup" data-theme="b" data-position-to="window" data-dismissible="true">
-					<div data-role="header" data-theme="a">
+					<div data-role="header"  data-theme="f">
 						<h1>Ready to add the Final Review to this task?</h1>
 					</div>
 					<div role="main" class="ui-content">
@@ -11008,7 +11346,7 @@ under the License.
 			</div>
 		</div>
 		<!-- Phase 4 Book 9-->
-		<div data-role="page" class="ubm_page" id="mcs_setup_checklist_p4_b9">
+		<div data-role="page" class="ubm_page" id="mcs_setup_checklist_p4_b9" data-theme="f">
 			<div data-role="panel" id="mcs_setup_checklist_p4_b9_lpanel" data-display="overlay" data-position="left">
 				<ul data-role="listview">
 					<li data-icon="home">
@@ -11074,7 +11412,7 @@ under the License.
 			<div data-role="content">
 				<!-- Read Phase Four Book Nine Popup -->
 				<div data-role="popup" id="mcs_setup_checklist_p4_b9_userGuide_popup" data-theme="b">
-					<div data-role="header" data-theme="a">
+					<div data-role="header"  data-theme="f">
 						<h1>UBM Phase 4 Book 9 User Guide</h1>
 					</div>
 					<div role="main" class="ui-content">
@@ -11131,7 +11469,7 @@ under the License.
 				</div>
 				<!-- End Open Items Popup -->
 				<div data-role="popup" id="mcs_setup_checklist_p4_b9_prepareTaskPopup" data-theme="b" data-position-to="window" data-dismissible="true">
-					<div data-role="header" data-theme="a">
+					<div data-role="header"  data-theme="f">
 						<h1>Ready to complete this task?</h1>
 					</div>
 					<div role="main" class="ui-content">
@@ -11143,7 +11481,7 @@ under the License.
 					</div>
 				</div><!-- /popup -->
 				<div data-role="popup" id="mcs_setup_checklist_p4_b9_reviewTaskPopup" data-theme="b" data-position-to="window" data-dismissible="true">
-					<div data-role="header" data-theme="a">
+					<div data-role="header"  data-theme="f">
 						<h1>Ready to Review this task?</h1>
 					</div>
 					<div role="main" class="ui-content">
@@ -11155,7 +11493,7 @@ under the License.
 					</div>
 				</div><!-- /Review popup -->
 				<div data-role="popup" id="mcs_setup_checklist_p4_b9_finalReviewTaskPopup" data-theme="b" data-position-to="window" data-dismissible="true">
-					<div data-role="header" data-theme="a">
+					<div data-role="header"  data-theme="f">
 						<h1>Ready to add the Final Review to this task?</h1>
 					</div>
 					<div role="main" class="ui-content">
@@ -11379,7 +11717,7 @@ under the License.
 			</div>
 		</div>
 		<!-- Phase 4 Book 10-->
-		<div data-role="page" class="ubm_page" id="mcs_setup_checklist_p4_b10">
+		<div data-role="page" class="ubm_page" id="mcs_setup_checklist_p4_b10" data-theme="f">
 			<div data-role="panel" id="mcs_setup_checklist_p4_b10_lpanel" data-display="overlay" data-position="left">
 				<ul data-role="listview">
 					<li data-icon="home">
@@ -11445,7 +11783,7 @@ under the License.
 			<div data-role="content">
 				<!-- Read Phase Four Book Ten User Guide Popup -->
 				<div data-role="popup" id="mcs_setup_checklist_p4_b10_userGuide_popup" data-theme="b">
-					<div data-role="header" data-theme="a">
+					<div data-role="header"  data-theme="f">
 						<h1>UBM Phase 4 Book 10 User Guide</h1>
 					</div>
 					<div role="main" class="ui-content">
@@ -11502,7 +11840,7 @@ under the License.
 				</div>
 				<!-- End Open Items Popup -->
 				<div data-role="popup" id="mcs_setup_checklist_p4_b10_prepareTaskPopup" data-theme="b" data-position-to="window" data-dismissible="true">
-					<div data-role="header" data-theme="a">
+					<div data-role="header"  data-theme="f">
 						<h1>Ready to complete this task?</h1>
 					</div>
 					<div role="main" class="ui-content">
@@ -11514,7 +11852,7 @@ under the License.
 					</div>
 				</div><!-- /popup -->
 				<div data-role="popup" id="mcs_setup_checklist_p4_b10_reviewTaskPopup" data-theme="b" data-position-to="window" data-dismissible="true">
-					<div data-role="header" data-theme="a">
+					<div data-role="header"  data-theme="f">
 						<h1>Ready to Review this task?</h1>
 					</div>
 					<div role="main" class="ui-content">
@@ -11526,7 +11864,7 @@ under the License.
 					</div>
 				</div><!-- /Review popup -->
 				<div data-role="popup" id="mcs_setup_checklist_p4_b10_finalReviewTaskPopup" data-theme="b" data-position-to="window" data-dismissible="true">
-					<div data-role="header" data-theme="a">
+					<div data-role="header"  data-theme="f">
 						<h1>Ready to add the Final Review to this task?</h1>
 					</div>
 					<div role="main" class="ui-content">
@@ -11750,7 +12088,7 @@ under the License.
 			</div>
 		</div>
 		<!-- Phase 4 Book 11-->
-		<div data-role="page" class="ubm_page" id="mcs_setup_checklist_p4_b11">
+		<div data-role="page" class="ubm_page" id="mcs_setup_checklist_p4_b11" data-theme="f">
 			<div data-role="panel" id="mcs_setup_checklist_p4_b11_lpanel" data-display="overlay" data-position="left">
 				<ul data-role="listview">
 					<li data-icon="home">
@@ -11816,7 +12154,7 @@ under the License.
 			<div data-role="content">
 				<!-- Read Phase Four Book Eleven User Guide Popup -->
 				<div data-role="popup" id="mcs_setup_checklist_p4_b11_userGuide_popup" data-theme="b">
-					<div data-role="header" data-theme="a">
+					<div data-role="header"  data-theme="f">
 						<h1>UBM Phase 4 Book 11 User Guide</h1>
 					</div>
 					<div role="main" class="ui-content">
@@ -11873,7 +12211,7 @@ under the License.
 				</div>
 				<!-- End Open Items Popup -->
 				<div data-role="popup" id="mcs_setup_checklist_p4_b11_prepareTaskPopup" data-theme="b" data-position-to="window" data-dismissible="true">
-					<div data-role="header" data-theme="a">
+					<div data-role="header"  data-theme="f">
 						<h1>Ready to complete this task?</h1>
 					</div>
 					<div role="main" class="ui-content">
@@ -11885,7 +12223,7 @@ under the License.
 					</div>
 				</div><!-- /popup -->
 				<div data-role="popup" id="mcs_setup_checklist_p4_b11_reviewTaskPopup" data-theme="b" data-position-to="window" data-dismissible="true">
-					<div data-role="header" data-theme="a">
+					<div data-role="header"  data-theme="f">
 						<h1>Ready to Review this task?</h1>
 					</div>
 					<div role="main" class="ui-content">
@@ -11897,7 +12235,7 @@ under the License.
 					</div>
 				</div><!-- /Review popup -->
 				<div data-role="popup" id="mcs_setup_checklist_p4_b11_finalReviewTaskPopup" data-theme="b" data-position-to="window" data-dismissible="true">
-					<div data-role="header" data-theme="a">
+					<div data-role="header"  data-theme="f">
 						<h1>Ready to add the Final Review to this task?</h1>
 					</div>
 					<div role="main" class="ui-content">
@@ -12121,7 +12459,7 @@ under the License.
 			</div>
 		</div>
 		<!-- Phase 4 Book 12-->
-		<div data-role="page" class="ubm_page" id="mcs_setup_checklist_p4_b12">
+		<div data-role="page" class="ubm_page" id="mcs_setup_checklist_p4_b12" data-theme="f">
                                 <div data-role="panel" id="mcs_setup_checklist_p4_b12_lpanel" data-display="overlay" data-position="left">
                                 <ul data-role="listview">
                                     <li data-icon="home">
@@ -12187,7 +12525,7 @@ under the License.
                 <div data-role="content">
                     <!-- Read Phase Four Book Twelve User Guide Popup -->
                     <div data-role="popup" id="mcs_setup_checklist_p4_b12_userGuide_popup" data-theme="b">
-						<div data-role="header" data-theme="a">
+						<div data-role="header"  data-theme="f">
 							<h1>UBM Phase 4 Book 12 User Guide</h1>
 						</div>
 						<div role="main" class="ui-content">
@@ -12244,7 +12582,7 @@ under the License.
                     </div>
                     <!-- End Open Items Popup -->
                     <div data-role="popup" id="mcs_setup_checklist_p4_b12_prepareTaskPopup" data-theme="b" data-position-to="window" data-dismissible="true">
-                        <div data-role="header" data-theme="a">
+                        <div data-role="header"  data-theme="f">
                             <h1>Ready to complete this task?</h1>
                         </div>
                         <div role="main" class="ui-content">
@@ -12256,7 +12594,7 @@ under the License.
                         </div>
                     </div><!-- /popup -->
                     <div data-role="popup" id="mcs_setup_checklist_p4_b12_reviewTaskPopup" data-theme="b" data-position-to="window" data-dismissible="true">
-                        <div data-role="header" data-theme="a">
+                        <div data-role="header"  data-theme="f">
                             <h1>Ready to Review this task?</h1>
                         </div>
                         <div role="main" class="ui-content">
@@ -12268,7 +12606,7 @@ under the License.
                         </div>
                     </div><!-- /Review popup -->
                     <div data-role="popup" id="mcs_setup_checklist_p4_b12_finalReviewTaskPopup" data-theme="b" data-position-to="window" data-dismissible="true">
-                        <div data-role="header" data-theme="a">
+                        <div data-role="header"  data-theme="f">
                             <h1>Ready to add the Final Review to this task?</h1>
                         </div>
                         <div role="main" class="ui-content">
@@ -12492,7 +12830,7 @@ under the License.
                 </div>
             </div>
             <!-- Phase 5-->
-            <div data-role="page" class="ubm_page" id="mcs_setup_checklist_p5">
+            <div data-role="page" class="ubm_page" id="mcs_setup_checklist_p5" data-theme="f">
                 <div data-role="panel" id="mcs_setup_checklist_p5_lpanel" data-display="overlay" data-position="left">
                     <ul data-role="listview">
                         <li data-icon="home">
@@ -12558,7 +12896,7 @@ under the License.
                 <div role="content" class="ui-content">
                     <!-- Read Phase Five User Guide Popup -->
                     <div data-role="popup" id="mcs_setup_checklist_p5_userGuide_popup" data-theme="b">
-						<div data-role="header" data-theme="a">
+						<div data-role="header"  data-theme="f">
 							<h1>UBM Phase 5 User Guide</h1>
 						</div>
 						<div role="main" class="ui-content">
@@ -12615,7 +12953,7 @@ under the License.
                     </div>
                     <!-- End Open Items Popup -->
                     <div data-role="popup" id="mcs_setup_checklist_p5_prepareTaskPopup" data-theme="b" data-position-to="window" data-dismissible="true">
-                        <div data-role="header" data-theme="a">
+                        <div data-role="header"  data-theme="f">
                             <h1>Ready to complete this task?</h1>
                         </div>
                         <div role="main" class="ui-content">
@@ -12627,7 +12965,7 @@ under the License.
                         </div>
                     </div><!-- /popup -->
                     <div data-role="popup" id="mcs_setup_checklist_p5_reviewTaskPopup" data-theme="b" data-position-to="window" data-dismissible="true">
-                        <div data-role="header" data-theme="a">
+                        <div data-role="header"  data-theme="f">
                             <h1>Ready to Review this task?</h1>
                         </div>
                         <div role="main" class="ui-content">
@@ -12639,7 +12977,7 @@ under the License.
                         </div>
                     </div><!-- /Review popup -->
                     <div data-role="popup" id="mcs_setup_checklist_p5_finalReviewTaskPopup" data-theme="b" data-position-to="window" data-dismissible="true">
-                        <div data-role="header" data-theme="a">
+                        <div data-role="header"  data-theme="f">
                             <h1>Ready to add the Final Review to this task?</h1>
                         </div>
                         <div role="main" class="ui-content">
@@ -12863,7 +13201,7 @@ under the License.
                 </div>
             </div>
             <!-- Phase 6-->
-            <div data-role="page" class="ubm_page" id="mcs_setup_checklist_p6">
+            <div data-role="page" class="ubm_page" id="mcs_setup_checklist_p6" data-theme="f">
                 <div data-role="panel" id="mcs_setup_checklist_p6_lpanel" data-display="overlay" data-position="left">
                     <ul data-role="listview">
                         <ul data-role="listview">
@@ -12926,7 +13264,7 @@ under the License.
                 <div role="content" class="ui-content">
                     <!-- Read Phase Six User Guide Popup -->
                     <div data-role="popup" id="mcs_setup_checklist_p6_userGuide_popup" data-theme="b">
-						<div data-role="header" data-theme="a">
+						<div data-role="header"  data-theme="f">
 							<h1>UBM Phase 6 User Guide</h1>
 						</div>
 						<div role="main" class="ui-content">
@@ -12983,7 +13321,7 @@ under the License.
                     </div>
                     <!-- End Open Items Popup -->
                     <div data-role="popup" id="mcs_setup_checklist_p6_prepareTaskPopup" data-theme="b" data-position-to="window" data-dismissible="true">
-                        <div data-role="header" data-theme="a">
+                        <div data-role="header"  data-theme="f">
                             <h1>Ready to complete this task?</h1>
                         </div>
                         <div role="main" class="ui-content">
@@ -12995,7 +13333,7 @@ under the License.
                         </div>
                     </div><!-- /popup -->
                     <div data-role="popup" id="mcs_setup_checklist_p6_reviewTaskPopup" data-theme="b" data-position-to="window" data-dismissible="true">
-                        <div data-role="header" data-theme="a">
+                        <div data-role="header"  data-theme="f">
                             <h1>Ready to Review this task?</h1>
                         </div>
                         <div role="main" class="ui-content">
@@ -13007,7 +13345,7 @@ under the License.
                         </div>
                     </div><!-- /Review popup -->
                     <div data-role="popup" id="mcs_setup_checklist_p6_finalReviewTaskPopup" data-theme="b" data-position-to="window" data-dismissible="true">
-                        <div data-role="header" data-theme="a">
+                        <div data-role="header"  data-theme="f">
                             <h1>Ready to add the Final Review to this task?</h1>
                         </div>
                         <div role="main" class="ui-content">
@@ -13231,7 +13569,7 @@ under the License.
                 </div>
             </div>
             <!-- Phase 7-->
-            <div data-role="page" class="ubm_page" id="mcs_setup_checklist_p7">
+            <div data-role="page" class="ubm_page" id="mcs_setup_checklist_p7" data-theme="f">
                 <div data-role="panel" id="mcs_setup_checklist_p7_lpanel" data-display="overlay" data-position="left">
                     <ul data-role="listview">
                         <li data-icon="home">
@@ -13296,7 +13634,7 @@ under the License.
                 </div><!-- /header -->
                 <div role="content" class="ui-content">
                     <div data-role="popup" id="mcs_setup_checklist_p7_userGuide_popup" data-theme="b">
-						<div data-role="header" data-theme="a">
+						<div data-role="header"  data-theme="f">
 							<h1>UBM Phase 7 User Guide</h1>
 						</div>
 						<div role="main" class="ui-content">
@@ -13353,7 +13691,7 @@ under the License.
                     </div>
                     <!-- End Open Items Popup -->
                     <div data-role="popup" id="mcs_setup_checklist_p7_prepareTaskPopup" data-theme="b" data-position-to="window" data-dismissible="true">
-                        <div data-role="header" data-theme="a">
+                        <div data-role="header"  data-theme="f">
                             <h1>Ready to complete this task?</h1>
                         </div>
                         <div role="main" class="ui-content">
@@ -13365,7 +13703,7 @@ under the License.
                         </div>
                     </div><!-- /popup -->
                     <div data-role="popup" id="mcs_setup_checklist_p7_reviewTaskPopup" data-theme="b" data-position-to="window" data-dismissible="true">
-                        <div data-role="header" data-theme="a">
+                        <div data-role="header"  data-theme="f">
                             <h1>Ready to Review this task?</h1>
                         </div>
                         <div role="main" class="ui-content">
@@ -13377,7 +13715,7 @@ under the License.
                         </div>
                     </div><!-- /Review popup -->
                     <div data-role="popup" id="mcs_setup_checklist_p7_finalReviewTaskPopup" data-theme="b" data-position-to="window" data-dismissible="true">
-                        <div data-role="header" data-theme="a">
+                        <div data-role="header"  data-theme="f">
                             <h1>Ready to add the Final Review to this task?</h1>
                         </div>
                         <div role="main" class="ui-content">
@@ -13601,7 +13939,7 @@ under the License.
                 </div>
             </div>
             <!-- Phase 8-->
-            <div data-role="page" class="ubm_page" id="mcs_setup_checklist_p8">
+            <div data-role="page" class="ubm_page" id="mcs_setup_checklist_p8" data-theme="f">
                 <div data-role="panel" id="mcs_setup_checklist_p8_lpanel" data-display="overlay" data-position="left">
                     <ul data-role="listview">
                         <li data-icon="home">
@@ -13667,7 +14005,7 @@ under the License.
                 <div role="content" class="ui-content">
                     <!-- Read Phase Eight User Guide Popup -->
                     <div data-role="popup" id="mcs_setup_checklist_p8_userGuide_popup" data-theme="b">
-						<div data-role="header" data-theme="a">
+						<div data-role="header"  data-theme="f">
 							<h1>UBM Phase 8User Guide</h1>
 						</div>
 						<div role="main" class="ui-content">
@@ -13724,7 +14062,7 @@ under the License.
                     </div>
                     <!-- End Open Items Popup -->
                     <div data-role="popup" id="mcs_setup_checklist_p8_prepareTaskPopup" data-theme="b" data-position-to="window" data-dismissible="true">
-                        <div data-role="header" data-theme="a">
+                        <div data-role="header"  data-theme="f">
                             <h1>Ready to complete this task?</h1>
                         </div>
                         <div role="main" class="ui-content">
@@ -13989,7 +14327,7 @@ under the License.
             </div>
             </div>
             <!-- Open Points Action Items-->
-            <div data-role="page" class="ubm_page" id="open_points_action_items">
+            <div data-role="page" class="ubm_page" id="open_points_action_items" data-theme="f">
                 <div data-role="panel" id="mcs_creator_table_of_contents_lpanel" data-display="overlay" data-position="left">
                     <ul data-role="listview">
                         <li data-icon="home">
@@ -14116,7 +14454,7 @@ under the License.
                     </div>
                     <!-- End Open Items Popup -->
                     <div data-role="popup" id="mcs_open_points_action_items_resolution_popup" class="draggable_popup" data-position-to="window" data-overlay-theme="b" data-theme="b">
-                        <div data-role="header" data-theme="a">
+                        <div data-role="header"  data-theme="f">
                             <h1>Comments and Resolutions</h1>
                         </div>
                         <div role="main" class="ui-content">
@@ -14129,7 +14467,7 @@ under the License.
                         </div>
                     </div>
                     <div data-role="popup" id="mcs_open_points_action_items_submitresolution_popup" class="draggable_popup" data-position-to="window" data-overlay-theme="b" data-theme="b">
-                        <div data-role="header" data-theme="a">
+                        <div data-role="header"  data-theme="f">
                             <h1>Submit Resolutions</h1>
                         </div>
                         <div role="main" class="ui-content">
@@ -14149,7 +14487,7 @@ under the License.
                         </div>
                     </div>
                     <div data-role="popup" id="mcs_open_points_action_items_submitcomment_popup" class="draggable_popup" data-position-to="window" data-overlay-theme="b" data-theme="b">
-                        <div data-role="header" data-theme="a">
+                        <div data-role="header"  data-theme="f">
                             <h1>Submit Comment</h1>
                         </div>
                         <div role="main" class="ui-content">
@@ -14175,7 +14513,7 @@ under the License.
                         </div>
                     </div>
                     <div data-role="popup" id="mcs_open_points_action_items_closeitem_popup" class="draggable_popup" data-position-to="window" data-overlay-theme="b" data-theme="b">
-                        <div data-role="header" data-theme="a">
+                        <div data-role="header"  data-theme="f">
                             <h1>Confirm Action</h1>
                         </div>
                         <div role="main" class="ui-content">
@@ -14347,6 +14685,20 @@ under the License.
 			        getMyModelsOrgChart();			
 	
 				});
+				$(document).on("pageshow", "#possible_alternatives", function() {
+					getMyModelsListofAlternatives();
+					getActivelternativeListofPros();
+					getActivelternativeListofCons();
+
+
+
+
+				});
+				$('.currency').keyup(function () {
+					 //alert('test'); 
+					 $('.currency').currency();
+				});
+
 				$(document).on("pageshow", "#ubmsuite_modelSettings", function() {
 					model_getuserswithaccess();
 					setTimeout(function() {
@@ -14486,5 +14838,7 @@ under the License.
 		      });
 		    })(jQuery);
 		  </script>
+			<script src="js/jquery.currency.js"></script>
+
     </body>
 </html>
