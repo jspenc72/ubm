@@ -1,4 +1,4 @@
-/*Now the CSS3*/
+	/*Now the CSS3*/
 * {margin: 0; padding: 0;}
 
 .heirarchyObjectTree ul {
@@ -108,7 +108,7 @@ right connector from last child*/
   overflow-x: scroll;
 display: block;
 	height:600px;
-width:60%; padding:75px 10px 75px 10px;
+width:97%; padding:75px 10px 75px 10px;
 }
 
 #heirarchyObjectTree{

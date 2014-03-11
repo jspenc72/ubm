@@ -1305,6 +1305,29 @@ under the License.
 			function viewActivePositionHierachyObjects(){
 				alert("This Functionality is still in development.");
 			}
+			function getObjectsforBackboneTable(){
+				//This basic function will allow us to build the table dynamically based on the position or the object selected.
+
+				var table = document.getElementById("heirarchyObjectBackbone_table");
+				var row = table.insertRow(2);
+				var cell1 = row.insertCell(0);
+				var cell2 = row.insertCell(1);
+				cell1.innerHTML = "NEW CELL1";
+				cell2.innerHTML = "NEW CELL2";
+
+				getJobDescriptionsforBackBoneTable();				
+			}
+			function getJobDescriptionsforBackBoneTable(){
+				alert("this is a test");
+				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_model_Position_get_JobDescriptions.php?callback=?', {//JSONP Request to Open Items Page setup tables
+					activeModelId : window.activeModelId,
+					activePositionId: window.activeReportsToPosition
+				}, function(res, status) {
+					$.each(res, function(i, item) {
+						$("#heirarchyObjectBackbone_table_body").append("<tr><td class='tg-031e'>1</td><td class='tg-031e'>2</td><td class='tg-031e'>3</td><td class='tg-031e'>4</td><td class='tg-031e'>5</td><td class='tg-031e'>6</td><td class='tg-031e'>7</td><td class='tg-031e'>8</td><td class='tg-031e'>9</td><td class='tg-031e'>10</td><td class='tg-031e'>11</td><td class='tg-031e'>12</td><td class='tg-031e'>13</td><td class='tg-031e'>14</td><td class='tg-031e'>15</td><td class='tg-031e'>16</td><td class='tg-031e'>17</td><td class='tg-031e'>18</td><td class='tg-031e'>19</td><td class='tg-031e'>20</td></tr>");					
+					});
+				});				
+			}
 			function getPositionsThatReporttoActivePosition(){
 				//1. Add position popup should have a listview filled with positions that report to the active position.
 				//2. This function will retrieve all model_positions that report to the active position and will populate the listview with those positions. 
@@ -1312,7 +1335,7 @@ under the License.
 		</script>      
 		<!-- End Position JavaScript-->
         <script>
-        function getMyModelsOrgChartgetMyModelsOrgChart(){
+        function getMyModelsOrgChart(){
 					$('#ubmsuite_mcs_my_organizational_chart_L0_ul').empty();
 				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_getActiveModelPositionsforOrgChart.php?callback=?', {//JSONP Request to Open Items Page setup tables
 					activeModelId:window.activeModelId
@@ -1353,10 +1376,55 @@ under the License.
 			          */
 					});
 				});	
-
         }
         </script>
 		<!-- End Org Chart Functions -->
+		<script>
+			function getActivePositionsHeirarchicalObjectTree(){
+					$('#ubmsuite_mcs_my_organizational_chart_L0_ul').empty();
+				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_getActiveModelPositionsforOrgChart.php?callback=?', {//JSONP Request to Open Items Page setup tables
+					activeModelId:window.activeModelId
+				}, function(res, status) {
+					$.each(res, function(i, item) {
+						if(item.reports_to_id==item.position_id){
+//1. Set currentActiveOrgChartLevel 
+//2. Append the name of the highest reports to position on the top of the org chart.
+							$('#ubmsuite_mcs_my_organizational_chart_L0_ul').prepend("<a onclick='setActivePosition(" + item.position_id + ")'><img class='org_img' style='width:25px; height:25px;' src='img/apple.png' /></a></br>" + item.title); 
+							$('#ubmsuite_mcs_my_organizational_chart_L0_ul').append("<ul id='ubmsuite_mcs_my_organizational_chart_P" + item.position_id + "_ul'></ul>");
+					        $("#modelOrgChart").jOrgChart({
+					            chartElement : '#chart',
+					            dragAndDrop  : false
+					        });							
+						}else{
+//3. Append all other childre to their respective "reports_to" ul
+//							$('#ubmsuite_mcs_my_organizational_chart_P' + item.reports_to_id + '_ul').append("<li id='orgChartPosition" + item.position_id + "'><div id='demo_box_" + item.position_id + "' class='demo_box' onclick='setActivePosition(" + item.position_id + ")'><div class='pop_ctrl'><i class='fa fa-bars'></i></div><ul id='demo_ul_2'><li class='demo_li'><a href='#' onclick='addChildPositiontoActivePosition()'><div><i class='fa fa-plus-circle'></i></div><p>Add</p></a></li><li class='demo_li'><a href='#' onclick='removeActivePosition()'><div><i class='fa fa-minus-circle'></i></div><p>Remove</p></a></li></ul></div></br>" + item.title + "<ul id='ubmsuite_mcs_my_organizational_chart_P" + item.position_id + "_ul'></ul></li>");	
+							$('#ubmsuite_mcs_my_organizational_chart_P' + item.reports_to_id + '_ul').append("<li id='orgChartPosition" + item.position_id + "'><a onclick='setActivePosition(" + item.position_id + ")'><img id='org_img_" + item.position_id + "' style='width:25px; height:25px;' src='img/apple.png' /></a></br>" + item.title + "<ul id='ubmsuite_mcs_my_organizational_chart_P" + item.position_id + "_ul'></ul></li>");	
+//4. Empty chart Div
+					        $('#chart').empty();
+//5. Call jOrgChart plugin, append new org chart to chart div, set jorgdraganddrop to false to avoid conflicting compatibility issue with other jquery packages.
+					        $("#modelOrgChart").jOrgChart({
+					            chartElement : '#chart',
+					            dragAndDrop  : false
+					        });
+						}
+//6. Call popmenu plugin with the given parameters as plugin options.
+			          /*  $('.demo_box').popmenu({
+						    'controller': true,       // use control button or not
+						    'width': '150px',         // width of menu
+						    'background': '#34495e',  // background color of menu
+						    'focusColor': '#1abc9c',  // hover color of menu's buttons
+						    'borderRadius': '10px',   // radian of angles, '0' for right angle
+						    'top': '50',              // pixels that move up
+						    'left': '0',              // pixels that move left
+						    'iconSize': '75px'        // size of menu's buttons
+			            	});
+			          */
+					});
+				});					
+			}			
+		</script>
+	
+
 		<script>
 				function newLowSum() {		//Calculates the Sum of the Low Annual Expected ROI Costs and Benefits 
 				    var sum=0;
@@ -1417,11 +1485,12 @@ under the License.
 					}, function(res, status) {
 						$.each(res, function(i, item) {
 							if(item.decision=="Use Now"){
-								$('#possible_alternitives_table_body').append("<tr><td>" + item.id + "<a href='#' onclick='setActiveAlternative(" + item.id + ")' class='ui-btn ui-icon-tag ui-btn-icon-notext ui-corner-all'>No text</a></td><td>" + item.description + "</td><td><a href='#' class='ui-btn'>" + item.decision + "</a></td><td><input class='high_col_num' value = '" + item.annual_cost_high + "'/></td><td><input class='low_col_num' value = '" + item.annual_cost_low + "'/></td><td><input class='high_col_num' value = '" + item.annual_benefit_high + "'/></td><td><input class='low_col_num' value = '" + item.annual_benefit_low + "'/></td><td class='high_total'>High ROI</td><td class='low_total'>Low ROI</td></tr>");							
+								$('#possible_alternitives_table_body').append("<tr><td>" + item.id + "<a href='#' onclick='setActiveAlternative(" + item.id + ")' class='ui-btn ui-icon-tag ui-btn-icon-notext ui-corner-all'>No text</a></td><td>" + item.description + "</td><td><fieldset class='alternative_decision_controlgroup' data-role='controlgroup' data-type='horizontal'><button data-icon='home'>" + item.decision + "</button><label for='select-more-1a' class='ui-hidden-accessible'>More</label><select name='select-more-1a' id='select-more-1a'><option value=''>Change Decision…</option><option value='#'>Use Now</option><option value='#'>Consider for the future</option><option value='#'>Not a forseen use</option></select></fieldset></td><td><input class='high_col_num' value = '" + item.annual_cost_high + "'/></td><td><input class='low_col_num' value = '" + item.annual_cost_low + "'/></td><td><input class='high_col_num' value = '" + item.annual_benefit_high + "'/></td><td><input class='low_col_num' value = '" + item.annual_benefit_low + "'/></td><td class='high_total'>High ROI</td><td class='low_total'>Low ROI</td></tr>");							
 							}else{
 								$('#possible_alternitives_table_body').append("<tr><td>" + item.id + "<a href='#' onclick='setActiveAlternative(" + item.id + ")' class='ui-btn ui-icon-tag ui-btn-icon-notext ui-corner-all'>No text</a></td><td>" + item.description + "</td><td>" + item.decision + "</td><td><input class='high_col_num' value = '" + item.annual_cost_high + "'/></td><td><input class='low_col_num' value = '" + item.annual_cost_low + "'/></td><td><input class='high_col_num' value = '" + item.annual_benefit_high + "'/></td><td><input class='low_col_num' value = '" + item.annual_benefit_low + "'/></td><td class='high_total'>High ROI</td><td class='low_total'>Low ROI</td></tr>");
 							}
 								$( "#possible_alternitives_table" ).table( "refresh" );
+								$(".alternative_decision_controlgroup").trigger("create");
 						});
 					});				
 					setTimeout(function() {
@@ -4222,87 +4291,217 @@ under the License.
 						</li>
 				   </ul>            
 			    </div>
-			    <div id="chart" class="orgChart" style="overflow-y:scroll; overflow-x:scroll; width:60%; padding:75px 10px 75px 10px;">
+			    <div id="chart" class="orgChart" style="overflow-y:scroll; overflow-x:scroll; width:80%; padding:75px 10px 75px 10px;">
 			    	
 			    </div>		
-					<div id="heirarchyObjectTree_container">
-						<!--
-						heirarchyObjectTree uses CSS(3) to display objects.
-						-->
-						<center>Hierarchical Objects</center>
-						<div id="heirarchyObjectTree" class="heirarchyObjectTree" >
-							<ul>
-								<li>
-									<a href="#">PS-1</a>
+					<fieldset class="ui-grid-a">
+					    <div class="ui-block-a">
+							<div id="heirarchyObjectTree_container">
+								<!--
+								heirarchyObjectTree uses CSS(3) to display objects.
+								-->
+								<center>Hierarchical Objects</center>
+								<div id="heirarchyObjectTree" class="heirarchyObjectTree" >
 									<ul>
 										<li>
-											<a href="#">JD-1</a>
+											<a href="#">PS-1</a>
 											<ul>
 												<li>
-													<a href="#">PL-1</a>
-		
-												</li>
-		
-												<li>
-													<a href="#">PL-2</a>
+													<a href="#">JD-1</a>
 													<ul>
-														<li><a href="#">PR-2</a></li>
 														<li>
-															<a href="#">PR-1</a>
+															<a href="#">PL-1</a>
+					
+														</li>
+					
+														<li>
+															<a href="#">PL-2</a>
 															<ul>
+																<li><a href="#">PR-2</a></li>
 																<li>
-																	<a href="#">ST-1</a>
+																	<a href="#">PR-1</a>
 																	<ul>
 																		<li>
-																			<a href="#">TK-1</a>
+																			<a href="#">ST-1</a>
+																			<ul>
+																				<li>
+																					<a href="#">TK-1</a>
+																				</li>
+																				<li>
+																					<a href="#">TK-2</a>
+																				</li>
+																				<li>
+																					<a href="#">TK-3</a>
+																				</li>
+																			</ul>
 																		</li>
 																		<li>
-																			<a href="#">TK-2</a>
+																			<a href="#">ST-2</a>
 																		</li>
 																		<li>
-																			<a href="#">TK-3</a>
+																			<a href="#">PD-1</a>
+					
 																		</li>
 																	</ul>
 																</li>
-																<li>
-																	<a href="#">ST-2</a>
-																</li>
-																<li>
-																	<a href="#">PD-1</a>
-		
-																</li>
 															</ul>
+														</li>
+														<li>
+															<a href="#">PL-3</a>
+					
 														</li>
 													</ul>
 												</li>
 												<li>
-													<a href="#">PL-3</a>
-		
+													<a href="#">JD-2</a>
+												</li>
+												<li>
+													<a href="#">JD-3</a>
+												</li>
+												<li>
+													<a href="#">JD-4</a>
+												</li>
+												<li>
+													<a href="#">JD-5</a>
+												</li>
+												<li>
+													<a href="#">JD-6</a>
 												</li>
 											</ul>
 										</li>
-										<li>
-											<a href="#">JD-2</a>
-										</li>
-										<li>
-											<a href="#">JD-3</a>
-										</li>
-										<li>
-											<a href="#">JD-4</a>
-										</li>
-										<li>
-											<a href="#">JD-5</a>
-										</li>
-										<li>
-											<a href="#">JD-6</a>
-										</li>
 									</ul>
-								</li>
-							</ul>
-						</div>					
-					</div>
+								</div>					
+							</div>	
+					    </div>
+					    <div class="ui-block-b">
+							<div id="heirarchyObjectBackbone_container" style="width:100%; float:left; overflow-x:scroll; overflow-y:scroll;">
+								<style type="text/css">
+									.tg  {border-collapse:collapse;border-spacing:0;}
+									.tg td{font-family:Arial, sans-serif;font-size:14px;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;}
+									.tg th{font-family:Arial, sans-serif;font-size:14px;font-weight:normal;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;}
+									.tg .tg-2tnl{color:#e74c3c}
+									.tg .tg-akd2{color:#7f8c8d}
+									.tg .tg-hnhq{color:#3498db}
+									.tg .tg-w2xp{color:#2ecc71}
+									.tg .tg-8474{color:#8e44ad}
+									.tg .tg-gcpq{color:#f1c40f}
+									.tg .tg-4nip{color:#e67e22}
+									.tg .tg-gl8n{color:#81E5FF}
+								</style>
+								<a href="#" class="ui-btn" onclick="getJobDescriptionsforBackBoneTable()">Refresh</a>
+								<table id="heirarchyObjectBackbone_table" class="tg">
+  									<thead id="heirarchyObjectBackbone_table_header">
+									  <tr>
+									    <th class="tg-031e" colspan="2">Position (PS)</th>
+									    <th class="tg-gcpq" colspan="2">Job Description (JD)</th>
+									    <th class="tg-2tnl" colspan="2">Policy (PL)</th>
+									    <th class="tg-hnhq" colspan="2">Procedure (PR)</th>
+									    <th class="tg-4nip" colspan="2">Step (ST)</th>
+									    <th class="tg-gl8n" colspan="2">Task (TK)</th>
+									    <th class="tg-akd2" colspan="2">Training Manual (TM)<br></th>
+									    <th class="tg-8474" colspan="2">Measurement (MM)</th>
+									    <th class="tg-w2xp" colspan="6">Product (PD)</th>
+									  </tr>
+									  <tr>
+									    <td class="tg-031e">Master File Index #</td>
+									    <td class="tg-031e">PS Object Unique Ref #<br>Org Chart Accro</td>
+									    <td class="tg-gcpq">JD Object&nbsp;<br>Unique Ref #</td>
+									    <td class="tg-gcpq">JD Model Unique ID</td>
+									    <td class="tg-2tnl">PL&nbsp;Object&nbsp;Unique Ref #</td>
+									    <td class="tg-2tnl">PL Model Unique ID</td>
+									    <td class="tg-hnhq">PR&nbsp;Object&nbsp;Unique Ref #</td>
+									    <td class="tg-hnhq">PR Model Unique ID</td>
+									    <td class="tg-4nip">ST Object&nbsp;Unique Ref #</td>
+									    <td class="tg-4nip">ST<br>Model Unique ID</td>
+									    <td class="tg-gl8n">TK<br>Object&nbsp;Unique Ref #</td>
+									    <td class="tg-gl8n">TK&nbsp;Model Unique ID</td>
+									    <td class="tg-akd2">TM&nbsp;Object&nbsp;Unique Ref #</td>
+									    <td class="tg-akd2">TM<br>Model Unique ID</td>
+									    <td class="tg-8474">MM&nbsp;Object&nbsp;Unique Ref #</td>
+									    <td class="tg-8474">MM<br>Model Unique ID</td>
+									    <td class="tg-w2xp">PD Object Unique Ref #</td>
+									    <td class="tg-w2xp">PD Type</td>
+									    <td class="tg-w2xp"></td>
+									    <td class="tg-w2xp"></td>
+									    <td class="tg-w2xp"></td>
+									    <td class="tg-w2xp"></td>
+									  </tr>  										
+  									</thead>				
+									<tbody id="heirarchyObjectBackbone_table_body">
+									  <tr>
+									    <td class='tg-031e'></td>
+									    <td class='tg-031e'></td>
+									    <td class='tg-031e'></td>
+									    <td class='tg-031e'></td>
+									    <td class='tg-031e'></td>
+									    <td class="tg-031e"></td>
+									    <td class="tg-031e"></td>
+									    <td class="tg-031e"></td>
+									    <td class="tg-031e"></td>
+									    <td class="tg-031e"></td>
+									    <td class="tg-031e"></td>
+									    <td class="tg-031e"></td>
+									    <td class="tg-031e"></td>
+									    <td class="tg-031e"></td>
+									    <td class="tg-031e"></td>
+									    <td class="tg-031e"></td>
+									    <td class="tg-031e"></td>
+									    <td class="tg-031e"></td>
+									    <td class="tg-031e"></td>
+									    <td class="tg-031e"></td>
+									  </tr>
+									  <tr>
+									    <td class="tg-031e"></td>
+									    <td class="tg-031e"></td>
+									    <td class="tg-031e"></td>
+									    <td class="tg-031e"></td>
+									    <td class="tg-031e"></td>
+									    <td class="tg-031e"></td>
+									    <td class="tg-031e"></td>
+									    <td class="tg-031e"></td>
+									    <td class="tg-031e"></td>
+									    <td class="tg-031e"></td>
+									    <td class="tg-031e"></td>
+									    <td class="tg-031e"></td>
+									    <td class="tg-031e"></td>
+									    <td class="tg-031e"></td>
+									    <td class="tg-031e"></td>
+									    <td class="tg-031e"></td>
+									    <td class="tg-031e"></td>
+									    <td class="tg-031e"></td>
+									    <td class="tg-031e"></td>
+									    <td class="tg-031e"></td>
+									  </tr>
+									  <tr>
+									    <td class="tg-031e"></td>
+									    <td class="tg-031e"></td>
+									    <td class="tg-031e"></td>
+									    <td class="tg-031e"></td>
+									    <td class="tg-031e"></td>
+									    <td class="tg-031e"></td>
+									    <td class="tg-031e"></td>
+									    <td class="tg-031e"></td>
+									    <td class="tg-031e"></td>
+									    <td class="tg-031e"></td>
+									    <td class="tg-031e"></td>
+									    <td class="tg-031e"></td>
+									    <td class="tg-031e"></td>
+									    <td class="tg-031e"></td>
+									    <td class="tg-031e"></td>
+									    <td class="tg-031e"></td>
+									    <td class="tg-031e"></td>
+									    <td class="tg-031e"></td>
+									    <td class="tg-031e"></td>
+									    <td class="tg-031e"></td>
+									  </tr>										
+									</tbody>
 
-			    		
+								</table>
+
+
+							</div>					
+					    </div>
+					</fieldset>
 			</div>
 		</div>
 		<div data-role="page" class="ubm_page" id="ubmsuite_mcs_model_visual" data-theme="f">
@@ -14682,7 +14881,8 @@ under the License.
 				    });/***/
 
 					$('#chart').empty();
-			        getMyModelsOrgChart();			
+			        getMyModelsOrgChart();	
+			        getObjectsforBackboneTable();
 	
 				});
 				$(document).on("pageshow", "#possible_alternatives", function() {
