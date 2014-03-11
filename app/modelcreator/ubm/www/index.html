@@ -383,25 +383,19 @@ under the License.
 				getMyModels();
 
 			}
-
+			
 			function getMyModels() {//Get all models in database where current user is the creator.
 				showLoader();
-				/*$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_getMyModelsCreatorName.php?callback=?', {//JSONP Request to Create new model
-				},
-					$.each(res, function(i, item) {
-						window.firstName = item.first_name;
-						window lastName = item.last_name;
-					})
-				);*/
+				
 				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_getMyModels.php?callback=?', {//JSONP Request to Create new model
 					username : window.username
 				}, function(res, status) {
 					$('#ubmsuite_SelectBusinessModel_MyModels_ul').empty();
 					$('#ubmsuite_SelectBusinessModel_MyModels_ul').append("<li data-role='list-divider'><center>My Models</center></li>");
-					$('#ubmsuite_SelectBusinessModel_MyModels_ul').append("<li data-role='list-divider'>Model Creator: " + window.username + "</li>");
 					$('#ubmsuite_SelectBusinessModel_MyModels_ul').listview("refresh");
 
 					$.each(res, function(i, item) {
+						$('#ubmsuite_SelectBusinessModel_MyModels_ul').append("<li id='creator_name_list_divider' data-role='list-divider'>Model Contact: " + item.model_contact_name + "</li>");
 						$('#ubmsuite_SelectBusinessModel_MyModels_ul').append("<li><a href='#ubmsuite_modelDashboard' onclick='setActiveModel(" + item.id + ")'></br></br></br><h2 style='white-space:normal;'>Title: " + item.title + "</h2><p><strong>Model Reference: " + item.reference + "</strong></p><p style='white-space:normal;'>" + item.description + "</p><p class='ui-li-aside'>Creation Date:</br> <strong>" + item.created_date + "</strong></p></a></li>");
 						$('#ubmsuite_SelectBusinessModel_MyModels_ul').listview("refresh");
 					})
@@ -420,7 +414,7 @@ under the License.
 					$('#ubmsuite_SelectBusinessModel_SharedModels_ul').listview("refresh");
 					$.each(res, function(i, item) {
 						if (window.username !== item.creator_id) {
-							$('#ubmsuite_SelectBusinessModel_SharedModels_ul').append("<li data-role='list-divider'>Model Creator: " + item.creator_id + "</li>");
+							$('#ubmsuite_SelectBusinessModel_SharedModels_ul').append("<li data-role='list-divider'>Model Creator: " + item.model_contact_name + "</li>");
 							$('#ubmsuite_SelectBusinessModel_SharedModels_ul').append("<li><a href='#ubmsuite_sharedModelDashboard' onclick='setActiveModel(" + item.id + ")'></br></br></br><h2 style='white-space:normal;'>Title: " + item.title + "</h2><p><strong>Model Reference: " + item.reference + "</strong></p><p style='white-space:normal;'>" + item.description + "</p><p class='ui-li-aside'>Creation Date:</br> <strong>" + item.created_date + "</strong></p></a></li>");
 							$('#ubmsuite_SelectBusinessModel_SharedModels_ul').listview("refresh");
 						}
@@ -1216,6 +1210,13 @@ under the License.
         </script>
         <!-- End Master File Index -->
 		<script>
+			function refreshBackboneTable(){
+				getJobDescriptionsforBackBoneTable();
+				getPoliciesforBackBoneTable();
+				getProceduresforBackBoneTable();
+				getStepsforBackBoneTable();
+				getTasksforBackBoneTable();
+			}
 			function setActivePosition(activeReportsToPosition){
 				window.activeReportsToPosition = activeReportsToPosition;
 			//	alert(window.activeReportsToPosition);
@@ -1322,6 +1323,50 @@ under the License.
 				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_model_Position_get_JobDescriptions.php?callback=?', {//JSONP Request to Open Items Page setup tables
 					activeModelId : window.activeModelId,
 					activePositionId: window.activeReportsToPosition
+				}, function(res, status) {
+					$.each(res, function(i, item) {
+						$("#heirarchyObjectBackbone_table_body").append("<tr><td class='tg-031e'>1</td><td class='tg-031e'>2</td><td class='tg-031e'>3</td><td class='tg-031e'>4</td><td class='tg-031e'>5</td><td class='tg-031e'>6</td><td class='tg-031e'>7</td><td class='tg-031e'>8</td><td class='tg-031e'>9</td><td class='tg-031e'>10</td><td class='tg-031e'>11</td><td class='tg-031e'>12</td><td class='tg-031e'>13</td><td class='tg-031e'>14</td><td class='tg-031e'>15</td><td class='tg-031e'>16</td><td class='tg-031e'>17</td><td class='tg-031e'>18</td><td class='tg-031e'>19</td><td class='tg-031e'>20</td></tr>");					
+					});
+				});				
+			}
+			function getPoliciesforBackBoneTable(){
+				alert("this is a test");
+				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_model_JobDescription_get_Policies.php?callback=?', {//JSONP Request to Open Items Page setup tables
+					activeModelId : window.activeModelId,
+					activeJobDescriptionId: window.activeJobDescriptionId
+				}, function(res, status) {
+					$.each(res, function(i, item) {
+						$("#heirarchyObjectBackbone_table_body").append("<tr><td class='tg-031e'>1</td><td class='tg-031e'>2</td><td class='tg-031e'>3</td><td class='tg-031e'>4</td><td class='tg-031e'>5</td><td class='tg-031e'>6</td><td class='tg-031e'>7</td><td class='tg-031e'>8</td><td class='tg-031e'>9</td><td class='tg-031e'>10</td><td class='tg-031e'>11</td><td class='tg-031e'>12</td><td class='tg-031e'>13</td><td class='tg-031e'>14</td><td class='tg-031e'>15</td><td class='tg-031e'>16</td><td class='tg-031e'>17</td><td class='tg-031e'>18</td><td class='tg-031e'>19</td><td class='tg-031e'>20</td></tr>");					
+					});
+				});				
+			}
+			function getProceduresforBackBoneTable(){
+				alert("this is a test");
+				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_model_Policy_get_Procedures.php?callback=?', {//JSONP Request to Open Items Page setup tables
+					activeModelId : window.activeModelId,
+					activePolicyId: window.activePolicyId
+				}, function(res, status) {
+					$.each(res, function(i, item) {
+						$("#heirarchyObjectBackbone_table_body").append("<tr><td class='tg-031e'>1</td><td class='tg-031e'>2</td><td class='tg-031e'>3</td><td class='tg-031e'>4</td><td class='tg-031e'>5</td><td class='tg-031e'>6</td><td class='tg-031e'>7</td><td class='tg-031e'>8</td><td class='tg-031e'>9</td><td class='tg-031e'>10</td><td class='tg-031e'>11</td><td class='tg-031e'>12</td><td class='tg-031e'>13</td><td class='tg-031e'>14</td><td class='tg-031e'>15</td><td class='tg-031e'>16</td><td class='tg-031e'>17</td><td class='tg-031e'>18</td><td class='tg-031e'>19</td><td class='tg-031e'>20</td></tr>");					
+					});
+				});				
+			}
+			function getStepsforBackBoneTable(){
+				alert("this is a test");
+				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_model_Procedure_get_Steps.php?callback=?', {//JSONP Request to Open Items Page setup tables
+					activeModelId : window.activeModelId,
+					activeProcedureId: window.activeProcedureId
+				}, function(res, status) {
+					$.each(res, function(i, item) {
+						$("#heirarchyObjectBackbone_table_body").append("<tr><td class='tg-031e'>1</td><td class='tg-031e'>2</td><td class='tg-031e'>3</td><td class='tg-031e'>4</td><td class='tg-031e'>5</td><td class='tg-031e'>6</td><td class='tg-031e'>7</td><td class='tg-031e'>8</td><td class='tg-031e'>9</td><td class='tg-031e'>10</td><td class='tg-031e'>11</td><td class='tg-031e'>12</td><td class='tg-031e'>13</td><td class='tg-031e'>14</td><td class='tg-031e'>15</td><td class='tg-031e'>16</td><td class='tg-031e'>17</td><td class='tg-031e'>18</td><td class='tg-031e'>19</td><td class='tg-031e'>20</td></tr>");					
+					});
+				});				
+			}
+			function getTasksforBackBoneTable(){
+				alert("this is a test");
+				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_model_Step_get_Tasks.php?callback=?', {//JSONP Request to Open Items Page setup tables
+					activeModelId : window.activeModelId,
+					activeStepId: window.activeStepId
 				}, function(res, status) {
 					$.each(res, function(i, item) {
 						$("#heirarchyObjectBackbone_table_body").append("<tr><td class='tg-031e'>1</td><td class='tg-031e'>2</td><td class='tg-031e'>3</td><td class='tg-031e'>4</td><td class='tg-031e'>5</td><td class='tg-031e'>6</td><td class='tg-031e'>7</td><td class='tg-031e'>8</td><td class='tg-031e'>9</td><td class='tg-031e'>10</td><td class='tg-031e'>11</td><td class='tg-031e'>12</td><td class='tg-031e'>13</td><td class='tg-031e'>14</td><td class='tg-031e'>15</td><td class='tg-031e'>16</td><td class='tg-031e'>17</td><td class='tg-031e'>18</td><td class='tg-031e'>19</td><td class='tg-031e'>20</td></tr>");					
@@ -4388,7 +4433,7 @@ under the License.
 									.tg .tg-4nip{color:#e67e22}
 									.tg .tg-gl8n{color:#81E5FF}
 								</style>
-								<a href="#" class="ui-btn" onclick="getJobDescriptionsforBackBoneTable()">Refresh</a>
+								<a href="#" class="ui-btn" onclick="refreshBackboneTable()">Refresh</a>
 								<table id="heirarchyObjectBackbone_table" class="tg">
   									<thead id="heirarchyObjectBackbone_table_header">
 									  <tr>
