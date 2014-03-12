@@ -1212,10 +1212,10 @@ under the License.
 		<script>
 			function refreshBackboneTable(){
 				getJobDescriptionsforBackBoneTable();
-				getPoliciesforBackBoneTable();
-				getProceduresforBackBoneTable();
-				getStepsforBackBoneTable();
-				getTasksforBackBoneTable();
+				//getPoliciesforBackBoneTable();
+				//getProceduresforBackBoneTable();
+				//getStepsforBackBoneTable();
+				//getTasksforBackBoneTable();
 			}
 			function setActivePosition(activeReportsToPosition){
 				window.activeReportsToPosition = activeReportsToPosition;
@@ -1336,12 +1336,12 @@ under the License.
 				//This basic function will allow us to build the table dynamically based on the position or the object selected.
 
 				var table = document.getElementById("heirarchyObjectBackbone_table");
-				var row = table.insertRow(2);
+				/*** /var row = table.insertRow(2);
 				var cell1 = row.insertCell(0);
 				var cell2 = row.insertCell(1);
 				cell1.innerHTML = "NEW CELL1";
 				cell2.innerHTML = "NEW CELL2";
-
+							/***/
 				getJobDescriptionsforBackBoneTable();				
 			}
 			function getJobDescriptionsforBackBoneTable(){
@@ -1350,9 +1350,12 @@ under the License.
 					activeModelId : window.activeModelId,
 					activePositionId: window.activeReportsToPosition
 				}, function(res, status) {
+						$("#heirarchyObjectBackbone_table_body").empty();
 					$.each(res, function(i, item) {
-						$("#heirarchyObjectBackbone_table_body").append("<tr><td class='tg-031e'>1</td><td class='tg-031e'>2</td><td class='tg-031e'>3</td><td class='tg-031e'>4</td><td class='tg-031e'>5</td><td class='tg-031e'>6</td><td class='tg-031e'>7</td><td class='tg-031e'>8</td><td class='tg-031e'>9</td><td class='tg-031e'>10</td><td class='tg-031e'>11</td><td class='tg-031e'>12</td><td class='tg-031e'>13</td><td class='tg-031e'>14</td><td class='tg-031e'>15</td><td class='tg-031e'>16</td><td class='tg-031e'>17</td><td class='tg-031e'>18</td><td class='tg-031e'>19</td><td class='tg-031e'>20</td></tr>");					
+						$("#heirarchyObjectBackbone_table_body").append("<tr><td class='tg-031e'>" + item.mfi_reference + "</td><td class='tg-031e'>PS-" + window.activeReportsToPosition + "</td><td class='tg-gcpq'>" + item.id + "</td><td class='tg-gcpq'>JD-" + item.id + "</td><td class='tg-2tnls'></td><td class='tg-2tnls'></td><td class='tg-hnhqs'></td><td class='tg-hnhqs'></td><td class='tg-4nips'></td><td class='tg-4nips'></td><td class='tg-gl8ns'></td><td class='tg-gl8ns'></td><td class='tg-akd2s'></td><td class='tg-akd2s'></td><td class='tg-8474s'></td><td class='tg-8474s'></td><td class='tg-w2xps'></td><td class='tg-w2xps'></td><td class='tg-w2xps'></td><td class='tg-w2xps'></td><td class='tg-w2xps'></td><td class='tg-w2xps'></td><td class='tg-w2xps'></td><td class='tg-w2xps'></td><td class='tg-48oos'></td><td class='tg-48oos'></td><td class='tg-48oos'></td><td class='tg-48oos'></td><td class='tg-48oos'></td><td class='tg-031e'>30</td><td class='tg-031e'>31</td><td class='tg-031e'>32</td><td class='tg-031e'>" + item.title + "</td><td class='tg-031e'>Active</td></tr>");					
 					});
+						$("#heirarchyObjectBackbone_table").table( "refresh" );
+
 				});				
 			}
 			function getPoliciesforBackBoneTable(){
@@ -4297,7 +4300,7 @@ under the License.
 				</div>
 			</div>
 		</div>
-		<div data-role="page" class="ubm_page org_chart" id="ubmsuite_mcs_my_organizational_chart">
+		<div data-role="page" class="ubm_page" id="ubmsuite_mcs_my_organizational_chart" data-theme="f">
 			<!-- UBM Suite Table of Contents Page-->
 			<div data-role="header" data-position="fixed" data-fullscreen="true">
                 	<a href="#" class="back_btn" data-icon="arrow-l" data-iconpos="notext">Back</a>
@@ -4379,7 +4382,7 @@ under the License.
 						</li>
 				   </ul>            
 			    </div>
-			    <div id="chart" class="orgChart" style="overflow-y:scroll; overflow-x:scroll; width:80%; padding:75px 10px 75px 10px;">
+			    <div id="chart" class="orgChart org_chart" style="overflow-y:scroll; overflow-x:scroll; width:80%; padding:75px 10px 75px 10px;">
 			    	
 			    </div>		
 					<fieldset class="ui-grid-a">
@@ -4472,14 +4475,23 @@ under the License.
 									.tg .tg-hnhq{color:#3498db}
 									.tg .tg-w2xp{color:#2ecc71}
 									.tg .tg-8474{color:#8e44ad}
-									.tg .tg-gcpq{color:#f1c40f}
+									.tg .tg-gcpq{color:#d35400}
 									.tg .tg-4nip{color:#e67e22}
 									.tg .tg-gl8n{color:#81E5FF}
 									.tg .tg-48oo{color:#e537bf}
+									.tg .tg-2tnls{color:#e74c3c; background-color:#bdc3c7;}
+									.tg .tg-akd2s{color:#7f8c8d; background-color:#bdc3c7;}
+									.tg .tg-hnhqs{color:#3498db; background-color:#bdc3c7;}
+									.tg .tg-w2xps{color:#2ecc71; background-color:#bdc3c7;}
+									.tg .tg-8474s{color:#8e44ad; background-color:#bdc3c7;}
+									.tg .tg-gcpqs{color:#d35400; background-color:#bdc3c7;}
+									.tg .tg-4nips{color:#e67e22; background-color:#bdc3c7;}
+									.tg .tg-gl8ns{color:#81E5FF; background-color:#bdc3c7;}
+									.tg .tg-48oos{color:#e537bf; background-color:#bdc3c7;}
 
 								</style>
 								<a href="#" class="ui-btn" onclick="refreshBackboneTable()">Refresh</a>
-								<table id="heirarchyObjectBackbone_table" class="tg">
+								<table id="heirarchyObjectBackbone_table" data-role="table" data-mode="columntoggle" data-column-btn-text="Select" class="tg ui-shadow table-stroke">
   									<thead id="heirarchyObjectBackbone_table_header">
 									  <tr>
 									    <th class="tg-031e" colspan="2">Position (PS)</th>
@@ -4534,78 +4546,7 @@ under the License.
 									  </tr>  										
   									</thead>				
 									<tbody id="heirarchyObjectBackbone_table_body">
-									  <tr>
-									    <td class='tg-031e'></td>
-									    <td class='tg-031e'></td>
-									    <td class='tg-gcpq'></td>
-									    <td class='tg-gcpq'></td>
-									    <td class='tg-2tnl'></td>
-									    <td class='tg-2tnl'></td>
-									    <td class='tg-hnhq'></td>
-									    <td class='tg-hnhq'></td>
-									    <td class='tg-4nip'></td>
-									    <td class='tg-4nip'></td>
-									    <td class='tg-gl8n'></td>
-									    <td class='tg-gl8n'></td>
-									    <td class='tg-akd2'></td>
-									    <td class='tg-akd2'></td>
-									    <td class='tg-8474'></td>
-									    <td class='tg-8474'></td>
-									    <td class='tg-w2xp'></td>
-									    <td class='tg-w2xp'></td>
-									    <td class='tg-w2xp'></td>
-									    <td class='tg-w2xp'></td>
-									    <td class='tg-w2xp'></td>
-									    <td class='tg-w2xp'></td>
-									    <td class='tg-w2xp'></td>
-									    <td class='tg-w2xp'></td>
-									    <td class='tg-48oo'></td>
-									    <td class='tg-48oo'></td>
-									    <td class='tg-48oo'></td>
-									    <td class='tg-48oo'></td>
-									    <td class='tg-48oo'></td>
-									    <td class='tg-031e'></td>
-									    <td class='tg-031e'></td>
-									    <td class='tg-031e'></td>
-									    <td class='tg-031e'></td>
-									    <td class='tg-031e'></td>
-									  </tr>
-									  <tr>
-									    <td class='tg-031e'>1</td>
-									    <td class='tg-031e'>2</td>
-									    <td class='tg-gcpq'>3</td>
-									    <td class='tg-gcpq'>4</td>
-									    <td class='tg-2tnl'>5</td>
-									    <td class='tg-2tnl'>6</td>
-									    <td class='tg-hnhq'>7</td>
-									    <td class='tg-hnhq'>8</td>
-									    <td class='tg-4nip'>9</td>
-									    <td class='tg-4nip'>10</td>
-									    <td class='tg-gl8n'>11</td>
-									    <td class='tg-gl8n'>12</td>
-									    <td class='tg-akd2'>13</td>
-									    <td class='tg-akd2'>14</td>
-									    <td class='tg-8474'>15</td>
-									    <td class='tg-8474'>16</td>
-									    <td class='tg-w2xp'>17</td>
-									    <td class='tg-w2xp'>18</td>
-									    <td class='tg-w2xp'>19</td>
-									    <td class='tg-w2xp'>20</td>
-									    <td class='tg-w2xp'>21</td>
-									    <td class='tg-w2xp'>22</td>
-									    <td class='tg-w2xp'>23</td>
-									    <td class='tg-w2xp'>24</td>
-									    <td class='tg-48oo'>25</td>
-									    <td class='tg-48oo'>26</td>
-									    <td class='tg-48oo'>27</td>
-									    <td class='tg-48oo'>28</td>
-									    <td class='tg-48oo'>29</td>
-									    <td class='tg-031e'>30</td>
-									    <td class='tg-031e'>31</td>
-									    <td class='tg-031e'>32</td>
-									    <td class='tg-031e'>33</td>
-									    <td class='tg-031e'>34</td>
-									  </tr>												  								
+										  								
 									</tbody>
 
 								</table>
