@@ -467,7 +467,7 @@ under the License.
 					selectedUserId : window.selectedModelUserId,
 					activeModelId : window.activeModelId
 				}, function(res, status) {
-					alert(res.message);
+					//alert(res.message);
 				});
 				$("#ubmsuite_modelSettings_removeUser_popup").popup('close');
 				model_getuserswithaccess();
@@ -1259,6 +1259,25 @@ under the License.
 					$("#ubmsuite_mcs_my_organizational_chart_content_createNewPositionPopUp").popup('close');
 					getMyModelsOrgChart();					
 			}
+			function createNewJobDescriptionAddtoMyModel() {
+				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_model_create_JobDescription.php?callback=?', {//JSONP Request to Open Items Page setup tables
+					username: window.username,
+					activeModelId : window.activeModelId,
+					title: document.getElementById("ubmsuite_mcs_my_organizational_chart_content_createNewPositionPopUp_form_JobDescriptionTitle").value,
+					objective: document.getElementById("ubmsuite_mcs_my_organizational_chart_content_createNewJobDescriptionPopUp_form_JobDescriptionObjective").value,
+					qualifications: document.getElementById("ubmsuite_mcs_my_organizational_chart_content_createNewJobDescriptionPopUp_form_JobDescriptionQualificaions").value,
+					ageRequirement: document.getElementById("ubmsuite_mcs_my_organizational_chart_content_createNewPositionPopUp_form_JobDescriptionAgeRequirement").value,
+					educationRequirement: document.getElementById("ubmsuite_mcs_my_organizational_chart_content_createNewJobDescriptionPopUp_form_JobDescriptionEducationRequirements").value,
+					physicalDemand: document.getElementById("ubmsuite_mcs_my_organizational_chart_content_createNewJobDescriptionPopUp_form_JobDescriptionPhysicalDemands").value,
+					workEnviroment: document.getElementById("ubmsuite_mcs_my_organizational_chart_content_createNewJobDescriptionPopUp_form_JobDescriptionWorkEnvironment").value,
+					dutiesAndResponsibilities: document.getElementById("ubmsuite_mcs_my_organizational_chart_content_createNewJobDescriptionPopUp_form_JobDescriptionDutiesAndResponsibilities").value,
+					positionId : window.activeReportsToPosition
+				}, function(res, status) {
+					alert(res.message);
+				});
+					$("#ubmsuite_mcs_my_organizational_chart_content_createNewJobDescriptionPopUp").popup('close');
+					getMyModelsOrgChart();					
+			}
 			function addChildPositiontoActivePosition(){
 					$("#ubmsuite_mcs_my_organizational_chart_content_modifyPositionPopUp").popup('open');
 
@@ -1305,6 +1324,13 @@ under the License.
 			}
 			function viewActivePositionHierachyObjects(){
 				alert("This Functionality is still in development.");
+			}
+			function createNewJobDescription () {
+				$("#ubmsuite_mcs_my_organizational_chart_content_modifyPositionPopUp").popup('close');
+				setTimeout(function() {
+					$("#ubmsuite_mcs_my_organizational_chart_content_createNewJobDescriptionPopUp").popup('open');
+				}, 1000);	
+				
 			}
 			function getObjectsforBackboneTable(){
 				//This basic function will allow us to build the table dynamically based on the position or the object selected.
@@ -4307,6 +4333,22 @@ under the License.
 				        </div>
 				    </form>
 				</div>
+				<div data-role="popup" id="ubmsuite_mcs_my_organizational_chart_content_createNewJobDescriptionPopUp"  data-theme="f" class="ui-corner-all">
+				    <form id="ubmsuite_mcs_my_organizational_chart_content_createNewJobDescriptionPopUp_form_jobDescriptionitle_form">
+				        <div style="padding:10px 20px;">
+				            <h3>Create New Job Description</h3>
+				            <input type="text" name="ubmsuite_mcs_my_organizational_chart_content_createNewPositionPopUp_form_JobDescriptionTitle" id="ubmsuite_mcs_my_organizational_chart_content_createNewPositionPopUp_form_JobDescriptionTitle" value="" placeholder="Job Description Title"  data-theme="f">
+							<textarea data-mini="true"  cols="40" rows="8" id="ubmsuite_mcs_my_organizational_chart_content_createNewJobDescriptionPopUp_form_JobDescriptionObjective" placeholder="Objective of Job Description..."></textarea>
+							<textarea data-mini="true" cols="40" rows="8" id="ubmsuite_mcs_my_organizational_chart_content_createNewJobDescriptionPopUp_form_JobDescriptionDutiesAndResponsibilities" placeholder="Essential Duties and Responsibilities..."></textarea>
+							<input type="text" name="ubmsuite_mcs_my_organizational_chart_content_createNewPositionPopUp_form_JobDescriptionTitle" id="ubmsuite_mcs_my_organizational_chart_content_createNewPositionPopUp_form_JobDescriptionAgeRequirement" value="" placeholder="Age Requirement"  data-theme="f">
+				            <textarea data-mini="true" cols="40" rows="8" id="ubmsuite_mcs_my_organizational_chart_content_createNewJobDescriptionPopUp_form_JobDescriptionEducationRequirements" placeholder="Education Requirements..."></textarea>
+							<textarea data-mini="true" cols="40" rows="8" id="ubmsuite_mcs_my_organizational_chart_content_createNewJobDescriptionPopUp_form_JobDescriptionQualificaions" placeholder="Qualifications..."></textarea>
+							<textarea data-mini="true" cols="40" rows="8" id="ubmsuite_mcs_my_organizational_chart_content_createNewJobDescriptionPopUp_form_JobDescriptionPhysicalDemands" placeholder="Physical Demands..."></textarea>
+							<textarea data-mini="true" cols="40" rows="8" id="ubmsuite_mcs_my_organizational_chart_content_createNewJobDescriptionPopUp_form_JobDescriptionWorkEnvironment" placeholder="Work Environment..."></textarea>
+				            <a href="#" class="ui-btn" onclick="createNewJobDescriptionAddtoMyModel()">Create Job Description</a>
+				        </div>
+				    </form>
+				</div>
 				<div data-role="popup" id="ubmsuite_mcs_my_organizational_chart_content_modifyPositionPopUp" data-overlay-theme="b" data-theme="b" data-dismissible="true" style="max-width:400px; min-width: 350px;">
 				    <div id="ubmsuite_mcs_my_organizational_chart_content_modifyPositionPopUp_header" data-role="header"  data-theme="f">
 						<h1>Manage Position</h1>
@@ -4324,6 +4366,7 @@ under the License.
 									<li class='demo_li'><a href='#' onclick='confirmRemoveActivePosition()'><div><i class='fa fa-minus-circle'></i></div><p>Remove</p></a></li>
 									<li class='demo_li'><a href='#' onclick='modifyActivePosition()'><div><i class='fa fa-edit'></i></div><p>Modify Position</p></a></li>
 									<li class='demo_li'><a href='#' onclick='viewActivePositionHierachyObjects()'><div><i class='fa fa-sitemap'></i></div><p>View Hierarchical Objects</p></a></li>
+									<li class='demo_li'><a href='#' onclick='createNewJobDescription()'><div><i class='fa fa-sitemap'></i></div><p>Create A New Job Description</p></a></li>
 								</ul>
 							</div>
 						</center>
@@ -5024,9 +5067,9 @@ under the License.
                             </li>
                             <li>
                                 <select  id="ubmsuite_modelSettings_shareModel_setRole" value="Select" data-native-menu="false">
-                                    <option value="Level1">Level 1</option>
-                                    <option value="Level2">Level 2</option>
-                                    <option value="Level3">Level 3</option>
+                                    <option value="Level 1">Level 1</option>
+                                    <option value="Level 2">Level 2</option>
+                                    <option value="Level 3">Level 3</option>
                                 </select>
                             </li>
                             </li>
