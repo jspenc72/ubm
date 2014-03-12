@@ -1233,6 +1233,8 @@ under the License.
 	            });
 				setTimeout(function() {
 					$("#ubmsuite_mcs_my_organizational_chart_content_modifyPositionPopUp").popup('open');
+					getPositionforHeirarchicalObjectTree();
+					getJobDescriptionsforBackBoneTable();
 				}, 10);		
 				
 			}
@@ -1257,25 +1259,6 @@ under the License.
 					alert(res.message);
 				});
 					$("#ubmsuite_mcs_my_organizational_chart_content_createNewPositionPopUp").popup('close');
-					getMyModelsOrgChart();					
-			}
-			function createNewJobDescriptionAddtoMyModel() {
-				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_model_create_JobDescription.php?callback=?', {//JSONP Request to Open Items Page setup tables
-					username: window.username,
-					activeModelId : window.activeModelId,
-					title: document.getElementById("ubmsuite_mcs_my_organizational_chart_content_createNewPositionPopUp_form_JobDescriptionTitle").value,
-					objective: document.getElementById("ubmsuite_mcs_my_organizational_chart_content_createNewJobDescriptionPopUp_form_JobDescriptionObjective").value,
-					qualifications: document.getElementById("ubmsuite_mcs_my_organizational_chart_content_createNewJobDescriptionPopUp_form_JobDescriptionQualificaions").value,
-					ageRequirement: document.getElementById("ubmsuite_mcs_my_organizational_chart_content_createNewPositionPopUp_form_JobDescriptionAgeRequirement").value,
-					educationRequirement: document.getElementById("ubmsuite_mcs_my_organizational_chart_content_createNewJobDescriptionPopUp_form_JobDescriptionEducationRequirements").value,
-					physicalDemand: document.getElementById("ubmsuite_mcs_my_organizational_chart_content_createNewJobDescriptionPopUp_form_JobDescriptionPhysicalDemands").value,
-					workEnviroment: document.getElementById("ubmsuite_mcs_my_organizational_chart_content_createNewJobDescriptionPopUp_form_JobDescriptionWorkEnvironment").value,
-					dutiesAndResponsibilities: document.getElementById("ubmsuite_mcs_my_organizational_chart_content_createNewJobDescriptionPopUp_form_JobDescriptionDutiesAndResponsibilities").value,
-					positionId : window.activeReportsToPosition
-				}, function(res, status) {
-					alert(res.message);
-				});
-					$("#ubmsuite_mcs_my_organizational_chart_content_createNewJobDescriptionPopUp").popup('close');
 					getMyModelsOrgChart();					
 			}
 			function addChildPositiontoActivePosition(){
@@ -1344,30 +1327,148 @@ under the License.
 							/***/
 				getJobDescriptionsforBackBoneTable();				
 			}
+			function getPositionsThatReporttoActivePosition(){
+				//1. Add position popup should have a listview filled with positions that report to the active position.
+				//2. This function will retrieve all model_positions that report to the active position and will populate the listview with those positions. 
+			}
+			function getPositionforHeirarchicalObjectTree(){
+					$('#heirarchyObjectTree_ul').empty();
+				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_getActiveModelPositionsforOrgChart.php?callback=?', {//JSONP Request to Open Items Page setup tables
+					activeModelId:window.activeModelId
+				}, function(res, status) {
+					$.each(res, function(i, item) {
+						if(window.activeReportsToPosition==item.position_id){
+//1. Set currentActiveOrgChartLevel 
+//2. Append the name of the highest reports to position on the top of the org chart.
+							$('#heirarchyObjectTree_ul').prepend("<li><a onclick='setActivePosition(" + item.position_id + ")'>PS-" + item.position_id + "</a><ul id='ubmsuite_mcs_my_organizational_chart_heirarchyObjectTree_ul_P'></ul></li>"); 
+						}else{
+							
+							/*
+//3. Append all other childre to their respective "reports_to" ul
+//							$('#ubmsuite_mcs_my_organizational_chart_P' + item.reports_to_id + '_ul').append("<li id='orgChartPosition" + item.position_id + "'><div id='demo_box_" + item.position_id + "' class='demo_box' onclick='setActivePosition(" + item.position_id + ")'><div class='pop_ctrl'><i class='fa fa-bars'></i></div><ul id='demo_ul_2'><li class='demo_li'><a href='#' onclick='addChildPositiontoActivePosition()'><div><i class='fa fa-plus-circle'></i></div><p>Add</p></a></li><li class='demo_li'><a href='#' onclick='removeActivePosition()'><div><i class='fa fa-minus-circle'></i></div><p>Remove</p></a></li></ul></div></br>" + item.title + "<ul id='ubmsuite_mcs_my_organizational_chart_P" + item.position_id + "_ul'></ul></li>");	
+							$('#ubmsuite_mcs_my_organizational_chart_heirarchyObjectTree_ul_P' + item.reports_to_id + '_ul').append("<li id='orgChartPosition" + item.position_id + "'><a onclick='setActivePosition(" + item.position_id + ")'><img id='org_img_" + item.position_id + "' style='width:25px; height:25px;' src='img/apple.png' /></a></br>" + item.title + "<ul id='ubmsuite_mcs_my_organizational_chart_P" + item.position_id + "_ul'></ul></li>");	
+//4. Empty chart Div
+					        $('#chart').empty();
+//5. Call jOrgChart plugin, append new org chart to chart div, set jorgdraganddrop to false to avoid conflicting compatibility issue with other jquery packages.
+					        $("#modelOrgChart").jOrgChart({
+					            chartElement : '#chart',
+					            dragAndDrop  : false
+					        }); /***/
+						}
+					});
+				});	
+				setTimeout(function() {
+					getJobDescriptionforHeirarchicalObjectTree();
+				}, 1000);	
+			}			
+		</script>      
+		<!-- End Position JavaScript-->
+		<script>
+			function setActiveJobDescriptionId(activeJobDescriptionId){
+				window.activeJobDescriptionId = activeJobDescriptionId;
+				//alert(window.activeJobDescriptionId);
+				getPoliciesforBackBoneTable();
+				getPoliciesforHeirarchicalObjectTree();
+			}
+			function createNewJobDescriptionAddtoMyModel() {
+				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_model_create_JobDescription.php?callback=?', {//JSONP Request to Open Items Page setup tables
+					username: window.username,
+					activeModelId : window.activeModelId,
+					title: document.getElementById("ubmsuite_mcs_my_organizational_chart_content_createNewPositionPopUp_form_JobDescriptionTitle").value,
+					objective: document.getElementById("ubmsuite_mcs_my_organizational_chart_content_createNewJobDescriptionPopUp_form_JobDescriptionObjective").value,
+					qualifications: document.getElementById("ubmsuite_mcs_my_organizational_chart_content_createNewJobDescriptionPopUp_form_JobDescriptionQualificaions").value,
+					ageRequirement: document.getElementById("ubmsuite_mcs_my_organizational_chart_content_createNewPositionPopUp_form_JobDescriptionAgeRequirement").value,
+					educationRequirement: document.getElementById("ubmsuite_mcs_my_organizational_chart_content_createNewJobDescriptionPopUp_form_JobDescriptionEducationRequirements").value,
+					physicalDemand: document.getElementById("ubmsuite_mcs_my_organizational_chart_content_createNewJobDescriptionPopUp_form_JobDescriptionPhysicalDemands").value,
+					workEnviroment: document.getElementById("ubmsuite_mcs_my_organizational_chart_content_createNewJobDescriptionPopUp_form_JobDescriptionWorkEnvironment").value,
+					dutiesAndResponsibilities: document.getElementById("ubmsuite_mcs_my_organizational_chart_content_createNewJobDescriptionPopUp_form_JobDescriptionDutiesAndResponsibilities").value,
+					positionId : window.activeReportsToPosition
+				}, function(res, status) {
+					alert(res.message);
+				});
+					$("#ubmsuite_mcs_my_organizational_chart_content_createNewJobDescriptionPopUp").popup('close');
+					getMyModelsOrgChart();					
+			}
 			function getJobDescriptionsforBackBoneTable(){
-				alert("this is a test");
 				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_model_Position_get_JobDescriptions.php?callback=?', {//JSONP Request to Open Items Page setup tables
 					activeModelId : window.activeModelId,
 					activePositionId: window.activeReportsToPosition
 				}, function(res, status) {
 						$("#heirarchyObjectBackbone_table_body").empty();
 					$.each(res, function(i, item) {
-						$("#heirarchyObjectBackbone_table_body").append("<tr><td class='tg-031e'>" + item.mfi_reference + "</td><td class='tg-031e'>PS-" + window.activeReportsToPosition + "</td><td class='tg-gcpq'>" + item.id + "</td><td class='tg-gcpq'>JD-" + item.id + "</td><td class='tg-2tnls'></td><td class='tg-2tnls'></td><td class='tg-hnhqs'></td><td class='tg-hnhqs'></td><td class='tg-4nips'></td><td class='tg-4nips'></td><td class='tg-gl8ns'></td><td class='tg-gl8ns'></td><td class='tg-akd2s'></td><td class='tg-akd2s'></td><td class='tg-8474s'></td><td class='tg-8474s'></td><td class='tg-w2xps'></td><td class='tg-w2xps'></td><td class='tg-w2xps'></td><td class='tg-w2xps'></td><td class='tg-w2xps'></td><td class='tg-w2xps'></td><td class='tg-w2xps'></td><td class='tg-w2xps'></td><td class='tg-48oos'></td><td class='tg-48oos'></td><td class='tg-48oos'></td><td class='tg-48oos'></td><td class='tg-48oos'></td><td class='tg-031e'>30</td><td class='tg-031e'>31</td><td class='tg-031e'>32</td><td class='tg-031e'>" + item.title + "</td><td class='tg-031e'>Active</td></tr>");					
+						$("#heirarchyObjectBackbone_table_body").append("<tr><td class='tg-031e'>" + item.mfi_reference + "</td><td class='tg-031e'>PS-" + window.activeReportsToPosition + "</td><td class='tg-gcpq'>" + item.id + "</td><td class='tg-gcpq'>JD-" + item.id + "</td><td class='tg-2tnls'></td><td class='tg-2tnls'></td><td class='tg-hnhqs'></td><td class='tg-hnhqs'></td><td class='tg-4nips'></td><td class='tg-4nips'></td><td class='tg-gl8ns'></td><td class='tg-gl8ns'></td><td class='tg-akd2s'></td><td class='tg-akd2s'></td><td class='tg-8474s'></td><td class='tg-8474s'></td><td class='tg-w2xps'></td><td class='tg-w2xps'></td><td class='tg-w2xps'></td><td class='tg-w2xps'></td><td class='tg-w2xps'></td><td class='tg-w2xps'></td><td class='tg-w2xps'></td><td class='tg-w2xps'></td><td class='tg-48oos'></td><td class='tg-48oos'></td><td class='tg-48oos'></td><td class='tg-48oos'></td><td class='tg-48oos'></td><td class='tg-031e'>PS-" + window.activeReportsToPosition + ".JD-" + item.id + "</td><td class='tg-031e'>MD-" + window.activeModelId + "</td><td class='tg-031e'>PS-" + window.activeReportsToPosition + ".JD-" + item.id + "</td><td class='tg-031e'>" + item.title + "</td><td class='tg-031e'>Active</td></tr>");					
 					});
 						$("#heirarchyObjectBackbone_table").table( "refresh" );
 
 				});				
 			}
-			function getPoliciesforBackBoneTable(){
-				alert("this is a test");
+			function getJobDescriptionforHeirarchicalObjectTree(){
+				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_model_Position_get_JobDescriptions.php?callback=?', {//JSONP Request to Open Items Page setup tables
+					activeModelId:window.activeModelId,
+					activePositionId:window.activeReportsToPosition
+				}, function(res, status) {
+					$.each(res, function(i, item) {
+//3. Append all children to their respective "reports_to" ul
+//							$('#ubmsuite_mcs_my_organizational_chart_P' + item.reports_to_id + '_ul').append("<li id='orgChartPosition" + item.position_id + "'><div id='demo_box_" + item.position_id + "' class='demo_box' onclick='setActivePosition(" + item.position_id + ")'><div class='pop_ctrl'><i class='fa fa-bars'></i></div><ul id='demo_ul_2'><li class='demo_li'><a href='#' onclick='addChildPositiontoActivePosition()'><div><i class='fa fa-plus-circle'></i></div><p>Add</p></a></li><li class='demo_li'><a href='#' onclick='removeActivePosition()'><div><i class='fa fa-minus-circle'></i></div><p>Remove</p></a></li></ul></div></br>" + item.title + "<ul id='ubmsuite_mcs_my_organizational_chart_P" + item.position_id + "_ul'></ul></li>");	
+							$("#ubmsuite_mcs_my_organizational_chart_heirarchyObjectTree_ul_P").append("<li><a onclick='setActiveJobDescriptionId(" + item.id + ")'>JD-" + item.id + "</a><ul id='ubmsuite_mcs_my_organizational_chart_heirarchyObjectTree_ul_JD_" + item.id + "'></ul></li>");
+//4. Empty chart Div
+					        $('#chart').empty();
+//5. Call jOrgChart plugin, append new org chart to chart div, set jorgdraganddrop to false to avoid conflicting compatibility issue with other jquery packages.
+					        $("#modelOrgChart").jOrgChart({
+					            chartElement : '#chart',
+					            dragAndDrop  : false
+					        }); /***/
+						
+					});
+				});			
+				$("#heirarchyObjectTree").trigger("create");		
+			}
+		</script>
+		<!-- End Job Description-->
+		<script>
+			function setActivePolicyId(activePolicyId){
+				window.activePolicyId = activePolicyId;
+				//alert(window.activePolicyId);
+			}
+			function getPoliciesforBackBoneTable(){				
 				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_model_JobDescription_get_Policies.php?callback=?', {//JSONP Request to Open Items Page setup tables
 					activeModelId : window.activeModelId,
 					activeJobDescriptionId: window.activeJobDescriptionId
 				}, function(res, status) {
+					$("#heirarchyObjectBackbone_table_body").empty()
 					$.each(res, function(i, item) {
-						$("#heirarchyObjectBackbone_table_body").append("<tr><td class='tg-031e'>1</td><td class='tg-031e'>2</td><td class='tg-031e'>3</td><td class='tg-031e'>4</td><td class='tg-031e'>5</td><td class='tg-031e'>6</td><td class='tg-031e'>7</td><td class='tg-031e'>8</td><td class='tg-031e'>9</td><td class='tg-031e'>10</td><td class='tg-031e'>11</td><td class='tg-031e'>12</td><td class='tg-031e'>13</td><td class='tg-031e'>14</td><td class='tg-031e'>15</td><td class='tg-031e'>16</td><td class='tg-031e'>17</td><td class='tg-031e'>18</td><td class='tg-031e'>19</td><td class='tg-031e'>20</td></tr>");					
+						$("#heirarchyObjectBackbone_table_body").append("<tr><td class='tg-031e'>" + item.mfi_reference + "</td><td class='tg-031e'>PS-" + window.activeReportsToPosition + "</td><td class='tg-gcpq'>" + window.activeJobDescriptionId + "</td><td class='tg-gcpq'>JD-" + window.activeJobDescriptionId + "</td><td class='tg-2tnl'>" + item.id + "</td><td class='tg-2tnl'>PL-" + item.id + "</td><td class='tg-hnhqs'></td><td class='tg-hnhqs'></td><td class='tg-4nips'></td><td class='tg-4nips'></td><td class='tg-gl8ns'></td><td class='tg-gl8ns'></td><td class='tg-akd2s'></td><td class='tg-akd2s'></td><td class='tg-8474s'></td><td class='tg-8474s'></td><td class='tg-w2xps'></td><td class='tg-w2xps'></td><td class='tg-w2xps'></td><td class='tg-w2xps'></td><td class='tg-w2xps'></td><td class='tg-w2xps'></td><td class='tg-w2xps'></td><td class='tg-w2xps'></td><td class='tg-48oos'></td><td class='tg-48oos'></td><td class='tg-48oos'></td><td class='tg-48oos'></td><td class='tg-48oos'></td><td class='tg-031e'>PS-" + window.activeReportsToPosition + ".JD-" + window.activeJobDescriptionId + ".PL-" + item.id + "</td><td class='tg-031e'>MD-" + window.activeModelId + "</td><td class='tg-031e'>PS-" + window.activeReportsToPosition + ".JD-" + window.activeJobDescriptionId + ".PL-" + item.id + "</td><td class='tg-031e'>" + item.title + "</td><td class='tg-031e'>Active</td></tr>");					
 					});
 				});				
+			}
+			function getPoliciesforHeirarchicalObjectTree(){
+				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_model_JobDescription_get_Policies.php?callback=?', {//JSONP Request to Open Items Page setup tables
+					activeModelId:window.activeModelId,
+					activeJobDescriptionId:window.activeJobDescriptionId
+				}, function(res, status) {
+							$("#ubmsuite_mcs_my_organizational_chart_heirarchyObjectTree_ul_JD_" + window.activeJobDescriptionId + "").empty();
+					$.each(res, function(i, item) {
+//3. Append all children to their respective "reports_to" ul
+//							$('#ubmsuite_mcs_my_organizational_chart_P' + item.reports_to_id + '_ul').append("<li id='orgChartPosition" + item.position_id + "'><div id='demo_box_" + item.position_id + "' class='demo_box' onclick='setActivePosition(" + item.position_id + ")'><div class='pop_ctrl'><i class='fa fa-bars'></i></div><ul id='demo_ul_2'><li class='demo_li'><a href='#' onclick='addChildPositiontoActivePosition()'><div><i class='fa fa-plus-circle'></i></div><p>Add</p></a></li><li class='demo_li'><a href='#' onclick='removeActivePosition()'><div><i class='fa fa-minus-circle'></i></div><p>Remove</p></a></li></ul></div></br>" + item.title + "<ul id='ubmsuite_mcs_my_organizational_chart_P" + item.position_id + "_ul'></ul></li>");	
+							$("#ubmsuite_mcs_my_organizational_chart_heirarchyObjectTree_ul_JD_" + window.activeJobDescriptionId + "").append("<li><a onclick='setActivePolicyId(" + item.id + ")'>PL-" + item.id + "</a><ul id='ubmsuite_mcs_my_organizational_chart_heirarchyObjectTree_ul_PL_" + item.id + "'></ul></li>");
+//4. Empty chart Div
+					        $('#chart').empty();
+//5. Call jOrgChart plugin, append new org chart to chart div, set jorgdraganddrop to false to avoid conflicting compatibility issue with other jquery packages.
+					        $("#modelOrgChart").jOrgChart({
+					            chartElement : '#chart',
+					            dragAndDrop  : false
+					        }); /***/
+						
+					});
+				});			
+				$("#heirarchyObjectTree").trigger("create");		
+			}
+		</script>
+		<!-- End Policy-->
+		<script>
+			function setActiveProcedureId(activeProcedureId){
+				window.activeProcedureId = activeProcedureId;
+				alert(window.activeProcedureId);
 			}
 			function getProceduresforBackBoneTable(){
 				alert("this is a test");
@@ -1380,6 +1481,13 @@ under the License.
 					});
 				});				
 			}
+		</script>
+		<!-- End Procedure-->
+		<script>
+			function setActiveStepId(activeStepId){
+				window.activeStepId = activeStepId;
+				alert(window.activeStepId);
+			}
 			function getStepsforBackBoneTable(){
 				alert("this is a test");
 				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_model_Procedure_get_Steps.php?callback=?', {//JSONP Request to Open Items Page setup tables
@@ -1390,6 +1498,14 @@ under the License.
 						$("#heirarchyObjectBackbone_table_body").append("<tr><td class='tg-031e'>1</td><td class='tg-031e'>2</td><td class='tg-031e'>3</td><td class='tg-031e'>4</td><td class='tg-031e'>5</td><td class='tg-031e'>6</td><td class='tg-031e'>7</td><td class='tg-031e'>8</td><td class='tg-031e'>9</td><td class='tg-031e'>10</td><td class='tg-031e'>11</td><td class='tg-031e'>12</td><td class='tg-031e'>13</td><td class='tg-031e'>14</td><td class='tg-031e'>15</td><td class='tg-031e'>16</td><td class='tg-031e'>17</td><td class='tg-031e'>18</td><td class='tg-031e'>19</td><td class='tg-031e'>20</td></tr>");					
 					});
 				});				
+			}
+		</script>
+		<!-- End Step-->
+		<script>
+			function setActiveTaskId(activeTaskId){
+				window.activeTaskId = activeTaskId;
+				alert(window.activeTaskId);
+				
 			}
 			function getTasksforBackBoneTable(){
 				alert("this is a test");
@@ -1402,12 +1518,8 @@ under the License.
 					});
 				});				
 			}
-			function getPositionsThatReporttoActivePosition(){
-				//1. Add position popup should have a listview filled with positions that report to the active position.
-				//2. This function will retrieve all model_positions that report to the active position and will populate the listview with those positions. 
-			}
-		</script>      
-		<!-- End Position JavaScript-->
+		</script>
+		<!-- End Task-->
         <script>
         function getMyModelsOrgChart(){
 					$('#ubmsuite_mcs_my_organizational_chart_L0_ul').empty();
@@ -1454,51 +1566,12 @@ under the License.
         </script>
 		<!-- End Org Chart Functions -->
 		<script>
-			function getActivePositionsHeirarchicalObjectTree(){
-					$('#ubmsuite_mcs_my_organizational_chart_L0_ul').empty();
-				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_getActiveModelPositionsforOrgChart.php?callback=?', {//JSONP Request to Open Items Page setup tables
-					activeModelId:window.activeModelId
-				}, function(res, status) {
-					$.each(res, function(i, item) {
-						if(item.reports_to_id==item.position_id){
-//1. Set currentActiveOrgChartLevel 
-//2. Append the name of the highest reports to position on the top of the org chart.
-							$('#ubmsuite_mcs_my_organizational_chart_L0_ul').prepend("<a onclick='setActivePosition(" + item.position_id + ")'><img class='org_img' style='width:25px; height:25px;' src='img/apple.png' /></a></br>" + item.title); 
-							$('#ubmsuite_mcs_my_organizational_chart_L0_ul').append("<ul id='ubmsuite_mcs_my_organizational_chart_P" + item.position_id + "_ul'></ul>");
-					        $("#modelOrgChart").jOrgChart({
-					            chartElement : '#chart',
-					            dragAndDrop  : false
-					        });							
-						}else{
-//3. Append all other childre to their respective "reports_to" ul
-//							$('#ubmsuite_mcs_my_organizational_chart_P' + item.reports_to_id + '_ul').append("<li id='orgChartPosition" + item.position_id + "'><div id='demo_box_" + item.position_id + "' class='demo_box' onclick='setActivePosition(" + item.position_id + ")'><div class='pop_ctrl'><i class='fa fa-bars'></i></div><ul id='demo_ul_2'><li class='demo_li'><a href='#' onclick='addChildPositiontoActivePosition()'><div><i class='fa fa-plus-circle'></i></div><p>Add</p></a></li><li class='demo_li'><a href='#' onclick='removeActivePosition()'><div><i class='fa fa-minus-circle'></i></div><p>Remove</p></a></li></ul></div></br>" + item.title + "<ul id='ubmsuite_mcs_my_organizational_chart_P" + item.position_id + "_ul'></ul></li>");	
-							$('#ubmsuite_mcs_my_organizational_chart_P' + item.reports_to_id + '_ul').append("<li id='orgChartPosition" + item.position_id + "'><a onclick='setActivePosition(" + item.position_id + ")'><img id='org_img_" + item.position_id + "' style='width:25px; height:25px;' src='img/apple.png' /></a></br>" + item.title + "<ul id='ubmsuite_mcs_my_organizational_chart_P" + item.position_id + "_ul'></ul></li>");	
-//4. Empty chart Div
-					        $('#chart').empty();
-//5. Call jOrgChart plugin, append new org chart to chart div, set jorgdraganddrop to false to avoid conflicting compatibility issue with other jquery packages.
-					        $("#modelOrgChart").jOrgChart({
-					            chartElement : '#chart',
-					            dragAndDrop  : false
-					        });
-						}
-//6. Call popmenu plugin with the given parameters as plugin options.
-			          /*  $('.demo_box').popmenu({
-						    'controller': true,       // use control button or not
-						    'width': '150px',         // width of menu
-						    'background': '#34495e',  // background color of menu
-						    'focusColor': '#1abc9c',  // hover color of menu's buttons
-						    'borderRadius': '10px',   // radian of angles, '0' for right angle
-						    'top': '50',              // pixels that move up
-						    'left': '0',              // pixels that move left
-						    'iconSize': '75px'        // size of menu's buttons
-			            	});
-			          */
-					});
-				});					
-			}			
-		</script>
-	
+			function getHeirarchicalObjectTree(){
+				//use this function to call all other functions in sequence.	
+			}
 
+
+		</script>
 		<script>
 				function newLowSum() {		//Calculates the Sum of the Low Annual Expected ROI Costs and Benefits 
 				    var sum=0;
@@ -2761,7 +2834,16 @@ under the License.
 				});
 			}
 
-
+			function getMyModelsListofAvailableApplications(){
+					$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_submitTaskFinalReviewedBy.php?callback=?', {//JSONP Request
+						activeModelId : window.activeModelId,
+						taskId : window.MCSTaskId,
+						startTime : window.MCSTaskStartTime,
+						username : window.username
+					}, function(res, status) {
+						alert(res.message);
+					});				
+			}
 			window.c = 0;
 			//Set window variable so that the counter persists each time the function is called.
 			function addField(c, cloned) {
@@ -3794,108 +3876,135 @@ under the License.
                     </form>
                 </div>
                 <!-- End Open Items Popup -->
-                <ul data-role="listview" data-inset="true">
-                    <li>
-                        <a href="#ubmsuite_mcs_model_review"> <img src="img/time-for-review.jpg" class="ui-li-thumb"> <h2>Model Review</h2>
-	                        <p>
-	                            Review the details of your model.
-	                        </p>
-	                        <p class="ui-li-aside">
-	                            MR
-	                        </p> 
-                        </a>
-                    </li>                    
-                    <li>
-                        <a href="#ubmsuite_mcs_master_file_index"> <img src="img/book.jpg" class="ui-li-thumb"> <h2>Master File Index</h2>
-                        <p>
-                            Setting up your model.
-                        </p>
-                        <p class="ui-li-aside">
-                            MFI
-                        </p> </a>
-                    </li>
-                    <li>
-                        <a href="#ubmsuite_mcs_management_reporting"> <img src="img/assembly_line.png" class="ui-li-thumb"> <h2>Management Reporting</h2>
-                        <p>
-                            Forms </br> Packets
-                        </p>
-                        <p class="ui-li-aside">
-                            PM
-                        </p></a>
-                    </li>
-                    <li>
-                        <a href="#"> <img src="img/alternitives.jpg" class="ui-li-thumb"> <h2>Alternatives</h2>
-                        <p>
-                            ROI, Risk Analysis, Project Financial Statement
-                        </p>
-                        <p class="ui-li-aside">
-                            A
-                        </p></a>
-                    </li>
-                    <li>
-                        <a href="#creator_table_of_contents"> <img src="img/creation.jpg" class="ui-li-thumb"> <h2>Model Creation Suite</h2>
-                        <p>
-                            Create your model.
-                        </p>
-                        <p class="ui-li-aside">
-                            MCS
-                        </p></a>
-                    </li>
-                    <li>
-                        <a href="#"> <img src="img/creation.jpg" class="ui-li-thumb"><h2>App Creation Suite</h2>
-                        <p>
-                            Create your App.
-                        </p>
-                        <p class="ui-li-aside">
-                            ACS
-                        </p></a>
-                    </li>
-                    <li>
-                        <a href="#"> <img src="img/lightbulb.jpg" class="ui-li-thumb"><h2>Product Creation Suite</h2>
-                        <p>
-                            Create your Product.
-                        </p>
-                        <p class="ui-li-aside">
-                            PCS
-                        </p></a>
-                    </li>
-                    <li>
-                        <a href="#ubmsuite_mcs_my_organizational_chart"> <img src="img/orgChartIcon.jpg" class="ui-li-thumb"> <h2>Model Organizational Chart</h2>
-                        <p>
-                            The Hiarchical View of Your model.
-                        </p>
-                        <p class="ui-li-aside">
-                            OC
-                        </p></a>
-                    </li>
-                    <li>
-                        <a href="#ubmsuite_mcs_model_visual"> <img src="img/model-visual.jpg" class="ui-li-thumb"> <h2>Model Visual</h2>
-                        <p>
-                            The Visual Representation of Your Model
-                        </p>
-                        <p class="ui-li-aside">
-                            VR
-                        </p></a>
-                    </li>
-                    <li>
-                        <a href="#ubmsuite_modelSettings"> <img src="img/reference.jpg" class="ui-li-thumb"> <h2>Reference Manual</h2>
-                        <p>
-                            Your portal to understanding all things UBM.
-                        </p>
-                        <p class="ui-li-aside">
-                            RM
-                        </p></a>
-                    </li>
-                    <li>
-                        <a href="#ubmsuite_modelSettings"> <img src="img/gear.png" class="ui-li-thumb"> <h2>Model Settings</h2>
-                        <p>
-                            Modify user access, Edit Model Properties, etc...
-                        </p>
-                        <p class="ui-li-aside">
-                            MS
-                        </p></a>
-                    </li>
-                </ul>
+	                <div>
+		                <ul data-role="listview" data-inset="true">
+		                    <li>
+		                        <a href="#ubmsuite_mcs_model_review"> <img src="img/time-for-review.jpg" class="ui-li-thumb"> <h2>Model Review</h2>
+			                        <p>
+			                            Review the details of your model.
+			                        </p>
+			                        <p class="ui-li-aside">
+			                            MR
+			                        </p> 
+		                        </a>
+		                    </li> 
+		                    <li>
+		                        <a href="#ubmsuite_mcs_master_file_index"> <img src="img/book.jpg" class="ui-li-thumb"> <h2>Master File Index</h2>
+		                        <p>
+		                            Setting up your model.
+		                        </p>
+		                        <p class="ui-li-aside">
+		                            MFI
+		                        </p> </a>
+		                    </li>
+		                    <li>
+		                        <a href="#ubmsuite_mcs_management_reporting"> <img src="img/assembly_line.png" class="ui-li-thumb"> <h2>Management Reporting</h2>
+		                        <p>
+		                            Forms </br> Packets
+		                        </p>
+		                        <p class="ui-li-aside">
+		                            PM
+		                        </p></a>
+		                    </li>
+		                    <li>
+		                        <a href="#"> <img src="img/alternitives.jpg" class="ui-li-thumb"> <h2>Alternatives</h2>
+		                        <p>
+		                            ROI, Risk Analysis, Project Financial Statement
+		                        </p>
+		                        <p class="ui-li-aside">
+		                            A
+		                        </p></a>
+		                    </li>
+		                    <li>
+		                        <a href="#creator_table_of_contents"> <img src="img/creation.jpg" class="ui-li-thumb"> <h2>Model Creation Suite</h2>
+		                        <p>
+		                            Create your model.
+		                        </p>
+		                        <p class="ui-li-aside">
+		                            MCS
+		                        </p></a>
+		                    </li>
+		                    <li>
+		                        <a href="#"> <img src="img/creation.jpg" class="ui-li-thumb"><h2>App Creation Suite</h2>
+		                        <p>
+		                            Create your App.
+		                        </p>
+		                        <p class="ui-li-aside">
+		                            ACS
+		                        </p></a>
+		                    </li>
+		                    <li>
+		                        <a href="#"> <img src="img/lightbulb.jpg" class="ui-li-thumb"><h2>Product Creation Suite</h2>
+		                        <p>
+		                            Create your Product.
+		                        </p>
+		                        <p class="ui-li-aside">
+		                            PCS
+		                        </p></a>
+		                    </li>
+		                    <li>
+		                        <a href="#ubmsuite_mcs_my_organizational_chart"> <img src="img/orgChartIcon.jpg" class="ui-li-thumb"> <h2>Model Organizational Chart</h2>
+		                        <p>
+		                            The Hiarchical View of Your model.
+		                        </p>
+		                        <p class="ui-li-aside">
+		                            OC
+		                        </p></a>
+		                    </li>
+		                    <li>
+		                        <a href="#ubmsuite_mcs_model_visual"> <img src="img/model-visual.jpg" class="ui-li-thumb"> <h2>Model Visual</h2>
+		                        <p>
+		                            The Visual Representation of You Model
+		                        </p>
+		                        <p class="ui-li-aside">
+		                            VR
+		                        </p></a>
+		                    </li>
+		                    <li>
+		                        <a href="#ubmsuite_modelSettings"> <img src="img/reference.jpg" class="ui-li-thumb"> <h2>Reference Manual</h2>
+		                        <p>
+		                            Your portal to understanding all things UBM.
+		                        </p>
+		                        <p class="ui-li-aside">
+		                            RM
+		                        </p></a>
+		                    </li>
+		                    <li>
+		                        <a href="#ubmsuite_modelSettings"> <img src="img/gear.png" class="ui-li-thumb"> <h2>Model Settings</h2>
+		                        <p>
+		                            Modify user access, Edit Model Properties, etc...
+		                        </p>
+		                        <p class="ui-li-aside">
+		                            MS
+		                        </p></a>
+		                    </li>
+		                </ul>                	
+	                </div>
+	                </br>
+					<div>
+		                <ul data-role="listview" data-inset="true">
+		                    <li>
+		                        <a href="#ubmsuite_mcs_my_applications"> <img src="img/time-for-review.jpg" class="ui-li-thumb"> <h2>My Applications</h2>
+			                        <p>
+			                            Manage the interface between your applications and your model.
+			                        </p>
+			                        <p class="ui-li-aside">
+			                            MA
+			                        </p> 
+		                        </a>
+		                    </li> 
+		                    <li>
+		                        <a href="#ubmsuite_mcs_list_of_available_applications"> <img src="img/time-for-review.jpg" class="ui-li-thumb"> <h2>List of Available Applications</h2>
+			                        <p>
+			                            Select from a list of all UBM compliant applications that are currently available.
+			                        </p>
+			                        <p class="ui-li-aside">
+			                            MA
+			                        </p> 
+		                        </a>
+		                    </li>                    
+		                </ul>					
+					</div>
             </div>
             <div data-role="footer" data-position="fixed" data-fullscreen="true">
 
@@ -3968,113 +4077,238 @@ under the License.
                     </form>
                 </div>
                 <!-- End Open Items Popup -->
-                <ul data-role="listview" data-inset="true">
-                    <li>
-                        <a href="#ubmsuite_mcs_model_review"> <img src="img/time-for-review.jpg" class="ui-li-thumb"> <h2>Model Review</h2>
+                <div>
+	                <ul data-role="listview" data-inset="true">
+	                    <li>
+	                        <a href="#ubmsuite_mcs_model_review"> <img src="img/time-for-review.jpg" class="ui-li-thumb"> <h2>Model Review</h2>
+		                        <p>
+		                            Review the details of your model.
+		                        </p>
+		                        <p class="ui-li-aside">
+		                            MR
+		                        </p> 
+	                        </a>
+	                    </li> 
+	                    <li>
+	                        <a href="#ubmsuite_mcs_master_file_index"> <img src="img/book.jpg" class="ui-li-thumb"> <h2>Master File Index</h2>
 	                        <p>
-	                            Review the details of your model.
+	                            Setting up your model.
 	                        </p>
 	                        <p class="ui-li-aside">
-	                            MR
-	                        </p> 
-                        </a>
-                    </li> 
-                    <li>
-                        <a href="#ubmsuite_mcs_master_file_index"> <img src="img/book.jpg" class="ui-li-thumb"> <h2>Master File Index</h2>
-                        <p>
-                            Setting up your model.
-                        </p>
-                        <p class="ui-li-aside">
-                            MFI
-                        </p> </a>
-                    </li>
-                    <li>
-                        <a href="#ubmsuite_mcs_management_reporting"> <img src="img/assembly_line.png" class="ui-li-thumb"> <h2>Management Reporting</h2>
-                        <p>
-                            Forms </br> Packets
-                        </p>
-                        <p class="ui-li-aside">
-                            PM
-                        </p></a>
-                    </li>
-                    <li>
-                        <a href="#"> <img src="img/alternitives.jpg" class="ui-li-thumb"> <h2>Alternatives</h2>
-                        <p>
-                            ROI, Risk Analysis, Project Financial Statement
-                        </p>
-                        <p class="ui-li-aside">
-                            A
-                        </p></a>
-                    </li>
-                    <li>
-                        <a href="#creator_table_of_contents"> <img src="img/creation.jpg" class="ui-li-thumb"> <h2>Model Creation Suite</h2>
-                        <p>
-                            Create your model.
-                        </p>
-                        <p class="ui-li-aside">
-                            MCS
-                        </p></a>
-                    </li>
-                    <li>
-                        <a href="#"> <img src="img/creation.jpg" class="ui-li-thumb"><h2>App Creation Suite</h2>
-                        <p>
-                            Create your App.
-                        </p>
-                        <p class="ui-li-aside">
-                            ACS
-                        </p></a>
-                    </li>
-                    <li>
-                        <a href="#"> <img src="img/lightbulb.jpg" class="ui-li-thumb"><h2>Product Creation Suite</h2>
-                        <p>
-                            Create your Product.
-                        </p>
-                        <p class="ui-li-aside">
-                            PCS
-                        </p></a>
-                    </li>
-                    <li>
-                        <a href="#ubmsuite_mcs_my_organizational_chart"> <img src="img/orgChartIcon.jpg" class="ui-li-thumb"> <h2>Model Organizational Chart</h2>
-                        <p>
-                            The Hiarchical View of Your model.
-                        </p>
-                        <p class="ui-li-aside">
-                            OC
-                        </p></a>
-                    </li>
-                    <li>
-                        <a href="#ubmsuite_mcs_model_visual"> <img src="img/model-visual.jpg" class="ui-li-thumb"> <h2>Model Visual</h2>
-                        <p>
-                            The Visual Representation of You Model
-                        </p>
-                        <p class="ui-li-aside">
-                            VR
-                        </p></a>
-                    </li>
-                    <li>
-                        <a href="#ubmsuite_modelSettings"> <img src="img/reference.jpg" class="ui-li-thumb"> <h2>Reference Manual</h2>
-                        <p>
-                            Your portal to understanding all things UBM.
-                        </p>
-                        <p class="ui-li-aside">
-                            RM
-                        </p></a>
-                    </li>
-                    <li>
-                        <a href="#ubmsuite_modelSettings"> <img src="img/gear.png" class="ui-li-thumb"> <h2>Model Settings</h2>
-                        <p>
-                            Modify user access, Edit Model Properties, etc...
-                        </p>
-                        <p class="ui-li-aside">
-                            MS
-                        </p></a>
-                    </li>
-                </ul>
+	                            MFI
+	                        </p> </a>
+	                    </li>
+	                    <li>
+	                        <a href="#ubmsuite_mcs_management_reporting"> <img src="img/assembly_line.png" class="ui-li-thumb"> <h2>Management Reporting</h2>
+	                        <p>
+	                            Forms </br> Packets
+	                        </p>
+	                        <p class="ui-li-aside">
+	                            PM
+	                        </p></a>
+	                    </li>
+	                    <li>
+	                        <a href="#"> <img src="img/alternitives.jpg" class="ui-li-thumb"> <h2>Alternatives</h2>
+	                        <p>
+	                            ROI, Risk Analysis, Project Financial Statement
+	                        </p>
+	                        <p class="ui-li-aside">
+	                            A
+	                        </p></a>
+	                    </li>
+	                    <li>
+	                        <a href="#creator_table_of_contents"> <img src="img/creation.jpg" class="ui-li-thumb"> <h2>Model Creation Suite</h2>
+	                        <p>
+	                            Create your model.
+	                        </p>
+	                        <p class="ui-li-aside">
+	                            MCS
+	                        </p></a>
+	                    </li>
+	                    <li>
+	                        <a href="#"> <img src="img/creation.jpg" class="ui-li-thumb"><h2>App Creation Suite</h2>
+	                        <p>
+	                            Create your App.
+	                        </p>
+	                        <p class="ui-li-aside">
+	                            ACS
+	                        </p></a>
+	                    </li>
+	                    <li>
+	                        <a href="#"> <img src="img/lightbulb.jpg" class="ui-li-thumb"><h2>Product Creation Suite</h2>
+	                        <p>
+	                            Create your Product.
+	                        </p>
+	                        <p class="ui-li-aside">
+	                            PCS
+	                        </p></a>
+	                    </li>
+	                    <li>
+	                        <a href="#ubmsuite_mcs_my_organizational_chart"> <img src="img/orgChartIcon.jpg" class="ui-li-thumb"> <h2>Model Organizational Chart</h2>
+	                        <p>
+	                            The Hiarchical View of Your model.
+	                        </p>
+	                        <p class="ui-li-aside">
+	                            OC
+	                        </p></a>
+	                    </li>
+	                    <li>
+	                        <a href="#ubmsuite_mcs_model_visual"> <img src="img/model-visual.jpg" class="ui-li-thumb"> <h2>Model Visual</h2>
+	                        <p>
+	                            The Visual Representation of You Model
+	                        </p>
+	                        <p class="ui-li-aside">
+	                            VR
+	                        </p></a>
+	                    </li>
+	                    <li>
+	                        <a href="#ubmsuite_modelSettings"> <img src="img/reference.jpg" class="ui-li-thumb"> <h2>Reference Manual</h2>
+	                        <p>
+	                            Your portal to understanding all things UBM.
+	                        </p>
+	                        <p class="ui-li-aside">
+	                            RM
+	                        </p></a>
+	                    </li>
+	                    <li>
+	                        <a href="#ubmsuite_modelSettings"> <img src="img/gear.png" class="ui-li-thumb"> <h2>Model Settings</h2>
+	                        <p>
+	                            Modify user access, Edit Model Properties, etc...
+	                        </p>
+	                        <p class="ui-li-aside">
+	                            MS
+	                        </p></a>
+	                    </li>
+	                </ul>                	
+                </div>
+                </br>
+				<div>
+	                <ul data-role="listview" data-inset="true">
+	                    <li>
+	                        <a href="#ubmsuite_mcs_my_applications"> <img src="img/time-for-review.jpg" class="ui-li-thumb"> <h2>My Applications</h2>
+		                        <p>
+		                            Manage the interface between your applications and your model.
+		                        </p>
+		                        <p class="ui-li-aside">
+		                            MA
+		                        </p> 
+	                        </a>
+	                    </li> 
+	                    <li>
+	                        <a href="#ubmsuite_mcs_list_of_available_applications"> <img src="img/time-for-review.jpg" class="ui-li-thumb"> <h2>List of Available Applications</h2>
+		                        <p>
+		                            Select from a list of all UBM compliant applications that are currently available.
+		                        </p>
+		                        <p class="ui-li-aside">
+		                            MA
+		                        </p> 
+	                        </a>
+	                    </li>                    
+	                </ul>					
+				</div>
             </div>
             <div data-role="footer" data-position="fixed" data-fullscreen="true">
 
             </div>
         </div>
+		<div data-role="page" class="ubm_page my-page" id="ubmsuite_mcs_my_applications">
+            <!-- No Panel on this page, instead only back button is needed.-->
+            <div data-role="header" data-position="fixed" data-fullscreen="true">
+                <a href="#" class="back_btn" data-icon="arrow-l" data-iconpos="notext">Back</a>
+                <div id"ubmsuite_mcs_model_review_header_headerRecord_center" style="text-align: center">
+                    <div id="ubmsuite_mcs_model_review_header_headerRecord_center_legalentity">
+                        Legal Entity: Business Model Consulting, LLC
+                    </div>
+                    <div id="ubmsuite_mcs_model_review_header_headerRecord_center_systemtitle">
+                        System Title: UBM Suite v 1.0
+                    </div>
+                    <div id="ubmsuite_mcs_model_review_header_headerRecord_center_modelapptitle">
+                        Model / App Title: UBM Automator v3.3.1
+                    </div>
+                    <div id="ubmsuite_mcs_model_review_header_headerRecord_center_pagetitle">
+                        Model Overview
+                    </div>
+                </div>
+            </div>
+            <div data-role="content">
+				<div>
+	                <ul data-role="listview" data-inset="true">
+	                    <li>
+	                        <a href="#ubmsuite_mcs_my_applications"> <img src="img/time-for-review.jpg" class="ui-li-thumb"> <h2>My Applications</h2>
+		                        <p>
+		                            Manage the interface between your applications and your model.
+		                        </p>
+		                        <p class="ui-li-aside">
+		                            MA
+		                        </p> 
+	                        </a>
+	                    </li> 
+	                    <li>
+	                        <a href="#ubmsuite_mcs_list_of_available_applications"> <img src="img/time-for-review.jpg" class="ui-li-thumb"> <h2>List of Available Applications</h2>
+		                        <p>
+		                            Select from a list of all UBM compliant applications that are currently available.
+		                        </p>
+		                        <p class="ui-li-aside">
+		                            MA
+		                        </p> 
+	                        </a>
+	                    </li>                    
+	                </ul>					
+				</div>
+			</div>
+			<div data-role="footer">
+				
+			</div>			
+		</div>
+		<div data-role="page" class="ubm_page my-page" id="ubmsuite_mcs_list_of_available_applications">
+            <!-- No Panel on this page, instead only back button is needed.-->
+            <div data-role="header" data-position="fixed" data-fullscreen="true">
+                <a href="#" class="back_btn" data-icon="arrow-l" data-iconpos="notext">Back</a>
+                <div id"ubmsuite_mcs_model_review_header_headerRecord_center" style="text-align: center">
+                    <div id="ubmsuite_mcs_model_review_header_headerRecord_center_legalentity">
+                        Legal Entity: Business Model Consulting, LLC
+                    </div>
+                    <div id="ubmsuite_mcs_model_review_header_headerRecord_center_systemtitle">
+                        System Title: UBM Suite v 1.0
+                    </div>
+                    <div id="ubmsuite_mcs_model_review_header_headerRecord_center_modelapptitle">
+                        Model / App Title: UBM Automator v3.3.1
+                    </div>
+                    <div id="ubmsuite_mcs_model_review_header_headerRecord_center_pagetitle">
+                        Model Overview
+                    </div>
+                </div>
+            </div>
+            <div data-role="content">
+				<div>
+	                <ul data-role="listview" data-inset="true">
+	                    <li>
+	                        <a href="#ubmsuite_mcs_my_applications"> <img src="img/time-for-review.jpg" class="ui-li-thumb"> <h2>My Applications</h2>
+		                        <p>
+		                            Manage the interface between your applications and your model.
+		                        </p>
+		                        <p class="ui-li-aside">
+		                            MA
+		                        </p> 
+	                        </a>
+	                    </li> 
+	                    <li>
+	                        <a href="#ubmsuite_mcs_list_of_available_applications"> <img src="img/time-for-review.jpg" class="ui-li-thumb"> <h2>List of Available Applications</h2>
+		                        <p>
+		                            Select from a list of all UBM compliant applications that are currently available.
+		                        </p>
+		                        <p class="ui-li-aside">
+		                            MA
+		                        </p> 
+	                        </a>
+	                    </li>                    
+	                </ul>					
+				</div>
+			</div>
+			<div data-role="footer">
+				
+			</div>			
+		</div>
         <div data-role="page" class="ubm_page" id="ubmsuite_mcs_model_review" data-theme="f">
             <!-- No Panel on this page, instead only back button is needed.-->
             <div data-role="header" data-position="fixed" data-fullscreen="true">
@@ -4382,84 +4616,22 @@ under the License.
 						</li>
 				   </ul>            
 			    </div>
-			    <div id="chart" class="orgChart org_chart" style="overflow-y:scroll; overflow-x:scroll; width:80%; padding:75px 10px 75px 10px;">
+			    <div id="chart" class="orgChart org_chart" style="overflow-y:scroll; overflow-x:scroll; width:100%; padding:75px 10px 75px 10px;">
 			    	
 			    </div>		
 					<fieldset class="ui-grid-a">
 					    <div class="ui-block-a">
+								<a href="#" class="ui-btn" onclick="getPositionforHeirarchicalObjectTree()">Refresh</a>
+
 							<div id="heirarchyObjectTree_container">
 								<!--
 								heirarchyObjectTree uses CSS(3) to display objects.
 								-->
 								<center>Hierarchical Objects</center>
 								<div id="heirarchyObjectTree" class="heirarchyObjectTree" >
-									<ul>
-										<li>
-											<a href="#">PS-1</a>
-											<ul>
-												<li>
-													<a href="#">JD-1</a>
-													<ul>
-														<li>
-															<a href="#">PL-1</a>
-					
-														</li>
-					
-														<li>
-															<a href="#">PL-2</a>
-															<ul>
-																<li><a href="#">PR-2</a></li>
-																<li>
-																	<a href="#">PR-1</a>
-																	<ul>
-																		<li>
-																			<a href="#">ST-1</a>
-																			<ul>
-																				<li>
-																					<a href="#">TK-1</a>
-																				</li>
-																				<li>
-																					<a href="#">TK-2</a>
-																				</li>
-																				<li>
-																					<a href="#">TK-3</a>
-																				</li>
-																			</ul>
-																		</li>
-																		<li>
-																			<a href="#">ST-2</a>
-																		</li>
-																		<li>
-																			<a href="#">PD-1</a>
-					
-																		</li>
-																	</ul>
-																</li>
-															</ul>
-														</li>
-														<li>
-															<a href="#">PL-3</a>
-					
-														</li>
-													</ul>
-												</li>
-												<li>
-													<a href="#">JD-2</a>
-												</li>
-												<li>
-													<a href="#">JD-3</a>
-												</li>
-												<li>
-													<a href="#">JD-4</a>
-												</li>
-												<li>
-													<a href="#">JD-5</a>
-												</li>
-												<li>
-													<a href="#">JD-6</a>
-												</li>
-											</ul>
-										</li>
+
+									<ul id="heirarchyObjectTree_ul" style="overflow-x: scroll;">
+
 									</ul>
 								</div>					
 							</div>	
@@ -14923,6 +15095,12 @@ under the License.
                 $(document).on("pageshow", "#sign_in_sign_up", function() {
                     setTimeout(function() {
 
+                    }, 1000);
+                });
+                $(document).on("pageshow", "#sign_in_sign_up", function() {
+
+                    setTimeout(function() {
+						getMyModelsListofAvailableApplications();
                     }, 1000);
                 });
 				$(document).on("pageshow", "#ubmsuite_mcs_my_organizational_chart", function() {
