@@ -1409,6 +1409,13 @@ under the License.
 			}
 
 			function createNewPolicyAddtoMyModel() {
+
+				if(document.getElementById("ubmsuite_mcs_my_organizational_chart_content_createNewPolicyPopUp_form_PolicyType").value=="other"){
+					var type = document.getElementById("ubmsuite_mcs_my_organizational_chart_content_createNewPolicyPopUp_form_Other").value;
+				}else{
+					var type = document.getElementById("ubmsuite_mcs_my_organizational_chart_content_createNewPolicyPopUp_form_PolicyType").value;
+				}
+		
 				
 				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_model_create_Policy.php?callback=?', {//JSONP Request to Open Items Page setup tables
 					username : window.username,
@@ -1416,11 +1423,7 @@ under the License.
 					title : document.getElementById("ubmsuite_mcs_my_organizational_chart_content_createNewPolicyPopUp_form_PolicyTitle").value,
 					purpose: document.getElementById("ubmsuite_mcs_my_organizational_chart_content_createNewPolicyPopUp_form_PolicyPurpose").value,
 					scope: document.getElementById("ubmsuite_mcs_my_organizational_chart_content_createNewPolicyPopUp_form_PolicyScope").value,
-					if (document.getElementById("ubmsuite_mcs_my_organizational_chart_content_createNewPolicyPopUp_form_PolicyType").value == "other") {
-						type : document.getElementById("ubmsuite_mcs_my_organizational_chart_content_createNewPolicyPopUp_form_Other").value,
-					}else {
-						type : document.getElementById("ubmsuite_mcs_my_organizational_chart_content_createNewPolicyPopUp_form_PolicyType").value,
-					}
+					type: type,
 					description : document.getElementById("ubmsuite_mcs_my_organizational_chart_content_createNewPolicyPopUp_form_PolicyDescription"),
 					jobDescriptionId : window.activeJobDescriptionId
 				}, function(res, status) {
@@ -1443,6 +1446,7 @@ under the License.
 				});				
 			}
 			function getJobDescriptionforHeirarchicalObjectTree(){
+				alert("this is a test");
 				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_model_Position_get_JobDescriptions.php?callback=?', {//JSONP Request to Open Items Page setup tables
 					activeModelId:window.activeModelId,
 					activePositionId:window.activeReportsToPosition
