@@ -1315,6 +1315,24 @@ under the License.
 				}, 1000);	
 				
 			}
+			function createNewPolicy () {
+				$("#ubmsuite_mcs_my_organizational_chart_content_modifyPositionPopUp").popup('close');
+				setTimeout(function() {
+					$("#ubmsuite_mcs_my_organizational_chart_content_createNewPolicyPopUp").popup('open');
+				}, 1000);	
+				// disables checkbox depending on which radio button is selected
+				$("#ubmsuite_mcs_my_organizational_chart_content_createNewPolicyPopUp_form_Other").prop("disabled",true);
+				
+				$('#ubmsuite_mcs_my_organizational_chart_content_createNewPolicyPopUp_radio_PolicyType_other').click(function(){
+			        $('#ubmsuite_mcs_my_organizational_chart_content_createNewPolicyPopUp_form_Other').prop('disabled',false);
+			    });	
+			    $('#ubmsuite_mcs_my_organizational_chart_content_createNewPolicyPopUp_radio_PolicyType_position').click(function(){
+			        $('#ubmsuite_mcs_my_organizational_chart_content_createNewPolicyPopUp_form_Other').prop('disabled',true);
+			    });	
+			    $('#ubmsuite_mcs_my_organizational_chart_content_createNewPolicyPopUp_radio_PolicyType_company').click(function(){
+			        $('#ubmsuite_mcs_my_organizational_chart_content_createNewPolicyPopUp_form_Other').prop('disabled',true);
+			    });	
+			}
 			function getObjectsforBackboneTable(){
 				//This basic function will allow us to build the table dynamically based on the position or the object selected.
 
@@ -1374,10 +1392,10 @@ under the License.
 				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_model_create_JobDescription.php?callback=?', {//JSONP Request to Open Items Page setup tables
 					username: window.username,
 					activeModelId : window.activeModelId,
-					title: document.getElementById("ubmsuite_mcs_my_organizational_chart_content_createNewPositionPopUp_form_JobDescriptionTitle").value,
+					title: document.getElementById("ubmsuite_mcs_my_organizational_chart_content_createNewJobDescriptionPopUp_form_JobDescriptionTitle").value,
 					objective: document.getElementById("ubmsuite_mcs_my_organizational_chart_content_createNewJobDescriptionPopUp_form_JobDescriptionObjective").value,
 					qualifications: document.getElementById("ubmsuite_mcs_my_organizational_chart_content_createNewJobDescriptionPopUp_form_JobDescriptionQualificaions").value,
-					ageRequirement: document.getElementById("ubmsuite_mcs_my_organizational_chart_content_createNewPositionPopUp_form_JobDescriptionAgeRequirement").value,
+					ageRequirement: document.getElementById("ubmsuite_mcs_my_organizational_chart_content_createNewJobDescriptionPopUp_form_JobDescriptionAgeRequirement").value,
 					educationRequirement: document.getElementById("ubmsuite_mcs_my_organizational_chart_content_createNewJobDescriptionPopUp_form_JobDescriptionEducationRequirements").value,
 					physicalDemand: document.getElementById("ubmsuite_mcs_my_organizational_chart_content_createNewJobDescriptionPopUp_form_JobDescriptionPhysicalDemands").value,
 					workEnviroment: document.getElementById("ubmsuite_mcs_my_organizational_chart_content_createNewJobDescriptionPopUp_form_JobDescriptionWorkEnvironment").value,
@@ -1387,6 +1405,28 @@ under the License.
 					alert(res.message);
 				});
 					$("#ubmsuite_mcs_my_organizational_chart_content_createNewJobDescriptionPopUp").popup('close');
+					getMyModelsOrgChart();					
+			}
+
+			function createNewPolicyAddtoMyModel() {
+				
+				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_model_create_Policy.php?callback=?', {//JSONP Request to Open Items Page setup tables
+					username : window.username,
+					activeModelId : window.activeModelId,
+					title : document.getElementById("ubmsuite_mcs_my_organizational_chart_content_createNewPolicyPopUp_form_PolicyTitle").value,
+					purpose: document.getElementById("ubmsuite_mcs_my_organizational_chart_content_createNewPolicyPopUp_form_PolicyPurpose").value,
+					scope: document.getElementById("ubmsuite_mcs_my_organizational_chart_content_createNewPolicyPopUp_form_PolicyScope").value,
+					if (document.getElementById("ubmsuite_mcs_my_organizational_chart_content_createNewPolicyPopUp_form_PolicyType").value == "other") {
+						type : document.getElementById("ubmsuite_mcs_my_organizational_chart_content_createNewPolicyPopUp_form_Other").value,
+					}else {
+						type : document.getElementById("ubmsuite_mcs_my_organizational_chart_content_createNewPolicyPopUp_form_PolicyType").value,
+					}
+					description : document.getElementById("ubmsuite_mcs_my_organizational_chart_content_createNewPolicyPopUp_form_PolicyDescription"),
+					jobDescriptionId : window.activeJobDescriptionId
+				}, function(res, status) {
+					alert(res.message);
+				});
+					$("#ubmsuite_mcs_my_organizational_chart_content_createNewPolicyPopUp").popup('close');
 					getMyModelsOrgChart();					
 			}
 			function getJobDescriptionsforBackBoneTable(){
@@ -3916,7 +3956,7 @@ under the License.
 		                        </p></a>
 		                    </li>
 		                    <li>
-		                        <a href="#creator_table_of_contents"> <img src="img/creation.jpg" class="ui-li-thumb"> <h2>Model Creation Suite</h2>
+		                        <a href="#creator_table_of_contents"> <img src="img/modelcreation.jpg" class="ui-li-thumb"> <h2>Model Creation Suite</h2>
 		                        <p>
 		                            Create your model.
 		                        </p>
@@ -3925,7 +3965,7 @@ under the License.
 		                        </p></a>
 		                    </li>
 		                    <li>
-		                        <a href="#"> <img src="img/creation.jpg" class="ui-li-thumb"><h2>App Creation Suite</h2>
+		                        <a href="#"> <img src="img/appcreation.jpg" class="ui-li-thumb"><h2>App Creation Suite</h2>
 		                        <p>
 		                            Create your App.
 		                        </p>
@@ -4588,6 +4628,7 @@ under the License.
 									<li class='demo_li'><a href='#' onclick='modifyActivePosition()'><div><i class='fa fa-edit'></i></div><p>Modify Position</p></a></li>
 									<li class='demo_li'><a href='#' onclick='viewActivePositionHierachyObjects()'><div><i class='fa fa-sitemap'></i></div><p>View Hierarchical Objects</p></a></li>
 									<li class='demo_li'><a href='#' onclick='createNewJobDescription()'><div><i class='fa fa-sitemap'></i></div><p>Create A New Job Description</p></a></li>
+									<li class='demo_li'><a href='#' onclick='createNewPolicy()'><div><i class='fa fa-sitemap'></i></div><p>Create A New Policy</p></a></li>
 								</ul>
 							</div>
 						</center>
@@ -4614,13 +4655,20 @@ under the License.
 				        <div style="padding:10px 20px;">
 				            <center><h1>Create New Policy</h1></center>
 				            <input type="text" name="ubmsuite_mcs_my_organizational_chart_content_createNewPolicyPopUp_form_PolicyTitle" id="ubmsuite_mcs_my_organizational_chart_content_createNewPolicyPopUp_form_PolicyTitle" value="" placeholder="Policy Title"  data-theme="f">
-							<textarea data-mini="true"  cols="40" rows="8" id="ubmsuite_mcs_my_organizational_chart_content_createNewPolicyPopUp_form_PolicyObjective" placeholder="Description..."></textarea>
-							<textarea data-mini="true" cols="40" rows="8" id="ubmsuite_mcs_my_organizational_chart_content_createNewPolicyPopUp_form_PolicyDutiesAndResponsibilities" placeholder="Purpose..."></textarea>
-				            <textarea data-mini="true" cols="40" rows="8" id="ubmsuite_mcs_my_organizational_chart_content_createNewPolicyPopUp_form_PolicyEducationRequirements" placeholder="Scope..."></textarea>
-							<textarea data-mini="true" cols="40" rows="8" id="ubmsuite_mcs_my_organizational_chart_content_createNewPolicyPopUp_form_PolicyQualificaions" placeholder="Policy Type..."></textarea>
-							<textarea data-mini="true" cols="40" rows="8" id="ubmsuite_mcs_my_organizational_chart_content_createNewPolicyPopUp_form_PolicyPhysicalDemands" placeholder="Physical Demands..."></textarea>
-							<textarea data-mini="true" cols="40" rows="8" id="ubmsuite_mcs_my_organizational_chart_content_createNewPolicyPopUp_form_PolicyWorkEnvironment" placeholder="Work Environment..."></textarea>
-				            <a href="#" class="ui-btn" onclick="createNewPolicyAddtoMyModel()">Create Job Description</a>
+							<textarea data-mini="true"  cols="40" rows="8" id="ubmsuite_mcs_my_organizational_chart_content_createNewPolicyPopUp_form_PolicyDescription" placeholder="Description..."></textarea>
+							<textarea data-mini="true" cols="40" rows="8" id="ubmsuite_mcs_my_organizational_chart_content_createNewPolicyPopUp_form_PolicyPurpose" placeholder="Purpose..."></textarea>
+				            <textarea data-mini="true" cols="40" rows="8" id="ubmsuite_mcs_my_organizational_chart_content_createNewPolicyPopUp_form_PolicyScope" placeholder="Scope..."></textarea>
+							<fieldset data-role="controlgroup" data-type="horizontal" id="ubmsuite_mcs_my_organizational_chart_content_createNewPolicyPopUp_form_PolicyType">
+						        <legend>Policy Type</legend>
+						        <input type="radio" name="radio-choice-h-2" id="ubmsuite_mcs_my_organizational_chart_content_createNewPolicyPopUp_radio_PolicyType_company" value="Company">
+						        <label for="ubmsuite_mcs_my_organizational_chart_content_createNewPolicyPopUp_radio_PolicyType_company">Company</label>
+						        <input type="radio" name="radio-choice-h-2" id="ubmsuite_mcs_my_organizational_chart_content_createNewPolicyPopUp_radio_PolicyType_position" value="Posistion">
+						        <label for="ubmsuite_mcs_my_organizational_chart_content_createNewPolicyPopUp_radio_PolicyType_position">Position</label>
+						        <input type="radio" name="radio-choice-h-2" id="ubmsuite_mcs_my_organizational_chart_content_createNewPolicyPopUp_radio_PolicyType_other" value="other">
+						        <label for="ubmsuite_mcs_my_organizational_chart_content_createNewPolicyPopUp_radio_PolicyType_other" >Other</label>
+						        <input type="text" id="ubmsuite_mcs_my_organizational_chart_content_createNewPolicyPopUp_form_Other" value="" placeHolder="Other..." data-theme="f">
+						    </fieldset>
+				            <a href="#" class="ui-btn" onclick="createNewPolicyAddtoMyModel()">Create Policy</a>
 				        </div>
 				    </form>
 				</div>				
