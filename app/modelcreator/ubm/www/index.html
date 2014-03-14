@@ -1172,7 +1172,7 @@ under the License.
 					activeModelId : window.activeModelId
 				}, function(res, status) {
 					$.each(res, function(i, item) {
-						$('#mfi_firstChild_1').append("<li><span>" + item.name + "</span></li>");
+						$('#mfi_firstChild_1').append("<li><input type='checkbox'/><span>" + item.name + "</span></li>");
 					});
 				});
 
@@ -1183,7 +1183,7 @@ under the License.
 					activeModelId : window.activeModelId
 				}, function(res, status) {
 					$.each(res, function(i, item) {
-						$('#mfi_firstChild_2').append("<li><span>" + item.name + "</span></li>");
+						$('#mfi_firstChild_2').append("<li><input type='checkbox'/><span>" + item.name + "</span></li>");
 					});
 
 				});

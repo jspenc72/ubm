@@ -34,7 +34,7 @@
 
 			function getMasterFileIndexItems() {
 				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_getMasterFileIndexItems.php?callback=?', {//JSONP Request to Open Items Page setup tables
-					activeModelId : window.activeModelId
+		activeModelId : window.activeModelId
 				}, function(res, status) {
 					$('#ubmsuite_mcs_master_file_index_tree').empty();
 					$.each(res, function(i, item) {
