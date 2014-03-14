@@ -1631,13 +1631,13 @@ under the License.
 				}, function(res, status) {
 					alert(res.message);
 				});
-					$("#ubmsuite_mcs_my_organizational_chart_content_createNewProcedurePopUp").popup('close');
+					$("#ubmsuite_mcs_my_organizational_chart_content_createNewStepPopUp").popup('close');
 					getMyModelsOrgChart();	
 			}
 			function getStepsforHeirarchicalObjectTree(){
-				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_model_Procedure_get_Policies.php?callback=?', {//JSONP Request to Open Items Page setup tables
+				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_model_Procedure_get_Steps.php?callback=?', {//JSONP Request to Open Items Page setup tables
 					activeModelId:window.activeModelId,
-					activePolicyId:window.activePolicyId
+					activeProcedureId:window.activeProcedureId
 				}, function(res, status) {
 							$("#ubmsuite_mcs_my_organizational_chart_heirarchyObjectTree_ul_PR_" + window.activeProcedureId + "").empty();
 					$.each(res, function(i, item) {
@@ -1674,6 +1674,26 @@ under the License.
 						$("#heirarchyObjectBackbone_table_body").append("<tr><td class='tg-031e'>1</td><td class='tg-031e'>2</td><td class='tg-031e'>3</td><td class='tg-031e'>4</td><td class='tg-031e'>5</td><td class='tg-031e'>6</td><td class='tg-031e'>7</td><td class='tg-031e'>8</td><td class='tg-031e'>9</td><td class='tg-031e'>10</td><td class='tg-031e'>11</td><td class='tg-031e'>12</td><td class='tg-031e'>13</td><td class='tg-031e'>14</td><td class='tg-031e'>15</td><td class='tg-031e'>16</td><td class='tg-031e'>17</td><td class='tg-031e'>18</td><td class='tg-031e'>19</td><td class='tg-031e'>20</td></tr>");					
 					});
 				});				
+			}
+			function createNewTask() {
+				$("#ubmsuite_mcs_my_organizational_chart_content_manageStepPopUp").popup('close');
+				setTimeout(function() {
+					$("#ubmsuite_mcs_my_organizational_chart_content_createNewStepPopUp").popup('open');
+				}, 1000);
+			}
+			function createNewTaskAddtoMyModel() {
+				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_model_create_Task.php?callback=?', {//JSONP Request to Open Items Page setup tables
+					username: window.username,
+					activeModelId : window.activeModelId,
+					title: document.getElementById("ubmsuite_mcs_my_organizational_chart_content_createNewTaskPopUp_form_TaskTitle").value,
+					instruction: document.getElementById("ubmsuite_mcs_my_organizational_chart_content_createNewTaskPopUp_form_TaskInstruction").value,
+					taskNumber: document.getElementById("ubmsuite_mcs_my_organizational_chart_content_createNewTaskPopUp_form_TaskNumber").value,
+					stepId : window.activeStepId
+				}, function(res, status) {
+					alert(res.message);
+				});
+					$("#ubmsuite_mcs_my_organizational_chart_content_createNewTaskPopUp").popup('close');
+					getMyModelsOrgChart();	
 			}
 		</script>
 		<!-- End Task-->
@@ -4822,6 +4842,17 @@ under the License.
 				            <input type="text" name="ubmsuite_mcs_my_organizational_chart_content_createNewStepPopUp_form_StepNumber" id="ubmsuite_mcs_my_organizational_chart_content_createNewStepPopUp_form_StepNumber" value="" placeholder="Step #"  data-theme="f">
 							<textarea data-mini="true"  cols="40" rows="8" id="ubmsuite_mcs_my_organizational_chart_content_createNewStepPopUp_form_StepInstruction" placeholder="Step Instruction..."></textarea>
 				            <a href="#" class="ui-btn" onclick="createNewStepAddtoMyModel()">Create Step</a>
+				        </div>
+				    </form>
+				</div>	
+				<div data-role="popup" id="ubmsuite_mcs_my_organizational_chart_content_createNewTaskPopUp"  data-theme="f" class="ui-corner-all">
+				    <form id="ubmsuite_mcs_my_organizational_chart_content_createNewTaskPopUp_form_createTask_form">
+				        <div style="padding:10px 20px;">
+				            <center><h1>Create New Task</h1></center>
+				            <input type="text" name="ubmsuite_mcs_my_organizational_chart_content_createNewTaskPopUp_form_TaskTitle" id="ubmsuite_mcs_my_organizational_chart_content_createNewTaskPopUp_form_TaskTitle" value="" placeholder="Task Title"  data-theme="f">
+				            <input type="text" name="ubmsuite_mcs_my_organizational_chart_content_createNewTaskPopUp_form_TaskNumber" id="ubmsuite_mcs_my_organizational_chart_content_createNewTaskPopUp_form_TaskNumber" value="" placeholder="Task #"  data-theme="f">
+							<textarea data-mini="true"  cols="40" rows="8" id="ubmsuite_mcs_my_organizational_chart_content_createNewTaskPopUp_form_TaskInstruction" placeholder="Task Instruction..."></textarea>
+				            <a href="#" class="ui-btn" onclick="createNewTaskAddtoMyModel()">Create Task</a>
 				        </div>
 				    </form>
 				</div>			
