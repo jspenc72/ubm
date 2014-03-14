@@ -1546,7 +1546,8 @@ under the License.
 					activePolicyId: window.activePolicyId
 				}, function(res, status) {
 					$.each(res, function(i, item) {
-						$("#heirarchyObjectBackbone_table_body").append("<tr><td class='tg-031e'>1</td><td class='tg-031e'>2</td><td class='tg-031e'>3</td><td class='tg-031e'>4</td><td class='tg-031e'>5</td><td class='tg-031e'>6</td><td class='tg-031e'>7</td><td class='tg-031e'>8</td><td class='tg-031e'>9</td><td class='tg-031e'>10</td><td class='tg-031e'>11</td><td class='tg-031e'>12</td><td class='tg-031e'>13</td><td class='tg-031e'>14</td><td class='tg-031e'>15</td><td class='tg-031e'>16</td><td class='tg-031e'>17</td><td class='tg-031e'>18</td><td class='tg-031e'>19</td><td class='tg-031e'>20</td></tr>");					
+						$("#heirarchyObjectBackbone_table_body").append("<tr><td class='tg-031e'>" + item.mfi_reference + "</td><td class='tg-031e'>PS-" + window.activeReportsToPosition + "</td><td class='tg-gcpq'>" + window.activeJobDescriptionId + "</td><td class='tg-gcpq'>JD-" + window.activeJobDescriptionId + "</td><td class='tg-2tnl'>" + window.activePolicyId + "</td><td class='tg-2tnl'>PL-" + window.activePolicyId + "</td><td class='tg-hnhq'>" + item.id + "</td><td class='tg-hnhq'>PR-" + item.id + "</td><td class='tg-4nips'></td><td class='tg-4nips'></td><td class='tg-gl8ns'></td><td class='tg-gl8ns'></td><td class='tg-akd2s'></td><td class='tg-akd2s'></td><td class='tg-8474s'></td><td class='tg-8474s'></td><td class='tg-w2xps'></td><td class='tg-w2xps'></td><td class='tg-w2xps'></td><td class='tg-w2xps'></td><td class='tg-w2xps'></td><td class='tg-w2xps'></td><td class='tg-w2xps'></td><td class='tg-w2xps'></td><td class='tg-48oos'></td><td class='tg-48oos'></td><td class='tg-48oos'></td><td class='tg-48oos'></td><td class='tg-48oos'></td><td class='tg-031e'>PS-" + window.activeReportsToPosition + ".JD-" + window.activeJobDescriptionId + ".PL-" + item.id + "</td><td class='tg-031e'>MD-" + window.activeModelId + "</td><td class='tg-031e'>PS-" + window.activeReportsToPosition + ".JD-" + window.activeJobDescriptionId + ".PL-" + item.id + "</td><td class='tg-031e'>" + item.title + "</td><td class='tg-031e'>Active</td></tr>");					
+
 					});
 				});				
 			}
@@ -1557,7 +1558,7 @@ under the License.
 				}, 1000);
 			}
 			function getProceduresforHeirarchicalObjectTree(){
-				//alert("This is a test");
+				alert("This is a test");
 				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_model_Policy_get_Procedures.php?callback=?', {//JSONP Request to Open Items Page setup tables
 					activeModelId:window.activeModelId,
 					activePolicyId:window.activePolicyId
