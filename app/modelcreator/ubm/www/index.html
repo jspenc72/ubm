@@ -1395,7 +1395,11 @@ under the License.
 				}, function(res, status) {
 					alert(res.message);
 				});
+					
 					$("#ubmsuite_mcs_my_organizational_chart_content_createNewJobDescriptionPopUp").popup('close');
+					$('#ubmsuite_mcs_my_organizational_chart_content_createNewJobDescriptionPopUp_form_createJobDescription_form').each(function() {
+							this.reset();
+						});
 					getMyModelsOrgChart();					
 			}
 			function createNewJobDescription () {
@@ -1525,6 +1529,9 @@ under the License.
 					alert(res.message);
 				});
 					$("#ubmsuite_mcs_my_organizational_chart_content_createNewPolicyPopUp").popup('close');
+					$('#ubmsuite_mcs_my_organizational_chart_content_createNewPolicyPopUp_form_createPolicy_form').each(function() {
+							this.reset();
+						});
 					getMyModelsOrgChart();					
 			}
 		</script>
@@ -1595,6 +1602,9 @@ under the License.
 					alert(res.message);
 				});
 					$("#ubmsuite_mcs_my_organizational_chart_content_createNewProcedurePopUp").popup('close');
+					$('#ubmsuite_mcs_my_organizational_chart_content_createNewProcedurePopUp_form_createProcedure_form').each(function() {
+							this.reset();
+						});
 					getMyModelsOrgChart();	
 			}
 		</script>
@@ -1635,6 +1645,9 @@ under the License.
 					alert(res.message);
 				});
 					$("#ubmsuite_mcs_my_organizational_chart_content_createNewStepPopUp").popup('close');
+					$('#ubmsuite_mcs_my_organizational_chart_content_createNewStepPopUp_form_createStep_form').each(function() {
+							this.reset();
+						});
 					getMyModelsOrgChart();	
 			}
 			function getStepsforHeirarchicalObjectTree(){
@@ -1696,6 +1709,9 @@ under the License.
 					alert(res.message);
 				});
 					$("#ubmsuite_mcs_my_organizational_chart_content_createNewTaskPopUp").popup('close');
+					$('#ubmsuite_mcs_my_organizational_chart_content_createNewTaskPopUp_form_createTask_form').each(function() {
+							this.reset();
+						});
 					getMyModelsOrgChart();	
 			}
 			function getTasksforHeirarchicalObjectTree(){
