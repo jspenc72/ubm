@@ -2003,6 +2003,25 @@ under the License.
 				  });
 	  </script>
 		<!-- End Model Alternatives Functions-->
+<<<<<<< HEAD
+=======
+		<script>
+			function addNewCostForm () {
+				$("#return_on_investment_cost_table_form").append("<tr><td><label for='text-1'>Cost Driver Description</label><input type='text' name='return_on_investment_costDescription_form' id='return_on_investment_costDescription_form' value=''></td><td><label for='text-1'>Cost Per Unit</label><input type='text' name='return_on_investment_costPerUnit_form' id='return_on_investment_costPerUnit_form' value=''></td><td><label for='text-1'># of Units</label><input type='text' name='return_on_investment_numberOfUnits_form' id='return_on_investment_numberOfUnits_form' value=''></td><td><button id-'return_on_investment_cost_table_form_remove_button'>Remove</button></td></tr>");
+				$("#return_on_investment_cost_form").trigger("create");
+			}
+			function addNewIncomeForm () {
+				$("#return_on_investment_income_table_form").append("<tr><td><label for='text-1'>Income Driver Description</label><input type='text' name='return_on_investment_incomeDescription_form' id='return_on_investment_incomeDescription_form' value=''></td><td><label for='text-1'>Income Per Unit</label><input type='text' name='return_on_investment_incomePerUnit_form' id='return_on_investment_incomePerUnit_form' value=''></td><td><label for='text-1'># of Units</label><input type='text' name='return_on_investment_numberOfUnits_form' id='return_on_investment_numberOfUnits_form' value=''></td><td><button id-'return_on_investment_cost_table_form_remove_button'>Remove</button></td></tr>");
+				$("#return_on_investment_income_form").trigger("create");
+			}
+			//function addNewInvestment () {
+				//$("#return_on_investment_input_forms").append("<h1 id='return_on_investment_cost_table_header_form'>Investment 1</h1><div id='return_on_investment_input_form_cost'><form id='return_on_investment_cost_form'><table id='return_on_investment_cost_table_form' data-theme='f'> <tr> <td> <label for='text-1'>Cost Description</label> <input type='text' name='return_on_investment_costDescription_form' id='return_on_investment_costDescription_form' value=''> </td> <td> <label for='text-1'>Cost Per Unit</label> <input type='text' name='return_on_investment_costPerUnit_form' id='return_on_investment_costPerUnit_form' value=''> </td> <td> <label for='text-1'># of Units</label> <input type='text' name='return_on_investment_costNumberOfUnits_form' id='return_on_investment_numberOfUnits_form' value=''> </td> </tr></table><a href='#' class='ui-btn ui-btn-inline' id='return_on_investment_cost_table_form_addNewCost_button' onclick='addNewCostForm()'>Add New Cost</a></form></div><div id='return_on_investment_input_form_income'class='ui-btn-inline'><form id='return_on_investment_income_form'><table id='return_on_investment_income_table_form' data-theme='f'> <tr> <td> <label for='text-1'>Income Description</label> <input type='text' name='return_on_investment_incomeDescription_form' id='return_on_investment_incomeDescription_form' value=''> </td> <td> <label for='text-1'>Income Per Unit</label> <input type='text' name='return_on_investment_incomePerUnit_form' id='return_on_investment_incomePerUnit_form' value=''> </td> <td> <label for='text-1'># of Units</label> <input type='text' name='return_on_investment_incomeNumberOfUnits_form' id='return_on_investment_incomeNumberOfUnits_form' value=''> </td> </tr></table><a href='#' class='ui-btn ui-btn-inline' id='return_on_investment_cost_table_form_addNewInc_button' onclick='addNewIncomeForm()'>Add New Income</a></form></div><button class='ui-btn' id='return_on_investment_cost_table_form_addNewInvestment_button'>Add New Investment</button><button type='submit' class='ui-btn' id='return_on_investment_cost_table_form_submitForms_button'>Submit Forms</button>");
+			//}
+			function removeInputForm() {
+				
+			}
+		</script>
+>>>>>>> FETCH_HEAD
 		<script>
 			function getListofAlternativesforRiskAnalysis(){
 				var i = 0;			//Reset Counter
@@ -4585,7 +4604,6 @@ under the License.
 				
 			</div>			
 		</div>
-		<div data-role="page" class="ubm_page my-page" id="ubmsuite_mcs_list_of_available_applications">
             <!-- No Panel on this page, instead only back button is needed.-->
             <div data-role="header" data-position="fixed" data-fullscreen="true">
                 <a href="#" class="back_btn" data-icon="arrow-l" data-iconpos="notext">Back</a>
@@ -7125,7 +7143,114 @@ under the License.
 
 			</div>
 		</div>
-		<!-- List of Possible Alternitives -->
+		<!-- Return On Investment-->
+		<div data-role="page" id="return_on_investment" data-theme="f">
+			<div data-role="header">
+				 <a href="#" class="back_btn" data-icon="arrow-l" data-iconpos="notext">Back</a>
+					<h1>Return On Investment</h1>
+			</div>
+			<div role="main" class="ui-content">
+				<style type="text/css">
+					#return_on_investment_cost_table_header_form {text-align:center;padding-top:15px;padding-bottom:10px;}
+					#return_on_investment_input_form_cost {float:left;padding-bottom:1%;}
+					#return_on_investment_input_form_income {position:relative;float:left;margin-top:auto;padding-left:4%;padding-bottom:1%;}
+					.return_on_investment_cost_table_form_remove_button {position:relative;top:15px;left:10px;}
+					.return_on_investment_income_table_form_remove_button {position:relative;top:15px;left:10px;}
+				</style>
+				<div id="return_on_investment_input_forms">
+								<h1 id="return_on_investment_cost_table_header_form">Investment 1</h1>
+					<div id="return_on_investment_input_form_cost">
+						<form id="return_on_investment_cost_form">
+							<table id="return_on_investment_cost_table_form" data-theme="f">
+							  <tr>
+							    <td>
+							    	<label for="text-1">Cost Driver Description</label>
+			    					<input type="text" name="return_on_investment_costDescription_form" id="return_on_investment_costDescription_form" value="">
+			    				</td>
+							    <td>
+							    	<label for="text-1">Cost Per Unit</label>
+			     					<input type="text" name="return_on_investment_costPerUnit_form" id="return_on_investment_costPerUnit_form" value="">
+			     				</td>
+							    <td>
+							    	<label for="text-1"># of Units</label>
+			     					<input type="text" name="return_on_investment_costNumberOfUnits_form" id="return_on_investment_numberOfUnits_form" value="">
+			     				</td>
+			     				<td>
+							    	<button class="return_on_investment_income_table_form_remove_button">Remove</button>
+			     				</td>
+							  </tr>
+							</table>
+							<a href="#" class="ui-btn ui-btn-inline" id="return_on_investment_cost_table_form_addNewCost_button" onclick="addNewCostForm()">Add New Cost</a>
+						</form>
+					</div>
+					<div id="return_on_investment_input_form_income"class="ui-btn-inline">
+						<form id="return_on_investment_income_form">
+							<table id="return_on_investment_income_table_form" data-theme="f">
+							  <tr>
+							    <td>
+							    	<label for="text-1">Income Driver Description</label>
+			    					<input type="text" name="return_on_investment_incomeDescription_form" id="return_on_investment_incomeDescription_form" value="">
+			    				</td>
+							    <td>
+							    	<label for="text-1">Income Per Unit</label>
+			     					<input type="text" name="return_on_investment_incomePerUnit_form" id="return_on_investment_incomePerUnit_form" value="">
+			     				</td>
+							    <td>
+							    	<label for="text-1"># of Units</label>
+			     					<input type="text" name="return_on_investment_incomeNumberOfUnits_form" id="return_on_investment_incomeNumberOfUnits_form" value="">
+			     				</td>
+			     				<td>
+							    	<button class="return_on_investment_cost_table_form_remove_button">Remove</button>
+			     				</td>
+							  </tr>
+							</table>
+							<a href="#" class="ui-btn ui-btn-inline" id="return_on_investment_cost_table_form_addNewInc_button" onclick="addNewIncomeForm()">Add New Income</a>
+						</form>
+					</div>
+					<button type="submit" class="ui-btn" id="return_on_investment_cost_table_form_submitForms_button">Submit Forms</button>
+				</div>
+					
+				
+				<style type="text/css">
+					.tg_return_on_investment  {border-collapse:collapse;border-spacing:0;margin-top:15%;margin-left:auto;margin-right:auto;}
+					.tg_return_on_investment td{font-family:Arial, sans-serif;font-size:14px;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;}
+					.tg_return_on_investment th{font-family:Arial, sans-serif;font-size:14px;font-weight:normal;padding:10px 5px;border-style:solid;border-width:2px;overflow:hidden;word-break:normal;}
+					.tg_return_on_investment .tg-c593{background-color:#f1d1ff}
+					.tg_return_on_investment .tg-qrz3{background-color:#a6d0ed}
+					.tg_return_on_investment .tg-t5df{font-weight:bold;background-color:#c0392b}
+					.tg_return_on_investment .tg-x8jq{font-weight:bold;background-color:#2980b9}
+					.tg_return_on_investment .tg-75a8{font-weight:bold;background-color:#8e44ad}
+					.tg_return_on_investment .tg-nmrz{background-color:#f2c8c4}
+				</style>
+					<table class="tg_return_on_investment">
+					  <tr>
+					    <th class="tg-t5df">Cost Drivers</th>
+					    <th class="tg-t5df">Cost Per Unit</th>
+					    <th class="tg-t5df"># of Units</th>
+					    <th class="tg-t5df">Total Cost</th>
+					    <th class="tg-x8jq">Income Driver</th>
+					    <th class="tg-x8jq">Income Per Unit</th>
+					    <th class="tg-x8jq"># of Units</th>
+					    <th class="tg-x8jq">Total Income</th>
+					    <th class="tg-75a8">Net Income</th>
+					    <th class="tg-75a8">Net Income Per Cost</th>
+					  </tr>
+					  <tr>
+					    <td class="tg-nmrz"></td>
+					    <td class="tg-nmrz"></td>
+					    <td class="tg-nmrz"></td>
+					    <td class="tg-nmrz"></td>
+					    <td class="tg-qrz3"></td>
+					    <td class="tg-qrz3"></td>
+					    <td class="tg-qrz3"></td>
+					    <td class="tg-qrz3"></td>
+					    <td class="tg-c593"></td>
+					    <td class="tg-c593"></td>
+					  </tr>
+					</table>
+			</div>
+		</div>
+		<!-- Risk Analysis -->
 		<div data-role="page" class="ubm_page" id="risk_analysis" data-theme="f">
 			<div data-role="header">
                 <a href="#" class="back_btn" data-icon="arrow-l" data-iconpos="notext">Back</a>
@@ -13711,8 +13836,8 @@ under the License.
                     </center>
                 </div>
             </div>
-            <!-- Phase 5-->
-            <div data-role="page" class="ubm_page" id="mcs_setup_checklist_p5" data-theme="f">
+        <!-- Phase 5-->
+       <div data-role="page" class="ubm_page" id="mcs_setup_checklist_p5" data-theme="f">
                 <div data-role="panel" id="mcs_setup_checklist_p5_lpanel" data-display="overlay" data-position="left">
                     <ul data-role="listview">
                         <li data-icon="home">
