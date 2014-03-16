@@ -2005,23 +2005,52 @@ under the License.
 		<!-- End Model Alternatives Functions-->
 
 		<script>
-			function addNewCostForm () {
+			function addNewCost () {
 				var costFormCounter = 1;
 				$("#return_on_investment_cost_table_form").append("<tr><td><label for='text-1'>Cost Driver Description</label><input type='text' name='return_on_investment_costDescription_form' id='return_on_investment_costDescription_form' value=''></td><td><label for='text-1'>Cost Per Unit</label><input type='text' name='return_on_investment_costPerUnit_form' id='return_on_investment_costPerUnit_form' value=''></td><td><label for='text-1'># of Units</label><input type='text' name='return_on_investment_numberOfUnits_form' id='return_on_investment_numberOfUnits_form' value=''></td><td><button id-'return_on_investment_cost_table_form_remove_button'>Remove</button></td></tr>");
 				$("#return_on_investment_cost_form").trigger("create");
 				costFormCounter++;
 			}
-			function addNewIncomeForm () {
+			function addNewIncome () {
 				var incomeFormCounter = 1;
 				$("#return_on_investment_income_table_form").append("<tr><td><label for='text-1'>Income Driver Description</label><input type='text' name='return_on_investment_incomeDescription_form' id='return_on_investment_incomeDescription_form' value=''></td><td><label for='text-1'>Income Per Unit</label><input type='text' name='return_on_investment_incomePerUnit_form' id='return_on_investment_incomePerUnit_form' value=''></td><td><label for='text-1'># of Units</label><input type='text' name='return_on_investment_numberOfUnits_form' id='return_on_investment_numberOfUnits_form' value=''></td><td><button id-'return_on_investment_cost_table_form_remove_button'>Remove</button></td></tr>");
 				$("#return_on_investment_income_form").trigger("create");
 				incomeFormCounter++;
 			}
-			//function addNewInvestment () {
-				//$("#return_on_investment_input_forms").append("<h1 id='return_on_investment_cost_table_header_form'>Investment 1</h1><div id='return_on_investment_input_form_cost'><form id='return_on_investment_cost_form'><table id='return_on_investment_cost_table_form' data-theme='f'> <tr> <td> <label for='text-1'>Cost Description</label> <input type='text' name='return_on_investment_costDescription_form' id='return_on_investment_costDescription_form' value=''> </td> <td> <label for='text-1'>Cost Per Unit</label> <input type='text' name='return_on_investment_costPerUnit_form' id='return_on_investment_costPerUnit_form' value=''> </td> <td> <label for='text-1'># of Units</label> <input type='text' name='return_on_investment_costNumberOfUnits_form' id='return_on_investment_numberOfUnits_form' value=''> </td> </tr></table><a href='#' class='ui-btn ui-btn-inline' id='return_on_investment_cost_table_form_addNewCost_button' onclick='addNewCostForm()'>Add New Cost</a></form></div><div id='return_on_investment_input_form_income'class='ui-btn-inline'><form id='return_on_investment_income_form'><table id='return_on_investment_income_table_form' data-theme='f'> <tr> <td> <label for='text-1'>Income Description</label> <input type='text' name='return_on_investment_incomeDescription_form' id='return_on_investment_incomeDescription_form' value=''> </td> <td> <label for='text-1'>Income Per Unit</label> <input type='text' name='return_on_investment_incomePerUnit_form' id='return_on_investment_incomePerUnit_form' value=''> </td> <td> <label for='text-1'># of Units</label> <input type='text' name='return_on_investment_incomeNumberOfUnits_form' id='return_on_investment_incomeNumberOfUnits_form' value=''> </td> </tr></table><a href='#' class='ui-btn ui-btn-inline' id='return_on_investment_cost_table_form_addNewInc_button' onclick='addNewIncomeForm()'>Add New Income</a></form></div><button class='ui-btn' id='return_on_investment_cost_table_form_addNewInvestment_button'>Add New Investment</button><button type='submit' class='ui-btn' id='return_on_investment_cost_table_form_submitForms_button'>Submit Forms</button>");
-			//}
-			function removeInputForm() {
-				
+			function createNewInvestment () {
+				//alert("was called");
+				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_model_alternative_create_Investment.php?callback=?', {//JSONP Request to Open Items Page setup tables
+					username: window.username,
+					activeAlternativeId : window.activeModelId,
+					title: document.getElementById("return_on_investment_createNewInvestment_popup_form_title").value,
+					description: document.getElementById("return_on_investment_createNewInvestment_popup_form_description").value,
+					type: document.getElementById("return_on_investment_createNewInvestment_popup_form_type").value
+				}, function(res, status) {
+					alert(res.message);
+					$("#return_on_investment_createNewInvestment_popup").popup("close");
+					$("#return_on_investment_createNewInvestment_popup_form").each(function() {
+						this.reset();
+					});
+					if (status == "success") {
+						getAllInvestments();
+					} else {
+						setTimeout(function() {
+						getAllInvestments();
+						}, 1000);
+					}
+				});	
+			}	
+			function getAllInvestments () {
+				//alert("test");
+				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_model_alternative_get_Investments.php?callback=?', {//JSONP Request to Open Items Page setup tables
+					activeAlternativeId : window.activeModelId
+				}, function(res, status) {
+					alert(res.message);
+					$.each(res, function(i, item) {
+							$('#return_on_investment_alternative_select_investment_menu').append("<option value='" + item.id + "' '>Investment " + item.id + " : " + item.description + "</option>");							
+							$('#return_on_investment_alternative_select_investment_menu').selectmenu('refresh', true);
+					});
+				});
 			}
 		</script>
 		<script>
@@ -2036,7 +2065,7 @@ under the License.
 								window.activeModelAlternativeId = item.id;	//Set the first item in the callback as the activeModelAlternativeId.
 								i = 1;										//Iterate counter
 							}
-							$('#risk_analysis_alternative_select_menu').append("<option value='" + item.id + "' onclick='setActiveAlternative(" + item.id + ")'>Alternative " + item.id + " : " + item.description + "</option>");							
+							$('#risk_analysis_alternative_select_menu').append("<option value='" + item.id + "'>Investment " + item.id + " : " + item.description + "</option>");							
 							$('#risk_analysis_alternative_select_menu').selectmenu('refresh', true);
 						}else{
 							//$('#').append("...");
@@ -7108,62 +7137,106 @@ under the License.
 					#return_on_investment_cost_table_header_form {text-align:center;padding-top:15px;padding-bottom:10px;}
 					#return_on_investment_input_form_cost {float:left;padding-bottom:1%;}
 					#return_on_investment_input_form_income {position:relative;float:left;margin-top:auto;padding-left:4%;padding-bottom:1%;}
-					.return_on_investment_cost_table_form_remove_button {position:relative;top:15px;left:10px;}
-					.return_on_investment_income_table_form_remove_button {position:relative;top:15px;left:10px;}
 				</style>
 				<div id="return_on_investment_input_forms">
-								<h1 id="return_on_investment_cost_table_header_form">Investment 1</h1>
+					<h1 id="return_on_investment_cost_table_header_form">Investment 1</h1>
+					<center>
+						<div style="max-width:400px;" id="return_on_investment_select_alternative_menu_container">
+							<select name="select-custom-1" id="return_on_investment_alternative_select_menu" data-native-menu="false">
+		
+							</select>							
+						</div>
+					</center>
+					<center>
+						<div style="max-width:400px;" id="return_on_investment_select_investment_menu_container">
+							<select name="select-custom-1" id="return_on_investment_alternative_select_investment_menu" data-native-menu="false">
+		
+							</select>							
+						</div>
+					</center>
 					<div id="return_on_investment_input_form_cost">
 						<form id="return_on_investment_cost_form">
+							
 							<table id="return_on_investment_cost_table_form" data-theme="f">
-							  <tr>
-							    <td>
-							    	<label for="text-1">Cost Driver Description</label>
-			    					<input type="text" name="return_on_investment_costDescription_form" id="return_on_investment_costDescription_form" value="">
-			    				</td>
-							    <td>
-							    	<label for="text-1">Cost Per Unit</label>
-			     					<input type="text" name="return_on_investment_costPerUnit_form" id="return_on_investment_costPerUnit_form" value="">
-			     				</td>
-							    <td>
-							    	<label for="text-1"># of Units</label>
-			     					<input type="text" name="return_on_investment_costNumberOfUnits_form" id="return_on_investment_numberOfUnits_form" value="">
-			     				</td>
-			     				<td>
-							    	<button class="return_on_investment_income_table_form_remove_button">Remove</button>
-			     				</td>
-							  </tr>
+							  <thead>
+							  	<tr>
+							  		<td>
+							    		<h2>Cost Driver Description</h2>
+							  		</td>
+							  		<td>
+							    		<h2>Cost Per Unit</h2>
+							  		</td>
+							  		<td>
+							    		<h2># of Units</h2>
+							  		</td>
+							  	</tr>
+							  </thead>
+							  <tbody>
+								  <tr>
+									    <td>
+					    					<input type="text" name="return_on_investment_costDescription_form" id="return_on_investment_costDescription_form" placeholder="Cost Driver Description..." value="">
+					    				</td>
+									    <td>
+					     					<input type="text" name="return_on_investment_costPerUnit_form" id="return_on_investment_costPerUnit_form" placeholder="Cost Per Unit..." value="">
+					     				</td>
+									    <td>
+					     					<input type="text" name="return_on_investment_costNumberOfUnits_form" id="return_on_investment_numberOfUnits_form" placeholder="# of Units..." value="">
+					     				</td>
+					     				<td>
+									    	<button style="max-height:30px" class="return_on_investment_cost_table_form_remove_button">Remove</button>
+										</td>
+										<td>
+									    	<button style="max-height:30px" class="return_on_investment_cost_table_form_submit_button">Submit</button>
+										</td>
+								  </tr>
+							  </tbody>
+							  
 							</table>
-							<a href="#" class="ui-btn ui-btn-inline" id="return_on_investment_cost_table_form_addNewCost_button" onclick="addNewCostForm()">Add New Cost</a>
+							<a href="#" class="ui-btn ui-btn-inline" id="return_on_investment_cost_table_form_addNewCost_button" onclick="addNewCost()">Add New Cost</a>
 						</form>
 					</div>
 					<div id="return_on_investment_input_form_income"class="ui-btn-inline">
 						<form id="return_on_investment_income_form">
 							<table id="return_on_investment_income_table_form" data-theme="f">
-							  <tr>
-							    <td>
-							    	<label for="text-1">Income Driver Description</label>
-			    					<input type="text" name="return_on_investment_incomeDescription_form" id="return_on_investment_incomeDescription_form" value="">
-			    				</td>
-							    <td>
-							    	<label for="text-1">Income Per Unit</label>
-			     					<input type="text" name="return_on_investment_incomePerUnit_form" id="return_on_investment_incomePerUnit_form" value="">
-			     				</td>
-							    <td>
-							    	<label for="text-1"># of Units</label>
-			     					<input type="text" name="return_on_investment_incomeNumberOfUnits_form" id="return_on_investment_incomeNumberOfUnits_form" value="">
-			     				</td>
-			     				<td>
-							    	<button class="return_on_investment_cost_table_form_remove_button">Remove</button>
-			     				</td>
-							  </tr>
+							  <thead>
+									<tr>
+										<td>
+											<h2>Cost Driver Description</h2>
+										</td>
+										<td>
+											<h2>Cost Per Unit</h2>
+										</td>
+										<td>
+											<h2># of Units</h2>
+										</td>
+									</tr>
+								</thead>
+							  <tbody>
+									<tr>
+										<td>
+											<input type="text" name="return_on_investment_incomeDescription_form" id="return_on_investment_incomeDescription_form" placeholder="Income Driver Description..." ="">
+										</td>
+										<td>
+											<input type="text" name="return_on_investment_incomePerUnit_form" id="return_on_investment_incomePerUnit_form" placeholder="Income Per Unit..." value="">
+										</td>
+										<td>
+											<input type="text" name="return_on_investment_incomeNumberOfUnits_form" id="return_on_investment_incomeNumberOfUnits_form" placeholder="# of Units..." value="">
+										</td>
+										<td>
+											<button style="max-height:30px" class="return_on_investment_income_table_form_remove_button">Remove</button>
+										</td>
+										<td>
+											<button style="max-height:30px" class="return_on_investment_income_table_form_submit_button">Submit</button>
+										</td>
+									</tr>
+								</tbody>
+							  
 							</table>
-							<a href="#" class="ui-btn ui-btn-inline" id="return_on_investment_cost_table_form_addNewInc_button" onclick="addNewIncomeForm()">Add New Income</a>
+							<a href="#" class="ui-btn ui-btn-inline" id="return_on_investment_cost_table_form_addNewInc_button" onclick="addNewIncome()">Add New Income</a>
 						</form>
 					</div>
-					<button type="submit" class="ui-btn" id="return_on_investment_cost_table_form_submitForms_button">Submit Forms</button>
-				</div>
-					
+					</div>
+					<a href="#return_on_investment_createNewInvestment_popup" data-rel="popup" data-transition="slideup" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a">Create New Investment</a>
 				
 				<style type="text/css">
 					.tg_return_on_investment  {border-collapse:collapse;border-spacing:0;margin-top:15%;margin-left:auto;margin-right:auto;}
@@ -7202,6 +7275,21 @@ under the License.
 					    <td class="tg-c593"></td>
 					  </tr>
 					</table>
+			</div>
+			<!-- Create New Investment Popup -->
+			<div data-role="popup" id="return_on_investment_createNewInvestment_popup" data-theme="f" class="ui-corner-all">
+			    <form id="return_on_investment_createNewInvestment_popup_form" >
+			        <div style="padding:10px 20px;">
+			            <h1>Create new Investment</h2>
+			            	<label for="return_on_investment_createNewInvestment_popup_form_title" class="ui-hidden-accessible">Title</label>
+					            <input type="text" name="user" id="return_on_investment_createNewInvestment_popup_form_title" value="" placeholder="Title" data-theme="a">
+					            <label for="return_on_investment_createNewInvestment_popup_form_description" class="ui-hidden-accessible">Description</label>
+					            <input type="text" name="pass" id="return_on_investment_createNewInvestment_popup_form_description" value="" placeholder="Description..." data-theme="a">
+					            <label for="return_on_investment_createNewInvestment_popup_form_type" class="ui-hidden-accessible">Type</label>
+					            <input type="text" name="pass" id="return_on_investment_createNewInvestment_popup_form_type" value="" placeholder="Type..." data-theme="a">
+			            <a href="#" class="ui-btn ui-corner-all ui-shadow ui-btn-b ui-btn-icon-left ui-icon-check" onclick="createNewInvestment()">Create</a>
+			        </div>
+			    </form>
 			</div>
 		</div>
 		<!-- Risk Analysis -->
