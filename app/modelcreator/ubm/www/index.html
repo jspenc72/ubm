@@ -63,8 +63,7 @@ under the License.
 		<link rel="stylesheet" href="css/heirarchicalChart.css"/>
 		<!-- Font Awesome JS -->
 	    <script src="src/jquery.popmenu.js"></script>
-
-	    
+		<link rel="stylesheet" href="05.css">	    
         <title>UBM</title>
         <script>
 			function showLoader(){
@@ -1789,6 +1788,40 @@ under the License.
 			}
 		</script>
 		<script>
+//Initialize Slider for Pro Hi and Low Monetary Benefit
+				  $(function() {
+				    $( "#possible_alternatives_pro_monetary_gain_slider" ).slider({
+				      range: true,
+				      min: 0,
+				      max: 500,
+				      values: [ 75, 300 ],
+				      slide: function( event, ui ) {
+				    		$( "#possible_alternatives_pro_monetary_gain_input" ).val( "$" + ui.values[ 0 ] + " - $" + ui.values[ 1 ] ); //Populate the text input with the Low and High values from the slider.
+					      $("#possible_alternatives_pro_monetary_gain_input_low").val(ui.values[ 0 ]);
+					      $("#possible_alternatives_pro_monetary_gain_input_high").val(ui.values[ 1 ]);	      
+				      }
+				    });
+				    $( "#possible_alternatives_pro_monetary_gain_input" ).val( "$" + $( "#possible_alternatives_pro_monetary_gain_slider" ).slider( "values", 0 ) +
+				      " - $" + $( "#possible_alternatives_pro_monetary_gain_slider" ).slider( "values", 1 ) );
+				      $("#possible_alternatives_pro_monetary_gain_input_low").val($( "#possible_alternatives_pro_monetary_gain_slider" ).slider("values", 0));
+				      $("#possible_alternatives_pro_monetary_gain_input_high").val($( "#possible_alternatives_pro_monetary_gain_slider" ).slider("values", 1));
+				  });
+//Initialize Slider for Con Hi and Low Monetary Benefit
+				  $(function() {
+				    $( "#possible_alternatives_con_monetary_cost_slider" ).slider({
+				      range: true,
+				      min: -1000,
+				      max: 0,
+				      values: [ -500, -10 ],
+				      slide: function( event, ui ) {
+				        $( "#possible_alternatives_con_monetary_cost_input" ).val( "$" + ui.values[ 0 ] + " - $" + ui.values[ 1 ] ); //Populate the text input with the Low and High values from the slider.
+				      }
+				    });
+				    $( "#possible_alternatives_con_monetary_cost_input" ).val( "$" + $( "#possible_alternatives_con_monetary_cost_slider" ).slider( "values", 0 ) +
+				      " - $" + $( "#possible_alternatives_con_monetary_cost_slider" ).slider( "values", 1 ) );
+				      $("#possible_alternatives_con_monetary_cost_input_low").val($( "#possible_alternatives_con_monetary_cost_slider" ).slider("values", 0));
+				      $("#possible_alternatives_con_monetary_cost_input_high").val($( "#possible_alternatives_con_monetary_cost_slider" ).slider("values", 1));
+				  });
 				function newLowSum() {		//Calculates the Sum of the Low Annual Expected ROI Costs and Benefits 
 				    var sum=0;
 				    var thisRow = $(this).closest('tr');
@@ -1850,12 +1883,25 @@ under the License.
 					}, function(res, status) {
 						$.each(res, function(i, item) {
 							if(item.decision=="Use Now"){
-								$('#possible_alternitives_table_body').append("<tr><td>" + item.id + "<a href='#' onclick='setActiveAlternative(" + item.id + ")' class='ui-btn ui-icon-tag ui-btn-icon-notext ui-corner-all'>No text</a></td><td>" + item.description + "</td><td><fieldset class='alternative_decision_controlgroup' data-role='controlgroup' data-type='horizontal'><button data-icon='refresh' onclick='setActiveAlternative(" + item.id + ")'>Show Pros and Cons</button><label for='select-more-1a' class='ui-hidden-accessible'>More</label><select name='select-more-1a' id='select-more-1a'><option value='#'>Use Now</option><option value='#'>Consider for the future</option><option value='#'>Not a forseen use</option></select></fieldset></td><td><input class='high_col_num' value = '" + item.annual_cost_high + "'/></td><td><input class='low_col_num' value = '" + item.annual_cost_low + "'/></td><td><input class='high_col_num' value = '" + item.annual_benefit_high + "'/></td><td><input class='low_col_num' value = '" + item.annual_benefit_low + "'/></td><td class='high_total'>High ROI</td><td class='low_total'>Low ROI</td></tr>");							
-							}else{
-								$('#possible_alternitives_table_body').append("<tr><td>" + item.id + "<a href='#' onclick='setActiveAlternative(" + item.id + ")' class='ui-btn ui-icon-tag ui-btn-icon-notext ui-corner-all'>No text</a></td><td>" + item.description + "</td><td><fieldset class='alternative_decision_controlgroup' data-role='controlgroup' data-type='horizontal'><button data-icon='refresh' onclick='setActiveAlternative(" + item.id + ")'>Show Pros and Cons</button><label for='select-more-1a' class='ui-hidden-accessible'>More</label><select name='select-more-1a' id='select-more-1a'><option value='#'>Use Now</option><option value='#'>Consider for the future</option><option value='#'>Not a forseen use</option></select></fieldset></td><td><input class='high_col_num' value = '" + item.annual_cost_high + "'/></td><td><input class='low_col_num' value = '" + item.annual_cost_low + "'/></td><td><input class='high_col_num' value = '" + item.annual_benefit_high + "'/></td><td><input class='low_col_num' value = '" + item.annual_benefit_low + "'/></td><td class='high_total'>High ROI</td><td class='low_total'>Low ROI</td></tr>");
-							}
+								$('#possible_alternitives_table_body').append("<tr><td><a href='#' onclick='removeAlternativefromModel(" + item.id + ")'><span id='trashico'></span></a></td><td>" + item.id + "<a href='#' onclick='setActiveAlternative(" + item.id + ")' class='ui-btn ui-icon-tag ui-btn-icon-notext ui-corner-all'>No text</a></td><td>" + item.description + "</td><td><fieldset class='alternative_decision_controlgroup' data-role='controlgroup' data-type='horizontal'><button data-icon='refresh' onclick='setActiveAlternative(" + item.id + ")'>Show Pros and Cons</button><label for='select-more-1a' class='ui-hidden-accessible'>More</label><select name='select-more-1a' id='select-more-1a' data-theme='d'><option value='#' selected='selected'>Use Now</option><option value='#'>Consider for the future</option><option value='#'>Not a forseen use</option></select></fieldset></td><td><input class='high_col_num' value = '" + item.annual_cost_high + "'/></td><td><input class='low_col_num' value = '" + item.annual_cost_low + "'/></td><td><input class='high_col_num' value = '" + item.annual_benefit_high + "'/></td><td><input class='low_col_num' value = '" + item.annual_benefit_low + "'/></td><td class='high_total'>High ROI</td><td class='low_total'>Low ROI</td><td><a href='#' class='ui-btn risk_analysis_table' onclick='saveAlternativeAnalysis(" + item.id + ")'>Save Alternative </br> Analysis</a></td></tr>");							
 								$( "#possible_alternitives_table" ).table( "refresh" );
 								$(".alternative_decision_controlgroup").trigger("create");
+							}else{
+								if(item.decision=="Consider for the future"){
+									$('#possible_alternitives_table_body').append("<tr><td><a href='#' onclick='removeAlternativefromModel(" + item.id + ")'><span id='trashico'></span></a></td><td>" + item.id + "<a href='#' onclick='setActiveAlternative(" + item.id + ")' class='ui-btn ui-icon-tag ui-btn-icon-notext ui-corner-all'>No text</a></td><td>" + item.description + "</td><td><fieldset class='alternative_decision_controlgroup' data-role='controlgroup' data-type='horizontal'><button data-icon='refresh' onclick='setActiveAlternative(" + item.id + ")'>Show Pros and Cons</button><label for='select-more-1a' class='ui-hidden-accessible'>More</label><select name='select-more-1a' id='select-more-1a' data-theme='b'><option value='#'>Use Now</option><option value='#' selected='selected'>Consider for the future</option><option value='#'>Not a forseen use</option></select></fieldset></td><td><input class='high_col_num' value = '" + item.annual_cost_high + "'/></td><td><input class='low_col_num' value = '" + item.annual_cost_low + "'/></td><td><input class='high_col_num' value = '" + item.annual_benefit_high + "'/></td><td><input class='low_col_num' value = '" + item.annual_benefit_low + "'/></td><td class='high_total'>High ROI</td><td class='low_total'>Low ROI</td><td><a href='#' class='ui-btn risk_analysis_table' onclick='saveAlternativeAnalysis(" + item.id + ")'>Save Alternative </br> Analysis</a></td></tr>");
+									$( "#possible_alternitives_table" ).table( "refresh" );
+									$(".alternative_decision_controlgroup").trigger("create");								
+								}else{
+									if(item.decision=="Not a forseen use"){
+										$('#possible_alternitives_table_body').append("<tr><td><a href='#' onclick='removeAlternativefromModel(" + item.id + ")'><span id='trashico'></span></a></td><td>" + item.id + "<a href='#' onclick='setActiveAlternative(" + item.id + ")' class='ui-btn ui-icon-tag ui-btn-icon-notext ui-corner-all'>No text</a></td><td>" + item.description + "</td><td><fieldset class='alternative_decision_controlgroup' data-role='controlgroup' data-type='horizontal'><button data-icon='refresh' onclick='setActiveAlternative(" + item.id + ")'>Show Pros and Cons</button><label for='select-more-1a' class='ui-hidden-accessible'>More</label><select name='select-more-1a' id='select-more-1a' data-theme='c'><option value='#'>Use Now</option><option value='#'>Consider for the future</option><option value='#' selected='selected'>Not a forseen use</option></select></fieldset></td><td><input class='high_col_num' value = '" + item.annual_cost_high + "'/></td><td><input class='low_col_num' value = '" + item.annual_cost_low + "'/></td><td><input class='high_col_num' value = '" + item.annual_benefit_high + "'/></td><td><input class='low_col_num' value = '" + item.annual_benefit_low + "'/></td><td class='high_total'>High ROI</td><td class='low_total'>Low ROI</td><td><a href='#' class='ui-btn risk_analysis_table' onclick='saveAlternativeAnalysis(" + item.id + ")'>Save Alternative </br> Analysis</a></td></tr>");
+										$( "#possible_alternitives_table" ).table( "refresh" );
+										$(".alternative_decision_controlgroup").trigger("create");
+									}else{
+										
+									}
+								}
+							}
+
 						});
 					});				
 					setTimeout(function() {
@@ -1967,40 +2013,13 @@ under the License.
 						}
 					});
 				}
-//Initialize Slider for Pro Hi and Low Monetary Benefit
-				  $(function() {
-				    $( "#possible_alternatives_pro_monetary_gain_slider" ).slider({
-				      range: true,
-				      min: 0,
-				      max: 500,
-				      values: [ 75, 300 ],
-				      slide: function( event, ui ) {
-				    		$( "#possible_alternatives_pro_monetary_gain_input" ).val( "$" + ui.values[ 0 ] + " - $" + ui.values[ 1 ] ); //Populate the text input with the Low and High values from the slider.
-					      $("#possible_alternatives_pro_monetary_gain_input_low").val(ui.values[ 0 ]);
-					      $("#possible_alternatives_pro_monetary_gain_input_high").val(ui.values[ 1 ]);	      
-				      }
-				    });
-				    $( "#possible_alternatives_pro_monetary_gain_input" ).val( "$" + $( "#possible_alternatives_pro_monetary_gain_slider" ).slider( "values", 0 ) +
-				      " - $" + $( "#possible_alternatives_pro_monetary_gain_slider" ).slider( "values", 1 ) );
-				      $("#possible_alternatives_pro_monetary_gain_input_low").val($( "#possible_alternatives_pro_monetary_gain_slider" ).slider("values", 0));
-				      $("#possible_alternatives_pro_monetary_gain_input_high").val($( "#possible_alternatives_pro_monetary_gain_slider" ).slider("values", 1));
-				  });
-//Initialize Slider for Con Hi and Low Monetary Benefit
-				  $(function() {
-				    $( "#possible_alternatives_con_monetary_cost_slider" ).slider({
-				      range: true,
-				      min: -1000,
-				      max: 0,
-				      values: [ -500, -10 ],
-				      slide: function( event, ui ) {
-				        $( "#possible_alternatives_con_monetary_cost_input" ).val( "$" + ui.values[ 0 ] + " - $" + ui.values[ 1 ] ); //Populate the text input with the Low and High values from the slider.
-				      }
-				    });
-				    $( "#possible_alternatives_con_monetary_cost_input" ).val( "$" + $( "#possible_alternatives_con_monetary_cost_slider" ).slider( "values", 0 ) +
-				      " - $" + $( "#possible_alternatives_con_monetary_cost_slider" ).slider( "values", 1 ) );
-				      $("#possible_alternatives_con_monetary_cost_input_low").val($( "#possible_alternatives_con_monetary_cost_slider" ).slider("values", 0));
-				      $("#possible_alternatives_con_monetary_cost_input_high").val($( "#possible_alternatives_con_monetary_cost_slider" ).slider("values", 1));
-				  });
+				function removeAlternativefromModel(){
+					alert("alternative will be permanently remove from this model.");
+				}
+				function saveAlternativeAnalysis(){
+					alert("alternative analysis will be save to this model.");
+				}
+
 	  </script>
 		<!-- End Model Alternatives Functions-->
 
@@ -4758,7 +4777,9 @@ under the License.
 						<span class="shadow"></span>
 					</aside>
 				</div>
+
             </div>
+
             <div data-role="footer" data-position="fixed" data-fullscreen="true">
 
             </div>
@@ -7074,6 +7095,7 @@ under the License.
 					<caption><center><h1>List of Alternatives</h1></center</caption>					
 					<thead>
 						<tr>
+							<th data-priority="1">Edit / Remove Alternative</th>
 							<th data-priority="10">Alternative #</th>
 							<th data-priority="10"><h4>Alternative Description</h4></th>
 							<th data-priority="10"><h4>Decision</h4></th>
@@ -7083,6 +7105,7 @@ under the License.
 							<th data-priority="10"><h4>Annual Benefit </br>Low</h4></th>
 							<th data-priority="10"><h4>High Annual </br>Expected ROI</h4></th>
 							<th data-priority="10"><h4>Low Annual </br>Expected ROI</h4></th>
+							<th data-priority="1">Save</th>
 
 						</tr>
 					</thead>
@@ -15924,6 +15947,7 @@ under the License.
 			    })(jQuery);
 			  </script>
 			<script src="js/jquery.currency.js"></script>
-
+		<!-- Example JavaScript -->
+		<script src="05.js"></script>
     </body>
 </html>
