@@ -2054,11 +2054,12 @@ under the License.
 			}
 		</script>
 		<script>
-			function getListofAlternativesforRiskAnalysis(){
+			function getListofAlternativesforRiskAnalysis(){//Populates the Alternative Picker at the top of the risk_analysis page.
 				var i = 0;			//Reset Counter
 				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_model_getCurrentModel_Alternatives.php?callback=?', {//JSONP Request to Open Items Page setup tables
 					activeModelId : window.activeModelId,
 				}, function(res, status) {
+					$('#risk_analysis_alternative_select_menu').empty();
 					$.each(res, function(i, item) {
 						if(item.decision=="Use Now"){
 							if(i==0){	
@@ -2083,18 +2084,11 @@ under the License.
 					username : window.username
 				}, function(res, status) {
 					alert(res.message);
-				});	
-			}
-			function removeRiskfromMyAlternative(activeAlternativeRisk){
-				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_model_alternative_add_Risk.php?callback=?', {//JSONP Request to Open Items Page setup tables
-					activeModelId : window.activeModelId,
-					activeStepId: window.activeStepId
-				}, function(res, status) {
-					$.each(res, function(i, item) {
+					if(status=="success"){
+						getListofRisksforRiskAnalysisTable();
 						
-						//$("#").append("<tr><td class='tg-031e'>1</td><td class='tg-031e'>2</td><td class='tg-031e'>3</td><td class='tg-031e'>4</td><td class='tg-031e'>5</td><td class='tg-031e'>6</td><td class='tg-031e'>7</td><td class='tg-031e'>8</td><td class='tg-031e'>9</td><td class='tg-031e'>10</td><td class='tg-031e'>11</td><td class='tg-031e'>12</td><td class='tg-031e'>13</td><td class='tg-031e'>14</td><td class='tg-031e'>15</td><td class='tg-031e'>16</td><td class='tg-031e'>17</td><td class='tg-031e'>18</td><td class='tg-031e'>19</td><td class='tg-031e'>20</td></tr>");		
-					});
-				});					
+					}
+				});	
 			}
 			function getListofRisksforSearchBars(){
 						$( "#risk_analysis_load_search_progressbar" ).show();
@@ -2149,7 +2143,7 @@ under the License.
 					$.each(res, function(i, item) {
 						if(item.alternative_id==window.activeModelAlternativeId){
 							i=i+1;
-							$('#risk_analysis_table_body').append("<tr><td class='tg-031e'>" + i + "</td><td class='tg-031e'>" + item.alternative_id + "</td><td class='tg-031e'>" + item.description + "</td><td class='tg-031e'><input class='probability_col_num' value = '" + item.probability + "'/></td><td class='tg-031e'><input class='low_col_num' value = '5'/></td><td class='tg-031e'></td><td class='tg-031e'  ><fieldset class='retain_full_risk_radio' data-role='controlgroup' data-type='vertical' data-mini='true'><input type='radio' class='retain_full_risk_radio' name='radio-choice-b" + i + "' id='radio-choice-c" + i + "' value='Yes' checked='checked'><label class='retain_full_risk_radio' for='radio-choice-c" + i + "'>Yes</label><input class='retain_full_risk_radio' type='radio' name='radio-choice-b" + i + "' id='radio-choice-d" + i + "' value=' No '><label class='retain_full_risk_radio' for='radio-choice-d" + i + "'>No</label></fieldset></td><td class='tg-031e' style='max-width:150px;'><select name='select-choice-8' id='select-choice-8" + i + "' multiple='multiple' data-native-menu='false' data-icon='grid' data-iconpos='left'><option>Select the measures your will take:</option><option value='Policies and Procedures' selected=''>Policies and Procedures</option><optgroup label='Insurance'><option value='Property and Causality'>Property and Causality</option><option value='Auto'>Auto</option><option value='General Liability'>General Liability</option></optgroup><optgroup label='Others'><option value='Other'>Other</option><option value='Out Source'>Out Source</option></optgroup></select></td><td class='tg-031e'><input class='low_col_num' value = '" + item.amount + "'/></td><td class='tg-031e'><input class='low_col_num' value = '" + item.reference + "'/></td><td class='tg-031e'><textarea cols='20' rows='3' name='textarea' id='textarea'>" + item.preventative_measures_explanation + "</textarea></td></tr>");							
+							$('#risk_analysis_table_body').append("<tr><td><a href='#' onclick='removeRiskFromAlternative(" + item.id + ")'><span id='trashico'></span></a></td><td class='tg-031e'>" + i + "</td><td class='tg-031e'>" + item.alternative_id + "</td><td class='tg-031e'>" + item.description + "</td><td class='tg-031e'><input class='probability_col_num' value = '" + item.probability + "'/></td><td class='tg-031e'><input class='low_col_num' value = '5'/></td><td class='tg-031e'></td><td class='tg-031e'  ><fieldset class='retain_full_risk_radio' data-role='controlgroup' data-type='vertical' data-mini='true'><input type='radio' class='retain_full_risk_radio' name='radio-choice-b" + i + "' id='radio-choice-c" + i + "' value='Yes' checked='checked'><label class='retain_full_risk_radio' for='radio-choice-c" + i + "'>Yes</label><input class='retain_full_risk_radio' type='radio' name='radio-choice-b" + i + "' id='radio-choice-d" + i + "' value=' No '><label class='retain_full_risk_radio' for='radio-choice-d" + i + "'>No</label></fieldset></td><td class='tg-031e' style='max-width:150px;'><select name='select-choice-8' id='select-choice-8" + i + "' multiple='multiple' data-native-menu='false' data-icon='grid' data-iconpos='left'><option>Select the measures your will take:</option><option value='Policies and Procedures' selected=''>Policies and Procedures</option><optgroup label='Insurance'><option value='Property and Causality'>Property and Causality</option><option value='Auto'>Auto</option><option value='General Liability'>General Liability</option></optgroup><optgroup label='Others'><option value='Other'>Other</option><option value='Out Source'>Out Source</option></optgroup></select></td><td class='tg-031e'><input class='low_col_num' value = '" + item.amount + "'/></td><td class='tg-031e'><input class='low_col_num' value = '" + item.reference + "'/></td><td class='tg-031e'><textarea cols='20' rows='3' name='textarea' id='textarea'>" + item.preventative_measures_explanation + "</textarea></td><td><a href='#' class='ui-btn risk_analysis_table' onclick='saveRiskAnalysis(" + item.id + ")'>Save Analysis</a></td></tr>");							
 							$('#risk_analysis_table_body').trigger("create");
 							$('.retain_full_risk_radio').trigger("create");
 						}else{
@@ -2158,6 +2152,19 @@ under the License.
 					});
 
 				});					
+			}
+			function saveRiskAnalysis(){
+				alert("risk analysis will now be saved.");
+			}
+			function removeRiskFromAlternative(activeRiskId){
+				alert("this is a test "+activeRiskId)
+				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_model_alternative_remove_Risk.php?callback=?', {//JSONP Request to Open Items Page setup tables
+					activeAlternativeId : window.activeModelAlternativeId,
+					activeRiskId: activeRiskId
+				}, function(res, status) {
+					alert(res.message);
+				});	
+				getListofRisksforRiskAnalysisTable();
 			}
 		</script>
 		<!-- End Risk Analysis / Assessment-->
@@ -7313,6 +7320,13 @@ under the License.
 					.tg_risk_analysis .tg-y9xy{color:#2ecc71}
 					.tg_risk_analysis .tg-jsil{color:#7f8c8d}
 					.tg_risk_analysis .tg-ev21{color:#d35400;text-align:right}
+					#trashico{ 
+					   background:url(img/Recylebin_empty.png) left top; 
+					   width:50px; 
+					   height:50px;
+					   display: block;
+					   float: left;
+					}
 				</style>
 				<table id="risk_analysis_table" class="tg_risk_analysis">
 					<caption>
@@ -7325,6 +7339,7 @@ under the License.
 					</caption>					
 					<thead>
 						  <tr>
+						    <td class="tg-6wtj">Edit / Remove Risk</td>
 						    <td class="tg-6wtj">Line #</td>
 						    <td class="tg-rprx">Alternative</td>
 						    <td class="tg-rprx">Risk / Threat Description</td>
