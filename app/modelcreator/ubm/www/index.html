@@ -2027,63 +2027,69 @@ under the License.
 			function createNewCostDriver () {
 				//alert(window.activeModelInvestmentId);
 				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_model_investment_create_CostDriver.php?callback=?', {//JSONP Request to Open Items Page setup tables
-					activeModelInvestmentId : window.activeModelInvestmentId,
-					costPerUnit : " ",
-					description : " ",
-					numberOfUnits : " "
+					activeInvestmentId : window.activeModelInvestmentId,
+					username : window.username,
+					costPerUnit : document.getElementById("return_on_investment_createNewCostDriver_popup_form_CostperUnit").value,
+					description : document.getElementById("return_on_investment_createNewCostDriver_popup_form_description").value,
+					numberOfUnits : document.getElementById("return_on_investment_createNewCostDriver_popup_form_numberOfUnits").value
 				}, function(res, status) {
-					$.each(res, function(i, item) {
-						$('#return_on_investment_input_form_income_tbody').append("<tr><td><a href='#' onclick='removeIncomeFromInvestment()'><span class='trashico'></span></a></td><td><input value='" + item.description + "' name='return_on_investment_incomeDescription_form' id='return_on_investment_incomeDescription_form' placeholder='Income Driver Description...' value='" + item.description + "' ></td><td><input name='return_on_investment_incomePerUnit_form' id='return_on_investment_incomePerUnit_form' placeholder='Income Per Unit...' value='" + item.income_per_unit + "'></td><td><input  name='return_on_investment_incomeNumberOfUnits_form' id='return_on_investment_incomeNumberOfUnits_form' placeholder='# of Units...' value='" + item.number_of_units + "'></td><td><button style='max-height:30px' class='return_on_investment_income_table_form_submit_button'>Save Income Driver</button></td></tr>");							
-						$("#return_on_investment_input_form_income_tbody").trigger("create");
+					alert(res.message);
+					$("#return_on_investment_createNewCostDriver_popup").popup("close");
+					$("#return_on_investment_createNewCostDriver_popup_form").each(function() {
+						this.reset();
 					});
-				});
+					if (status == "success") {
+						getActiveInvestmentCostDrivers();
+					} else {
+						setTimeout(function() {
+						getActiveInvestmentCostDrivers();
+						}, 1000);
+					}
+				});	
 			}
 			function createNewIncomeDriver () {
 				//alert(window.activeModelInvestmentId);
 				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_model_investment_create_IncomeDriver.php?callback=?', {//JSONP Request to Open Items Page setup tables
-					activeModelInvestmentId : window.activeModelInvestmentId,
-					costPerUnit : " ",
-					description : " ",
-					numberOfUnits : " "
+					activeInvestmentId : window.activeModelInvestmentId,
+					username : window.username,
+					incomePerUnit : document.getElementById("return_on_investment_createNewIncomeDriver_popup_form_IncomePerUnit").value,
+					description : document.getElementById("rturn_on_investment_createNewIncomeDriver_popup_form_description").value,
+					numberOfUnits : document.getElementById("return_on_investment_createNewIncomeDriver_popup_form_numberOfUnits").value
 				}, function(res, status) {
-					$.each(res, function(i, item) {
-						$('#return_on_investment_input_form_income_tbody').append("<tr><td><a href='#' onclick='removeIncomeFromInvestment()'><span class='trashico'></span></a></td><td><input value='" + item.description + "' name='return_on_investment_incomeDescription_form' id='return_on_investment_incomeDescription_form' placeholder='Income Driver Description...' value='" + item.description + "' ></td><td><input name='return_on_investment_incomePerUnit_form' id='return_on_investment_incomePerUnit_form' placeholder='Income Per Unit...' value='" + item.income_per_unit + "'></td><td><input  name='return_on_investment_incomeNumberOfUnits_form' id='return_on_investment_incomeNumberOfUnits_form' placeholder='# of Units...' value='" + item.number_of_units + "'></td><td><button style='max-height:30px' class='return_on_investment_income_table_form_submit_button'>Save Income Driver</button></td></tr>");							
-						$("#return_on_investment_input_form_income_tbody").trigger("create");
-
+					alert(res.message);
+					$("#return_on_investment_createNewIncomeDriver_popup").popup("close");
+					$("#return_on_investment_createNewIncomeDriver_popup_form").each(function() {
+						this.reset();
 					});
-				});
-			}
-			function addNewCostInput () {
-				$("#return_on_investment_input_form_cost_tbody").append("<tr><td><a href='#' onclick='removeCostFromInvestment()'><span class='trashico'></span></a></td><td><input value='1' name='return_on_investment_costDescription_form' id='return_on_investment_costDescription_form' placeholder='Cost Driver Description...' value='1' ><td><input name='return_on_investment_costPerUnit_form' id='return_on_investment_costPerUnit_form' placeholder='Cost Per Unit...' value='1'></td><td><input name='return_on_investment_costNumberOfUnits_form' id='return_on_investment_numberOfUnits_form' placeholder='# of Units...' value='1'></td><td><button style='max-height:30px' class='return_on_investment_cost_table_form_submit_button'>Save Cost Driver</button></td></tr>");
-				$("#return_on_investment_input_form_cost_tbody").trigger("create");
-				createNewCostDriver();
-				getActiveInvestmentCostDrivers();
-				
-			}
-			function addNewIncomeInput () {
-				$("#return_on_investment_input_form_income_tbody").append("<tr><td><a href='#' onclick='removeIncomeFromInvestment()'><span class='trashico'></span></a></td><td><input value='1' name='return_on_investment_incomeDescription_form' id='return_on_investment_incomeDescription_form' placeholder='Income Driver Description...' ></td><td><input name='return_on_investment_incomePerUnit_form' id='return_on_investment_incomePerUnit_form' placeholder='Income Per Unit...' value='1'></td><td><input  name='return_on_investment_incomeNumberOfUnits_form' id='return_on_investment_incomeNumberOfUnits_form' placeholder='# of Units...' value='1'></td><td><button style='max-height:30px' class='return_on_investment_income_table_form_submit_button'>Save Income Driver</button></td></tr>");
-				$("#return_on_investment_input_form_income_tbody").trigger("create");
-				createNewIncomeDriver();
-				getActiveInvestmentIncomeDrivers();
+					if (status == "success") {
+						getActiveInvestmentIncomeDrivers();
+					} else {
+						setTimeout(function() {
+						getActiveInvestmentIncomeDrivers();
+						}, 1000);
+					}
+				});		
 			}
 			function getActiveInvestmentCostDrivers () {
 				//alert(window.activeModelInvestmentId);
+				$('#return_on_investment_input_form_cost_tbody').empty();
 				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_model_investment_get_CostDrivers.php?callback=?', {//JSONP Request to Open Items Page setup tables
 					activeModelInvestmentId : window.activeModelInvestmentId
 				}, function(res, status) {
 					$.each(res, function(i, item) {
-						$('#return_on_investment_input_form_cost_tbody').append("<tr id=" + item.id + "><td><a href='#' onclick='removeCostFromInvestment(" + item.id + ")'><span class='trashico'></span></a></td><td><input value='" + item.description + "' name='return_on_investment_costDescription_form' id='return_on_investment_costDescription_form' placeholder='Cost Driver Description...'><td><input name='return_on_investment_costPerUnit_form' id='return_on_investment_costPerUnit_form' placeholder='Cost Per Unit...' value='" + item.cost_per_unit + "'></td><td><input name='return_on_investment_costNumberOfUnits_form' id='return_on_investment_numberOfUnits_form' placeholder='# of Units...' value='" + item.number_of_units + "'></td><td><button style='max-height:30px' class='return_on_investment_cost_table_form_submit_button'>Save Cost Driver</button></td></tr>");							
+						$('#return_on_investment_input_form_cost_tbody').append("<tr><td><a href='#' onclick='removeCostFromInvestment(" + item.cost_driver_id + ")'><span class='trashico'></span></a></td><td><input value='" + item.description + "' name='return_on_investment_costDescription_form' id='return_on_investment_costDescription_form' placeholder='Cost Driver Description...'><td><input name='return_on_investment_costPerUnit_form' id='return_on_investment_costPerUnit_form' placeholder='Cost Per Unit...' value='" + item.cost_per_unit + "'></td><td><input name='return_on_investment_costNumberOfUnits_form' id='return_on_investment_numberOfUnits_form' placeholder='# of Units...' value='" + item.number_of_units + "'></td><td><button style='max-height:30px' class='return_on_investment_cost_table_form_submit_button'>Save Cost Driver</button></td></tr>");							
 						$("#return_on_investment_input_form_cost_tbody").trigger("create");
 					});
 				}); 
 			}
 			function getActiveInvestmentIncomeDrivers () {
 				//alert(window.activeModelInvestmentId);
+				$('#return_on_investment_input_form_income_tbody').empty();
 				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_model_investment_get_IncomeDrivers.php?callback=?', {//JSONP Request to Open Items Page setup tables
 					activeModelInvestmentId : window.activeModelInvestmentId
 				}, function(res, status) {
 					$.each(res, function(i, item) {
-						$('#return_on_investment_input_form_income_tbody').append("<tr id=" + item.id + "><td><a href='#' onclick='removeIncomeFromInvestment(" + item.id + ")'><span class='trashico'></span></a></td><td><input value='" + item.description + "' name='return_on_investment_incomeDescription_form' id='return_on_investment_incomeDescription_form' placeholder='Income Driver Description...' value='" + item.description + "' ></td><td><input name='return_on_investment_incomePerUnit_form' id='return_on_investment_incomePerUnit_form' placeholder='Income Per Unit...' value='" + item.income_per_unit + "'></td><td><input  name='return_on_investment_incomeNumberOfUnits_form' id='return_on_investment_incomeNumberOfUnits_form' placeholder='# of Units...' value='" + item.number_of_units + "'></td><td><button style='max-height:30px' class='return_on_investment_income_table_form_submit_button'>Save Income Driver</button></td></tr>");							
+						$('#return_on_investment_input_form_income_tbody').append("<tr><td><a href='#' onclick='removeIncomeFromInvestment(" + item.income_driver_id + ")'><span class='trashico'></span></a></td><td><input value='" + item.description + "' name='return_on_investment_incomeDescription_form' id='return_on_investment_incomeDescription_form' placeholder='Income Driver Description...' value='" + item.description + "' ></td><td><input name='return_on_investment_incomePerUnit_form' id='return_on_investment_incomePerUnit_form' placeholder='Income Per Unit...' value='" + item.income_per_unit + "'></td><td><input  name='return_on_investment_incomeNumberOfUnits_form' id='return_on_investment_incomeNumberOfUnits_form' placeholder='# of Units...' value='" + item.number_of_units + "'></td><td><button style='max-height:30px' class='return_on_investment_income_table_form_submit_button'>Save Income Driver</button></td></tr>");							
 						$("#return_on_investment_input_form_income_tbody").trigger("create");
 
 					})
@@ -2115,6 +2121,7 @@ under the License.
 			function getAllInvestments () {
 				var i = 0;
 				//alert(window.activeModelAlternativeId);
+				$('#return_on_investment_alternative_select_investment_menu').empty();
 				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_model_alternative_get_Investments.php?callback=?', {//JSONP Request to Open Items Page setup tables
 					activeModelAlternativeId : window.activeModelAlternativeId
 				}, function(res, status) {
@@ -2134,6 +2141,8 @@ under the License.
 			}
 			function getListofAlternativesforReturnOnInvestment(){//Populates the Alternative Picker at the top of the risk_analysis page.
 				var i = 0;			//Reset Counter
+				$('#return_on_investment_alternative_select_menu').empty();
+
 				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_model_getCurrentModel_Alternatives.php?callback=?', {//JSONP Request to Open Items Page setup tables
 					activeModelId : window.activeModelId,
 				}, function(res, status) {
@@ -2158,21 +2167,21 @@ under the License.
 				});				
 							//$('#risk_analysis_alternative_select_menu_container').trigger("refresh");
 			}
-			function removeCostFromInvestment (activeInvestmentid) {
-				alert("this is a test "+activeRiskId)
-				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_model_alternative_remove_Risk.php?callback=?', {//JSONP Request to Open Items Page setup tables
-					activeModelAlternativeId : window.activeModelAlternativeId,
-					activeRiskId: activeRiskId
+			function removeCostFromInvestment (activeCostDriverId) {
+				//alert("this is a test "+activeCostDriverId)
+				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_model_investment_remove_CostDriver.php?callback=?', {//JSONP Request to Open Items Page setup tables
+					activeInvestmentId : window.activeModelInvestmentId,
+					activeCostDriverId: activeCostDriverId
 				}, function(res, status) {
 					alert(res.message);
 				});	
 				getAllInvestments();
 			}
-			function removeIncomeFromInvestment(activeInvestmentid) {
-				alert("this is a test "+activeRiskId)
-				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_model_alternative_remove_Risk.php?callback=?', {//JSONP Request to Open Items Page setup tables
-					activeModelAlternativeId : window.activeModelAlternativeId,
-					activeRiskId: activeRiskId
+			function removeIncomeFromInvestment(activeIncomeDriveId) {
+				//alert("this is a test "+activeIncomeDriveId)
+				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_model_investment_remove_IncomeDriver.php?callback=?', {//JSONP Request to Open Items Page setup tables
+					activeInvestmentId : window.activeModelInvestmentId,
+					activeIncomeDriverId: activeIncomeDriveId
 				}, function(res, status) {
 					alert(res.message);
 				});	
@@ -7272,9 +7281,7 @@ under the License.
 			<div role="main" class="ui-content">
 				<div id="return_on_investment_input_forms">
 					<center>
-											<h1 id="return_on_investment_cost_table_header_form">Append investment name</h1>
-
-						<div style="max-width:400px;" id="return_on_investment_select_alternative_menu_container">
+					<div style="max-width:400px;" id="return_on_investment_select_alternative_menu_container">
 							<select name="select-custom-1" id="return_on_investment_alternative_select_menu" data-native-menu="false">
 		
 							</select>							
@@ -7291,7 +7298,7 @@ under the License.
 					<style>
 						#return_on_investment_input_forms thead tr td h2 {padding-right:55px;}
 					</style>
-					<div class="ui-grid-a">
+					<div class="ui-grid-a">	
 					    <div class="ui-block-a"><div id="return_on_investment_input_form_cost">
 							<form id="return_on_investment_cost_form">
 								
@@ -7317,7 +7324,7 @@ under the License.
 								  </tbody>
 								  
 								</table>
-								<a href="#" class="ui-btn ui-btn-inline" id="return_on_investment_cost_table_form_addNewCost_button" onclick="addNewCostInput()">Add New Cost Driver</a>
+								<a href="#return_on_investment_createNewCostDriver_popup" data-rel="popup" data-transition="slideup" data-position-to="window" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a">Add New Cost Driver</a>
 							</form>
 						</div>
 					</div>
@@ -7346,7 +7353,7 @@ under the License.
 										</tbody>
 									  
 									</table>
-									<a href="#" class="ui-btn ui-btn-inline" id="return_on_investment_cost_table_form_addNewIncome_button" onclick="addNewIncomeInput()">Add New Income Driver</a>
+									<a href="#return_on_investment_createNewIncomeDriver_popup" data-rel="popup" data-transition="slideup" data-position-to="window" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a">Add New Income Driver</a>
 								</form>
 							</div>
 						</div>
@@ -7354,7 +7361,7 @@ under the License.
 					
 					
 					</div>
-					<a href="#return_on_investment_createNewInvestment_popup" data-rel="popup" data-transition="slideup" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a">Create New Investment</a>
+					<a href="#return_on_investment_createNewInvestment_popup" data-rel="popup" data-transition="slideup" data-position-to="window" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a">Create New Investment</a>
 				
 				<style type="text/css">
 					.tg_return_on_investment  {border-collapse:collapse;border-spacing:0;margin-top:15%;margin-left:auto;margin-right:auto;}
@@ -7400,17 +7407,45 @@ under the License.
 					  
 					</table>
 			</div>
-			<!-- Create New Investment Popup -->
+			<!-- Create New Cost Driver Popup -->
+			<div data-role="popup" id="return_on_investment_createNewCostDriver_popup" data-theme="f" class="ui-corner-all">
+				<form id="return_on_investment_createNewCostDriver_popup_form">
+					<div style="padding:10px 20px;">
+			            <h1>Create new Cost Driver</h2>
+			            	<label for="return_on_investment_createNewCostDriver_popup_form_description" class="ui-hidden-accessible">Cost Driver Description</label>
+					        <input type="text" id="return_on_investment_createNewCostDriver_popup_form_description" value="" placeholder="Description..." data-theme="f">
+					        <label for="return_on_investment_createNewCostDriver_popup_form_CostperUnit" class="ui-hidden-accessible">Cost Per Unit</label>
+					        <input type="text"id="return_on_investment_createNewCostDriver_popup_form_CostperUnit" value="" placeholder="Cost Per Unit..." data-theme="f">
+					        <label for="return_on_investment_createNewCostDriver_popup_form_numberOfUnits" class="ui-hidden-accessible"># of units</label>
+					        <input type="text" id="return_on_investment_createNewCostDriver_popup_form_numberOfUnits" value="" placeholder="# of Units" data-theme="f">
+			            <a href="#" class="ui-btn ui-corner-all ui-shadow ui-btn-b ui-btn-icon-left ui-icon-check" onclick="createNewCostDriver()">Create</a>
+			        </div>
+				</form>
+			</div>
+			<div data-role="popup" id="return_on_investment_createNewIncomeDriver_popup" data-theme="f" class="ui-corner-all">
+				<form id="return_on_investment_createNewIncomeDriver_popup_form">
+					<div style="padding:10px 20px;">
+			            <h1>Create new Income Driver</h2>
+			            	<label for="return_on_investment_createNewIncomeDriver_popup_form_description" class="ui-hidden-accessible">Income Driver Description</label>
+					        <input type="text" id="return_on_investment_createNewIncomeDriver_popup_form_description" value="" placeholder="Description..." data-theme="f">
+					        <label for="return_on_investment_createNewIncomeDriver_popup_form_IncomePerUnit" class="ui-hidden-accessible">Income Per Unit</label>
+					        <input type="text"id="return_on_investment_createNewIncomeDriver_popup_form_IncomePerUnit" value="" placeholder="Income Per Unit..." data-theme="f">
+					        <label for="return_on_investment_createNewIncomeDriver_popup_form_numberOfUnits" class="ui-hidden-accessible"># of units</label>
+					        <input type="text" id="return_on_investment_createNewIncomeDriver_popup_form_numberOfUnits" value="" placeholder="# of Units" data-theme="f">
+			            <a href="#" class="ui-btn ui-corner-all ui-shadow ui-btn-b ui-btn-icon-left ui-icon-check" onclick="createNewIncomeDriver()">Create</a>
+			        </div>
+				</form>
+			</div>
 			<div data-role="popup" id="return_on_investment_createNewInvestment_popup" data-theme="f" class="ui-corner-all">
 			    <form id="return_on_investment_createNewInvestment_popup_form" >
 			        <div style="padding:10px 20px;">
 			            <h1>Create new Investment</h2>
 			            	<label for="return_on_investment_createNewInvestment_popup_form_title" class="ui-hidden-accessible">Title</label>
-					            <input type="text" name="user" id="return_on_investment_createNewInvestment_popup_form_title" value="" placeholder="Title" data-theme="a">
+					            <input type="text" id="return_on_investment_createNewInvestment_popup_form_title" value="" placeholder="Title" data-theme="f">
 					            <label for="return_on_investment_createNewInvestment_popup_form_description" class="ui-hidden-accessible">Description</label>
-					            <input type="text" name="pass" id="return_on_investment_createNewInvestment_popup_form_description" value="" placeholder="Description..." data-theme="a">
+					            <input type="text" id="return_on_investment_createNewInvestment_popup_form_description" value="" placeholder="Description..." data-theme="f">
 					            <label for="return_on_investment_createNewInvestment_popup_form_type" class="ui-hidden-accessible">Type</label>
-					            <input type="text" name="pass" id="return_on_investment_createNewInvestment_popup_form_type" value="" placeholder="Type..." data-theme="a">
+					            <input type="text" id="return_on_investment_createNewInvestment_popup_form_type" value="" placeholder="Type..." data-theme="f">
 			            <a href="#" class="ui-btn ui-corner-all ui-shadow ui-btn-b ui-btn-icon-left ui-icon-check" onclick="createNewInvestment()">Create</a>
 			        </div>
 			    </form>
@@ -9635,6 +9670,54 @@ under the License.
 							<a href="#" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b" data-rel="back" data-transition="flow">Dismiss</a>
 					</div>
 				</div>
+				<!--New Business Acount Form Pre-Op -->
+				<div data-role="popup" id="mcs_setup_checklist_p4_b1_NewBusinessAccount_popup" data-theme="f">
+					<div data-role="header" style data-theme="f">
+						<h1 ">New Business Account Form Pre-Op</h1>
+					</div>
+					<div role="main" class="ui-content">
+						<form id="mcs_setup_checklist_p4_b1_NewBusinessAccount_popup_form">
+							<label for="mcs_setup_checklist_p4_b1_NewBusinessAccount_popup_form_RequestedBy">Requested By:</label>
+							<input type="text" id="mcs_setup_checklist_p4_b1_NewBusinessAccount_popup_form_RequestedBy" placeholder="Requested By" value="">
+							<div class="ui-grid-a">
+							    <div class="ui-block-a" style="padding-right:15px;">
+							    	<label for="mcs_setup_checklist_p4_b1_NewBusinessAccount_popup_form_CompanyCode">Company Code:</label>
+									<input type="text" id="mcs_setup_checklist_p4_b1_NewBusinessAccount_popup_form_CompanyCode" placeholder="Company Code (CCCCNN)" value="">
+									<label for="mcs_setup_checklist_p4_b1_NewBusinessAccount_popup_form_Address">Address:</label>
+									<input type="text" id="mcs_setup_checklist_p4_b1_NewBusinessAccount_popup_form_Address" placeholder="Address" value="">
+									<label for="mcs_setup_checklist_p4_b1_NewBusinessAccount_popup_form_City">City:</label>
+									<input type="text" id="mcs_setup_checklist_p4_b1_NewBusinessAccount_popup_form_City" placeholder="City" value="">
+									<label for="mcs_setup_checklist_p4_b1_NewBusinessAccount_popup_form_State">State:</label>
+									<input type="text" id="mcs_setup_checklist_p4_b1_NewBusinessAccount_popup_form_State" placeholder="State" value="">
+									<label for="mcs_setup_checklist_p4_b1_NewBusinessAccount_popup_form_Phone">Phone:</label>
+									<input type="text" id="mcs_setup_checklist_p4_b1_NewBusinessAccount_popup_form_Phone" placeholder="Phone" value="">
+									<label for="mcs_setup_checklist_p4_b1_NewBusinessAccount_popup_form_FederalIdNumber">Federal Id Number:</label>
+									<input type="text" id="mcs_setup_checklist_p4_b1_NewBusinessAccount_popup_form_FederalIdNumber" placeholder="Federal Id Number" value="">	
+									
+							    </div>
+							    <div class="ui-block-b">
+							    	<label for="mcs_setup_checklist_p4_b1_NewBusinessAccount_popup_form_Ccodemaster">CCODE Master:</label>
+									<input type="text" id="mcs_setup_checklist_p4_b1_NewBusinessAccount_popup_form_Ccodemaster" placeholder="CCODE Master" value="">
+									<label for="mcs_setup_checklist_p4_b1_NewBusinessAccount_popup_form_StewardOfRecord">Steward Of Record:</label>
+									<input type="text" id="mcs_setup_checklist_p4_b1_NewBusinessAccount_popup_form_StewardOfRecord" placeholder="Steward Of Record" value="">
+									<label for="mcs_setup_checklist_p4_b1_NewBusinessAccount_popup_form_ResponsibleParty">Responsible Party:</label>
+									<input type="text" id="mcs_setup_checklist_p4_b1_NewBusinessAccount_popup_form_ResponsibleParty" placeholder="Responsible Party (Who will cover the cost until profitable)" value="">
+									<label for="mcs_setup_checklist_p4_b1_NewBusinessAccount_popup_form_TaxCompany">Tax Company:</label>
+									<input type="text" id="mcs_setup_checklist_p4_b1_NewBusinessAccount_popup_form_TaxCopmpany" placeholder="Tax Company" value="">
+									<label for="mcs_setup_checklist_p4_b1_NewBusinessAccount_popup_form_145CommitmentGroup">145 Commitment Group:</label>
+									<input type="text" id="mcs_setup_checklist_p4_b1_NewBusinessAccount_popup_form_145CommitmentGroup" placeholder="145 Commitment Group" value="">
+									<label for="mcs_setup_checklist_p4_b1_NewBusinessAccount_popup_form_SpendingLimitForPreOp">Spending Limit for Pre-Op:</label>
+									<input type="text" id="mcs_setup_checklist_p4_b1_NewBusinessAccount_popup_form_SpendingLimitForPreOp" placeholder="Spending Limit for Pre-Op" value="">
+							    </div>
+							    <label for="mcs_setup_checklist_p4_b1_NewBusinessAccount_popup_form_BusinessDescription">Business Description:</label>
+    							<textarea name="textarea-1" id="mcs_setup_checklist_p4_b1_NewBusinessAccount_popup_form_BusinessDescription" placeholder="Business Description"></textarea>
+								
+							</div>
+						</form>
+						<a href="#" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b" data-rel="submit" data-transition="flow" onclick="submitNewBusinessAccountForm">Submit</a>
+					</div>
+				</div>
+				
 				<!-- End Read Phase Four Book 1 User Guide Popup  -->
 				<!-- Open Items Popup -->
 				<div data-role="popup" id="mcs_setup_checklist_p4_b1_openItem_popup" data-theme="b">
@@ -15842,9 +15925,15 @@ under the License.
 					});
 					$("#return_on_investment_alternative_select_investment_menu").bind( "change", function(event, ui) {
 					window.activeModelInvestmentId = $("#return_on_investment_alternative_select_investment_menu option:selected").val();
+					setTimeout(function() {
+						getActiveInvestmentIncomeDrivers();
+						getActiveInvestmentCostDrivers();
+						
+					}, 1000);
 					});
 					setTimeout(function() {
 						getListofAlternativesforReturnOnInvestment();
+						
 					}, 1000);
 					
 				});
