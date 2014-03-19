@@ -306,7 +306,7 @@ html body .ui-group-theme-a .ui-btn:hover,
 html head + body .ui-btn.ui-btn-a:hover {
 	background-color: #276e8a /*{a-bhover-background-color}*/;
 	border-color: #467384 /*{a-bhover-border}*/;
-	color: #a19d9d /*{a-bhover-color}*/;
+	color: #fff /*{a-bhover-color}*/;
 	text-shadow: 0 /*{a-bhover-shadow-x}*/ 4px /*{a-bhover-shadow-y}*/ 0 /*{a-bhover-shadow-radius}*/ #444444 /*{a-bhover-shadow-color}*/;
 }
 /* Button down */
