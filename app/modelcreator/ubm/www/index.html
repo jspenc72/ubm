@@ -72,6 +72,9 @@ under the License.
         		var mm = today.getMonth()+1;
         		var yyyy = today.getFullYear(); 
         		document.getElementById('mcs_setup_checklist_p4_b1_NewBusinessAccount_popup_form_TodaysDate').value= '' + mm + '/' + dd + '/' + yyyy + '';
+        		alert(dd);
+        		alert(mm);
+        		alert(yyyy);
         	}
 			function showLoader(){
 				//Show Loader Message
@@ -3687,7 +3690,8 @@ under the License.
 							}else{
 	                            if (reg_passwd1 == reg_passwd2) {
 	                                //alert("passwords match!");
-	                                $.getJSON('http://www.findmydriver.com/usreg.php?callback=?', {
+	                                $.getJSON('http://www.findmydriver.com/ubms_usreg.php?callback=?', {
+	                                    key : "YDoS20lf7Vrnr22h8Ma6NGUV5DblnVhueTPXS7gPynRvQ6U8optzfnMDs3UD",
 	                                    appname : "FindMyDriver",
 	                                    RQType : "userRegister",
 	                                    email : reg_email,
@@ -9799,14 +9803,14 @@ under the License.
 				<!--New Business Acount Form Pre-Op -->
 				<div data-role="popup" id="mcs_setup_checklist_p4_b1_NewBusinessAccount_popup" data-theme="a">
 					<div data-role="header" style data-theme="a">
-						<h1 ">New Business Account Form Pre-Op</h1>
+						<h1>New Business Account Form Pre-Op</h1>
 					</div>
 					<div role="main" class="ui-content">
 						<form id="mcs_setup_checklist_p4_b1_NewBusinessAccount_popup_form">
 
-
+							<label for="mcs_setup_checklist_p4_b1_NewBusinessAccount_popup_form_RequestedBy">Requested:</label>
 							<input type="text" id="mcs_setup_checklist_p4_b1_NewBusinessAccount_popup_form_RequestedBy" placeholder="Requested By" value="">
-							<div class="ui-grid-a">
+							<div class="ui-grid-b">
 							    <div class="ui-block-a" style="padding-right:15px;">
 							    	<label for="mcs_setup_checklist_p4_b1_NewBusinessAccount_popup_form_TodaysDate">Date:</label>
 									<input type="text" id="mcs_setup_checklist_p4_b1_NewBusinessAccount_popup_form_TodaysDate" placeholder="MM/DD/YYYY" value="">
@@ -9836,27 +9840,53 @@ under the License.
 									<input type="text" id="mcs_setup_checklist_p4_b1_NewBusinessAccount_popup_form_FederalIdNumber" placeholder="Federal Id Number" value="">	
 									
 							    </div>
-							    <div class="ui-block-b">
+							    <div class="ui-block-b" style="padding-right:15px;">
 									<label for="mcs_setup_checklist_p4_b1_NewBusinessAccount_popup_form_RequestedBy">Requested By:</label>
 									<input type="text" id="mcs_setup_checklist_p4_b1_NewBusinessAccount_popup_form_RequestedBy" placeholder="Requested By" value="">
+
 									<label for="mcs_setup_checklist_p4_b1_NewBusinessAccount_popup_form_SetUpBy">Set Up By By:</label>
 									<input type="text" id="mcs_setup_checklist_p4_b1_NewBusinessAccount_popup_form_SetUpBy" placeholder="Set Up By" value="">
+
 							    	<label for="mcs_setup_checklist_p4_b1_NewBusinessAccount_popup_form_Ccodemaster">CCODE Master:</label>
 									<input type="text" id="mcs_setup_checklist_p4_b1_NewBusinessAccount_popup_form_Ccodemaster" placeholder="CCODE Master" value="">
+
 									<label for="mcs_setup_checklist_p4_b1_NewBusinessAccount_popup_form_StewardOfRecord">Steward Of Record:</label>
 									<input type="text" id="mcs_setup_checklist_p4_b1_NewBusinessAccount_popup_form_StewardOfRecord" placeholder="Steward Of Record" value="">
+
 									<label for="mcs_setup_checklist_p4_b1_NewBusinessAccount_popup_form_ResponsibleParty">Responsible Party:</label>
 									<input type="text" id="mcs_setup_checklist_p4_b1_NewBusinessAccount_popup_form_ResponsibleParty" placeholder="Responsible Party (Who will cover the cost until profitable)" value="">
+
 									<label for="mcs_setup_checklist_p4_b1_NewBusinessAccount_popup_form_database">Database:</label>
 									<input type="text" id="mcs_setup_checklist_p4_b1_NewBusinessAccount_popup_form_database" placeholder="Database" value="Statement">
+
 									<label for="mcs_setup_checklist_p4_b1_NewBusinessAccount_popup_form_Gender">Gender:</label>
 									<input type="text" id="mcs_setup_checklist_p4_b1_NewBusinessAccount_popup_form_Gender" placeholder="F/M/N" value="N">
+
 									<label for="mcs_setup_checklist_p4_b1_NewBusinessAccount_popup_form_TaxCompany">Tax Company:</label>
 									<input type="text" id="mcs_setup_checklist_p4_b1_NewBusinessAccount_popup_form_TaxCopmpany" placeholder="Tax Company" value="">
+
 									<label for="mcs_setup_checklist_p4_b1_NewBusinessAccount_popup_form_145CommitmentGroup">145 Commitment Group:</label>
 									<input type="text" id="mcs_setup_checklist_p4_b1_NewBusinessAccount_popup_form_145CommitmentGroup" placeholder="145 Commitment Group" value="">
+
 									<label for="mcs_setup_checklist_p4_b1_NewBusinessAccount_popup_form_SpendingLimitForPreOp">Spending Limit for Pre-Op:</label>
 									<input type="text" id="mcs_setup_checklist_p4_b1_NewBusinessAccount_popup_form_SpendingLimitForPreOp" placeholder="Spending Limit for Pre-Op" value="">
+
+							    </div>
+							    <div class="ui-block-c">
+							    	<label for="mcs_setup_checklist_p4_b1_NewBusinessAccount_popup_form_TaxGroup">Tax Group:</label>
+									<input type="text" id="mcs_setup_checklist_p4_b1_NewBusinessAccount_popup_form_TaxGroup" placeholder="Tax Group" value="">
+
+									<label for="mcs_setup_checklist_p4_b1_NewBusinessAccount_popup_form_APServiceCenter">Ap Service Center:</label>
+									<input type="text" id="mcs_setup_checklist_p4_b1_NewBusinessAccount_popup_form_APServiceCenter" placeholder="AP Service Center" value="">
+
+									<label for="mcs_setup_checklist_p4_b1_NewBusinessAccount_popup_form_ARServiceCenter">AR Service Center:</label>
+									<input type="text" id="mcs_setup_checklist_p4_b1_NewBusinessAccount_popup_form_ARServiceCenter" placeholder="AR Service Center" value="IBM">
+
+									<label for="mcs_setup_checklist_p4_b1_NewBusinessAccount_popup_form_FRServiceCenter">FR Service Center:</label>
+									<input type="text" id="mcs_setup_checklist_p4_b1_NewBusinessAccount_popup_form_FRServiceCenter" placeholder="FR Service Center" value="IBM">
+
+									<label for="mcs_setup_checklist_p4_b1_NewBusinessAccount_popup_form_PRServiceCenter">PR Service Center:</label>
+									<input type="text" id="mcs_setup_checklist_p4_b1_NewBusinessAccount_popup_form_PRServiceCenter" placeholder="PR Service Center" value="IBM">
 							    </div>
 							    <label for="mcs_setup_checklist_p4_b1_NewBusinessAccount_popup_form_BusinessDescription">Business Description:</label>
     							<textarea name="textarea-1" id="mcs_setup_checklist_p4_b1_NewBusinessAccount_popup_form_BusinessDescription" placeholder="Business Description"></textarea>
@@ -16110,7 +16140,7 @@ under the License.
 					  	getListofRisksforRiskAnalysisTable();
 					  }, 1000);
 					});       
-					$(document).on("pageshow", "#mcs_setup_checklist_p4_b1_NewBusinessAccount_popup", function() {
+					$(document).on("pageshow", "#mcs_setup_checklist_p4_b1", function() {
 						setTimeout(function() {
 							getTodaysDate();
                     	}, 1000);
@@ -16250,8 +16280,7 @@ under the License.
 						})
 						//alert("jsonp request returned: " + status);
 					});
-	
-                                    
+	                                    
 					setTimeout(function() {
 					    
 						checkConnection();
