@@ -2072,6 +2072,7 @@ under the License.
 				});
 			}
 		</script>
+		<!-- Investments -->
 		<script>
 			function getListofAlternativesforRiskAnalysis(){//Populates the Alternative Picker at the top of the risk_analysis page.
 				var i = 0;			//Reset Counter
@@ -2162,7 +2163,7 @@ under the License.
 					$.each(res, function(i, item) {
 						if(item.alternative_id==window.activeModelAlternativeId){
 							i=i+1;
-							$('#risk_analysis_table_body').append("<tr><td><a href='#' onclick='removeRiskFromAlternative(" + item.id + ")'><span id='trashico'></span></a></td><td class='tg-031e'>" + i + "</td><td class='tg-031e'>" + item.alternative_id + "</td><td class='tg-031e'>" + item.description + "</td><td class='tg-031e'><input class='probability_col_num' value = '" + item.probability + "'/></td><td class='tg-031e'><input class='low_col_num' value = '5'/></td><td class='tg-031e'></td><td class='tg-031e'  ><fieldset class='retain_full_risk_radio' data-role='controlgroup' data-type='vertical' data-mini='true'><input type='radio' class='retain_full_risk_radio' name='radio-choice-b" + i + "' id='radio-choice-c" + i + "' value='Yes' checked='checked'><label class='retain_full_risk_radio' for='radio-choice-c" + i + "'>Yes</label><input class='retain_full_risk_radio' type='radio' name='radio-choice-b" + i + "' id='radio-choice-d" + i + "' value=' No '><label class='retain_full_risk_radio' for='radio-choice-d" + i + "'>No</label></fieldset></td><td class='tg-031e' style='max-width:150px;'><select name='select-choice-8' id='select-choice-8" + i + "' multiple='multiple' data-native-menu='false' data-icon='grid' data-iconpos='left'><option>Select the measures your will take:</option><option value='Policies and Procedures' selected=''>Policies and Procedures</option><optgroup label='Insurance'><option value='Property and Causality'>Property and Causality</option><option value='Auto'>Auto</option><option value='General Liability'>General Liability</option></optgroup><optgroup label='Others'><option value='Other'>Other</option><option value='Out Source'>Out Source</option></optgroup></select></td><td class='tg-031e'><input class='low_col_num' value = '" + item.amount + "'/></td><td class='tg-031e'><input class='low_col_num' value = '" + item.reference + "'/></td><td class='tg-031e'><textarea cols='20' rows='3' name='textarea' id='textarea'>" + item.preventative_measures_explanation + "</textarea></td><td><a href='#' class='ui-btn risk_analysis_table' onclick='saveRiskAnalysis(" + item.id + ")'>Save Analysis</a></td></tr>");							
+							$('#risk_analysis_table_body').append("<tr><td><a href='#' onclick='removeRiskFromAlternative(" + item.id + ")'><span id='trashico'></span></a></td><td class='tg-031e'>" + i + "</td><td class='tg-031e'>" + item.alternative_id + "</td><td class='tg-031e'>" + item.category + "</br>" + item.description + "</td><td class='tg-031e'><input class='probability_col_num' value = '" + item.probability + "'/></td><td class='tg-031e'><input class='low_col_num' value = '5'/></td><td class='tg-031e'></td><td class='tg-031e'  ><fieldset class='retain_full_risk_radio' data-role='controlgroup' data-type='vertical' data-mini='true'><input type='radio' class='retain_full_risk_radio' name='radio-choice-b" + i + "' id='radio-choice-c" + i + "' value='Yes' checked='checked'><label class='retain_full_risk_radio' for='radio-choice-c" + i + "'>Yes</label><input class='retain_full_risk_radio' type='radio' name='radio-choice-b" + i + "' id='radio-choice-d" + i + "' value=' No '><label class='retain_full_risk_radio' for='radio-choice-d" + i + "'>No</label></fieldset></td><td class='tg-031e' style='max-width:150px;'><select name='select-choice-8' id='select-choice-8" + i + "' multiple='multiple' data-native-menu='false' data-icon='grid' data-iconpos='left'><option>Select the measures your will take:</option><option value='Policies and Procedures' selected=''>Policies and Procedures</option><optgroup label='Insurance'><option value='Property and Causality'>Property and Causality</option><option value='Auto'>Auto</option><option value='General Liability'>General Liability</option></optgroup><optgroup label='Others'><option value='Other'>Other</option><option value='Out Source'>Out Source</option></optgroup></select></td><td class='tg-031e'><input class='low_col_num' value = '" + item.amount + "'/></td><td class='tg-031e'><input class='low_col_num' value = '" + item.reference + "'/></td><td class='tg-031e'><textarea cols='20' rows='3' name='textarea' id='textarea'>" + item.preventative_measures_explanation + "</textarea></td><td><a href='#' class='ui-btn risk_analysis_table' onclick='saveRiskAnalysis(" + item.id + ")'>Save Analysis</a></td></tr>");							
 							$('#risk_analysis_table_body').trigger("create");
 							$('.retain_full_risk_radio').trigger("create");
 						}else{
@@ -2184,6 +2185,27 @@ under the License.
 					alert(res.message);
 				});	
 				getListofRisksforRiskAnalysisTable();
+			}
+			function createNewRiskaddToActiveAlternative(){
+				alert("this is a test");
+				event.preventDefault();
+				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_model_alternative_create_Risk.php?callback=?', {//JSONP Request to Open Items Page setup tables
+					riskDescription : document.getElementById('risk_analysis_define_new_risk_popup_form_description').value,
+					riskCategory : document.getElementById('risk_analysis_define_new_risk_popup_form_category').value,
+					username : window.username,
+					activeModelAlternativeId : window.activeModelAlternativeId
+				}, function(res, status) {
+					alert(res.message);
+					if(status=="success"){
+						setTimeout(function() {
+							$('#risk_analysis_define_new_risk_popup').popup('close');
+							getListofRisksforRiskAnalysisTable();						
+						}, 1000);
+						$('#risk_analysis_define_new_risk_popup_form').each(function() {
+							this.reset();
+						});	
+					}
+				});					
 			}
 		</script>
 		<!-- End Risk Analysis / Assessment-->
@@ -7329,6 +7351,17 @@ under the License.
 				<h1> Risk Analysis / Assessment</h1>
 			</div>
 			<div data-role="content">
+				<div data-role="popup" id="risk_analysis_define_new_risk_popup" data-theme="a" class="draggable_popup ui-corner-all">
+				    <form id="risk_analysis_define_new_risk_popup_form">
+				        <div style="padding:10px 20px;">
+				            <h1>Define a new Risk</h1>
+				            <p>Before creating a new risk, try searching for it in the list below.</p>		            
+				            <textarea cols="40" rows="8" name="risk_analysis_define_new_risk_popup_form_description" id="risk_analysis_define_new_risk_popup_form_description" placeholder="Risk Description" data-theme="a"></textarea>
+				            <textarea cols="40" rows="8" name="risk_analysis_define_new_risk_popup_form_category" id="risk_analysis_define_new_risk_popup_form_category" placeholder="Risk Category" data-theme="a"></textarea>
+				            <button type="submit" class="ui-btn ui-corner-all ui-shadow ui-btn-b ui-btn-icon-left ui-icon-check" onclick="createNewRiskaddToActiveAlternative()">Submit new risk</button>
+				        </div>
+				    </form>
+				</div>
 				<center><div id="risk_analysis_load_search_progressbar" style="max-width:400px;">Loading...</div></center>
 				<style type="text/css">
 					.tg_risk_analysis  {border-collapse:collapse;border-spacing:0;margin-top:5%; margin-left:auto; margin-right:auto;}
@@ -7351,6 +7384,7 @@ under the License.
 					   float: left;
 					}
 				</style>
+				<a href="#risk_analysis_define_new_risk_popup" data-rel="popup" data-position-to="window" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-check ui-btn-icon-left ui-btn-a" data-transition="pop">Define a new risk.</a>
 				<table id="risk_analysis_table" class="tg_risk_analysis">
 					<caption>
 						<center><h1>Risk Analysis</h1></center>
@@ -7383,6 +7417,7 @@ under the License.
 				
 					</tfoot>
 				</table>		
+				<h3>List of Predifined Risks: </h3>
 				<div id="risk_analysis_search_containter1" style="max-height:200px; overflow-y:scroll; margin-top:10px;">
 					<ul class="risk_analysis_search" data-role="listview" data-filter="true" data-filter-reveal="true" data-split-icon="plus" data-split-theme="a" data-filter-placeholder="Search for a risk, click the plus arrow at the right to add to this alternative..." data-inset="true">
 
