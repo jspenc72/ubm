@@ -740,4 +740,6 @@ button[disabled],
 	outline-width: 1px;
 	outline-style: auto;
 }
-			
+		
+		
+  .ui-page { background: #f3f3f3 url('images/overlay.png');}			
