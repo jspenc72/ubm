@@ -382,12 +382,12 @@ under the License.
 				getMyModels();
 
 			}
-			
 			function getMyModels() {//Get all models in database where current user is the creator.
 				showLoader();
 				
-				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_getMyModels.php?callback=?', {//JSONP Request to Create new model
-					username : window.username
+				$.getJSON('http://api.universalbusinessmodel.com/ubms_modelcreationsuite_getMyModels.php?callback=?', {//JSONP Request to Create new model
+					username : window.username,
+					key : 'YDoS20lf7Vrnr22h8Ma6NGUV5DblnVhueTPXS7gPynRvQ6U8optzfnMDs3UD'					
 				}, function(res, status) {
 					$('#ubmsuite_SelectBusinessModel_MyModels_ul').empty();
 					$('#ubmsuite_SelectBusinessModel_MyModels_ul').append("<li data-role='list-divider'><center>My Models</center></li>");
@@ -400,13 +400,12 @@ under the License.
 					})
 				});
 				hideLoader();
-
 			}
-
 			function getSharedModels() {//Get all models in database where current user is the creator.
 				showLoader();
-				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_getSharedModels.php?callback=?', {//JSONP Request to Create new model
-					username : window.username
+				$.getJSON('http://api.universalbusinessmodel.com/ubms_modelcreationsuite_getSharedModels.php?callback=?', {//JSONP Request to Create new model
+					username : window.username,
+					key : 'YDoS20lf7Vrnr22h8Ma6NGUV5DblnVhueTPXS7gPynRvQ6U8optzfnMDs3UD'
 				}, function(res, status) {
 					$('#ubmsuite_SelectBusinessModel_SharedModels_ul').empty();
 					$('#ubmsuite_SelectBusinessModel_SharedModels_ul').append("<li data-role='list-divider'><center>Shared Models</center></li>");
@@ -420,9 +419,7 @@ under the License.
 					})
 				});
 				hideLoader();
-				
 			}
-
 			function model_getuserswithaccess() {
 				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_model_getuserswithaccess.php?callback=?', {//JSONP Request to Create new model
 					username : window.username,
@@ -435,7 +432,6 @@ under the License.
 					})
 				});
 			}
-
 			function setActiveModel(activeModelId) {
 				window.activeModelId = activeModelId;
 			}
@@ -2042,7 +2038,7 @@ under the License.
 						getActiveInvestmentCostDrivers();
 					} else {
 						setTimeout(function() {
-						getActiveInvestmentCostDrivers();
+							getActiveInvestmentCostDrivers();
 						}, 1000);
 					}
 				});	
@@ -2065,35 +2061,53 @@ under the License.
 						getActiveInvestmentIncomeDrivers();
 					} else {
 						setTimeout(function() {
-						getActiveInvestmentIncomeDrivers();
+							getActiveInvestmentIncomeDrivers();
 						}, 1000);
 					}
 				});		
 			}
 			function getActiveInvestmentCostDrivers () {
+				showLoader();
 				//alert(window.activeModelInvestmentId);
 				$('#return_on_investment_input_form_cost_tbody').empty();
 				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_model_investment_get_CostDrivers.php?callback=?', {//JSONP Request to Open Items Page setup tables
 					activeModelInvestmentId : window.activeModelInvestmentId
 				}, function(res, status) {
 					$.each(res, function(i, item) {
-						$('#return_on_investment_input_form_cost_tbody').append("<tr><td><a href='#' onclick='removeCostFromInvestment(" + item.cost_driver_id + ")'><span class='trashico'></span></a></td><td><input value='" + item.description + "' name='return_on_investment_costDescription_form' id='return_on_investment_costDescription_form' placeholder='Cost Driver Description...'><td><input name='return_on_investment_costPerUnit_form' id='return_on_investment_costPerUnit_form' placeholder='Cost Per Unit...' value='" + item.cost_per_unit + "'></td><td><input name='return_on_investment_costNumberOfUnits_form' id='return_on_investment_numberOfUnits_form' placeholder='# of Units...' value='" + item.number_of_units + "'></td><td><button style='max-height:30px' class='return_on_investment_cost_table_form_submit_button'>Save Cost Driver</button></td></tr>");							
+						$('#return_on_investment_input_form_cost_tbody').append("<tr><td><a href='#' onclick='removeCostFromInvestment(" + item.cost_driver_id + ")'><span class='trashico'></span></a></td><td><input value='" + item.description + "' name='return_on_investment_costDescription_form' id='return_on_investment_costDescription_form' placeholder='Cost Driver Description...'><td><input name='return_on_investment_costPerUnit_form' id='return_on_investment_costPerUnit_form' class='costperunit_col_num col_num' placeholder='Cost Per Unit...' value='" + item.cost_per_unit + "'></td><td><input name='return_on_investment_costNumberOfUnits_form' id='return_on_investment_numberOfUnits_form' placeholder='# of Units...' class='numunits_col_num col_num' value='" + item.number_of_units + "'></td><td class='totalcost_col_num'></td><td><button style='max-height:30px' class='return_on_investment_cost_table_form_submit_button'>Save Cost Driver</button></td></tr>");							
 						$("#return_on_investment_input_form_cost_tbody").trigger("create");
 					});
 				}); 
+				setTimeout(function() {
+				    $(".col_num").each(function() {				
+				        $(this).keyup(function(){				//Call the newCalculatedCostDriver function each time a keystroke is activated in any of the inputs with col_num as the class.
+				            newCalculatedCostDriver.call(this);
+				        });
+				    });
+					hideLoader();
+				}, 2000);
 			}
 			function getActiveInvestmentIncomeDrivers () {
+				showLoader();
 				//alert(window.activeModelInvestmentId);
 				$('#return_on_investment_input_form_income_tbody').empty();
 				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_model_investment_get_IncomeDrivers.php?callback=?', {//JSONP Request to Open Items Page setup tables
 					activeModelInvestmentId : window.activeModelInvestmentId
 				}, function(res, status) {
 					$.each(res, function(i, item) {
-						$('#return_on_investment_input_form_income_tbody').append("<tr><td><a href='#' onclick='removeIncomeFromInvestment(" + item.income_driver_id + ")'><span class='trashico'></span></a></td><td><input value='" + item.description + "' name='return_on_investment_incomeDescription_form' id='return_on_investment_incomeDescription_form' placeholder='Income Driver Description...' value='" + item.description + "' ></td><td><input name='return_on_investment_incomePerUnit_form' id='return_on_investment_incomePerUnit_form' placeholder='Income Per Unit...' value='" + item.income_per_unit + "'></td><td><input  name='return_on_investment_incomeNumberOfUnits_form' id='return_on_investment_incomeNumberOfUnits_form' placeholder='# of Units...' value='" + item.number_of_units + "'></td><td><button style='max-height:30px' class='return_on_investment_income_table_form_submit_button'>Save Income Driver</button></td></tr>");							
+						$('#return_on_investment_input_form_income_tbody').append("<tr><td><a href='#' onclick='removeIncomeFromInvestment(" + item.income_driver_id + ")'><span class='trashico'></span></a></td><td><input value='" + item.description + "' name='return_on_investment_incomeDescription_form' id='return_on_investment_incomeDescription_form' placeholder='Income Driver Description...' value='" + item.description + "' ></td><td><input name='return_on_investment_incomePerUnit_form' id='return_on_investment_incomePerUnit_form' class='incomeperunit_col_num col_num' placeholder='Income Per Unit...' value='" + item.income_per_unit + "'></td><td><input  name='return_on_investment_incomeNumberOfUnits_form' id='return_on_investment_incomeNumberOfUnits_form' class='numunits_col_num col_num' placeholder='# of Units...' value='" + item.number_of_units + "'></td><td class='totalincome_col_num'></td><td><button style='max-height:30px' class='return_on_investment_income_table_form_submit_button'>Save Income Driver</button></td></tr>");							
 						$("#return_on_investment_input_form_income_tbody").trigger("create");
 
 					})
 				});
+					setTimeout(function() {
+					    $(".col_num").each(function() {				
+					        $(this).keyup(function(){				//Call the newCalculatedCostDriver function each time a keystroke is activated in any of the inputs with col_num as the class.
+					            newCalculatedIncomeDriver.call(this);
+					        });
+					    });
+						hideLoader();
+					}, 2000);
 			}
 			function createNewInvestment () {
 				//alert("was called");
@@ -2187,9 +2201,65 @@ under the License.
 				});	
 				getAllInvestments();
 			}
+			function newCalculatedCostDriver() {		//Calculates the Product of 
+			    var sum=0;
+			    var costperunit = 0;
+			    var numunits = 0;
+			    var totalcost = 0;
+			    var thisRow = $(this).closest('tr');
+			    //iterate through each input and add to sum
+			    $(thisRow).find("td:not(.total) .costperunit_col_num").each(function() {
+			            costperunit = parseFloat(this.value);  
+			    });
+			    $(thisRow).find("td:not(.total) .numunits_col_num").each(function() {
+			            numunits = parseFloat(this.value);                     
+			    }); 
+			    totalcost = costperunit*numunits;
+			    //change value of Risk
+			    var totalcost_input = $(thisRow).find(".totalcost_col_num");
+			    totalcost_input.html('$'+ totalcost);
+			}
+			function newCalculatedIncomeDriver() {		//Calculates the Product of 
+			    var sum=0;
+			    var incomeperunit = 0;
+			    var numunits = 0;
+			    var totalincome = 0;
+			    var thisRow = $(this).closest('tr');
+			    //iterate through each input and add to sum
+			    $(thisRow).find("td:not(.total) .incomeperunit_col_num").each(function() {
+			            incomeperunit = parseFloat(this.value);  
+			    });
+			    $(thisRow).find("td:not(.total) .numunits_col_num").each(function() {
+			            numunits = parseFloat(this.value);                     
+			    }); 
+			    totalincome = incomeperunit*numunits;
+			    //change value of Risk
+			    var totalincome_input = $(thisRow).find(".totalincome_col_num");
+			    totalincome_input.html('$'+ totalincome);
+			}	
 		</script>
 		<!-- Investments -->
 		<script>
+			function newCalculatedRisk() {		//Calculates the Product of 
+			    var sum=0;
+			    var risk = 0;
+			    var probability = 0;
+			    var impact = 0;
+			    var thisRow = $(this).closest('tr');
+			    //iterate through each input and add to sum
+			    $(thisRow).find("td:not(.total) .probability_col_num").each(function() {
+			            probability = parseFloat(this.value);  
+			    }); 
+			    $(thisRow).find("td:not(.total) .impact_col_num").each(function() {
+			            impact = parseFloat(this.value);                     
+			    }); 
+			    risk = probability*impact/100;
+			    //change value of Risk
+			    var risk_input = $(thisRow).find(".risk_col_num");
+			    risk_input.html(risk + '%');
+			    
+
+			}
 			function getListofAlternativesforRiskAnalysis(){//Populates the Alternative Picker at the top of the risk_analysis page.
 				var i = 0;			//Reset Counter
 				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_model_getCurrentModel_Alternatives.php?callback=?', {//JSONP Request to Open Items Page setup tables
@@ -2270,6 +2340,7 @@ under the License.
 				});	
 			}
 			function getListofRisksforRiskAnalysisTable(){
+				showLoader();
 				var i=0;
 				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_model_alternative_get_Risks.php?callback=?', {//JSONP Request to Open Items Page setup tables
 					activeModelId : window.activeModelId,
@@ -2279,8 +2350,7 @@ under the License.
 					$.each(res, function(i, item) {
 						if(item.alternative_id==window.activeModelAlternativeId){
 							i=i+1;
-
-							$('#risk_analysis_table_body').append("<tr><td><a href='#' onclick='removeRiskFromAlternative(" + item.id + ")'><span class='trashico'></span></a></td><td class='tg-031e'>" + i + "</td><td class='tg-031e'>" + item.alternative_id + "</td><td class='tg-031e'>" + item.description + "</td><td class='tg-031e'><input class='probability_col_num' value = '" + item.probability + "'/></td><td class='tg-031e'><input class='low_col_num' value = '5'/></td><td class='tg-031e'></td><td class='tg-031e'  ><fieldset class='retain_full_risk_radio' data-role='controlgroup' data-type='vertical' data-mini='true'><input type='radio' class='retain_full_risk_radio' name='radio-choice-b" + i + "' id='radio-choice-c" + i + "' value='Yes' checked='checked'><label class='retain_full_risk_radio' for='radio-choice-c" + i + "'>Yes</label><input class='retain_full_risk_radio' type='radio' name='radio-choice-b" + i + "' id='radio-choice-d" + i + "' value=' No '><label class='retain_full_risk_radio' for='radio-choice-d" + i + "'>No</label></fieldset></td><td class='tg-031e' style='max-width:150px;'><select name='select-choice-8' id='select-choice-8" + i + "' multiple='multiple' data-native-menu='false' data-icon='grid' data-iconpos='left'><option>Select the measures your will take:</option><option value='Policies and Procedures' selected=''>Policies and Procedures</option><optgroup label='Insurance'><option value='Property and Causality'>Property and Causality</option><option value='Auto'>Auto</option><option value='General Liability'>General Liability</option></optgroup><optgroup label='Others'><option value='Other'>Other</option><option value='Out Source'>Out Source</option></optgroup></select></td><td class='tg-031e'><input class='low_col_num' value = '" + item.amount + "'/></td><td class='tg-031e'><input class='low_col_num' value = '" + item.reference + "'/></td><td class='tg-031e'><textarea cols='20' rows='3' name='textarea' id='textarea'>" + item.preventative_measures_explanation + "</textarea></td><td><a href='#' class='ui-btn risk_analysis_table' onclick='saveRiskAnalysis(" + item.id + ")'>Save Analysis</a></td></tr>");							
+							$('#risk_analysis_table_body').append("<tr><td><a href='#' onclick='removeRiskFromAlternative(" + item.id + ")'><span class='trashico'></span></a></td><td class='tg-031e'>" + i + "</td><td class='tg-031e'>" + item.alternative_id + "</td><td class='tg-031e'>" + item.description + "</td><td class='tg-031e'><input class='probability_col_num col_num' value = '" + item.probability + "'/></td><td class='tg-031e'><input class='impact_col_num col_num' value = '" + item.impact + "'/></td><td class='tg-031e risk_col_num'></td><td class='tg-031e'  ><fieldset class='retain_full_risk_radio' data-role='controlgroup' data-type='vertical' data-mini='true'><input type='radio' class='retain_full_risk_radio' name='radio-choice-b" + i + "' id='radio-choice-c" + i + "' value='Yes' checked='checked'><label class='retain_full_risk_radio' for='radio-choice-c" + i + "'>Yes</label><input class='retain_full_risk_radio' type='radio' name='radio-choice-b" + i + "' id='radio-choice-d" + i + "' value=' No '><label class='retain_full_risk_radio' for='radio-choice-d" + i + "'>No</label></fieldset></td><td class='tg-031e' style='max-width:150px;'><select name='select-choice-8' id='select-choice-8" + i + "' multiple='multiple' data-native-menu='false' data-icon='grid' data-iconpos='left'><option>Select the measures your will take:</option><option value='Policies and Procedures' selected=''>Policies and Procedures</option><optgroup label='Insurance'><option value='Property and Causality'>Property and Causality</option><option value='Auto'>Auto</option><option value='General Liability'>General Liability</option></optgroup><optgroup label='Others'><option value='Other'>Other</option><option value='Out Source'>Out Source</option></optgroup></select></td><td class='tg-031e'><input class='low_col_num' value = '" + item.amount + "'/></td><td class='tg-031e'><input class='low_col_num' value = '" + item.reference + "'/></td><td class='tg-031e'><textarea cols='20' rows='3' name='textarea' id='textarea'>" + item.preventative_measures_explanation + "</textarea></td><td><a href='#' class='ui-btn risk_analysis_table' onclick='saveRiskAnalysis(" + item.id + ")'>Save Analysis</a></td></tr>");							
 							$('#risk_analysis_table_body').trigger("create");
 							$('.retain_full_risk_radio').trigger("create");
 						}else{
@@ -2288,7 +2358,16 @@ under the License.
 						}
 					});
 
-				});					
+				});	
+			setTimeout(function() {
+			    $(".col_num").each(function() {		//The Class of the Input element that triggers the calculation			
+			        $(this).change(function(){				//Call the newSum function each time a keystroke is activated in any of the inputs with col_num as the class.
+			            newCalculatedRisk.call(this);
+			        });
+			    });
+
+				hideLoader();
+			}, 4000);
 			}
 			function saveRiskAnalysis(){
 				alert("risk analysis will now be saved.");
@@ -2798,6 +2877,7 @@ under the License.
 				});
 			}
         </script>
+		<!-- MCS Checklist -->
 		<script>
 			function getModelSummary(){
 				$('#ubmsuite_mcs_model_review_ubm_model_ul').empty();												
@@ -7337,9 +7417,9 @@ under the License.
 								  		<td>
 								    		<h2>Cost Per Unit</h2>
 								  		</td>
-								  		<td>
-								    		<h2># of Units</h2>
-								  		</td>
+								  		<td><h2># of Units</h2></td>
+								  		<td><h2>Total Cost</h2></td>
+
 								  	</tr>
 								  </thead>
 								  <tbody id="return_on_investment_input_form_cost_tbody">
@@ -7369,6 +7449,8 @@ under the License.
 												<td>
 													<h2># of Units</h2>
 												</td>
+								  				<td><h2>Total Income</h2></td>
+
 											</tr>
 										</thead>
 									  <tbody id="return_on_investment_input_form_income_tbody">
@@ -7530,9 +7612,9 @@ under the License.
 						    <td class="tg-6wtj">Line #</td>
 						    <td class="tg-rprx">Alternative</td>
 						    <td class="tg-rprx">Risk / Threat Description</td>
-						    <td class="tg-rprx">Probability (P)</td>
-						    <td class="tg-rprx">Impact (I)</td>
-						    <td class="tg-rprx">Risk = P x I</td>
+						    <td class="tg-rprx">Probability (P) <br>(Enter Whole number between 0-100)</td>
+						    <td class="tg-rprx">Impact (I) <br> (Enter Whole number between 0-100)</td>
+						    <td class="tg-rprx">Risk = P/100 x I</td>
 						    <td class="tg-cir2">Retain Full Risk</td>
 						    <td class="tg-y9xy">How will you reduce or Protect against this Risk?</td>
 						    <td class="tg-cir2">Amount</td>
