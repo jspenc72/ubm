@@ -2399,32 +2399,10 @@ under the License.
 				hideLoader();
 			}, 4000);
 			}
-			function saveRiskAnalysis(activeRiskId){
+			function saveRiskAnalysis(){
 				alert("risk analysis will now be saved.");
-				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_model_update_RiskAnalysis.php?callback=?', {//JSONP Request to Open Items Page setup tables
-					alternativeId : activeModelAlternativeId
-					riskId : activeRiskId
-					probability : window.username,
-					retainFullRisk : window.username,
-					amount : window.username,
-					reference : window.username,
-					preventativeMeasuresExplanation : window.username,
-					risk : window.username,
-					impact : window.activeModelAlternativeId
-				}, function(res, status) {
-					alert(res.message);
-					if(status=="success"){
-						setTimeout(function() {
-							$('#risk_analysis_define_new_risk_popup').popup('close');
-							getListofRisksforRiskAnalysisTable();						
-						}, 1000);
-						$('#risk_analysis_define_new_risk_popup_form').each(function() {
-							this.reset();
-						});	
-					}
-				});	
-
 			}
+				
 			function removeRiskFromAlternative(activeRiskId){
 				alert("this is a test "+activeRiskId)
 				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_model_alternative_remove_Risk.php?callback=?', {//JSONP Request to Open Items Page setup tables
