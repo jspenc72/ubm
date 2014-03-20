@@ -66,15 +66,36 @@ under the License.
 		<link rel="stylesheet" href="themes/theme.css" />
         <title>UBM</title>
         <script>
+        	window.globalCounter = 0;
         	function getTodaysDate () {
-        		var today = new Date();
-        		var dd = today.getDate(); 
-        		var mm = today.getMonth()+1;
-        		var yyyy = today.getFullYear(); 
-        		document.getElementById('mcs_setup_checklist_p4_b1_NewBusinessAccount_popup_form_TodaysDate').value= '' + mm + '/' + dd + '/' + yyyy + '';
-        		alert(dd);
-        		alert(mm);
-        		alert(yyyy);
+        		window.today = new Date();
+        		window.dd = today.getDate(); 
+        		window.mm = today.getMonth()+1;
+        		window.yyyy = today.getFullYear(); 
+        		window.h = today.getHours();
+        		window.m = today.getMinutes();
+        		window.s = today.getSeconds();
+        	}
+
+        	function fillTodaysDate() {
+        		getTodaysDate();
+        		document.getElementById('mcs_setup_checklist_p4_b1_NewBusinessAccount_popup_form_TodaysDate').value= '' + window.mm + '/' + window.dd + '/' + window.yyyy + '';
+        	}
+
+        	function greetUser() {
+        		getTodaysDate();
+        		if (window.h >=5 && window.h<12) {
+        			alert("Good Morning " + window.username + "")
+        		}
+        		if (window.h >=12 && window.h<17) {
+        			alert("Good Afternoon " + window.username + "")
+        		}
+        		if (window.h >=17 && window.h<20) {
+        			alert("Good Evening " + window.username + "")
+        		}
+        		if (window.h >=20 && window.h<=24 || window.h>=1 && window.h <5) {
+        			alert("You Should Go To Bed " + window.username + "")
+        		}
         	}
 			function showLoader(){
 				//Show Loader Message
@@ -9893,9 +9914,9 @@ under the License.
 								
 							</div>
 						</form>
-						<a href="#" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b" data-rel="submit" data-transition="flow" onclick="submitNewBusinessAccountForm">Submit</a>
+						<a href="#" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b" data-rel="submit" data-transition="flow" onclick="">Submit</a>
 					</div>
-				</div>
+				</div>	
 				
 				<!-- End Read Phase Four Book 1 User Guide Popup  -->
 				<!-- Open Items Popup -->
@@ -16093,6 +16114,10 @@ under the License.
 					setTimeout(function() {
 						getMyModels();
 						getSharedModels();
+						while (window.globalCounter == 0) {
+							greetUser();
+							window.globalCounter++;
+						}
 					}, 1000);
 				});
 				$(document).on("pageshow", "#return_on_investment", function() {
@@ -16132,6 +16157,9 @@ under the License.
 						refreshOpenItemsList();
                     }, 1000);
                 });
+                $(document).on("pageshow", "#mcs_setup_checklist_p4_b1", function() {
+						fillTodaysDate();
+				});
                 $(document).on("pageshow", "#risk_analysis", function() {
                 	//var value =$( "#risk_analysis_alternative_select_menu option:selected" ).text();							
 					$("#risk_analysis_alternative_select_menu").bind( "change", function(event, ui) {
@@ -16140,11 +16168,7 @@ under the License.
 					  	getListofRisksforRiskAnalysisTable();
 					  }, 1000);
 					});       
-					$(document).on("pageshow", "#mcs_setup_checklist_p4_b1", function() {
-						setTimeout(function() {
-							getTodaysDate();
-                    	}, 1000);
-					});          	
+					          	
                 	
                     setTimeout(function() {
 						getListofRisksforSearchBars();
