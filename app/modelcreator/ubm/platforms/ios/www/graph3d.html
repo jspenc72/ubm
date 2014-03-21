@@ -1,0 +1,181 @@
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=1024">
+		<title>Graph</title>
+		<link rel="stylesheet" href="http://www.universalbusinessmodel.com/examples/css/05.css">
+		<script>
+			function modifyTableValues(){
+				//Prepared By Table Cell Variables
+				
+				var PB_Setup = $('#data-table tr:eq(1) td:eq(0)');
+				var PB_Control = $('#data-table tr:eq(1) td:eq(1)');
+				var PB_P1 = $('#data-table tr:eq(1) td:eq(2)');
+				var PB_P2 = $('#data-table tr:eq(1) td:eq(3)');
+				var PB_P3 = $('#data-table tr:eq(1) td:eq(4)');
+				var PB_P4 = $('#data-table tr:eq(1) td:eq(5)');
+				var PB_P5 = $('#data-table tr:eq(1) td:eq(6)');
+				var PB_P6 = $('#data-table tr:eq(1) td:eq(7)');
+				var PB_P7 = $('#data-table tr:eq(1) td:eq(8)');
+				var PB_P8 = $('#data-table tr:eq(1) td:eq(9)');
+				//Reviewed By Table Cell Variables
+				
+				var RB_Setup = $('#data-table tr:eq(2) td:eq(0)');
+				var RB_Control = $('#data-table tr:eq(2) td:eq(1)');
+				var RB_P1 = $('#data-table tr:eq(2) td:eq(2)');
+				var RB_P2 = $('#data-table tr:eq(2) td:eq(3)');
+				var RB_P3 = $('#data-table tr:eq(2) td:eq(4)');
+				var RB_P4 = $('#data-table tr:eq(2) td:eq(5)');
+				var RB_P5 = $('#data-table tr:eq(2) td:eq(6)');
+				var RB_P6 = $('#data-table tr:eq(2) td:eq(7)');
+				var RB_P7 = $('#data-table tr:eq(2) td:eq(8)');
+				var RB_P8 = $('#data-table tr:eq(2) td:eq(9)');
+				//Final Reviewed By Table Cell Variables
+				
+				var FRB_Setup = $('#data-table tr:eq(3) td:eq(0)');
+				var FRB_Control = $('#data-table tr:eq(3) td:eq(1)');
+				var FRB_P1 = $('#data-table tr:eq(3) td:eq(2)');
+				var FRB_P2 = $('#data-table tr:eq(3) td:eq(3)');
+				var FRB_P3 = $('#data-table tr:eq(3) td:eq(4)');
+				var FRB_P4 = $('#data-table tr:eq(3) td:eq(5)');
+				var FRB_P5 = $('#data-table tr:eq(3) td:eq(6)');
+				var FRB_P6 = $('#data-table tr:eq(3) td:eq(7)');
+				var FRB_P7 = $('#data-table tr:eq(3) td:eq(8)');
+				var FRB_P8 = $('#data-table tr:eq(3) td:eq(9)');
+
+				//secondToLastCell.html("123456789");
+				$.getJSON('http://findmydriver.com/ubm_modelcreationsuite_get_checklistitems_for_graph.php?callback=?', {//JSONP Request to Open Items Page setup tables
+					activeModelId : 1
+				}, function(res, status) {
+					var sectionCounter=0;
+					$.each(res, function(i, item) {
+						if(sectionCounter==0){
+							 PB_Setup.html(item.MFIS_count);
+							 PB_Control.html(item.CS_count);
+							 PB_P1.html(item.P1_count);
+							 PB_P2.html(item.P2_count);
+							 PB_P3.html(item.P3_count);
+							 PB_P4.html(item.P4_count);
+							 PB_P5.html(item.P5_count);
+							 PB_P6.html(item.P6_count);
+							 PB_P7.html(item.P7_count);
+							 PB_P8.html(item.P8_count);
+						}else{
+							if(sectionCounter==1){
+								 RB_Setup.html(item.MFIS_count);
+								 RB_Control.html(item.CS_count);
+								 RB_P1.html(item.P1_count);
+								 RB_P2.html(item.P2_count);
+								 RB_P3.html(item.P3_count);
+								 RB_P4.html(item.P4_count);
+								 RB_P5.html(item.P5_count);
+								 RB_P6.html(item.P6_count);
+								 RB_P7.html(item.P7_count);
+								 RB_P8.html(item.P8_count);
+							}else{
+								if(sectionCounter==2){
+									 FRB_Setup.html(item.MFIS_count);
+									 FRB_Control.html(item.CS_count);
+									 FRB_P1.html(item.P1_count);
+									 FRB_P2.html(item.P2_count);
+									 FRB_P3.html(item.P3_count);
+									 FRB_P4.html(item.P4_count);
+									 FRB_P5.html(item.P5_count);
+									 FRB_P6.html(item.P6_count);
+									 FRB_P7.html(item.P7_count);
+									 FRB_P8.html(item.P8_count);
+								}else{
+									
+								}
+							}
+						}
+							alert("This is the counter: "+sectionCounter);
+					
+						sectionCounter++;
+					});
+				});
+			}
+		</script>
+	</head>
+	<body onload="modifyTableValues()">
+		<div class="toggles">
+			<a id="loadGraph" href="#" class="ui-btn">Load Graph</a>
+
+		</div>
+		<div id="3d_graph_wrapper">
+			<div class="chart">
+				<h2>Model Creation Suite Progress for: [Legal Entity Name Here]</h2>
+				<table id="data-table" border="1" cellpadding="10" cellspacing="0" summary="Monkeys">
+					<caption>Steps Completed</caption>
+					<thead>
+						<tr>
+							<td>&nbsp;</td>
+							<th scope="col">Setup</th>
+							<th scope="col">Control</th>
+							<th scope="col">Phase 1</th>
+							<th scope="col">Phase 2</th>
+							<th scope="col">Phase 3</th>
+							<th scope="col">Phase 4</th>
+							<th scope="col">Phase 5</th>
+							<th scope="col">Phase 6</th>
+							<th scope="col">Phase 7</th>
+							<th scope="col">Phase 8</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<th scope="row">Prepared By</th>
+							<td>8</td>
+							<td>7</td>
+							<td>6</td>
+							<td>5</td>
+							<td>4</td>
+							<td>3</td>
+							<td>2</td>
+							<td>1</td>
+							<td>10</td>
+							<td>10</td>
+						</tr>
+						<tr>
+							<th scope="row">Reviewed By</th>
+							<td>1</td>
+							<td>2</td>
+							<td>3</td>
+							<td>4</td>
+							<td>5</td>
+							<td>6</td>
+							<td>7</td>
+							<td>8</td>
+							<td>10</td>
+							<td>10</td>
+						</tr>
+						<tr>
+							<th scope="row">Final Review</th>
+							<td>4</td>
+							<td>4</td>
+							<td>4</td>
+							<td>4</td>
+							<td>4</td>
+							<td>4</td>
+							<td>4</td>
+							<td>4</td>
+							<td>10</td>
+							<td>10</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+		
+		<!-- JavaScript at the bottom for fast page loading -->
+		
+		<!-- Grab jQuery from Google -->
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
+		
+		<!-- Example JavaScript -->
+		<script src="http://www.universalbusinessmodel.com/examples/js/05.js"></script>
+		
+	</body>
+</html>
