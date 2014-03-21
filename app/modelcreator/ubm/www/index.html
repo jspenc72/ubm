@@ -1286,6 +1286,18 @@ under the License.
 				}, 1000);	
 				
 			}
+			function getListofPossiblePositions() {//Populates Core Value Listview on Possible CoreValue Popup
+				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_model_getAll_Positions.php?callback=?', {//JSONP Request to Open Items Page setup tables
+
+				}, function(res, status) {
+//						alert(status);
+						$('#ubmsuite_mcs_my_organizational_chart_content_createNewPositionPopUp_form_UBMRepository').empty();
+					$.each(res, function(i, item) {
+						$('#ubmsuite_mcs_my_organizational_chart_content_createNewPositionPopUp_form_UBMRepository').append("<li><a href='#'><p style='white-space:normal;'>" + item.title + "</p></a><a href='#' onclick='addPositiontoMyModel(" + item.id + ")'>Add Position</a></li>");
+						$('#ubmsuite_mcs_my_organizational_chart_content_createNewPositionPopUp_form_UBMRepository').listview("refresh");
+					})
+				});	
+			}
 			function createNewPositionAddtoMyModel(){
 				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_model_create_Position.php?callback=?', {//JSONP Request to Open Items Page setup tables
 					username: window.username,
@@ -1311,7 +1323,16 @@ under the License.
 				//4. If user selects "no, add this position without any positions that report to it." 
 				
 			}
-			function addPositiontoMyModel(){
+			function addPositiontoMyModel(activePositionId){
+				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_model_add_Position.php?callback=?', {//JSONP Request to Open Items Page setup tables
+					activeModelId :window.activeModelId,
+					positionReportsTo: window.activeReportsToPosition,
+					activePositionId : activePositionId
+				}, function(res, status) {
+					alert(res.message);
+				});
+					$("#ubmsuite_mcs_my_organizational_chart_content_createNewPositionPopUp").popup('close');
+					getMyModelsOrgChart();					
 				//Called from Model Settings Page????
 				//1. User selects a position from the list of ubm_model_positions?
 				//2. User is asked whether they wish to also add all positions that report to this position in the master file index?
@@ -1430,6 +1451,8 @@ under the License.
 			}
 			function createNewJobDescription () {
 				$("#ubmsuite_mcs_my_organizational_chart_content_manageJobDescriptionPopUp").popup('close');
+				$("#ubmsuite_mcs_my_organizational_chart_content_modifyPositionPopUp").popup('close');
+
 				setTimeout(function() {
 					$("#ubmsuite_mcs_my_organizational_chart_content_createNewJobDescriptionPopUp").popup('open');
 				}, 1000);		
@@ -1771,7 +1794,7 @@ under the License.
 					activeModelId:window.activeModelId
 				}, function(res, status) {
 					$.each(res, function(i, item) {
-						if(item.reports_to_id==item.position_id){
+						if(item.model_position_reports_to_id==item.position_id){
 //1. Set currentActiveOrgChartLevel 
 //2. Append the name of the highest reports to position on the top of the org chart.
 							$('#ubmsuite_mcs_my_organizational_chart_L0_ul').prepend("<a onclick='setActivePosition(" + item.position_id + ")'><img class='org_img' style='width:25px; height:25px;' src='img/apple.png' /></a></br>" + item.title); 
@@ -1783,7 +1806,7 @@ under the License.
 						}else{
 //3. Append all other childre to their respective "reports_to" ul
 //							$('#ubmsuite_mcs_my_organizational_chart_P' + item.reports_to_id + '_ul').append("<li id='orgChartPosition" + item.position_id + "'><div id='demo_box_" + item.position_id + "' class='demo_box' onclick='setActivePosition(" + item.position_id + ")'><div class='pop_ctrl'><i class='fa fa-bars'></i></div><ul id='demo_ul_2'><li class='demo_li'><a href='#' onclick='addChildPositiontoActivePosition()'><div><i class='fa fa-plus-circle'></i></div><p>Add</p></a></li><li class='demo_li'><a href='#' onclick='removeActivePosition()'><div><i class='fa fa-minus-circle'></i></div><p>Remove</p></a></li></ul></div></br>" + item.title + "<ul id='ubmsuite_mcs_my_organizational_chart_P" + item.position_id + "_ul'></ul></li>");	
-							$('#ubmsuite_mcs_my_organizational_chart_P' + item.reports_to_id + '_ul').append("<li id='orgChartPosition" + item.position_id + "'><a onclick='setActivePosition(" + item.position_id + ")'><img id='org_img_" + item.position_id + "' style='width:25px; height:25px;' src='img/apple.png' /></a></br>" + item.title + "<ul id='ubmsuite_mcs_my_organizational_chart_P" + item.position_id + "_ul'></ul></li>");	
+							$('#ubmsuite_mcs_my_organizational_chart_P' + item.model_position_reports_to_id + '_ul').append("<li id='orgChartPosition" + item.position_id + "'><a onclick='setActivePosition(" + item.position_id + ")'><img id='org_img_" + item.position_id + "' style='width:25px; height:25px;' src='img/apple.png' /></a></br>" + item.title + "<ul id='ubmsuite_mcs_my_organizational_chart_P" + item.position_id + "_ul'></ul></li>");	
 //4. Empty chart Div
 					        $('#chart').empty();
 //5. Call jOrgChart plugin, append new org chart to chart div, set jorgdraganddrop to false to avoid conflicting compatibility issue with other jquery packages.
@@ -2111,7 +2134,7 @@ under the License.
 					activeModelInvestmentId : window.activeModelInvestmentId
 				}, function(res, status) {
 					$.each(res, function(i, item) {
-						$('#return_on_investment_input_form_cost_tbody').append("<tr><td><a href='#' onclick='removeCostFromInvestment(" + item.cost_driver_id + ")'><span class='trashico'></span></a></td><td><input value='" + item.description + "' name='return_on_investment_costDescription_form' id='return_on_investment_costDescription_form' placeholder='Cost Driver Description...'><td><input name='return_on_investment_costPerUnit_form' id='return_on_investment_costPerUnit_form' class='costperunit_col_num col_num' placeholder='Cost Per Unit...' value='" + item.cost_per_unit + "'></td><td><input name='return_on_investment_costNumberOfUnits_form' id='return_on_investment_numberOfUnits_form' placeholder='# of Units...' class='numunits_col_num col_num' value='" + item.number_of_units + "'></td><td class='totalcost_col_num'></td><td><button style='max-height:30px' class='return_on_investment_cost_table_form_submit_button'>Save Cost Driver</button></td></tr>");							
+						$('#return_on_investment_input_form_cost_tbody').append("<tr><td><a href='#' onclick='removeCostFromInvestment(" + item.cost_driver_id + ")'><span class='trashico'></span></a></td><td><input value='" + item.description + "' name='return_on_investment_costDescription_form' id='return_on_investment_costDescription_form' placeholder='Cost Driver Description...'><td><input name='return_on_investment_costPerUnit_form' id='return_on_investment_costPerUnit_form' class='costperunit_col_num col_num' placeholder='Cost Per Unit...' value='" + item.cost_per_unit + "'></td><td><input name='return_on_investment_costNumberOfUnits_form' id='return_on_investment_numberOfUnits_form' placeholder='# of Units...' class='numunits_col_num col_num' value='" + item.number_of_units + "'></td><td class='totalcost_col_num'></td><td><button class='return_on_investment_cost_table_form_submit_button'>Save Cost Driver</button></td></tr>");							
 						$("#return_on_investment_input_form_cost_tbody").trigger("create");
 					});
 				}); 
@@ -2132,7 +2155,7 @@ under the License.
 					activeModelInvestmentId : window.activeModelInvestmentId
 				}, function(res, status) {
 					$.each(res, function(i, item) {
-						$('#return_on_investment_input_form_income_tbody').append("<tr><td><a href='#' onclick='removeIncomeFromInvestment(" + item.income_driver_id + ")'><span class='trashico'></span></a></td><td><input value='" + item.description + "' name='return_on_investment_incomeDescription_form' id='return_on_investment_incomeDescription_form' placeholder='Income Driver Description...' value='" + item.description + "' ></td><td><input name='return_on_investment_incomePerUnit_form' id='return_on_investment_incomePerUnit_form' class='incomeperunit_col_num col_num' placeholder='Income Per Unit...' value='" + item.income_per_unit + "'></td><td><input  name='return_on_investment_incomeNumberOfUnits_form' id='return_on_investment_incomeNumberOfUnits_form' class='numunits_col_num col_num' placeholder='# of Units...' value='" + item.number_of_units + "'></td><td class='totalincome_col_num'></td><td><button style='max-height:30px' class='return_on_investment_income_table_form_submit_button'>Save Income Driver</button></td></tr>");							
+						$('#return_on_investment_input_form_income_tbody').append("<tr><td><a href='#' onclick='removeIncomeFromInvestment(" + item.income_driver_id + ")'><span class='trashico'></span></a></td><td><input value='" + item.description + "' name='return_on_investment_incomeDescription_form' id='return_on_investment_incomeDescription_form' placeholder='Income Driver Description...' value='" + item.description + "' ></td><td><input name='return_on_investment_incomePerUnit_form' id='return_on_investment_incomePerUnit_form' class='incomeperunit_col_num col_num' placeholder='Income Per Unit...' value='" + item.income_per_unit + "'></td><td><input  name='return_on_investment_incomeNumberOfUnits_form' id='return_on_investment_incomeNumberOfUnits_form' class='numunits_col_num col_num' placeholder='# of Units...' value='" + item.number_of_units + "'></td><td class='totalincome_col_num'></td><td><button class='return_on_investment_income_table_form_submit_button'>Save Income Driver</button></td></tr>");							
 						$("#return_on_investment_input_form_income_tbody").trigger("create");
 
 					})
@@ -3278,6 +3301,7 @@ under the License.
 					});
 
 				});
+				$("#si_email").focus();
 			}
         </script>
 		<!-- PieMenuInit() and onLoadBody()x -->
@@ -3801,28 +3825,30 @@ under the License.
 							if (res.validation == 'TRUE') {
 								$('#result').empty().append('<center><p>' + res.message + res.validation + '</p></center>');
 								$('#result').empty();
-								window.location = "#ubmsuite_SelectBusinessModel"
 								window.accounttype = res.accounttype;
 							} else {
 								$('#result').empty().append('<center><p>No account exists with that username or password. Click Register to create your free account</p></center>');
 							}
 							if (res.accounttype == 'admin') {
 								//admin only stuff here
-								alert("you are an admin");
+								window.location = "#AdminSignIn_dialog"	
 								//$('body').prepend('<div id="overlayTest" class="circleBase type2" style="z-index: 99999; position:fixed;"><a href="#openItem_popup" data-rel="popup" data-transition="slideup" class="ui-btn ui-icon-alert ui-btn-icon-notext ui-corner-all">No text</a><a href="#openItem_popup" data-rel="popup" data-transition="slideup" class="ui-btn ui-icon-action ui-btn-icon-notext ui-corner-all">No text</a><center><a href="#mcs_setup_checklist_setup_searchPopup" data-rel="popup" data-transition="slideup" class="ui-btn ui-icon-search ui-btn-icon-notext ui-corner-all">No text</a></center></div>');
 								$(".circleBase").draggable();
 							} else {
 								if (res.accounttype == 'user') {
 									alert("you are a user");
+									window.location = "#ubmsuite_SelectBusinessModel"
 									//Driver only stuff here
 								} else {
 									if (res.accounttype == 'dispatch') {
 										alert("You are a dispatch");
+										window.location = "#ubmsuite_SelectBusinessModel"
 
 										//Dispatch only stuff here
 									} else {
 										if (res.accounttype == 'driver') {
 											alert("You are a driver");
+											window.location = "#ubmsuite_SelectBusinessModel"
 										}
 										//User has not been assigned an account type!
 									}
@@ -4183,6 +4209,7 @@ under the License.
 		    }
 		</style>
     </head>
+    
     <div id="headerRecord_right" style="z-index: 99999; position:fixed; right:60px; top:5px;">
         <div id="headerRecord_right_formref" style="color:red;">
             00.01
@@ -4230,7 +4257,7 @@ under the License.
                         <input type="text" name="si_user" id="si_email" value="" placeholder="Username"  data-theme="a" />
                         <label for="pw" class="ui-hidden-accessible">Password:</label>
                         <input type="password" name="si_pass" id="si_pw" value="" placeholder="Password"  data-theme="a" />
-                        <button data-theme="a" data-icon="check" onclick="userSignIn()">
+                        <button data-theme="a" data-icon="check"  id="sign_in_button" onclick="userSignIn()">
                             Sign in
                         </button>
                     </div>
@@ -4467,7 +4494,7 @@ under the License.
                         <input type="text" name="textinput-6" id="ubmsuite_createModel_popup_newModel_form_reference" placeholder="Reference" value="" data-mini="true">
                         <input type="text" name="textinput-6" id="ubmsuite_createModel_popup_newModel_form_title" placeholder="Title" value="" data-mini="true">
                         <input type="text" name="textinput-6" id="ubmsuite_createModel_popup_newModel_form_description" placeholder="Description..." value="" data-mini="true">
-                        &nbsp;&nbsp; <a href="#" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b" data-transition="flow" onclick="createModel()">Create Model!</a>
+                        &nbsp;&nbsp; <a href="#" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b" data-transition="flow" onclick="createModel()">Create Model</a>
                         <a href="#" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b" data-rel="back" data-transition="flow">Cancel </a> &nbsp;&nbsp;
                     </form>
                 </div>
@@ -5201,14 +5228,28 @@ under the License.
 				    <a href="index.html" data-rel="back" class="ui-shadow ui-btn ui-corner-all ui-btn-inline ui-mini">Cancel</a>
 				</div>				
 				<div data-role="popup" id="ubmsuite_mcs_my_organizational_chart_content_createNewPositionPopUp"  data-theme="a" class="ui-corner-all">
-				    <form id="ubmsuite_mcs_my_organizational_chart_content_createNewPositionPopUp_form_positionTitle_form"> <!-- Form Checklist Created By Aaron Miller -->
-				        <div style="padding:10px 20px;">
-				            <h3>Create New Position</h3>
-				            <input type="text" name="ubmsuite_mcs_my_organizational_chart_content_createNewPositionPopUp_form_positionTitle" id="ubmsuite_mcs_my_organizational_chart_content_createNewPositionPopUp_form_positionTitle" value="" placeholder="Position Title"  data-theme="a">
-							<textarea data-mini="true" cols="40" rows="8" id="ubmsuite_mcs_my_organizational_chart_content_createNewPositionPopUp_form_positionDescription" placeholder="Position Description..."></textarea>
-				           <a href="#" class="ui-btn" onclick="createNewPositionAddtoMyModel()">Create Position</a>
-				        </div>
-				    </form>
+					<div data-role="header">
+						<h1>Add Position</h1>
+					</div>
+					<div class="ui-grid-a">
+					    <div class="ui-block-a">
+							  <form id="ubmsuite_mcs_my_organizational_chart_content_createNewPositionPopUp_form_positionTitle_form"> <!-- Form Checklist Created By Aaron Miller -->
+						        <div style="padding:10px 20px;">
+						            <h3>Create New Position</h3>
+						            <input type="text" name="ubmsuite_mcs_my_organizational_chart_content_createNewPositionPopUp_form_positionTitle" id="ubmsuite_mcs_my_organizational_chart_content_createNewPositionPopUp_form_positionTitle" value="" placeholder="Position Title"  data-theme="a">
+									<textarea data-mini="true" cols="40" rows="8" id="ubmsuite_mcs_my_organizational_chart_content_createNewPositionPopUp_form_positionDescription" placeholder="Position Description..."></textarea>
+						           <a href="#" class="ui-btn" onclick="createNewPositionAddtoMyModel()">Create Position</a>
+						        </div>
+						    </form>	
+					    </div>
+					    <div class="ui-block-b" style="padding-top:15px;">
+					    	<form>
+								<h3>All UBM Predefined Positions</h3>
+								<ul data-role="listview" id="ubmsuite_mcs_my_organizational_chart_content_createNewPositionPopUp_form_UBMRepository"data-inset="true" data-filter="true" data-filter-placeholder="Search UBM Repository" style="max-height:400px; padding-bottom:2em; overflow-y:scroll;">
+							</form>
+							</ul>					
+					    </div>
+					</div>
 				</div>
 				<div data-role="popup" id="ubmsuite_mcs_my_organizational_chart_content_modifyPositionPopUp" data-overlay-theme="b" data-theme="a" data-dismissible="true" style="max-width:400px; min-width: 350px;">
 				    <div id="ubmsuite_mcs_my_organizational_chart_content_modifyPositionPopUp_header" data-role="header"  data-theme="a">
@@ -5222,13 +5263,11 @@ under the License.
 									<i class='fa fa-wrench'></i>
 								</div>
 								<ul id='demo_ul_2'>
-									<li class='demo_li'><a href='#' onclick='openCreateNewPositionPopup()'><div><i class='fa fa-edit'></i></div><p>Create New</p></a></li>
-									<li class='demo_li'><a href='#' onclick='addChildPositiontoActivePosition()'><div><i class='fa fa-plus-circle'></i></div><p>Select from UBM</p></a></li>
+									<li class='demo_li'><a href='#' onclick='openCreateNewPositionPopup();getListofPossiblePositions()'><div><i class='fa fa-edit'></i></div><p>Add New Position</p></a></li>
 									<li class='demo_li'><a href='#' onclick='confirmRemoveActivePosition()'><div><i class='fa fa-minus-circle'></i></div><p>Remove</p></a></li>
 									<li class='demo_li'><a href='#' onclick='modifyActivePosition()'><div><i class='fa fa-edit'></i></div><p>Modify Position</p></a></li>
 									<li class='demo_li'><a href='#' onclick='viewActivePositionHierachyObjects()'><div><i class='fa fa-sitemap'></i></div><p>View Hierarchical Objects</p></a></li>
 									<li class='demo_li'><a href='#' onclick='createNewJobDescription()'><div><i class='fa fa-sitemap'></i></div><p>Create A New Job Description</p></a></li>
-									<li class='demo_li'><a href='#' onclick='createNewStep()'><div><i class='fa fa-sitemap'></i></div><p>Create A New Step</p></a></li>
 								</ul>
 							</div>
 						</center>
@@ -5343,14 +5382,14 @@ under the License.
 								<center>Hierarchical Objects</center>
 								<div id="heirarchyObjectTree" class="heirarchyObjectTree" >
 
-									<ul id="heirarchyObjectTree_ul" style="overflow-x: scroll;">
+									<ul id="heirarchyObjectTree_ul" style="overflow-x:scroll;">
 
 									</ul>
 								</div>					
 							</div>	
 					    </div>
 					    <div class="ui-block-b">
-							<div id="heirarchyObjectBackbone_container" style="width:100%; float:left; overflow-x:scroll; overflow-y:scroll;">
+							<div id="heirarchyObjectBackbone_container" style="width:100%; float:left; overflow-x:scroll; overflow-y:	scroll;">
 								<style type="text/css">
 									.tg  {border-collapse:collapse;border-spacing:0;}
 									.tg td{font-family:Arial, sans-serif;font-size:14px;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;}
@@ -9856,7 +9895,7 @@ under the License.
 					</div>
 				</div>
 				<!--New Business Acount Form Pre-Op -->
-				<div data-role="popup" id="mcs_setup_checklist_p4_b1_NewBusinessAccount_popup" data-theme="a">
+				<div data-role="popup" id="mcs_setup_checklist_p4_b1_NewBusinessAccount_popup" data-theme="a" style="width:200%">
 					<div data-role="header" style data-theme="a">
 						<h1>New Business Account Form Pre-Op</h1>
 					</div>
@@ -16216,6 +16255,9 @@ under the License.
 						getMyModelsListofAvailableApplications();
                     }, 1000);
                 });
+                $(document).on("pageshow", "#AdminSignIn_dialog", function() {
+                	$('#ok_admin_button').focus();
+                });
 				$(document).on("pageshow", "#ubmsuite_mcs_my_organizational_chart", function() {
 					/*** /$( "#heirarchyObjectTree_container_frame" ).draggable().resizable({
 				      maxHeight: 550,
@@ -16387,5 +16429,16 @@ under the License.
 			<script src="js/jquery.currency.js"></script>
 		<!-- Example JavaScript -->
 		<script src="05.js"></script>
+		<!-- Dialogs -->
+	    <div data-role="page" id="AdminSignIn_dialog" data-dialog='true' data-close-btn="none" data-transition="slidedown">
+		    <div data-role="header">
+		        <h1>User Role</h1>
+		    </div>
+		    <div data-role="content">
+		        <p style="text-align:center">You are an Admin!</p>
+		        <p><a id="ok_admin_button" href="#ubmsuite_SelectBusinessModel" data-role="button">OK</a></p>
+		    </div>
+		</div>
+    <!-- End Dialogs -->
     </body>
 </html>
