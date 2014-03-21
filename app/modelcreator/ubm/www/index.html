@@ -2040,9 +2040,16 @@ under the License.
 						}
 					});
 				}
-				function removeAlternativefromModel(){
-					alert("alternative will be permanently remove from this model.");
-				}
+				function removeAlternativefromModel(activeAlternativeId){
+				alert("this is a test " + activeAlternativeId)
+				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_model_remove_Alternative.php?callback=?', {//JSONP Request to Open Items Page setup tables
+					activeAlternativeId : activeAlternativeId,
+					activeModelId: window.activeModelId
+				}, function(res, status) {
+					alert(res.message);
+				});	
+				getMyModelsListofAlternatives();
+			}
 				function saveAlternativeAnalysis(){
 					alert("alternative analysis will be save to this model.");
 				}
@@ -16154,7 +16161,7 @@ under the License.
 					  	getAllInvestments();
 					  }, 1000);
 					});
-					$("#return_on_investment_alternative_select_investment_menu").bind( "change", function(event, ui) {
+					$("#return_on_investment_alternative_select_investment_menu").bind( "change", function(event, ui) {risk
 					window.activeModelInvestmentId = $("#return_on_investment_alternative_select_investment_menu option:selected").val();
 					setTimeout(function() {
 						getActiveInvestmentIncomeDrivers();
