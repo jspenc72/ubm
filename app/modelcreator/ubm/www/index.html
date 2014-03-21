@@ -60,6 +60,10 @@ under the License.
 		<link rel="stylesheet" href="css/jquery.jOrgChart.css"/> 
 		<!-- Hierarchical Object -->
 		<link rel="stylesheet" href="css/heirarchicalChart.css"/>
+		<!-- Toast JS -->
+		<script src="js/jquery.toastmessage.js"></script>
+		<!-- Toast CSS -->
+		<link rel="stylesheet" type="text/css" href="css/jquery.toastmessage.css">
 		<!-- Font Awesome JS -->
 	    <script src="src/jquery.popmenu.js"></script>
 		<link rel="stylesheet" href="05.css">
@@ -85,16 +89,16 @@ under the License.
         	function greetUser() {
         		getTodaysDate();
         		if (window.h >=5 && window.h<12) {
-        			alert("Good Morning " + window.username + "")
+        			$().toastmessage('showSuccessToast', "Good Morning " + window.username + "");
         		}
         		if (window.h >=12 && window.h<17) {
-        			alert("Good Afternoon " + window.username + "")
+        			$().toastmessage('showSuccessToast', "Good Afternoon " + window.username + "");
         		}
         		if (window.h >=17 && window.h<20) {
-        			alert("Good Evening " + window.username + "")
+        			$().toastmessage('showSuccessToast', "Good Evening " + window.username + "");
         		}
         		if (window.h >=20 && window.h<=24 || window.h>=1 && window.h <5) {
-        			alert("You Should Go To Bed " + window.username + "")
+        			$().toastmessage('showWarningToast', "You Should Go To Bed " + window.username + "");
         		}
         	}
 			function showLoader(){
