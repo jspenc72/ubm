@@ -141,3 +141,8 @@
     margin-top: -40px;
     top: 50%;
 }
+.toast-position-bottom-right {
+    position: fixed;
+    right: 20px;
+    bottom: 20px;
+}
