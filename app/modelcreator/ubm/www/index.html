@@ -52,6 +52,13 @@ under the License.
 		<link rel="stylesheet" href="css/wookmark/reset.css">
 		<!-- Global CSS for the page and tiles -->
 		<link rel="stylesheet" href="css/wookmark/main.css">
+		<!-- EditableGrid CSS -->
+
+		<link rel="stylesheet" href="css/editableGrid.css" type="text/css" media="screen">
+		<!-- EditableGrid Javascript -->
+		<script src="js/editablegrid-2.0.1.js"></script>   
+		<script src="js/editableGrid.js" ></script>	<!-- Handles the AJAX calls to send and recieve information from the server -->
+
         <script src="js/jquery-ui.js"></script>
         <script src="js/jquery.ui.touch-punch.js"></script>
         <script src="js/circles.js"></script>
@@ -68,6 +75,7 @@ under the License.
 	    <script src="src/jquery.popmenu.js"></script>
 		<link rel="stylesheet" href="05.css">
 		<link rel="stylesheet" href="themes/theme.css" />
+		
         <title>UBM</title>
         <script>
         	window.globalCounter = 0;
@@ -2664,19 +2672,38 @@ under the License.
 												}
 										} else {
 											if (item.phase_id == "P3") {
-												if (item.preparer_username == null) {//Check whether item has been prepared
-													$('#mcs_setup_checklist_p3_mfi_table_body').append("<tr ><th class='label'>" + item.line_number + "</th><td>.</td><td>.</td><td>.</td><td>.</td><td><a href='#" + item.preparedBy_href + "' onclick='setActiveTaskId(" + item.line_number + ")'  data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/redMinus.png' alt='PreparedBy' style='width:60%'></a></td><td></td><td>" + item.mfi_explanation_ref + "</td><td>" + item.mfi_template_process_ref + "</td><td>" + item.source_model_mfi_ref + "</td><td><div data-role='controlgroup' data-type='horizontal' ><a href='#" + item.href + "'onclick='setActiveTaskId(" + item.line_number + ")'  data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a'><div style='white-space:normal'>" + item.instruction_detail + "</div></a></div></td><td>" + item.budgeted_hours + "</td><td>l</td><td>m</td><td>n</td></tr>");
-												} else {
-													if (item.reviewer_username == null) {//Check whether item has been reviewed
-														$('#mcs_setup_checklist_p3_mfi_table_body').append("<tr ><th class='label'>" + item.line_number + "</th><td></td><td></td><td><a href='#" + item.reviewedBy_href + "' data-rel='popup' onclick='setActiveTaskId(" + item.line_number + ")'  data-position-to='window' data-transition='fade'><img class='popphoto' src='img/redMinus.png' alt='ReviewedBy' style='width:60%'></a></td><td></td><td>" + item.preparer_username + "<a href='#popupParis' data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/greenCheck.png' alt='PreparedBy' style='width:60%'></a></td><td>" + item.prepared_date + "</td><td>" + item.mfi_explanation_ref + "</td><td>" + item.mfi_template_process_ref + "</td><td>" + item.source_model_mfi_ref + "</td><td><div data-role='controlgroup' data-type='horizontal' ><a href='#" + item.href + "' data-rel='popup' data-transition='slideup' class='ui-btn ui-disabled ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a'><div style='white-space:normal'>" + item.instruction_detail + "</div></a></div></td><td>" + item.budgeted_hours + "</td><td>l</td><td>m</td><td>n</td></tr>");
+												if(item.event_type == "POPUP"){
+													if (item.preparer_username == null) {//Check whether item has been prepared
+														$('#mcs_setup_checklist_p3_mfi_table_body').append("<tr ><th class='label'>" + item.line_number + "</th><td>.</td><td>.</td><td>.</td><td>.</td><td><a href='#" + item.preparedBy_href + "' onclick='setActiveTaskId(" + item.line_number + ")'  data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/redMinus.png' alt='PreparedBy' style='width:60%'></a></td><td></td><td>" + item.mfi_explanation_ref + "</td><td>" + item.mfi_template_process_ref + "</td><td>" + item.source_model_mfi_ref + "</td><td><div data-role='controlgroup' data-type='horizontal' ><a href='#" + item.href + "'onclick='setActiveTaskId(" + item.line_number + ")'  data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a'><div style='white-space:normal'>" + item.instruction_detail + "</div></a></div></td><td>" + item.budgeted_hours + "</td><td>l</td><td>m</td><td>n</td></tr>");
 													} else {
-														if (item.final_reviewer_username == null) {//Check whether item has received its final review
-															$('#mcs_setup_checklist_p3_mfi_table_body').append("<tr ><th class='label'>" + item.line_number + "</th><td><a href='#" + item.finalReviewedBy_href + "' data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/redMinus.png' alt='PreparedBy' style='width:60%'></a></td><td></td><td>" + item.reviewer_username + "<a href='#popupParis' data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/greenCheck.png' alt='PreparedBy' style='width:60%'></a></td><td>" + item.review_date + "</td><td>" + item.preparer_username + "<a href='#popupParis' data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/greenCheck.png' alt='PreparedBy' style='width:60%'></a></td><td>" + item.prepared_date + "</td><td>" + item.mfi_explanation_ref + "</td><td>" + item.mfi_template_process_ref + "</td><td>" + item.source_model_mfi_ref + "</td><td><div data-role='controlgroup' data-type='horizontal' ><a href='#" + item.href + "' data-rel='popup' data-transition='slideup' class='ui-btn ui-disabled ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a'><div style='white-space:normal'>" + item.instruction_detail + "</div></a></div></td><td>" + item.budgeted_hours + "</td><td>l</td><td>m</td><td>n</td></tr>");
+														if (item.reviewer_username == null) {//Check whether item has been reviewed
+															$('#mcs_setup_checklist_p3_mfi_table_body').append("<tr ><th class='label'>" + item.line_number + "</th><td></td><td></td><td><a href='#" + item.reviewedBy_href + "' data-rel='popup' onclick='setActiveTaskId(" + item.line_number + ")'  data-position-to='window' data-transition='fade'><img class='popphoto' src='img/redMinus.png' alt='ReviewedBy' style='width:60%'></a></td><td></td><td>" + item.preparer_username + "<a href='#popupParis' data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/greenCheck.png' alt='PreparedBy' style='width:60%'></a></td><td>" + item.prepared_date + "</td><td>" + item.mfi_explanation_ref + "</td><td>" + item.mfi_template_process_ref + "</td><td>" + item.source_model_mfi_ref + "</td><td><div data-role='controlgroup' data-type='horizontal' ><a href='#" + item.href + "' data-rel='popup' data-transition='slideup' class='ui-btn ui-disabled ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a'><div style='white-space:normal'>" + item.instruction_detail + "</div></a></div></td><td>" + item.budgeted_hours + "</td><td>l</td><td>m</td><td>n</td></tr>");
 														} else {
-															$('#mcs_setup_checklist_p3_mfi_table_body').append("<tr ><th class='label'>" + item.line_number + "</th><td>" + item.final_reviewer_username + "<a href='#' data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/greenCheck.png' alt='PreparedBy' style='width:60%'></a></td><td>" + item.final_review_date + "</td><td>" + item.reviewer_username + "<a href='#popupParis' data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/greenCheck.png' alt='PreparedBy' style='width:60%'></a></td><td>" + item.review_date + "</td><td>" + item.preparer_username + "<a href='#popupParis' data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/greenCheck.png' alt='PreparedBy' style='width:60%'></a></td><td>" + item.prepared_date + "</td><td>" + item.mfi_explanation_ref + "</td><td>" + item.mfi_template_process_ref + "</td><td>" + item.source_model_mfi_ref + "</td><td><div data-role='controlgroup' data-type='horizontal' ><a href='#" + item.href + "' data-rel='popup' data-transition='slideup' class='ui-btn ui-disabled ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a'><div style='white-space:normal'>" + item.instruction_detail + "</div></a></div></td><td>" + item.budgeted_hours + "</td><td>l</td><td>m</td><td>n</td></tr>");
+															if (item.final_reviewer_username == null) {//Check whether item has received its final review
+																$('#mcs_setup_checklist_p3_mfi_table_body').append("<tr ><th class='label'>" + item.line_number + "</th><td><a href='#" + item.finalReviewedBy_href + "' data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/redMinus.png' alt='PreparedBy' style='width:60%'></a></td><td></td><td>" + item.reviewer_username + "<a href='#popupParis' data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/greenCheck.png' alt='PreparedBy' style='width:60%'></a></td><td>" + item.review_date + "</td><td>" + item.preparer_username + "<a href='#popupParis' data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/greenCheck.png' alt='PreparedBy' style='width:60%'></a></td><td>" + item.prepared_date + "</td><td>" + item.mfi_explanation_ref + "</td><td>" + item.mfi_template_process_ref + "</td><td>" + item.source_model_mfi_ref + "</td><td><div data-role='controlgroup' data-type='horizontal' ><a href='#" + item.href + "' data-rel='popup' data-transition='slideup' class='ui-btn ui-disabled ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a'><div style='white-space:normal'>" + item.instruction_detail + "</div></a></div></td><td>" + item.budgeted_hours + "</td><td>l</td><td>m</td><td>n</td></tr>");
+															} else {
+																$('#mcs_setup_checklist_p3_mfi_table_body').append("<tr ><th class='label'>" + item.line_number + "</th><td>" + item.final_reviewer_username + "<a href='#' data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/greenCheck.png' alt='PreparedBy' style='width:60%'></a></td><td>" + item.final_review_date + "</td><td>" + item.reviewer_username + "<a href='#popupParis' data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/greenCheck.png' alt='PreparedBy' style='width:60%'></a></td><td>" + item.review_date + "</td><td>" + item.preparer_username + "<a href='#popupParis' data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/greenCheck.png' alt='PreparedBy' style='width:60%'></a></td><td>" + item.prepared_date + "</td><td>" + item.mfi_explanation_ref + "</td><td>" + item.mfi_template_process_ref + "</td><td>" + item.source_model_mfi_ref + "</td><td><div data-role='controlgroup' data-type='horizontal' ><a href='#" + item.href + "' data-rel='popup' data-transition='slideup' class='ui-btn ui-disabled ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a'><div style='white-space:normal'>" + item.instruction_detail + "</div></a></div></td><td>" + item.budgeted_hours + "</td><td>l</td><td>m</td><td>n</td></tr>");
+															}
 														}
+	
+													}												
+												}else{
+													if(item.event_type == "LINKTOPAGE"){
+														if (item.preparer_username == null) {//Check whether item has been prepared
+															$('#mcs_setup_checklist_p3_mfi_table_body').append("<tr ><th class='label'>" + item.line_number + "</th><td>.</td><td>.</td><td>.</td><td>.</td><td><a href='#" + item.preparedBy_href + "' onclick='setActiveTaskId(" + item.line_number + ")'  data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/redMinus.png' alt='PreparedBy' style='width:60%'></a></td><td></td><td>" + item.mfi_explanation_ref + "</td><td>" + item.mfi_template_process_ref + "</td><td>" + item.source_model_mfi_ref + "</td><td><div data-role='controlgroup' data-type='horizontal' ><a href='#" + item.href + "'onclick='setActiveTaskId(" + item.line_number + ")' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a'><div style='white-space:normal'>" + item.instruction_detail + "</div></a></div></td><td>" + item.budgeted_hours + "</td><td>l</td><td>m</td><td>n</td></tr>");
+														} else {
+															if (item.reviewer_username == null) {//Check whether item has been reviewed
+																$('#mcs_setup_checklist_p3_mfi_table_body').append("<tr ><th class='label'>" + item.line_number + "</th><td>.</td><td>.</td><td><a href='#" + item.reviewedBy_href + "' data-rel='popup' onclick='setActiveTaskId(" + item.line_number + ")'  data-position-to='window' data-transition='fade'><img class='popphoto' src='img/redMinus.png' alt='ReviewedBy' style='width:60%'></a></td><td></td><td>" + item.preparer_username + "<a href='#popupParis' data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/greenCheck.png' alt='PreparedBy' style='width:60%'></a></td><td>" + item.prepared_date + "</td><td>" + item.mfi_explanation_ref + "</td><td>" + item.mfi_template_process_ref + "</td><td>" + item.source_model_mfi_ref + "</td><td><div data-role='controlgroup' data-type='horizontal' ><a href='#" + item.href + "' class='ui-btn ui-disabled ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a'><div style='white-space:normal'>" + item.instruction_detail + "</div></a></div></td><td>" + item.budgeted_hours + "</td><td>l</td><td>m</td><td>n</td></tr>");
+															} else {
+																if (item.final_reviewer_username == null) {//Check whether item has received its final review
+																	$('#mcs_setup_checklist_p3_mfi_table_body').append("<tr ><th class='label'>" + item.line_number + "</th><td><a href='#" + item.finalReviewedBy_href + "' data-rel='popup' onclick='setActiveTaskId(" + item.line_number + ")' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/redMinus.png' alt='PreparedBy' style='width:60%'></a></td><td></td><td>" + item.reviewer_username + "<a href='#popupParis' data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/greenCheck.png' alt='PreparedBy' style='width:60%'></a></td><td>" + item.review_date + "</td><td>" + item.preparer_username + "<a href='#popupParis' data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/greenCheck.png' alt='PreparedBy' style='width:60%'></a></td><td>" + item.prepared_date + "</td><td>" + item.mfi_explanation_ref + "</td><td>" + item.mfi_template_process_ref + "</td><td>" + item.source_model_mfi_ref + "</td><td><div data-role='controlgroup' data-type='horizontal' ><a href='#" + item.href + "' class='ui-btn ui-disabled  ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a'><div style='white-space:normal'>" + item.instruction_detail + "</div></a></div></td><td>" + item.budgeted_hours + "</td><td>l</td><td>m</td><td>n</td></tr>");
+																} else {
+																	$('#mcs_setup_checklist_p3_mfi_table_body').append("<tr ><th class='label'>" + item.line_number + "</th><td>" + item.final_reviewer_username + "<a href='#' data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/greenCheck.png' alt='PreparedBy' style='width:60%'></a></td><td>" + item.final_review_date + "</td><td>" + item.reviewer_username + "<a href='#popupParis' data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/greenCheck.png' alt='PreparedBy' style='width:60%'></a></td><td>" + item.review_date + "</td><td>" + item.preparer_username + "<a href='#popupParis' data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/greenCheck.png' alt='PreparedBy' style='width:60%'></a></td><td>" + item.prepared_date + "</td><td>" + item.mfi_explanation_ref + "</td><td>" + item.mfi_template_process_ref + "</td><td>" + item.source_model_mfi_ref + "</td><td><div data-role='controlgroup' data-type='horizontal' ><a href='#" + item.href + "'  class='ui-btn ui-disabled ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a'><div style='white-space:normal'>" + item.instruction_detail + "</div></a></div></td><td>" + item.budgeted_hours + "</td><td>l</td><td>m</td><td>n</td></tr>");
+																}
+															}
+														}														
 													}
-
+													
 												}
 											} else {
 												if (item.phase_id == "P4B1") {
@@ -7750,13 +7777,30 @@ under the License.
 				</div>
 			</div>
 		</div>
-		<div data-role="page" class="ubm_page" id="risk_analysis" data-theme="a">
+		<div data-role="page" class="ubm_page" id="projected_financial_statement" data-theme="a">
 			<div data-role="header">
                 <a href="#" class="back_btn" data-icon="arrow-l" data-iconpos="notext">Back</a>
-				<h1> Risk Analysis / Assessment</h1>
+				<h1> Projected Financial Statement </h1>
 			</div>
 			<div data-role="content">
-
+				<div id="editableGripwrap">
+					<h1>Editable Financial Statement Demo - With MySQL Database Link</h1> 
+					<h2>Balance Sheet - Debits (Assets 100-199)</h2> 
+						<!-- Feedback message zone -->
+						<div id="message"></div>
+						<!-- Grid contents -->
+						<div id="balancesheetdebits_tablecontent"></div>				<!-- Balace Sheet Debits-->
+						<!-- Paginator control -->
+						<div id="paginator"></div>
+					<h2>Balance Sheet - Credits (Liabilities 200-299 + Owners Equity 300-399)</h2> 
+					<p>Balance Sheet - Credits (Liabilities + Stock + Retained Earnings)</p> 
+						<!-- Grid contents -->
+						<div id="balancesheetcredits_tablecontent"></div>				<!-- Balace Sheet Credits-->
+					<h2>Income Statement - Debits (Expenses 500-799)</h2> 
+						<div id="incomestatementdebits_tablecontent"></div>				<!-- Income Statement Credits-->
+					<h2>Income Statement - Credits (Income 400-499)</h2> 
+						<div id="incomestatementcredits_tablecontent"></div>			<!-- Income Statement Debits-->
+				</div>  
 			</div>
 		</div>
 		<!-- Setup -->
@@ -16290,16 +16334,17 @@ under the License.
 					$('#chart').empty();
 			        getMyModelsOrgChart();	
 			        getObjectsforBackboneTable();
-	
 				});
 				$(document).on("pageshow", "#possible_alternatives", function() {
 					getMyModelsListofAlternatives();
 					getActiveAlternativeListofPros();
 					getActiveAlternativeListofCons();
-				
-
-
-
+				});
+				$(document).on("pageshow", "#projected_financial_statement", function() {
+					datagridbsd = new DatabaseGridBalanceSheetDebits();
+					datagridbsc = new DatabaseGridBalanceSheetCredits();
+					datagridisd = new DatabaseGridIncomeStatementDebits();
+					datagridisc = new DatabaseGridIncomeStatementCredits();
 				});
 				$('.currency').keyup(function () {
 					 //alert('test'); 
@@ -16334,7 +16379,6 @@ under the License.
 					PieMenuInit();
 					setTimeout(function() {
 						$( ".draggable_popup" ).draggable({ handle: "h1" });
-
 	                    $( "#sign_in_sign_up_openItem_popup" ).draggable({ handle: "h1" });
 	                    $( "#mcs_setup_checklist_p2_openItem_popup" ).draggable({ handle: "h1" });
 	                    $( "#ubmsuite_SelectBusinessModel_openItem_popup" ).draggable({ handle: "h1" });

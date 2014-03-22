@@ -54,7 +54,7 @@ function DatabaseGridBalanceSheetDebits()
 }
 DatabaseGridBalanceSheetDebits.prototype.fetchGrid = function()  {			//Gets information to from php script to fill table.
 	// call a PHP script to get the data
-	this.editableGrid.loadXML("loadbalancesheetdebitsdata.php");
+	this.editableGrid.loadXML("http://api.universalbusinessmodel.com/loadbalancesheetdebitsdata.php");
 };
 DatabaseGridBalanceSheetDebits.prototype.initializeGrid = function(grid) {	//Renders the grid on the page.
 	grid.renderGrid("balancesheetdebits_tablecontent", "testgrid");
@@ -72,7 +72,7 @@ function DatabaseGridBalanceSheetCredits()
 }
 DatabaseGridBalanceSheetCredits.prototype.fetchGrid = function()  {			//Gets information to from php script to fill table.
 	// call a PHP script to get the data
-	this.editableGrid.loadXML("loadbalancesheetcreditsdata.php");
+	this.editableGrid.loadXML("http://api.universalbusinessmodel.com/loadbalancesheetcreditsdata.php");
 };
 DatabaseGridBalanceSheetCredits.prototype.initializeGrid = function(grid) {	//Renders the grid on the page.
 	grid.renderGrid("balancesheetcredits_tablecontent", "testgrid");
@@ -90,7 +90,7 @@ function DatabaseGridIncomeStatementDebits()
 }
 DatabaseGridIncomeStatementDebits.prototype.fetchGrid = function()  {			//Gets information to from php script to fill table.
 	// call a PHP script to get the data
-	this.editableGrid.loadXML("loadincomestatementdebitsdata.php");
+	this.editableGrid.loadXML("http://api.universalbusinessmodel.com/loadincomestatementdebitsdata.php");
 };
 DatabaseGridIncomeStatementDebits.prototype.initializeGrid = function(grid) {	//Renders the grid on the page.
 	grid.renderGrid("incomestatementdebits_tablecontent", "testgrid");
@@ -108,7 +108,7 @@ function DatabaseGridIncomeStatementCredits()
 }
 DatabaseGridIncomeStatementCredits.prototype.fetchGrid = function()  {			//Gets information to from php script to fill table.
 	// call a PHP script to get the data
-	this.editableGrid.loadXML("loadincomestatementcreditsdata.php");
+	this.editableGrid.loadXML("http://api.universalbusinessmodel.com/loadincomestatementcreditsdata.php");
 };
 DatabaseGridIncomeStatementCredits.prototype.initializeGrid = function(grid) {	//Renders the grid on the page.
 	grid.renderGrid("incomestatementcredits_tablecontent", "testgrid");
