@@ -95,7 +95,7 @@ under the License.
         	}
 
         	function greetUser() {
-        		$().toastmessage({position : 'middle-center'});
+        		$().toastmessage({position : 'bottom-right'});
         		getTodaysDate();
         		if (window.h >=5 && window.h<12) {
         			$().toastmessage('showSuccessToast', "Good Morning " + window.username + "");
@@ -110,7 +110,8 @@ under the License.
         		if (window.h >=20 && window.h<=24 || window.h>=1 && window.h <5) {
         			$().toastmessage('showWarningToast', "You Should Go To Bed " + window.username + "");
         		}
-        		//$().toastmessage({position : 'bottom-right'});
+        		
+        		
         	}
 			function showLoader(){
 				//Show Loader Message
@@ -576,6 +577,7 @@ under the License.
 					activeModelId : window.activeModelId,
 					activeCoreValueId: coreValueId
 				}, function(res, status) {
+						$().toastmessage('showSuccessToast', "Core Value was added to your model");
 						//alert(status);
 				});
 				getMyModelsCoreValues();	
@@ -658,6 +660,7 @@ under the License.
 					activeModelId : window.activeModelId,
 					activeCustomerId: customerId
 				}, function(res, status) {
+					$().toastmessage('showSuccessToast', "Customer was added to your model");
 						//alert(status);
 				});
 				getMyModelsCustomers();	
@@ -735,6 +738,7 @@ under the License.
 					activeModelId : window.activeModelId,
 					activeProductId: productId
 				}, function(res, status) {
+					$().toastmessage('showSuccessToast', "Product was added to your model");
 						//alert(status);
 				});
 				getMyModelsProducts();	
@@ -811,6 +815,7 @@ under the License.
 					activeModelId : window.activeModelId,
 					activeServiceId: serviceId
 				}, function(res, status) {
+					$().toastmessage('showSuccessToast', "Service was added to your model");
 						//alert(status);
 				});
 				getMyModelsServices();	
@@ -884,6 +889,7 @@ under the License.
 					activeModelId : window.activeModelId,
 					activePhysicalFacilityId: physicalFacilityId
 				}, function(res, status) {
+					$().toastmessage('showSuccessToast', "Physical Facility was added to your model");
 						//alert(status);
 				});
 				getMyModelsPhysicalFacilities();	
@@ -956,6 +962,7 @@ under the License.
 					activeModelId : window.activeModelId,
 					organizationalStructureId: organizationalStructureId
 				}, function(res, status) {
+					$().toastmessage('showSuccessToast', "Organizational Structure was added to your model");
 						//alert(status);
 				});
 				getMyModelsOrganizationalStructures();	
@@ -1032,6 +1039,7 @@ under the License.
 					activeModelId : window.activeModelId,
 					activeStrategicAllianceId: strategicAllianceId
 				}, function(res, status) {
+					$().toastmessage('showSuccessToast', "Strategic Alliance was added to your model");
 						//alert(status);
 				});
 				getMyModelsStrategicAlliances();	
@@ -1106,6 +1114,7 @@ under the License.
 					activeModelId : window.activeModelId,
 					activeStrategicPositioningId: activeStrategicPositioningId
 				}, function(res, status) {
+					$().toastmessage('showSuccessToast', "Strategic Positioning Question was added to your model");
 						//alert(status);
 				});
 				getMyModelsStrategicPositioningQuestions();	
@@ -1176,6 +1185,7 @@ under the License.
 					activeModelId : window.activeModelId,
 					activeFeatureId: featureId
 				}, function(res, status) {
+					$().toastmessage('showSuccessToast', "Feature was added to your model");
 						//alert(status);
 				});
 				getMyModelsFeatures();	
@@ -1373,13 +1383,13 @@ under the License.
 				}, 1000);
 			}
 			function modifyActivePosition(){
-				alert(window.activeReportsToPosition);
+				$().toastmessage('showNoticeToast', window.activeReportsToPosition);
 				//1. Checks to see if the currently active user is the creator of the active position.
 				//2. If user is creator, allows user to modify the position.
 				//3. If user is not the creator, user is notified that only the creator may modify a position and give them the option to copy the position.
 			}
 			function viewActivePositionHierachyObjects(){
-				alert("This Functionality is still in development.");
+				$().toastmessage('showNoticeToast', "This Functionality is still in development.");
 			}
 			function getObjectsforBackboneTable(){
 				//This basic function will allow us to build the table dynamically based on the position or the object selected.
@@ -1454,7 +1464,7 @@ under the License.
 					dutiesAndResponsibilities: document.getElementById("ubmsuite_mcs_my_organizational_chart_content_createNewJobDescriptionPopUp_form_JobDescriptionDutiesAndResponsibilities").value,
 					positionId : window.activeReportsToPosition
 				}, function(res, status) {
-					alert(res.message);
+					$().toastmessage('showNoticeToast', res.message);
 				});
 					
 					$("#ubmsuite_mcs_my_organizational_chart_content_createNewJobDescriptionPopUp").popup('close');
@@ -1589,7 +1599,7 @@ under the License.
 					description : document.getElementById("ubmsuite_mcs_my_organizational_chart_content_createNewPolicyPopUp_form_PolicyDescription").value,
 					jobDescriptionId : window.activeJobDescriptionId
 				}, function(res, status) {
-					alert(res.message);
+					$().toastmessage('showNoticeToast', res.message);
 				});
 					$("#ubmsuite_mcs_my_organizational_chart_content_createNewPolicyPopUp").popup('close');
 					$('#ubmsuite_mcs_my_organizational_chart_content_createNewPolicyPopUp_form_CreatePolicy_form').each(function() {
@@ -1662,7 +1672,7 @@ under the License.
 					scope: document.getElementById("ubmsuite_mcs_my_organizational_chart_content_createNewProcedurePopUp_form_ProcedureScope").value,
 					policyId : window.activePolicyId
 				}, function(res, status) {
-					alert(res.message);
+					$().toastmessage('showNoticeToast', res.message);
 				});
 					$("#ubmsuite_mcs_my_organizational_chart_content_createNewProcedurePopUp").popup('close');
 					$('#ubmsuite_mcs_my_organizational_chart_content_createNewProcedurePopUp_form_createProcedure_form').each(function() {
@@ -1705,7 +1715,7 @@ under the License.
 					stepNumber: document.getElementById("ubmsuite_mcs_my_organizational_chart_content_createNewStepPopUp_form_StepNumber").value,
 					procedureId : window.activeProcedureId
 				}, function(res, status) {
-					alert(res.message);
+					$().toastmessage('showNoticeToast', res.message);
 				});
 					$("#ubmsuite_mcs_my_organizational_chart_content_createNewStepPopUp").popup('close');
 					$('#ubmsuite_mcs_my_organizational_chart_content_createNewStepPopUp_form_createStep_form').each(function() {
@@ -1740,7 +1750,7 @@ under the License.
 		<script>
 			function setActiveTaskId(activeTaskId){
 				window.activeTaskId = activeTaskId;
-				alert(window.activeTaskId);
+				$().toastmessage('showNoticeToast', window.activeTaskId);
 				
 			}
 			function getTasksforBackBoneTable(){
@@ -1769,7 +1779,7 @@ under the License.
 					taskNumber: document.getElementById("ubmsuite_mcs_my_organizational_chart_content_createNewTaskPopUp_form_TaskNumber").value,
 					stepId : window.activeStepId
 				}, function(res, status) {
-					alert(res.message);
+					$().toastmessage('showNoticeToast', res.message);
 				});
 					$("#ubmsuite_mcs_my_organizational_chart_content_createNewTaskPopUp").popup('close');
 					$('#ubmsuite_mcs_my_organizational_chart_content_createNewTaskPopUp_form_createTask_form').each(function() {
@@ -1931,7 +1941,7 @@ under the License.
 				}
 				function setActiveAlternative(activeModelAlternativeId){
 					window.activeModelAlternativeId = activeModelAlternativeId;
-					alert(window.activeModelAlternativeId);
+					$().toastmessage('showNoticeToast', window.activeModelAlternativeId);
 					//alert(window.activeModelAlternativeId);
 					setTimeout(function() {
 						getActiveAlternativeListofPros();
@@ -2067,7 +2077,7 @@ under the License.
 						alternativeConLowCost : document.getElementById("possible_alternatives_con_monetary_cost_input_high").value,
 						username : window.username
 					}, function(res, status) {
-						alert(status);
+						$().toastmessage('showNoticeToast', status);
 						if(status=="success"){
 							setTimeout(function() {
 								getMyModelsListofAlternatives();
@@ -2078,17 +2088,17 @@ under the License.
 					});
 				}
 				function removeAlternativefromModel(activeAlternativeId){
-				alert("this is a test " + activeAlternativeId)
-				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_model_remove_Alternative.php?callback=?', {//JSONP Request to Open Items Page setup tables
-					activeAlternativeId : activeAlternativeId,
-					activeModelId: window.activeModelId
-				}, function(res, status) {
-					alert(res.message);
-				});	
-				getMyModelsListofAlternatives();
-			}
-				function saveAlternativeAnalysis(){
-					alert("alternative analysis will be save to this model.");
+					$().toastmessage('showNoticeToast', "this is a test " + activeAlternativeId + "");
+					$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_model_remove_Alternative.php?callback=?', {//JSONP Request to Open Items Page setup tables
+						activeAlternativeId : activeAlternativeId,
+						activeModelId: window.activeModelId
+					}, function(res, status) {
+						$().toastmessage('showNoticeToast', res.message);
+					});	
+					getMyModelsListofAlternatives();
+				}
+					function saveAlternativeAnalysis(){
+						$().toastmessage('showNoticeToast', 'alternative analysis will be save to this model.');
 				}
 
 	  </script>
@@ -2103,7 +2113,7 @@ under the License.
 					description : document.getElementById("return_on_investment_createNewCostDriver_popup_form_description").value,
 					numberOfUnits : document.getElementById("return_on_investment_createNewCostDriver_popup_form_numberOfUnits").value
 				}, function(res, status) {
-					alert(res.message);
+					$().toastmessage('showNoticeToast', res.message);
 					$("#return_on_investment_createNewCostDriver_popup").popup("close");
 					$("#return_on_investment_createNewCostDriver_popup_form").each(function() {
 						this.reset();
@@ -2126,7 +2136,7 @@ under the License.
 					description : document.getElementById("rturn_on_investment_createNewIncomeDriver_popup_form_description").value,
 					numberOfUnits : document.getElementById("return_on_investment_createNewIncomeDriver_popup_form_numberOfUnits").value
 				}, function(res, status) {
-					alert(res.message);
+					$().toastmessage('showNoticeToast', res.message);
 					$("#return_on_investment_createNewIncomeDriver_popup").popup("close");
 					$("#return_on_investment_createNewIncomeDriver_popup_form").each(function() {
 						this.reset();
@@ -2192,7 +2202,7 @@ under the License.
 					description: document.getElementById("return_on_investment_createNewInvestment_popup_form_description").value,
 					type: document.getElementById("return_on_investment_createNewInvestment_popup_form_type").value
 				}, function(res, status) {
-					alert(res.message);
+					$().toastmessage('showNoticeToast', res.message);
 					$("#return_on_investment_createNewInvestment_popup").popup("close");
 					$("#return_on_investment_createNewInvestment_popup_form").each(function() {
 						this.reset();
@@ -2261,7 +2271,7 @@ under the License.
 					activeInvestmentId : window.activeModelInvestmentId,
 					activeCostDriverId: activeCostDriverId
 				}, function(res, status) {
-					alert(res.message);
+					$().toastmessage('showNoticeToast', res.message);
 				});	
 				getAllInvestments();
 			}
@@ -2271,7 +2281,7 @@ under the License.
 					activeInvestmentId : window.activeModelInvestmentId,
 					activeIncomeDriverId: activeIncomeDriveId
 				}, function(res, status) {
-					alert(res.message);
+					$().toastmessage('showNoticeToast', res.message);
 				});	
 				getAllInvestments();
 			}
@@ -2356,14 +2366,14 @@ under the License.
 							//$('#risk_analysis_alternative_select_menu_container').trigger("refresh");
 			}
 			function addRisktoMyAlternative(activeModelAlternativeRiskId){
-				alert(window.activeModelAlternativeId);
-				alert("Risk # " + activeModelAlternativeRiskId + " will be added to the active alternative.");
+				$().toastmessage('showNoticeToast', window.activeModelAlternativeId);
+				$().toastmessage('showNoticeToast', "Risk # " + activeModelAlternativeRiskId + " will be added to the active alternative.");
 				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_model_alternative_add_Risk.php?callback=?', {//JSONP Request to Open Items Page setup tables
 					activeModelAlternativeId : window.activeModelAlternativeId,
 					activeModelAlternativeRiskId : activeModelAlternativeRiskId,
 					username : window.username
 				}, function(res, status) {
-					alert(res.message);
+					$().toastmessage('showNoticeToast', res.message);
 					if(status=="success"){
 						getListofRisksforRiskAnalysisTable();
 						
@@ -2452,7 +2462,7 @@ under the License.
 			}, 2500);
 			}
 			function saveRiskAnalysis(){
-				     alert(parseInt($(this).attr('id')));
+				$().toastmessage('showNoticeToast', parseInt($(this).attr('id')));
 				    // var reg_username = reg_email.split("@", 1).toString();
 /*** /
 
@@ -2469,8 +2479,8 @@ under the License.
 			    //change value of Risk
 			    var risk_input = $(thisRow).find(".risk_col_num");
 			    risk_input.html(risk + '%');			
-			    /***/	
-				alert("risk analysis will now be saved.");
+			    /***/
+			    $().toastmessage('showNoticeToast', "Risk Analysis will now be saved.");	
 			}
 				
 			function removeRiskFromAlternative(activeRiskId){
@@ -2479,7 +2489,7 @@ under the License.
 					activeModelAlternativeId : window.activeModelAlternativeId,
 					activeRiskId: activeRiskId
 				}, function(res, status) {
-					alert(res.message);
+					$().toastmessage('showNoticeToast', res.message);
 				});	
 				getListofRisksforRiskAnalysisTable();
 			}
@@ -2492,7 +2502,7 @@ under the License.
 					username : window.username,
 					activeModelAlternativeId : window.activeModelAlternativeId
 				}, function(res, status) {
-					alert(res.message);
+					$().toastmessage('showNoticeToast', res.message);
 					if(status=="success"){
 						setTimeout(function() {
 							$('#risk_analysis_define_new_risk_popup').popup('close');
@@ -3358,7 +3368,7 @@ under the License.
 						startTime : window.MCSTaskPreparedByStartTime,
 						username : window.username
 					}, function(res, status) {
-						alert(res.message);
+						$().toastmessage('showNoticeToast', res.message);
 					});
 					getModelCreationSuiteChecklistItems();
 				} else {
@@ -3373,7 +3383,7 @@ under the License.
 						startTime : window.MCSTaskStartTime,
 						username : window.username
 					}, function(res, status) {
-						alert(res.message);
+						$().toastmessage('showNoticeToast', res.message);
 					});
 					getModelCreationSuiteChecklistItems();
 				} else {
@@ -3388,7 +3398,7 @@ under the License.
 						startTime : window.MCSTaskStartTime,
 						username : window.username
 					}, function(res, status) {
-						alert(res.message);
+						$().toastmessage('showNoticeToast', res.message);
 					});
 					getModelCreationSuiteChecklistItems();
 				} else {
@@ -3436,25 +3446,25 @@ under the License.
 					});
 					$.each(formStringArray, function(index, val) {
 						if (!val.modelOwnerLegalEntityVal) {
-							alert('Your model must have a legal entity associated with it.');
+							$().toastmessage('showErrorToast', "Your model must have a legal entity associated with it.");
 						} else {
 							if (!val.modelOwnerCCODEVal) {
-								alert('Your model must have an associated CCODE.');
+								$().toastmessage('showErrorToast', "Your model must have an associated CCODE.");
 							} else {
 								if (!val.modelContactNameVal) {
-									alert('A model must have a contact associated with it.');
+									$().toastmessage('showErrorToast', "A model must have a contact associated with it.");
 								} else {
 									if (!val.modelContactPhoneVal) {
-										alert('The model contact must have a valid phone number.');
+										$().toastmessage('showErrorToast', "The model contact must have a valid phone number.");
 									} else {
 										if (!val.modelContactEmailVal) {
-											alert('The model contact must have a valid email.');
+											$().toastmessage('showErrorToast', "The model contact must have a valid email.");
 										} else {
 											if (!val.modelPurposeVal) {
-												alert('A model must have a purpose.');
+												$().toastmessage('showErrorToast', "A model must have a purpose.");
 											} else {
 												if (!val.modelScopeVal) {
-													alert('A model must be limited to a specific scope.');
+													$().toastmessage('showErrorToast', "A model must be limited to a specific scope.");
 												} else {
 													$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_phaseSetup_submitT4.php?callback=?', {//JSONP Request
 														username : window.username,
@@ -3517,13 +3527,13 @@ under the License.
 					});
 					$.each(formStringArray, function(index, val) {
 						if (!val.conceptualDefinition) {
-							alert('Your model must have at least one conceptual definition.');
+							$().toastmessage('showErrorToast', "Your model must have at least one conceptual definition.");
 						} else {
 							if (!val.missionStatement) {
-								alert('Your model must have a mission statement.');
+								$().toastmessage('showErrorToast', "Your model must have a mission statement.");
 							} else {
 								if (!val.visionStatement) {
-									alert('A model must have a vision statement.');
+									$().toastmessage('showErrorToast', "A model must have a vision statement.");
 								} else {
 									$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_phase1_submitT17.php?callback=?', {//JSONP Request
 										username : window.username,
@@ -3532,7 +3542,7 @@ under the License.
 										missionStatement : missionStatement,
 										visionStatement : visionStatement
 									}, function(res, status) {
-										alert(status);
+										$().toastmessage('showNoticeToast', status);
 										if (status == "success") {
 											//alert(res.message);
 											setActiveTaskId(MCSTaskId);
@@ -3561,7 +3571,7 @@ under the License.
 					date : window.setActiveReviewedByTime,
 					activeModelId : window.activeModelId
 				}, function(res, status) {
-					alert(res.message);
+					$().toastmessage('showNoticeToast', res.message);
 				});
 			}
 
@@ -3572,7 +3582,7 @@ under the License.
 					date : window.setActiveFinalReviewedByTime,
 					activeModelId : window.activeModelId
 				}, function(res, status) {
-					alert(res.message);
+					$().toastmessage('showNoticeToast', res.message);
 				});
 			}
 
@@ -3635,9 +3645,9 @@ under the License.
 					assignedto : document.getElementById(popupid + "submitreviewpoint_assignedto").value,
 					duedate : document.getElementById(popupid + "submitreviewpoint_duedatetime").value,
 				}, function(res, status) {
-					alert("init: " + status);
+					$().toastmessage('showNoticeToast', "init: " + status + "");
+					$().toastmessage('showNoticeToast', res.message);
 					if (status == "success") {
-						alert(res.message);
 						$('#gettingStarted_open_items_form').each(function() {
 							this.reset();
 						});
@@ -3744,7 +3754,7 @@ under the License.
                 var filter = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
             
                 if (!filter.test(email.value)) {
-                alert('Please provide a valid email address');
+                	$().toastmessage('showErrorToast', 'Please provide a valid email address');
                 reg_email.focus;
                 return false;
              }
@@ -3774,12 +3784,12 @@ under the License.
                     
 
                     if (terms_of_service == false) {
-                        alert("You Must Agree to the Terms of Service!");
+                    	$().toastmessage('showErrorToast', "You Must Agree to the Terms of Service!");
                                     $.mobile.loading("hide");
                         return false;
                     } else {
                         if (license_agreement == false) {
-                            alert("You Must Agree to the License Agreement!");
+                        	$().toastmessage('showErrorToast', "You Must Agree to the License Agreement!");
                                     $.mobile.loading("hide");
                             return false;
                             }
@@ -3788,7 +3798,7 @@ under the License.
                             var filter = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
                         
                             if (!filter.test(reg_email)) {
-                            alert('Please provide a valid email address');
+                            	$().toastmessage('showErrorToast', 'Please provide a valid email address');
                                     $.mobile.loading("hide");
                             reg_email.focus;
                             return false;
@@ -3797,6 +3807,7 @@ under the License.
                             window.username = reg_username;
                             alert(reg_username);
 							if(reg_passwd1.length<8){
+								$().toastmessage('showErrorToast', "Your password must be at least 8 characters.");
 								alert("Your password must be at least 8 characters.");
 	                                    $.mobile.loading("hide");								
 							}else{
@@ -3810,6 +3821,7 @@ under the License.
 	                                    password : reg_passwd1,
 	                                    username : reg_username,
 	                                }, function(res, status) {
+	                                	$().toastmessage('showNoticeToast', res.message);
 	                                    alert(res.message);
 	                                    if ( status = "SUCCESS") {
 	                                        $('#registration_form').each(function() {
@@ -3821,7 +3833,7 @@ under the License.
 	                                    window.location = "#ubmsuite_SelectBusinessModel"   //Need to modify server side to check if username already exists, if so send a callback to notify the user, Only allow change window location if the user account was created successfully.
 	                                });
 	                            } else {
-	                                alert("The passwords you entered do not match!");
+	                            	$().toastmessage('showErrorToast', "The passwords you entered do not match!");
 	                            }
 								
 							}
@@ -3839,10 +3851,10 @@ under the License.
 				//var si_userName = si_userNameArray.toString();
 				//				alert(si_userName);
 				if (si_userName.length < 1) {
-					alert("You must enter a username!");
+					$().toastmessage('showErrorToast', "You must enter a username!");
 				} else {
 					if (si_passWord.length < 1) {
-						alert("You must enter your password");
+						$().toastmessage('showErrorToast', "You must enter your password");
 					} else {
 						$('#result').empty().append('<center><p>Performing your sign in request...</p></center>');
 						/* stop form from submitting normally */
@@ -3864,23 +3876,24 @@ under the License.
 							}
 							if (res.accounttype == 'admin') {
 								//admin only stuff here
-								window.location = "#AdminSignIn_dialog"	
+								$().toastmessage('showNoticeToast', "You are an Admin");
+								window.location = "#ubmsuite_SelectBusinessModel"	
 								//$('body').prepend('<div id="overlayTest" class="circleBase type2" style="z-index: 99999; position:fixed;"><a href="#openItem_popup" data-rel="popup" data-transition="slideup" class="ui-btn ui-icon-alert ui-btn-icon-notext ui-corner-all">No text</a><a href="#openItem_popup" data-rel="popup" data-transition="slideup" class="ui-btn ui-icon-action ui-btn-icon-notext ui-corner-all">No text</a><center><a href="#mcs_setup_checklist_setup_searchPopup" data-rel="popup" data-transition="slideup" class="ui-btn ui-icon-search ui-btn-icon-notext ui-corner-all">No text</a></center></div>');
 								$(".circleBase").draggable();
 							} else {
 								if (res.accounttype == 'user') {
-									alert("you are a user");
+									$().toastmessage('showNoticeToast', "you are a user");
 									window.location = "#ubmsuite_SelectBusinessModel"
 									//Driver only stuff here
 								} else {
 									if (res.accounttype == 'dispatch') {
-										alert("You are a dispatch");
+										$().toastmessage('showNoticeToast', "You are a dispatch");
 										window.location = "#ubmsuite_SelectBusinessModel"
 
 										//Dispatch only stuff here
 									} else {
 										if (res.accounttype == 'driver') {
-											alert("You are a driver");
+											$().toastmessage('showNoticeToast', "You are a driver");
 											window.location = "#ubmsuite_SelectBusinessModel"
 										}
 										//User has not been assigned an account type!
@@ -3902,7 +3915,7 @@ under the License.
 
 			function updatePhoneNumber() {
 				if (document.getElementById("ubmsuite_UserPreferences_selectCarrier").value != "Verizon") {
-					alert("Notice: \"Your Carrier is not currently supported!\"");
+					$().toastmessage('showWarningToast', "Your Carrier is not currently supported!");
 				}
 
 				$.getJSON('http://www.findmydriver.com/app_users_preferences_phoneNumberCarrier.php?callback=?', {//JSONP Request
@@ -3910,7 +3923,7 @@ under the License.
 					phoneNumber : document.getElementById("ubmsuite_UserPreferences_cell").value,
 					username : window.username
 				}, function(res, status) {
-					alert("Phone Number Successfully Added!");
+					$().toastmessage('showSuccessToast', "Phone Number Successfully Added!");
 				});
 			}
 
@@ -3942,9 +3955,9 @@ under the License.
 			});
 
 			function checkConnection() {
-				alert("Check Connection Called");
+				$().toastmessage('showNoticeToast', 'Check Connection Called');
 				var networkState = navigator.connection.type;
-				alert("After Network STate");
+				$().toastmessage('showNoticeToast', 'After Network State');
 				var states = {};
 				states[Connection.UNKNOWN] = 'Unknown connection';
 				states[Connection.ETHERNET] = 'Ethernet connection';
@@ -3954,7 +3967,7 @@ under the License.
 				states[Connection.CELL_4G] = 'Cell 4G connection';
 				states[Connection.CELL] = 'Cell generic connection';
 				states[Connection.NONE] = 'No network connection';
-				alert('Connection type: ' + states[networkState]);
+				$().toastmessage('showNoticeToast', 'Connection type: ' + states[networkState] + "");
 			}
 
 			function getPosition() {
