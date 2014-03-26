@@ -1302,7 +1302,17 @@ under the License.
 				
 			}
 			function getMyModelsPositions(){
-				
+				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_model_getCurrentModel_Positions.php?callback=?', {//JSONP Request to Open Items Page setup tables
+					activeModelId : window.activeModelId
+				}, function(res, status) {
+						$("#ubsuite_mcs_managment_reporting_modelHasPositions_positions").empty();
+					$.each(res, function(i, item) {
+						$("#ubsuite_mcs_managment_reporting_modelHasPositions_positions").append("<li><a href='#'>" + item.title + "</a></li>");
+						$('#ubsuite_mcs_managment_reporting_modelHasPositions_positions').listview("refresh");
+
+					});
+
+				});	
 			}
 			function openCreateNewPositionPopup(){
 					$("#ubmsuite_mcs_my_organizational_chart_content_modifyPositionPopUp").popup('close');
@@ -5696,7 +5706,359 @@ under the License.
 				</div>
 			</div>
 			<div data-role="content">
+				<div id="ubmsuite_mcs_management_reporting_boardMeetings">
+
+				</div>
+				<div id="ubmsuite_mcs_management_reporting_ceo">
+
+				</div>
+				<div id="ubsuite_mcs_managment_reporting_modelHasPositions" style=" margin-top:5%; max-width:15%; margin-left:1%;float:left; ">
+					<ul style="overflow-y:scroll;max-height:300px;" data-role="listview" data-filter="true" data-filter-placeholder="Search Positions..." data-inset="true" id="ubsuite_mcs_managment_reporting_modelHasPositions_positions">
+						  
+					</ul>
+				</div>
 				
+				
+				<div id="ubmsuite_mcs_management_reporting_cfo" style="float:rights;margin-top:3%;">
+					
+					<div id="ubmsuite_mcs_management_reporting_cfo_financialInformation" style="float:right;padding-top:2%;margin-right:1%;max-width:75%;">
+						<style type="text/css">
+						.tg_financialInformation  {border-collapse:collapse;border-spacing:0;}
+						.tg_financialInformation td{font-family:Arial, sans-serif;font-size:14px;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;}
+						.tg_financialInformation th{font-family:Arial, sans-serif;font-size:14px;font-weight:normal;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;}
+						.tg_financialInformation .tg-jng0{font-weight:bold;background-color:#3498db;text-align:center}
+						.tg_financialInformation .tg-s6z2{text-align:center;background-color:#bddbef}}
+						</style>
+						<table class="tg_financialInformation">
+						  <tr>
+						    <th class="tg-jng0" colspan="14">Financial Information</th>
+						  </tr>
+						  <tr>
+						    <td class="tg-s6z2">Title</td>
+						    <td class="tg-s6z2">January</td>
+						    <td class="tg-s6z2">February</td>
+						    <td class="tg-s6z2">March</td>
+						    <td class="tg-s6z2">April</td>
+						    <td class="tg-s6z2">May</td>
+						    <td class="tg-s6z2">June</td>
+						    <td class="tg-s6z2">July</td>
+						    <td class="tg-s6z2">August</td>
+						    <td class="tg-s6z2">September</td>
+						    <td class="tg-s6z2">November</td>
+						    <td class="tg-s6z2">December</td>
+						    <td class="tg-s6z2">YTD Totals</td>
+						    <td class="tg-s6z2">Last YTD Totals</td>
+						  </tr>
+						  <tr>
+						    <td class="tg-031e"></td>
+						    <td class="tg-031e"></td>
+						    <td class="tg-031e"></td>
+						    <td class="tg-031e"></td>
+						    <td class="tg-031e"></td>
+						    <td class="tg-031e"></td>
+						    <td class="tg-031e"></td>
+						    <td class="tg-031e"></td>
+						    <td class="tg-031e"></td>
+						    <td class="tg-031e"></td>
+						    <td class="tg-031e"></td>
+						    <td class="tg-031e"></td>
+						    <td class="tg-031e"></td>
+						    <td class="tg-031e"></td>
+						  </tr>
+						</table>
+					</div>
+					<div id="ubmsuite_mcs_management_reporting_cfo_longtermManagementLedgers" style="float:left;padding-top:2%;margin-left:1%;max-width:50%;">
+						<style type="text/css">
+						.tg  {border-collapse:collapse;border-spacing:0;}
+						.tg td{font-family:Arial, sans-serif;font-size:14px;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;}
+						.tg th{font-family:Arial, sans-serif;font-size:14px;font-weight:normal;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;}
+						.tg .tg-jng0{font-weight:bold;background-color:#3498db;text-align:center}
+						.tg .tg-cv8e{background-color:#bddbef;text-align:center}
+						</style>
+						<table class="tg">
+						  <tr>
+						    <th class="tg-jng0" colspan="9">Long Term N/P Management Ledgers</th>
+						  </tr>
+						  <tr>
+						    <td class="tg-cv8e">Creditor</td>
+						    <td class="tg-cv8e">Beginning Balance</td>
+						    <td class="tg-cv8e">Interest Balance</td>
+						    <td class="tg-cv8e">Principle Balance</td>
+						    <td class="tg-cv8e">Total Balance</td>
+						    <td class="tg-cv8e">0-30 Past Due</td>
+						    <td class="tg-cv8e">30-60 Past Due</td>
+						    <td class="tg-cv8e">90+ Past Due</td>
+						    <td class="tg-cv8e">Total Past Due</td>
+						  </tr>
+						  <tr>
+						    <td class="tg-031e"></td>
+						    <td class="tg-031e"></td>
+						    <td class="tg-031e"></td>
+						    <td class="tg-031e"></td>
+						    <td class="tg-031e"></td>
+						    <td class="tg-031e"></td>
+						    <td class="tg-031e"></td>
+						    <td class="tg-031e"></td>
+						    <td class="tg-031e"></td>
+						  </tr>
+						</table>
+					</div>
+					<div id="ubmsuite_mcs_management_reporting_cfo_longtermnp" style="float:left;padding-top:2%;margin-left:1%;max-width:50%;">
+						<style type="text/css">
+						.tg_longtermnp  {border-collapse:collapse;border-spacing:0;}
+						.tg_longtermnp td{font-family:Arial, sans-serif;font-size:14px;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;}
+						.tg_longtermnp th{font-family:Arial, sans-serif;font-size:14px;font-weight:normal;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;}
+						.tg_longtermnp .tg-jng0{font-weight:bold;background-color:#3498db;text-align:center}
+						.tg_longtermnp .tg-cv8e{background-color:#bddbef;text-align:center}
+						</style>
+						<table class="tg_longtermnp">
+						  <tr>
+						    <th class="tg-jng0" colspan="9">Long Term N/P</th>
+						  </tr>
+						  <tr>
+						    <td class="tg-cv8e">Creditor</td>
+						    <td class="tg-cv8e">Beginning Balance</td>
+						    <td class="tg-cv8e">Interest Balance</td>
+						    <td class="tg-cv8e">Principle Balance</td>
+						    <td class="tg-cv8e">Total Balance</td>
+						    <td class="tg-cv8e">0-30 Past Due</td>
+						    <td class="tg-cv8e">30-60 Past Due</td>
+						    <td class="tg-cv8e">90+ Past Due</td>
+						    <td class="tg-cv8e">Total Past Due</td>
+						  </tr>
+						  <tr>
+						    <td class="tg-031e"></td>
+						    <td class="tg-031e"></td>
+						    <td class="tg-031e"></td>
+						    <td class="tg-031e"></td>
+						    <td class="tg-031e"></td>
+						    <td class="tg-031e"></td>
+						    <td class="tg-031e"></td>
+						    <td class="tg-031e"></td>
+						    <td class="tg-031e"></td>
+						  </tr>
+						</table>
+					</div>
+					<div id="ubmsuite_mcs_management_reporting_cfo_aratb" style="float:right;padding-top:2%;margin-right:1%;max-width:25%;">
+						<style type="text/css">
+						.tg  {border-collapse:collapse;border-spacing:0;}
+						.tg td{font-family:Arial, sans-serif;font-size:14px;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;}
+						.tg th{font-family:Arial, sans-serif;font-size:14px;font-weight:normal;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;}
+						.tg .tg-jng0{font-weight:bold;background-color:#3498db;text-align:center}
+						.tg .tg-cv8e{background-color:#bddbef;text-align:center}
+						</style>
+						<table class="tg">
+						  <tr>
+						    <th class="tg-jng0" colspan="6">A/R ATB</th>
+						  </tr>
+						  <tr>
+						    <td class="tg-cv8e">Customer</td>
+						    <td class="tg-cv8e">Total A/R</td>
+						    <td class="tg-cv8e">0-30</td>
+						    <td class="tg-cv8e">30-60</td>
+						    <td class="tg-cv8e">90+</td>
+						    <td class="tg-cv8e">Total Past Due</td>
+						  </tr>
+						  <tr>
+						    <td class="tg-031e"></td>
+						    <td class="tg-031e"></td>
+						    <td class="tg-031e"></td>
+						    <td class="tg-031e"></td>
+						    <td class="tg-031e"></td>
+						    <td class="tg-031e"></td>
+						  </tr>
+						</table>
+					</div>
+					<div id="ubmsuite_mcs_management_reporting_cfo_apatb" style="float:right;padding-top:2%;margin-right:1%;max-width:25%;">
+						<style type="text/css">
+						.tg  {border-collapse:collapse;border-spacing:0;}
+						.tg td{font-family:Arial, sans-serif;font-size:14px;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;}
+						.tg th{font-family:Arial, sans-serif;font-size:14px;font-weight:normal;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;}
+						.tg .tg-jng0{font-weight:bold;background-color:#3498db;text-align:center}
+						.tg .tg-cv8e{background-color:#bddbef;text-align:center}
+						</style>
+						<table class="tg">
+						  <tr>
+						    <th class="tg-jng0" colspan="6">A/P ATB</th>
+						  </tr>
+						  <tr>
+						    <td class="tg-cv8e">Customer</td>
+						    <td class="tg-cv8e">Total A/R</td>
+						    <td class="tg-cv8e">0-30</td>
+						    <td class="tg-cv8e">30-60</td>
+						    <td class="tg-cv8e">90+</td>
+						    <td class="tg-cv8e">Total Past Due</td>
+						  </tr>
+						  <tr>
+						    <td class="tg-031e"></td>
+						    <td class="tg-031e"></td>
+						    <td class="tg-031e"></td>
+						    <td class="tg-031e"></td>
+						    <td class="tg-031e"></td>
+						    <td class="tg-031e"></td>
+						  </tr>
+						</table>
+					</div>
+					<div id="ubmsuite_mcs_management_reporting_cfo_financialRatiosROI" style="float:right;padding-top:2%;margin-left:1%;max-width:50%;padding-right:1%">
+						<style type="text/css">
+						.tg_financialRatiosROI  {border-collapse:collapse;border-spacing:0;}
+						.tg_financialRatiosROI td{font-family:Arial, sans-serif;font-size:14px;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;}
+						.tg_financialRatiosROI th{font-family:Arial, sans-serif;font-size:14px;font-weight:normal;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;}
+						.tg_financialRatiosROI .tg-jng0{font-weight:bold;background-color:#3498db;text-align:center}
+						.tg_financialRatiosROI .tg-cv8e{background-color:#bddbef;text-align:center}
+						</style>
+						<table class="tg_financialRatiosROI">
+						  <tr>
+						    <th class="tg-jng0" colspan="2">Financial Ratios</th>
+						  </tr>
+						  <tr>
+						    <td class="tg-cv8e">Description</td>
+						    <td class="tg-cv8e">Value</td>
+						  </tr>
+						  <tr>
+						    <td class="tg-031e"></td>
+						    <td class="tg-031e"></td>
+						  </tr>
+						</table>
+					</div>
+				</div>
+				<div id="ubmsuite_mcs_management_reporting_businessModelManager" style="max-width:50%;float;right;padding-left:1%">
+
+					<div id="ubmsuite_mcs_management_reporting_businessModelManager_modelStatistics">
+
+						<div id="ubmsuite_mcs_management_reporting_businessModelManager_modelStatistics_creationStatistics" style="float:left;padding-top:2%;padding-right:1%;padding-left:2%;">
+							<style type="text/css">
+							.tg_creationStatistics  {border-collapse:collapse;border-spacing:0;}
+							.tg_creationStatistics td{font-family:Arial, sans-serif;font-size:14px;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;}
+							.tg_creationStatistics th{font-family:Arial, sans-serif;font-size:14px;font-weight:normal;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;}
+							.tg_creationStatistics .tg-h9jk{background-color:#aadfe2;text-align:center}
+							.tg_creationStatistics .tg-gcr2{background-color:#aadfe2}
+							.tg_creationStatistics .tg-0r25{font-weight:bold;background-color:#2d8ea3;text-align:center}
+							</style>
+							<table class="tg_creationStatistics">
+							  <tr>
+							    <th class="tg-0r25" colspan="6">Creation Statistics</th>
+							  </tr>
+							  <tr>
+							    <td class="tg-h9jk">Item Description</td>
+							    <td class="tg-h9jk">Checklist Lines Identified</td>
+							    <td class="tg-gcr2">Checklist Lines Completed</td>
+							    <td class="tg-gcr2">Completed Ratios</td>
+							    <td class="tg-gcr2">Items Final Review</td>
+							    <td class="tg-gcr2">Approved Ratios</td>
+							  </tr>
+							  <tr>
+							    <td class="tg-031e"></td>
+							    <td class="tg-031e"></td>
+							    <td class="tg-031e"></td>
+							    <td class="tg-031e"></td>
+							    <td class="tg-031e"></td>
+							    <td class="tg-031e"></td>
+							  </tr>
+							</table>
+						</div>
+
+						<div id="ubmsuite_mcs_management_reporting_businessModelManager_modelStatistics_objectStatistics" style="float:left;padding-top:2%;padding-right:1%;padding-left:32%">
+							<style type="text/css">
+							.tg_objectStatistics  {border-collapse:collapse;border-spacing:0;}
+							.tg_objectStatistics td{font-family:Arial, sans-serif;font-size:14px;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;}
+							.tg_objectStatistics th{font-family:Arial, sans-serif;font-size:14px;font-weight:normal;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;}
+							.tg_objectStatistics .tg-h9jk{background-color:#aadfe2;text-align:center}
+							.tg_objectStatistics .tg-gcr2{background-color:#aadfe2}
+							.tg_objectStatistics .tg-0r25{font-weight:bold;background-color:#2d8ea3;text-align:center}
+							</style>
+							<table class="tg_objectStatistics">
+							  <tr>
+							    <th class="tg-0r25" colspan="6">Object Statistics</th>
+							  </tr>
+							  <tr>
+							    <td class="tg-h9jk">Item Description</td>
+							    <td class="tg-h9jk">Checklist Lines Identified</td>
+							    <td class="tg-gcr2">Checklist Lines Completed</td>
+							    <td class="tg-gcr2">Completed Ratios</td>
+							    <td class="tg-gcr2">Items Final Review</td>
+							    <td class="tg-gcr2">Approved Ratios</td>
+							  </tr>
+							  <tr>
+							    <td class="tg-031e"></td>
+							    <td class="tg-031e"></td>
+							    <td class="tg-031e"></td>
+							    <td class="tg-031e"></td>
+							    <td class="tg-031e"></td>
+							    <td class="tg-031e"></td>
+							  </tr>
+							</table>
+						</div>
+
+					</div>
+
+				</div>
+				<div id="ubmsuite_mcs_management_reporting_operations">
+
+				</div>
+
+				<div id="ubmsuite_mcs_management_reporting_humanResources" style="float:right;margin-right:1%;margin-top:-10%">
+					<div id="ubmsuite_mcs_management_reporting_employeeUtilization" style="float:right;padding-top:2%;margin-left:1%;">
+						<style type="text/css">
+						.tg_employeeUtilization  {border-collapse:collapse;border-spacing:0;}
+						.tg_employeeUtilization td{font-family:Arial, sans-serif;font-size:14px;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;}
+						.tg_employeeUtilization th{font-family:Arial, sans-serif;font-size:14px;font-weight:normal;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;}
+						.tg_employeeUtilization .tg-vec2{font-weight:bold;background-color:#5fad6b;text-align:center}
+						.tg_employeeUtilization .tg-pg38{background-color:#c9e8ce;text-align:center}
+						.tg_employeeUtilization .tg-mt9y{background-color:#c9e8ce}
+						</style>
+						<table class="tg_employeeUtilization">
+						  <tr>
+						    <th class="tg-vec2" colspan="6">Employee Utilization</th>
+						  </tr>
+						  <tr>
+						    <td class="tg-pg38">Employee Name</td>
+						    <td class="tg-pg38">Billable Hours</td>
+						    <td class="tg-mt9y">Admin Hours</td>
+						    <td class="tg-mt9y">Total Hours</td>
+						    <td class="tg-mt9y">Billable Ratio</td>
+						    <td class="tg-mt9y">Paid Payroll</td>
+						  </tr>
+						  <tr>
+						    <td class="tg-031e"></td>
+						    <td class="tg-031e"></td>
+						    <td class="tg-031e"></td>
+						    <td class="tg-031e"></td>
+						    <td class="tg-031e"></td>
+						    <td class="tg-031e"></td>
+						  </tr>
+						</table>
+					</div>
+					<div id="ubmsuite_mcs_management_reporting_humanResources_humanResources" style="float:right;padding-top:2%;margin-left:1%;">
+						<style type="text/css">
+						.tg_humanResources  {border-collapse:collapse;border-spacing:0;}
+						.tg_humanResources td{font-family:Arial, sans-serif;font-size:14px;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;}
+						.tg_humanResources th{font-family:Arial, sans-serif;font-size:14px;font-weight:normal;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;}
+						.tg_humanResources .tg-vec2{font-weight:bold;background-color:#5fad6b;text-align:center}
+						.tg_humanResources .tg-pg38{background-color:#c9e8ce;text-align:center}
+						.tg_humanResources .tg-mt9y{background-color:#c9e8ce}
+						</style>
+						<table class="tg_humanResources">
+						  <tr>
+						    <th class="tg-vec2" colspan="5">Human Resources</th>
+						  </tr>
+						  <tr>
+						    <td class="tg-pg38">Total # of Company Positions</td>
+						    <td class="tg-pg38"># of Outsourced Positions</td>
+						    <td class="tg-mt9y"># of Filled Positions</td>
+						    <td class="tg-mt9y"># of Vacant Positions</td>
+						    <td class="tg-mt9y"># of Employees</td>
+						  </tr>
+						  <tr>
+						    <td class="tg-031e"></td>
+						    <td class="tg-031e"></td>
+						    <td class="tg-031e"></td>
+						    <td class="tg-031e"></td>
+						    <td class="tg-031e"></td>
+						  </tr>
+						</table>
+					</div>
+				</div>
 			</div>
 		</div>
         <div data-role="page" class="ubm_page" id="gettingStarted" data-theme="a">
@@ -16325,6 +16687,9 @@ under the License.
                 });
                 $(document).on("pageshow", "#mcs_setup_checklist_p4_b1", function() {
 						fillTodaysDate();
+				});
+				$(document).on("pageshow", "#ubmsuite_mcs_management_reporting", function() {
+						getMyModelsPositions();
 				});
                 $(document).on("pageshow", "#risk_analysis", function() {
                 	//var value =$( "#risk_analysis_alternative_select_menu option:selected" ).text();							
