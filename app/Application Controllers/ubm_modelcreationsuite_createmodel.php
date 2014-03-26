@@ -37,14 +37,19 @@ $v4 = "'" . $conn -> real_escape_string($descritpion) . "'";
 $v5 = "'" . $conn -> real_escape_string($creator_id) . "'";
 
 $sqlins = "INSERT INTO ubm_model (reference, title, description, creator_id) VALUES ($v2, $v3, $v4, $v5)";
-
 if ($conn -> query($sqlins) === false) {
 	trigger_error('Wrong SQL: ' . $sqlins . ' Error: ' . $conn -> error, E_USER_ERROR);
 } else {
 	$last_inserted_id = $conn -> insert_id;
 	$affected_rows = $conn -> affected_rows;
+	$sqlins2 = "INSERT INTO ubm_model_has_positions (model_id, model_position_reports_to_id, position_id) VALUES ($last_inserted_id, '1', '1')";
+	if ($conn -> query($sqlins2) === false) {
+		trigger_error('Wrong SQL: ' . $sqlins2 . ' Error: ' . $conn -> error, E_USER_ERROR);
+	} else {
+		echo $_GET['callback'] . '(' . "{'message' : 'The number of affected rows is $affected_rows, the id of the new model is $last_inserted_id,'}" . ')';
+	}
 }
-echo $_GET['callback'] . '(' . "{'message' : 'The number of affected rows is $affected_rows, the number of resolutions is: $rows_returned the openitemid modified was $openitemid!'}" . ')';
+
 
 /*SELECT
  $sqlsel="SELECT * FROM ubm_mcs_app_resolutions WHERE openitemid=$openitemid";
