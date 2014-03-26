@@ -8157,25 +8157,13 @@ under the License.
 				<h1> Projected Financial Statement </h1>
 			</div>
 			<div data-role="content">
-				<div id="editableGripwrap">
-					<h1>Editable Financial Statement Demo - With MySQL Database Link</h1> 
-					<h2>Balance Sheet - Debits (Assets 100-199)</h2> 
-						<!-- Feedback message zone -->
-						<div id="message"></div>
-						<!-- Grid contents -->
-						<div id="balancesheetdebits_tablecontent"></div>				<!-- Balace Sheet Debits-->
-						<!-- Paginator control -->
-						<div id="paginator"></div>
-					<h2>Balance Sheet - Credits (Liabilities 200-299 + Owners Equity 300-399)</h2> 
-					<p>Balance Sheet - Credits (Liabilities + Stock + Retained Earnings)</p> 
-						<!-- Grid contents -->
-						<div id="balancesheetcredits_tablecontent"></div>				<!-- Balace Sheet Credits-->
-					<h2>Income Statement - Debits (Expenses 500-799)</h2> 
-						<div id="incomestatementdebits_tablecontent"></div>				<!-- Income Statement Credits-->
-					<h2>Income Statement - Credits (Income 400-499)</h2> 
-						<div id="incomestatementcredits_tablecontent"></div>			<!-- Income Statement Debits-->
-				</div>  
+				<div id="projected_financial_statement_iframe_container">
+					<center><input type="button" value="Click here to Reload the Projected Financial Statement" /></center>
+
+					
+				</div>	
 			</div>
+
 		</div>
 		<!-- Setup -->
 
@@ -16718,10 +16706,22 @@ under the License.
 					getActiveAlternativeListofCons();
 				});
 				$(document).on("pageshow", "#projected_financial_statement", function() {
-					datagridbsd = new DatabaseGridBalanceSheetDebits();
-					datagridbsc = new DatabaseGridBalanceSheetCredits();
-					datagridisd = new DatabaseGridIncomeStatementDebits();
-					datagridisc = new DatabaseGridIncomeStatementCredits();
+					//1. Load the iframe with src directed to the application on Bluehost, Pass the active model id to the iframe. When the Page Loads
+						showLoader();
+				    	$('iframe').remove();
+						$('<iframe id="projected_financial_statement_iframe" src="http://application.universalbusinessmodel.com/P3/index.php?activeModelId=' + window.activeModelId + '" width="100%" height="700px" seamless=""></iframe>').appendTo('#projected_financial_statement_iframe_container');		
+						setTimeout(function() {					
+							hideLoader();
+						}, 2000);
+					//2. Reload the iframe with src directed to the application on Bluehost, Pass the active model id to the iframe. When the something inside the iframe container but outside the iframe is clicked.
+					$('#projected_financial_statement_iframe_container').on('click', function(){
+						showLoader();
+				    	$('iframe').remove();
+						$('<iframe id="projected_financial_statement_iframe" src="http://application.universalbusinessmodel.com/P3/index.php?activeModelId=' + window.activeModelId + '" width="100%" height="700px" seamless=""></iframe>').appendTo('#projected_financial_statement_iframe_container');		
+						setTimeout(function() {					
+							hideLoader();
+						}, 2000);						
+					});
 				});
 				$('.currency').keyup(function () {
 					 //alert('test'); 
