@@ -417,7 +417,7 @@ under the License.
 					key : 'YDoS20lf7Vrnr22h8Ma6NGUV5DblnVhueTPXS7gPynRvQ6U8optzfnMDs3UD'					
 				}, function(res, status) {
 					$('#ubmsuite_SelectBusinessModel_MyModels_ul').empty();
-					$('#ubmsuite_SelectBusinessModel_MyModels_ul').append("<li data-role='list-divider'><center>My Models</center></li>");
+					$('#ubmsuite_SelectBusinessModel_MyModels_ul').append("<li data-role='list-divider'><center>Models I Created</center></li>");
 					$('#ubmsuite_SelectBusinessModel_MyModels_ul').listview("refresh");
 
 					$.each(res, function(i, item) {
@@ -435,7 +435,7 @@ under the License.
 					key : 'YDoS20lf7Vrnr22h8Ma6NGUV5DblnVhueTPXS7gPynRvQ6U8optzfnMDs3UD'
 				}, function(res, status) {
 					$('#ubmsuite_SelectBusinessModel_SharedModels_ul').empty();
-					$('#ubmsuite_SelectBusinessModel_SharedModels_ul').append("<li data-role='list-divider'><center>Shared Models</center></li>");
+					$('#ubmsuite_SelectBusinessModel_SharedModels_ul').append("<li data-role='list-divider'><center>Models Shared with Me</center></li>");
 					$('#ubmsuite_SelectBusinessModel_SharedModels_ul').listview("refresh");
 					$.each(res, function(i, item) {
 						if (window.username !== item.creator_id) {
@@ -4573,7 +4573,7 @@ under the License.
 	                </ul>                	
                 </div>
 				<div style="min-width:250px; width:50%; float:left; ">
-	                <ul data-role='listview' data-inset='true' id='ubmsuite_SelectBusinessModel_SharedModels_ul' data-theme="a" style="max-height: 400px; overflow-y: scroll;">
+	                <ul data-role='listview' data-inset='true' id='ubmsuite_SelectBusinessModel_SharedModels_ul' data-theme="b" style="max-height: 400px; overflow-y: scroll;">
 	
 	                </ul>					
 				</div>
@@ -5271,7 +5271,7 @@ under the License.
 						Model / App Title: UBM Automator v3.3.1 UBM Suite
 					</div>
 					<div id="ubmsuite_mcs_my_organizational_chart_header_headerRecord_center_pagetitle">
-						MCS Example Model Organizational Chart
+						MCS Model Organizational Dashboard
 					</div>
 				</div>
 					<a href="#" class="ui-btn ui-shadow ui-corner-all ui-icon-refresh ui-btn-icon-notext" onclick="getMyModelsOrgChart()">Refresh</a>				
