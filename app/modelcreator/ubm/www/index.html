@@ -7,9 +7,7 @@ regarding copyright ownership.  The ASF licenses this file
 to you under the Apache License, Version 2.0 (the
 "License"); you may not use this file except in compliance
 with the License.  You may obtain a copy of the License at
-
 http://www.apache.org/licenses/LICENSE-2.0
-
 Unless required by applicable law or agreed to in writing,
 software distributed under the License is distributed on an
 "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -23,22 +21,18 @@ under the License.
         <meta name="format-detection" content="telephone=no" />
         <!-- WARNING: for iOS 7, remove the width=device-width and height=device-height attributes. See https://issues.apache.org/jira/browse/CB-4323 -->
         <meta name="viewport" content="user-scalable=yes, initial-scale=1, maximum-scale=5.0, minimum-scale=1.0, width=device-width, height=device-height, target-densitydpi=device-dpi" />
-
 		<!-- Font Awesome CSS -->
 	    <link rel="stylesheet" href="lib/font-awesome/css/font-awesome.min.css"/>
 		<!-- Bootstrap Tree CSS -->
 		<link rel="stylesheet" href="css/bootstrap-combinedtree.min.css">
 		<!-- Pie-Menu CSS -->
 		<link rel="stylesheet" href="css/piemenu.css">
-
 		<!-- SlickMap, Model Visual Representation CSS -->
 		<link rel="stylesheet" type="text/css" media="screen, print" href="css/slickmap.css" />
         <link rel="stylesheet" type="text/css" href="css/index.css" />
         <link rel="stylesheet" href="css/jquery.mobile-1.4.0.min.css" />
-
 		<!-- Model Summary CSS -->
 		<link media="all" rel="stylesheet" type="text/css" href="css/allModelSummary.css" />
-
         <script src="js/jquery-1.9.1.min.js"></script>
         <script src="js/jquery-mobile-1.4.0.min.js"></script>
 		<!-- Begin Pie-Menu JS-->
@@ -47,18 +41,15 @@ under the License.
 		<script src="js/bootstrap-tree.js"></script>
         <!--Begin Jquery UI and touchpounch -->
         <link rel="stylesheet" href="css/jquery-ui.css">
-
 		<!-- WOOKMARK CSS Reset -->
 		<link rel="stylesheet" href="css/wookmark/reset.css">
 		<!-- Global CSS for the page and tiles -->
 		<link rel="stylesheet" href="css/wookmark/main.css">
 		<!-- EditableGrid CSS -->
-
 		<link rel="stylesheet" href="css/editableGrid.css" type="text/css" media="screen">
 		<!-- EditableGrid Javascript -->
 		<script src="js/editablegrid-2.0.1.js"></script>   
 		<script src="js/editableGrid.js" ></script>	<!-- Handles the AJAX calls to send and recieve information from the server -->
-
         <script src="js/jquery-ui.js"></script>
         <script src="js/jquery.ui.touch-punch.js"></script>
         <script src="js/circles.js"></script>
@@ -75,7 +66,6 @@ under the License.
 	    <script src="src/jquery.popmenu.js"></script>
 		<link rel="stylesheet" href="05.css">
 		<link rel="stylesheet" href="themes/theme.css" />
-		
         <title>UBM</title>
         <script>
         	window.globalCounter = 0;
@@ -88,12 +78,10 @@ under the License.
         		window.m = today.getMinutes();
         		window.s = today.getSeconds();
         	}
-
         	function fillTodaysDate() {
         		getTodaysDate();
         		document.getElementById('mcs_setup_checklist_p4_b1_NewBusinessAccount_popup_form_TodaysDate').value= '' + window.mm + '/' + window.dd + '/' + window.yyyy + '';
         	}
-
         	function greetUser() {
         		$().toastmessage({position : 'bottom-right'});
         		getTodaysDate();
@@ -124,7 +112,6 @@ under the License.
 					textonly : textonly,
 					html : html
 				});
-
 				//End Show Loader Message				
 			}
 			function hideLoader(){
@@ -135,11 +122,9 @@ under the License.
 				$("#mcs_open_points_action_items_closeitem_popup").popup('open');
 				window.openitemid = id;
 			}
-
 			function closeOpenItem() {
 				$().toastmessage('showSuccessToast', "This item will now be closed: " + window.openitemid + "");
 				$("#mcs_open_points_action_items_closeitem_popup").popup('close');
-
 				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_openitem_markasclosed.php?callback=?', {//JSONP Request to Open Items Page setup tables
 					openitemid : window.openitemid,
 					username : window.username
@@ -147,13 +132,10 @@ under the License.
 					$().toastmessage('showSuccessToast', "json request returned: " + status + "");
 				});
 			}
-
 			function refreshOpenItemsList() {
 				//Show Loader Message
-
 				var $this = $("#page_loading_message"), theme = $this.jqmData("theme") || $.mobile.loader.prototype.options.theme, msgText = $this.jqmData("msgtext") || $.mobile.loader.prototype.options.text, textVisible = $this.jqmData("textvisible") || $.mobile.loader.prototype.options.textVisible, textonly = !!$this.jqmData("textonly");
 				html = $this.jqmData("html") || "";
-
 				$.mobile.loading("show", {
 					text : msgText,
 					textVisible : textVisible,
@@ -161,9 +143,7 @@ under the License.
 					textonly : textonly,
 					html : html
 				});
-
 				//End Show Loader Message
-
 				$.getJSON('http://www.findmydriver.com/ubmopenitemsonlystatusopenitems.php?callback=?', {//JSONP Request to Open Items Page setup tables
 				}, function(res, status) {
 					//	alert("request for open items was a success!");
@@ -4588,12 +4568,12 @@ under the License.
                 </div>
                 </br>
                 <div style="min-width:250px; width:50%; float:left;" >
-	                <ul data-role='listview' data-inset='true' id='ubmsuite_SelectBusinessModel_MyModels_ul'>
+	                <ul data-role='listview' data-inset='true' id='ubmsuite_SelectBusinessModel_MyModels_ul' style="max-height: 400px; overflow-y: scroll;">
 	                    <!-- <li data-role='list-divider'>creator_id</li><li><a href='index.html'><h2>Model Title</h2><p><strong>Reference: </strong></p><p>Description: </p><p class='ui-li-aside'><strong>Creation Date: </strong></p></a></li>-->
 	                </ul>                	
                 </div>
-				<div style="min-width:250px; width:50%; float:left;">
-	                <ul data-role='listview' data-inset='true' id='ubmsuite_SelectBusinessModel_SharedModels_ul' data-theme="h">
+				<div style="min-width:250px; width:50%; float:left; ">
+	                <ul data-role='listview' data-inset='true' id='ubmsuite_SelectBusinessModel_SharedModels_ul' data-theme="a" style="max-height: 400px; overflow-y: scroll;">
 	
 	                </ul>					
 				</div>
