@@ -35,6 +35,9 @@ under the License.
 		<link media="all" rel="stylesheet" type="text/css" href="css/allModelSummary.css" />
         <script src="js/jquery-1.9.1.min.js"></script>
         <script src="js/jquery-mobile-1.4.0.min.js"></script>
+        <!-- ImageMapping JS -->
+        <script src="js/jquery.rwdImageMaps.js"></script>
+        <script src="js/jquery.rwdImageMaps.min.js"></script>
 		<!-- Begin Pie-Menu JS-->
 		<script src="js/jquery.menu.js"></script>
 		<!-- Boostrap Tree JS -->
@@ -1289,7 +1292,6 @@ under the License.
 					$.each(res, function(i, item) {
 						$("#ubsuite_mcs_managment_reporting_modelHasPositions_positions").append("<li><a href='#'>" + item.title + "</a></li>");
 						$('#ubsuite_mcs_managment_reporting_modelHasPositions_positions').listview("refresh");
-
 					});
 
 				});	
@@ -1463,6 +1465,36 @@ under the License.
 						});
 					getMyModelsOrgChart();					
 			}
+			function getListofPossibleJobDescriptions() {//Populates Core Value Listview on Possible CoreValue Popup
+				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_model_getAll_JobDescriptions.php?callback=?', {//JSONP Request to Open Items Page setup tables
+
+				}, function(res, status) {
+//						alert(status);
+						$('#ubmsuite_mcs_my_organizational_chart_content_createNewJobDescriptionPopUp_form_UBMRepository').empty();
+					$.each(res, function(i, item) {
+						$('#ubmsuite_mcs_my_organizational_chart_content_createNewJobDescriptionPopUp_form_UBMRepository').append("<li><a href='#'><p style='white-space:normal;'>" + item.title + "</p></a><a href='#' onclick='addJobDescriptiontoMyModel(" + item.id + ")'>Add Job Description</a></li>");
+						$('#ubmsuite_mcs_my_organizational_chart_content_createNewJobDescriptionPopUp_form_UBMRepository').listview("refresh");
+					})
+				});	
+			}
+			function addJobDescriptiontoMyModel(activeJobDescriptionId){
+				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_model_add_JobDescription.php?callback=?', {//JSONP Request to Open Items Page setup tables
+					activeModelId :window.activeModelId,
+					activePositionId : window.activeReportsToPosition,
+					activeJobDescriptionId : activeJobDescriptionId
+				}, function(res, status) {
+					$().toastmessage('showSuccessToast', res.message);
+				});
+					$("#ubmsuite_mcs_my_organizational_chart_content_createNewJobDescriptionPopUp").popup('close');
+					getMyModelsOrgChart();					
+				//Called from Model Settings Page????
+				//1. User selects a position from the list of ubm_model_positions?
+				//2. User is asked whether they wish to also add all positions that report to this position in the master file index?
+				//3. User is asked to decide which of their existing positions on the org chart they would like the position to report to and which level (Level 1, Level 2, Level 3...) on the org chart they wish to assign the position.
+				//4. User selects the "reports to position from a list of existing positions attached to their model.
+				//3. If user selects yes, the relationships between the activeModelId and the active position as well as all positions that report to it are created in the the model_has_positions table. 
+				//4. If user selects "no, add this position without any positions that report to it." 
+			}
 			function createNewJobDescription () {
 				$("#ubmsuite_mcs_my_organizational_chart_content_manageJobDescriptionPopUp").popup('close');
 				$("#ubmsuite_mcs_my_organizational_chart_content_modifyPositionPopUp").popup('close');
@@ -1528,6 +1560,36 @@ under the License.
 						$("#heirarchyObjectBackbone_table_body").append("<tr><td class='tg-031e'>" + item.mfi_reference + "</td><td class='tg-031e'>PS-" + window.activeReportsToPosition + "</td><td class='tg-gcpq'>" + window.activeJobDescriptionId + "</td><td class='tg-gcpq'>JD-" + window.activeJobDescriptionId + "</td><td class='tg-2tnl'>" + item.id + "</td><td class='tg-2tnl'>PL-" + item.id + "</td><td class='tg-hnhqs'></td><td class='tg-hnhqs'></td><td class='tg-4nips'></td><td class='tg-4nips'></td><td class='tg-gl8ns'></td><td class='tg-gl8ns'></td><td class='tg-akd2s'></td><td class='tg-akd2s'></td><td class='tg-8474s'></td><td class='tg-8474s'></td><td class='tg-w2xps'></td><td class='tg-w2xps'></td><td class='tg-w2xps'></td><td class='tg-w2xps'></td><td class='tg-w2xps'></td><td class='tg-w2xps'></td><td class='tg-w2xps'></td><td class='tg-w2xps'></td><td class='tg-48oos'></td><td class='tg-48oos'></td><td class='tg-48oos'></td><td class='tg-48oos'></td><td class='tg-48oos'></td><td class='tg-031e'>PS-" + window.activeReportsToPosition + ".JD-" + window.activeJobDescriptionId + ".PL-" + item.id + "</td><td class='tg-031e'>MD-" + window.activeModelId + "</td><td class='tg-031e'>PS-" + window.activeReportsToPosition + ".JD-" + window.activeJobDescriptionId + ".PL-" + item.id + "</td><td class='tg-031e'>" + item.title + "</td><td class='tg-031e'>Active</td></tr>");					
 					});
 				});				
+			}
+			function getListofPossiblePolicies() {//Populates Core Value Listview on Possible CoreValue Popup
+				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_model_getAll_Policies.php?callback=?', {//JSONP Request to Open Items Page setup tables
+
+				}, function(res, status) {
+//						alert(status);
+						$('#ubmsuite_mcs_my_organizational_chart_content_createNewPolicyPopUp_form_UBMRepository').empty();
+					$.each(res, function(i, item) {
+						$('#ubmsuite_mcs_my_organizational_chart_content_createNewPolicyPopUp_form_UBMRepository').append("<li><a href='#'><p style='white-space:normal;'>" + item.title + "</p></a><a href='#' onclick='addPolicytoMyModel(" + item.id + ")'>Add Policy</a></li>");
+						$('#ubmsuite_mcs_my_organizational_chart_content_createNewPolicyPopUp_form_UBMRepository').listview("refresh");
+					})
+				});	
+			}
+			function addPolicytoMyModel(activePolicyId){
+				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_model_add_Policy.php?callback=?', {//JSONP Request to Open Items Page setup tables
+					activeModelId :window.activeModelId,
+					activeJobDescriptionId : window.activeJobDescriptionId,
+					activePolicyId : activePolicyId
+				}, function(res, status) {
+					$().toastmessage('showSuccessToast', res.message);
+				});
+					$("#ubmsuite_mcs_my_organizational_chart_content_createNewPolciyPopUp").popup('close');
+					getMyModelsOrgChart();					
+				//Called from Model Settings Page????
+				//1. User selects a position from the list of ubm_model_positions?
+				//2. User is asked whether they wish to also add all positions that report to this position in the master file index?
+				//3. User is asked to decide which of their existing positions on the org chart they would like the position to report to and which level (Level 1, Level 2, Level 3...) on the org chart they wish to assign the position.
+				//4. User selects the "reports to position from a list of existing positions attached to their model.
+				//3. If user selects yes, the relationships between the activeModelId and the active position as well as all positions that report to it are created in the the model_has_positions table. 
+				//4. If user selects "no, add this position without any positions that report to it." 
 			}
 			function getPoliciesforHeirarchicalObjectTree(){
 				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_model_JobDescription_get_Policies.php?callback=?', {//JSONP Request to Open Items Page setup tables
@@ -1621,6 +1683,36 @@ under the License.
 					});
 				});				
 			}
+			function getListofPossibleProcedures() {//Populates Core Value Listview on Possible CoreValue Popup
+				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_model_getAll_Procedures.php?callback=?', {//JSONP Request to Open Items Page setup tables
+
+				}, function(res, status) {
+//						alert(status);
+						$('#ubmsuite_mcs_my_organizational_chart_content_createNewProcedurePopUp_form_UBMRepository').empty();
+					$.each(res, function(i, item) {
+						$('#ubmsuite_mcs_my_organizational_chart_content_createNewProcedurePopUp_form_UBMRepository').append("<li><a href='#'><p style='white-space:normal;'>" + item.title + "</p></a><a href='#' onclick='addProceduretoMyModel(" + item.id + ")'>Add Procedure</a></li>");
+						$('#ubmsuite_mcs_my_organizational_chart_content_createNewProcedurePopUp_form_UBMRepository').listview("refresh");
+					})
+				});	
+			}
+			function addProceduretoMyModel(activeProcedureId){
+				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_model_add_Procedure.php?callback=?', {//JSONP Request to Open Items Page setup tables
+					activeModelId :window.activeModelId,
+					activePolicyId : window.activePolicyId,
+					activeProcedureId : activeProcedureId
+				}, function(res, status) {
+					$().toastmessage('showSuccessToast', res.message);
+				});
+					$("#ubmsuite_mcs_my_organizational_chart_content_createNewProcedurePopUp").popup('close');
+					getMyModelsOrgChart();					
+				//Called from Model Settings Page????
+				//1. User selects a position from the list of ubm_model_positions?
+				//2. User is asked whether they wish to also add all positions that report to this position in the master file index?
+				//3. User is asked to decide which of their existing positions on the org chart they would like the position to report to and which level (Level 1, Level 2, Level 3...) on the org chart they wish to assign the position.
+				//4. User selects the "reports to position from a list of existing positions attached to their model.
+				//3. If user selects yes, the relationships between the activeModelId and the active position as well as all positions that report to it are created in the the model_has_positions table. 
+				//4. If user selects "no, add this position without any positions that report to it." 
+			}
 			function createNewProcedure() {
 				$("#ubmsuite_mcs_my_organizational_chart_content_manageProcedurePopUp").popup('close');
 				setTimeout(function() {
@@ -1690,6 +1782,36 @@ under the License.
 					});
 				});				
 			}
+			function getListofPossibleSteps() {//Populates Core Value Listview on Possible CoreValue Popup
+				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_model_getAll_Steps.php?callback=?', {//JSONP Request to Open Items Page setup tables
+
+				}, function(res, status) {
+//						alert(status);
+						$('#ubmsuite_mcs_my_organizational_chart_content_createNewStepPopUp_form_UBMRepository').empty();
+					$.each(res, function(i, item) {
+						$('#ubmsuite_mcs_my_organizational_chart_content_createNewStepPopUp_form_UBMRepository').append("<li><a href='#'><p style='white-space:normal;'>" + item.title + "</p></a><a href='#' onclick='addSteptoMyModel(" + item.id + ")'>Add Step</a></li>");
+						$('#ubmsuite_mcs_my_organizational_chart_content_createNewStepPopUp_form_UBMRepository').listview("refresh");
+					})
+				});	
+			}
+			function addSteptoMyModel(activeStepId){
+				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_model_add_Step.php?callback=?', {//JSONP Request to Open Items Page setup tables
+					activeModelId :window.activeModelId,
+					activeProcedureId : window.activeProcedureId,
+					activeStepId : activeStepId
+				}, function(res, status) {
+					$().toastmessage('showSuccessToast', res.message);
+				});
+					$("#ubmsuite_mcs_my_organizational_chart_content_createNewStepPopUp").popup('close');
+					getMyModelsOrgChart();					
+				//Called from Model Settings Page????
+				//1. User selects a position from the list of ubm_model_positions?
+				//2. User is asked whether they wish to also add all positions that report to this position in the master file index?
+				//3. User is asked to decide which of their existing positions on the org chart they would like the position to report to and which level (Level 1, Level 2, Level 3...) on the org chart they wish to assign the position.
+				//4. User selects the "reports to position from a list of existing positions attached to their model.
+				//3. If user selects yes, the relationships between the activeModelId and the active position as well as all positions that report to it are created in the the model_has_positions table. 
+				//4. If user selects "no, add this position without any positions that report to it." 
+			}
 			function createNewStep() {
 				$("#ubmsuite_mcs_my_organizational_chart_content_manageStepPopUp").popup('close');
 				setTimeout(function() {
@@ -1753,6 +1875,36 @@ under the License.
 						$("#heirarchyObjectBackbone_table_body").append("<tr><td class='tg-031e'>1</td><td class='tg-031e'>2</td><td class='tg-031e'>3</td><td class='tg-031e'>4</td><td class='tg-031e'>5</td><td class='tg-031e'>6</td><td class='tg-031e'>7</td><td class='tg-031e'>8</td><td class='tg-031e'>9</td><td class='tg-031e'>10</td><td class='tg-031e'>11</td><td class='tg-031e'>12</td><td class='tg-031e'>13</td><td class='tg-031e'>14</td><td class='tg-031e'>15</td><td class='tg-031e'>16</td><td class='tg-031e'>17</td><td class='tg-031e'>18</td><td class='tg-031e'>19</td><td class='tg-031e'>20</td></tr>");					
 					});
 				});				
+			}
+			function getListofPossibleTasks() {//Populates Core Value Listview on Possible CoreValue Popup
+				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_model_getAll_Tasks.php?callback=?', {//JSONP Request to Open Items Page setup tables
+
+				}, function(res, status) {
+//						alert(status);
+						$('#ubmsuite_mcs_my_organizational_chart_content_createNewTaskPopUp_form_UBMRepository').empty();
+					$.each(res, function(i, item) {
+						$('#ubmsuite_mcs_my_organizational_chart_content_createNewTaskPopUp_form_UBMRepository').append("<li><a href='#'><p style='white-space:normal;'>" + item.title + "</p></a><a href='#' onclick='addTasktoMyModel(" + item.id + ")'>Add Task</a></li>");
+						$('#ubmsuite_mcs_my_organizational_chart_content_createNewTaskPopUp_form_UBMRepository').listview("refresh");
+					})
+				});	
+			}
+			function addTasktoMyModel(activeTaskId){
+				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_model_add_Task.php?callback=?', {//JSONP Request to Open Items Page setup tables
+					activeModelId :window.activeModelId,
+					activeStepId : window.activeStepId,
+					activeTaskId : activeTaskId
+				}, function(res, status) {
+					$().toastmessage('showSuccessToast', res.message);
+				});
+					$("#ubmsuite_mcs_my_organizational_chart_content_createNewStepPopUp").popup('close');
+					getMyModelsOrgChart();					
+				//Called from Model Settings Page????
+				//1. User selects a position from the list of ubm_model_positions?
+				//2. User is asked whether they wish to also add all positions that report to this position in the master file index?
+				//3. User is asked to decide which of their existing positions on the org chart they would like the position to report to and which level (Level 1, Level 2, Level 3...) on the org chart they wish to assign the position.
+				//4. User selects the "reports to position from a list of existing positions attached to their model.
+				//3. If user selects yes, the relationships between the activeModelId and the active position as well as all positions that report to it are created in the the model_has_positions table. 
+				//4. If user selects "no, add this position without any positions that report to it." 
 			}
 			function createNewTask() {
 				$("#ubmsuite_mcs_my_organizational_chart_content_manageTaskPopUp").popup('close');
@@ -4739,6 +4891,15 @@ under the License.
 		                        </p></a>
 		                    </li>
 		                    <li>
+		                        <a href="#ubmsuite_swotAnalysis"> <img src="img/swot.png" class="ui-li-thumb"> <h2>SWOT Analysis</h2>
+		                        <p>
+		                           Strengths, Weaknesses, Opportunities, and Threats.
+		                        </p>
+		                        <p class="ui-li-aside">
+		                            SA
+		                        </p></a>
+		                    </li>
+		                    <li>
 		                        <a href="#ubmsuite_modelSettings"> <img src="img/gear.png" class="ui-li-thumb"> <h2>Model Settings</h2>
 		                        <p>
 		                            Modify user access, Edit Model Properties, etc...
@@ -4939,6 +5100,15 @@ under the License.
 	                            RM
 	                        </p></a>
 	                    </li>
+	                    <li>
+		                        <a href="#ubmsuite_swotAnalysis"> <img src="img/swot.png" class="ui-li-thumb"> <h2>SWOT Analysis</h2>
+		                        <p>
+		                           Strengths, Weaknesses, Opportunities, and Threats.
+		                        </p>
+		                        <p class="ui-li-aside">
+		                            SA
+		                        </p></a>
+		                    </li>
 	                    <li>
 	                        <a href="#ubmsuite_modelSettings"> <img src="img/gear.png" class="ui-li-thumb"> <h2>Model Settings</h2>
 	                        <p>
@@ -5302,8 +5472,10 @@ under the License.
 					    	<form>
 								<h3>All UBM Predefined Positions</h3>
 								<ul data-role="listview" id="ubmsuite_mcs_my_organizational_chart_content_createNewPositionPopUp_form_UBMRepository"data-inset="true" data-filter="true" data-filter-placeholder="Search UBM Repository" style="max-height:400px; padding-bottom:2em; overflow-y:scroll;">
+
+								</ul>
 							</form>
-							</ul>					
+												
 					    </div>
 					</div>
 				</div>
@@ -5330,92 +5502,156 @@ under the License.
 				    </div>
 				</div>	
 				<div data-role="popup" id="ubmsuite_mcs_my_organizational_chart_content_manageJobDescriptionPopUp">
-					<a href="#" onclick="createNewJobDescription()" data-rel="popup" data-transition="pop" class="my-tooltip-btn ui-btn ui-alt-icon ui-nodisc-icon ui-btn-inline ui-icon-plus ui-btn-icon-notext" title="Add a New Job Description">Add a New Job Description</a>
+					<a href="#" onclick="createNewJobDescription();getListofPossibleJobDescriptions()" data-rel="popup" data-transition="pop" class="my-tooltip-btn ui-btn ui-alt-icon ui-nodisc-icon ui-btn-inline ui-icon-plus ui-btn-icon-notext" title="Add a New Job Description">Add a New Job Description</a>
 				</div>
 				<div data-role="popup" id="ubmsuite_mcs_my_organizational_chart_content_managePolicyPopUp">
-					<a href="#" onclick="createNewPolicy()" data-rel="popup" data-transition="pop" class="my-tooltip-btn ui-btn ui-alt-icon ui-nodisc-icon ui-btn-inline ui-icon-plus ui-btn-icon-notext" title="Add a Policy">Add a Policy</a>
+					<a href="#" onclick="createNewPolicy();getListofPossiblePolicies()" data-rel="popup" data-transition="pop" class="my-tooltip-btn ui-btn ui-alt-icon ui-nodisc-icon ui-btn-inline ui-icon-plus ui-btn-icon-notext" title="Add a Policy">Add a Policy</a>
 				</div>
 				<div data-role="popup" id="ubmsuite_mcs_my_organizational_chart_content_manageProcedurePopUp">
-					<a href="#" onclick="createNewProcedure()" data-rel="popup" data-transition="pop" class="my-tooltip-btn ui-btn ui-alt-icon ui-nodisc-icon ui-btn-inline ui-icon-plus ui-btn-icon-notext" title="Add a New Procedure">Add a New Procedure</a>
+					<a href="#" onclick="createNewProcedure();getListofPossibleProcedures()" data-rel="popup" data-transition="pop" class="my-tooltip-btn ui-btn ui-alt-icon ui-nodisc-icon ui-btn-inline ui-icon-plus ui-btn-icon-notext" title="Add a New Procedure">Add a New Procedure</a>
 				</div>
 				<div data-role="popup" id="ubmsuite_mcs_my_organizational_chart_content_manageStepPopUp">
-					<a href="#" onclick="createNewStep()" data-rel="popup" data-transition="pop" class="my-tooltip-btn ui-btn ui-alt-icon ui-nodisc-icon ui-btn-inline ui-icon-plus ui-btn-icon-notext" title="Add a New Job Description">Add a New Step</a>
+					<a href="#" onclick="createNewStep();getListofPossibleSteps()" data-rel="popup" data-transition="pop" class="my-tooltip-btn ui-btn ui-alt-icon ui-nodisc-icon ui-btn-inline ui-icon-plus ui-btn-icon-notext" title="Add a New Job Description">Add a New Step</a>
 				</div>
 				<div data-role="popup" id="ubmsuite_mcs_my_organizational_chart_content_manageTaskPopUp">
-					<a href="#" onclick="createNewTask()" data-rel="popup" data-transition="pop" class="my-tooltip-btn ui-btn ui-alt-icon ui-nodisc-icon ui-btn-inline ui-icon-plus ui-btn-icon-notext" title="Add a New Job Description">Add a New Task</a>
+					<a href="#" onclick="createNewTask();getListofPossibleTasks()" data-rel="popup" data-transition="pop" class="my-tooltip-btn ui-btn ui-alt-icon ui-nodisc-icon ui-btn-inline ui-icon-plus ui-btn-icon-notext" title="Add a New Job Description">Add a New Task</a>
 				</div>
 	    		<div data-role="popup" id="ubmsuite_mcs_my_organizational_chart_content_createNewJobDescriptionPopUp"  data-theme="a" class="ui-corner-all">
-				    <form id="ubmsuite_mcs_my_organizational_chart_content_createNewJobDescriptionPopUp_form_createJobDescription_form"> <!-- Form Checklist Created By Aaron Miller -->
-				        <div style="padding:10px 20px;">
-				            <center><h1>Create New Job Description</h1></center>
-				            <input type="text" name="ubmsuite_mcs_my_organizational_chart_content_createNewJobDescriptionPopUp_form_JobDescriptionTitle" id="ubmsuite_mcs_my_organizational_chart_content_createNewJobDescriptionPopUp_form_JobDescriptionTitle" value="" placeholder="Job Description Title"  data-theme="a">
-							<textarea data-mini="true"  cols="40" rows="8" id="ubmsuite_mcs_my_organizational_chart_content_createNewJobDescriptionPopUp_form_JobDescriptionObjective" placeholder="Objective of Job Description..."></textarea>
-							<textarea data-mini="true" cols="40" rows="8" id="ubmsuite_mcs_my_organizational_chart_content_createNewJobDescriptionPopUp_form_JobDescriptionDutiesAndResponsibilities" placeholder="Essential Duties and Responsibilities..."></textarea>
-							<input type="text" name="ubmsuite_mcs_my_organizational_chart_content_createNewJobDescriptionPopUp_form_JobDescriptionTitle" id="ubmsuite_mcs_my_organizational_chart_content_createNewJobDescriptionPopUp_form_JobDescriptionAgeRequirement" value="" placeholder="Age Requirement"  data-theme="a">
-				            <textarea data-mini="true" cols="40" rows="8" id="ubmsuite_mcs_my_organizational_chart_content_createNewJobDescriptionPopUp_form_JobDescriptionEducationRequirements" placeholder="Education Requirements..."></textarea>
-							<textarea data-mini="true" cols="40" rows="8" id="ubmsuite_mcs_my_organizational_chart_content_createNewJobDescriptionPopUp_form_JobDescriptionQualificaions" placeholder="Qualifications..."></textarea>
-							<textarea data-mini="true" cols="40" rows="8" id="ubmsuite_mcs_my_organizational_chart_content_createNewJobDescriptionPopUp_form_JobDescriptionPhysicalDemands" placeholder="Physical Demands..."></textarea>
-							<textarea data-mini="true" cols="40" rows="8" id="ubmsuite_mcs_my_organizational_chart_content_createNewJobDescriptionPopUp_form_JobDescriptionWorkEnvironment" placeholder="Work Environment..."></textarea>
-				            <a href="#" class="ui-btn" onclick="createNewJobDescriptionAddtoMyModel()">Create Job Description</a>
-				        </div>
-				    </form>
+	    			<div class="ui-grid-a">
+					    <div class="ui-block-a">
+					    	<form id="ubmsuite_mcs_my_organizational_chart_content_createNewJobDescriptionPopUp_form_createJobDescription_form"> <!-- Form Checklist Created By Aaron Miller -->
+						        <div style="padding:10px 20px;">
+						            <center><h1>Create New Job Description</h1></center>
+						            <input type="text" name="ubmsuite_mcs_my_organizational_chart_content_createNewJobDescriptionPopUp_form_JobDescriptionTitle" id="ubmsuite_mcs_my_organizational_chart_content_createNewJobDescriptionPopUp_form_JobDescriptionTitle" value="" placeholder="Job Description Title"  data-theme="a">
+									<textarea data-mini="true"  cols="40" rows="8" id="ubmsuite_mcs_my_organizational_chart_content_createNewJobDescriptionPopUp_form_JobDescriptionObjective" placeholder="Objective of Job Description..."></textarea>
+									<textarea data-mini="true" cols="40" rows="8" id="ubmsuite_mcs_my_organizational_chart_content_createNewJobDescriptionPopUp_form_JobDescriptionDutiesAndResponsibilities" placeholder="Essential Duties and Responsibilities..."></textarea>
+									<input type="text" name="ubmsuite_mcs_my_organizational_chart_content_createNewJobDescriptionPopUp_form_JobDescriptionTitle" id="ubmsuite_mcs_my_organizational_chart_content_createNewJobDescriptionPopUp_form_JobDescriptionAgeRequirement" value="" placeholder="Age Requirement"  data-theme="a">
+						            <textarea data-mini="true" cols="40" rows="8" id="ubmsuite_mcs_my_organizational_chart_content_createNewJobDescriptionPopUp_form_JobDescriptionEducationRequirements" placeholder="Education Requirements..."></textarea>
+									<textarea data-mini="true" cols="40" rows="8" id="ubmsuite_mcs_my_organizational_chart_content_createNewJobDescriptionPopUp_form_JobDescriptionQualificaions" placeholder="Qualifications..."></textarea>
+									<textarea data-mini="true" cols="40" rows="8" id="ubmsuite_mcs_my_organizational_chart_content_createNewJobDescriptionPopUp_form_JobDescriptionPhysicalDemands" placeholder="Physical Demands..."></textarea>
+									<textarea data-mini="true" cols="40" rows="8" id="ubmsuite_mcs_my_organizational_chart_content_createNewJobDescriptionPopUp_form_JobDescriptionWorkEnvironment" placeholder="Work Environment..."></textarea>
+						            <a href="#" class="ui-btn" onclick="createNewJobDescriptionAddtoMyModel()">Create Job Description</a>
+						       </div>
+				   		 </form>
+					</div>
+					    <div class="ui-block-b">
+					    	<form>
+								<h3>All UBM Predefined Job Descriptions</h3>
+								<ul data-role="listview" id="ubmsuite_mcs_my_organizational_chart_content_createNewJobDescriptionPopUp_form_UBMRepository"data-inset="true" data-filter="true" data-filter-placeholder="Search UBM Repository" style="max-height:400px; padding-bottom:2em; overflow-y:scroll;">
+
+								</ul>
+							</form>
+						</div>
+				    </div>
 				</div>
 				<div data-role="popup" id="ubmsuite_mcs_my_organizational_chart_content_createNewPolicyPopUp"  data-theme="a" class="ui-corner-all">
-				    <form id="ubmsuite_mcs_my_organizational_chart_content_createNewPolicyPopUp_form_CreatePolicy_form"> <!-- Form Checklist Created By Aaron Miller -->
-				        <div style="padding:10px 20px;">
-				            <center><h1>Create New Policy</h1></center>
-				            <input type="text" name="ubmsuite_mcs_my_organizational_chart_content_createNewPolicyPopUp_form_PolicyTitle" id="ubmsuite_mcs_my_organizational_chart_content_createNewPolicyPopUp_form_PolicyTitle" value="" placeholder="Policy Title"  data-theme="a">
-							<textarea data-mini="true"  cols="40" rows="8" id="ubmsuite_mcs_my_organizational_chart_content_createNewPolicyPopUp_form_PolicyDescription" placeholder="Description..."></textarea>
-							<textarea data-mini="true" cols="40" rows="8" id="ubmsuite_mcs_my_organizational_chart_content_createNewPolicyPopUp_form_PolicyPurpose" placeholder="Purpose..."></textarea>
-				            <textarea data-mini="true" cols="40" rows="8" id="ubmsuite_mcs_my_organizational_chart_content_createNewPolicyPopUp_form_PolicyScope" placeholder="Scope..."></textarea>
-							<fieldset data-role="controlgroup" data-type="horizontal" id="ubmsuite_mcs_my_organizational_chart_content_createNewPolicyPopUp_form_PolicyType">
-						        <legend>Policy Type</legend>
-						        <input type="radio" class="PolicyRadio" name="radio-choice-h-2" id="ubmsuite_mcs_my_organizational_chart_content_createNewPolicyPopUp_radio_PolicyType_company" value="Company">
-						        <label for="ubmsuite_mcs_my_organizational_chart_content_createNewPolicyPopUp_radio_PolicyType_company">Company</label>
-						        <input type="radio" class="PolicyRadio" name="radio-choice-h-2" id="ubmsuite_mcs_my_organizational_chart_content_createNewPolicyPopUp_radio_PolicyType_position" value="Posistion">
-						        <label for="ubmsuite_mcs_my_organizational_chart_content_createNewPolicyPopUp_radio_PolicyType_position">Position</label>
-						        <input type="radio" class="PolicyRadio" name="radio-choice-h-2" id="ubmsuite_mcs_my_organizational_chart_content_createNewPolicyPopUp_radio_PolicyType_other" value="other">
-						        <label for="ubmsuite_mcs_my_organizational_chart_content_createNewPolicyPopUp_radio_PolicyType_other" >Other</label>
-						        <input type="text" id="ubmsuite_mcs_my_organizational_chart_content_createNewPolicyPopUp_form_Other" value="" placeHolder="Other..." data-theme="a">
-						    </fieldset>
-				            <a href="#" class="ui-btn" onclick="createNewPolicyAddtoMyModel()">Create Policy</a>
-				        </div>
-				    </form>
+					<div class="ui-grid-a">
+					    <div class="ui-block-a">
+					    	<form id="ubmsuite_mcs_my_organizational_chart_content_createNewPolicyPopUp_form_CreatePolicy_form"> <!-- Form Checklist Created By Aaron Miller -->
+						        <div style="padding:10px 20px;">
+						            <center><h1>Create New Policy</h1></center>
+						            <input type="text" name="ubmsuite_mcs_my_organizational_chart_content_createNewPolicyPopUp_form_PolicyTitle" id="ubmsuite_mcs_my_organizational_chart_content_createNewPolicyPopUp_form_PolicyTitle" value="" placeholder="Policy Title"  data-theme="a">
+									<textarea data-mini="true"  cols="40" rows="8" id="ubmsuite_mcs_my_organizational_chart_content_createNewPolicyPopUp_form_PolicyDescription" placeholder="Description..."></textarea>
+									<textarea data-mini="true" cols="40" rows="8" id="ubmsuite_mcs_my_organizational_chart_content_createNewPolicyPopUp_form_PolicyPurpose" placeholder="Purpose..."></textarea>
+						            <textarea data-mini="true" cols="40" rows="8" id="ubmsuite_mcs_my_organizational_chart_content_createNewPolicyPopUp_form_PolicyScope" placeholder="Scope..."></textarea>
+									<fieldset data-role="controlgroup" data-type="horizontal" id="ubmsuite_mcs_my_organizational_chart_content_createNewPolicyPopUp_form_PolicyType">
+								        <legend>Policy Type</legend>
+								        <input type="radio" class="PolicyRadio" name="radio-choice-h-2" id="ubmsuite_mcs_my_organizational_chart_content_createNewPolicyPopUp_radio_PolicyType_company" value="Company">
+								        <label for="ubmsuite_mcs_my_organizational_chart_content_createNewPolicyPopUp_radio_PolicyType_company">Company</label>
+								        <input type="radio" class="PolicyRadio" name="radio-choice-h-2" id="ubmsuite_mcs_my_organizational_chart_content_createNewPolicyPopUp_radio_PolicyType_position" value="Posistion">
+								        <label for="ubmsuite_mcs_my_organizational_chart_content_createNewPolicyPopUp_radio_PolicyType_position">Position</label>
+								        <input type="radio" class="PolicyRadio" name="radio-choice-h-2" id="ubmsuite_mcs_my_organizational_chart_content_createNewPolicyPopUp_radio_PolicyType_other" value="other">
+								        <label for="ubmsuite_mcs_my_organizational_chart_content_createNewPolicyPopUp_radio_PolicyType_other" >Other</label>
+								        <input type="text" id="ubmsuite_mcs_my_organizational_chart_content_createNewPolicyPopUp_form_Other" value="" placeHolder="Other..." data-theme="a">
+								    </fieldset>
+						            <a href="#" class="ui-btn" onclick="createNewPolicyAddtoMyModel()">Create Policy</a>
+						        </div>
+				    		</form>
+					    </div>
+					    <div class="ui-block-b">
+					    	<form>
+								<h3>All UBM Predefined Policies</h3>
+								<ul data-role="listview" id="ubmsuite_mcs_my_organizational_chart_content_createNewPolicyPopUp_form_UBMRepository"data-inset="true" data-filter="true" data-filter-placeholder="Search UBM Repository" style="max-height:400px; padding-bottom:2em; overflow-y:scroll;">
+
+								</ul>
+							</form>
+					    </div>
+					</div>
+				    
 				</div>	
 				<div data-role="popup" id="ubmsuite_mcs_my_organizational_chart_content_createNewProcedurePopUp"  data-theme="a" class="ui-corner-all">
-				    <form id="ubmsuite_mcs_my_organizational_chart_content_createNewProcedurePopUp_form_createProcedure_form">
-				        <div style="padding:10px 20px;">
-				            <center><h1>Create New Procedure</h1></center>
-				            <input type="text" name="ubmsuite_mcs_my_organizational_chart_content_createNewProcedurePopUp_form_ProcedureTitle" id="ubmsuite_mcs_my_organizational_chart_content_createNewProcedurePopUp_form_ProcedureTitle" value="" placeholder="Procedure Title"  data-theme="a">
-				            <input type="text" name="ubmsuite_mcs_my_organizational_chart_content_createNewProcedurePopUp_form_ProcedureEffectiveDate" id="ubmsuite_mcs_my_organizational_chart_content_createNewProcedurePopUp_form_ProcedureEffectiveDate" value="" placeholder="Effective Date"  data-theme="a">
-							<textarea data-mini="true"  cols="40" rows="8" id="ubmsuite_mcs_my_organizational_chart_content_createNewProcedurePopUp_form_ProcedureDescription" placeholder="Procedure Description..."></textarea>
-				            <textarea data-mini="true" cols="40" rows="8" id="ubmsuite_mcs_my_organizational_chart_content_createNewProcedurePopUp_form_ProcedurePurpose" placeholder="Purpose..."></textarea>
-							<textarea data-mini="true" cols="40" rows="8" id="ubmsuite_mcs_my_organizational_chart_content_createNewProcedurePopUp_form_ProcedureScope" placeholder="Scope..."></textarea>
-				            <a href="#" class="ui-btn" onclick="createNewProcedureAddtoMyModel()">Create Procedure</a>
-				        </div>
-				    </form>
+					<div class="ui-grid-a">
+					    <div class="ui-block-a">
+					    	<form id="ubmsuite_mcs_my_organizational_chart_content_createNewProcedurePopUp_form_createProcedure_form">
+						        <div style="padding:10px 20px;">
+						            <center><h1>Create New Procedure</h1></center>
+						            <input type="text" name="ubmsuite_mcs_my_organizational_chart_content_createNewProcedurePopUp_form_ProcedureTitle" id="ubmsuite_mcs_my_organizational_chart_content_createNewProcedurePopUp_form_ProcedureTitle" value="" placeholder="Procedure Title"  data-theme="a">
+						            <input type="text" name="ubmsuite_mcs_my_organizational_chart_content_createNewProcedurePopUp_form_ProcedureEffectiveDate" id="ubmsuite_mcs_my_organizational_chart_content_createNewProcedurePopUp_form_ProcedureEffectiveDate" value="" placeholder="Effective Date"  data-theme="a">
+									<textarea data-mini="true"  cols="40" rows="8" id="ubmsuite_mcs_my_organizational_chart_content_createNewProcedurePopUp_form_ProcedureDescription" placeholder="Procedure Description..."></textarea>
+						            <textarea data-mini="true" cols="40" rows="8" id="ubmsuite_mcs_my_organizational_chart_content_createNewProcedurePopUp_form_ProcedurePurpose" placeholder="Purpose..."></textarea>
+									<textarea data-mini="true" cols="40" rows="8" id="ubmsuite_mcs_my_organizational_chart_content_createNewProcedurePopUp_form_ProcedureScope" placeholder="Scope..."></textarea>
+						            <a href="#" class="ui-btn" onclick="createNewProcedureAddtoMyModel()">Create Procedure</a>
+						        </div>
+						    </form>
+					    </div>
+					    <div class="ui-block-b">
+					    	<form>
+								<h3>All UBM Predefined Procedures</h3>
+								<ul data-role="listview" id="ubmsuite_mcs_my_organizational_chart_content_createNewProcedurePopUp_form_UBMRepository"data-inset="true" data-filter="true" data-filter-placeholder="Search UBM Repository" style="max-height:400px; padding-bottom:2em; overflow-y:scroll;">
+
+								</ul>
+							</form>
+					    </div>
+					</div>
+				    
 				</div>	
 				<div data-role="popup" id="ubmsuite_mcs_my_organizational_chart_content_createNewStepPopUp"  data-theme="a" class="ui-corner-all">
-				    <form id="ubmsuite_mcs_my_organizational_chart_content_createNewStepPopUp_form_createStep_form"> <!-- Form Checklist Created By Aaron Miller -->
-				        <div style="padding:10px 20px;">
-				            <center><h1>Create New Step</h1></center>
-				            <input type="text" name="ubmsuite_mcs_my_organizational_chart_content_createNewStepPopUp_form_StepTitle" id="ubmsuite_mcs_my_organizational_chart_content_createNewStepPopUp_form_StepTitle" value="" placeholder="Step Title"  data-theme="a">
-				            <input type="text" name="ubmsuite_mcs_my_organizational_chart_content_createNewStepPopUp_form_StepNumber" id="ubmsuite_mcs_my_organizational_chart_content_createNewStepPopUp_form_StepNumber" value="" placeholder="Step #"  data-theme="a">
-							<textarea data-mini="true"  cols="40" rows="8" id="ubmsuite_mcs_my_organizational_chart_content_createNewStepPopUp_form_StepInstruction" placeholder="Step Instruction..."></textarea>
-				            <a href="#" class="ui-btn" onclick="createNewStepAddtoMyModel()">Create Step</a>
-				        </div>
-				    </form>
+					<div class="ui-grid-a">
+					    <div class="ui-block-a">
+					    	<form id="ubmsuite_mcs_my_organizational_chart_content_createNewStepPopUp_form_createStep_form"> <!-- Form Checklist Created By Aaron Miller -->
+						        <div style="padding:10px 20px;">
+						            <center><h1>Create New Step</h1></center>
+						            <input type="text" name="ubmsuite_mcs_my_organizational_chart_content_createNewStepPopUp_form_StepTitle" id="ubmsuite_mcs_my_organizational_chart_content_createNewStepPopUp_form_StepTitle" value="" placeholder="Step Title"  data-theme="a">
+						            <input type="text" name="ubmsuite_mcs_my_organizational_chart_content_createNewStepPopUp_form_StepNumber" id="ubmsuite_mcs_my_organizational_chart_content_createNewStepPopUp_form_StepNumber" value="" placeholder="Step #"  data-theme="a">
+									<textarea data-mini="true"  cols="40" rows="8" id="ubmsuite_mcs_my_organizational_chart_content_createNewStepPopUp_form_StepInstruction" placeholder="Step Instruction..."></textarea>
+						            <a href="#" class="ui-btn" onclick="createNewStepAddtoMyModel()">Create Step</a>
+						        </div>
+						    </form>
+					    </div>
+					    <div class="ui-block-b">
+					    	<form>
+								<h3>All UBM Predefined Steps</h3>
+								<ul data-role="listview" id="ubmsuite_mcs_my_organizational_chart_content_createNewStepPopUp_form_UBMRepository"data-inset="true" data-filter="true" data-filter-placeholder="Search UBM Repository" style="max-height:400px; padding-bottom:2em; overflow-y:scroll;">
+
+								</ul>
+							</form>
+					    </div>
+					</div>
+				    
 				</div>	
 				<div data-role="popup" id="ubmsuite_mcs_my_organizational_chart_content_createNewTaskPopUp"  data-theme="a" class="ui-corner-all">
-				    <form id="ubmsuite_mcs_my_organizational_chart_content_createNewTaskPopUp_form_createTask_form"> <!-- Form Checklist Created By Aaron Miller -->
-				        <div style="padding:10px 20px;">
-				            <center><h1>Create New Task</h1></center>
-				            <input type="text" name="ubmsuite_mcs_my_organizational_chart_content_createNewTaskPopUp_form_TaskTitle" id="ubmsuite_mcs_my_organizational_chart_content_createNewTaskPopUp_form_TaskTitle" value="" placeholder="Task Title"  data-theme="a">
-				            <input type="text" name="ubmsuite_mcs_my_organizational_chart_content_createNewTaskPopUp_form_TaskNumber" id="ubmsuite_mcs_my_organizational_chart_content_createNewTaskPopUp_form_TaskNumber" value="" placeholder="Task #"  data-theme="a">
-							<textarea data-mini="true"  cols="40" rows="8" id="ubmsuite_mcs_my_organizational_chart_content_createNewTaskPopUp_form_TaskInstruction" placeholder="Task Instruction..."></textarea>
-				            <a href="#" class="ui-btn" onclick="createNewTaskAddtoMyModel()">Create Task</a>
-				        </div>
-				    </form>
+					<div class="ui-grid-a">
+					    <div class="ui-block-a">
+					    	<form id="ubmsuite_mcs_my_organizational_chart_content_createNewTaskPopUp_form_createTask_form"> <!-- Form Checklist Created By Aaron Miller -->
+						        <div style="padding:10px 20px;">
+						            <center><h1>Create New Task</h1></center>
+						            <input type="text" name="ubmsuite_mcs_my_organizational_chart_content_createNewTaskPopUp_form_TaskTitle" id="ubmsuite_mcs_my_organizational_chart_content_createNewTaskPopUp_form_TaskTitle" value="" placeholder="Task Title"  data-theme="a">
+						            <input type="text" name="ubmsuite_mcs_my_organizational_chart_content_createNewTaskPopUp_form_TaskNumber" id="ubmsuite_mcs_my_organizational_chart_content_createNewTaskPopUp_form_TaskNumber" value="" placeholder="Task #"  data-theme="a">
+									<textarea data-mini="true"  cols="40" rows="8" id="ubmsuite_mcs_my_organizational_chart_content_createNewTaskPopUp_form_TaskInstruction" placeholder="Task Instruction..."></textarea>
+						            <a href="#" class="ui-btn" onclick="createNewTaskAddtoMyModel()">Create Task</a>
+						        </div>
+						    </form>
+					    </div>
+					    <div class="ui-block-b">
+					    	<form>
+								<h3>All UBM Predefined Tasks</h3>
+								<ul data-role="listview" id="ubmsuite_mcs_my_organizational_chart_content_createNewTaskPopUp_form_UBMRepository"data-inset="true" data-filter="true" data-filter-placeholder="Search UBM Repository" style="max-height:400px; padding-bottom:2em; overflow-y:scroll;">
+
+								</ul>
+							</form>
+					    </div>
+					</div>
+				    
 				</div>			
 				<div id="ubmsuite_mcs_my_organizational_chart_container" style="width:95%; margin-left:auto; margin-right:auto;">
 				    <ul id="modelOrgChart" style="display:none; width:95%; margin-left:auto; margin-right:auto;">
@@ -5431,15 +5667,15 @@ under the License.
 					    <div class="ui-block-a">
 								<a href="#" class="ui-btn" onclick="getPositionforHeirarchicalObjectTree()">Refresh</a>
 
-							<div id="heirarchyObjectTree_container">
+							<div id="heirarchyObjectTree_container" style="overflow-x:scroll;">
 								<!--
 								heirarchyObjectTree uses CSS(3) to display objects.
 								-->
 								<center>Hierarchical Objects</center>
 								<div id="heirarchyObjectTree" class="heirarchyObjectTree" >
 
-									<ul id="heirarchyObjectTree_ul" style="overflow-x:scroll;">
-
+									<ul id="heirarchyObjectTree_ul" >
+										
 									</ul>
 								</div>					
 							</div>	
@@ -6260,6 +6496,62 @@ under the License.
             </div>
 
         </div>
+        <!-- SWOT Analysis -->
+        <div data-role="page" class="ubm_page" id="ubmsuite_swotAnalysis" data-theme="a">
+			<div data-role="header">
+                <a href="#" class="back_btn" data-icon="arrow-l" data-iconpos="notext">Back</a>
+				<h1> SWOT Analysis </h1>
+			</div>
+			<div data-role="content">
+				<img src="img/swot.png" usemap="#ubmsuite_swotAnalysis_imagemap">
+				<map id="ubmsuite_swotAnalysis_imagemap">
+					<area shape="rect" alt="Click to add a strength" title="" coords="60,54,177,174" href="http://www.google.com"/>
+					<area shape="rect" alt="Click to add weakness" title="" coords="180,56,299,173" href="#ubmsuite_swotAnalysis_add_weakness_popup"/>
+					<area shape="rect" alt="Click to add opportuity" title="" coords="61,176,179,293" href="#ubmsuite_swotAnalysis_add_opportunity_popup"/>
+					<area shape="rect" alt="Click to add threat" title="" coords="181,176,299,294" href="#ubmsuite_swotAnalysis_add_threat_popup"/>
+				</map>
+					<div data-role="popup" id="ubmsuite_swotAnalysis_add_strength_popup" data-theme="a" class="ui-corner-all">
+					    <form>
+					        <div style="padding:10px 20px;">
+					            <h3>Add a Strength</h3>
+					            <label for="un" class="ui-hidden-accessible">Username:</label>
+					            <input type="text" name="user" id="un" value="" placeholder="username" data-theme="a">
+					            <button type="submit" class="ui-btn ui-corner-all ui-shadow ui-btn-b ui-btn-icon-left ui-icon-check">Add</button>
+					        </div>
+					    </form>
+					</div>
+					<div data-role="popup" id="ubmsuite_swotAnalysis_add_weakness_popup" data-theme="a" class="ui-corner-all">
+					    <form>
+					        <div style="padding:10px 20px;">
+					            <h3>Add a Weakness</h3>
+					            <label for="un" class="ui-hidden-accessible">Username:</label>
+					            <input type="text" name="user" id="un" value="" placeholder="username" data-theme="a">
+					            <button type="submit" class="ui-btn ui-corner-all ui-shadow ui-btn-b ui-btn-icon-left ui-icon-check">Add</button>
+					        </div>
+					    </form>
+					</div>
+					<div data-role="popup" id="ubmsuite_swotAnalysis_add_opportunity_popup" data-theme="a" class="ui-corner-all">
+					    <form>
+					        <div style="padding:10px 20px;">
+					            <h3>Add an Opportunity</h3>
+					            <label for="un" class="ui-hidden-accessible">Username:</label>
+					            <input type="text" name="user" id="un" value="" placeholder="username" data-theme="a">
+					            <button type="submit" class="ui-btn ui-corner-all ui-shadow ui-btn-b ui-btn-icon-left ui-icon-check">Add</button>
+					        </div>
+					    </form>
+					</div>
+					<div data-role="popup" id="ubmsuite_swotAnalysis_add_threat_popup" data-theme="a" class="ui-corner-all">
+					    <form>
+					        <div style="padding:10px 20px;">
+					            <h3>Add a Threat</h3>
+					            <label for="un" class="ui-hidden-accessible">Username:</label>
+					            <input type="text" name="user" id="un" value="" placeholder="username" data-theme="a">
+					            <button type="submit" class="ui-btn ui-corner-all ui-shadow ui-btn-b ui-btn-icon-left ui-icon-check">Add</button>
+					        </div>
+					    </form>
+					</div>
+			</div>
+		</div>
         <!-- Model Settings -->
         <div data-role="page" class="ubm_page" id="ubmsuite_modelSettings"  data-theme="a">
             <!-- No Panel on this page, instead only back button is needed.-->
@@ -16616,6 +16908,7 @@ under the License.
 						}
 					}, 1000);
 				});
+				
 				$(document).on("pageshow", "#return_on_investment", function() {
 					$("#return_on_investment_alternative_select_menu").bind( "change", function(event, ui) {
 					  window.activeModelAlternativeId = $( "#return_on_investment_alternative_select_menu option:selected" ).val();
@@ -16692,7 +16985,7 @@ under the License.
 				      minWidth: 200
 				    });/***/
 	                   $( "#ubmsuite_mcs_my_organizational_chart_content_managePolicyPopUp" ).draggable();
-	                   $( "#ubmsuite_mcs_my_organizational_chart_content_manageProcedurePopUp-" ).draggable();
+	                   $( "#ubmsuite_mcs_my_organizational_chart_content_manageProcedurePopUp" ).draggable();
 	                   $( "#ubmsuite_mcs_my_organizational_chart_content_manageJobDescriptionPopUp" ).draggable();
 	                   $( "#ubmsuite_mcs_my_organizational_chart_content_manageStepPopUp" ).draggable();
 	                   $( "#ubmsuite_mcs_my_organizational_chart_content_manageTask" ).draggable();
