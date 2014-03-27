@@ -68,8 +68,39 @@ under the License.
 		<!-- Font Awesome JS -->
 	    <script src="src/jquery.popmenu.js"></script>
 		<link rel="stylesheet" href="05.css">
+		<script src="ckeditor-8/ckeditor.js"></script>
+		<link href="ckeditor-8/samples/ckeditorSample.css" rel="stylesheet">
 		<link rel="stylesheet" href="themes/theme.css" />
         <title>UBM</title>
+		<script>
+			var editor, html = '';
+	
+			function createEditor() {
+				showLoader();
+				if ( editor )
+					return;
+	
+				// Create a new editor inside the <div id="editor">, setting its value to html
+				var config = {};
+				editor = CKEDITOR.appendTo( 'editor', config, html );
+				setTimeout(function() {
+					hideLoader();
+				}, 500);				
+			}
+			function removeEditor() {
+				if ( !editor )
+					return;
+	
+				// Retrieve the editor contents. In an Ajax application, this data would be
+				// sent to the server or used in any other way.
+				document.getElementById( 'editorcontents' ).innerHTML = html = editor.getData();
+				document.getElementById( 'editedcontents' ).style.display = '';
+	
+				// Destroy the editor.
+				editor.destroy();
+				editor = null;
+			}
+		</script>
         <script>
         	window.globalCounter = 0;
         	function getTodaysDate () {
@@ -4855,7 +4886,7 @@ under the License.
 		                        </p></a>
 		                    </li>
 		                    <li>
-		                        <a href="#"> <img src="img/lightbulb.jpg" class="ui-li-thumb"><h2>Product Creation Suite</h2>
+		                        <a href="#ubm_product_creation_suite"> <img src="img/lightbulb.jpg" class="ui-li-thumb"><h2>Product Creation Suite</h2>
 		                        <p>
 		                            Create your Product.
 		                        </p>
@@ -5065,7 +5096,7 @@ under the License.
 	                        </p></a>
 	                    </li>
 	                    <li>
-	                        <a href="#"> <img src="img/lightbulb.jpg" class="ui-li-thumb"><h2>Product Creation Suite</h2>
+	                        <a href="#ubm_product_creation_suite"> <img src="img/lightbulb.jpg" class="ui-li-thumb"><h2>Product Creation Suite</h2>
 	                        <p>
 	                            Create your Product.
 	                        </p>
@@ -5471,7 +5502,7 @@ under the License.
 					    <div class="ui-block-b" style="padding-top:15px;">
 					    	<form>
 								<h3>All UBM Predefined Positions</h3>
-								<ul data-role="listview" id="ubmsuite_mcs_my_organizational_chart_content_createNewPositionPopUp_form_UBMRepository"data-inset="true" data-filter="true" data-filter-placeholder="Search UBM Repository" style="max-height:400px; padding-bottom:2em; overflow-y:scroll;">
+								<ul data-role="listview" id="ubmsuite_mcs_my_organizational_chart_content_createNewPositionPopUp_form_UBMRepository"data-inset="true" data-filter="true" data-filter-placeholder="Search UBM Reference Manual" style="max-height:400px; padding-bottom:2em; overflow-y:scroll;">
 
 								</ul>
 							</form>
@@ -5537,7 +5568,7 @@ under the License.
 					    <div class="ui-block-b">
 					    	<form>
 								<h3>All UBM Predefined Job Descriptions</h3>
-								<ul data-role="listview" id="ubmsuite_mcs_my_organizational_chart_content_createNewJobDescriptionPopUp_form_UBMRepository"data-inset="true" data-filter="true" data-filter-placeholder="Search UBM Repository" style="max-height:400px; padding-bottom:2em; overflow-y:scroll;">
+								<ul data-role="listview" id="ubmsuite_mcs_my_organizational_chart_content_createNewJobDescriptionPopUp_form_UBMRepository"data-inset="true" data-filter="true" data-filter-placeholder="Search UBM Reference Manual" style="max-height:400px; padding-bottom:2em; overflow-y:scroll;">
 
 								</ul>
 							</form>
@@ -5571,7 +5602,7 @@ under the License.
 					    <div class="ui-block-b">
 					    	<form>
 								<h3>All UBM Predefined Policies</h3>
-								<ul data-role="listview" id="ubmsuite_mcs_my_organizational_chart_content_createNewPolicyPopUp_form_UBMRepository"data-inset="true" data-filter="true" data-filter-placeholder="Search UBM Repository" style="max-height:400px; padding-bottom:2em; overflow-y:scroll;">
+								<ul data-role="listview" id="ubmsuite_mcs_my_organizational_chart_content_createNewPolicyPopUp_form_UBMRepository"data-inset="true" data-filter="true" data-filter-placeholder="Search UBM Reference Manual" style="max-height:400px; padding-bottom:2em; overflow-y:scroll;">
 
 								</ul>
 							</form>
@@ -5597,7 +5628,7 @@ under the License.
 					    <div class="ui-block-b">
 					    	<form>
 								<h3>All UBM Predefined Procedures</h3>
-								<ul data-role="listview" id="ubmsuite_mcs_my_organizational_chart_content_createNewProcedurePopUp_form_UBMRepository"data-inset="true" data-filter="true" data-filter-placeholder="Search UBM Repository" style="max-height:400px; padding-bottom:2em; overflow-y:scroll;">
+								<ul data-role="listview" id="ubmsuite_mcs_my_organizational_chart_content_createNewProcedurePopUp_form_UBMRepository"data-inset="true" data-filter="true" data-filter-placeholder="Search UBM Reference Manual" style="max-height:400px; padding-bottom:2em; overflow-y:scroll;">
 
 								</ul>
 							</form>
@@ -5621,7 +5652,7 @@ under the License.
 					    <div class="ui-block-b">
 					    	<form>
 								<h3>All UBM Predefined Steps</h3>
-								<ul data-role="listview" id="ubmsuite_mcs_my_organizational_chart_content_createNewStepPopUp_form_UBMRepository"data-inset="true" data-filter="true" data-filter-placeholder="Search UBM Repository" style="max-height:400px; padding-bottom:2em; overflow-y:scroll;">
+								<ul data-role="listview" id="ubmsuite_mcs_my_organizational_chart_content_createNewStepPopUp_form_UBMRepository"data-inset="true" data-filter="true" data-filter-placeholder="Search UBM Reference Manual" style="max-height:400px; padding-bottom:2em; overflow-y:scroll;">
 
 								</ul>
 							</form>
@@ -5645,7 +5676,7 @@ under the License.
 					    <div class="ui-block-b">
 					    	<form>
 								<h3>All UBM Predefined Tasks</h3>
-								<ul data-role="listview" id="ubmsuite_mcs_my_organizational_chart_content_createNewTaskPopUp_form_UBMRepository"data-inset="true" data-filter="true" data-filter-placeholder="Search UBM Repository" style="max-height:400px; padding-bottom:2em; overflow-y:scroll;">
+								<ul data-role="listview" id="ubmsuite_mcs_my_organizational_chart_content_createNewTaskPopUp_form_UBMRepository"data-inset="true" data-filter="true" data-filter-placeholder="Search UBM Reference Manual" style="max-height:400px; padding-bottom:2em; overflow-y:scroll;">
 
 								</ul>
 							</form>
@@ -8473,6 +8504,32 @@ under the License.
 				</div>	
 			</div>
 
+		</div>
+		<div data-role="page" class="ubm_page" id="ubm_product_creation_suite" data-theme="a">
+			<div data-role="header">
+                <a href="#" class="back_btn" data-icon="arrow-l" data-iconpos="notext">Back</a>
+				<h1> UBM Product Application Creator </h1>
+			</div>
+			<div data-role="content">
+				<center><p>Click the buttons to create and remove a UBM Product Creator instance.</p>
+				<p>
+					<input onclick="createEditor();" type="button" value="Load Product Creator">
+					<input onclick="removeEditor();" type="button" value="Remove Product Creator"><br/>
+					<input type="button" value="Select a UBM Product Template.">
+				</p></center>
+				<!-- This div will hold the editor. -->
+				<div id="editor">
+				</div>
+				<div id="editedcontents" style="display: none">
+					<p>
+						Preview Editor Contents:
+					</p>
+					<!-- This div will be used to display the editor contents. -->
+					<div id="editorcontents">
+					</div>
+				</div>				
+				
+			</div>
 		</div>
 		<!-- Setup -->
 
