@@ -1,0 +1,2 @@
+INSERT INTO ubm_model_procedures (title, purpose, object_type_reference, ads_ubm_order_no, ads_ubm_h_pr_id)
+SELECT pr_title, pr_purpose, ubm_ref, ubm_order_no, ubm_h_pr_id FROM ads_ubmdev_ubm_h_pr;

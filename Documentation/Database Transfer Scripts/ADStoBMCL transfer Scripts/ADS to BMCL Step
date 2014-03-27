@@ -1,0 +1,2 @@
+INSERT INTO ubm_model_steps (title, instruction, ads_ubm_order_no, ads_ubm_h_st_id)
+SELECT st_title, st_instruction, ubm_order_no, ubm_h_st_id FROM ads_ubmdev_ubm_h_st;
