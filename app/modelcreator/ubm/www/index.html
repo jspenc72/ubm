@@ -81,7 +81,12 @@ under the License.
 					return;
 	
 				// Create a new editor inside the <div id="editor">, setting its value to html
-				var config = {};
+				var config = {
+					extraPlugins: 'xmas',
+					xmas_wishes: '<p class="big"><strong>Customized</strong> user experiences are a </br><strong>big</strong> deal!!!</p>',
+					xmas_signature: 'The UBM Team',
+					xmas_link: 'www.universalbusinessmodel.com/web'					
+				};
 				editor = CKEDITOR.appendTo( 'editor', config, html );
 				setTimeout(function() {
 					hideLoader();
@@ -6529,12 +6534,12 @@ under the License.
         </div>
         <!-- SWOT Analysis -->
         <div data-role="page" class="ubm_page" id="ubmsuite_swotAnalysis" data-theme="a">
-			<div data-role="header">
+			<div data-role="header" data-position="fixed" data-fullscreen="true">
                 <a href="#" class="back_btn" data-icon="arrow-l" data-iconpos="notext">Back</a>
 				<h1> SWOT Analysis </h1>
 			</div>
 			<div data-role="content">
-				<img id="Image-Maps-Com-image-maps-2014-03-26-194910" src="http://reflectoragent.com/wp-content/uploads/2010/03/swot-analysis-image.png" border="0" width="320" height="315" orgWidth="320" orgHeight="315" usemap="#image-maps-2014-03-26-194910" alt="" />
+				<center><img id="Image-Maps-Com-image-maps-2014-03-26-194910" style="position:relative; top:100px;" src="http://reflectoragent.com/wp-content/uploads/2010/03/swot-analysis-image.png" border="0" width="320" height="315" orgWidth="320" orgHeight="315" usemap="#image-maps-2014-03-26-194910" alt="" /></center>
 				<map name="image-maps-2014-03-26-194910" id="ImageMapsCom-image-maps-2014-03-26-194910">
 					<area title="strength" shape="rect" coords="62,57,180,177" style="outline:none;" target="_self"     />
 					<area title="weakness" shape="rect" coords="180,55,298,175" style="outline:none;" target="_self"     />
@@ -6542,7 +6547,12 @@ under the License.
 					<area title="threat" shape="rect" coords="180,175,298,295" style="outline:none;" target="_self"     />
 					<area shape="rect" coords="318,313,320,315" alt="Image Map" style="outline:none;" title="Image Map" href="http://www.image-maps.com/index.php?aff=mapped_users_0" />
 				</map>
-
+				<center><div class="ui-grid-d center draggable" style="z-index:999; display: block; position:relative; margin:0px auto; margin-top: 300px; text-align: center; transform:rotate(45deg);-ms-transform:rotate(45deg); /* IE 9 */-webkit-transform:rotate(45deg); /* Opera, Chrome, and Safari */">
+				    <div class="ui-block-a" style="width:120px; height:120px; transform:rotate(-45deg);-ms-transform:rotate(-45deg); /* IE 9 */-webkit-transform:rotate(-45deg); /* Opera, Chrome, and Safari */"><a class="ui-shadow ui-btn ui-corner-all ui-icon-plus ui-btn-icon-notext ui-btn-inline" >Button</a><p>Leverage</p></div>
+				    <div class="ui-block-b" style="width:120px; height:120px; transform:rotate(-45deg);-ms-transform:rotate(-45deg); /* IE 9 */-webkit-transform:rotate(-45deg); /* Opera, Chrome, and Safari */"><a class="ui-shadow ui-btn ui-corner-all ui-icon-plus ui-btn-icon-notext ui-btn-inline" >Button</a><p>Vulnerability</p></div>
+				    <div class="ui-block-a" style="width:120px; height:120px; transform:rotate(-45deg);-ms-transform:rotate(-45deg); /* IE 9 */-webkit-transform:rotate(-45deg); /* Opera, Chrome, and Safari */"><a class="ui-shadow ui-btn ui-corner-all ui-icon-plus ui-btn-icon-notext ui-btn-inline" >Button</a><p>Constraint</p></div>
+				    <div class="ui-block-b" style="width:120px; height:120px; transform:rotate(-45deg);-ms-transform:rotate(-45deg); /* IE 9 */-webkit-transform:rotate(-45deg); /* Opera, Chrome, and Safari */"><a class="ui-shadow ui-btn ui-corner-all ui-icon-plus ui-btn-icon-notext ui-btn-inline" >Button</a><p>Problem</p></div>
+				</div></center>
 					<div data-role="popup" id="ubmsuite_swotAnalysis_add_strength_popup" data-theme="a" class="ui-corner-all">
 					    <form>
 					        <div style="padding:10px 20px;">
@@ -8513,8 +8523,8 @@ under the License.
 			<div data-role="content">
 				<center><p>Click the buttons to create and remove a UBM Product Creator instance.</p>
 				<p>
-					<input onclick="createEditor();" type="button" value="Load Product Creator">
-					<input onclick="removeEditor();" type="button" value="Remove Product Creator"><br/>
+					<input onclick="createEditor();" type="button" value="Load UBM Product Creator">
+					<input onclick="removeEditor();" type="button" value="Close UBM Product Creator"><br/>
 					<input type="button" value="Select a UBM Product Template.">
 				</p></center>
 				<!-- This div will hold the editor. -->
@@ -17163,6 +17173,7 @@ under the License.
 				$(document).on("pageshow", ".ubm_page", function() {
 					PieMenuInit();
 					setTimeout(function() {
+						$( ".draggable" ).draggable();
 						$( ".draggable_popup" ).draggable({ handle: "h1" });
 	                    $( "#sign_in_sign_up_openItem_popup" ).draggable({ handle: "h1" });
 	                    $( "#mcs_setup_checklist_p2_openItem_popup" ).draggable({ handle: "h1" });
