@@ -19,6 +19,7 @@ under the License.
     <head>
         <meta charset="utf-8" />
         <meta name="format-detection" content="telephone=no" />
+        <!-- <meta http-equiv="refresh" content="0; URL=./index.html"> -->
         <!-- WARNING: for iOS 7, remove the width=device-width and height=device-height attributes. See https://issues.apache.org/jira/browse/CB-4323 -->
         <meta name="viewport" content="user-scalable=yes, initial-scale=1, maximum-scale=5.0, minimum-scale=1.0, width=device-width, height=device-height, target-densitydpi=device-dpi" />
 		<!-- Font Awesome CSS -->
@@ -1332,24 +1333,68 @@ under the License.
 
 				});	
 			}
-			function openCreateNewPositionPopup(){
+			function openAddNewPositionPopup(){
 					$("#ubmsuite_mcs_my_organizational_chart_content_modifyPositionPopUp").popup('close');
 				setTimeout(function() {
 					$("#ubmsuite_mcs_my_organizational_chart_content_createNewPositionPopUp").popup('open');
-				}, 1000);	
-				
-			}
-			function getListofPossiblePositions() {//Populates Core Value Listview on Possible CoreValue Popup
+				}, 1000);
 				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_model_getAll_Positions.php?callback=?', {//JSONP Request to Open Items Page setup tables
 
 				}, function(res, status) {
 //						alert(status);
 						$('#ubmsuite_mcs_my_organizational_chart_content_createNewPositionPopUp_form_UBMRepository').empty();
 					$.each(res, function(i, item) {
-						$('#ubmsuite_mcs_my_organizational_chart_content_createNewPositionPopUp_form_UBMRepository').append("<li><a href='#'><p style='white-space:normal;'>" + item.title + "</p></a><a href='#' onclick='addPositiontoMyModel(" + item.id + ")'>Add Position</a></li>");
+						$('#ubmsuite_mcs_my_organizational_chart_content_createNewPositionPopUp_form_UBMRepository').append("<li><a href='#' onClick='openPositionSummaryPopup(" + item.id + ")'>  <p style='white-space:normal;'>" + item.title + "</p></a><a href='#' onclick='addPositiontoMyModel(" + item.id + ")'>Add Position</a></li>");
 						$('#ubmsuite_mcs_my_organizational_chart_content_createNewPositionPopUp_form_UBMRepository').listview("refresh");
-					})
-				});	
+					});
+				});		
+				
+			}
+			function openPositionSummaryPopup(activePositionId) {
+				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_model_getCurrentView_Position.php?callback=?', {//JSONP Request to Open Items Page setup tables
+					activeModelId :window.activeModelId,
+					positionReportsTo: window.activeReportsToPosition,
+					activePositionId : activePositionId
+				}, function(res, status) {
+						$('#ubmsuite_mcs_my_organizational_chart_content_predefined_positionSummary_popup_header_title').empty();
+						$('#ubmsuite_mcs_my_organizational_chart_content_predefined_positionSummary_popup_content').empty();
+						$().toastmessage('showSuccessToast', res.message);
+					 $.each(res, function(i, item) {
+						$('#ubmsuite_mcs_my_organizational_chart_content_predefined_positionSummary_popup_header_title').append("" + item.title + " <a onclick='openEditPositionSummaryPopup(" + activePositionId + ")' style='max-width:15%;text-align:right;float:right;margin-top:-1%;margin-right:1%' class='ui-icon-edit ui-btn ui-btn-icon-left ui-shadow ui-corner-all' href='#'>Edit this position</a>");
+						$('#ubmsuite_mcs_my_organizational_chart_content_predefined_positionSummary_popup_content').append("<p>&nbsp;</p><p><strong style='line-height: 1.6;'>Master File Index Position Number: </strong><span style='line-height: 1.6;'>&nbsp; &nbsp; &nbsp; &nbsp;</span></p><p>&nbsp;</p><p><strong>Grade Level:</strong> &nbsp;&nbsp;___________&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <strong>Organizational Chart Level:</strong> ___________&nbsp;&nbsp;</p><p>&nbsp;</p><p><strong>Branch: </strong>______________________&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <strong>Shift: <input disabled='disabled' type='checkbox' /></strong>Day <input disabled='disabled' type='checkbox' />Night <input disabled='disabled' input=' swing=' type='checkbox' />Other ___________&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p><strong>Full or Part Time:</strong>&nbsp; <input disabled='disabled' type='checkbox' />Full Time <input disabled='disabled' type='checkbox' />Part Time</p><p><strong>Pay Type: <input disabled='disabled' type='checkbox' /></strong>Hourly <input disabled='disabled' type='checkbox' />Salary <input disabled='disabled' type='checkbox' />Commission <input disabled='disabled' type='checkbox' />Other ___________ &nbsp;</p><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p><p><strong>Position Pay Range:</strong> ______ <strong>to </strong>______&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p><p><strong>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Low &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;High</strong></p><p>&nbsp;</p><p><strong>Position Reports To:</strong>&nbsp;_</p><p>&nbsp;</p><p><strong>Position Responsible For: </strong>_ &nbsp;&nbsp;</p><p>&nbsp;</p><p><strong>HR Contact:</strong> _ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<strong>HR Phone Number:</strong> _ &nbsp;&nbsp;</p><p>&nbsp;</p><p><strong>Position Summary:</strong>&nbsp;</p><p>" + item.summary + "</p><p><strong>Position Description:</strong>&nbsp;</p><p>" + item.description + "</p><p><strong>Security Level: </strong><strong></strong> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p><p>" + item.security_level + "</p><p><strong>Age Requirements: </strong><strong></strong> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p><p>" + item.age_requirements + "</p><p>&nbsp;</p><p><strong>Education Requirements: </strong><strong></strong> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p><p>"+ item.education_requirements + "</p><p><strong>Qualifications:</strong> <strong></strong> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p><p>" + item.qualifications + "</p><p><strong>Physical Demands: </strong><strong></strong> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p><p>" + item.physical_demands + "</p><p><strong>Work Environment: </strong><strong></strong> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p><p>" + item.work_environment + "</p><p>&nbsp;</p><p><strong>Published Job Description:</strong> &nbsp;<strong>(Summary of all positions age, education, qualifications, physical demands, and work environment requirements)</strong> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p><p>_</p><p>&nbsp;</p>");
+
+
+					}); 
+				});
+					$("#ubmsuite_mcs_my_organizational_chart_content_createNewPositionPopUp").popup('close');
+					setTimeout(function() {
+						$("#ubmsuite_mcs_my_organizational_chart_content_predefined_positionSummary_popup").popup('open');
+					}, 1000);
+				}
+
+				function openEditPositionSummaryPopup(activePositionId) {
+					$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_model_getCurrentView_Position.php?callback=?', {//JSONP Request to Open Items Page setup tables
+						activeModelId :window.activeModelId,
+						positionReportsTo: window.activeReportsToPosition,
+						activePositionId : activePositionId
+					}, function(res, status) {
+						$('#ubmsuite_mcs_my_organizational_chart_content_predefined_positionSummary_popup_header_title').empty();
+						$('#ubmsuite_mcs_my_organizational_chart_content_predefined_positionSummary_popup_content').empty();
+						$('#ubmsuite_mcs_my_organizational_chart_content_predefined_positionSummary_popup_header').empty();
+					$.each(res, function(i, item) {
+						$('#ubmsuite_mcs_my_organizational_chart_content_predefined_positionSummary_popup_header_title').append("" + item.title + "");
+						$('#ubmsuite_mcs_my_organizational_chart_content_predefined_positionSummary_popup_header').append("<a href='#' onclick='backToAddNewPosition(" + activePositionId + ")' class='back_btn' data-icon='arrow-l' data-iconpos='notext'>Back</a>");
+						$('#ubmsuite_mcs_my_organizational_chart_content_predefined_positionSummary_popup_content').append("<form><p>&nbsp;</p><p><strong style='line-height: 1.6;'>Master File Index Position Number: </strong><span style='line-height: 1.6;'>&nbsp; &nbsp; &nbsp; &nbsp;</span></p><p>&nbsp;</p><p><strong>Grade Level:</strong> &nbsp;<input />&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <strong>Organizational Chart Level:</strong><input   />&nbsp;</p><p>&nbsp;</p><p><strong>Branch:</strong><input />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <strong>Shift: <input type='checkbox' /></strong>Day <input type='checkbox' />Night <input input=' swing=' type='checkbox' />Other <input  /></p><p>&nbsp;</p><p>&nbsp;</p><p><strong>Full or Part Time:</strong>&nbsp; <input type='checkbox' />Full Time <input type='checkbox' />Part Time</p><p><strong>Pay Type: <input type='checkbox' /></strong>Hourly <input type='checkbox' />Salary <input type='checkbox' />Commission <input type='checkbox' />Other <input /> &nbsp;</p><p><strong>Position Pay Range:</strong> <input   /> <strong>to </strong><input  />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p><p><strong>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Low &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;High</strong></p><p>&nbsp;</p><p><strong>Position Reports To:</strong>&nbsp;<input /></p><p>&nbsp;</p><p><strong>Position Responsible For: </strong><input /></p><p>&nbsp;</p><p><strong>HR Contact:</strong> <input /> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<strong>HR Phone Number:</strong> <input />&nbsp;</p><p>&nbsp;</p><p><strong>Position Summary:</strong>&nbsp;</p><p><textarea value='" + item.summary + "'></textarea></p><p><strong>Position Description:</strong>&nbsp;</p><p><textarea value='" + item.description + "'></textarea></p><p><strong>Security Level: </strong> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p><p><textarea value='" + item.security_level + "'></textarea></p><p><strong>Age Requirements: </strong> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p><p><textarea value='" + item.age_requirements + "'></textarea></p><p>&nbsp;</p><p><strong>Education Requirements: </strong> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p><p><textarea value='" + item.education_requirements + "'></textarea></p><p><strong>Qualifications:</strong> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p><p><textarea value='" + item.qualifications + "'></textarea></p><p><strong>Physical Demands: </strong> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p><p><textarea value='" + item.physical_demands + "'></textarea></p><p><strong>Work Environment: </strong> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p><p><textarea value='" + item.work_environment + "'></textarea></p><p>&nbsp;</p><p><strong>Published Job Description:</strong> &nbsp;<strong>(Summary of all positions age, education, qualifications, physical demands, and work environment requirements)</strong> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p><p><textarea></textarea></p><p>&nbsp;</p></form>");
+						}); 
+					});
+				}
+
+			function backToAddNewPosition () {
+				$("#ubmsuite_mcs_my_organizational_chart_content_predefined_positionSummary_popup").popup('close');
+				setTimeout(function() {
+					$("#ubmsuite_mcs_my_organizational_chart_content_createNewPositionPopUp").popup('open');
+				}, 1000);
+
 			}
 			function createNewPositionAddtoMyModel(){
 				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_model_create_Position.php?callback=?', {//JSONP Request to Open Items Page setup tables
@@ -5527,7 +5572,7 @@ under the License.
 									<i class='fa fa-wrench'></i>
 								</div>
 								<ul id='demo_ul_2'>
-									<li class='demo_li'><a href='#' onclick='openCreateNewPositionPopup();getListofPossiblePositions()'><div><i class='fa fa-edit'></i></div><p>Add New Position</p></a></li>
+									<li class='demo_li'><a href='#' onclick='openAddNewPositionPopup()'><div><i class='fa fa-edit'></i></div><p>Add New Position</p></a></li>
 									<li class='demo_li'><a href='#' onclick='confirmRemoveActivePosition()'><div><i class='fa fa-minus-circle'></i></div><p>Remove</p></a></li>
 									<li class='demo_li'><a href='#' onclick='modifyActivePosition()'><div><i class='fa fa-edit'></i></div><p>Modify Position</p></a></li>
 									<li class='demo_li'><a href='#' onclick='viewActivePositionHierachyObjects()'><div><i class='fa fa-sitemap'></i></div><p>View Hierarchical Objects</p></a></li>
@@ -5688,7 +5733,26 @@ under the License.
 					    </div>
 					</div>
 				    
-				</div>			
+				</div>	
+
+				<div data-role="popup" id="ubmsuite_mcs_my_organizational_chart_content_predefined_positionSummary_popup"  data-theme="a" class="ui-corner-all" >
+					<div date-role="header" data-theme="a" id="ubmsuite_mcs_my_organizational_chart_content_predefined_positionSummary_popup_header">
+						<a href="#" onclick="backToAddNewPosition()" class="back_btn" data-icon="arrow-l" data-iconpos="notext">Back</a>
+						<div id="ubmsuite_mcs_my_organizational_chart_content_predefined_positionSummary_popup_header_title" style="text-align: center" data-theme="a">
+
+						</div>
+
+					</div>
+
+					<div data-role="content" id="ubmsuite_mcs_my_organizational_chart_content_predefined_positionSummary_popup_content" max-width="50%">
+						
+
+
+
+					</div>	
+				</div>
+
+
 				<div id="ubmsuite_mcs_my_organizational_chart_container" style="width:95%; margin-left:auto; margin-right:auto;">
 				    <ul id="modelOrgChart" style="display:none; width:95%; margin-left:auto; margin-right:auto;">
 						<li id="ubmsuite_mcs_my_organizational_chart_L0_ul" ><!-- Owner Name Injected Here-->
