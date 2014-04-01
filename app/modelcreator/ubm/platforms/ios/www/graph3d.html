@@ -9,7 +9,6 @@
 		<script>
 			function modifyTableValues(){
 				//Prepared By Table Cell Variables
-				
 				var PB_Setup = $('#data-table tr:eq(1) td:eq(0)');
 				var PB_Control = $('#data-table tr:eq(1) td:eq(1)');
 				var PB_P1 = $('#data-table tr:eq(1) td:eq(2)');
@@ -21,7 +20,6 @@
 				var PB_P7 = $('#data-table tr:eq(1) td:eq(8)');
 				var PB_P8 = $('#data-table tr:eq(1) td:eq(9)');
 				//Reviewed By Table Cell Variables
-				
 				var RB_Setup = $('#data-table tr:eq(2) td:eq(0)');
 				var RB_Control = $('#data-table tr:eq(2) td:eq(1)');
 				var RB_P1 = $('#data-table tr:eq(2) td:eq(2)');
@@ -33,7 +31,6 @@
 				var RB_P7 = $('#data-table tr:eq(2) td:eq(8)');
 				var RB_P8 = $('#data-table tr:eq(2) td:eq(9)');
 				//Final Reviewed By Table Cell Variables
-				
 				var FRB_Setup = $('#data-table tr:eq(3) td:eq(0)');
 				var FRB_Control = $('#data-table tr:eq(3) td:eq(1)');
 				var FRB_P1 = $('#data-table tr:eq(3) td:eq(2)');
@@ -44,7 +41,6 @@
 				var FRB_P6 = $('#data-table tr:eq(3) td:eq(7)');
 				var FRB_P7 = $('#data-table tr:eq(3) td:eq(8)');
 				var FRB_P8 = $('#data-table tr:eq(3) td:eq(9)');
-
 				//secondToLastCell.html("123456789");
 				$.getJSON('http://findmydriver.com/ubm_modelcreationsuite_get_checklistitems_for_graph.php?callback=?', {//JSONP Request to Open Items Page setup tables
 					activeModelId : 1
@@ -91,7 +87,7 @@
 								}
 							}
 						}
-							alert("This is the counter: "+sectionCounter);
+							//alert("This is the counter: "+sectionCounter);
 					
 						sectionCounter++;
 					});
@@ -102,7 +98,6 @@
 	<body onload="modifyTableValues()">
 		<div class="toggles">
 			<a id="loadGraph" href="#" class="ui-btn">Load Graph</a>
-
 		</div>
 		<div id="3d_graph_wrapper">
 			<div class="chart">

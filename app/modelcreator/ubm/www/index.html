@@ -20,7 +20,7 @@ under the License.
         <meta charset="utf-8" />
         <meta name="format-detection" content="telephone=no" />
         <!-- WARNING: for iOS 7, remove the width=device-width and height=device-height attributes. See https://issues.apache.org/jira/browse/CB-4323 -->
-        <meta name="viewport" content="user-scalable=yes, initial-scale=1, maximum-scale=5.0, minimum-scale=1.0, width=device-width, height=device-height, target-densitydpi=device-dpi" />
+        <meta name="viewport" content="user-scalable=yes, initial-scale=1, maximum-scale=1.0, minimum-scale=1.0, width=device-width, height=device-height, target-densitydpi=device-dpi" />
 		<!-- Font Awesome CSS -->
 	    <link rel="stylesheet" href="lib/font-awesome/css/font-awesome.min.css"/>
 		<!-- Bootstrap Tree CSS -->
@@ -83,7 +83,7 @@ under the License.
 				// Create a new editor inside the <div id="editor">, setting its value to html
 				var config = {
 					extraPlugins: 'xmas',
-					xmas_wishes: '<p class="big"><strong>Customized</strong> user experiences are a </br><strong>big</strong> deal!!!</p>',
+					xmas_wishes: '<p class="big"><strong>Customized</strong> user experiences are a </br><strong>big</strong> deal!!!</p>',			//Customize the greeting card plugin for the editor.
 					xmas_signature: 'The UBM Team',
 					xmas_link: 'www.universalbusinessmodel.com/web'					
 				};
@@ -104,6 +104,25 @@ under the License.
 				// Destroy the editor.
 				editor.destroy();
 				editor = null;
+			}
+			function saveEditorContentsasaUBMProduct(){												
+			//1. check to see if the editor has any contents to save.
+				if ( CKEDITOR.instances.editor1.getData() == '' ){
+			//2. If the editor doesnt contain anything, alert the user that noth
+				    alert( 'A UBM product must contain at least a single alphanumeric character before it can be saved. The product currently contains nothing, add something and try saving it again.' );
+				}else{
+					var editor_data = CKEDITOR.instances.editor1.getData();
+					alert(editor_data);
+					$.getJSON('http://api.universalbusinessmodel.com/ubm_productreationsuite_saveProduct.php?callback=?', {//JSONP Request to Open Items Page setup tables
+						username : window.username,
+						activeModelId : window.activeModelId,
+						productData : editor_data
+					}, function(res, status) {
+						if ( status = "SUCCESS") {//If request is successful, empty the form.
+
+						}
+					});
+				}
 			}
 		</script>
         <script>
@@ -164,7 +183,7 @@ under the License.
 			function closeOpenItem() {
 				$().toastmessage('showSuccessToast', "This item will now be closed: " + window.openitemid + "");
 				$("#mcs_open_points_action_items_closeitem_popup").popup('close');
-				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_openitem_markasclosed.php?callback=?', {//JSONP Request to Open Items Page setup tables
+				$.getJSON('http://api.universalbusinessmodel.com/ubm_modelcreationsuite_openitem_markasclosed.php?callback=?', {//JSONP Request to Open Items Page setup tables
 					openitemid : window.openitemid,
 					username : window.username
 				}, function(res, status) {
@@ -183,7 +202,7 @@ under the License.
 					html : html
 				});
 				//End Show Loader Message
-				$.getJSON('http://www.findmydriver.com/ubmopenitemsonlystatusopenitems.php?callback=?', {//JSONP Request to Open Items Page setup tables
+				$.getJSON('http://api.universalbusinessmodel.com/ubmopenitemsonlystatusopenitems.php?callback=?', {//JSONP Request to Open Items Page setup tables
 				}, function(res, status) {
 					//	alert("request for open items was a success!");
 					$('#mcs_open_points_action_items_table_body').empty();
@@ -236,7 +255,7 @@ under the License.
 			}
 
 			function getOnlyStatusClosedItems() {
-				$.getJSON('http://www.findmydriver.com/ubmopenitemsonlystatuscloseditems.php?callback=?', {//JSONP Request to Open Items Page setup tables
+				$.getJSON('http://api.universalbusinessmodel.com/ubmopenitemsonlystatuscloseditems.php?callback=?', {//JSONP Request to Open Items Page setup tables
 				}, function(res, status) {
 					//	alert("request for open items was a success!");
 					$('#mcs_open_points_action_items_table_body').empty();
@@ -289,7 +308,7 @@ under the License.
 			}
 
 			function getMyOpenItems() {
-				$.getJSON('http://www.findmydriver.com/ubmopenitemsonlystatusopenitemscurrentuser.php?callback=?', {//JSONP Request to Open Items Page setup tables
+				$.getJSON('http://api.universalbusinessmodel.com/ubmopenitemsonlystatusopenitemscurrentuser.php?callback=?', {//JSONP Request to Open Items Page setup tables
 					username : window.username
 				}, function(res, status) {
 					//	alert("request for open items was a success!");
@@ -349,7 +368,7 @@ under the License.
 			}
 
 			function submitComment() {
-				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_openitem_createcomment.php?callback=?', {//JSONP Request
+				$.getJSON('http://api.universalbusinessmodel.com/ubm_modelcreationsuite_openitem_createcomment.php?callback=?', {//JSONP Request
 					openitemid : window.openitemid,
 					author : window.username,
 					comment : document.getElementById("open_points_action_items_submitComment_form_comment").value,
@@ -372,7 +391,7 @@ under the License.
 			}
 
 			function submitResolution() {
-				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_openitem_createresolutions1.php?callback=?', {//JSONP Request to Open Items Page setup tables
+				$.getJSON('http://api.universalbusinessmodel.com/ubm_modelcreationsuite_openitem_createresolutions1.php?callback=?', {//JSONP Request to Open Items Page setup tables
 					openitemid : window.openitemid,
 					username : window.username,
 					disposition : document.getElementById("open_points_action_items_submitResolution_form_disposition").value,
@@ -390,7 +409,7 @@ under the License.
 
 			function viewResolutions(id) {
 				showLoader();
-				$.getJSON('http://www.findmydriver.com/ubm_selectallresolutions.php?callback=?', {//JSONP Request to Open Items Page setup tables
+				$.getJSON('http://api.universalbusinessmodel.com/ubm_selectallresolutions.php?callback=?', {//JSONP Request to Open Items Page setup tables
 					openitemid : id,
 					username : window.username
 				}, function(res, status) {
@@ -404,7 +423,7 @@ under the License.
 						$('#mcs_open_points_action_items_resolution_popup_ul').listview("refresh");
 					})
 				});
-				$.getJSON('http://www.findmydriver.com/ubm_select_allActiveOpenItemComments.php?callback=?', {//JSONP Request to Open Items Page setup tables
+				$.getJSON('http://api.universalbusinessmodel.com/ubm_select_allActiveOpenItemComments.php?callback=?', {//JSONP Request to Open Items Page setup tables
 					openitemid : id,
 					username : window.username
 				}, function(res, status) {
@@ -430,7 +449,7 @@ under the License.
         <script>
 			//Model Management
 			function createModel() {
-				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_createmodel.php?callback=?', {//JSONP Request to Create new model
+				$.getJSON('http://api.universalbusinessmodel.com/ubm_modelcreationsuite_createmodel.php?callback=?', {//JSONP Request to Create new model
 					reference : document.getElementById("ubmsuite_createModel_popup_newModel_form_reference").value,
 					title : document.getElementById("ubmsuite_createModel_popup_newModel_form_title").value,
 					description : document.getElementById("ubmsuite_createModel_popup_newModel_form_description").value,
@@ -487,7 +506,7 @@ under the License.
 				hideLoader();
 			}
 			function model_getuserswithaccess() {
-				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_model_getuserswithaccess.php?callback=?', {//JSONP Request to Create new model
+				$.getJSON('http://api.universalbusinessmodel.com/ubm_modelcreationsuite_model_getuserswithaccess.php?callback=?', {//JSONP Request to Create new model
 					username : window.username,
 					activeModelId : window.activeModelId,
 				}, function(res, status) {
@@ -506,7 +525,7 @@ under the License.
 				event.preventDefault();
 				var invite_email = document.getElementById("ubmsuite_modelSettings_shareModel_inviteEmail").value;
 				var invite_username = invite_email.split("@", 1).toString();
-				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_addusertomodel.php?callback=?', {//JSONP Request to Create new model
+				$.getJSON('http://api.universalbusinessmodel.com/ubm_modelcreationsuite_addusertomodel.php?callback=?', {//JSONP Request to Create new model
 					username : window.username,
 					activeModelId : window.activeModelId,
 					memberRole : document.getElementById("ubmsuite_modelSettings_shareModel_setRole").value,
@@ -523,7 +542,7 @@ under the License.
 			}
 
 			function removeUserFromModel() {
-				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_removeUserFromModel.php?callback=?', {//JSONP Request
+				$.getJSON('http://api.universalbusinessmodel.com/ubm_modelcreationsuite_removeUserFromModel.php?callback=?', {//JSONP Request
 					username : window.username,
 					selectedUserId : window.selectedModelUserId,
 					activeModelId : window.activeModelId
@@ -553,7 +572,7 @@ under the License.
 			}
 			//Model Core Values
 			function getMyModelsCoreValues() {
-				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_model_getCurrentModel_CoreValues.php?callback=?', {//JSONP Request to Open Items Page setup tables
+				$.getJSON('http://api.universalbusinessmodel.com/ubm_modelcreationsuite_model_getCurrentModel_CoreValues.php?callback=?', {//JSONP Request to Open Items Page setup tables
 					activeModelId : window.activeModelId
 				}, function(res, status) {
 					//alert(status);
@@ -578,7 +597,7 @@ under the License.
 			}
 
 			function getListofPossibleCoreValues() {//Populates Core Value Listview on Possible CoreValue Popup
-				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_model_getAll_CoreValues.php?callback=?', {//JSONP Request to Open Items Page setup tables
+				$.getJSON('http://api.universalbusinessmodel.com/ubm_modelcreationsuite_model_getAll_CoreValues.php?callback=?', {//JSONP Request to Open Items Page setup tables
 
 				}, function(res, status) {
 //						alert(status);
@@ -592,7 +611,7 @@ under the License.
 
 			function addCoreValueToMyModel(coreValueId) {//Called when the user selects an item from the Core Value Listview in the Possible CoreValues Popup
 				//(coreValueId+" will be added to this model");
-				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_model_add_CoreValue.php?callback=?', {//JSONP Request to Open Items Page setup tables
+				$.getJSON('http://api.universalbusinessmodel.com/ubm_modelcreationsuite_model_add_CoreValue.php?callback=?', {//JSONP Request to Open Items Page setup tables
 					activeModelId : window.activeModelId,
 					activeCoreValueId: coreValueId
 				}, function(res, status) {
@@ -602,7 +621,7 @@ under the License.
 				getMyModelsCoreValues();	
 			}
 			function createNewCoreValueAddtoMyModel(){	//Called when the user submits the create new CoreValue Form
-				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_model_create_CoreValue.php?callback=?', {//JSONP Request to Open Items Page setup tables
+				$.getJSON('http://api.universalbusinessmodel.com/ubm_modelcreationsuite_model_create_CoreValue.php?callback=?', {//JSONP Request to Open Items Page setup tables
 					coreValueTitle: document.getElementById("ubmsuite_modelSettings_createCoreValue_popup_createCoreValue_title").value,
 					coreValueSummary: document.getElementById("ubmsuite_modelSettings_createCoreValue_popup_createCoreValue_summary").value,
 					username: window.username,
@@ -621,7 +640,7 @@ under the License.
 				getMyModelsCoreValues();
 			}
 			function removeCorevalueFromMyModel(coreValueId) {//Called when the user selects the side button for each item in the My Models Has Core Values Listview
-				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_model_remove_CoreValue.php/callback=?', {//JSONP Request to Open Items Page setup tables
+				$.getJSON('http://api.universalbusinessmodel.com/ubm_modelcreationsuite_model_remove_CoreValue.php/callback=?', {//JSONP Request to Open Items Page setup tables
 					activeCoreValueId: window.activeCoreValueId,
 					activeModelId : window.activeModelId
 				}, function(res, status) {
@@ -639,7 +658,7 @@ under the License.
             }
 			function getMyModelsCustomers() {//Populates Customer  Listview on Model Settings Page
 								//alert("Customers was called");
-				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_model_getCurrentModel_Customers.php?callback=?', {//JSONP Request to Open Items Page setup tables
+				$.getJSON('http://api.universalbusinessmodel.com/ubm_modelcreationsuite_model_getCurrentModel_Customers.php?callback=?', {//JSONP Request to Open Items Page setup tables
 					activeModelId : window.activeModelId
 				}, function(res, status) {
 //						alert(status);
@@ -662,7 +681,7 @@ under the License.
 				}, 1000);			}
 
 			function getListofPossibleCustomers() {//Populates Customer Listview on Possible Customers Popup
-				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_model_getAll_Customers.php?callback=?', {//JSONP Request to Open Items Page setup tables
+				$.getJSON('http://api.universalbusinessmodel.com/ubm_modelcreationsuite_model_getAll_Customers.php?callback=?', {//JSONP Request to Open Items Page setup tables
 
 				}, function(res, status) {
 //						alert(status);
@@ -675,7 +694,7 @@ under the License.
 			}
 
 			function addCustomerToMyModel(customerId) {//Called when the user selects an item from the Customer Listview in the Possible Customer Popup
-				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_model_add_Customer.php?callback=?', {//JSONP Request to Open Items Page setup tables
+				$.getJSON('http://api.universalbusinessmodel.com/ubm_modelcreationsuite_model_add_Customer.php?callback=?', {//JSONP Request to Open Items Page setup tables
 					activeModelId : window.activeModelId,
 					activeCustomerId: customerId
 				}, function(res, status) {
@@ -686,7 +705,7 @@ under the License.
 			}
 
 			function createNewCustomerAddtoMyModel() {//Called when the user submits the create new Customer Form
-				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_model_create_Customer.php?callback=?', {//JSONP Request to Open Items Page setup tables
+				$.getJSON('http://api.universalbusinessmodel.com/ubm_modelcreationsuite_model_create_Customer.php?callback=?', {//JSONP Request to Open Items Page setup tables
 					activeModelId : window.activeModelId,
 					customerName : document.getElementById("ubmsuite_modelSettings_createCustomer_popup_createCustomer_name").value
 				}, function(res, status) {
@@ -701,7 +720,7 @@ under the License.
 			}
 
 			function removeCustomerFromMyModel() {//Called when the user selects the side button for each item in the My Models Has Core Values Listview
-				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_model_remove_Customer.php?callback=?', {//JSONP Request to Open Items Page setup tables
+				$.getJSON('http://api.universalbusinessmodel.com/ubm_modelcreationsuite_model_remove_Customer.php?callback=?', {//JSONP Request to Open Items Page setup tables
 					activeCustomerId: window.activeCustomerId,
 					activeModelId : window.activeModelId
 				}, function(res, status) {
@@ -718,7 +737,7 @@ under the License.
             }
 			function getMyModelsProducts() {//Populates Customer  Listview on Model Settings Page
 								//alert("Customers was called");
-				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_model_getCurrentModel_Products.php?callback=?', {//JSONP Request to Open Items Page setup tables
+				$.getJSON('http://api.universalbusinessmodel.com/ubm_modelcreationsuite_model_getCurrentModel_Products.php?callback=?', {//JSONP Request to Open Items Page setup tables
 					activeModelId : window.activeModelId
 				}, function(res, status) {
 //						alert(status);
@@ -741,7 +760,7 @@ under the License.
 					$('#tiles').trigger('refreshWookmark');													//Layout items in Wookmark Grid
 				}, 1000);			}
 			function getListofPossibleProducts() {//Populates Customer Listview on Possible Customers Popup
-				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_model_getAll_Products.php?callback=?', {//JSONP Request to Open Items Page setup tables
+				$.getJSON('http://api.universalbusinessmodel.com/ubm_modelcreationsuite_model_getAll_Products.php?callback=?', {//JSONP Request to Open Items Page setup tables
 
 				}, function(res, status) {
 //						alert(status);
@@ -753,7 +772,7 @@ under the License.
 				});	
 			}
 			function addProductToMyModel(productId) {//Called when the user selects an item from the Customer Listview in the Possible Customer Popup
-				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_model_add_Product.php?callback=?', {//JSONP Request to Open Items Page setup tables
+				$.getJSON('http://api.universalbusinessmodel.com/ubm_modelcreationsuite_model_add_Product.php?callback=?', {//JSONP Request to Open Items Page setup tables
 					activeModelId : window.activeModelId,
 					activeProductId: productId
 				}, function(res, status) {
@@ -763,7 +782,7 @@ under the License.
 				getMyModelsProducts();	
 			}
 			function createNewProductAddtoMyModel() {//Called when the user submits the create new Customer Form
-				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_model_create_Product.php?callback=?', {//JSONP Request to Open Items Page setup tables
+				$.getJSON('http://api.universalbusinessmodel.com/ubm_modelcreationsuite_model_create_Product.php?callback=?', {//JSONP Request to Open Items Page setup tables
 					activeModelId : window.activeModelId,
 					productTitle : document.getElementById("ubmsuite_modelSettings_createProduct_popup_Product_title").value
 				}, function(res, status) {
@@ -778,7 +797,7 @@ under the License.
 				});
 			}
 			function removeProductFromMyModel() {//Called when the user selects the side button for each item in the My Models Has Core Values Listview
-				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_model_remove_Product.php?callback=?', {//JSONP Request to Open Items Page setup tables
+				$.getJSON('http://api.universalbusinessmodel.com/ubm_modelcreationsuite_model_remove_Product.php?callback=?', {//JSONP Request to Open Items Page setup tables
 					activeProductId: window.activeProductId,
 					activeModelId : window.activeModelId
 				}, function(res, status) {
@@ -795,7 +814,7 @@ under the License.
             }
 			function getMyModelsServices() {//Populates Customer  Listview on Model Settings Page
 								//alert("Customers was called");
-				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_model_getCurrentModel_Services.php?callback=?', {//JSONP Request to Open Items Page setup tables
+				$.getJSON('http://api.universalbusinessmodel.com/ubm_modelcreationsuite_model_getCurrentModel_Services.php?callback=?', {//JSONP Request to Open Items Page setup tables
 					activeModelId : window.activeModelId
 				}, function(res, status) {
 //						alert(status);
@@ -818,7 +837,7 @@ under the License.
 				}, 1000);			}
 
 			function getListofPossibleServices() {//Populates Customer Listview on Possible Customers Popup
-				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_model_getAll_Services.php?callback=?', {//JSONP Request to Open Items Page setup tables
+				$.getJSON('http://api.universalbusinessmodel.com/ubm_modelcreationsuite_model_getAll_Services.php?callback=?', {//JSONP Request to Open Items Page setup tables
 
 				}, function(res, status) {
 //						alert(status);
@@ -830,7 +849,7 @@ under the License.
 				});	
 			}
 			function addServiceToMyModel(serviceId) {//Called when the user selects an item from the Customer Listview in the Possible Customer Popup
-				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_model_add_Service.php?callback=?', {//JSONP Request to Open Items Page setup tables
+				$.getJSON('http://api.universalbusinessmodel.com/ubm_modelcreationsuite_model_add_Service.php?callback=?', {//JSONP Request to Open Items Page setup tables
 					activeModelId : window.activeModelId,
 					activeServiceId: serviceId
 				}, function(res, status) {
@@ -840,7 +859,7 @@ under the License.
 				getMyModelsServices();	
 			}
 			function createNewServiceAddtoMyModel() {//Called when the user submits the create new Customer Form
-				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_model_create_Service.php?callback=?', {//JSONP Request to Open Items Page setup tables
+				$.getJSON('http://api.universalbusinessmodel.com/ubm_modelcreationsuite_model_create_Service.php?callback=?', {//JSONP Request to Open Items Page setup tables
 					activeModelId : window.activeModelId,
 					serviceTitle : document.getElementById("ubmsuite_modelSettings_createService_popup_Service_title").value
 				}, function(res, status) {
@@ -854,7 +873,7 @@ under the License.
 				});
 			}
 			function removeServiceFromMyModel() {//Called when the user selects the side button for each item in the My Models Has Core Values Listview
-				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_model_remove_Service.php?callback=?', {//JSONP Request to Open Items Page setup tables
+				$.getJSON('http://api.universalbusinessmodel.com/ubm_modelcreationsuite_model_remove_Service.php?callback=?', {//JSONP Request to Open Items Page setup tables
 					activeModelId: window.activeModelId,
 					activeServiceId : window.activeServiceId
 				}, function(res, status) {
@@ -871,7 +890,7 @@ under the License.
             }
 			function getMyModelsPhysicalFacilities() {//Populates Customer  Listview on Model Settings Page
 								//alert("Customers was called");
-				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_model_getCurrentModel_PhysicalFacilities.php?callback=?', {//JSONP Request to Open Items Page setup tables
+				$.getJSON('http://api.universalbusinessmodel.com/ubm_modelcreationsuite_model_getCurrentModel_PhysicalFacilities.php?callback=?', {//JSONP Request to Open Items Page setup tables
 					activeModelId : window.activeModelId
 				}, function(res, status) {
 //						alert(status);
@@ -893,7 +912,7 @@ under the License.
 				}, 1000);			}
 
 			function getListofPossiblePhysicalFacilities() {//Populates Customer Listview on Possible Customers Popup
-				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_model_getAll_PhysicalFacilities.php?callback=?', {//JSONP Request to Open Items Page setup tables
+				$.getJSON('http://api.universalbusinessmodel.com/ubm_modelcreationsuite_model_getAll_PhysicalFacilities.php?callback=?', {//JSONP Request to Open Items Page setup tables
 				}, function(res, status) {
 //						alert(status);
 						$('#ubmsuite_modelSettings_physicalfacilities_popup_listview').empty();
@@ -904,7 +923,7 @@ under the License.
 				});	
 			}
 			function addPhysicalFacilitiesToMyModel(physicalFacilityId) {//Called when the user selects an item from the Customer Listview in the Possible Customer Popup
-				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_model_add_PhysicalFacility.php?callback=?', {//JSONP Request to Open Items Page setup tables
+				$.getJSON('http://api.universalbusinessmodel.com/ubm_modelcreationsuite_model_add_PhysicalFacility.php?callback=?', {//JSONP Request to Open Items Page setup tables
 					activeModelId : window.activeModelId,
 					activePhysicalFacilityId: physicalFacilityId
 				}, function(res, status) {
@@ -914,7 +933,7 @@ under the License.
 				getMyModelsPhysicalFacilities();	
 			}
 			function createNewPhysicalFacilityAddtoMyModel() {//Called when the user submits the create new Customer Form
-				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_model_create_PhysicalFacility.php?callback=?', {//JSONP Request to Open Items Page setup tables
+				$.getJSON('http://api.universalbusinessmodel.com/ubm_modelcreationsuite_model_create_PhysicalFacility.php?callback=?', {//JSONP Request to Open Items Page setup tables
 					activeModelId : window.activeModelId,
 					physicalFacilityTitle : document.getElementById("ubmsuite_modelSettings_createPhysicalFacility_popup_PhysicalFacility_title").value,
 					physicalFacilityAssociatedCost : document.getElementById("ubmsuite_modelSettings_createPhysicalFacility_popup_PhysicalFacility_associated_cost").value
@@ -929,7 +948,7 @@ under the License.
 				});
 			}			
 			function removePhysicalFacilityFromMyModel() {//Called when the user selects the side button for each item in the My Models Has Core Values Listview
-				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_model_remove_PhysicalFacility.php?callback=?', {//JSONP Request to Open Items Page setup tables
+				$.getJSON('http://api.universalbusinessmodel.com/ubm_modelcreationsuite_model_remove_PhysicalFacility.php?callback=?', {//JSONP Request to Open Items Page setup tables
 					activeModelId: window.activeModelId,
 					activePhysicalFacilityId : window.activePhysicalFacilityId
 				}, function(res, status) {
@@ -945,7 +964,7 @@ under the License.
             }
 			function getMyModelsOrganizationalStructures() {//Populates Customer  Listview on Model Settings Page
 								//alert("Customers was called");
-				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_model_getCurrentModel_OrganizationalStructures.php?callback=?', {//JSONP Request to Open Items Page setup tables
+				$.getJSON('http://api.universalbusinessmodel.com/ubm_modelcreationsuite_model_getCurrentModel_OrganizationalStructures.php?callback=?', {//JSONP Request to Open Items Page setup tables
 					activeModelId : window.activeModelId
 				}, function(res, status) {
 //						alert(status);
@@ -966,7 +985,7 @@ under the License.
 					$('#tiles').trigger('refreshWookmark');													//Layout items in Wookmark Grid
 				}, 1000);			}
 			function getListofPossibleOrganizationalStructures() {//Populates Customer Listview on Possible Customers Popup
-				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_model_getAll_OrganizationalStructures.php?callback=?', {//JSONP Request to Open Items Page setup tables
+				$.getJSON('http://api.universalbusinessmodel.com/ubm_modelcreationsuite_model_getAll_OrganizationalStructures.php?callback=?', {//JSONP Request to Open Items Page setup tables
 				}, function(res, status) {
 //						alert(status);
 						$('#ubmsuite_modelSettings_organizationalstructure_popup_listview').empty();
@@ -977,7 +996,7 @@ under the License.
 				});	
 			}
 			function addOrganizationalStructureToMyModel(organizationalStructureId) {//Called when the user selects an item from the Customer Listview in the Possible Customer Popup
-				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_model_add_OrganizationalStructure.php?callback=?', {//JSONP Request to Open Items Page setup tables
+				$.getJSON('http://api.universalbusinessmodel.com/ubm_modelcreationsuite_model_add_OrganizationalStructure.php?callback=?', {//JSONP Request to Open Items Page setup tables
 					activeModelId : window.activeModelId,
 					organizationalStructureId: organizationalStructureId
 				}, function(res, status) {
@@ -987,7 +1006,7 @@ under the License.
 				getMyModelsOrganizationalStructures();	
 			}
 			function createNewOrganizationalStructureAddtoMyModel() {//Called when the user submits the create new Customer Form
-				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_model_create_OrganizationalStructure.php?callback=?', {//JSONP Request to Open Items Page setup tables
+				$.getJSON('http://api.universalbusinessmodel.com/ubm_modelcreationsuite_model_create_OrganizationalStructure.php?callback=?', {//JSONP Request to Open Items Page setup tables
 					activeModelId : window.activeModelId,
 					organizationalStructureTitle : document.getElementById("ubmsuite_modelSettings_createOrganizationalStructure_popup_OrganizationalStructure_title").value,
 					organizationalStructureTitleReportsTo : document.getElementById("ubmsuite_modelSettings_createOrganizationalStructure_popup_OrganizationalStructure_reports_to").value
@@ -1002,7 +1021,7 @@ under the License.
 				});
 			}
 			function removeOrganizationalStructureFromMyModel() {//Called when the user selects the side button for each item in the My Models Has Core Values Listview
-				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_model_remove_OrganiztionalStructure.php?callback=?', {//JSONP Request to Open Items Page setup tables
+				$.getJSON('http://api.universalbusinessmodel.com/ubm_modelcreationsuite_model_remove_OrganiztionalStructure.php?callback=?', {//JSONP Request to Open Items Page setup tables
 					activeModelId: window.activeModelId,
 					activeOrganizationalStructureId : window.activeOrganizationalStructureId
 				}, function(res, status) {
@@ -1018,7 +1037,7 @@ under the License.
             }
 			function getMyModelsStrategicAlliances() {//Populates Customer  Listview on Model Settings Page
 								//alert("Customers was called");
-				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_model_getCurrentModel_StrategicAlliances.php?callback=?', {//JSONP Request to Open Items Page setup tables
+				$.getJSON('http://api.universalbusinessmodel.com/ubm_modelcreationsuite_model_getCurrentModel_StrategicAlliances.php?callback=?', {//JSONP Request to Open Items Page setup tables
 					activeModelId : window.activeModelId
 				}, function(res, status) {
 //						alert(status);
@@ -1043,7 +1062,7 @@ under the License.
 					$('#tiles').trigger('refreshWookmark');													//Layout items in Wookmark Grid
 				}, 1000);			}
 			function getListofPossibleStrategicAlliances() {//Populates Customer Listview on Possible Customers Popup
-				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_model_getAll_StrategicAlliances.php?callback=?', {//JSONP Request to Open Items Page setup tables
+				$.getJSON('http://api.universalbusinessmodel.com/ubm_modelcreationsuite_model_getAll_StrategicAlliances.php?callback=?', {//JSONP Request to Open Items Page setup tables
 				}, function(res, status) {
 //						alert(status);
 						$('#ubmsuite_modelSettings_strategicalliances_popup_listview').empty();
@@ -1054,7 +1073,7 @@ under the License.
 				});	
 			}
 			function addStrategicAllianceToMyModel(strategicAllianceId) {//Called when the user selects an item from the Customer Listview in the Possible Customer Popup
-				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_model_add_StrategicAlliance.php?callback=?', {//JSONP Request to Open Items Page setup tables
+				$.getJSON('http://api.universalbusinessmodel.com/ubm_modelcreationsuite_model_add_StrategicAlliance.php?callback=?', {//JSONP Request to Open Items Page setup tables
 					activeModelId : window.activeModelId,
 					activeStrategicAllianceId: strategicAllianceId
 				}, function(res, status) {
@@ -1064,7 +1083,7 @@ under the License.
 				getMyModelsStrategicAlliances();	
 			}
 			function createNewStrategicAllianceAddtoMyModel() {//Called when the user submits the create new Customer Form
-				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_model_create_StrategicAlliance.php?callback=?', {//JSONP Request to Open Items Page setup tables
+				$.getJSON('http://api.universalbusinessmodel.com/ubm_modelcreationsuite_model_create_StrategicAlliance.php?callback=?', {//JSONP Request to Open Items Page setup tables
 					activeModelId : window.activeModelId,
 					strategicAllianceDescription : document.getElementById("ubmsuite_modelSettings_createStrategicAlliance_popup_StrategicAlliance_description").value,
 					strategicAllianceComment : document.getElementById("ubmsuite_modelSettings_createStrategicAlliance_popup_StrategicAlliance_comment").value
@@ -1080,7 +1099,7 @@ under the License.
 				});
 			}
 			function removeStrategicAllianceFromMyModel() {//Called when the user selects the side button for each item in the My Models Has Core Values Listview
-				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_model_remove_StrategicAlliance.php?callback=?', {//JSONP Request to Open Items Page setup tables
+				$.getJSON('http://api.universalbusinessmodel.com/ubm_modelcreationsuite_model_remove_StrategicAlliance.php?callback=?', {//JSONP Request to Open Items Page setup tables
 					activeModelId: window.activeModelId,
 					activeStrategicAllianceId : window.activeStrategicAllianceId
 				}, function(res, status) {
@@ -1096,7 +1115,7 @@ under the License.
             }
 			function getMyModelsStrategicPositioningQuestions() {//Populates Customer  Listview on Model Settings Page
 								//alert("Customers was called");
-				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_model_getCurrentModel_StrategicPositioning.php?callback=?', {//JSONP Request to Open Items Page setup tables
+				$.getJSON('http://api.universalbusinessmodel.com/ubm_modelcreationsuite_model_getCurrentModel_StrategicPositioning.php?callback=?', {//JSONP Request to Open Items Page setup tables
 					activeModelId : window.activeModelId
 				}, function(res, status) {
 //						alert(status);
@@ -1118,7 +1137,7 @@ under the License.
 				$('#tiles').trigger('refreshWookmark');													//Layout items in Wookmark Grid
 			}
 			function getListofPossibleStrategicPositioningQuestions() {//Populates Customer Listview on Possible Customers Popup
-				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_model_getAll_StrategicPositioning.php?callback=?', {//JSONP Request to Open Items Page setup tables
+				$.getJSON('http://api.universalbusinessmodel.com/ubm_modelcreationsuite_model_getAll_StrategicPositioning.php?callback=?', {//JSONP Request to Open Items Page setup tables
 				}, function(res, status) {
 //						alert(status);
 						$('#ubmsuite_modelSettings_strategicpositioningquestions_popup_listview').empty();
@@ -1129,7 +1148,7 @@ under the License.
 				});	
 			}
 			function addStrategicPositioningQuestionToMyModel(activeStrategicPositioningId) {//Called when the user selects an item from the Customer Listview in the Possible Customer Popup
-				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_model_add_StrategicPositioning.php?callback=?', {//JSONP Request to Open Items Page setup tables
+				$.getJSON('http://api.universalbusinessmodel.com/ubm_modelcreationsuite_model_add_StrategicPositioning.php?callback=?', {//JSONP Request to Open Items Page setup tables
 					activeModelId : window.activeModelId,
 					activeStrategicPositioningId: activeStrategicPositioningId
 				}, function(res, status) {
@@ -1139,7 +1158,7 @@ under the License.
 				getMyModelsStrategicPositioningQuestions();	
 			}
 			function createNewStrategicPositioningQuestionAddtoMyModel() {//Called when the user submits the create new Customer Form
-				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_model_create_StrategicPositioning.php?callback=?', {//JSONP Request to Open Items Page setup tables
+				$.getJSON('http://api.universalbusinessmodel.com/ubm_modelcreationsuite_model_create_StrategicPositioning.php?callback=?', {//JSONP Request to Open Items Page setup tables
 					activeModelId : window.activeModelId,
 					strategicPosistionQuestion : document.getElementById("ubmsuite_modelSettings_createStrategicPositioningQuestion_popup_StrategicPositioningQuestion_question").value,
 				}, function(res, status) {
@@ -1153,7 +1172,7 @@ under the License.
 				});
 			}
 			function removeStrategicPositioningQuestionFromMyModel() {//Called when the user selects the side button for each item in the My Models Has Core Values Listview
-				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_model_remove_StrategicPositioning.php?callback=?', {//JSONP Request to Open Items Page setup tables
+				$.getJSON('http://api.universalbusinessmodel.com/ubm_modelcreationsuite_model_remove_StrategicPositioning.php?callback=?', {//JSONP Request to Open Items Page setup tables
 					activeModelId: window.activeModelId,
 					activeStrategicPositioningId : window.activeStrategicPositioningId
 				}, function(res, status) {
@@ -1169,7 +1188,7 @@ under the License.
             }
 			function getMyModelsFeatures() {//Populates Customer  Listview on Model Settings Page
 								//alert("Customers was called");
-				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_model_getCurrentModel_Features.php?callback=?', {//JSONP Request to Open Items Page setup tables
+				$.getJSON('http://api.universalbusinessmodel.com/ubm_modelcreationsuite_model_getCurrentModel_Features.php?callback=?', {//JSONP Request to Open Items Page setup tables
 					activeModelId : window.activeModelId
 				}, function(res, status) {
 //						alert(status);
@@ -1189,7 +1208,7 @@ under the License.
 				$('#tiles').trigger('refreshWookmark');													//Layout items in Wookmark Grid
 			}
 			function getListofPossibleFeatures() {//Populates Customer Listview on Possible Customers Popup
-				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_model_getAll_Features.php?callback=?', {//JSONP Request to Open Items Page setup tables
+				$.getJSON('http://api.universalbusinessmodel.com/ubm_modelcreationsuite_model_getAll_Features.php?callback=?', {//JSONP Request to Open Items Page setup tables
 				}, function(res, status) {
 //						alert(status);
 						$('#ubmsuite_modelSettings_features_popup_listview').empty();
@@ -1200,7 +1219,7 @@ under the License.
 				});	
 			}
 			function addFeatureToMyModel(featureId) {//Called when the user selects an item from the Customer Listview in the Possible Customer Popup
-				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_model_add_Feature.php?callback=?', {//JSONP Request to Open Items Page setup tables
+				$.getJSON('http://api.universalbusinessmodel.com/ubm_modelcreationsuite_model_add_Feature.php?callback=?', {//JSONP Request to Open Items Page setup tables
 					activeModelId : window.activeModelId,
 					activeFeatureId: featureId
 				}, function(res, status) {
@@ -1210,7 +1229,7 @@ under the License.
 				getMyModelsFeatures();	
 			}			
 			function createNewFeatureAddtoMyModel() {//Called when the user submits the create new Customer Form
-				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_model_create_Feature.php?callback=?', {//JSONP Request to Open Items Page setup tables
+				$.getJSON('http://api.universalbusinessmodel.com/ubm_modelcreationsuite_model_create_Feature.php?callback=?', {//JSONP Request to Open Items Page setup tables
 					activeModelId : window.activeModelId,
 					featureDescription : document.getElementById("ubmsuite_modelSettings_createFeature_popup_Feature_description").value,
 					featureTitle : document.getElementById("ubmsuite_modelSettings_createFeature_popup_Feature_title").value
@@ -1226,7 +1245,7 @@ under the License.
 				});
 			}
 			function removeFeatureFromMyModel() {//Called when the user selects the side button for each item in the My Models Has Core Values Listview
-				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_model_remove_Feature.php?callback=?', {//JSONP Request to Open Items Page setup tables
+				$.getJSON('http://api.universalbusinessmodel.com/ubm_modelcreationsuite_model_remove_Feature.php?callback=?', {//JSONP Request to Open Items Page setup tables
 					activeModelId: window.activeModelId,
 					activeFeatureId : window.activeFeatureId
 				}, function(res, status) {
@@ -1238,7 +1257,7 @@ under the License.
 		<!-- End Features JavaScript -->
         <script>
 			function getMasterFileIndexItems00() {
-				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_getMasterFileIndexItems_00.php?callback=?', {//JSONP Request to Open Items Page setup tables
+				$.getJSON('http://api.universalbusinessmodel.com/ubm_modelcreationsuite_getMasterFileIndexItems_00.php?callback=?', {//JSONP Request to Open Items Page setup tables
 					activeModelId : window.activeModelId
 				}, function(res, status) {
 					$.each(res, function(i, item) {
@@ -1249,7 +1268,7 @@ under the License.
 			}
 
 			function getMasterFileIndexItems01() {
-				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_getMasterFileIndexItems_01.php?callback=?', {//JSONP Request to Open Items Page setup tables
+				$.getJSON('http://api.universalbusinessmodel.com/ubm_modelcreationsuite_getMasterFileIndexItems_01.php?callback=?', {//JSONP Request to Open Items Page setup tables
 					activeModelId : window.activeModelId
 				}, function(res, status) {
 					$.each(res, function(i, item) {
@@ -1260,7 +1279,7 @@ under the License.
 			}
 
 			function getMasterFileIndexItems() {
-				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_getMasterFileIndexItems.php?callback=?', {//JSONP Request to Open Items Page setup tables
+				$.getJSON('http://api.universalbusinessmodel.com/ubm_modelcreationsuite_getMasterFileIndexItems.php?callback=?', {//JSONP Request to Open Items Page setup tables
 					activeModelId : window.activeModelId
 				}, function(res, status) {
 					$('#ubmsuite_mcs_master_file_index_tree').empty();
@@ -1321,7 +1340,7 @@ under the License.
 				
 			}
 			function getMyModelsPositions(){
-				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_model_getCurrentModel_Positions.php?callback=?', {//JSONP Request to Open Items Page setup tables
+				$.getJSON('http://api.universalbusinessmodel.com/ubm_modelcreationsuite_model_getCurrentModel_Positions.php?callback=?', {//JSONP Request to Open Items Page setup tables
 					activeModelId : window.activeModelId
 				}, function(res, status) {
 						$("#ubsuite_mcs_managment_reporting_modelHasPositions_positions").empty();
@@ -1340,7 +1359,7 @@ under the License.
 				
 			}
 			function getListofPossiblePositions() {//Populates Core Value Listview on Possible CoreValue Popup
-				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_model_getAll_Positions.php?callback=?', {//JSONP Request to Open Items Page setup tables
+				$.getJSON('http://api.universalbusinessmodel.com/ubm_modelcreationsuite_model_getAll_Positions.php?callback=?', {//JSONP Request to Open Items Page setup tables
 
 				}, function(res, status) {
 //						alert(status);
@@ -1352,7 +1371,7 @@ under the License.
 				});	
 			}
 			function createNewPositionAddtoMyModel(){
-				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_model_create_Position.php?callback=?', {//JSONP Request to Open Items Page setup tables
+				$.getJSON('http://api.universalbusinessmodel.com/ubm_modelcreationsuite_model_create_Position.php?callback=?', {//JSONP Request to Open Items Page setup tables
 					username: window.username,
 					activeModelId : window.activeModelId,
 					positionTitle: document.getElementById("ubmsuite_mcs_my_organizational_chart_content_createNewPositionPopUp_form_positionTitle").value,
@@ -1377,7 +1396,7 @@ under the License.
 				
 			}
 			function addPositiontoMyModel(activePositionId){
-				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_model_add_Position.php?callback=?', {//JSONP Request to Open Items Page setup tables
+				$.getJSON('http://api.universalbusinessmodel.com/ubm_modelcreationsuite_model_add_Position.php?callback=?', {//JSONP Request to Open Items Page setup tables
 					activeModelId :window.activeModelId,
 					positionReportsTo: window.activeReportsToPosition,
 					activePositionId : activePositionId
@@ -1395,7 +1414,7 @@ under the License.
 				//4. If user selects "no, add this position without any positions that report to it." 
 			}
 			function removeActivePositionfromMyModel(){
-				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_model_remove_Positions.php?callback=?', {//JSONP Request to Open Items Page setup tables
+				$.getJSON('http://api.universalbusinessmodel.com/ubm_modelcreationsuite_model_remove_Positions.php?callback=?', {//JSONP Request to Open Items Page setup tables
 					username: window.username,
 					activeModelId : window.activeModelId,
 					activePositionId: window.activeReportsToPosition
@@ -1437,7 +1456,7 @@ under the License.
 			}
 			function getPositionforHeirarchicalObjectTree(){
 					$('#heirarchyObjectTree_ul').empty();
-				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_getActiveModelPositionsforOrgChart.php?callback=?', {//JSONP Request to Open Items Page setup tables
+				$.getJSON('http://api.universalbusinessmodel.com/ubm_modelcreationsuite_getActiveModelPositionsforOrgChart.php?callback=?', {//JSONP Request to Open Items Page setup tables
 					activeModelId:window.activeModelId
 				}, function(res, status) {
 					$.each(res, function(i, item) {
@@ -1479,7 +1498,7 @@ under the License.
 				
 			}
 			function createNewJobDescriptionAddtoMyModel() {
-				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_model_create_JobDescription.php?callback=?', {//JSONP Request to Open Items Page setup tables
+				$.getJSON('http://api.universalbusinessmodel.com/ubm_modelcreationsuite_model_create_JobDescription.php?callback=?', {//JSONP Request to Open Items Page setup tables
 					username: window.username,
 					activeModelId : window.activeModelId,
 					title: document.getElementById("ubmsuite_mcs_my_organizational_chart_content_createNewJobDescriptionPopUp_form_JobDescriptionTitle").value,
@@ -1502,7 +1521,7 @@ under the License.
 					getMyModelsOrgChart();					
 			}
 			function getListofPossibleJobDescriptions() {//Populates Core Value Listview on Possible CoreValue Popup
-				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_model_getAll_JobDescriptions.php?callback=?', {//JSONP Request to Open Items Page setup tables
+				$.getJSON('http://api.universalbusinessmodel.com/ubm_modelcreationsuite_model_getAll_JobDescriptions.php?callback=?', {//JSONP Request to Open Items Page setup tables
 
 				}, function(res, status) {
 //						alert(status);
@@ -1514,7 +1533,7 @@ under the License.
 				});	
 			}
 			function addJobDescriptiontoMyModel(activeJobDescriptionId){
-				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_model_add_JobDescription.php?callback=?', {//JSONP Request to Open Items Page setup tables
+				$.getJSON('http://api.universalbusinessmodel.com/ubm_modelcreationsuite_model_add_JobDescription.php?callback=?', {//JSONP Request to Open Items Page setup tables
 					activeModelId :window.activeModelId,
 					activePositionId : window.activeReportsToPosition,
 					activeJobDescriptionId : activeJobDescriptionId
@@ -1540,7 +1559,7 @@ under the License.
 				}, 1000);		
 			}
 			function getJobDescriptionsforBackBoneTable(){
-				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_model_Position_get_JobDescriptions.php?callback=?', {//JSONP Request to Open Items Page setup tables
+				$.getJSON('http://api.universalbusinessmodel.com/ubm_modelcreationsuite_model_Position_get_JobDescriptions.php?callback=?', {//JSONP Request to Open Items Page setup tables
 					activeModelId : window.activeModelId,
 					activePositionId: window.activeReportsToPosition
 				}, function(res, status) {
@@ -1554,7 +1573,7 @@ under the License.
 			}
 			function getJobDescriptionforHeirarchicalObjectTree(){
 				//alert("this is a test");
-				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_model_Position_get_JobDescriptions.php?callback=?', {//JSONP Request to Open Items Page setup tables
+				$.getJSON('http://api.universalbusinessmodel.com/ubm_modelcreationsuite_model_Position_get_JobDescriptions.php?callback=?', {//JSONP Request to Open Items Page setup tables
 					activeModelId:window.activeModelId,
 					activePositionId:window.activeReportsToPosition
 				}, function(res, status) {
@@ -1587,7 +1606,7 @@ under the License.
 				//alert(window.activePolicyId);
 			}
 			function getPoliciesforBackBoneTable(){				
-				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_model_JobDescription_get_Policies.php?callback=?', {//JSONP Request to Open Items Page setup tables
+				$.getJSON('http://api.universalbusinessmodel.com/ubm_modelcreationsuite_model_JobDescription_get_Policies.php?callback=?', {//JSONP Request to Open Items Page setup tables
 					activeModelId : window.activeModelId,
 					activeJobDescriptionId: window.activeJobDescriptionId
 				}, function(res, status) {
@@ -1598,7 +1617,7 @@ under the License.
 				});				
 			}
 			function getListofPossiblePolicies() {//Populates Core Value Listview on Possible CoreValue Popup
-				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_model_getAll_Policies.php?callback=?', {//JSONP Request to Open Items Page setup tables
+				$.getJSON('http://api.universalbusinessmodel.com/ubm_modelcreationsuite_model_getAll_Policies.php?callback=?', {//JSONP Request to Open Items Page setup tables
 
 				}, function(res, status) {
 //						alert(status);
@@ -1610,7 +1629,7 @@ under the License.
 				});	
 			}
 			function addPolicytoMyModel(activePolicyId){
-				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_model_add_Policy.php?callback=?', {//JSONP Request to Open Items Page setup tables
+				$.getJSON('http://api.universalbusinessmodel.com/ubm_modelcreationsuite_model_add_Policy.php?callback=?', {//JSONP Request to Open Items Page setup tables
 					activeModelId :window.activeModelId,
 					activeJobDescriptionId : window.activeJobDescriptionId,
 					activePolicyId : activePolicyId
@@ -1628,7 +1647,7 @@ under the License.
 				//4. If user selects "no, add this position without any positions that report to it." 
 			}
 			function getPoliciesforHeirarchicalObjectTree(){
-				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_model_JobDescription_get_Policies.php?callback=?', {//JSONP Request to Open Items Page setup tables
+				$.getJSON('http://api.universalbusinessmodel.com/ubm_modelcreationsuite_model_JobDescription_get_Policies.php?callback=?', {//JSONP Request to Open Items Page setup tables
 					activeModelId:window.activeModelId,
 					activeJobDescriptionId:window.activeJobDescriptionId
 				}, function(res, status) {
@@ -1677,7 +1696,7 @@ under the License.
 				}
 				//alert("got past the if");
 				//alert(window.policyType);
-				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_model_create_Policy.php?callback=?', {//JSONP Request to Open Items Page setup tables
+				$.getJSON('http://api.universalbusinessmodel.com/ubm_modelcreationsuite_model_create_Policy.php?callback=?', {//JSONP Request to Open Items Page setup tables
 					username : window.username,
 					activeModelId : window.activeModelId,
 					title : document.getElementById("ubmsuite_mcs_my_organizational_chart_content_createNewPolicyPopUp_form_PolicyTitle").value,
@@ -1709,7 +1728,7 @@ under the License.
 			}
 			function getProceduresforBackBoneTable(){
 				//alert("this is a test");
-				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_model_Policy_get_Procedures.php?callback=?', {//JSONP Request to Open Items Page setup tables
+				$.getJSON('http://api.universalbusinessmodel.com/ubm_modelcreationsuite_model_Policy_get_Procedures.php?callback=?', {//JSONP Request to Open Items Page setup tables
 					activeModelId : window.activeModelId,
 					activePolicyId: window.activePolicyId
 				}, function(res, status) {
@@ -1720,7 +1739,7 @@ under the License.
 				});				
 			}
 			function getListofPossibleProcedures() {//Populates Core Value Listview on Possible CoreValue Popup
-				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_model_getAll_Procedures.php?callback=?', {//JSONP Request to Open Items Page setup tables
+				$.getJSON('http://api.universalbusinessmodel.com/ubm_modelcreationsuite_model_getAll_Procedures.php?callback=?', {//JSONP Request to Open Items Page setup tables
 
 				}, function(res, status) {
 //						alert(status);
@@ -1732,7 +1751,7 @@ under the License.
 				});	
 			}
 			function addProceduretoMyModel(activeProcedureId){
-				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_model_add_Procedure.php?callback=?', {//JSONP Request to Open Items Page setup tables
+				$.getJSON('http://api.universalbusinessmodel.com/ubm_modelcreationsuite_model_add_Procedure.php?callback=?', {//JSONP Request to Open Items Page setup tables
 					activeModelId :window.activeModelId,
 					activePolicyId : window.activePolicyId,
 					activeProcedureId : activeProcedureId
@@ -1757,7 +1776,7 @@ under the License.
 			}
 			function getProceduresforHeirarchicalObjectTree(){
 				//alert("This is a test");
-				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_model_Policy_get_Procedures.php?callback=?', {//JSONP Request to Open Items Page setup tables
+				$.getJSON('http://api.universalbusinessmodel.com/ubm_modelcreationsuite_model_Policy_get_Procedures.php?callback=?', {//JSONP Request to Open Items Page setup tables
 					activeModelId:window.activeModelId,
 					activePolicyId:window.activePolicyId
 				}, function(res, status) {
@@ -1780,7 +1799,7 @@ under the License.
 				//alert("This is a test");	
 			}
 			function createNewProcedureAddtoMyModel() {
-				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_model_create_Procedure.php?callback=?', {//JSONP Request to Open Items Page setup tables
+				$.getJSON('http://api.universalbusinessmodel.com/ubm_modelcreationsuite_model_create_Procedure.php?callback=?', {//JSONP Request to Open Items Page setup tables
 					username: window.username,
 					activeModelId : window.activeModelId,
 					title: document.getElementById("ubmsuite_mcs_my_organizational_chart_content_createNewProcedurePopUp_form_ProcedureTitle").value,
@@ -1809,7 +1828,7 @@ under the License.
 			}
 			function getStepsforBackBoneTable(){
 				//alert("this is a test");
-				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_model_Procedure_get_Steps.php?callback=?', {//JSONP Request to Open Items Page setup tables
+				$.getJSON('http://api.universalbusinessmodel.com/ubm_modelcreationsuite_model_Procedure_get_Steps.php?callback=?', {//JSONP Request to Open Items Page setup tables
 					activeModelId : window.activeModelId,
 					activeProcedureId: window.activeProcedureId
 				}, function(res, status) {
@@ -1819,7 +1838,7 @@ under the License.
 				});				
 			}
 			function getListofPossibleSteps() {//Populates Core Value Listview on Possible CoreValue Popup
-				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_model_getAll_Steps.php?callback=?', {//JSONP Request to Open Items Page setup tables
+				$.getJSON('http://api.universalbusinessmodel.com/ubm_modelcreationsuite_model_getAll_Steps.php?callback=?', {//JSONP Request to Open Items Page setup tables
 
 				}, function(res, status) {
 //						alert(status);
@@ -1831,7 +1850,7 @@ under the License.
 				});	
 			}
 			function addSteptoMyModel(activeStepId){
-				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_model_add_Step.php?callback=?', {//JSONP Request to Open Items Page setup tables
+				$.getJSON('http://api.universalbusinessmodel.com/ubm_modelcreationsuite_model_add_Step.php?callback=?', {//JSONP Request to Open Items Page setup tables
 					activeModelId :window.activeModelId,
 					activeProcedureId : window.activeProcedureId,
 					activeStepId : activeStepId
@@ -1855,7 +1874,7 @@ under the License.
 				}, 1000);
 			}
 			function createNewStepAddtoMyModel() {
-				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_model_create_Step.php?callback=?', {//JSONP Request to Open Items Page setup tables
+				$.getJSON('http://api.universalbusinessmodel.com/ubm_modelcreationsuite_model_create_Step.php?callback=?', {//JSONP Request to Open Items Page setup tables
 					username: window.username,
 					activeModelId : window.activeModelId,
 					title: document.getElementById("ubmsuite_mcs_my_organizational_chart_content_createNewStepPopUp_form_StepTitle").value,
@@ -1872,7 +1891,7 @@ under the License.
 					getMyModelsOrgChart();	
 			}
 			function getStepsforHeirarchicalObjectTree(){
-				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_model_Procedure_get_Steps.php?callback=?', {//JSONP Request to Open Items Page setup tables
+				$.getJSON('http://api.universalbusinessmodel.com/ubm_modelcreationsuite_model_Procedure_get_Steps.php?callback=?', {//JSONP Request to Open Items Page setup tables
 					activeModelId:window.activeModelId,
 					activeProcedureId:window.activeProcedureId
 				}, function(res, status) {
@@ -1903,7 +1922,7 @@ under the License.
 			}
 			function getTasksforBackBoneTable(){
 				//alert("this is a test");
-				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_model_Step_get_Tasks.php?callback=?', {//JSONP Request to Open Items Page setup tables
+				$.getJSON('http://api.universalbusinessmodel.com/ubm_modelcreationsuite_model_Step_get_Tasks.php?callback=?', {//JSONP Request to Open Items Page setup tables
 					activeModelId : window.activeModelId,
 					activeStepId: window.activeStepId
 				}, function(res, status) {
@@ -1913,7 +1932,7 @@ under the License.
 				});				
 			}
 			function getListofPossibleTasks() {//Populates Core Value Listview on Possible CoreValue Popup
-				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_model_getAll_Tasks.php?callback=?', {//JSONP Request to Open Items Page setup tables
+				$.getJSON('http://api.universalbusinessmodel.com/ubm_modelcreationsuite_model_getAll_Tasks.php?callback=?', {//JSONP Request to Open Items Page setup tables
 
 				}, function(res, status) {
 //						alert(status);
@@ -1925,7 +1944,7 @@ under the License.
 				});	
 			}
 			function addTasktoMyModel(activeTaskId){
-				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_model_add_Task.php?callback=?', {//JSONP Request to Open Items Page setup tables
+				$.getJSON('http://api.universalbusinessmodel.com/ubm_modelcreationsuite_model_add_Task.php?callback=?', {//JSONP Request to Open Items Page setup tables
 					activeModelId :window.activeModelId,
 					activeStepId : window.activeStepId,
 					activeTaskId : activeTaskId
@@ -1949,7 +1968,7 @@ under the License.
 				}, 1000);
 			}
 			function createNewTaskAddtoMyModel() {
-				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_model_create_Task.php?callback=?', {//JSONP Request to Open Items Page setup tables
+				$.getJSON('http://api.universalbusinessmodel.com/ubm_modelcreationsuite_model_create_Task.php?callback=?', {//JSONP Request to Open Items Page setup tables
 					username: window.username,
 					activeModelId : window.activeModelId,
 					title: document.getElementById("ubmsuite_mcs_my_organizational_chart_content_createNewTaskPopUp_form_TaskTitle").value,
@@ -1966,7 +1985,7 @@ under the License.
 					getMyModelsOrgChart();	
 			}
 			function getTasksforHeirarchicalObjectTree(){
-				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_model_Step_get_Tasks.php?callback=?', {//JSONP Request to Open Items Page setup tables
+				$.getJSON('http://api.universalbusinessmodel.com/ubm_modelcreationsuite_model_Step_get_Tasks.php?callback=?', {//JSONP Request to Open Items Page setup tables
 					activeModelId:window.activeModelId,
 					activeStepId:window.activeStepId
 				}, function(res, status) {
@@ -1992,7 +2011,7 @@ under the License.
         <script>
         function getMyModelsOrgChart(){
 					$('#ubmsuite_mcs_my_organizational_chart_L0_ul').empty();
-				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_getActiveModelPositionsforOrgChart.php?callback=?', {//JSONP Request to Open Items Page setup tables
+				$.getJSON('http://api.universalbusinessmodel.com/ubm_modelcreationsuite_getActiveModelPositionsforOrgChart.php?callback=?', {//JSONP Request to Open Items Page setup tables
 					activeModelId:window.activeModelId
 				}, function(res, status) {
 					$.each(res, function(i, item) {
@@ -2130,7 +2149,7 @@ under the License.
 				function getMyModelsListofAlternatives(){
 					showLoader();
 					$('#possible_alternitives_table_body').empty();
-					$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_model_getCurrentModel_Alternatives.php?callback=?', {//JSONP Request to Open Items Page setup tables
+					$.getJSON('http://api.universalbusinessmodel.com/ubm_modelcreationsuite_model_getCurrentModel_Alternatives.php?callback=?', {//JSONP Request to Open Items Page setup tables
 						activeModelId : window.activeModelId,
 					}, function(res, status) {
 						$.each(res, function(i, item) {
@@ -2175,7 +2194,7 @@ under the License.
 					showLoader();
 					$('#possible_alternitives_pros_table_body').empty();
 
-					$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_model_getCurrentModel_activeAlternativePros.php?callback=?', {//JSONP Request to Open Items Page setup tables
+					$.getJSON('http://api.universalbusinessmodel.com/ubm_modelcreationsuite_model_getCurrentModel_activeAlternativePros.php?callback=?', {//JSONP Request to Open Items Page setup tables
 						activeModelAlternativeId : window.activeModelAlternativeId,
 					}, function(res, status) {
 						if(status=="success"){
@@ -2192,7 +2211,7 @@ under the License.
 				function getActiveAlternativeListofCons(){
 					showLoader();
 					$('#possible_alternitives_cons_table_body').empty();
-					$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_model_getCurrentModel_activeAlternativeCons.php?callback=?', {//JSONP Request to Open Items Page setup tables
+					$.getJSON('http://api.universalbusinessmodel.com/ubm_modelcreationsuite_model_getCurrentModel_activeAlternativeCons.php?callback=?', {//JSONP Request to Open Items Page setup tables
 						activeModelAlternativeId : window.activeModelAlternativeId,
 					}, function(res, status) {
 						if(status=="success"){
@@ -2210,7 +2229,7 @@ under the License.
 				function createNewAlternative(){
 					showLoader();
 
-					$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_model_create_Alternative.php?callback=?', {//JSONP Request to Open Items Page setup tables
+					$.getJSON('http://api.universalbusinessmodel.com/ubm_modelcreationsuite_model_create_Alternative.php?callback=?', {//JSONP Request to Open Items Page setup tables
 						activeModelId : window.activeModelId,
 						alternativeDescription : document.getElementById("possible_alternatives_alternativeDescription").value,
 						alternativeDecision : document.getElementById("possible_alternatives_alternativeDecision").value,
@@ -2226,7 +2245,7 @@ under the License.
 				}
 				function createNewProforactiveModelAlternative(){
 					showLoader();
-					$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_model_create_Alternative_Pro.php?callback=?', {//JSONP Request to Open Items Page setup tables
+					$.getJSON('http://api.universalbusinessmodel.com/ubm_modelcreationsuite_model_create_Alternative_Pro.php?callback=?', {//JSONP Request to Open Items Page setup tables
 						activeModelId : window.activeModelId,
 						activeModelAlternativeId : window.activeModelAlternativeId,
 						alternativeProDescription : document.getElementById("possible_alternatives_alternativeProDescription").value,
@@ -2246,7 +2265,7 @@ under the License.
 				}
 				function createNewConforactiveModelAlternative(){
 					showLoader();
-					$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_model_create_Alternative_Con.php?callback=?', {//JSONP Request to Open Items Page setup tables
+					$.getJSON('http://api.universalbusinessmodel.com/ubm_modelcreationsuite_model_create_Alternative_Con.php?callback=?', {//JSONP Request to Open Items Page setup tables
 						activeModelId : window.activeModelId,
 						activeModelAlternativeId : window.activeModelAlternativeId,
 						alternativeConDescription : document.getElementById("possible_alternatives_alternativeConDescription").value,
@@ -2267,7 +2286,7 @@ under the License.
 				}
 				function removeAlternativefromModel(activeAlternativeId){
 					$().toastmessage('showNoticeToast', "this is a test " + activeAlternativeId + "");
-					$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_model_remove_Alternative.php?callback=?', {//JSONP Request to Open Items Page setup tables
+					$.getJSON('http://api.universalbusinessmodel.com/ubm_modelcreationsuite_model_remove_Alternative.php?callback=?', {//JSONP Request to Open Items Page setup tables
 						activeAlternativeId : activeAlternativeId,
 						activeModelId: window.activeModelId
 					}, function(res, status) {
@@ -2284,7 +2303,7 @@ under the License.
 		<script>
 			function createNewCostDriver () {
 				//alert(window.activeModelInvestmentId);
-				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_model_investment_create_CostDriver.php?callback=?', {//JSONP Request to Open Items Page setup tables
+				$.getJSON('http://api.universalbusinessmodel.com/ubm_modelcreationsuite_model_investment_create_CostDriver.php?callback=?', {//JSONP Request to Open Items Page setup tables
 					activeInvestmentId : window.activeModelInvestmentId,
 					username : window.username,
 					costPerUnit : document.getElementById("return_on_investment_createNewCostDriver_popup_form_CostperUnit").value,
@@ -2307,7 +2326,7 @@ under the License.
 			}
 			function createNewIncomeDriver () {
 				//alert(window.activeModelInvestmentId);
-				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_model_investment_create_IncomeDriver.php?callback=?', {//JSONP Request to Open Items Page setup tables
+				$.getJSON('http://api.universalbusinessmodel.com/ubm_modelcreationsuite_model_investment_create_IncomeDriver.php?callback=?', {//JSONP Request to Open Items Page setup tables
 					activeInvestmentId : window.activeModelInvestmentId,
 					username : window.username,
 					incomePerUnit : document.getElementById("return_on_investment_createNewIncomeDriver_popup_form_IncomePerUnit").value,
@@ -2332,7 +2351,7 @@ under the License.
 				showLoader();
 				//alert(window.activeModelInvestmentId);
 				$('#return_on_investment_input_form_cost_tbody').empty();
-				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_model_investment_get_CostDrivers.php?callback=?', {//JSONP Request to Open Items Page setup tables
+				$.getJSON('http://api.universalbusinessmodel.com/ubm_modelcreationsuite_model_investment_get_CostDrivers.php?callback=?', {//JSONP Request to Open Items Page setup tables
 					activeModelInvestmentId : window.activeModelInvestmentId
 				}, function(res, status) {
 					$.each(res, function(i, item) {
@@ -2353,7 +2372,7 @@ under the License.
 				showLoader();
 				//alert(window.activeModelInvestmentId);
 				$('#return_on_investment_input_form_income_tbody').empty();
-				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_model_investment_get_IncomeDrivers.php?callback=?', {//JSONP Request to Open Items Page setup tables
+				$.getJSON('http://api.universalbusinessmodel.com/ubm_modelcreationsuite_model_investment_get_IncomeDrivers.php?callback=?', {//JSONP Request to Open Items Page setup tables
 					activeModelInvestmentId : window.activeModelInvestmentId
 				}, function(res, status) {
 					$.each(res, function(i, item) {
@@ -2373,7 +2392,7 @@ under the License.
 			}
 			function createNewInvestment () {
 				//alert("was called");
-				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_model_alternative_create_Investment.php?callback=?', {//JSONP Request to Open Items Page setup tables
+				$.getJSON('http://api.universalbusinessmodel.com/ubm_modelcreationsuite_model_alternative_create_Investment.php?callback=?', {//JSONP Request to Open Items Page setup tables
 					username: window.username,
 					activeModelAlternativeId : window.activeModelId,
 					title: document.getElementById("return_on_investment_createNewInvestment_popup_form_title").value,
@@ -2398,7 +2417,7 @@ under the License.
 				var i = 0;
 				//alert(window.activeModelAlternativeId);
 				$('#return_on_investment_alternative_select_investment_menu').empty();
-				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_model_alternative_get_Investments.php?callback=?', {//JSONP Request to Open Items Page setup tables
+				$.getJSON('http://api.universalbusinessmodel.com/ubm_modelcreationsuite_model_alternative_get_Investments.php?callback=?', {//JSONP Request to Open Items Page setup tables
 					activeModelAlternativeId : window.activeModelAlternativeId
 				}, function(res, status) {
 					$.each(res, function(i, item) {
@@ -2419,7 +2438,7 @@ under the License.
 				var i = 0;			//Reset Counter
 				$('#return_on_investment_alternative_select_menu').empty();
 
-				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_model_getCurrentModel_Alternatives.php?callback=?', {//JSONP Request to Open Items Page setup tables
+				$.getJSON('http://api.universalbusinessmodel.com/ubm_modelcreationsuite_model_getCurrentModel_Alternatives.php?callback=?', {//JSONP Request to Open Items Page setup tables
 					activeModelId : window.activeModelId,
 				}, function(res, status) {
 					$('#risk_analysis_alternative_select_menu').empty();
@@ -2445,7 +2464,7 @@ under the License.
 			}
 			function removeCostFromInvestment (activeCostDriverId) {
 				//alert("this is a test "+activeCostDriverId)
-				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_model_investment_remove_CostDriver.php?callback=?', {//JSONP Request to Open Items Page setup tables
+				$.getJSON('http://api.universalbusinessmodel.com/ubm_modelcreationsuite_model_investment_remove_CostDriver.php?callback=?', {//JSONP Request to Open Items Page setup tables
 					activeInvestmentId : window.activeModelInvestmentId,
 					activeCostDriverId: activeCostDriverId
 				}, function(res, status) {
@@ -2455,7 +2474,7 @@ under the License.
 			}
 			function removeIncomeFromInvestment(activeIncomeDriveId) {
 				//alert("this is a test "+activeIncomeDriveId)
-				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_model_investment_remove_IncomeDriver.php?callback=?', {//JSONP Request to Open Items Page setup tables
+				$.getJSON('http://api.universalbusinessmodel.com/ubm_modelcreationsuite_model_investment_remove_IncomeDriver.php?callback=?', {//JSONP Request to Open Items Page setup tables
 					activeInvestmentId : window.activeModelInvestmentId,
 					activeIncomeDriverId: activeIncomeDriveId
 				}, function(res, status) {
@@ -2524,7 +2543,7 @@ under the License.
 			}
 			function getListofAlternativesforRiskAnalysis(){//Populates the Alternative Picker at the top of the risk_analysis page.
 				var i = 0;			//Reset Counter
-				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_model_getCurrentModel_Alternatives.php?callback=?', {//JSONP Request to Open Items Page setup tables
+				$.getJSON('http://api.universalbusinessmodel.com/ubm_modelcreationsuite_model_getCurrentModel_Alternatives.php?callback=?', {//JSONP Request to Open Items Page setup tables
 					activeModelId : window.activeModelId,
 				}, function(res, status) {
 					$('#risk_analysis_alternative_select_menu').empty();
@@ -2546,7 +2565,7 @@ under the License.
 			function addRisktoMyAlternative(activeModelAlternativeRiskId){
 				$().toastmessage('showNoticeToast', window.activeModelAlternativeId);
 				$().toastmessage('showNoticeToast', "Risk # " + activeModelAlternativeRiskId + " will be added to the active alternative.");
-				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_model_alternative_add_Risk.php?callback=?', {//JSONP Request to Open Items Page setup tables
+				$.getJSON('http://api.universalbusinessmodel.com/ubm_modelcreationsuite_model_alternative_add_Risk.php?callback=?', {//JSONP Request to Open Items Page setup tables
 					activeModelAlternativeId : window.activeModelAlternativeId,
 					activeModelAlternativeRiskId : activeModelAlternativeRiskId,
 					username : window.username
@@ -2565,7 +2584,7 @@ under the License.
 						$( "#risk_analysis_load_search_progressbar" ).progressbar({value: 5});
 					}, 50);
 					showLoader();
-				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_model_getAll_Risks.php?callback=?', {//JSONP Request
+				$.getJSON('http://api.universalbusinessmodel.com/ubm_modelcreationsuite_model_getAll_Risks.php?callback=?', {//JSONP Request
 				}, function(res, status) {
 					setTimeout(function() {
 						$( "#risk_analysis_load_search_progressbar" ).progressbar({value: 10});
@@ -2604,7 +2623,7 @@ under the License.
 			function getListofRisksforRiskAnalysisTable(){
 				showLoader();
 				var i=0;
-				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_model_alternative_get_Risks.php?callback=?', {//JSONP Request to Open Items Page setup tables
+				$.getJSON('http://api.universalbusinessmodel.com/ubm_modelcreationsuite_model_alternative_get_Risks.php?callback=?', {//JSONP Request to Open Items Page setup tables
 					activeModelId : window.activeModelId,
 					username : window.username
 				}, function(res, status) {
@@ -2663,7 +2682,7 @@ under the License.
 				
 			function removeRiskFromAlternative(activeRiskId){
 				alert("this is a test "+activeRiskId)
-				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_model_alternative_remove_Risk.php?callback=?', {//JSONP Request to Open Items Page setup tables
+				$.getJSON('http://api.universalbusinessmodel.com/ubm_modelcreationsuite_model_alternative_remove_Risk.php?callback=?', {//JSONP Request to Open Items Page setup tables
 					activeModelAlternativeId : window.activeModelAlternativeId,
 					activeRiskId: activeRiskId
 				}, function(res, status) {
@@ -2674,7 +2693,7 @@ under the License.
 			function createNewRiskaddToActiveAlternative(){
 				alert("this is a test");
 				event.preventDefault();
-				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_model_alternative_create_Risk.php?callback=?', {//JSONP Request to Open Items Page setup tables
+				$.getJSON('http://api.universalbusinessmodel.com/ubm_modelcreationsuite_model_alternative_create_Risk.php?callback=?', {//JSONP Request to Open Items Page setup tables
 					riskDescription : document.getElementById('risk_analysis_define_new_risk_popup_form_description').value,
 					riskCategory : document.getElementById('risk_analysis_define_new_risk_popup_form_category').value,
 					username : window.username,
@@ -2697,7 +2716,7 @@ under the License.
         <script>
 			//Refresh Model Creation Suite Checklist
 			function getModelCreationSuiteChecklistItems() {
-				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_getallchecklistitems.php?callback=?', {//JSONP Request to Checklist Setup Table
+				$.getJSON('http://api.universalbusinessmodel.com/ubm_modelcreationsuite_getallchecklistitems.php?callback=?', {//JSONP Request to Checklist Setup Table
 					activeModelId : window.activeModelId
 				}, function(res, status) {
 					$('#mcs_setup_checklist_setup_mfi_table_body > tr').remove();
@@ -3208,7 +3227,7 @@ under the License.
 		<script>
 			function getModelSummary(){
 				$('#ubmsuite_mcs_model_review_ubm_model_ul').empty();												
-				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_model_getCurrentModel_ModelSummary.php?callback=?', {//JSONP Request
+				$.getJSON('http://api.universalbusinessmodel.com/ubm_modelcreationsuite_model_getCurrentModel_ModelSummary.php?callback=?', {//JSONP Request
 					activeModelId : window.activeModelId
 				}, function(res, status) {
 					$.each(res, function(i, item) {
@@ -3533,7 +3552,7 @@ under the License.
 					}
 					//		alert(window.location.hash);									//outputs the original hash
 					//alert(strarray[1]);												//outputs the split string which has the hash removed
-					$.getJSON('http://www.findmydriver.com/getubmpagereference.php?callback=?', {//JSONP Request to the app_pages table.
+					$.getJSON('http://api.universalbusinessmodel.com/getubmpagereference.php?callback=?', {//JSONP Request to the app_pages table.
 						pageid : strarray[1]	// sends the current page to the server.
 					}, function(res, status) {
 						//	alert("json returned successfully! "+ status);
@@ -3559,7 +3578,7 @@ under the License.
 			}
 			function submitMCSTaskPreparedByRecord() {
 				if (window.MCSTaskId > 0) {
-					$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_submitTaskPreparedBy.php?callback=?', {//JSONP Request
+					$.getJSON('http://api.universalbusinessmodel.com/ubm_modelcreationsuite_submitTaskPreparedBy.php?callback=?', {//JSONP Request
 						activeModelId : window.activeModelId,
 						taskId : window.MCSTaskId,
 						startTime : window.MCSTaskPreparedByStartTime,
@@ -3574,7 +3593,7 @@ under the License.
 			}
 			function submitMCSTaskReviewedByRecord() {
 				if (window.MCSTaskId > 0) {
-					$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_submitTaskReviewedBy.php?callback=?', {//JSONP Request
+					$.getJSON('http://api.universalbusinessmodel.com/ubm_modelcreationsuite_submitTaskReviewedBy.php?callback=?', {//JSONP Request
 						activeModelId : window.activeModelId,
 						taskId : window.MCSTaskId,
 						startTime : window.MCSTaskStartTime,
@@ -3589,7 +3608,7 @@ under the License.
 			}
 			function submitMCSTaskFinalReviewedByRecord() {
 				if (window.MCSTaskId > 0) {
-					$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_submitTaskFinalReviewedBy.php?callback=?', {//JSONP Request
+					$.getJSON('http://api.universalbusinessmodel.com/ubm_modelcreationsuite_submitTaskFinalReviewedBy.php?callback=?', {//JSONP Request
 						activeModelId : window.activeModelId,
 						taskId : window.MCSTaskId,
 						startTime : window.MCSTaskStartTime,
@@ -3663,7 +3682,7 @@ under the License.
 												if (!val.modelScopeVal) {
 													$().toastmessage('showErrorToast', "A model must be limited to a specific scope.");
 												} else {
-													$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_phaseSetup_submitT4.php?callback=?', {//JSONP Request
+													$.getJSON('http://api.universalbusinessmodel.com/ubm_modelcreationsuite_phaseSetup_submitT4.php?callback=?', {//JSONP Request
 														username : window.username,
 														activeModelId : window.activeModelId,
 														modelOwnerLegalEntity : modelOwnerLegalEntityVal,
@@ -3732,7 +3751,7 @@ under the License.
 								if (!val.visionStatement) {
 									$().toastmessage('showErrorToast', "A model must have a vision statement.");
 								} else {
-									$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_phase1_submitT17.php?callback=?', {//JSONP Request
+									$.getJSON('http://api.universalbusinessmodel.com/ubm_modelcreationsuite_phase1_submitT17.php?callback=?', {//JSONP Request
 										username : window.username,
 										activeModelId : window.activeModelId,
 										conceptualDefinition : conceptualDefinition,
@@ -3763,7 +3782,7 @@ under the License.
 			}
 			function setReviewedByStartTime(itemId) {
 				var date = new Date();
-				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_setActiveReviewedByTime.php?callback=?', {//JSONP Request
+				$.getJSON('http://api.universalbusinessmodel.com/ubm_modelcreationsuite_setActiveReviewedByTime.php?callback=?', {//JSONP Request
 					itemId : window.itemId,
 					date : window.setActiveReviewedByTime,
 					activeModelId : window.activeModelId
@@ -3774,7 +3793,7 @@ under the License.
 
 			function setFinalReviewedByStartTime(itemId) {
 				var date = new Date();
-				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_setActiveFinalReviewedByTime.php?callback=?', {//JSONP Request
+				$.getJSON('http://api.universalbusinessmodel.com/ubm_modelcreationsuite_setActiveFinalReviewedByTime.php?callback=?', {//JSONP Request
 					itemId : window.itemId,
 					date : window.setActiveFinalReviewedByTime,
 					activeModelId : window.activeModelId
@@ -3784,7 +3803,7 @@ under the License.
 			}
 
 			function getMyModelsListofAvailableApplications(){
-					/*$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_submitTaskFinalReviewedBy.php?callback=?', {//JSONP Request
+					/*$.getJSON('http://api.universalbusinessmodel.com/ubm_modelcreationsuite_submitTaskFinalReviewedBy.php?callback=?', {//JSONP Request
 						activeModelId : window.activeModelId,
 						taskId : window.MCSTaskId,
 						startTime : window.MCSTaskStartTime,
@@ -3832,7 +3851,7 @@ under the License.
 				//End Show Loader Message
 				//event.preventDefault();
 				//alert(window.username);
-				$.getJSON('http://www.findmydriver.com/ubmsubmitopenitems.php?callback=?', {
+				$.getJSON('http://api.universalbusinessmodel.com/ubmsubmitopenitems.php?callback=?', {
 					appname : "UBMMFICS",
 					RQType : "sumbitReviewPoint",
 					username : window.username,
@@ -4010,7 +4029,7 @@ under the License.
 							}else{
 	                            if (reg_passwd1 == reg_passwd2) {
 	                                //alert("passwords match!");
-	                                $.getJSON('http://www.findmydriver.com/ubms_usreg.php?callback=?', {
+	                                $.getJSON('http://api.universalbusinessmodel.com/ubms_usreg.php?callback=?', {
 	                                    key : "YDoS20lf7Vrnr22h8Ma6NGUV5DblnVhueTPXS7gPynRvQ6U8optzfnMDs3UD",
 	                                    appname : "FindMyDriver",
 	                                    RQType : "userRegister",
@@ -4115,7 +4134,7 @@ under the License.
 					$().toastmessage('showWarningToast', "Your Carrier is not currently supported!");
 				}
 
-				$.getJSON('http://www.findmydriver.com/app_users_preferences_phoneNumberCarrier.php?callback=?', {//JSONP Request
+				$.getJSON('http://api.universalbusinessmodel.com/app_users_preferences_phoneNumberCarrier.php?callback=?', {//JSONP Request
 					carrier : document.getElementById("ubmsuite_UserPreferences_selectCarrier").value,
 					phoneNumber : document.getElementById("ubmsuite_UserPreferences_cell").value,
 					username : window.username
@@ -4725,7 +4744,7 @@ under the License.
                             </li>
                         </ul>
                     </form>
-                </div>
+                </div
                 <!-- End Open Items Popup -->
                 <!-- Create Model Popup -->
                 <div data-role="popup" id="ubmsuite_createModel_popup" data-theme="a" data-position-to="window" data-dismissible="false">
@@ -6530,7 +6549,6 @@ under the License.
             <div data-role="footer">
 
             </div>
-
         </div>
         <!-- SWOT Analysis -->
         <div data-role="page" class="ubm_page" id="ubmsuite_swotAnalysis" data-theme="a">
@@ -8525,6 +8543,8 @@ under the License.
 				<p>
 					<input onclick="createEditor();" type="button" value="Load UBM Product Creator">
 					<input onclick="removeEditor();" type="button" value="Close UBM Product Creator"><br/>
+					<input onclick="saveEditorContentsasaUBMProduct();" type="button" value="Save this UBM Product"><br/>
+
 					<input type="button" value="Select a UBM Product Template.">
 				</p></center>
 				<!-- This div will hold the editor. -->
@@ -9060,10 +9080,10 @@ under the License.
 					<thead>
 						<tr>
 							<th data-priority="8">MCS Line #</th>
-							<th data-priority="1"><h4>FRB</h4></th>
-							<th data-priority="1"><h4>FRB </br>Date</h4></th>
-							<th data-priority="1"><h4>RB</h4></th>
-							<th data-priority="1"><h4>RB </br>Date</h4></th>
+							<th data-priority="6"><h4>FRB</h4></th>
+							<th data-priority="6"><h4>FRB </br>Date</h4></th>
+							<th data-priority="7"><h4>RB</h4></th>
+							<th data-priority="7"><h4>RB </br>Date</h4></th>
 							<th data-priority="8"><h4>PB</h4></th>
 							<th data-priority="8"><h4>PB </br>Date</h4></th>
 							<th data-priority="1"><h4>MFI </br>Expl Ref</h4></th>
@@ -17102,7 +17122,7 @@ under the License.
 					//1. Load the iframe with src directed to the application on Bluehost, Pass the active model id to the iframe. When the Page Loads
 						showLoader();
 				    	$('iframe').remove();
-						$('<iframe id="projected_financial_statement_iframe" src="http://application.universalbusinessmodel.com/P3/index.php?activeModelId=' + window.activeModelId + '" width="100%" height="700px" seamless=""></iframe>').appendTo('#projected_financial_statement_iframe_container');		
+						$('<iframe id="projected_financial_statement_iframe" src="http://application.universalbusinessmodel.com/P3/index.html?activeModelId=' + window.activeModelId + '&username=' + window.username + '" width="100%" height="700px" seamless=""></iframe>').appendTo('#projected_financial_statement_iframe_container');		
 						setTimeout(function() {					
 							hideLoader();
 						}, 2000);
@@ -17110,7 +17130,7 @@ under the License.
 					$('#projected_financial_statement_iframe_container').on('click', function(){
 						showLoader();
 				    	$('iframe').remove();
-						$('<iframe id="projected_financial_statement_iframe" src="http://application.universalbusinessmodel.com/P3/index.php?activeModelId=' + window.activeModelId + '" width="100%" height="700px" seamless=""></iframe>').appendTo('#projected_financial_statement_iframe_container');		
+						$('<iframe id="projected_financial_statement_iframe" src="http://application.universalbusinessmodel.com/P3/index.html?activeModelId=' + window.activeModelId + '" width="100%" height="700px" seamless=""></iframe>').appendTo('#projected_financial_statement_iframe_container');		
 						setTimeout(function() {					
 							hideLoader();
 						}, 2000);						
@@ -17228,7 +17248,7 @@ under the License.
 
                     }, 2000);
 					//alert(window.activeubm_page);
-					$.getJSON('http://www.findmydriver.com/ubm_get_page_ref.php?callback=?', {//JSONP Request to Open Items Page setup tables
+					$.getJSON('http://api.universalbusinessmodel.com/ubm_get_page_ref.php?callback=?', {//JSONP Request to Open Items Page setup tables
 						activeubm_page : window.activeubm_page
 					}, function(res, status) {
 						$.each(res, function(i, item) {
