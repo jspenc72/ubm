@@ -1,75 +1,11 @@
 <html>
-	<head>
-
-		<script src="js/jquery-1.9.1.min.js"></script>
-		<script src="js/jquery-mobile-1.4.0.min.js"></script>
-
-		<!--Begin Jquery UI and touchpounch -->
-		<link rel="stylesheet" href="css/jquery-ui.css">
-		<link rel="stylesheet" href="css/bootstrap-combinedtree.min.css">
-		<script src="js/bootstrap-tree.js"></script>
-		<link rel="stylesheet" href="css/jquery.mobile-1.4.0.min.css" />
-		<script>
-			function getMasterFileIndexItems00() {
-				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_getMasterFileIndexItems_00.php?callback=?', {//JSONP Request to Open Items Page setup tables
-					activeModelId : window.activeModelId
-				}, function(res, status) {
-					$.each(res, function(i, item) {
-						$('#mfi_firstChild_1').append("<li><div class='child_checkbox'><input type='checkbox'/></div><span>" + item.name + "</span></li>");
-					});
-				});
-
-			}
-
-			function getMasterFileIndexItems01() {
-				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_getMasterFileIndexItems_01.php?callback=?', {//JSONP Request to Open Items Page setup tables
-					activeModelId : window.activeModelId
-				}, function(res, status) {
-					$.each(res, function(i, item) {
-						$('#mfi_firstChild_2').append("<li><div class='child_checkbox'><input type='checkbox'/></div><span>" + item.name + "</span></li>");
-					});
-
-				});
-			}
-
-			function getMasterFileIndexItems() {
-				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_getMasterFileIndexItems.php?callback=?', {//JSONP Request to Open Items Page setup tables
-		activeModelId : window.activeModelId
-				}, function(res, status) {
-					$('#ubmsuite_mcs_master_file_index_tree').empty();
-					$.each(res, function(i, item) {
-						if (item.ubm_required == "yes") {
-							$('#ubmsuite_mcs_master_file_index_tree').append("<li><input disabled='' type='checkbox' checked><a>" + item.mfi_ref + "&nbsp &nbsp " + item.title + "</a> <ul id='mfi_firstChild_" + item.id + "'></ul></li>");
-						} else {
-							$('#ubmsuite_mcs_master_file_index_tree').append("<li><input type='checkbox'/><a>" + item.mfi_ref + " &nbsp &nbsp " + item.title + " </a><ul id='mfi_firstChild_" + item.id + "'></ul></li>");
-						}
-					});
-					getMasterFileIndexItems01();
-					getMasterFileIndexItems00();
-					coolify();
-				});
-			}
-
-		</script>
-
-	</head>
-	<body onload="getMasterFileIndexItems()">
-
-		<div data-role="page">
-			<div data-role="header" data-theme="a">
-
-			</div>
-			<div role="main" clrear="ui-content">
-
-				<div class="tree">
-					<ul id="ubmsuite_mcs_master_file_index_tree">
-
-					</ul>
-				</div>
-
-			</div>
-			<div data-role="footer">
-
-			</div>
-		</div>
-	</body>
+<body>
+<img src="img/swot.png" usemap="#ubmsuite_swotAnalysis_imagemap">
+				<map id="ubmsuite_swotAnalysis_imagemap">
+					<area shape="rect" alt="Click to add a strength" title="" coords="60,54,177,174" href="http://www.google.com"/>
+					<area shape="rect" alt="Click to add weakness" title="" coords="180,56,299,173" href="#ubmsuite_swotAnalysis_add_weakness_popup"/>
+					<area shape="rect" alt="Click to add opportuity" title="" coords="61,176,179,293" href="#ubmsuite_swotAnalysis_add_opportunity_popup"/>
+					<area shape="rect" alt="Click to add threat" title="" coords="181,176,299,294" href="#ubmsuite_swotAnalysis_add_threat_popup"/>
+				</map>
+			</body>
+				</html>
