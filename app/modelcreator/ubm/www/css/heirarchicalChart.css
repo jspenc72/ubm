@@ -106,9 +106,10 @@ right connector from last child*/
 	background:rgba(0,0,0,0.1);
   	overflow: none;
   	overflow-x: scroll;
+  	overflow-y: scroll;
 	display: block;
-	height:600px;
-width:97%; padding:75px 10px 75px 10px;
+	height:400px;
+width:100%; padding:75px 10px 75px 10px;
 	white-space:nowrap;
 
 }
