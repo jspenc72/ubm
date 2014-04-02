@@ -5597,13 +5597,13 @@ under the License.
 				    </div>
 				    <div data-role='content' data-theme='a' >
 							<ul data-role="listview">
-								<li <a href="#" onclick='openAddNewPositionPopup()' class="ui-btn">Add</a></li>
+								<li <a href="#" onclick='openAddNewPositionPopup();getListofPossiblePositions()' class="ui-btn">Add</a></li>
 								<li <a href="#" onclick='confirmRemoveActivePosition()' class="ui-btn">Remove</a></li>
 								<li <a href="#" onclick='modifyActivePosition()' class="ui-btn">Modify</a></li>
 								<li <a href="#" onclick='viewActivePositionHierachyObjects()' class="ui-btn">View Hierarchical Objects</a></li>
 								<li <a href="#" onclick='createNewJobDescription()' class="ui-btn">Create A New Job Description</a></li>
 							</ul>
-				    </div>
+				    </div>	
 				</div>	
 				<div data-role="popup" id="ubmsuite_mcs_my_organizational_chart_content_manageJobDescriptionPopUp">
 					<a href="#" onclick="createNewJobDescription();getListofPossibleJobDescriptions()" data-rel="popup" data-transition="pop" class="my-tooltip-btn ui-btn ui-alt-icon ui-nodisc-icon ui-btn-inline ui-icon-plus ui-btn-icon-notext" title="Add a New Job Description">Add a New Job Description</a>
