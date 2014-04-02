@@ -80,7 +80,6 @@ under the License.
 				showLoader();
 				if ( editor )
 					return;
-
 				// Create a new editor inside the <div id="editor">, setting its value to html
 				var config = {
 					extraPlugins: 'xmas',
@@ -431,6 +430,7 @@ under the License.
 				}, function(res, status) {
 					//alert("json returned successfully! " + status);
 					$('#mcs_open_points_action_items_comment_popup_ul').empty();
+
 					$.each(res, function(i, item) {
 						//alert(item.disposition);
 						$('#mcs_open_points_action_items_comment_popup_ul').append("<li><a href='#' data-rel='popup' data-position-to='window' data-transition='pop'><h1>" + item.author + "</h1><p style='white-space:normal;'>" + item.comment + "</p><p class='ui-li-aside'>Comment Date:</br> <strong>" + item.date_added + "</strong></p></a></li>");
@@ -438,6 +438,8 @@ under the License.
 						$('#mcs_open_points_action_items_comment_popup_ul').listview("refresh");
 					})
 				});
+
+
 				$('#mcs_open_points_action_items_resolution_popup_ul').listview("refresh");
 				setTimeout(function() {
 					$("#mcs_open_points_action_items_resolution_popup").popup('open');
@@ -448,13 +450,12 @@ under the License.
         <script>
 			//Model Management
 			function createModel() {
-				$.getJSON('http://api.universalbusinessmodel.com/ubms_modelcreationsuite_createModel.php?callback=?', {//JSONP Request to Create new model
-					key: 'YDoS20lf7Vrnr22h8Ma6NGUV5DblnVhueTPXS7gPynRvQ6U8optzfnMDs3UD',
+				$.getJSON('http://api.universalbusinessmodel.com/ubm_modelcreationsuite_createmodel.php?callback=?', {//JSONP Request to Create new model
 					reference : document.getElementById("ubmsuite_createModel_popup_newModel_form_reference").value,
 					title : document.getElementById("ubmsuite_createModel_popup_newModel_form_title").value,
 					description : document.getElementById("ubmsuite_createModel_popup_newModel_form_description").value,
 					creator_id : window.username,
-					username : window.username
+
 				}, function(res, status) {
 					$().toastmessage('showSuccessToast', "json returned successfully! " + status + "");
 					if (status == "success") {//Tests whether the json request was successful, if so it will clear the contents of the form submitted.
@@ -465,6 +466,7 @@ under the License.
 					}
 				});
 				getMyModels();
+
 			}
 			function getMyModels() {//Get all models in database where current user is the creator.
 				showLoader();
@@ -1356,21 +1358,26 @@ under the License.
 				setTimeout(function() {
 					$("#ubmsuite_mcs_my_organizational_chart_content_createNewPositionPopUp").popup('open');
 				}, 1000);	
+				
 			}
 
-			function getListofPossiblePositions() {//PopulatesCore Value Listview on Possible CoreValue Popup
-				//alert("it worked");
-				$.getJSON('http://api.universalbusinessmodel.com/ubm_modelcreationsuite_model_getAll_Positions.php?callback=?', {//JSONP Request to Open Items Page setup tables
 
-	
+
+			function getListofPossiblePositions() {//Populates the Create new Position Listview on the Possible Positions Popup
+				alert("this is a test.");
+				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_model_getAll_Positions.php?callback=?', {//JSONP Request to Open Items Page setup tables
+
 				}, function(res, status) {
-						//alert(status);
+//						alert(status);
 						$('#ubmsuite_mcs_my_organizational_chart_content_createNewPositionPopUp_form_UBMRepository').empty();
 					$.each(res, function(i, item) {
+						$('#ubmsuite_mcs_my_organizational_chart_content_createNewPositionPopUp_form_UBMRepository').append("<li><a href='#'><p style='white-space:normal;'>" + item.title + "</p></a><a href='#' onclick='addPositiontoMyModel(" + item.id + ")'>Add Position</a></li>");
 						$('#ubmsuite_mcs_my_organizational_chart_content_createNewPositionPopUp_form_UBMRepository').append("<li><a href='#' onClick='openPositionSummaryPopup(" + item.id + ")'>  <p style='white-space:normal;'>" + item.title + "</p></a><a href='#' onclick='addPositiontoMyModel(" + item.id + ")'>Add Position</a></li>");
 						$('#ubmsuite_mcs_my_organizational_chart_content_createNewPositionPopUp_form_UBMRepository').listview("refresh");
 					});
 				});		
+				
+			}	
 				
 			}
 			function openPositionSummaryPopup(activePositionId) {
@@ -1416,8 +1423,7 @@ under the License.
 
 			}
 			function createNewPositionAddtoMyModel(){
-				$.getJSON('http://api.universalbusinessmodel.com/ubms_modelcreationsuite_model_create_Position.php?callback=?', {//JSONP Request to Open Items Page setup tables
-					key: 'YDoS20lf7Vrnr22h8Ma6NGUV5DblnVhueTPXS7gPynRvQ6U8optzfnMDs3UD',
+				$.getJSON('http://api.universalbusinessmodel.com/ubm_modelcreationsuite_model_create_Position.php?callback=?', {//JSONP Request to Open Items Page setup tables
 					username: window.username,
 					activeModelId : window.activeModelId,
 					positionTitle: document.getElementById("ubmsuite_mcs_my_organizational_chart_content_createNewPositionPopUp_form_positionTitle").value,
@@ -1429,8 +1435,10 @@ under the License.
 					$("#ubmsuite_mcs_my_organizational_chart_content_createNewPositionPopUp").popup('close');
 					getMyModelsOrgChart();					
 			}
+			
 			function addChildPositiontoActivePosition(){
 					$("#ubmsuite_mcs_my_organizational_chart_content_modifyPositionPopUp").popup('open');
+
 					$().toastmessage('showSuccessToast', window.activeReportsToPosition);
 				//Called from Model Settings Page????
 				//1. User selects a position from the list of ubm_model_positions?
@@ -1438,6 +1446,7 @@ under the License.
 				//3. User is asked to decide which position on the org chart they would like the position to report to and which level (Level 1, Level 2, Level 3...) on the org chart they wish to assign the position.
 				//3. If user selects yes, the relationships between the activeModelId and the active position as well as all positions that report to it are created in the the model_has_positions table. 
 				//4. If user selects "no, add this position without any positions that report to it." 
+				
 			}
 			function addPositiontoMyModel(activePositionId){
 				$.getJSON('http://api.universalbusinessmodel.com/ubm_modelcreationsuite_model_add_Position.php?callback=?', {//JSONP Request to Open Items Page setup tables
@@ -3596,14 +3605,13 @@ under the License.
 					}
 					//		alert(window.location.hash);									//outputs the original hash
 					//alert(strarray[1]);												//outputs the split string which has the hash removed
-					$.getJSON('http://api.universalbusinessmodel.com/ubms_getubmpagereference.php?callback=?', {//JSONP Request to the app_pages table.
-						username: window.username,
-						key : 'YDoS20lf7Vrnr22h8Ma6NGUV5DblnVhueTPXS7gPynRvQ6U8optzfnMDs3UD',
+					$.getJSON('http://api.universalbusinessmodel.com/getubmpagereference.php?callback=?', {//JSONP Request to the app_pages table.
 						pageid : strarray[1]	// sends the current page to the server.
 					}, function(res, status) {
 						//	alert("json returned successfully! "+ status);
 						//	alert(res.message); // Alerts the current page which was sent in the call back from the server.
 					});
+
 				});
 				$("#si_email").focus();
 			}
@@ -5589,11 +5597,11 @@ under the License.
 				    </div>
 				    <div data-role='content' data-theme='a' >
 							<ul data-role="listview">
-								<li <a href="#" onclick='openAddNewPositionPopup();getListofPossiblePositions()' class="ui-btn">Add</a></li>
+								<li <a href="#" onclick='openAddNewPositionPopup()' class="ui-btn">Add</a></li>
 								<li <a href="#" onclick='confirmRemoveActivePosition()' class="ui-btn">Remove</a></li>
 								<li <a href="#" onclick='modifyActivePosition()' class="ui-btn">Modify</a></li>
 								<li <a href="#" onclick='viewActivePositionHierachyObjects()' class="ui-btn">View Hierarchical Objects</a></li>
-								<li <a href="#" onclick='createNewJobDescription();getListofPossibleJobDescriptions()' class="ui-btn">Create A New Job Description</a></li>
+								<li <a href="#" onclick='createNewJobDescription()' class="ui-btn">Create A New Job Description</a></li>
 							</ul>
 				    </div>
 				</div>	
