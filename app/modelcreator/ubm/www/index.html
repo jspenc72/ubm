@@ -80,6 +80,7 @@ under the License.
 				showLoader();
 				if ( editor )
 					return;
+
 				// Create a new editor inside the <div id="editor">, setting its value to html
 				var config = {
 					extraPlugins: 'xmas',
@@ -1358,14 +1359,15 @@ under the License.
 				setTimeout(function() {
 					$("#ubmsuite_mcs_my_organizational_chart_content_createNewPositionPopUp").popup('open');
 				}, 1000);	
-				
 			}
-			function getListofPossiblePositions() {//Populates the Create new Position Listview on the Possible Positions Popup
-				alert("this is a test.");
+
+			function getListofPossiblePositions() {//PopulatesCore Value Listview on Possible CoreValue Popup
+				//alert("it worked");
 				$.getJSON('http://api.universalbusinessmodel.com/ubm_modelcreationsuite_model_getAll_Positions.php?callback=?', {//JSONP Request to Open Items Page setup tables
 
+	
 				}, function(res, status) {
-						alert(status);
+						//alert(status);
 						$('#ubmsuite_mcs_my_organizational_chart_content_createNewPositionPopUp_form_UBMRepository').empty();
 					$.each(res, function(i, item) {
 						$('#ubmsuite_mcs_my_organizational_chart_content_createNewPositionPopUp_form_UBMRepository').append("<li><a href='#' onClick='openPositionSummaryPopup(" + item.id + ")'>  <p style='white-space:normal;'>" + item.title + "</p></a><a href='#' onclick='addPositiontoMyModel(" + item.id + ")'>Add Position</a></li>");
@@ -3599,14 +3601,13 @@ under the License.
 					}
 					//		alert(window.location.hash);									//outputs the original hash
 					//alert(strarray[1]);												//outputs the split string which has the hash removed
-					$.getJSON('http://api.universalbusinessmodel.com/getubmpagereference.php?callback=?', {//JSONP Request to the app_pages table.
+					$.getJSON('http://api.universalbusinessmodel.com/ubms_getubmpagereference.php?callback=?', {//JSONP Request to the app_pages table.
 						key : 'YDoS20lf7Vrnr22h8Ma6NGUV5DblnVhueTPXS7gPynRvQ6U8optzfnMDs3UD',
 						pageid : strarray[1]	// sends the current page to the server.
 					}, function(res, status) {
 						//	alert("json returned successfully! "+ status);
 						//	alert(res.message); // Alerts the current page which was sent in the call back from the server.
 					});
-
 				});
 				$("#si_email").focus();
 			}
@@ -5592,11 +5593,11 @@ under the License.
 				    </div>
 				    <div data-role='content' data-theme='a' >
 							<ul data-role="listview">
-								<li <a href="#" onclick='openAddNewPositionPopup()' class="ui-btn">Add</a></li>
+								<li <a href="#" onclick='openAddNewPositionPopup();getListofPossiblePositions()' class="ui-btn">Add</a></li>
 								<li <a href="#" onclick='confirmRemoveActivePosition()' class="ui-btn">Remove</a></li>
 								<li <a href="#" onclick='modifyActivePosition()' class="ui-btn">Modify</a></li>
 								<li <a href="#" onclick='viewActivePositionHierachyObjects()' class="ui-btn">View Hierarchical Objects</a></li>
-								<li <a href="#" onclick='createNewJobDescription()' class="ui-btn">Create A New Job Description</a></li>
+								<li <a href="#" onclick='createNewJobDescription();getListofPossibleJobDescriptions()' class="ui-btn">Create A New Job Description</a></li>
 							</ul>
 				    </div>
 				</div>	
