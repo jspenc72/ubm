@@ -473,7 +473,7 @@ under the License.
 				
 				$.getJSON('http://api.universalbusinessmodel.com/ubms_modelcreationsuite_getMyModels.php?callback=?', {//JSONP Request to Create new model
 					username : window.username,
-					key : 'YDoS20lf7Vrnr22h8Ma6NGUV5DblnVhueTPXS7gPynRvQ6U8optzfnMDs3UD'					
+					key : window.key					
 				}, function(res, status) {
 					$('#ubmsuite_SelectBusinessModel_MyModels_ul').empty();
 					$('#ubmsuite_SelectBusinessModel_MyModels_ul').append("<li data-role='list-divider'><center>Models I Created</center></li>");
@@ -491,7 +491,7 @@ under the License.
 				showLoader();
 				$.getJSON('http://api.universalbusinessmodel.com/ubms_modelcreationsuite_getSharedModels.php?callback=?', {//JSONP Request to Create new model
 					username : window.username,
-					key : 'YDoS20lf7Vrnr22h8Ma6NGUV5DblnVhueTPXS7gPynRvQ6U8optzfnMDs3UD'
+					key : window.key
 				}, function(res, status) {
 					$('#ubmsuite_SelectBusinessModel_SharedModels_ul').empty();
 					$('#ubmsuite_SelectBusinessModel_SharedModels_ul').append("<li data-role='list-divider'><center>Models Shared with Me</center></li>");
@@ -3448,7 +3448,7 @@ under the License.
 
 			//Generic Init variables and functions
 			function onLoadBody() {
-
+				window.key = "YDoS20lf7Vrnr22h8Ma6NGUV5DblnVhueTPXS7gPynRvQ6U8optzfnMDs3UD";
 				//	alert("This is an Alert!");
 				$('.back_btn').click(function() {
 					parent.history.back();
@@ -3843,7 +3843,6 @@ under the License.
 					$().toastmessage('showNoticeToast', res.message);
 				});
 			}
-
 			function setFinalReviewedByStartTime(itemId) {
 				var date = new Date();
 				$.getJSON('http://api.universalbusinessmodel.com/ubm_modelcreationsuite_setActiveFinalReviewedByTime.php?callback=?', {//JSONP Request
@@ -3854,16 +3853,25 @@ under the License.
 					$().toastmessage('showNoticeToast', res.message);
 				});
 			}
-
-			function getMyModelsListofAvailableApplications(){
-					/*$.getJSON('http://api.universalbusinessmodel.com/ubm_modelcreationsuite_submitTaskFinalReviewedBy.php?callback=?', {//JSONP Request
-						activeModelId : window.activeModelId,
-						taskId : window.MCSTaskId,
-						startTime : window.MCSTaskStartTime,
-						username : window.username
-					}, function(res, status) {
-						alert(res.message);
-					});			*/	
+			function getMyModelsListofApplications(){
+				$.getJSON('http://api.universalbusinessmodel.com/ubms_modelcreationsuite_model_get_MyApps.php?callback=?', {//JSONP Request
+					key : window.key,
+					activeModelId : window.activeModelId,
+					username : window.username
+				}, function(res, status) {
+					$('#ubmsuite_mcs_my_applications_myApps_ul').empty();
+					$.each(res, function(i, item) {
+//For Each Application attached to the model. Insert an Icon for the Applicaiton on the My Apps Page.
+						$('#ubmsuite_mcs_my_applications_myApps_ul').append("<li><a href='#" + item.app_dashboard_href + "'><img src='img/time-for-review.jpg' class='ui-li-thumb'><h2>" + item.title + "</h2><p>" + item.summary + "</p><p class='ui-li-aside'>MA</p></a></li> ");
+						$('#ubmsuite_mcs_my_applications_myApps_ul').listview("refresh");
+//For Each Application Insert the Management Dashboard for the Application.
+						$('body').prepend("<div data-role='page' id=" + item.app_dashboard_href + " ><div data-role='header' data-theme='a'><a href='#ubmsuite_mcs_my_applications' class='back_btn' data-icon='arrow-l' data-iconpos='notext'>Back</a><h1>" + item.title + "</h1></div><div role='main' class='ui-content'></div></div>");
+						setTimeout(function() {
+							//$('#' + item.app_dashboard_href).trigger('create');
+							//$('#ubmsuite_mcs_my_applications').trigger('create');
+						}, 500);					
+					});					
+				});			
 			}
 			window.c = 0;
 			//Set window variable so that the counter persists each time the function is called.
@@ -4083,7 +4091,7 @@ under the License.
 	                            if (reg_passwd1 == reg_passwd2) {
 	                                //alert("passwords match!");
 	                                $.getJSON('http://api.universalbusinessmodel.com/ubms_usreg.php?callback=?', {
-	                                    key : "YDoS20lf7Vrnr22h8Ma6NGUV5DblnVhueTPXS7gPynRvQ6U8optzfnMDs3UD",
+	                                    key : window.key,
 	                                    appname : "FindMyDriver",
 	                                    RQType : "userRegister",
 	                                    email : reg_email,
@@ -4128,7 +4136,7 @@ under the License.
 						$('#result').empty().append('<center><p>Performing your sign in request...</p></center>');
 						/* stop form from submitting normally */
 						$.getJSON('http://api.universalbusinessmodel.com/ubms_usrsi.php?callback=?', {
-							key : "YDoS20lf7Vrnr22h8Ma6NGUV5DblnVhueTPXS7gPynRvQ6U8optzfnMDs3UD",
+							key : window.key,
 							appname : "FindMyDriver",
 							RQType : "userSignIn",
 							email : si_email,
@@ -5280,26 +5288,7 @@ under the License.
             <div data-role="content">
 				<div>
 	                <ul id="ubmsuite_mcs_my_applications_myApps_ul" data-role="listview" data-inset="true">
-	                    <li>
-	                        <a href="#ubmsuite_mcs_my_applications"> <img src="img/time-for-review.jpg" class="ui-li-thumb"> <h2>My Applications</h2>
-		                        <p>
-		                            Manage the interface between your applications and your model.
-		                        </p>
-		                        <p class="ui-li-aside">
-		                            MA
-		                        </p> 
-	                        </a>
-	                    </li> 
-	                    <li>
-	                        <a href="#ubmsuite_mcs_list_of_available_applications"> <img src="img/time-for-review.jpg" class="ui-li-thumb"> <h2>List of Available Applications</h2>
-		                        <p>
-		                            Select from a list of all UBM compliant applications that are currently available.
-		                        </p>
-		                        <p class="ui-li-aside">
-		                            MA
-		                        </p> 
-	                        </a>
-	                    </li>                    
+
 	                </ul>					
 				</div>
 			</div>
@@ -17147,12 +17136,7 @@ under the License.
 						getListofRisksforRiskAnalysisTable();
                     }, 10);
                 });
-                $(document).on("pageshow", "#sign_in_sign_up", function() {
 
-                    setTimeout(function() {
-						getMyModelsListofAvailableApplications();
-                    }, 1000);
-                });
                 $(document).on("pageshow", "#AdminSignIn_dialog", function() {
                 	$('#ok_admin_button').focus();
                 });
@@ -17176,6 +17160,9 @@ under the License.
 					getMyModelsListofAlternatives();
 					getActiveAlternativeListofPros();
 					getActiveAlternativeListofCons();
+				});
+				$(document).on("pageshow", "#ubmsuite_mcs_my_applications", function() {
+					getMyModelsListofApplications();
 				});
 				$(document).on("pageshow", "#projected_financial_statement", function() {
 					//1. Load the iframe with src directed to the application on Bluehost, Pass the active model id to the iframe. When the Page Loads
