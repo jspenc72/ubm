@@ -244,6 +244,9 @@ function getListItems () {
 		&lt;script src=&quot;http://code.jquery.com/jquery-1.9.1.min.js&quot;&gt;&lt;/script&gt;
 		&lt;script src=&quot;http://code.jquery.com/mobile/1.4.2/jquery.mobile-1.4.2.min.js&quot;&gt;&lt;/script&gt;
 	&lt;script&gt;
+	function emptyListItems () {
+		$('#example_unordered_list').empty();
+	}
 	function getListItems () {
 		$.getJSON('http://api.universalbusinessmodel.com/example_php_script.php?callback=?', {
 
@@ -262,9 +265,11 @@ function getListItems () {
 		&lt;/ul&gt;
 		&lt;div align=&quot;center&quot;&gt;
 				&lt;button class=&quot;ui-btn&quot; onclick=&quot;getListItems()&quot;&gt;Append&lt;/button&gt;
+				&lt;button class=&quot;ui-btn&quot; onclick=&quot;emptyListItems()&quot;&gt;Remove&lt;/button&gt;
 		&lt;/div&gt; 
 	&lt;/body&gt;
 &lt;/html&gt;
+
 
 	</code></pre>
 	</br>
