@@ -450,12 +450,12 @@ under the License.
         <script>
 			//Model Management
 			function createModel() {
-				$.getJSON('http://api.universalbusinessmodel.com/ubm_modelcreationsuite_createmodel.php?callback=?', {//JSONP Request to Create new model
+				$.getJSON('http://api.universalbusinessmodel.com/ubms_modelcreationsuite_createModel.php?callback=?', {//JSONP Request to Create new model
+					key: window.key,
 					reference : document.getElementById("ubmsuite_createModel_popup_newModel_form_reference").value,
 					title : document.getElementById("ubmsuite_createModel_popup_newModel_form_title").value,
 					description : document.getElementById("ubmsuite_createModel_popup_newModel_form_description").value,
-					creator_id : window.username,
-
+					username : window.username
 				}, function(res, status) {
 					$().toastmessage('showSuccessToast', "json returned successfully! " + status + "");
 					if (status == "success") {//Tests whether the json request was successful, if so it will clear the contents of the form submitted.
@@ -466,11 +466,9 @@ under the License.
 					}
 				});
 				getMyModels();
-
 			}
 			function getMyModels() {//Get all models in database where current user is the creator.
 				showLoader();
-				
 				$.getJSON('http://api.universalbusinessmodel.com/ubms_modelcreationsuite_getMyModels.php?callback=?', {//JSONP Request to Create new model
 					username : window.username,
 					key : window.key					
@@ -478,7 +476,6 @@ under the License.
 					$('#ubmsuite_SelectBusinessModel_MyModels_ul').empty();
 					$('#ubmsuite_SelectBusinessModel_MyModels_ul').append("<li data-role='list-divider'><center>Models I Created</center></li>");
 					$('#ubmsuite_SelectBusinessModel_MyModels_ul').listview("refresh");
-
 					$.each(res, function(i, item) {
 						$('#ubmsuite_SelectBusinessModel_MyModels_ul').append("<li id='creator_name_list_divider' data-role='list-divider'>Model Contact: " + item.model_contact_name + "</li>");
 						$('#ubmsuite_SelectBusinessModel_MyModels_ul').append("<li><a href='#ubmsuite_modelDashboard' onclick='setActiveModel(" + item.id + ")'></br></br></br><h2 style='white-space:normal;'>Title: " + item.title + "</h2><p><strong>Model Reference: " + item.reference + "</strong></p><p style='white-space:normal;'>" + item.description + "</p><p class='ui-li-aside'>Creation Date:</br> <strong>" + item.created_date + "</strong></p></a></li>");
@@ -521,7 +518,6 @@ under the License.
 			function setActiveModel(activeModelId) {
 				window.activeModelId = activeModelId;
 			}
-
 			function shareModel() {
 				event.preventDefault();
 				var invite_email = document.getElementById("ubmsuite_modelSettings_shareModel_inviteEmail").value;
@@ -3448,7 +3444,7 @@ under the License.
 
 			//Generic Init variables and functions
 			function onLoadBody() {
-				window.key = "YDoS20lf7Vrnr22h8Ma6NGUV5DblnVhueTPXS7gPynRvQ6U8optzfnMDs3UD";
+				window.key = "YDoS20lf7Vrnr22h8Ma6NGUV5DblnVhueTPXS7gPynRvQ6U8optzfnMDs3UD"; //BMCL Application Key.
 				//	alert("This is an Alert!");
 				$('.back_btn').click(function() {
 					parent.history.back();
@@ -3865,7 +3861,7 @@ under the License.
 						$('#ubmsuite_mcs_my_applications_myApps_ul').append("<li><a href='#" + item.app_dashboard_href + "'><img src='img/time-for-review.jpg' class='ui-li-thumb'><h2>" + item.title + "</h2><p>" + item.summary + "</p><p class='ui-li-aside'>MA</p></a></li> ");
 						$('#ubmsuite_mcs_my_applications_myApps_ul').listview("refresh");
 //For Each Application Insert the Management Dashboard for the Application.
-						$('body').prepend("<div data-role='page' id=" + item.app_dashboard_href + " ><div data-role='header' data-theme='a'><a href='#ubmsuite_mcs_my_applications' class='back_btn' data-icon='arrow-l' data-iconpos='notext'>Back</a><h1>" + item.title + "</h1></div><div role='main' class='ui-content'></div></div>");
+						$('body').prepend("<div data-role='page' id=" + item.app_dashboard_href + " ><div data-role='header' data-theme='a'><a href='#ubmsuite_SelectBusinessModel' class='back_btn' data-icon='arrow-l' data-iconpos='notext'>Back</a><h1>" + item.title + "</h1></div><div role='main' class='ui-content'></div></div>");
 						setTimeout(function() {
 							//$('#' + item.app_dashboard_href).trigger('create');
 							//$('#ubmsuite_mcs_my_applications').trigger('create');
