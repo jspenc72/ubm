@@ -1,0 +1,27 @@
+<html>
+	<head>
+		<link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.2/jquery.mobile-1.4.2.min.css" />
+		<script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+		<script src="http://code.jquery.com/mobile/1.4.2/jquery.mobile-1.4.2.min.js"></script>
+	<script>
+	function getListItems () {
+		$.getJSON('http://api.universalbusinessmodel.com/example_php_script.php?callback=?', {
+
+			}, function(res, status) {
+				$('#example_unordered_list').empty();
+			$.each(res, function(i, item) {
+				$('#example_unordered_list').append("<li>" + item.list_item + "</li>");
+				$('#example_unordered_list').listview("refresh");
+			})	
+		});
+	}
+	</script>
+	</head>
+	<body>
+		<ul id="example_unordered_list" data-role="listview">
+		</ul>
+		<div align="center">
+				<button class="ui-btn" onclick="getListItems()">Append</button>
+		</div> 
+	</body>
+</html>
