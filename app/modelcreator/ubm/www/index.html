@@ -3273,7 +3273,8 @@ under the License.
 		<script>
 			function getModelSummary(){
 				$('#ubmsuite_mcs_model_review_ubm_model_ul').empty();												
-				$.getJSON('http://api.universalbusinessmodel.com/ubm_modelcreationsuite_model_getCurrentModel_ModelSummary.php?callback=?', {//JSONP Request
+				$.getJSON('http://api.universalbusinessmodel.com/ubms_modelcreationsuite_model_getCurrentModel_ModelSummary.php?callback=?', {//JSONP Request
+					key: window.key,
 					activeModelUUID : window.activeModelUUID
 				}, function(res, status) {
 					$.each(res, function(i, item) {
