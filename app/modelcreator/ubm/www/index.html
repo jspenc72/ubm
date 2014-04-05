@@ -2762,7 +2762,8 @@ under the License.
         <script>
 			//Refresh Model Creation Suite Checklist
 			function getModelCreationSuiteChecklistItems() {
-				$.getJSON('http://api.universalbusinessmodel.com/ubm_modelcreationsuite_getallchecklistitems.php?callback=?', {//JSONP Request to Checklist Setup Table
+				$.getJSON('http://api.universalbusinessmodel.com/ubms_modelcreationsuite_getallchecklistitems.php?callback=?', {//JSONP Request to Checklist Setup Table
+					key: window.key,
 					activeModelUUID : window.activeModelUUID
 				}, function(res, status) {
 					$('#mcs_setup_checklist_setup_mfi_table_body > tr').remove();
