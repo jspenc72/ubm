@@ -2045,7 +2045,6 @@ under the License.
 					            chartElement : '#chart',
 					            dragAndDrop  : false
 					        }); /***/
-						
 					});
 				});			
 				$("#heirarchyObjectTree").trigger("create");		
@@ -2055,46 +2054,48 @@ under the License.
         <script>
         function getMyModelsOrgChart(){
 					$('#ubmsuite_mcs_my_organizational_chart_L0_ul').empty();
-				$.getJSON('http://api.universalbusinessmodel.com/ubms_modelcreationsuite_getActiveModelPositionsforOrgChart.php?callback=?', {//JSONP Request to Open Items Page setup tables
+				$.getJSON('http://api.universalbusinessmodel.com/ubms_modelcreationsuite_getActiveModelOwnerforOrgChart.php?callback=?', {//JSONP Request to Open Items Page setup tables
 					key: window.key,
 					activeModelUUID: window.activeModelUUID
 				}, function(res, status) {
 					$.each(res, function(i, item) {
-						if(item.ancestor_UUID==item.UUID){
+						if(item.path_length=="3"){
 //1. Set currentActiveOrgChartLevel 
 //2. Append the name of the highest reports to position on the top of the org chart.
 							$('#ubmsuite_mcs_my_organizational_chart_L0_ul').prepend("<a onclick='setActivePosition(" + item.UUID + ")'><img class='org_img' style='width:25px; height:25px;' src='img/apple.png' /></a></br>" + item.title); 
 							$('#ubmsuite_mcs_my_organizational_chart_L0_ul').append("<ul id='ubmsuite_mcs_my_organizational_chart_P" + item.UUID + "_ul'></ul>");
+//4. Empty chart Div
+					        $('#chart').empty();
 					        $("#modelOrgChart").jOrgChart({
 					            chartElement : '#chart',
 					            dragAndDrop  : false
-					        });							
+					        });		
+					      window.activeModelOwnersUUID = item.UUID;	
+					      //alert(window.activeModelOwnersUUID);				
 						}else{
-//3. Append all other childre to their respective "reports_to" ul
-//							$('#ubmsuite_mcs_my_organizational_chart_P' + item.reports_to_id + '_ul').append("<li id='orgChartPosition" + item.UUID + "'><div id='demo_box_" + item.UUID + "' class='demo_box' onclick='setActivePosition(" + item.UUID + ")'><div class='pop_ctrl'><i class='fa fa-bars'></i></div><ul id='demo_ul_2'><li class='demo_li'><a href='#' onclick='addChildPositiontoActivePosition()'><div><i class='fa fa-plus-circle'></i></div><p>Add</p></a></li><li class='demo_li'><a href='#' onclick='removeActivePosition()'><div><i class='fa fa-minus-circle'></i></div><p>Remove</p></a></li></ul></div></br>" + item.title + "<ul id='ubmsuite_mcs_my_organizational_chart_P" + item.UUID + "_ul'></ul></li>");	
+
+						}
+					});
+				});	
+			setTimeout(function() {
+				$.getJSON('http://api.universalbusinessmodel.com/ubms_modelcreationsuite_getActiveModelPositionsforOrgChart.php?callback=?', {//JSONP Request to Open Items Page setup tables
+					key: window.key,
+					activeModelOwnersUUID: window.activeModelOwnersUUID
+				}, function(res, status) {
+					$.each(res, function(i, item) {
+				//3. Append all other children to their respective "reports_to" ul
+				//$('#ubmsuite_mcs_my_organizational_chart_P' + item.reports_to_id + '_ul').append("<li id='orgChartPosition" + item.UUID + "'><div id='demo_box_" + item.UUID + "' class='demo_box' onclick='setActivePosition(" + item.UUID + ")'><div class='pop_ctrl'><i class='fa fa-bars'></i></div><ul id='demo_ul_2'><li class='demo_li'><a href='#' onclick='addChildPositiontoActivePosition()'><div><i class='fa fa-plus-circle'></i></div><p>Add</p></a></li><li class='demo_li'><a href='#' onclick='removeActivePosition()'><div><i class='fa fa-minus-circle'></i></div><p>Remove</p></a></li></ul></div></br>" + item.title + "<ul id='ubmsuite_mcs_my_organizational_chart_P" + item.UUID + "_ul'></ul></li>");	
 							$('#ubmsuite_mcs_my_organizational_chart_P' + item.ancestor_UUID + '_ul').append("<li id='orgChartPosition" + item.UUID + "'><a onclick='setActivePosition(" + item.UUID + ")'><img id='org_img_" + item.UUID + "' style='width:25px; height:25px;' src='img/apple.png' /></a></br>" + item.title + "<ul id='ubmsuite_mcs_my_organizational_chart_P" + item.UUID + "_ul'></ul></li>");	
-//4. Empty chart Div
+				//4. Empty chart Div
 					        $('#chart').empty();
-//5. Call jOrgChart plugin, append new org chart to chart div, set jorgdraganddrop to false to avoid conflicting compatibility issue with other jquery packages.
+				//5. Call jOrgChart plugin, append new org chart to chart div, set jorgdraganddrop to false to avoid conflicting compatibility issue with other jquery packages.
 					        $("#modelOrgChart").jOrgChart({
 					            chartElement : '#chart',
 					            dragAndDrop  : false
 					        });
-						}
-//6. Call popmenu plugin with the given parameters as plugin options.
-			          /*  $('.demo_box').popmenu({
-						    'controller': true,       // use control button or not
-						    'width': '150px',         // width of menu
-						    'background': '#34495e',  // background color of menu
-						    'focusColor': '#1abc9c',  // hover color of menu's buttons
-						    'borderRadius': '10px',   // radian of angles, '0' for right angle
-						    'top': '50',              // pixels that move up
-						    'left': '0',              // pixels that move left
-						    'iconSize': '75px'        // size of menu's buttons
-			            	});
-			          */
 					});
 				});	
+			}, 250);	
         }
         </script>
 		<!-- End Org Chart Functions -->
@@ -2748,13 +2749,13 @@ under the License.
 					if(status=="success"){
 						setTimeout(function() {
 							$('#risk_analysis_define_new_risk_popup').popup('close');
-							getListofRisksforRiskAnalysisTable();						
+							getListofRisksforRiskAnalysisTable();
 						}, 1000);
 						$('#risk_analysis_define_new_risk_popup_form').each(function() {
 							this.reset();
 						});	
 					}
-				});					
+				});
 			}
 		</script>
 		<!-- End Risk Analysis / Assessment-->
@@ -3625,7 +3626,8 @@ under the License.
 			}
 			function submitMCSTaskPreparedByRecord() {
 				if (window.MCSTaskId > 0) {
-					$.getJSON('http://api.universalbusinessmodel.com/ubm_modelcreationsuite_submitTaskPreparedBy.php?callback=?', {//JSONP Request
+					$.getJSON('http://api.universalbusinessmodel.com/ubms_modelcreationsuite_submitTaskPreparedBy.php?callback=?', {//JSONP Request
+						key : window.key,
 						activeModelUUID : window.activeModelUUID,
 						taskId : window.MCSTaskId,
 						startTime : window.MCSTaskPreparedByStartTime,
@@ -3635,12 +3637,13 @@ under the License.
 					});
 					getModelCreationSuiteChecklistItems();
 				} else {
-
+						$().toastmessage('showNoticeToast', "Something went wrong, The Task Id is currently set to 0. Reopen your browser and try again. ");
 				}
 			}
 			function submitMCSTaskReviewedByRecord() {
 				if (window.MCSTaskId > 0) {
-					$.getJSON('http://api.universalbusinessmodel.com/ubm_modelcreationsuite_submitTaskReviewedBy.php?callback=?', {//JSONP Request
+					$.getJSON('http://api.universalbusinessmodel.com/ubms_modelcreationsuite_submitTaskReviewedBy.php?callback=?', {//JSONP Request
+						key : window.key,
 						activeModelUUID : window.activeModelUUID,
 						taskId : window.MCSTaskId,
 						startTime : window.MCSTaskStartTime,
@@ -3650,12 +3653,13 @@ under the License.
 					});
 					getModelCreationSuiteChecklistItems();
 				} else {
-
+						$().toastmessage('showNoticeToast', "Something went wrong, The Task Id is currently set to 0. Reopen your browser and try again. ");
 				}
 			}
 			function submitMCSTaskFinalReviewedByRecord() {
 				if (window.MCSTaskId > 0) {
-					$.getJSON('http://api.universalbusinessmodel.com/ubm_modelcreationsuite_submitTaskFinalReviewedBy.php?callback=?', {//JSONP Request
+					$.getJSON('http://api.universalbusinessmodel.com/ubms_modelcreationsuite_submitTaskFinalReviewedBy.php?callback=?', {//JSONP Request
+						key : window.key,						
 						activeModelUUID : window.activeModelUUID,
 						taskId : window.MCSTaskId,
 						startTime : window.MCSTaskStartTime,
@@ -3665,7 +3669,7 @@ under the License.
 					});
 					getModelCreationSuiteChecklistItems();
 				} else {
-
+						$().toastmessage('showNoticeToast', "Something went wrong, The Task Id is currently set to 0. Reopen your browser and try again. ");
 				}
 			}
 			function submitMCS_phaseSetup_submitT4(MCSTaskId) {
