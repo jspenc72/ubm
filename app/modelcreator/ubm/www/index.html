@@ -1343,7 +1343,7 @@ under the License.
 					$.each(res, function(i, item) {
 						$("#ubsuite_mcs_managment_reporting_modelHasPositions_positions").append("<li><a href='#'>" + item.title + "</a></li>");
 						$('#ubsuite_mcs_managment_reporting_modelHasPositions_positions').listview("refresh");
-					});
+					})
 
 				});	
 			}
@@ -1359,7 +1359,6 @@ under the License.
 
 			function getListofPossiblePositions() {//Populates the Create new Position Listview on the Possible Positions Popup
 				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_model_getAll_Positions.php?callback=?', {//JSONP Request to Open Items Page setup tables
-
 				}, function(res, status) {
 //						alert(status);
 						$('#ubmsuite_mcs_my_organizational_chart_content_createNewPositionPopUp_form_UBMRepository').empty();
@@ -4066,21 +4065,14 @@ under the License.
                             return false;
                             }
                         else {
-                
-                            var filter = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
-                        
-                            if (!filter.test(reg_email)) {
-                            	$().toastmessage('showErrorToast', 'Please provide a valid email address');
-                                    $.mobile.loading("hide");
-                            reg_email.focus;
-                            return false;
-                         }
+               
                             var reg_username = reg_email.split("@", 1).toString();
                             window.username = reg_username;
-                            alert(reg_username);
+                            
+                            //alert(reg_username);
 							if(reg_passwd1.length<8){
 								$().toastmessage('showErrorToast', "Your password must be at least 8 characters.");
-								alert("Your password must be at least 8 characters.");
+								//alert("Your password must be at least 8 characters.");
 	                                    $.mobile.loading("hide");								
 							}else{
 	                            if (reg_passwd1 == reg_passwd2) {
@@ -4092,10 +4084,14 @@ under the License.
 	                                    email : reg_email,
 	                                    password : reg_passwd1,
 	                                    username : reg_username,
+	                                    licenseAgreement : "Signed",
+	                                    termsOfService : "Signed"
 	                                }, function(res, status) {
-	                                	$().toastmessage('showNoticeToast', res.message);
-	                                    alert(res.message);
+
+	                                    //alert(res.message);
 	                                    if ( status = "SUCCESS") {
+	                                    	$().toastmessage('showSuccessToast', 'Your username is ' + reg_username);
+	                                		$().toastmessage('showNoticeToast', res.message);
 	                                        $('#registration_form').each(function() {
 	                                        this.reset();
 	                                    });
