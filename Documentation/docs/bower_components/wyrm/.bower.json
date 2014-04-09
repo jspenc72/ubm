@@ -1,0 +1,46 @@
+{
+  "name": "wyrm",
+  "version": "0.0.174",
+  "homepage": "https://github.com/snide/wyrm",
+  "authors": [
+    "Dave Snider <dave.snider@gmail.com>"
+  ],
+  "description": "The wyrm frontend is a collection of responsive, static assets that work well with form or document heavy sites.",
+  "license": "MIT",
+  "main": [
+    "sass/*.sass"
+  ],
+  "ignore": [
+    "docs",
+    ".gitignore",
+    ".DS_Store",
+    ".sass-cache*",
+    ".bowerrc",
+    "bower.json",
+    "package.json",
+    "Gruntfile.js",
+    "node_modules",
+    "bower_components",
+    "docs_template",
+    "docs",
+    "css",
+    "test",
+    ".grunt",
+    ".git",
+    "tests"
+  ],
+  "dependencies": {
+    "neat": "~1.4.0",
+    "bourbon": "~3.1.8",
+    "font-awesome": "~4.0.3"
+  },
+  "_release": "0.0.174",
+  "_resolution": {
+    "type": "version",
+    "tag": "0.0.174",
+    "commit": "a8df877ba06d63e607fc2969c699489c2dc78630"
+  },
+  "_source": "git://github.com/snide/wyrm.git",
+  "_target": "~0.0.x",
+  "_originalSource": "wyrm"
+}
