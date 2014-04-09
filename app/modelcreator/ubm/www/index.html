@@ -127,6 +127,7 @@ under the License.
 			}
 		</script>
         <script>
+
         	window.globalCounter = 0;
         	function getTodaysDate () {
         		window.today = new Date();
@@ -1343,7 +1344,7 @@ under the License.
 					$.each(res, function(i, item) {
 						$("#ubsuite_mcs_managment_reporting_modelHasPositions_positions").append("<li><a href='#'>" + item.title + "</a></li>");
 						$('#ubsuite_mcs_managment_reporting_modelHasPositions_positions').listview("refresh");
-					})
+					});
 
 				});	
 			}
@@ -2458,7 +2459,12 @@ under the License.
 						}, 1000);
 					}
 				});	
-			}	
+			}
+		function fixit () {
+			alert("test");
+        	alert(window.username);
+        	alert(window.activeModelUUID);
+        }	
 			function getAllInvestments () {
 				var i = 0;
 				//alert(window.activeModelAlternativeId);
@@ -4102,7 +4108,7 @@ under the License.
 	                                    }
 	                                    $.mobile.loading("hide");
 	                                    //Hide Loading Message
-	                                    window.location = "#ubmsuite_SelectBusinessModel"   //Need to modify server side to check if username already exists, if so send a callback to notify the user, Only allow change window location if the user account was created successfully.
+	                                    window.location = "#account_verification"   //Need to modify server side to check if username already exists, if so send a callback to notify the user, Only allow change window location if the user account was created successfully.
 	                                });
 	                            } else {
 	                            	$().toastmessage('showErrorToast', "The passwords you entered do not match!");
@@ -4199,6 +4205,20 @@ under the License.
 				});
 			}
 
+			function checkEmailVerification() {
+				$.getJSON('http://api.universalbusinessmodel.com/CheckEmailVerification.php?callback=?', {//JSONP Request
+					username : window.username
+				}, function(res, status) {
+					alert(res.email_activation_status);
+					if (res.email_activation_status == "1"){
+						$().toastmessage('showSuccessToast', "Account Successfully Verified");
+						window.location = "#ubmsuite_SelectBusinessModel";
+					} else {
+						$().toastmessage('showErrorToast', "Your Account Has Not Been Activated");
+					}
+				});
+			}
+
 			function userSignOut() {
 				window.username = 0;
 			}
@@ -4254,6 +4274,7 @@ under the License.
 
 				navigator.geolocation.getCurrentPosition(onSuccess, onError);
 			}
+
         </script>
         <style>
         /* Styling for Org Chart Page */
@@ -4618,6 +4639,35 @@ under the License.
                     </p>
             </div>
         </div>
+        <!-- Verify Account Page -->
+        <div data-role="page" id="account_verification">
+			<div data-role="header" data-position="fixed" data-fullscreen="true">
+				<div id="ubmsuite_mcs_management_reporting_header_headerRecord_center" style="text-align: center">
+					<div id="ubmsuite_mcs_management_reporting_header_headerRecord_center_legalentity">
+						Legal Entity:
+					</div>
+					<div id="ubmsuite_mcs_management_reporting_header_headerRecord_center_systemtitle">
+						System Title:
+					</div>
+					<div id="ubmsuite_mcs_management_reporting_header_headerRecord_center_modelapptitle">
+						Model / App Title:
+					</div>
+					<div id="ubmsuite_mcs_management_reporting_header_headerRecord_center_pagetitle">
+						Registeration Verification
+					</div>
+				</div>
+			</div>
+			<div role="main" class="ui-content">
+				<div style="padding-top:15%;text-align:center;">
+					<h1>Your Account Has Been Successfully Created</h1>
+					<h1>Please Click On The Activation Link That Has Been Emailed To You</h1>
+					<button class="ui-btn ui-btn-inline" onclick="checkEmailVerification()">Continue</button>
+				</div>
+
+			</div>
+		</div>
+        <!-- End Verify Account Page -->
+
         <!-- User Preferences -->
         <div data-role="page" class="ubm_page" id="ubmsuite_UserPreferences"  data-theme="a">
             <!-- No Panel on this page, instead only back button is needed.-->
@@ -6034,7 +6084,7 @@ under the License.
 				
 				
 				<div id="ubmsuite_mcs_management_reporting_cfo" style="float:rights;margin-top:3%;">
-					
+					<a href="#" onclick="fixit()">Click Me to Fix Me</a>
 					<div id="ubmsuite_mcs_management_reporting_cfo_financialInformation" style="float:right;padding-top:2%;margin-right:1%;max-width:75%;">
 						<style type="text/css">
 						.tg_financialInformation  {border-collapse:collapse;border-spacing:0;}
