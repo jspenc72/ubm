@@ -2096,7 +2096,7 @@ under the License.
 					        });
 					});
 				});	
-			}, 250);	
+			}, 2500);	
         }
         </script>
 		<!-- End Org Chart Functions -->
@@ -3680,6 +3680,7 @@ under the License.
 			}
 			function submitMCS_phaseSetup_submitT4(MCSTaskId) {
 				if (MCSTaskId == 4) {
+					alert("this is a test.");
 					var modelOwnerLegalEntityVal = document.getElementById("mcs_setup_checklist_setup_identification_setup_popup_form_legalentity").value;
 					var modelOwnerCCODEVal = document.getElementById("mcs_setup_checklist_setup_identification_setup_popup_form_ccode").value;
 					var modelContactNameVal = document.getElementById("mcs_setup_checklist_setup_identification_setup_popup_form_model_contactname").value;
@@ -3739,7 +3740,8 @@ under the License.
 												if (!val.modelScopeVal) {
 													$().toastmessage('showErrorToast', "A model must be limited to a specific scope.");
 												} else {
-													$.getJSON('http://api.universalbusinessmodel.com/ubm_modelcreationsuite_phaseSetup_submitT4.php?callback=?', {//JSONP Request
+													$.getJSON('http://api.universalbusinessmodel.com/ubms_modelcreationsuite_phaseSetup_submitT4.php?callback=?', {//JSONP Request
+														key: window.key,
 														username : window.username,
 														activeModelUUID : window.activeModelUUID,
 														modelOwnerLegalEntity : modelOwnerLegalEntityVal,
@@ -3759,7 +3761,6 @@ under the License.
 														catChurch : catChurchVal,
 														catCoop : catCoopVal,
 														catOther : catOtherVal
-
 													}, function(res, status) {
 														if (status == "success") {
 															//alert(res.message);
@@ -3808,7 +3809,8 @@ under the License.
 								if (!val.visionStatement) {
 									$().toastmessage('showErrorToast', "A model must have a vision statement.");
 								} else {
-									$.getJSON('http://api.universalbusinessmodel.com/ubm_modelcreationsuite_phase1_submitT17.php?callback=?', {//JSONP Request
+									$.getJSON('http://api.universalbusinessmodel.com/ubms_modelcreationsuite_phase1_submitT17.php?callback=?', {//JSONP Request
+										key : window.key,
 										username : window.username,
 										activeModelUUID : window.activeModelUUID,
 										conceptualDefinition : conceptualDefinition,
