@@ -13,12 +13,14 @@ Demo Docs
 TABLE OF CONTENTS:
 
 .. toctree::
-    :maxdepth: 4
+    :maxdepth: 6
 
+    devSetup
+    ubmWebServiceRESTAPI
+    ubmDataModel
     demo
     list
-    jsonp
-    devSetup
+
 
 Maaaaath!
 =========

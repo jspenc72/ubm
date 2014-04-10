@@ -1,22 +1,117 @@
 .. This is a comment. Note how any initial comments are moved by
    transforms to after the document title, subtitle, and docinfo.
 
-===========================
-Developer Environment Setup
-===========================
-
+=====================
+Dev Environment Setup
+=====================
+    UBM applications may be written using any standard web programming language.
 .. Above is the document title, and below is the subtitle.
    They are transformed from section titles after parsing.
-----
-Java
-----
----
-PHP
----
+
+.. bibliographic fields (which also require a transform):
+
+:Page Status: Incomplete
+:Last Reviewed: 2013-10-29
+:Abstract:
+
+    This document explains the steps necessary to setup your developer environment to start creating UBM web applications written in each of the following programming langauges: 
+
+    *Java*, *PHP*, *nodeJS*, *Ruby* and *Python*
+
+.. contents:: Table of Contents
+.. section-numbering::
+
 ------
 Python
 ------
 
+Developer Workstation
+=====================
+
+Applications
+------------
+`Python <https://www.python.org>`__ v 2.7.6
+````````````````````````````````````````````
+      .. Important::
+         -  These instructions used: 
+         *Mac OS X 64-bit/32-bit x86-64/i386 Installer (2.7.6) for Mac OS X 10.6 and later [2] (sig)*
+         
+         -  The `dmg <https://www.python.org/ftp/python/2.7.6/python-2.7.6-macosx10.6.dmg>`__ may be downloaded directly using the following link:
+         
+         https://www.python.org/ftp/python/2.7.6/python-2.7.6-macosx10.6.dmg
+
+      .. DANGER::
+         -  PYTHON Installation for windows has not been completed by our documentation team, use these instructions at your own risk: 
+         *Windows X86-64 MSI Installer (2.7.6) [1] (sig)*
+         
+         -  The msi file may be downloaded directly using the following link:
+         
+         https://www.python.org/ftp/python/2.7.6/python-2.7.6.amd64.msi
+
+  1. Mac Python Setup
+  ````````````````````
+
+     a) Download the appropriate Python .dmg installer for your system from: https://www.python.org/download/releases/2.7.6
+
+      (i.) Click link above in your favorite web browser
+
+          .. image:: static/image.jpg
+              :align: center
+      
+      Each step should have a screenshot. (replace barcode with screenshot)
+
+      (ii.) Save the install file to your local hard drive.
+        
+        .. image:: static/image.jpg
+
+      Each step should have a screenshot. (replace barcode with screenshot)
+
+      (iii.) Run the installer
+      
+          .. image:: static/image.jpg
+
+      Each step should have a screenshot. (replace barcode with screenshot)
+
+          A. upper alpha.
+
+             (I.) upper roman
+
+  2. Windows Python Setup
+  ````````````````````````
+
+     a) Download the appropriate Python .exe installer for your system from: https://www.python.org/download/releases/2.7.6
+
+      (i.) Click link above in your favorite web browser
+
+          .. image:: static/image.jpg
+
+      Each step should have a screenshot. (replace barcode with screenshot)
+
+      (ii.) Save the install file to your local hard drive.
+
+          .. image:: static/image.jpg
+
+      Each step should have a screenshot. (replace barcode with screenshot)
+
+      (iii.) Run the installer
+      
+          .. image:: static/image.jpg
+
+      Each step should have a screenshot. (replace barcode with screenshot)
+
+          A. No Screenshots are currently available.
+
+  #. List items may also be auto-enumerated.
+
+`Sublime Text Beta 3 <http://www.sublimetext.com/3>`__
+````````````````````````````````````````````````````````
+`Aptana Studio 3 <http://www.aptana.com/products/studio3/download>`__
+`````````````````````````````````````````````````````````````````````
+`Eclipse IDE <http://marketplace.eclipse.org/content/pydev-python-ide-eclipse>`__
+`````````````````````````````````````````````````````````````````````````````````
+
+Tiers
+-----
 Server
 ======
 
@@ -36,42 +131,19 @@ Data Array / Storage Cluster
 Applications
 ------------
 
-A paragraph.
+Par.
 
 Database
 ````````
 ----
 RUBY
 ----
-
-.. bibliographic fields (which also require a transform):
-
-:Author: Jesse Spencer
-:Address: 10 west Century Parkway, Salt Lake City, UT 84115
-:Contact: support@universalbusinessmodel.com
-:organization: Business Model Consulting
-:status: This is a "work in progress"
-:version: 1
-:copyright: This document has been placed in the public domain. You
-            may do with it as you wish. You may copy, modify,
-            redistribute, reattribute, sell, buy, rent, lease,
-            destroy, or improve it, quote it at length, excerpt,
-            incorporate, collate, fold, staple, or mutilate it, or do
-            anything else to it that your or anyone else's heart
-            desires.
-:Dedication:
-
-    For UBM app, model and product developers and co-developers.
-
-:abstract:
-
-    This document explains the steps necessary to setup your developer environment to developer applications in the following langauges: 
-
-    *Java*, *PHP*, *nodeJS*, *Ruby* and *Python*
-
-.. contents:: Table of Contents
-.. section-numbering::
-
+----
+Java
+----
+---
+PHP
+---
 
 Structural Elements
 ===================
@@ -121,17 +193,6 @@ RFC reference (:RFC:`2822`); a :sub:`subscript`; a :sup:`superscript`;
 and explicit roles for :emphasis:`standard` :strong:`inline`
 :literal:`markup`.
 
-.. DO NOT RE-WRAP THE FOLLOWING PARAGRAPH!
-
-Let's test wrapping and whitespace significance in inline literals:
-``This is an example of --inline-literal --text, --including some--
-strangely--hyphenated-words.  Adjust-the-width-of-your-browser-window
-to see how the text is wrapped.  -- ---- --------  Now note    the
-spacing    between the    words of    this sentence    (words
-should    be grouped    in pairs).``
-
-If the ``--pep-references`` option was supplied, there should be a
-live link to PEP 258 here.
 
 Bullet Lists
 ------------
@@ -153,423 +214,27 @@ Bullet Lists
 
   * Nested item 3.
 
-Enumerated Lists
-----------------
 
-1. Arabic numerals.
 
-   a) lower alpha)
+:Author: Jesse Spencer, Adam Gustafson
+:Address: 10 west Century Parkway, Salt Lake City, UT 84115
+:Contact: jesse@universalbusinessmodel.com
+:Organization: Business Model Consulting, LLC
+:Status: This is a development release of our documentation and definitely, a "work in progress". If you find any errors please email us.
+:Version: 1
+:Copyright: This document has been placed in the public domain. You
+            may do with it as you wish. You may copy, modify,
+            redistribute, reattribute, sell, buy, rent, lease,
+            destroy, or improve it, quote it at length, excerpt,
+            incorporate, collate, fold, staple, or mutilate it, or do
+            anything else to it that your or anyone else's heart
+            desires.
+:Dedication:
 
-      (i) (lower roman)
+    For our fellow UBM app, model and product developers and co-developers.
 
-          A. upper alpha.
+:Abstract:
 
-             I) upper roman)
+    This document explains the steps necessary to setup your developer environment to start creating UBM web applications written in each of the following programming langauges: 
 
-2. Lists that don't start at 1:
-
-   3. Three
-
-   4. Four
-
-   C. C
-
-   D. D
-
-   iii. iii
-
-   iv. iv
-
-#. List items may also be auto-enumerated.
-
-Definition Lists
-----------------
-
-Term
-    Definition
-Term : classifier
-    Definition paragraph 1.
-
-    Definition paragraph 2.
-Term
-    Definition
-
-Field Lists
------------
-
-:what: Field lists map field names to field bodies, like database
-       records.  They are often part of an extension syntax.  They are
-       an unambiguous variant of RFC 2822 fields.
-
-:how arg1 arg2:
-
-    The field marker is a colon, the field name, and a colon.
-
-    The field body may contain one or more body elements, indented
-    relative to the field marker.
-
-Option Lists
-------------
-
-For listing command-line options:
-
--a            command-line option "a"
--b file       options can have arguments
-              and long descriptions
---long        options can be long also
---input=file  long options can also have
-              arguments
-
---very-long-option
-              The description can also start on the next line.
-
-              The description may contain multiple body elements,
-              regardless of where it starts.
-
--x, -y, -z    Multiple options are an "option group".
--v, --verbose  Commonly-seen: short & long options.
--1 file, --one=file, --two file
-              Multiple options with arguments.
-/V            DOS/VMS-style options too
-
-There must be at least two spaces between the option and the
-description.
-
-Literal Blocks
---------------
-
-Literal blocks are indicated with a double-colon ("::") at the end of
-the preceding paragraph (over there ``-->``).  They can be indented::
-
-    if literal_block:
-        text = 'is left as-is'
-        spaces_and_linebreaks = 'are preserved'
-        markup_processing = None
-
-Or they can be quoted without indentation::
-
->> Great idea!
->
-> Why didn't I think of that?
-
-Line Blocks
------------
-
-| This is a line block.  It ends with a blank line.
-|     Each new line begins with a vertical bar ("|").
-|     Line breaks and initial indents are preserved.
-| Continuation lines are wrapped portions of long lines;
-  they begin with a space in place of the vertical bar.
-|     The left edge of a continuation line need not be aligned with
-  the left edge of the text above it.
-
-| This is a second line block.
-|
-| Blank lines are permitted internally, but they must begin with a "|".
-
-Take it away, Eric the Orchestra Leader!
-
-    | A one, two, a one two three four
-    |
-    | Half a bee, philosophically,
-    |     must, *ipso facto*, half not be.
-    | But half the bee has got to be,
-    |     *vis a vis* its entity.  D'you see?
-    |
-    | But can a bee be said to be
-    |     or not to be an entire bee,
-    |         when half the bee is not a bee,
-    |             due to some ancient injury?
-    |
-    | Singing...
-
-Block Quotes
-------------
-
-Block quotes consist of indented body elements:
-
-    My theory by A. Elk.  Brackets Miss, brackets.  This theory goes
-    as follows and begins now.  All brontosauruses are thin at one
-    end, much much thicker in the middle and then thin again at the
-    far end.  That is my theory, it is mine, and belongs to me and I
-    own it, and what it is too.
-
-    -- Anne Elk (Miss)
-
-Doctest Blocks
---------------
-
->>> print 'Python-specific usage examples; begun with ">>>"'
-Python-specific usage examples; begun with ">>>"
->>> print '(cut and pasted from interactive Python sessions)'
-(cut and pasted from interactive Python sessions)
-
-Tables
-------
-
-Here's a grid table followed by a simple table:
-
-+------------------------+------------+----------+----------+
-| Header row, column 1   | Header 2   | Header 3 | Header 4 |
-| (header rows optional) |            |          |          |
-+========================+============+==========+==========+
-| body row 1, column 1   | column 2   | column 3 | column 4 |
-+------------------------+------------+----------+----------+
-| body row 2             | Cells may span columns.          |
-+------------------------+------------+---------------------+
-| body row 3             | Cells may  | - Table cells       |
-+------------------------+ span rows. | - contain           |
-| body row 4             |            | - body elements.    |
-+------------------------+------------+----------+----------+
-| body row 5             | Cells may also be     |          |
-|                        | empty: ``-->``        |          |
-+------------------------+-----------------------+----------+
-
-=====  =====  ======
-   Inputs     Output
-------------  ------
-  A      B    A or B
-=====  =====  ======
-False  False  False
-True   False  True
-False  True   True
-True   True   True
-=====  =====  ======
-
-Footnotes
----------
-
-.. [1] A footnote contains body elements, consistently indented by at
-   least 3 spaces.
-
-   This is the footnote's second paragraph.
-
-.. [#label] Footnotes may be numbered, either manually (as in [1]_) or
-   automatically using a "#"-prefixed label.  This footnote has a
-   label so it can be referred to from multiple places, both as a
-   footnote reference ([#label]_) and as a hyperlink reference
-   (label_).
-
-.. [#] This footnote is numbered automatically and anonymously using a
-   label of "#" only.
-
-.. [*] Footnotes may also use symbols, specified with a "*" label.
-   Here's a reference to the next footnote: [*]_.
-
-.. [*] This footnote shows the next symbol in the sequence.
-
-.. [4] Here's an unreferenced footnote, with a reference to a
-   nonexistent footnote: [5]_.
-
-Citations
----------
-
-.. [CIT2002] Citations are text-labeled footnotes. They may be
-   rendered separately and differently from footnotes.
-
-Here's a reference to the above, [CIT2002]_, and a [nonexistent]_
-citation.
-
-Targets
--------
-
-.. _example:
-
-This paragraph is pointed to by the explicit "example" target. A
-reference can be found under `Inline Markup`_, above. `Inline
-hyperlink targets`_ are also possible.
-
-Section headers are implicit targets, referred to by name. See
-Targets_, which is a subsection of `Body Elements`_.
-
-Explicit external targets are interpolated into references such as
-"Python_".
-
-.. _Python: http://www.python.org/
-
-Targets may be indirect and anonymous.  Thus `this phrase`__ may also
-refer to the Targets_ section.
-
-__ Targets_
-
-Here's a `hyperlink reference without a target`_, which generates an
-error.
-
-Duplicate Target Names
-``````````````````````
-
-Duplicate names in section headers or other implicit targets will
-generate "info" (level-1) system messages.  Duplicate names in
-explicit targets will generate "warning" (level-2) system messages.
-
-Duplicate Target Names
-``````````````````````
-
-Since there are two "Duplicate Target Names" section headers, we
-cannot uniquely refer to either of them by name.  If we try to (like
-this: `Duplicate Target Names`_), an error is generated.
-
-Directives
-----------
-
-.. contents:: :local:
-
-These are just a sample of the many reStructuredText Directives.  For
-others, please see
-http://docutils.sourceforge.net/docs/ref/rst/directives.html.
-
-Document Parts
-``````````````
-
-An example of the "contents" directive can be seen above this section
-(a local, untitled table of contents_) and at the beginning of the
-document (a document-wide `table of contents`_).
-
-Images
-``````
-
-An image directive (also clickable -- a hyperlink reference):
-
-.. image:: images/title.png
-   :target: directives_
-
-A figure directive:
-
-.. figure:: images/title.png
-   :alt: reStructuredText, the markup syntax
-
-   A figure is an image with a caption and/or a legend:
-
-   +------------+-----------------------------------------------+
-   | re         | Revised, revisited, based on 're' module.     |
-   +------------+-----------------------------------------------+
-   | Structured | Structure-enhanced text, structuredtext.      |
-   +------------+-----------------------------------------------+
-   | Text       | Well it is, isn't it?                         |
-   +------------+-----------------------------------------------+
-
-   This paragraph is also part of the legend.
-
-A figure directive with center alignment
-
-.. figure:: images/title.png
-   :align: center
-   :width: 300
-
-Admonitions
-```````````
-
-.. Attention:: Directives at large.
-
-.. Caution::
-
-   Don't take any wooden nickels.
-
-.. DANGER:: Mad scientist at work!
-
-.. Error:: Does not compute.
-
-.. Hint:: It's bigger than a bread box.
-
-.. Important::
-   - Wash behind your ears.
-   - Clean up your room.
-   - Call your mother.
-   - Back up your data.
-
-.. Note:: This is a note.
-
-.. Tip:: 15% if the service is good.
-
-.. WARNING:: Strong prose may provoke extreme mental exertion.
-   Reader discretion is strongly advised.
-
-.. admonition:: And, by the way...
-
-   You can make up your own admonition too.
-
-Topics, Sidebars, and Rubrics
-`````````````````````````````
-
-.. sidebar:: Sidebar Title
-   :subtitle: Optional Subtitle
-
-   This is a sidebar.  It is for text outside the flow of the main
-   text.  
-
-   .. rubric:: This is a rubric inside a sidebar
-
-   Sidebars often appears beside the main text with a border and
-   background color.
-
-.. topic:: Topic Title
-
-   This is a topic.
-
-.. rubric:: This is a rubric
-
-Target Footnotes
-````````````````
-
-.. target-notes::
-
-Replacement Text
-````````````````
-
-I recommend you try |Python|_.
-
-.. |Python| replace:: Python, *the* best language around
-
-Compound Paragraph
-``````````````````
-
-.. compound::
-
-   This paragraph contains a literal block::
-
-       Connecting... OK
-       Transmitting data... OK
-       Disconnecting... OK
-      
-   and thus consists of a simple paragraph, a literal block, and
-   another simple paragraph.  Nonetheless it is semantically *one*
-   paragraph.
-
-This construct is called a *compound paragraph* and can be produced
-with the "compound" directive.
-
-Substitution Definitions
-------------------------
-
-An inline image (|example|) example:
-
-.. |EXAMPLE| image:: images/biohazard.png
-
-(Substitution definitions are not visible in the HTML source.)
-
-Comments
---------
-
-Here's one:
-
-.. Comments begin with two dots and a space. Anything may
-   follow, except for the syntax of footnotes, hyperlink
-   targets, directives, or substitution definitions.
-
-   Double-dashes -- "--" -- must be escaped somehow in HTML output.
-
-(View the HTML source to see the comment.)
-
-Error Handling
-==============
-
-Any errors caught during processing will generate system messages.
-
-|*** Expect 6 errors (including this one). ***|
-
-There should be six messages in the following, auto-generated
-section, "Docutils System Messages":
-
-.. section should be added by Docutils automatically
-
-demo.rst from: http://docutils.sourceforge.net/docs/user/rst/demo.txt
+    *Java*, *PHP*, *nodeJS*, *Ruby* and *Python*
