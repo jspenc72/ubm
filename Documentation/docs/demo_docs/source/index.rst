@@ -18,9 +18,6 @@ TABLE OF CONTENTS:
     devSetup
     ubmWebServiceRESTAPI
     ubmDataModel
-    demo
-    list
-
 
 Maaaaath!
 =========
