@@ -7,16 +7,18 @@
 Demo Docs
 =================================================
 
-:Page Status: *Incomplete*
-:Last Reviewed: 2014-10-29
+:Page Status: Incomplete
+:Last Reviewed: 2013-10-29
 
-Contents:
+TABLE OF CONTENTS:
 
 .. toctree::
-    :maxdepth: 2
+    :maxdepth: 4
 
     demo
     list
+    jsonp
+    devSetup
 
 Maaaaath!
 =========
