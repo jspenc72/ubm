@@ -1,51 +1,73 @@
 .. This is a comment. Note how any initial comments are moved by
    transforms to after the document title, subtitle, and docinfo.
 
-================================
- reStructuredText Demonstration
-================================
+===========================
+Developer Environment Setup
+===========================
 
 .. Above is the document title, and below is the subtitle.
    They are transformed from section titles after parsing.
+----
+Java
+----
+---
+PHP
+---
+------
+Python
+------
 
---------------------------------
- Examples of Syntax Constructs
---------------------------------
+Server
+======
+
+Tiers
+-----
+Client
+````````
+Network
+````````
+Data Access
+````````````
+Virtual Machine / Hypervisor
+````````````````````````````
+Data Array / Storage Cluster
+````````````````````````````
+
+Applications
+------------
+
+A paragraph.
+
+Database
+````````
+----
+RUBY
+----
 
 .. bibliographic fields (which also require a transform):
 
-:Author: Adam Gustafson
-:Address: 123 Example Street
-          Example, EX  USA
-:Contact: agustaf9@bruinmail.slcc.edu
-:Authors: Adam Gustafson
-:organization: BMCL
-:date: $Date: 2012-01-03 19:23:53 +0000 (Tue, 03 Jan 2012) $
+:Author: Jesse Spencer
+:Address: 10 west Century Parkway, Salt Lake City, UT 84115
+:Contact: support@universalbusinessmodel.com
+:organization: Business Model Consulting
 :status: This is a "work in progress"
-:revision: $Revision: 7302 $
 :version: 1
-:copyright: Copyrighted
-:field name: This is a generic bibliographic field.
-:field name 2:
-    Generic bibliographic fields may contain multiple body elements.
-
-    Like this.
-
+:copyright: This document has been placed in the public domain. You
+            may do with it as you wish. You may copy, modify,
+            redistribute, reattribute, sell, buy, rent, lease,
+            destroy, or improve it, quote it at length, excerpt,
+            incorporate, collate, fold, staple, or mutilate it, or do
+            anything else to it that your or anyone else's heart
+            desires.
 :Dedication:
 
-    For Docutils users & co-developers.
+    For UBM app, model and product developers and co-developers.
 
 :abstract:
 
-    This document is a demonstration of the reStructuredText markup
-    language, containing examples of all basic reStructuredText
-    constructs and many advanced constructs.
+    This document explains the steps necessary to setup your developer environment to developer applications in the following langauges: 
 
-.. meta::
-   :keywords: reStructuredText, demonstration, demo, parser
-   :description lang=en: A demonstration of the reStructuredText
-       markup language, containing examples of all basic
-       constructs and many advanced constructs.
+    *Java*, *PHP*, *nodeJS*, *Ruby* and *Python*
 
 .. contents:: Table of Contents
 .. section-numbering::
