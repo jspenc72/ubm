@@ -4742,22 +4742,26 @@ under the License.
                 </div>
                 <!-- End Open Items Popup -->
                 <div class="ui-grid-a">
-                    <div class="ui-block-a" style="margin-top:5em">
+                    <div class="ui-block-a" style="margin-top:5%;max-width:25%;padding-left:1%">
 
                         <select  id="ubmsuite_UserPreferences_selectCarrier" value="Select" data-native-menu="false" >
-                            <option>Carrier</option>
+                            <option>Choose Your Carrier</option>
                             <option value="Verizon">Verizon</option>
                             <option value="Sprint">Sprint</option>
                             <option value="T-Mobile">T-Mobile</option>
                             <option value="AT&T">AT&amp; T</option>
                         </select>
+                        
                         <input type="tel" data-clear-btn="false" name="tel-1" placeholder="10 Digit cell phone number" id="ubmsuite_UserPreferences_cell" value="">
+                        <h3 style="text-align:center">What is your name?</h1>
+                        <input type="text" placeholder="First Name" value=""> </input>
+                        <input type="text" placeholder="Last Name" value=""> </input>
                         <button class="ui-btn ui-shadow ui-corner-all ui-btn-icon-left ui-icon-forward" onclick="updateUserPreferences()">
                             Update
                         </button>
                     </div>
                     <div class="ui-block-b">
-                        <div class="ui-block-a" style="margin-top:5em">
+                        <div class="ui-block-a" style="margin-top:10%;float:right">
                             <a href="#gettingStarted" class="ui-btn ui-icon-info ui-btn-icon-left ui-shadow-icon">Getting Started</a>
                         </div>
                     </div>
