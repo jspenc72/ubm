@@ -506,6 +506,7 @@ under the License.
 			}
 			function model_getuserswithaccess() {
 				$.getJSON('http://api.universalbusinessmodel.com/ubm_modelcreationsuite_model_getuserswithaccess.php?callback=?', {//JSONP Request to Create new model
+					key : window.key,
 					username : window.username,
 					activeModelUUID : window.activeModelUUID,
 				}, function(res, status) {
@@ -525,6 +526,7 @@ under the License.
 				var invite_email = document.getElementById("ubmsuite_modelSettings_shareModel_inviteEmail").value;
 				var invite_username = invite_email.split("@", 1).toString();
 				$.getJSON('http://api.universalbusinessmodel.com/ubm_modelcreationsuite_addusertomodel.php?callback=?', {//JSONP Request to Create new model
+					key : window.key,
 					username : window.username,
 					activeModelUUID : window.activeModelUUID,
 					memberRole : document.getElementById("ubmsuite_modelSettings_shareModel_setRole").value,
@@ -541,6 +543,7 @@ under the License.
 			}
 			function removeUserFromModel() {
 				$.getJSON('http://api.universalbusinessmodel.com/ubm_modelcreationsuite_removeUserFromModel.php?callback=?', {//JSONP Request
+					key : window.key,
 					username : window.username,
 					selectedUserId : window.selectedModelUserId,
 					activeModelUUID : window.activeModelUUID
