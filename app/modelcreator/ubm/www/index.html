@@ -6799,11 +6799,11 @@ under the License.
                 </div>
                 <!-- End Open Items Popup -->
                 <!-- Share Model Popup -->
-                <div data-role="popup" id="ubmsuite_modelSettings_shareModel_popup" data-theme="a" data-dismissible="false">
+                <div data-role="popup" id="ubmsuite_modelSettings_shareModel_popup" data-theme="a" data-dismissible="true">
                     <form id="ubmsuite_modelSettings_shareModel_popup_form"> <!-- Form Checklist Created By Aaron Miller -->
                         <ul data-role="listview" data-inset="true" style="min-width:210px;">
                             <li style="text-align: center;" data-role="list-divider">
-                                Add user to this model.
+                               <h1>Add user to this model.</h1> 
                             </li>
                             <li>
                                 <input data-clear-btn="true" type="email" id="ubmsuite_modelSettings_shareModel_inviteEmail" placeholder="Email Address">
@@ -17303,6 +17303,7 @@ under the License.
 	                    $( "#ubmsuite_sharedModelDashboard_openItem_popup" ).draggable({ handle: "h1" });
 	                    $( "#gettingStarted_openItem_popup" ).draggable({ handle: "h1" });
 	                    $( "#ubmsuite_modelSettings_openItem_popup" ).draggable({ handle: "h1" });
+	                    $( "#ubmsuite_modelSettings_shareModel_popup" ).draggable({ handle: "h1" });
 	                    $( "#mcs_setup_checklist_setup_openItem_popup" ).draggable({ handle: "h1" });
 	                    $( "#mcs_setup_checklist_CS_openItem_popup" ).draggable({ handle: "h1" });
 	                    $( "#mcs_setup_checklist_p1_userGuide_popup" ).draggable({ handle: "h1" });
