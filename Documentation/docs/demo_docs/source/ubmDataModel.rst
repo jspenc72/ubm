@@ -150,6 +150,7 @@ BM Non Heirarchical Objects
           + Customers
           + Feature
           + Physical Facilities
+          + Products
           + Services
           + Strategic Alliances
           + Strategic Positioning Questions

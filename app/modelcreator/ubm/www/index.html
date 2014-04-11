@@ -596,7 +596,6 @@ under the License.
 				}, 1000);
 
 			}
-
 			function getListofPossibleCoreValues() {//Populates Core Value Listview on Possible CoreValue Popup
 				$.getJSON('http://api.universalbusinessmodel.com/ubm_modelcreationsuite_model_getAll_CoreValues.php?callback=?', {//JSONP Request to Open Items Page setup tables
 
@@ -609,10 +608,11 @@ under the License.
 					})
 				});	
 			}
-
 			function addCoreValueToMyModel(coreValueId) {//Called when the user selects an item from the Core Value Listview in the Possible CoreValues Popup
 				//(coreValueId+" will be added to this model");
-				$.getJSON('http://api.universalbusinessmodel.com/ubm_modelcreationsuite_model_add_CoreValue.php?callback=?', {//JSONP Request to Open Items Page setup tables
+				$.getJSON('http://api.universalbusinessmodel.com/ubms_modelcreationsuite_model_add_CoreValue.php?callback=?', {//JSONP Request to Open Items Page setup tables
+					key : window.key,
+					username : window.username,
 					activeModelUUID : window.activeModelUUID,
 					activeCoreValueId: coreValueId
 				}, function(res, status) {
@@ -640,16 +640,18 @@ under the License.
                                         });
 				getMyModelsCoreValues();
 			}
-			function removeCorevalueFromMyModel(coreValueId) {//Called when the user selects the side button for each item in the My Models Has Core Values Listview
-				$.getJSON('http://api.universalbusinessmodel.com/ubm_modelcreationsuite_model_remove_CoreValue.php/callback=?', {//JSONP Request to Open Items Page setup tables
+			function removeCorevalueFromMyModel() {//Called when the user selects the side button for each item in the My Models Has Core Values Listview
+				$.getJSON('http://api.universalbusinessmodel.com/ubms_modelcreationsuite_model_remove_CoreValue.php/callback=?', {//JSONP Request to Open Items Page setup tables
+					username : window.username,
+					key : window.key,
 					activeCoreValueId: window.activeCoreValueId,
 					activeModelUUID : window.activeModelUUID
 				}, function(res, status) {
-					$().toastmessage('showSuccessToast', res.message);
+					if(status=="success"){
+						$().toastmessage('showSuccessToast', res.message);
+						getMyModelsCoreValues();				
+					}
 				});					
-				
-				getMyModelsCoreValues();
-
 			}
         </script>
 		<!-- End Core Values JavaScript -->
@@ -697,7 +699,9 @@ under the License.
 			}
 
 			function addCustomerToMyModel(customerId) {//Called when the user selects an item from the Customer Listview in the Possible Customer Popup
-				$.getJSON('http://api.universalbusinessmodel.com/ubm_modelcreationsuite_model_add_Customer.php?callback=?', {//JSONP Request to Open Items Page setup tables
+				$.getJSON('http://api.universalbusinessmodel.com/ubms_modelcreationsuite_model_add_Customer.php?callback=?', {//JSONP Request to Open Items Page setup tables
+					key : window.key,
+					username : window.username,
 					activeModelUUID : window.activeModelUUID,
 					activeCustomerId: customerId
 				}, function(res, status) {
@@ -723,7 +727,9 @@ under the License.
 			}
 
 			function removeCustomerFromMyModel() {//Called when the user selects the side button for each item in the My Models Has Core Values Listview
-				$.getJSON('http://api.universalbusinessmodel.com/ubm_modelcreationsuite_model_remove_Customer.php?callback=?', {//JSONP Request to Open Items Page setup tables
+				$.getJSON('http://api.universalbusinessmodel.com/ubms_modelcreationsuite_model_remove_Customer.php?callback=?', {//JSONP Request to Open Items Page setup tables
+					key : window.key,
+					username : window.username,
 					activeCustomerId: window.activeCustomerId,
 					activeModelUUID : window.activeModelUUID
 				}, function(res, status) {
@@ -777,7 +783,9 @@ under the License.
 				});	
 			}
 			function addProductToMyModel(productId) {//Called when the user selects an item from the Customer Listview in the Possible Customer Popup
-				$.getJSON('http://api.universalbusinessmodel.com/ubm_modelcreationsuite_model_add_Product.php?callback=?', {//JSONP Request to Open Items Page setup tables
+				$.getJSON('http://api.universalbusinessmodel.com/ubms_modelcreationsuite_model_add_Product.php?callback=?', {//JSONP Request to Open Items Page setup tables
+					key : window.key,
+					username : window.username,					
 					activeModelUUID : window.activeModelUUID,
 					activeProductId: productId
 				}, function(res, status) {
@@ -802,7 +810,9 @@ under the License.
 				});
 			}
 			function removeProductFromMyModel() {//Called when the user selects the side button for each item in the My Models Has Core Values Listview
-				$.getJSON('http://api.universalbusinessmodel.com/ubm_modelcreationsuite_model_remove_Product.php?callback=?', {//JSONP Request to Open Items Page setup tables
+				$.getJSON('http://api.universalbusinessmodel.com/ubms_modelcreationsuite_model_remove_Product.php?callback=?', {//JSONP Request to Open Items Page setup tables
+					key : window.key,
+					username : window.username,
 					activeProductId: window.activeProductId,
 					activeModelUUID : window.activeModelUUID
 				}, function(res, status) {
@@ -856,7 +866,9 @@ under the License.
 				});	
 			}
 			function addServiceToMyModel(serviceId) {//Called when the user selects an item from the Customer Listview in the Possible Customer Popup
-				$.getJSON('http://api.universalbusinessmodel.com/ubm_modelcreationsuite_model_add_Service.php?callback=?', {//JSONP Request to Open Items Page setup tables
+				$.getJSON('http://api.universalbusinessmodel.com/ubms_modelcreationsuite_model_add_Service.php?callback=?', {//JSONP Request to Open Items Page setup tables
+					key : window.key,
+					username : window.username,
 					activeModelUUID : window.activeModelUUID,
 					activeServiceId: serviceId
 				}, function(res, status) {
@@ -880,7 +892,9 @@ under the License.
 				});
 			}
 			function removeServiceFromMyModel() {//Called when the user selects the side button for each item in the My Models Has Core Values Listview
-				$.getJSON('http://api.universalbusinessmodel.com/ubm_modelcreationsuite_model_remove_Service.php?callback=?', {//JSONP Request to Open Items Page setup tables
+				$.getJSON('http://api.universalbusinessmodel.com/ubms_modelcreationsuite_model_remove_Service.php?callback=?', {//JSONP Request to Open Items Page setup tables
+					key : window.key,
+					username : window.username,					
 					activeModelUUID: window.activeModelUUID,
 					activeServiceId : window.activeServiceId
 				}, function(res, status) {
@@ -1084,12 +1098,13 @@ under the License.
 				});	
 			}
 			function addStrategicAllianceToMyModel(strategicAllianceId) {//Called when the user selects an item from the Customer Listview in the Possible Customer Popup
-				$.getJSON('http://api.universalbusinessmodel.com/ubm_modelcreationsuite_model_add_StrategicAlliance.php?callback=?', {//JSONP Request to Open Items Page setup tables
+				$.getJSON('http://api.universalbusinessmodel.com/ubms_modelcreationsuite_model_add_StrategicAlliance.php?callback=?', {//JSONP Request to Open Items Page setup tables
+					key : window.key,
+					username : window.username,
 					activeModelUUID : window.activeModelUUID,
 					activeStrategicAllianceId: strategicAllianceId
 				}, function(res, status) {
 					$().toastmessage('showSuccessToast', "A Strategic Alliance was added to your model");
-						//alert(status);
 				});
 				getMyModelsStrategicAlliances();	
 			}
@@ -1110,7 +1125,8 @@ under the License.
 				});
 			}
 			function removeStrategicAllianceFromMyModel() {//Called when the user selects the side button for each item in the My Models Has Core Values Listview
-				$.getJSON('http://api.universalbusinessmodel.com/ubm_modelcreationsuite_model_remove_StrategicAlliance.php?callback=?', {//JSONP Request to Open Items Page setup tables
+				$.getJSON('http://api.universalbusinessmodel.com/ubms_modelcreationsuite_model_remove_StrategicAlliance.php?callback=?', {//JSONP Request to Open Items Page setup tables
+					key : window.key,
 					activeModelUUID: window.activeModelUUID,
 					activeStrategicAllianceId : window.activeStrategicAllianceId
 				}, function(res, status) {
