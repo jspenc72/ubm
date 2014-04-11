@@ -571,7 +571,9 @@ under the License.
 			}
 			//Model Core Values
 			function getMyModelsCoreValues() {
-				$.getJSON('http://api.universalbusinessmodel.com/ubm_modelcreationsuite_model_getCurrentModel_CoreValues.php?callback=?', {//JSONP Request to Open Items Page setup tables
+				$.getJSON('http://api.universalbusinessmodel.com/ubms_modelcreationsuite_model_getCurrentModel_CoreValues.php?callback=?', {//JSONP Request to Open Items Page setup tables
+					username : window.username,
+					key : window.key,
 					activeModelUUID : window.activeModelUUID
 				}, function(res, status) {
 					//alert(status);
@@ -657,7 +659,9 @@ under the License.
             }
 			function getMyModelsCustomers() {//Populates Customer  Listview on Model Settings Page
 								//alert("Customers was called");
-				$.getJSON('http://api.universalbusinessmodel.com/ubm_modelcreationsuite_model_getCurrentModel_Customers.php?callback=?', {//JSONP Request to Open Items Page setup tables
+				$.getJSON('http://api.universalbusinessmodel.com/ubms_modelcreationsuite_model_getCurrentModel_Customers.php?callback=?', {//JSONP Request to Open Items Page setup tables
+					username : window.username,					
+					key : window.key,
 					activeModelUUID : window.activeModelUUID
 				}, function(res, status) {
 //						alert(status);
@@ -736,7 +740,9 @@ under the License.
             }
 			function getMyModelsProducts() {//Populates Customer  Listview on Model Settings Page
 								//alert("Customers was called");
-				$.getJSON('http://api.universalbusinessmodel.com/ubm_modelcreationsuite_model_getCurrentModel_Products.php?callback=?', {//JSONP Request to Open Items Page setup tables
+				$.getJSON('http://api.universalbusinessmodel.com/ubms_modelcreationsuite_model_getCurrentModel_Products.php?callback=?', {//JSONP Request to Open Items Page setup tables
+					username : window.username,					
+					key : window.key,
 					activeModelUUID : window.activeModelUUID
 				}, function(res, status) {
 //						alert(status);
@@ -813,7 +819,9 @@ under the License.
             }
 			function getMyModelsServices() {//Populates Customer  Listview on Model Settings Page
 								//alert("Customers was called");
-				$.getJSON('http://api.universalbusinessmodel.com/ubm_modelcreationsuite_model_getCurrentModel_Services.php?callback=?', {//JSONP Request to Open Items Page setup tables
+				$.getJSON('http://api.universalbusinessmodel.com/ubms_modelcreationsuite_model_getCurrentModel_Services.php?callback=?', {//JSONP Request to Open Items Page setup tables
+					username : window.username,					
+					key : window.key,
 					activeModelUUID : window.activeModelUUID
 				}, function(res, status) {
 //						alert(status);
@@ -889,7 +897,9 @@ under the License.
             }
 			function getMyModelsPhysicalFacilities() {//Populates Customer  Listview on Model Settings Page
 								//alert("Customers was called");
-				$.getJSON('http://api.universalbusinessmodel.com/ubm_modelcreationsuite_model_getCurrentModel_PhysicalFacilities.php?callback=?', {//JSONP Request to Open Items Page setup tables
+				$.getJSON('http://api.universalbusinessmodel.com/ubms_modelcreationsuite_model_getCurrentModel_PhysicalFacilities.php?callback=?', {//JSONP Request to Open Items Page setup tables
+					username : window.username,					
+					key : window.key,
 					activeModelUUID : window.activeModelUUID
 				}, function(res, status) {
 //						alert(status);
@@ -962,8 +972,9 @@ under the License.
                 window.activeOrganizationalStructureId = activeOrganizationalStructureId;
             }
 			function getMyModelsOrganizationalStructures() {//Populates Customer  Listview on Model Settings Page
-								//alert("Customers was called");
-				$.getJSON('http://api.universalbusinessmodel.com/ubm_modelcreationsuite_model_getCurrentModel_OrganizationalStructures.php?callback=?', {//JSONP Request to Open Items Page setup tables
+				$.getJSON('http://api.universalbusinessmodel.com/ubms_modelcreationsuite_model_getCurrentModel_OrganizationalStructures.php?callback=?', {//JSONP Request to Open Items Page setup tables
+					username : window.username,					
+					key : window.key,
 					activeModelUUID : window.activeModelUUID
 				}, function(res, status) {
 //						alert(status);
@@ -1035,8 +1046,9 @@ under the License.
                 window.activeStrategicAllianceId = activeStrategicAllianceId;
             }
 			function getMyModelsStrategicAlliances() {//Populates Customer  Listview on Model Settings Page
-								//alert("Customers was called");
-				$.getJSON('http://api.universalbusinessmodel.com/ubm_modelcreationsuite_model_getCurrentModel_StrategicAlliances.php?callback=?', {//JSONP Request to Open Items Page setup tables
+				$.getJSON('http://api.universalbusinessmodel.com/ubms_modelcreationsuite_model_getCurrentModel_StrategicAlliances.php?callback=?', {//JSONP Request to Open Items Page setup tables
+					username : window.username,					
+					key : window.key,
 					activeModelUUID : window.activeModelUUID
 				}, function(res, status) {
 //						alert(status);
@@ -1114,7 +1126,9 @@ under the License.
             }
 			function getMyModelsStrategicPositioningQuestions() {//Populates Customer  Listview on Model Settings Page
 								//alert("Customers was called");
-				$.getJSON('http://api.universalbusinessmodel.com/ubm_modelcreationsuite_model_getCurrentModel_StrategicPositioning.php?callback=?', {//JSONP Request to Open Items Page setup tables
+				$.getJSON('http://api.universalbusinessmodel.com/ubms_modelcreationsuite_model_getCurrentModel_StrategicPositioning.php?callback=?', {//JSONP Request to Open Items Page setup tables
+					username : window.username,					
+					key : window.key,
 					activeModelUUID : window.activeModelUUID
 				}, function(res, status) {
 //						alert(status);
@@ -1186,8 +1200,9 @@ under the License.
                 window.activeFeatureId = activeFeatureId;
             }
 			function getMyModelsFeatures() {//Populates Customer  Listview on Model Settings Page
-								//alert("Customers was called");
-				$.getJSON('http://api.universalbusinessmodel.com/ubm_modelcreationsuite_model_getCurrentModel_Features.php?callback=?', {//JSONP Request to Open Items Page setup tables
+				$.getJSON('http://api.universalbusinessmodel.com/ubms_modelcreationsuite_model_getCurrentModel_Features.php?callback=?', {//JSONP Request to Open Items Page setup tables
+					username : window.username,					
+					key : window.key,
 					activeModelUUID : window.activeModelUUID
 				}, function(res, status) {
 //						alert(status);
@@ -3284,7 +3299,8 @@ under the License.
 			function getModelSummary(){
 				$('#ubmsuite_mcs_model_review_ubm_model_ul').empty();												
 				$.getJSON('http://api.universalbusinessmodel.com/ubms_modelcreationsuite_model_getCurrentModel_ModelSummary.php?callback=?', {//JSONP Request
-					key: window.key,
+					username : window.username,					
+					key : window.key,
 					activeModelUUID : window.activeModelUUID
 				}, function(res, status) {
 					$.each(res, function(i, item) {
@@ -7298,7 +7314,7 @@ under the License.
 
 							</ul>	
 						</li>
-<!-- Positions Attached to my Model -->
+<!-- Positions Attached to my Model -- > 
 						<li>
 							<a href="#" class="ui-btn ui-shadow ui-corner-all ui-icon-refresh ui-btn-icon-notext ui-btn-a ui-btn-inline" onclick="getMyModelsPositions()">Refresh</a>							
 							<p>Phase 4 Book 2</p>
