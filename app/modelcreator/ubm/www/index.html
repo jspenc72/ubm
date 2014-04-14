@@ -2298,7 +2298,8 @@ under the License.
 				function getMyModelsListofAlternatives(){
 					showLoader();
 					$('#possible_alternitives_table_body').empty();
-					$.getJSON('http://api.universalbusinessmodel.com/ubm_modelcreationsuite_model_getCurrentModel_Alternatives.php?callback=?', {//JSONP Request to Open Items Page setup tables
+					$.getJSON('http://api.universalbusinessmodel.com/ubms_modelcreationsuite_model_getCurrentModel_Alternatives.php?callback=?', {//JSONP Request to Open Items Page setup tables
+						key : window.key,
 						activeModelUUID : window.activeModelUUID,
 					}, function(res, status) {
 						$.each(res, function(i, item) {
@@ -2573,7 +2574,8 @@ under the License.
 				var i = 0;
 				//alert(window.activeModelAlternativeId);
 				$('#return_on_investment_alternative_select_investment_menu').empty();
-				$.getJSON('http://api.universalbusinessmodel.com/ubm_modelcreationsuite_model_alternative_get_Investments.php?callback=?', {//JSONP Request to Open Items Page setup tables
+				$.getJSON('http://api.universalbusinessmodel.com/ubms_modelcreationsuite_model_alternative_get_Investments.php?callback=?', {//JSONP Request to Open Items Page setup tables
+					key : window.key,
 					activeModelAlternativeId : window.activeModelAlternativeId
 				}, function(res, status) {
 					$.each(res, function(i, item) {
@@ -2594,7 +2596,8 @@ under the License.
 				var i = 0;			//Reset Counter
 				$('#return_on_investment_alternative_select_menu').empty();
 
-				$.getJSON('http://api.universalbusinessmodel.com/ubm_modelcreationsuite_model_getCurrentModel_Alternatives.php?callback=?', {//JSONP Request to Open Items Page setup tables
+				$.getJSON('http://api.universalbusinessmodel.com/ubms_modelcreationsuite_model_getCurrentModel_Alternatives.php?callback=?', {//JSONP Request to Open Items Page setup tables
+					key : window.key,
 					activeModelUUID : window.activeModelUUID,
 				}, function(res, status) {
 					$('#risk_analysis_alternative_select_menu').empty();
@@ -2699,7 +2702,8 @@ under the License.
 			}
 			function getListofAlternativesforRiskAnalysis(){//Populates the Alternative Picker at the top of the risk_analysis page.
 				var i = 0;			//Reset Counter
-				$.getJSON('http://api.universalbusinessmodel.com/ubm_modelcreationsuite_model_getCurrentModel_Alternatives.php?callback=?', {//JSONP Request to Open Items Page setup tables
+				$.getJSON('http://api.universalbusinessmodel.com/ubms_modelcreationsuite_model_getCurrentModel_Alternatives.php?callback=?', {//JSONP Request to Open Items Page setup tables
+					key : window.key,
 					activeModelUUID : window.activeModelUUID,
 				}, function(res, status) {
 					$('#risk_analysis_alternative_select_menu').empty();
@@ -5101,7 +5105,7 @@ under the License.
 		                        </p></a>
 		                    </li>
 		                    <li>
-		                        <a href="#"> <img src="img/alternitives.jpg" class="ui-li-thumb"> <h2>Alternatives</h2>
+		                        <a href="#possible_alternatives"> <img src="img/alternitives.jpg" class="ui-li-thumb"> <h2>Alternatives</h2>
 		                        <p>
 		                            ROI, Risk Analysis, Project Financial Statement
 		                        </p>
