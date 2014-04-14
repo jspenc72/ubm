@@ -652,7 +652,10 @@ under the License.
 				}, function(res, status) {
 					if(status=="success"){
 						$().toastmessage('showSuccessToast', res.message);
-						getMyModelsCoreValues();				
+						setTimeout(function() {
+							getMyModelsCoreValues();
+						}, 300);
+										
 					}
 				});					
 			}
@@ -740,7 +743,10 @@ under the License.
 				}, function(res, status) {
 						//alert(status);
 				});
-				getMyModelsCustomers();	
+				setTimeout(function() {
+						getMyModelsCustomers();
+					}, 300);
+					
 
 			}
         </script>
@@ -825,7 +831,10 @@ under the License.
 				}, function(res, status) {
 						//alert(status);
 				});
-				getMyModelsProducts();	
+				setTimeout(function() {
+					getMyModelsProducts();
+				}, 300);
+					
 
 			}
 		</script>
@@ -909,7 +918,10 @@ under the License.
 				}, function(res, status) {
 						//alert(status);
 				});
-				getMyModelsServices();	
+				setTimeout(function() {
+					getMyModelsServices();
+				}, 300);
+					
 
 			}
 		</script>
@@ -990,7 +1002,10 @@ under the License.
 				}, function(res, status) {
 						//alert(status);
 				});
-				getMyModelsPhysicalFacilities();	
+				setTimeout(function() {
+					getMyModelsPhysicalFacilities();
+				}, 300);
+					
 			}
 		</script>
 		<!-- End Physical Facility JavaScript -->
@@ -1068,7 +1083,10 @@ under the License.
 				}, function(res, status) {
 						//alert(status);
 				});
-				getMyModelsOrganizationalStructures();	
+				setTimeout(function() {
+					getMyModelsOrganizationalStructures();
+				}, 300);
+					
 			}
 		</script>
 		<!-- End Organizational Structure JavaScript -->
@@ -1151,7 +1169,10 @@ under the License.
 				}, function(res, status) {
 
 				});
-				getMyModelsStrategicAlliances();	
+				setTimeout(function() {
+					getMyModelsStrategicAlliances();
+				}, 300);
+					
 			}
 		</script>
 		<!-- End Strategic Alliance JavaScript -->
@@ -1230,7 +1251,10 @@ under the License.
 				}, function(res, status) {
 						//alert(status);
 				});
-				getMyModelsStrategicPositioningQuestions();	
+				setTimeout(function() {
+					getMyModelsStrategicPositioningQuestions();
+				}, 300);
+					
 			}
 		</script>
 		<!-- End Strategic Positioning Questions JavaScript -->
@@ -1308,7 +1332,10 @@ under the License.
 				}, function(res, status) {
 						//alert(status);
 				});
-				getMyModelsFeatures();	
+				setTimeout(function() {
+					getMyModelsFeatures();
+				}, 100);
+					
 			}
 		</script>
 		<!-- End Features JavaScript -->
