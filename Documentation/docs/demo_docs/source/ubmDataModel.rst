@@ -44,8 +44,9 @@ Business Model Heirarchical Objects
                   - Departmental Command Center
 
           + Organizational Chart (OC)
-                  - Ask David for an Example 1
-                  - Ask David for an Example 2
+                  - Ask David for an Example 1: Corporate Organizational chart
+                  - Ask David for an Example 2: Accounts Receivable Department
+                  - Ask David for an Example 3: Accounts Payable Department
 
               + Position (PS)
                     - CEO

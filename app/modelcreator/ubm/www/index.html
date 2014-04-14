@@ -72,6 +72,12 @@ under the License.
 		<script src="ckeditor-8/ckeditor.js"></script>
 		<link href="ckeditor-8/samples/ckeditorSample.css" rel="stylesheet">
 		<link rel="stylesheet" href="themes/theme.css" />
+		<!-- Full Calendar -->
+		<link href='css/fullcalendar/fullcalendar.css' rel='stylesheet' />
+		<link href='css/fullcalendar/fullcalendar.print.css' rel='stylesheet' media='print' />
+		<!--<script src='lib/jquery.min.js'></script> -->
+		<script src='lib/jquery-ui.custom.min.js'></script>
+		<script src='js/fullcalendar/fullcalendar.min.js'></script>
         <title>UBM</title>
 		<script>
 			var editor, html = '';
@@ -5385,6 +5391,15 @@ under the License.
 	                            MS
 	                        </p></a>
 	                    </li>
+	                    <li>
+	                        <a href="#ubmsuite_mcs_position_strategic_command_center"> <img src="img/gear.png" class="ui-li-thumb"> <h2>Position Strategic Command Center</h2>
+	                        <p>
+	                            Reporting portal, Top 10 and Calendar of Events
+	                        </p>
+	                        <p class="ui-li-aside">
+	                            PSCC
+	                        </p></a>
+	                    </li>
 	                </ul>                	
                 </div>
                 </br>
@@ -5442,6 +5457,42 @@ under the License.
 
 	                </ul>					
 				</div>
+			</div>
+			<div data-role="footer">
+				
+			</div>			
+		</div>
+		<div data-role="page" class="ubm_page" id="ubmsuite_mcs_position_strategic_command_center">
+            <!-- No Panel on this page, instead only back button is needed.-->
+            <div data-role="header" data-position="fixed">
+                <a href="#" class="back_btn" data-icon="arrow-l" data-iconpos="notext">Back</a>
+                <div id"ubmsuite_mcs_position_strategic_command_center_header_headerRecord_center" style="text-align: center">
+                    <div id="ubmsuite_mcs_position_strategic_command_center_header_headerRecord_center_legalentity">
+                        Legal Entity: Business Model Consulting, LLC
+                    </div>
+                    <div id="ubmsuite_mcs_position_strategic_command_center_header_headerRecord_center_systemtitle">
+                        System Title: UBM Suite v 1.0
+                    </div>
+                    <div id="ubmsuite_mcs_position_strategic_command_center_header_headerRecord_center_modelapptitle">
+                        Model / App Title: UBM Automator v3.3.1
+                    </div>
+                    <div id="ubmsuite_mcs_position_strategic_command_center_header_headerRecord_center_pagetitle">
+                        Position Strategic Command Center
+                    </div>
+                </div>
+            </div>
+            	<style>
+					#calendar {
+						width: 900px;
+						margin: 0 auto;
+						}            		
+            	</style>
+            <div data-role="content">
+           	</br>
+            </br>
+           	</br>
+            </br>
+				<div id='calendar'></div>
 			</div>
 			<div data-role="footer">
 				
@@ -17311,6 +17362,71 @@ under the License.
 					getMyModelsListofAlternatives();
 					getActiveAlternativeListofPros();
 					getActiveAlternativeListofCons();
+				});
+				$(document).on("pageshow", "#ubmsuite_mcs_position_strategic_command_center", function() {
+
+						var date = new Date();
+						var d = date.getDate();
+						var m = date.getMonth();
+						var y = date.getFullYear();
+						
+						$('#calendar').fullCalendar({
+							header: {
+								left: 'prev,next today',
+								center: 'title',
+								right: 'month,agendaWeek,agendaDay'
+							},
+							editable: true,
+							events: [
+								{
+									title: 'All Day Event',
+									start: new Date(y, m, 1)
+								},
+								{
+									title: 'Long Event',
+									start: new Date(y, m, d-5),
+									end: new Date(y, m, d-2)
+								},
+								{
+									id: 999,
+									title: 'Repeating Event',
+									start: new Date(y, m, d-3, 16, 0),
+									allDay: false
+								},
+								{
+									id: 999,
+									title: 'Repeating Event',
+									start: new Date(y, m, d+4, 16, 0),
+									allDay: false
+								},
+								{
+									title: 'Meeting',
+									start: new Date(y, m, d, 10, 30),
+									allDay: false
+								},
+								{
+									title: 'Lunch',
+									start: new Date(y, m, d, 12, 0),
+									end: new Date(y, m, d, 14, 0),
+									allDay: false
+								},
+								{
+									title: 'Birthday Party',
+									start: new Date(y, m, d+1, 19, 0),
+									end: new Date(y, m, d+1, 22, 30),
+									allDay: false
+								},
+								{
+									title: 'Click for Google',
+									start: new Date(y, m, 28),
+									end: new Date(y, m, 29),
+									url: 'http://google.com/'
+								}
+							]
+						});
+				});
+				$(document).on("pagehide", "#ubmsuite_mcs_position_strategic_command_center", function() {
+					$("#calendar").empty()
 				});
 				$(document).on("pageshow", "#ubmsuite_mcs_my_applications", function() {
 					getMyModelsListofApplications();
