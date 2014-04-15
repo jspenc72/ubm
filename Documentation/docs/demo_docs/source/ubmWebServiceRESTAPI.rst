@@ -63,5 +63,51 @@ Structural Elements
 Dynamic Content Using the UBM API
 ---------------------------------
 
-That's it, the text just above this line.
+Hierarchical Object API
+-----------------------
+
+- Get Child Elements
+
+  + Get Parameters:
+
+    :UUID: The UUID of an object instance that has been created
+
+- Get Parent Elements
+
+  + Get Parameters:
+
+    :UUID: The UUID of an object instance that has been created
+
+  + URL String
+
+    * api.universalbusinessmodel.com/ubms/modelcreationsuite/hierarchy/get_ChildElements.php
+
+  + JavaScript Usage example:  
+
+    * Use Jquery $.getJSON()
+
+.. code-block:: javascript
+
+        $.getJSON('http://api.universalbusinessmodel.com/ubms/modelcreationsuite/hierarchy/object/get_ChildElements.php?callback=?', {//JSONP Request to get child elements
+            UUID : "UUID"
+        }, function(res, status) {
+          $.each(res, function(i, item) {
+              //Do something awsome here!
+          });
+        });
+
+- Get Child Elements of a given type:
+
+  + Get Parameters:
+
+    :UUID: The UUID of an object instance that has been created
+
+
+- Get Parent Elements of a given type:
+
+  + Get Parameters:
+
+    :UUID: The UUID of an object instance that has been created
+
+
 

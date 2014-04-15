@@ -1731,8 +1731,7 @@ under the License.
 						$("#heirarchyObjectBackbone_table_body").append("<tr><td class='tg-031e'>" + item.mfi_reference + "</td><td class='tg-031e'>PS-" + window.activeReportsToPosition + "</td><td class='tg-gcpq'>" + item.id + "</td><td class='tg-gcpq'>JD-" + item.id + "</td><td class='tg-2tnls'></td><td class='tg-2tnls'></td><td class='tg-hnhqs'></td><td class='tg-hnhqs'></td><td class='tg-4nips'></td><td class='tg-4nips'></td><td class='tg-gl8ns'></td><td class='tg-gl8ns'></td><td class='tg-akd2s'></td><td class='tg-akd2s'></td><td class='tg-8474s'></td><td class='tg-8474s'></td><td class='tg-w2xps'></td><td class='tg-w2xps'></td><td class='tg-w2xps'></td><td class='tg-w2xps'></td><td class='tg-w2xps'></td><td class='tg-w2xps'></td><td class='tg-w2xps'></td><td class='tg-w2xps'></td><td class='tg-48oos'></td><td class='tg-48oos'></td><td class='tg-48oos'></td><td class='tg-48oos'></td><td class='tg-48oos'></td><td class='tg-031e'>PS-" + window.activeReportsToPosition + ".JD-" + item.id + "</td><td class='tg-031e'>MD-" + window.activeModelUUID + "</td><td class='tg-031e'>PS-" + window.activeReportsToPosition + ".JD-" + item.id + "</td><td class='tg-031e'>" + item.title + "</td><td class='tg-031e'>Active</td></tr>");					
 					});
 						$("#heirarchyObjectBackbone_table").table( "refresh" );
-
-				});				
+				});
 			}
 			function getJobDescriptionforHeirarchicalObjectTree(){
 				//alert("this is a test");
@@ -9046,8 +9045,6 @@ under the License.
 			<div data-role="content">
 				<div id="projected_financial_statement_iframe_container">
 					<center><input type="button" value="Click here to Reload the Projected Financial Statement" /></center>
-
-					
 				</div>	
 			</div>
 
@@ -17698,11 +17695,14 @@ under the License.
 				$(document).on("pageshow", "#ubmsuite_mcs_my_applications", function() {
 					getMyModelsListofApplications();
 				});
+				$(document).on("pagehide", "#projected_financial_statement", function() {
+					$("#projected_financial_statement_iframe_container").empty()
+				});
 				$(document).on("pageshow", "#projected_financial_statement", function() {
 					//1. Load the iframe with src directed to the application on Bluehost, Pass the active model id to the iframe. When the Page Loads
 						showLoader();
 				    	$('iframe').remove();
-						$('<iframe id="projected_financial_statement_iframe" src="http://application.universalbusinessmodel.com/P3/index.html?activeModelUUID=' + window.activeModelUUID + '&username=' + window.username + '" width="100%" height="700px" seamless=""></iframe>').appendTo('#projected_financial_statement_iframe_container');		
+						$('<iframe id="projected_financial_statement_iframe" src="http://application.universalbusinessmodel.com/P3/?activeModelUUID=' + window.activeModelUUID + '&username='+ window.username +'" width="100%" height="700px" seamless=""></iframe>').appendTo('#projected_financial_statement_iframe_container');		
 						setTimeout(function() {					
 							hideLoader();
 						}, 2000);
@@ -17710,7 +17710,7 @@ under the License.
 					$('#projected_financial_statement_iframe_container').on('click', function(){
 						showLoader();
 				    	$('iframe').remove();
-						$('<iframe id="projected_financial_statement_iframe" src="http://application.universalbusinessmodel.com/P3/index.html?activeModelUUID=' + window.activeModelUUID + '" width="100%" height="700px" seamless=""></iframe>').appendTo('#projected_financial_statement_iframe_container');		
+						$('<iframe id="projected_financial_statement_iframe" src="http://application.universalbusinessmodel.com/P3/?activeModelUUID=' + window.activeModelUUID + '&username='+ window.username +'" width="100%" height="700px" seamless=""></iframe>').appendTo('#projected_financial_statement_iframe_container');		
 						setTimeout(function() {					
 							hideLoader();
 						}, 2000);						
