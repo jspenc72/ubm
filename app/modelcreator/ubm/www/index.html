@@ -1599,6 +1599,22 @@ under the License.
 				//1. Add position popup should have a listview filled with positions that report to the active position.
 				//2. This function will retrieve all model_positions that report to the active position and will populate the listview with those positions. 
 			}
+
+			function getChildElements (activeObjectUUID) {
+				$.getJSON('http://api.universalbusinessmodel.com/ubms_modelcreationsuite_model_get_ChildElements.php?callback=?'), {
+					activeObjectUUID : activeObjectUUID
+				}, function(res, status) {
+					$.each(res, function(i, item) {
+						if(window.activeReportsToPosition==item.UUID){
+						$('#heirarchyObjectTree_ul').prepend("<li><a data-position-to='origin' href='#ubmsuite_mcs_my_organizational_chart_content_manageJobDescriptionPopUp' data-rel='popup' class='ui-link' data-transition='pop' onclick='setActivePosition2(" + item.UUID + ")'>PS-" + item.UUID + "</a><ul id='ubmsuite_mcs_my_organizational_chart_heirarchyObjectTree_ul_P'></ul></li>"); 
+						}else{
+
+						}
+					});
+				});
+					
+			}
+
 			function getPositionforHeirarchicalObjectTree(){
 					$('#heirarchyObjectTree_ul').empty();
 				$.getJSON('http://api.universalbusinessmodel.com/ubms_modelcreationsuite_getActiveModelPositionsforOrgChart.php?callback=?', {//JSONP Request to Open Items Page setup tables
@@ -2165,7 +2181,7 @@ under the License.
 						if(item.path_length=="3"){
 //1. Set currentActiveOrgChartLevel 
 //2. Append the name of the highest reports to position on the top of the org chart.
-							$('#ubmsuite_mcs_my_organizational_chart_L0_ul').prepend("<a onclick='setActivePosition(" + item.UUID + ")'><img class='org_img' style='width:25px; height:25px;' src='img/apple.png' /></a></br>" + item.title); 
+							$('#ubmsuite_mcs_my_organizational_chart_L0_ul').prepend("<a onclick='setActivePosition(" + item.UUID + ");getChildElements(" + item.UUID + ")'><img class='org_img' style='width:25px; height:25px;' src='img/apple.png' /></a></br>" + item.title); 
 							$('#ubmsuite_mcs_my_organizational_chart_L0_ul').append("<ul id='ubmsuite_mcs_my_organizational_chart_P" + item.UUID + "_ul'></ul>");
 //4. Empty chart Div
 					        $('#chart').empty();
@@ -3385,6 +3401,7 @@ under the License.
 			}
         </script>
 		<!-- MCS Checklist -->
+		
 		<script>
 			function getModelSetupSummary(){
 				$('#ubmsuite_mcs_model_review_ubm_modelSetup_ul').empty();
@@ -3400,39 +3417,39 @@ under the License.
 					activeModelUUID : window.activeModelUUID
 				}, function(res, status) {
 					$.each(res, function(i, item) {
-						if(item.task_id == 1 && item.status == "TRUE"){
-							$('#ubmsuite_mcs_model_review_ubm_modelSetup_ul').append("<li class='success'>License Agreement has been signed. Completed By: " + item.preparer_username + "</li>");												
+						if(item.line_number == 1 && item.status == "TRUE"){
+							$('#ubmsuite_mcs_model_review_ubm_modelSetup_ul').append("<li class='success'>" + item.instruction_detail + "<br>Completed By: " + item.preparer_username + "</li>");												
 							
-						}else if(item.status != "TRUE"){
-							$('#ubmsuite_mcs_model_review_ubm_modelSetup_ul').append("<li class='warning'>Warning : <a href='#mcs_setup_1_popUp'>License Agreement has not been signed!</a></li>");												
+						}else if(item.line_number == 1 && item.status != "TRUE"){
+							$('#ubmsuite_mcs_model_review_ubm_modelSetup_ul').append("<li class='warning'>Warning : <a href='#mcs_setup_1_popUp'>" + item.instruction_detail + "</a></li>");												
 							
 						}	
 						if(item.task_id == 2 && item.status == "TRUE"){
-							$('#ubmsuite_mcs_model_review_ubm_modelSetup_ul').append("<li class='success'>Flow Chart has been carefully studied. Completed By: " + item.preparer_username + "</li>");												
+							$('#ubmsuite_mcs_model_review_ubm_modelSetup_ul').append("<li class='success'>" + item.instruction_detail + "<br>Completed By: " + item.preparer_username + "</li>");												
 							
 						}else if(item.status != "TRUE"){
-							$('#ubmsuite_mcs_model_review_ubm_modelSetup_ul').append("<li class='warning'>Warning : <a href='#mcs_UBMFlowchart'>The Flow Chart has not been studied!</a></li>");												
+							$('#ubmsuite_mcs_model_review_ubm_modelSetup_ul').append("<li class='warning'>Warning : <a href='#mcs_UBMFlowchart'>" + item.instruction_detail + "</a></li>");												
 							
 						}
 						if(item.task_id == 3 && item.status == "TRUE"){
-							$('#ubmsuite_mcs_model_review_ubm_modelSetup_ul').append("<li class='success'>User Guide for this section has been read. Completed By: " + item.preparer_username + "</li>");												
+							$('#ubmsuite_mcs_model_review_ubm_modelSetup_ul').append("<li class='success'>" + item.instruction_detail + "<br>Completed By: " + item.preparer_username + "</li>");												
 							
 						}else if(item.status != "TRUE"){
-							$('#ubmsuite_mcs_model_review_ubm_modelSetup_ul').append("<li class='warning'>Warning : <a href='#mcs_setup_checklist_setup_userGuide_Popup'>The User Guide has not been read for this section!</a></li>");												
+							$('#ubmsuite_mcs_model_review_ubm_modelSetup_ul').append("<li class='warning'>Warning : <a href='#mcs_setup_checklist_setup_userGuide_Popup'>" + item.instruction_detail + "</a></li>");												
 							
 						}
 						if(item.task_id == 4 && item.status == "TRUE"){
-							$('#ubmsuite_mcs_model_review_ubm_modelSetup_ul').append("<li class='success'>Identification Setup has been completed. Completed By: " + item.preparer_username + "</li>");												
+							$('#ubmsuite_mcs_model_review_ubm_modelSetup_ul').append("<li class='success'>" + item.instruction_detail + "<br>Completed By: " + item.preparer_username + "</li>");												
 							
 						}else if(item.status != "TRUE"){
-							$('#ubmsuite_mcs_model_review_ubm_modelSetup_ul').append("<li class='warning'>Warning : <a href='#mcs_setup_checklist_setup_identification_setup_popup'>Identification Setup has not been completed!</a></li>");												
+							$('#ubmsuite_mcs_model_review_ubm_modelSetup_ul').append("<li class='warning'>Warning : <a href='#mcs_setup_checklist_setup_identification_setup_popup'>" + item.instruction_detail + "</a></li>");												
 							
 						}
 						if(item.task_id == 5 && item.status == "TRUE"){
-							$('#ubmsuite_mcs_model_review_ubm_modelSetup_ul').append("<li class='success'>The Getting Started page has been read. Completed By: " + item.preparer_username + "</li>");												
+							$('#ubmsuite_mcs_model_review_ubm_modelSetup_ul').append("<li class='success'>" + item.instruction_detail + "<br>Completed By: " + item.preparer_username + "</li>");												
 							
 						}else if(item.status != "TRUE"){
-							$('#ubmsuite_mcs_model_review_ubm_modelSetup_ul').append("<li class='warning'>Warning : <a href='#gettingStarted'>The Getting Started page has not been read!</a></li>");												
+							$('#ubmsuite_mcs_model_review_ubm_modelSetup_ul').append("<li class='warning'>Warning : <a href='#gettingStarted'>" + item.instruction_detail + "</a></li>");												
 							
 						}
 					});
@@ -3455,30 +3472,25 @@ under the License.
 					activeModelUUID : window.activeModelUUID
 				}, function(res, status) {
 					$.each(res, function(i, item) {
-						if (item.status == "TRUE"){
-							var status = "true";
-						} else {
-							status = "fasle";
-						}
-						if(item.task_id == 8 && status == "true"){
-							$('#ubmsuite_mcs_model_review_ubm_control_ul').append("<li class='success'>Budgeted Hours have been reviewed. Completed By: " + item.preparer_username + "</li>");												
-						}else if(status == "false"){
-							$('#ubmsuite_mcs_model_review_ubm_control_ul').append("<li class='warning'>Warning : <a href='#mcs_setup_checklist_CS'>Budgeted Hours have not been reviewd</li>");												
+						if(item.line_number == 8 && item.status == "TRUE"){
+							$('#ubmsuite_mcs_model_review_ubm_control_ul').append("<li class='success'>" + item.instruction_detail + "<br>Completed By: " + item.preparer_username + "</li>");												
+						}else if(item.line_number == 8 && !item.status){
+							$('#ubmsuite_mcs_model_review_ubm_control_ul').append("<li class='warning'>Warning : <a href='#" + item.href + "'>" + item.instruction_detail + "</li>");												
 						}	
-						if(item.task_id == 9 && status == "true"){
-							$('#ubmsuite_mcs_model_review_ubm_control_ul').append("<li class='success'>User Guide for this section has been read. Completed By: " + item.preparer_username + "</li>");												
-						}else if(status == "false"){
-							$('#ubmsuite_mcs_model_review_ubm_control_ul').append("<li class='warning'>Warning : <a href='#mcs_setup_checklist_setup_userGuide_Popup'>The User Guide for this section has not been read!</a></li>");												
+						if(item.line_number == 9 && item.status == "TRUE"){
+							$('#ubmsuite_mcs_model_review_ubm_control_ul').append("<li class='success'>" + item.instruction_detail + "<br>Completed By: " + item.preparer_username + "</li>");												
+						}else if(item.line_number == 9 && !item.status){
+							$('#ubmsuite_mcs_model_review_ubm_control_ul').append("<li class='warning'>Warning : <a href='#mcs_setup_checklist_setup_userGuide_Popup'>" + item.instruction_detail + "</a></li>");												
 						}
-						if(item.task_id == 10 && status == "true"){
-							$('#ubmsuite_mcs_model_review_ubm_control_ul').append("<li class='success'>Placeholder Completed By: " + item.preparer_username + "</li>");												
-						}else if(status == "false"){
-							$('#ubmsuite_mcs_model_review_ubm_control_ul').append("<li class='warning'>Warning : <a href='#'>Placeholder</a></li>");												
+						if(item.line_number == 10 && item.status == "TRUE"){
+							$('#ubmsuite_mcs_model_review_ubm_control_ul').append("<li class='success'>" + item.instruction_detail + "<br>Completed By: " + item.preparer_username + "</li>");												
+						}else if(item.line_number == 10 && item.status != "TRUE"){
+							$('#ubmsuite_mcs_model_review_ubm_control_ul').append("<li class='warning'>Warning : <a href='#'>" + item.instruction_detail + "</a></li>");												
 						}
-						if(item.task_id == 11 && status == "true"){
-							$('#ubmsuite_mcs_model_review_ubm_control_ul').append("<li class='success'>Placeholder. Completed By: " + item.preparer_username + "</li>");												
-						}else if(status == "false"){
-							$('#ubmsuite_mcs_model_review_ubm_control_ul').append("<li class='warning'>Warning : <a href='#mcs_setup_checklist_setup_identification_setup_popup'>Placeholder</a></li>");												
+						if(item.line_number == 11 && item.status == "TRUE"){
+							$('#ubmsuite_mcs_model_review_ubm_control_ul').append("<li class='success'>" + item.instruction_detail + "<br>Completed By: " + item.preparer_username + "</li>");												
+						}else if(item.line_number == 11 && item.status != "TRUE"){
+							$('#ubmsuite_mcs_model_review_ubm_control_ul').append("<li class='warning'>Warning : <a href='#mcs_setup_checklist_setup_identification_setup_popup'>" + item.instruction_detail + "</a></li>");												
 						}
 					});
 				});

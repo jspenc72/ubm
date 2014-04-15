@@ -18,6 +18,7 @@ TABLE OF CONTENTS:
     devSetup
     ubmWebServiceRESTAPI
     ubmDataModel
+    checklist_services
 
 Maaaaath!
 =========
