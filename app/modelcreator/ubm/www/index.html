@@ -1389,6 +1389,28 @@ under the License.
         </script>
         <!-- End Master File Index -->
 		<script>
+		function setActivePosition(activeReportsToPosition){
+				alert(activeReportsToPosition);
+	// 			window.activeReportsToPosition = activeReportsToPosition;
+	// 		//	alert(window.activeReportsToPosition);
+	// //6. Call popmenu plugin with the given parameters as plugin options.
+	//             $('.demo_box_popup').popmenu({
+	// 			    'controller': true,       // use control button or not
+	// 			    'width': '300px',         // width of menu
+	// 			    'background': '#34495e',  // background color of menu
+	// 			    'focusColor': '#1abc9c',  // hover color of menu's buttons
+	// 			    'borderRadius': '10px',   // radian of angles, '0' for right angle
+	// 			    'top': '50',              // pixels that move up
+	// 			    'left': '0',              // pixels that move left
+	// 			    'iconSize': '75px'        // size of menu's buttons
+	//             });
+	// 			setTimeout(function() {
+	// 				$("#ubmsuite_mcs_my_organizational_chart_content_modifyPositionPopUp").popup('open');
+	// 				getPositionforHeirarchicalObjectTree();
+	// 				getJobDescriptionsforBackBoneTable();
+	// 			}, 10);		
+				
+			}
 			function refreshBackboneTable(){
 				getJobDescriptionsforBackBoneTable();
 				//getPoliciesforBackBoneTable();
@@ -1396,27 +1418,7 @@ under the License.
 				//getStepsforBackBoneTable();
 				//getTasksforBackBoneTable();
 			}
-			function setActivePosition(activeReportsToPosition){
-				window.activeReportsToPosition = activeReportsToPosition;
-			//	alert(window.activeReportsToPosition);
-	//6. Call popmenu plugin with the given parameters as plugin options.
-	            $('.demo_box_popup').popmenu({
-				    'controller': true,       // use control button or not
-				    'width': '300px',         // width of menu
-				    'background': '#34495e',  // background color of menu
-				    'focusColor': '#1abc9c',  // hover color of menu's buttons
-				    'borderRadius': '10px',   // radian of angles, '0' for right angle
-				    'top': '50',              // pixels that move up
-				    'left': '0',              // pixels that move left
-				    'iconSize': '75px'        // size of menu's buttons
-	            });
-				setTimeout(function() {
-					$("#ubmsuite_mcs_my_organizational_chart_content_modifyPositionPopUp").popup('open');
-					getPositionforHeirarchicalObjectTree();
-					getJobDescriptionsforBackBoneTable();
-				}, 10);		
-				
-			}
+			
 			// This function is the second of two functions that show popups this one is for the hierarchical
 			function setActivePosition2(activeReportsToPosition){
 				window.activeReportsToPosition = activeReportsToPosition;
@@ -1522,7 +1524,7 @@ under the License.
 					$().toastmessage('showSuccessToast', res.message);
 				});
 					$("#ubmsuite_mcs_my_organizational_chart_content_createNewPositionPopUp").popup('close');
-					getMyModelsOrgChart();					
+					getMyModelsOrgChart();
 			}
 			
 			function addChildPositiontoActivePosition(){
@@ -1548,7 +1550,7 @@ under the License.
 					$().toastmessage('showSuccessToast', res.message);
 				});
 					$("#ubmsuite_mcs_my_organizational_chart_content_createNewPositionPopUp").popup('close');
-					getMyModelsOrgChart();					
+					getMyModelsOrgChart();	
 				//Called from Model Settings Page????
 				//1. User selects a position from the list of ubm_model_positions?
 				//2. User is asked whether they wish to also add all positions that report to this position in the master file index?
@@ -1601,7 +1603,9 @@ under the License.
 			}
 
 			function getChildElements (activeObjectUUID) {
+				window.activeObjectUUID = activeObjectUUID;
 				$.getJSON('http://api.universalbusinessmodel.com/ubms_modelcreationsuite_model_get_ChildElements.php?callback=?'), {
+					key : window.key,
 					activeObjectUUID : activeObjectUUID
 				}, function(res, status) {
 					$.each(res, function(i, item) {
@@ -1680,7 +1684,8 @@ under the License.
 					$('#ubmsuite_mcs_my_organizational_chart_content_createNewJobDescriptionPopUp_form_createJobDescription_form').each(function() {
 							this.reset();
 						});
-					getMyModelsOrgChart();					
+					getMyModelsOrgChart();
+					getChildElements(activeObjectUUID);					
 			}
 			function getListofPossibleJobDescriptions() {//Populates Core Value Listview on Possible CoreValue Popup
 				$.getJSON('http://api.universalbusinessmodel.com/ubm_modelcreationsuite_model_getAll_JobDescriptions.php?callback=?', {//JSONP Request to Open Items Page setup tables
@@ -1704,7 +1709,8 @@ under the License.
 					$().toastmessage('showSuccessToast', res.message);
 				});
 					$("#ubmsuite_mcs_my_organizational_chart_content_createNewJobDescriptionPopUp").popup('close');
-					getMyModelsOrgChart();					
+					getMyModelsOrgChart();
+					getChildElements(activeObjectUUID);					
 				//Called from Model Settings Page????
 				//1. User selects a position from the list of ubm_model_positions?
 				//2. User is asked whether they wish to also add all positions that report to this position in the master file index?
@@ -1800,7 +1806,8 @@ under the License.
 					$().toastmessage('showSuccessToast', res.message);
 				});
 					$("#ubmsuite_mcs_my_organizational_chart_content_createNewPolciyPopUp").popup('close');
-					getMyModelsOrgChart();					
+					getMyModelsOrgChart();
+					getChildElements(activeObjectUUID);					
 				//Called from Model Settings Page????
 				//1. User selects a position from the list of ubm_model_positions?
 				//2. User is asked whether they wish to also add all positions that report to this position in the master file index?
@@ -1874,7 +1881,8 @@ under the License.
 					$('#ubmsuite_mcs_my_organizational_chart_content_createNewPolicyPopUp_form_CreatePolicy_form').each(function() {
 							this.reset();
 						});
-					getMyModelsOrgChart();					
+					getMyModelsOrgChart();
+					getChildElements(activeObjectUUID);					
 			}
 		</script>
 		<!-- End Policy-->
@@ -1922,7 +1930,8 @@ under the License.
 					$().toastmessage('showSuccessToast', res.message);
 				});
 					$("#ubmsuite_mcs_my_organizational_chart_content_createNewProcedurePopUp").popup('close');
-					getMyModelsOrgChart();					
+					getMyModelsOrgChart();	
+					getChildElements(activeObjectUUID);				
 				//Called from Model Settings Page????
 				//1. User selects a position from the list of ubm_model_positions?
 				//2. User is asked whether they wish to also add all positions that report to this position in the master file index?
@@ -1978,6 +1987,7 @@ under the License.
 							this.reset();
 						});
 					getMyModelsOrgChart();	
+					getChildElements(activeObjectUUID);
 			}
 		</script>
 		<!-- End Procedure-->
@@ -2021,7 +2031,8 @@ under the License.
 					$().toastmessage('showSuccessToast', res.message);
 				});
 					$("#ubmsuite_mcs_my_organizational_chart_content_createNewStepPopUp").popup('close');
-					getMyModelsOrgChart();					
+					getMyModelsOrgChart();	
+					getChildElements(activeObjectUUID);				
 				//Called from Model Settings Page????
 				//1. User selects a position from the list of ubm_model_positions?
 				//2. User is asked whether they wish to also add all positions that report to this position in the master file index?
@@ -2052,6 +2063,7 @@ under the License.
 							this.reset();
 						});
 					getMyModelsOrgChart();	
+					getChildElements(activeObjectUUID);
 			}
 			function getStepsforHeirarchicalObjectTree(){
 				$.getJSON('http://api.universalbusinessmodel.com/ubm_modelcreationsuite_model_Procedure_get_Steps.php?callback=?', {//JSONP Request to Open Items Page setup tables
@@ -2115,7 +2127,8 @@ under the License.
 					$().toastmessage('showSuccessToast', res.message);
 				});
 					$("#ubmsuite_mcs_my_organizational_chart_content_createNewStepPopUp").popup('close');
-					getMyModelsOrgChart();					
+					getMyModelsOrgChart();
+					getChildElements(activeObjectUUID);					
 				//Called from Model Settings Page????
 				//1. User selects a position from the list of ubm_model_positions?
 				//2. User is asked whether they wish to also add all positions that report to this position in the master file index?
@@ -2146,6 +2159,7 @@ under the License.
 							this.reset();
 						});
 					getMyModelsOrgChart();	
+					getChildElements(activeObjectUUID);
 			}
 			function getTasksforHeirarchicalObjectTree(){
 				$.getJSON('http://api.universalbusinessmodel.com/ubm_modelcreationsuite_model_Step_get_Tasks.php?callback=?', {//JSONP Request to Open Items Page setup tables
@@ -2180,7 +2194,8 @@ under the License.
 						if(item.path_length=="3"){
 //1. Set currentActiveOrgChartLevel 
 //2. Append the name of the highest reports to position on the top of the org chart.
-							$('#ubmsuite_mcs_my_organizational_chart_L0_ul').prepend("<a onclick='setActivePosition(" + item.UUID + ");getChildElements(" + item.UUID + ")'><img class='org_img' style='width:25px; height:25px;' src='img/apple.png' /></a></br>" + item.title); 
+							$('#ubmsuite_mcs_my_organizational_chart_L0_ul').prepend("<a onclick='setActivePosition(" + item.UUID + ")'><img class='org_img' style='width:25px; height:25px;' src='img/apple.png' /></a></br>" + item.title); 
+//3. New Append an Empty UL with the highest positions UUID in the id, so that additional positions may be added later.
 							$('#ubmsuite_mcs_my_organizational_chart_L0_ul').append("<ul id='ubmsuite_mcs_my_organizational_chart_P" + item.UUID + "_ul'></ul>");
 //4. Empty chart Div
 					        $('#chart').empty();
@@ -6011,7 +6026,7 @@ under the License.
 						MCS Model Organizational Dashboard
 					</div>
 				</div>
-					<a href="#" class="ui-btn ui-shadow ui-corner-all ui-icon-refresh ui-btn-icon-notext" onclick="getMyModelsOrgChart()">Refresh</a>				
+					<a href="#" class="ui-btn ui-shadow ui-corner-all ui-icon-refresh ui-btn-icon-notext" onclick="getMyModelsOrgChart();getChildElements(activeObjectUUID);">Refresh</a>				
 			</div>
 			<div data-role="content" id="ubmsuite_mcs_my_organizational_chart_content">
 				<div data-role="popup" id="ubmsuite_mcs_my_organizational_chart_confirm_remove_Position_popup"  data-theme="a" data-overlay-theme="b" class="ui-content" style="max-width:340px; padding-bottom:2em;">
@@ -17620,6 +17635,7 @@ under the License.
 	                   $( "#ubmsuite_mcs_my_organizational_chart_content_manageTask" ).draggable();
 					$('#chart').empty();
 			        getMyModelsOrgChart();	
+			        getChildElements(1);
 			        getObjectsforBackboneTable();
 				});
 				$(document).on("pageshow", "#possible_alternatives", function() {
