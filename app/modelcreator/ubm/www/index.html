@@ -3386,151 +3386,352 @@ under the License.
         </script>
 		<!-- MCS Checklist -->
 		<script>
-			function getModelSummary(){
-				$('#ubmsuite_mcs_model_review_ubm_model_ul').empty();												
+			function getModelSetupSummary(){
+				$('#ubmsuite_mcs_model_review_ubm_modelSetup_ul').empty();
+				$('#tab-1').show();	
+				$('#tab-2').hide();	
+				$('#tab-3').hide();	
+				$('#tab-4').hide();	
+				$('#tab-5').hide();	
+				$('#tab-6').hide();	
 				$.getJSON('http://api.universalbusinessmodel.com/ubms_modelcreationsuite_model_getCurrentModel_ModelSummary.php?callback=?', {//JSONP Request
 					username : window.username,					
 					key : window.key,
 					activeModelUUID : window.activeModelUUID
 				}, function(res, status) {
 					$.each(res, function(i, item) {
-						if(item.reference){
-							$('#ubmsuite_mcs_model_review_ubm_model_ul').append("<li class='success'>" + item.reference_prefix + " : " + item.reference + "</li>");												
+						if(item.task_id == 1 && item.status == "TRUE"){
+							$('#ubmsuite_mcs_model_review_ubm_modelSetup_ul').append("<li class='success'>License Agreement has been signed. Completed By: " + item.preparer_username + "</li>");												
 							
-						}else{
-							$('#ubmsuite_mcs_model_review_ubm_model_ul').append("<li class='warning'>Warning : This model doesnt have a reference.</li>");												
+						}else if(item.status != "TRUE"){
+							$('#ubmsuite_mcs_model_review_ubm_modelSetup_ul').append("<li class='warning'>Warning : <a href='#mcs_setup_1_popUp'>License Agreement has not been signed!</a></li>");												
 							
 						}	
-						if(item.title){
-							$('#ubmsuite_mcs_model_review_ubm_model_ul').append("<li class='success'>" + item.title_prefix + " : " + item.title + "</li>");												
+						if(item.task_id == 2 && item.status == "TRUE"){
+							$('#ubmsuite_mcs_model_review_ubm_modelSetup_ul').append("<li class='success'>Flow Chart has been carefully studied. Completed By: " + item.preparer_username + "</li>");												
 							
-						}else{
-							$('#ubmsuite_mcs_model_review_ubm_model_ul').append("<li class='warning'>Warning : This model doesnt have a Title.</li>");												
-							
-						}
-						if(item.description){
-							$('#ubmsuite_mcs_model_review_ubm_model_ul').append("<li class='success'>" + item.description_prefix + " : " + item.description + "</li>");												
-							
-						}else{
-							$('#ubmsuite_mcs_model_review_ubm_model_ul').append("<li class='warning'>Warning : This model doesnt have a Description.</li>");												
+						}else if(item.status != "TRUE"){
+							$('#ubmsuite_mcs_model_review_ubm_modelSetup_ul').append("<li class='warning'>Warning : <a href='#mcs_UBMFlowchart'>The Flow Chart has not been studied!</a></li>");												
 							
 						}
-						if(item.scope){
-							$('#ubmsuite_mcs_model_review_ubm_model_ul').append("<li class='success'>" + item.scope_prefix + " : " + item.scope + "</li>");												
+						if(item.task_id == 3 && item.status == "TRUE"){
+							$('#ubmsuite_mcs_model_review_ubm_modelSetup_ul').append("<li class='success'>User Guide for this section has been read. Completed By: " + item.preparer_username + "</li>");												
 							
-						}else{
-							$('#ubmsuite_mcs_model_review_ubm_model_ul').append("<li class='warning'>Warning : This model doesnt have a Scope.</li>");												
-							
-						}
-						if(item.purpose){
-							$('#ubmsuite_mcs_model_review_ubm_model_ul').append("<li class='success'>" + item.purpose_prefix + " : " + item.purpose + "</li>");												
-							
-						}else{
-							$('#ubmsuite_mcs_model_review_ubm_model_ul').append("<li class='error'>Warning : This model doesnt have a purpose!</li>");												
+						}else if(item.status != "TRUE"){
+							$('#ubmsuite_mcs_model_review_ubm_modelSetup_ul').append("<li class='warning'>Warning : <a href='#mcs_setup_checklist_setup_userGuide_Popup'>The User Guide has not been read for this section!</a></li>");												
 							
 						}
-						if(item.conceptual_definition){
-							$('#ubmsuite_mcs_model_review_ubm_model_ul').append("<li class='success'>" + item.conceptual_definition_prefix + " : " + item.conceptual_definition + "</li>");												
+						if(item.task_id == 4 && item.status == "TRUE"){
+							$('#ubmsuite_mcs_model_review_ubm_modelSetup_ul').append("<li class='success'>Identification Setup has been completed. Completed By: " + item.preparer_username + "</li>");												
 							
-						}else{
-							$('#ubmsuite_mcs_model_review_ubm_model_ul').append("<li class='error'>Warning : This model doesnt have a Conceptual Definition.</li>");												
-							
-						}
-						if(item.mission_statement){
-							$('#ubmsuite_mcs_model_review_ubm_model_ul').append("<li class='success'>" + item.mission_statement_prefix + " : " + item.mission_statement + "</li>");												
-							
-						}else{
-							$('#ubmsuite_mcs_model_review_ubm_model_ul').append("<li class='error'>Warning : This model doesnt have a Mission Statement.</li>");												
+						}else if(item.status != "TRUE"){
+							$('#ubmsuite_mcs_model_review_ubm_modelSetup_ul').append("<li class='warning'>Warning : <a href='#mcs_setup_checklist_setup_identification_setup_popup'>Identification Setup has not been completed!</a></li>");												
 							
 						}
-						if(item.vision_statement){
-							$('#ubmsuite_mcs_model_review_ubm_model_ul').append("<li class='success'>" + item.vision_statement_prefix + " : " + item.vision_statement + "</li>");												
+						if(item.task_id == 5 && item.status == "TRUE"){
+							$('#ubmsuite_mcs_model_review_ubm_modelSetup_ul').append("<li class='success'>The Getting Started page has been read. Completed By: " + item.preparer_username + "</li>");												
 							
-						}else{
-							$('#ubmsuite_mcs_model_review_ubm_model_ul').append("<li class='error'>Warning : This model doesnt have a Vision Statement.</li>");												
-							
-						}
-						if(item.model_steward){
-							$('#ubmsuite_mcs_model_review_ubm_model_ul').append("<li class='success'>" + item.model_steward_prefix + " : " + item.model_steward + "</li>");												
-							
-						}else{
-							$('#ubmsuite_mcs_model_review_ubm_model_ul').append("<li class='warning'>Warning : This model doesnt have a Model Steward.</li>");												
-							
-						}
-						if(item.creator_id){
-							$('#ubmsuite_mcs_model_review_ubm_model_ul').append("<li class='success'>" + item.creator_id_prefix + " : " + item.creator_id + "</li>");												
-							
-						}else{
-							$('#ubmsuite_mcs_model_review_ubm_model_ul').append("<li class='error'>Error : This model doesnt have a Creator ID!.</li>");												
-							
-						}
-						if(item.created_date){
-							$('#ubmsuite_mcs_model_review_ubm_model_ul').append("<li class='success'>" + item.created_date_prefix + " : " + item.created_date + "</li>");												
-							
-						}else{
-							$('#ubmsuite_mcs_model_review_ubm_model_ul').append("<li class='error'>Error : This model doesnt appear to have a on which it was created!</li>");												
-							
-						}
-						if(item.modified_date){
-							$('#ubmsuite_mcs_model_review_ubm_model_ul').append("<li class='success'>" + item.modified_date_prefix + " : " + item.modified_date + "</li>");												
-							
-						}else{
-							$('#ubmsuite_mcs_model_review_ubm_model_ul').append("<li class='warning'>Warning : This model doesnt have a Modified Date.</li>");												
-							
-						}
-						if(item.model_version){
-							$('#ubmsuite_mcs_model_review_ubm_model_ul').append("<li class='success'>" + item.model_version_prefix + " : " + item.model_version + "</li>");												
-							
-						}else{
-							$('#ubmsuite_mcs_model_review_ubm_model_ul').append("<li class='warning'>Warning : This model doesnt have a Model Version.</li>");												
-							
-						}
-						if(item.owner_legal_entity){
-							$('#ubmsuite_mcs_model_review_ubm_model_ul').append("<li class='success'>" + item.owner_legal_entity_prefix + " : " + item.owner_legal_entity + "</li>");												
-							
-						}else{
-							$('#ubmsuite_mcs_model_review_ubm_model_ul').append("<li class='warning'>Warning : This model doesnt have a Legal Entity.</li>");												
-							
-						}
-						if(item.owner_ccode){
-							$('#ubmsuite_mcs_model_review_ubm_model_ul').append("<li class='success'>" + item.owner_ccode_prefix + " : " + item.owner_ccode + "</li>");												
-							
-						}else{
-							$('#ubmsuite_mcs_model_review_ubm_model_ul').append("<li class='error'>Error : This model doesnt have an Owner CCODE on file.</li>");												
-							
-						}
-						if(item.model_contact_name){
-							$('#ubmsuite_mcs_model_review_ubm_model_ul').append("<li class='success'>" + item.model_contact_name_prefix + " : " + item.model_contact_name + "</li>");												
-							
-						}else{
-							$('#ubmsuite_mcs_model_review_ubm_model_ul').append("<li class='error'>Error : We dont have a Contact on file for this model.</li>");												
-							
-						}
-						if(item.model_contact_phone){
-							$('#ubmsuite_mcs_model_review_ubm_model_ul').append("<li class='success'>" + item.model_contact_phone_prefix + " : " + item.model_contact_phone + "</li>");												
-							
-						}else{
-							$('#ubmsuite_mcs_model_review_ubm_model_ul').append("<li class='error'>Error : We dont have a Contact Phone Number on file for this model.</li>");												
-							
-						}
-						if(item.model_contact_email){
-							$('#ubmsuite_mcs_model_review_ubm_model_ul').append("<li class='success'>" + item.model_contact_email_prefix + " : " + item.model_contact_email + "</li>");												
-							
-						}else{
-							$('#ubmsuite_mcs_model_review_ubm_model_ul').append("<li class='warning'>Warning : This model doesnt have a reference.</li>");												
-							
-						}
-						if(item.system_title){
-							$('#ubmsuite_mcs_model_review_ubm_model_ul').append("<li class='success'>" + item.system_title_prefix + " : " + item.system_title + "</li>");												
-							
-						}else{
-							$('#ubmsuite_mcs_model_review_ubm_model_ul').append("<li class='warning'>Warning : This model doesnt have a System Title.</li>");												
+						}else if(item.status != "TRUE"){
+							$('#ubmsuite_mcs_model_review_ubm_modelSetup_ul').append("<li class='warning'>Warning : <a href='#gettingStarted'>The Getting Started page has not been read!</a></li>");												
 							
 						}
 					});
 				});
 				
 			}
+		</script>
+		<script>
+			function getControlSummary(){
+				$('#ubmsuite_mcs_model_review_ubm_control_ul').empty();		
+				$('#tab-2').show();
+				$('#tab-1').hide();	
+				$('#tab-3').hide();	
+				$('#tab-4').hide();	
+				$('#tab-5').hide();	
+				$('#tab-6').hide();											
+				$.getJSON('http://api.universalbusinessmodel.com/ubms_modelcreationsuite_model_getCurrentModel_ModelSummary.php?callback=?', {//JSONP Request
+					username : window.username,					
+					key : window.key,
+					activeModelUUID : window.activeModelUUID
+				}, function(res, status) {
+					$.each(res, function(i, item) {
+						if (item.status == "TRUE"){
+							var status = "true";
+						} else {
+							status = "fasle";
+						}
+						if(item.task_id == 8 && status == "true"){
+							$('#ubmsuite_mcs_model_review_ubm_control_ul').append("<li class='success'>Budgeted Hours have been reviewed. Completed By: " + item.preparer_username + "</li>");												
+						}else if(status == "false"){
+							$('#ubmsuite_mcs_model_review_ubm_control_ul').append("<li class='warning'>Warning : <a href='#mcs_setup_checklist_CS'>Budgeted Hours have not been reviewd</li>");												
+						}	
+						if(item.task_id == 9 && status == "true"){
+							$('#ubmsuite_mcs_model_review_ubm_control_ul').append("<li class='success'>User Guide for this section has been read. Completed By: " + item.preparer_username + "</li>");												
+						}else if(status == "false"){
+							$('#ubmsuite_mcs_model_review_ubm_control_ul').append("<li class='warning'>Warning : <a href='#mcs_setup_checklist_setup_userGuide_Popup'>The User Guide for this section has not been read!</a></li>");												
+						}
+						if(item.task_id == 10 && status == "true"){
+							$('#ubmsuite_mcs_model_review_ubm_control_ul').append("<li class='success'>Placeholder Completed By: " + item.preparer_username + "</li>");												
+						}else if(status == "false"){
+							$('#ubmsuite_mcs_model_review_ubm_control_ul').append("<li class='warning'>Warning : <a href='#'>Placeholder</a></li>");												
+						}
+						if(item.task_id == 11 && status == "true"){
+							$('#ubmsuite_mcs_model_review_ubm_control_ul').append("<li class='success'>Placeholder. Completed By: " + item.preparer_username + "</li>");												
+						}else if(status == "false"){
+							$('#ubmsuite_mcs_model_review_ubm_control_ul').append("<li class='warning'>Warning : <a href='#mcs_setup_checklist_setup_identification_setup_popup'>Placeholder</a></li>");												
+						}
+					});
+				});
+				
+			}
+		</script>
+		<script>
+			function getPhase1Summary(){
+				$('#ubmsuite_mcs_model_review_ubm_phase1_ul').empty();
+				$('#tab-3').show();
+				$('#tab-2').hide();	
+				$('#tab-1').hide();	
+				$('#tab-4').hide();	
+				$('#tab-5').hide();	
+				$('#tab-6').hide();										
+				$.getJSON('http://api.universalbusinessmodel.com/ubms_modelcreationsuite_model_getCurrentModel_ModelSummary.php?callback=?', {//JSONP Request
+					username : window.username,					
+					key : window.key,
+					activeModelUUID : window.activeModelUUID
+				}, function(res, status) {
+					$.each(res, function(i, item) {
+						if(item.task_id == 15 && item.status == "TRUE"){
+							$('#ubmsuite_mcs_model_review_ubm_phase1_ul').append("<li class='success'>Placeholder. Completed By: " + item.preparer_username + "</li>");												
+							
+						}else if(item.status !="TRUE"){
+							$('#ubmsuite_mcs_model_review_ubm_phase1_ul').append("<li class='warning'>Warning : <a href='#mcs_setup_1_popUp'>Placeholder</a></li>");												
+							
+						}	
+						if(item.task_id == 16 && item.status == "TRUE"){
+							$('#ubmsuite_mcs_model_review_ubm_phase1_ul').append("<li class='success'>User Guide has been read. Completed By: " + item.preparer_username + "</li>");												
+							
+						}else if(item.status != "TRUE"){
+							$('#ubmsuite_mcs_model_review_ubm_phase1_ul').append("<li class='warning'>Warning : <a href='#mcs_setup_checklist_p1_userGuide_popup'>The User Guide for this section has not been read!</a></li>");												
+							
+						}
+						if(item.task_id == 17 && item.status == "TRUE"){
+							$('#ubmsuite_mcs_model_review_ubm_phase1_ul').append("<li class='success'>Conceptual Definitions, Mission Statement and Vision Statement have been added. Completed By: " + item.preparer_username + "</li>");												
+							
+						}else if(item.status != "TRUE"){
+							$('#ubmsuite_mcs_model_review_ubm_phase1_ul').append("<li class='warning'>Warning : <a href='#mcs_setup_checklist_p1_primaryObjects_setup_popup'>Conceptual Definitions, Mission Statement and Vision Statement have not been added!</a></li>");												
+							
+						}
+						if(item.task_id == 18 && item.status == "TRUE"){
+							$('#ubmsuite_mcs_model_review_ubm_phase1_ul').append("<li class='success'>Placeholder. Completed By: " + item.preparer_username + "</li>");												
+							
+						}else if(item.status != "TRUE"){
+							$('#ubmsuite_mcs_model_review_ubm_phase1_ul').append("<li class='warning'>Warning : <a href='#'>Placeholder!</a></li>");												
+							
+						}
+						if(item.task_id == 19 && item.status == "TRUE"){
+							$('#ubmsuite_mcs_model_review_ubm_phase1_ul').append("<li class='success'>Placeholder. Completed By: " + item.preparer_username + "</li>");												
+							
+						}else if(item.status != "TRUE"){
+							$('#ubmsuite_mcs_model_review_ubm_phase1_ul').append("<li class='warning'>Warning : <a href='#'>Placeholder!</a></li>");												
+							
+						}
+						if(item.task_id == 20 && item.status == "TRUE"){
+							$('#ubmsuite_mcs_model_review_ubm_phase1_ul').append("<li class='success'>Placeholder. Completed By: " + item.preparer_username + "</li>");												
+							
+						}else if(item.status != "TRUE"){
+							$('#ubmsuite_mcs_model_review_ubm_phase1_ul').append("<li class='warning'>Warning : <a href='#'>Placeholder!</a></li>");												
+							
+						}
+					});
+				});
+				
+			}
+		</script>
+		<script>
+			function getPhase2Summary(){
+				$('#ubmsuite_mcs_model_review_ubm_phase2_ul').empty();
+				$('#tab-4').show();
+				$('#tab-2').hide();	
+				$('#tab-3').hide();	
+				$('#tab-1').hide();	
+				$('#tab-5').hide();	
+				$('#tab-6').hide();											
+				$.getJSON('http://api.universalbusinessmodel.com/ubms_modelcreationsuite_model_getCurrentModel_ModelSummary.php?callback=?', {//JSONP Request
+					username : window.username,					
+					key : window.key,
+					activeModelUUID : window.activeModelUUID
+				}, function(res, status) {
+					$.each(res, function(i, item) {
+						if(item.task_id == 25 && item.status == "TRUE"){
+							$('#ubmsuite_mcs_model_review_ubm_phase2_ul').append("<li class='success'>Placeholder. Completed By: " + item.preparer_username + "</li>");												
+							
+						}else if(item.status != "TRUE"){
+							$('#ubmsuite_mcs_model_review_ubm_phase2_ul').append("<li class='warning'>Warning : <a href='#'>Placeholder!</a></li>");												
+							
+						}	
+						if(item.task_id == 26 && item.status == "TRUE"){
+							$('#ubmsuite_mcs_model_review_ubm_phase2_ul').append("<li class='success'>User Guide has for this section has been read. Completed By: " + item.preparer_username + "</li>");												
+							
+						}else if(item.status != "TRUE"){
+							$('#ubmsuite_mcs_model_review_ubm_phase2_ul').append("<li class='warning'>Warning : <a href='#mcs_setup_checklist_p2_userGuide_popup'>The user guide for thes section has not been read!</a></li>");												
+							
+						}
+						if(item.task_id == 27 && item.status == "TRUE"){
+							$('#ubmsuite_mcs_model_review_ubm_phase2_ul').append("<li class='success'>List of alternitives has been completed. Completed By: " + item.preparer_username + "</li>");												
+							
+						}else if(item.status != "TRUE"){
+							$('#ubmsuite_mcs_model_review_ubm_phase2_ul').append("<li class='warning'>Warning : <a href='#possible_alternatives'>List of alternitives has not been completed!</a></li>");												
+							
+						}
+						if(item.task_id == 28 && item.status == "TRUE"){
+							$('#ubmsuite_mcs_model_review_ubm_phase2_ul').append("<li class='success'>Return on Investment Analysis form has been completed. Completed By: " + item.preparer_username + "</li>");												
+							
+						}else if(item.status != "TRUE"){
+							$('#ubmsuite_mcs_model_review_ubm_phase2_ul').append("<li class='warning'>Warning : <a href='#return_on_investment'>Return on Investment Analysis form has not been completed</a></li>");												
+							
+						}
+						if(item.task_id == 29 && item.status == "TRUE"){
+							$('#ubmsuite_mcs_model_review_ubm_phase2_ul').append("<li class='success'>Risk Analysis marked as Use Now has been completed. Completed By: " + item.preparer_username + "</li>");												
+							
+						}else if(item.status != "TRUE"){
+							$('#ubmsuite_mcs_model_review_ubm_phase2_ul').append("<li class='warning'>Warning : <a href='#risk_analysis'>Risk Analysis marked as Use Now has not been completed!</a></li>");												
+							
+						}
+						if(item.task_id == 30 && item.status == "TRUE"){
+							$('#ubmsuite_mcs_model_review_ubm_phase2_ul').append("<li class='success'>Placeholder. Completed By: " + item.preparer_username + "</li>");												
+							
+						}else if(item.status != "TRUE"){
+							$('#ubmsuite_mcs_model_review_ubm_phase2_ul').append("<li class='warning'>Warning : <a href='#'>Placeholder!</a></li>");												
+							
+						}
+					});
+				});
+				
+			}
+		</script>
+		<script>
+			function getPhase3Summary(){
+				$('#ubmsuite_mcs_model_review_ubm_phase3_ul').empty();
+				$('#tab-5').show();
+				$('#tab-2').hide();	
+				$('#tab-3').hide();	
+				$('#tab-4').hide();	
+				$('#tab-1').hide();	
+				$('#tab-6').hide();											
+				$.getJSON('http://api.universalbusinessmodel.com/ubms_modelcreationsuite_model_getCurrentModel_ModelSummary.php?callback=?', {//JSONP Request
+					username : window.username,					
+					key : window.key,
+					activeModelUUID : window.activeModelUUID
+				}, function(res, status) {
+					$.each(res, function(i, item) {
+						if(item.task_id == 34 && item.status == "TRUE"){
+							$('#ubmsuite_mcs_model_review_ubm_phase3_ul').append("<li class='success'>Placeholder. Completed By: " + item.preparer_username + "</li>");												
+							
+						}else if(item.status !=  "TRUE"){
+							$('#ubmsuite_mcs_model_review_ubm_phase3_ul').append("<li class='warning'>Warning : <a href='#'>Placeholder!</a></li>");												
+							
+						}	
+						if(item.task_id == 35 && item.status == "TRUE"){
+							$('#ubmsuite_mcs_model_review_ubm_phase3_ul').append("<li class='success'>User Guide for this phase has been read. Completed By: " + item.preparer_username + "</li>");												
+							
+						}else if(item.status != "TRUE"){
+							$('#ubmsuite_mcs_model_review_ubm_phase3_ul').append("<li class='warning'>Warning : <a href='#mcs_UBMFlowchart'>User Guide for this phase has not been read!</a></li>");												
+							
+						}
+						if(item.task_id == 36 && item.status == "TRUE"){
+							$('#ubmsuite_mcs_model_review_ubm_phase3_ul').append("<li class='success'>Selected Alternatives form has been completed. Completed By: " + item.preparer_username + "</li>");												
+							
+						}else if(item.status != "TRUE"){
+							$('#ubmsuite_mcs_model_review_ubm_phase3_ul').append("<li class='warning'>Warning : <a href='#'>Selected Alternatives form has not been completed!</a></li>");												
+							
+						}
+						if(item.task_id == 37 && item.status == "TRUE"){
+							$('#ubmsuite_mcs_model_review_ubm_phase3_ul').append("<li class='success'>Projected Financial Statement form has been completed. Completed By: " + item.preparer_username + "</li>");												
+							
+						}else if(item.status != "TRUE"){
+							$('#ubmsuite_mcs_model_review_ubm_phase3_ul').append("<li class='warning'>Warning : <a href='#'>Projected Financial Statement form has not been completed!</a></li>");												
+							
+						}
+						if(item.task_id == 38 && item.status == "TRUE"){
+							$('#ubmsuite_mcs_model_review_ubm_phase3_ul').append("<li class='success'>Placeholder. Completed By: " + item.preparer_username + "</li>");												
+							
+						}else if(item.status != "TRUE"){
+							$('#ubmsuite_mcs_model_review_ubm_phase3_ul').append("<li class='warning'>Warning : <a href='#'>Placeholder!</a></li>");												
+							
+						}
+						if(item.task_id == 39 && item.status == "TRUE"){
+							$('#ubmsuite_mcs_model_review_ubm_phase3_ul').append("<li class='success'>Strategic Alliances have been specified. Completed By: " + item.preparer_username + "</li>");												
+							
+						}else if(item.status != "TRUE"){
+							$('#ubmsuite_mcs_model_review_ubm_phase3_ul').append("<li class='warning'>Warning : <a href='#'>Strategic Alliances have not been specified!</a></li>");												
+							
+						}
+						if(item.task_id == 40 && item.status == "TRUE"){
+							$('#ubmsuite_mcs_model_review_ubm_phase3_ul').append("<li class='success'>Placeholder. Completed By: " + item.preparer_username + "</li>");												
+							
+						}else if(item.status != "TRUE"){
+							$('#ubmsuite_mcs_model_review_ubm_phase3_ul').append("<li class='warning'>Warning : <a href='#'>Placeholder!</a></li>");												
+							
+						}
+					});
+				});
+				
+			}
+		</script>
+		<script>
+		// 	function getPhase4Summary(){
+		// 		$('#ubmsuite_mcs_model_review_ubm_phase4_ul').empty();
+		// 		$('#tab-6').show();
+		// 		$('#tab-2').hide();	
+		// 		$('#tab-3').hide();	
+		// 		$('#tab-4').hide();	
+		// 		$('#tab-5').hide();	
+		// 		$('#tab-1').hide();												
+		// 		$.getJSON('http://api.universalbusinessmodel.com/ubms_modelcreationsuite_model_getCurrentModel_ModelSummary.php?callback=?', {//JSONP Request
+		// 			username : window.username,					
+		// 			key : window.key,
+		// 			activeModelUUID : window.activeModelUUID
+		// 		}, function(res, status) {
+		// 			$.each(res, function(i, item) {
+		// 				if(item.task_id == 1 && item.status == "TRUE"){
+		// 					$('#ubmsuite_mcs_model_review_ubm_phase4_ul').append("<li class='success'>License Agreement has been signed. Completed By: " + item.preparer_username + "</li>");												
+							
+		// 				}else if(item.status != "TRUE"){
+		// 					$('#ubmsuite_mcs_model_review_ubm_phase4_ul').append("<li class='warning'>Warning : <a href='#mcs_setup_1_popUp'>License Agreement has not been signed!</a></li>");												
+							
+		// 				}	
+		// 				if(item.task_id == 2 && item.status == "TRUE"){
+		// 					$('#ubmsuite_mcs_model_review_ubm_phase4_ul').append("<li class='success'>Flow Chart has been carefully studied. Completed By: " + item.preparer_username + "</li>");												
+							
+		// 				}else if(item.status != "TRUE"){
+		// 					$('#ubmsuite_mcs_model_review_ubm_phase4_ul').append("<li class='warning'>Warning : <a href='#mcs_UBMFlowchart'>The Flow Chart has not been studied!</a></li>");												
+							
+		// 				}
+		// 				if(item.task_id == 3 && item.status == "TRUE"){
+		// 					$('#ubmsuite_mcs_model_review_ubm_phase4_ul').append("<li class='success'>User Guide for this section has been read. Completed By: " + item.preparer_username + "</li>");												
+							
+		// 				}else if(item.status != "TRUE"){
+		// 					$('#ubmsuite_mcs_model_review_ubm_phase4_ul').append("<li class='warning'>Warning : <a href='#mcs_setup_checklist_setup_userGuide_Popup'>The User Guide has not been read for this section!</a></li>");												
+							
+		// 				}
+		// 				if(item.task_id == 4 && item.status == "TRUE"){
+		// 					$('#ubmsuite_mcs_model_review_ubm_phase4_ul').append("<li class='success'>Identification Setup has been completed. Completed By: " + item.preparer_username + "</li>");												
+							
+		// 				}else if(item.status != "TRUE"){
+		// 					$('#ubmsuite_mcs_model_review_ubm_phase4_ul').append("<li class='warning'>Warning : <a href='#mcs_setup_checklist_setup_identification_setup_popup'>Identification Setup has not been completed!</a></li>");												
+							
+		// 				}
+		// 				if(item.task_id == 5 && item.status == "TRUE"){
+		// 					$('#ubmsuite_mcs_model_review_ubm_phase4_ul').append("<li class='success'>The Getting Started page has been read. Completed By: " + item.preparer_username + "</li>");												
+							
+		// 				}else if(item.status != "TRUE"){
+		// 					$('#ubmsuite_mcs_model_review_ubm_phase4_ul').append("<li class='warning'>Warning : <a href='#gettingStarted'>The Getting Started page has not been read!</a></li>");												
+							
+		// 				}
+		// 			});
+		// 		});
+				
+		// 	}
 		</script>
 		<!-- Model Summary -->
         <script>
@@ -5575,10 +5776,22 @@ under the License.
 							<div class="controls">
 								<nav class="links">
 									<ul>
-										<li><a href="#" class="ico1">Setup <span class="num">19</span></a></li>
+										<li><a href="#" onclick="getModelSetupSummary()" class="ico3">Setup</a></li>
 									</ul>
 									<ul>
-										<li><a href="#" class="ico1">Control <span class="num">0</span></a></li>
+										<li><a href="#" onclick="getControlSummary()" class="ico3">Control</a></li>
+									</ul>
+									<ul>
+										<li><a href="#" onclick="getPhase1Summary()" class="ico3">Phase 1</a></li>
+									</ul>
+									<ul>
+										<li><a href="#" onclick="getPhase2Summary()" class="ico3">Phase 2</a></li>
+									</ul>
+									<ul>
+										<li><a href="#" onclick="getPhase3Summary()" class="ico3">Phase 3</a></li>
+									</ul>
+									<ul>
+										<li><a href="#" onclick="getPhase4Summary()" class="ico3">Phase 4</a></li>
 									</ul>
 								</nav>
 								<!--<div class="profile-box">
@@ -5601,7 +5814,52 @@ under the License.
 										<div class="text-section">
 											<h1>Model Setup</h1>
 										</div>
-										<ul id="ubmsuite_mcs_model_review_ubm_model_ul" class="states">
+										<ul id="ubmsuite_mcs_model_review_ubm_modelSetup_ul" class="states">
+										</ul>
+									</article>
+								</div>
+								<div id="tab-2" class="tab">
+									<article>
+										<div class="text-section">
+											<h1>Control</h1>
+										</div>
+										<ul id="ubmsuite_mcs_model_review_ubm_control_ul" class="states">
+										</ul>
+									</article>
+								</div>
+								<div id="tab-3" class="tab">
+									<article>
+										<div class="text-section">
+											<h1>Phase 1</h1>
+										</div>
+										<ul id="ubmsuite_mcs_model_review_ubm_phase1_ul" class="states">
+										</ul>
+									</article>
+								</div>
+								<div id="tab-4" class="tab">
+									<article>
+										<div class="text-section">
+											<h1>Phase 2</h1>
+										</div>
+										<ul id="ubmsuite_mcs_model_review_ubm_phase2_ul" class="states">
+										</ul>
+									</article>
+								</div>
+								<div id="tab-5" class="tab">
+									<article>
+										<div class="text-section">
+											<h1>Phase 3</h1>
+										</div>
+										<ul id="ubmsuite_mcs_model_review_ubm_phase3_ul" class="states">
+										</ul>
+									</article>
+								</div>
+								<div id="tab-6" class="tab">
+									<article>
+										<div class="text-section">
+											<h1>Phase 4</h1>
+										</div>
+										<ul id="ubmsuite_mcs_model_review_ubm_phase4_ul" class="states">
 										</ul>
 									</article>
 								</div>
@@ -5618,11 +5876,6 @@ under the License.
 						<span class="shadow"></span>
 					</aside>
 				</div>
-
-            </div>
-
-            <div data-role="footer" data-position="fixed" data-fullscreen="true">
-
             </div>
         </div>
 		<!-- Master File Index -->
@@ -17289,9 +17542,7 @@ under the License.
 					
 				});
 				$(document).on("pageshow", "#ubmsuite_mcs_model_review", function() {
-					setTimeout(function() {
-						getModelSummary();
-					}, 1000);
+					getModelSetupSummary();
 				});
 				$(document).on("pageshow", "#ubmsuite_mcs_master_file_index", function() {
 				    getMasterFileIndexItems();
