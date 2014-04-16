@@ -2194,7 +2194,7 @@ under the License.
 						if(item.path_length=="3"){
 //1. Set currentActiveOrgChartLevel 
 //2. Append the name of the highest reports to position on the top of the org chart.
-							$('#ubmsuite_mcs_my_organizational_chart_L0_ul').prepend("<a onclick='buildHierarchicalTree(" + item.UUID + ")'><img class='org_img' style='width:25px; height:25px;' src='img/apple.png' /></a></br>" + item.title); 
+							$('#ubmsuite_mcs_my_organizational_chart_L0_ul').prepend("<a ondblclick='setActivePosition(" + item.UUID + ")' onclick='buildHierarchicalTree(" + item.UUID + ")'><img class='org_img' style='width:25px; height:25px;' src='img/apple.png' /></a></br>" + item.title); 
 //3. New Append an Empty UL with the highest positions UUID in the id, so that additional positions may be added later.
 							$('#ubmsuite_mcs_my_organizational_chart_L0_ul').append("<ul id='ubmsuite_mcs_my_organizational_chart_P" + item.UUID + "_ul'></ul>");
 //4. Empty chart Div
