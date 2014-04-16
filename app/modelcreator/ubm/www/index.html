@@ -1622,6 +1622,7 @@ under the License.
 				});
 			}
 			function buildHierarchicalTree(uuid){
+				$('#heirarchyObjectTree_ul').empty();
 //Called when user clicks on a position displayed on the org chart.
 // 1. Gets the child elements of uuid
 				getChildElementsforHierarchicalTree(uuid);
@@ -2190,6 +2191,7 @@ under the License.
 				}, function(res, status) {
 					$.each(res, function(i, item) {
 						if(item.path_length=="3"){
+							window.activeModelOwnersUUID = item.UUID;
 //1. Set currentActiveOrgChartLevel 
 //2. Append the name of the highest reports to position on the top of the org chart.
 							$('#ubmsuite_mcs_my_organizational_chart_L0_ul').prepend("<a ondblclick='setActivePosition(" + item.UUID + ")' onclick='buildHierarchicalTree(" + item.UUID + ")'><img class='org_img' style='width:25px; height:25px;' src='img/apple.png' /></a></br>" + item.title); 
@@ -2202,7 +2204,6 @@ under the License.
 					            dragAndDrop  : false
 					        });		
 					      getChildElements(item.UUID);
-					      window.activeModelOwnersUUID = item.UUID;	
 						}else{
 
 						}
@@ -2217,7 +2218,7 @@ under the License.
 
 				//3. Append all other children to their respective "reports_to" ul
 				//$('#ubmsuite_mcs_my_organizational_chart_P' + item.reports_to_id + '_ul').append("<li id='orgChartPosition" + item.UUID + "'><div id='demo_box_" + item.UUID + "' class='demo_box' onclick='setActivePosition(" + item.UUID + ")'><div class='pop_ctrl'><i class='fa fa-bars'></i></div><ul id='demo_ul_2'><li class='demo_li'><a href='#' onclick='addChildPositiontoActivePosition()'><div><i class='fa fa-plus-circle'></i></div><p>Add</p></a></li><li class='demo_li'><a href='#' onclick='removeActivePosition()'><div><i class='fa fa-minus-circle'></i></div><p>Remove</p></a></li></ul></div></br>" + item.title + "<ul id='ubmsuite_mcs_my_organizational_chart_P" + item.UUID + "_ul'></ul></li>");	
-							$('#ubmsuite_mcs_my_organizational_chart_P' + item.ancestor_UUID + '_ul').append("<li id='orgChartPosition" + item.UUID + "'><a onclick='setActivePosition(" + item.UUID + ")'><img id='org_img_" + item.UUID + "' style='width:25px; height:25px;' src='img/apple.png' /></a></br>" + item.title + "<ul id='ubmsuite_mcs_my_organizational_chart_P" + item.UUID + "_ul'></ul></li>");	
+							$('#ubmsuite_mcs_my_organizational_chart_P' + item.ancestor_UUID + '_ul').append("<li id='orgChartPosition" + item.UUID + "'><a ondblclick='setActivePosition(" + item.UUID + ")' onclick='buildHierarchicalTree(" + item.UUID + ")'><img id='org_img_" + item.UUID + "' style='width:25px; height:25px;' src='img/apple.png' /></a></br>" + item.title + "<ul id='ubmsuite_mcs_my_organizational_chart_P" + item.UUID + "_ul'></ul></li>");	
 				//4. Empty chart Div
 					        $('#chart').empty();
 					        
