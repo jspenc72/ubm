@@ -1389,28 +1389,6 @@ under the License.
         </script>
         <!-- End Master File Index -->
 		<script>
-		function setActivePosition(activeReportsToPosition){
-				alert(activeReportsToPosition);
-	// 			window.activeReportsToPosition = activeReportsToPosition;
-	// 		//	alert(window.activeReportsToPosition);
-	// //6. Call popmenu plugin with the given parameters as plugin options.
-	//             $('.demo_box_popup').popmenu({
-	// 			    'controller': true,       // use control button or not
-	// 			    'width': '300px',         // width of menu
-	// 			    'background': '#34495e',  // background color of menu
-	// 			    'focusColor': '#1abc9c',  // hover color of menu's buttons
-	// 			    'borderRadius': '10px',   // radian of angles, '0' for right angle
-	// 			    'top': '50',              // pixels that move up
-	// 			    'left': '0',              // pixels that move left
-	// 			    'iconSize': '75px'        // size of menu's buttons
-	//             });
-	// 			setTimeout(function() {
-	// 				$("#ubmsuite_mcs_my_organizational_chart_content_modifyPositionPopUp").popup('open');
-	// 				getPositionforHeirarchicalObjectTree();
-	// 				getJobDescriptionsforBackBoneTable();
-	// 			}, 10);		
-				
-			}
 			function refreshBackboneTable(){
 				getJobDescriptionsforBackBoneTable();
 				//getPoliciesforBackBoneTable();
@@ -1418,7 +1396,27 @@ under the License.
 				//getStepsforBackBoneTable();
 				//getTasksforBackBoneTable();
 			}
-			
+			function setActivePosition(activeReportsToPosition){
+				window.activeReportsToPosition = activeReportsToPosition;
+			//	alert(window.activeReportsToPosition);
+	//6. Call popmenu plugin with the given parameters as plugin options.
+	            $('.demo_box_popup').popmenu({
+				    'controller': true,       // use control button or not
+				    'width': '300px',         // width of menu
+				    'background': '#34495e',  // background color of menu
+				    'focusColor': '#1abc9c',  // hover color of menu's buttons
+				    'borderRadius': '10px',   // radian of angles, '0' for right angle
+				    'top': '50',              // pixels that move up
+				    'left': '0',              // pixels that move left
+				    'iconSize': '75px'        // size of menu's buttons
+	            });
+				setTimeout(function() {
+					$("#ubmsuite_mcs_my_organizational_chart_content_modifyPositionPopUp").popup('open');
+					getPositionforHeirarchicalObjectTree();
+					getJobDescriptionsforBackBoneTable();
+				}, 10);		
+				
+			}
 			// This function is the second of two functions that show popups this one is for the hierarchical
 			function setActivePosition2(activeReportsToPosition){
 				window.activeReportsToPosition = activeReportsToPosition;
@@ -1599,14 +1597,15 @@ under the License.
 			}
 
 			function getChildElements (activeObjectUUID) {
+				$('#heirarchyObjectTree_ul').empty();
 				window.activeObjectUUID = activeObjectUUID;
-				$.getJSON('http://api.universalbusinessmodel.com/ubms_modelcreationsuite_model_get_ChildElements.php?callback=?'), {
+				$.getJSON('http://api.universalbusinessmodel.com/ubms_modelcreationsuite_model_get_ChildElements.php?callback=?', {
 					key : window.key,
 					activeObjectUUID : activeObjectUUID
 				}, function(res, status) {
 					$.each(res, function(i, item) {
-						if(window.activeReportsToPosition==item.UUID){
-						$('#heirarchyObjectTree_ul').prepend("<li><a data-position-to='origin' href='#ubmsuite_mcs_my_organizational_chart_content_manageJobDescriptionPopUp' data-rel='popup' class='ui-link' data-transition='pop' onclick='setActivePosition2(" + item.UUID + ")'>PS-" + item.UUID + "</a><ul id='ubmsuite_mcs_my_organizational_chart_heirarchyObjectTree_ul_P'></ul></li>"); 
+						if(window.activeObjectUUID==item.descendant_id){
+						$('#heirarchyObjectTree_ul').append("<li><a data-position-to='origin' href='#ubmsuite_mcs_my_organizational_chart_content_manageJobDescriptionPopUp' data-rel='popup' class='ui-link' data-transition='pop' onclick='setActivePosition2(" + item.descendant_id + ")'>PS-" + item.descendant_id + "</a><ul id='ubmsuite_mcs_my_organizational_chart_heirarchyObjectTree_ul_P'></ul></li>"); 
 						}else{
 
 						}
@@ -1623,22 +1622,9 @@ under the License.
 				}, function(res, status) {
 					$.each(res, function(i, item) {
 						if(window.activeReportsToPosition==item.UUID){
-//1. Set currentActiveOrgChartLevel 
-//2. Append the name of the highest reports to position on the top of the org chart.
 							$('#heirarchyObjectTree_ul').prepend("<li><a data-position-to='origin' href='#ubmsuite_mcs_my_organizational_chart_content_manageJobDescriptionPopUp' data-rel='popup' class='ui-link' data-transition='pop' onclick='setActivePosition2(" + item.UUID + ")'>PS-" + item.UUID + "</a><ul id='ubmsuite_mcs_my_organizational_chart_heirarchyObjectTree_ul_P'></ul></li>"); 
 						}else{
 							
-							/*
-//3. Append all other childre to their respective "reports_to" ul
-//							$('#ubmsuite_mcs_my_organizational_chart_P' + item.reports_to_id + '_ul').append("<li id='orgChartPosition" + item.UUID + "'><div id='demo_box_" + item.UUID + "' class='demo_box' onclick='setActivePosition(" + item.UUID + ")'><div class='pop_ctrl'><i class='fa fa-bars'></i></div><ul id='demo_ul_2'><li class='demo_li'><a href='#' onclick='addChildPositiontoActivePosition()'><div><i class='fa fa-plus-circle'></i></div><p>Add</p></a></li><li class='demo_li'><a href='#' onclick='removeActivePosition()'><div><i class='fa fa-minus-circle'></i></div><p>Remove</p></a></li></ul></div></br>" + item.title + "<ul id='ubmsuite_mcs_my_organizational_chart_P" + item.UUID + "_ul'></ul></li>");	
-							$('#ubmsuite_mcs_my_organizational_chart_heirarchyObjectTree_ul_P' + item.reports_to_id + '_ul').append("<li id='orgChartPosition" + item.UUID + "'><a onclick='setActivePosition(" + item.UUID + ")'><img id='org_img_" + item.UUID + "' style='width:25px; height:25px;' src='img/apple.png' /></a></br>" + item.title + "<ul id='ubmsuite_mcs_my_organizational_chart_P" + item.UUID + "_ul'></ul></li>");	
-//4. Empty chart Div
-					        $('#chart').empty();
-//5. Call jOrgChart plugin, append new org chart to chart div, set jorgdraganddrop to false to avoid conflicting compatibility issue with other jquery packages.
-					        $("#modelOrgChart").jOrgChart({
-					            chartElement : '#chart',
-					            dragAndDrop  : false
-					        }); /***/
 						}
 					});
 				});	
@@ -2199,7 +2185,7 @@ under the License.
 					            chartElement : '#chart',
 					            dragAndDrop  : false
 					        });		
-					      window.activeModelOwnersUUID = item.UUID;	
+					      getChildElements(item.UUID);	
 					      //alert(window.activeModelOwnersUUID);				
 						}else{
 
@@ -2212,11 +2198,13 @@ under the License.
 					activeModelOwnersUUID: window.activeModelOwnersUUID
 				}, function(res, status) {
 					$.each(res, function(i, item) {
+
 				//3. Append all other children to their respective "reports_to" ul
 				//$('#ubmsuite_mcs_my_organizational_chart_P' + item.reports_to_id + '_ul').append("<li id='orgChartPosition" + item.UUID + "'><div id='demo_box_" + item.UUID + "' class='demo_box' onclick='setActivePosition(" + item.UUID + ")'><div class='pop_ctrl'><i class='fa fa-bars'></i></div><ul id='demo_ul_2'><li class='demo_li'><a href='#' onclick='addChildPositiontoActivePosition()'><div><i class='fa fa-plus-circle'></i></div><p>Add</p></a></li><li class='demo_li'><a href='#' onclick='removeActivePosition()'><div><i class='fa fa-minus-circle'></i></div><p>Remove</p></a></li></ul></div></br>" + item.title + "<ul id='ubmsuite_mcs_my_organizational_chart_P" + item.UUID + "_ul'></ul></li>");	
 							$('#ubmsuite_mcs_my_organizational_chart_P' + item.ancestor_UUID + '_ul').append("<li id='orgChartPosition" + item.UUID + "'><a onclick='setActivePosition(" + item.UUID + ")'><img id='org_img_" + item.UUID + "' style='width:25px; height:25px;' src='img/apple.png' /></a></br>" + item.title + "<ul id='ubmsuite_mcs_my_organizational_chart_P" + item.UUID + "_ul'></ul></li>");	
 				//4. Empty chart Div
 					        $('#chart').empty();
+					        
 				//5. Call jOrgChart plugin, append new org chart to chart div, set jorgdraganddrop to false to avoid conflicting compatibility issue with other jquery packages.
 					        $("#modelOrgChart").jOrgChart({
 					            chartElement : '#chart',
@@ -5330,7 +5318,7 @@ under the License.
 		                    <li>
 		                        <a href="#possible_alternatives"> <img src="img/alternitives.jpg" class="ui-li-thumb"> <h2>Alternatives</h2>
 		                        <p>
-		                            ROI, Risk Analysis, Projected Financial Statement
+		                            ROI, Risk Analysis, Project Financial Statement
 		                        </p>
 		                        <p class="ui-li-aside">
 		                            A
@@ -5549,7 +5537,7 @@ under the License.
 	                    <li>
 	                        <a href="#possible_alternatives"> <img src="img/alternitives.jpg" class="ui-li-thumb"> <h2>Alternatives</h2>
 	                        <p>
-	                            ROI, Risk Analysis, Projected Financial Statement
+	                            ROI, Risk Analysis, Project Financial Statement
 	                        </p>
 	                        <p class="ui-li-aside">
 	                            A
@@ -5724,7 +5712,9 @@ under the License.
 						}            		
             	</style>
             <div data-role="content">
-				<div><input type="button" data-icon="delete" value="Add Event" onclick="createNewCalendarEvent()"></div>
+           	</br>
+            </br>
+           	</br>
             </br>
 				<div id='calendar'></div>
 			</div>
@@ -6029,7 +6019,7 @@ under the License.
 						MCS Model Organizational Dashboard
 					</div>
 				</div>
-					<a href="#" class="ui-btn ui-shadow ui-corner-all ui-icon-refresh ui-btn-icon-notext" onclick="getMyModelsOrgChart();getChildElements(activeObjectUUID);">Refresh</a>				
+					<a href="#" class="ui-btn ui-shadow ui-corner-all ui-icon-refresh ui-btn-icon-notext" onclick="getMyModelsOrgChart()">Refresh</a>				
 			</div>
 			<div data-role="content" id="ubmsuite_mcs_my_organizational_chart_content">
 				<div data-role="popup" id="ubmsuite_mcs_my_organizational_chart_confirm_remove_Position_popup"  data-theme="a" data-overlay-theme="b" class="ui-content" style="max-width:340px; padding-bottom:2em;">
@@ -17638,7 +17628,6 @@ under the License.
 	                   $( "#ubmsuite_mcs_my_organizational_chart_content_manageTask" ).draggable();
 					$('#chart').empty();
 			        getMyModelsOrgChart();	
-			        getChildElements(1);
 			        getObjectsforBackboneTable();
 				});
 				$(document).on("pageshow", "#possible_alternatives", function() {
