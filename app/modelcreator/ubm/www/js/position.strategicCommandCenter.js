@@ -24,7 +24,7 @@ function deleteCurrentEvent(){
 	}, function(res, status) {
 		$('#ubmsuite_mcs_my_organizational_chart_content_createNewPositionPopUp_form_UBMRepository').empty();
 		$.each(res, function(i, item) {
-					
+				
 		});
 	});		
 }
