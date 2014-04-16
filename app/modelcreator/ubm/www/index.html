@@ -1430,8 +1430,8 @@ under the License.
 					getJobDescriptionsforBackBoneTable();
 					getListofPossiblePositions();
 				}, 10);		
-				
 			}
+			
 			function getMyModelsPositions(){
 				$.getJSON('http://api.universalbusinessmodel.com/ubm_modelcreationsuite_model_getCurrentModel_Positions.php?callback=?', {//JSONP Request to Open Items Page setup tables
 					activeModelUUID : window.activeModelUUID,
@@ -1445,6 +1445,7 @@ under the License.
 
 				});	
 			}
+			
 			function openAddNewPositionPopup(){
 					$("#ubmsuite_mcs_my_organizational_chart_content_modifyPositionPopUp").popup('close');
 				setTimeout(function() {
@@ -1452,8 +1453,6 @@ under the License.
 				}, 1000);	
 				
 			}
-
-
 
 			function getListofPossiblePositions() {//Populates the Create new Position Listview on the Possible Positions Popup
 				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_model_getAll_Positions.php?callback=?', {//JSONP Request to Open Items Page setup tables
@@ -1466,10 +1465,7 @@ under the License.
 						$('#ubmsuite_mcs_my_organizational_chart_content_createNewPositionPopUp_form_UBMRepository').append("<li><a href='#' onClick='openPositionSummaryPopup(" + item.id + ")'>  <p style='white-space:normal;'>" + item.title + "</p></a><a href='#' onclick='addPositiontoMyModel(" + item.id + ")'>Add Position</a></li>");
 						$('#ubmsuite_mcs_my_organizational_chart_content_createNewPositionPopUp_form_UBMRepository').listview("refresh");
 					});
-				});		
-				
-			
-				
+				});
 			}
 			function openPositionSummaryPopup(activePositionId) {
 				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_model_getCurrentView_Position.php?callback=?', {//JSONP Request to Open Items Page setup tables
@@ -5395,14 +5391,14 @@ under the License.
 		                        </p></a>
 		                    </li>
 		                    <li>
-		                        <a href="#ubmsuite_swotAnalysis"> <img src="img/swot.png" class="ui-li-thumb"> <h2>SWOT Analysis</h2>
-		                        <p>
-		                           Strengths, Weaknesses, Opportunities, and Threats.
-		                        </p>
-		                        <p class="ui-li-aside">
-		                            SA
-		                        </p></a>
-		                    </li>
+			                        <a href="#ubmsuite_swotAnalysis"> <img src="img/swot.png" class="ui-li-thumb"> <h2>SWOT Analysis</h2>
+			                        <p>
+			                           Strengths, Weaknesses, Opportunities, and Threats.
+			                        </p>
+			                        <p class="ui-li-aside">
+			                            SA
+			                        </p></a>
+			                    </li>
 		                    <li>
 		                        <a href="#ubmsuite_modelSettings"> <img src="img/gear.png" class="ui-li-thumb"> <h2>Model Settings</h2>
 		                        <p>
@@ -5410,6 +5406,15 @@ under the License.
 		                        </p>
 		                        <p class="ui-li-aside">
 		                            MS
+		                        </p></a>
+		                    </li>
+		                    <li>
+		                        <a href="#ubmsuite_mcs_position_strategic_command_center"> <img src="img/gear.png" class="ui-li-thumb"> <h2>Position Strategic Command Center</h2>
+		                        <p>
+		                            Reporting portal, Top 10 and Calendar of Events
+		                        </p>
+		                        <p class="ui-li-aside">
+		                            PSCC
 		                        </p></a>
 		                    </li>
 		                </ul>                	
