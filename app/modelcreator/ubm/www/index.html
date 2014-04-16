@@ -2185,8 +2185,8 @@ under the License.
 					            chartElement : '#chart',
 					            dragAndDrop  : false
 					        });		
-					      getChildElements(item.UUID);	
-					      //alert(window.activeModelOwnersUUID);				
+					      getChildElements(item.UUID);
+					      window.activeModelOwnersUUID = item.UUID;	
 						}else{
 
 						}
@@ -2198,6 +2198,12 @@ under the License.
 					activeModelOwnersUUID: window.activeModelOwnersUUID
 				}, function(res, status) {
 					$.each(res, function(i, item) {
+						alert("ancestor_UUID")
+						alert(item.ancestor_UUID);
+						alert("UUID");
+						alert(item.UUID);
+						alert("title");
+						alert(item.title);
 
 				//3. Append all other children to their respective "reports_to" ul
 				//$('#ubmsuite_mcs_my_organizational_chart_P' + item.reports_to_id + '_ul').append("<li id='orgChartPosition" + item.UUID + "'><div id='demo_box_" + item.UUID + "' class='demo_box' onclick='setActivePosition(" + item.UUID + ")'><div class='pop_ctrl'><i class='fa fa-bars'></i></div><ul id='demo_ul_2'><li class='demo_li'><a href='#' onclick='addChildPositiontoActivePosition()'><div><i class='fa fa-plus-circle'></i></div><p>Add</p></a></li><li class='demo_li'><a href='#' onclick='removeActivePosition()'><div><i class='fa fa-minus-circle'></i></div><p>Remove</p></a></li></ul></div></br>" + item.title + "<ul id='ubmsuite_mcs_my_organizational_chart_P" + item.UUID + "_ul'></ul></li>");	
