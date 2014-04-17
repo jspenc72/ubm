@@ -315,22 +315,22 @@ under the License.
 					$.each(ElementsArray, function(i, item) {
 					
 						if(item.path_length=="0"){
-							$('#heirarchyObjectTree_ul').prepend("<li><a data-position-to='origin' href='#ubmsuite_mcs_my_organizational_chart_content_manageJobDescriptionPopUp' data-rel='popup' class='ui-link' data-transition='pop' onclick='setActivePosition2(" + item.descendant_id + ")'>PS-" + item.descendant_id + "</a><ul id='ubmsuite_mcs_my_organizational_chart_heirarchyObjectTree_ul_" + item.descendant_id + "'></ul></li>"); 
+							$('#heirarchyObjectTree_ul').prepend("<li><a onclick='setActivePositionUUID(" + item.descendant_id + ")' ondblclick='openNewJDPopup(" + item.descendant_id + ")'>PS-" + item.descendant_id + "</a><ul id='ubmsuite_mcs_my_organizational_chart_heirarchyObjectTree_ul_" + item.descendant_id + "'></ul></li>"); 
 						}else if(item.path_length=="1"){//path_length for PS hierarchy suggests the item is a JD
 							
 							$("#ubmsuite_mcs_my_organizational_chart_heirarchyObjectTree_ul_" + item.ancestor_id + "").append("<li><a onclick='setActiveJobDescriptionUUID(" + item.descendant_id + ")' ondblclick='openNewPLPopup(" + item.descendant_id + ")'>JD-" + item.descendant_id + "</a><ul id='ubmsuite_mcs_my_organizational_chart_heirarchyObjectTree_ul_" + item.descendant_id + "'></ul></li>")
 							//$("#ubmsuite_mcs_my_organizational_chart_heirarchyObjectTree_ul_" + item.ancestor_id + "").append("<li><a class='ui-link' onclick='setActiveJDUUID(" + item.descendant_id + ")'>JD-" + item.descendant_id + "</a></li>");
 						}else if(item.path_length=="2"){//path_length for PS hierarchy suggests the item is a PL
 							
-							$("#ubmsuite_mcs_my_organizational_chart_heirarchyObjectTree_ul_" + item.ancestor_id + "").append("<li><a data-position-to='origin' href='#ubmsuite_mcs_my_organizational_chart_content_manageProcedurePopUp' data-rel='popup' class='ui-link' data-transition='pop' onclick=''>PL-" + item.descendant_id + "</a><ul id='ubmsuite_mcs_my_organizational_chart_heirarchyObjectTree_ul_" + item.descendant_id + "'></ul></li>")
+							$("#ubmsuite_mcs_my_organizational_chart_heirarchyObjectTree_ul_" + item.ancestor_id + "").append("<li><a onclick='setActivePolicyUUID(" + item.descendant_id + ")' ondblclick='openNewPRPopup(" + item.descendant_id + ")'>PL-" + item.descendant_id + "</a><ul id='ubmsuite_mcs_my_organizational_chart_heirarchyObjectTree_ul_" + item.descendant_id + "'></ul></li>")
 						}else if(item.path_length=="3"){//path_length for PS hierarchy suggests the item is a PR
 							
-							$("#ubmsuite_mcs_my_organizational_chart_heirarchyObjectTree_ul_" + item.ancestor_id + "").append("<li><a data-position-to='origin' href='#ubmsuite_mcs_my_organizational_chart_content_manageStepPopUp' data-rel='popup' class='ui-link' data-transition='pop' onclick=''>PR-" + item.descendant_id + "</a><ul id='ubmsuite_mcs_my_organizational_chart_heirarchyObjectTree_ul_" + item.descendant_id + "'></ul></li>")
+							$("#ubmsuite_mcs_my_organizational_chart_heirarchyObjectTree_ul_" + item.ancestor_id + "").append("<li><a onclick='setActiveProcedureUUID(" + item.descendant_id + ")' ondblclick='openNewSTPopup(" + item.descendant_id + ")'>PR-" + item.descendant_id + "</a><ul id='ubmsuite_mcs_my_organizational_chart_heirarchyObjectTree_ul_" + item.descendant_id + "'></ul></li>")
 						}else if(item.path_length=="4"){//path_length for PS hierarchy suggests the item is a ST
 							
-							$("#ubmsuite_mcs_my_organizational_chart_heirarchyObjectTree_ul_" + item.ancestor_id + "").append("<li><a data-position-to='origin' href='#ubmsuite_mcs_my_organizational_chart_content_manageTaskPopUp' data-rel='popup' class='ui-link' data-transition='pop' onclick=''>ST-" + item.descendant_id + "</a><ul id='ubmsuite_mcs_my_organizational_chart_heirarchyObjectTree_ul_" + item.descendant_id + "'></ul></li>")
+							$("#ubmsuite_mcs_my_organizational_chart_heirarchyObjectTree_ul_" + item.ancestor_id + "").append("<li><a onclick='setActiveStepUUID(" + item.descendant_id + ")' ondblclick='openNewTKPopup(" + item.descendant_id + ")'>ST-" + item.descendant_id + "</a><ul id='ubmsuite_mcs_my_organizational_chart_heirarchyObjectTree_ul_" + item.descendant_id + "'></ul></li>")
 						}else if(item.path_length=="5"){//path_length for PS hierarchy suggests the item is a TK
-							$("#ubmsuite_mcs_my_organizational_chart_heirarchyObjectTree_ul_" + item.ancestor_id + "").append("<li><a data-position-to='origin' href='#ubmsuite_mcs_my_organizational_chart_content_manageTaskPopUp' data-rel='popup' class='ui-link' data-transition='pop' onclick=''>TK-" + item.descendant_id + "</a></li>")
+							$("#ubmsuite_mcs_my_organizational_chart_heirarchyObjectTree_ul_" + item.ancestor_id + "").append("<li><a onclick='setActiveTaskUUID(" + item.descendant_id + ")' ondblclick='openNewTKPopup(" + item.descendant_id + ")'>TK-" + item.descendant_id + "</a></li>")
 						}
 					});
 				}				
@@ -389,17 +389,15 @@ under the License.
 			}
 			function setActiveStepUUID(activeStepUUID){							//Single Click Function
 //1. Set window variable: window.activePolicyUUID equal to activePolicyUUID.
-				window.activePolicyUUID = activePolicyUUID;				
+				window.activeStepUUID = activeStepUUID;				
 			}
 			function setActiveTaskUUID(activeTaskUUID){							//Single Click Function
 //1. Set window variable: window.activeStepUUID equal to activeStepUUID.
-				window.activeStepUUID = activeStepUUID;				
+				window.activeTaskUUID = activeTaskUUID;				
 			}
 			function openNewJDPopup(activePositionUUID){							//Double Click Function
-//1 Set the active Job Description UUID to the element on which the user double clicks.
-				setActiveJobDescriptionUUID(activeJobDescriptionUUID);
 //2. Populate the list of predefined job descriptions with those from the reference manual.
-				getListofPossibleJobDescriptions()
+				getListofPossibleJobDescriptions();
 //3. Display the popup.
 				$("#ubmsuite_mcs_my_organizational_chart_content_createNewJobDescriptionPopUp").popup("open");
 			}
@@ -407,7 +405,7 @@ under the License.
 //1 Set the active Job Description UUID to the JD element on which the user double clicks.
 				setActiveJobDescriptionUUID(activeJobDescriptionUUID);
 //2. Populate the list of predefined Policies with those from the reference manual.				
-				getListofPossiblePolicies()
+				getListofPossiblePolicies();
 //3. Display the popup.
 				$("#ubmsuite_mcs_my_organizational_chart_content_createNewPolicyPopUp").popup("open");
 			}
@@ -415,25 +413,25 @@ under the License.
 //1 Set the active Policy UUID to the PL element on which the user double clicks.
 				setActivePolicyUUID(activePolicyUUID);
 //2. Populate the list of predefined Procedures with those from the reference manual.				
-				getListofPossibleProcedures()
+				getListofPossibleProcedures();
 //3. Display the popup.
-				$("#ubmsuite_mcs_my_organizational_chart_content_createNewPolicyPopUp").popup("open");
+				$("#ubmsuite_mcs_my_organizational_chart_content_createNewProcedurePopUp").popup("open");
 			}
 			function openNewSTPopup(activeProcedureUUID){							//Double Click Function
 //1 Set the active Procedure UUID to the PR element on which the user double clicks.
 				setActiveProcedureUUID(activeProcedureUUID);
 //2. Populate the list of predefined Steps with those from the reference manual.				
-				getListofPossibleSteps()
+				getListofPossibleSteps();
 //3. Display the popup.
-				$("#ubmsuite_mcs_my_organizational_chart_content_createNewPolicyPopUp").popup("open");
+				$("#ubmsuite_mcs_my_organizational_chart_content_createNewStepPopUp").popup("open");
 			}
 			function openNewTKPopup(activeStepUUID){								//Double Click Function
 //1 Set the active Step UUID to the ST element on which the user double clicks.
-				setActiveJobDescriptionUUID(activeJobDescriptionUUID);
+				setActiveStepUUID(activeStepUUID);
 //2. Populate the list of predefined Tasks with those from the reference manual.				
-				getListofPossibleTasks()
+				getListofPossibleTasks();
 //3. Display the popup.
-				$("#ubmsuite_mcs_my_organizational_chart_content_createNewPolicyPopUp").popup("open");
+				$("#ubmsuite_mcs_my_organizational_chart_content_createNewTaskPopUp").popup("open");
 			}
 
 			function createNewJobDescriptionAddtoMyModel() {
@@ -698,8 +696,10 @@ under the License.
 				});	
 			}
 			function addProceduretoMyModel(activeProcedureId){
-				$.getJSON('http://api.universalbusinessmodel.com/ubm_modelcreationsuite_model_add_Procedure.php?callback=?', {//JSONP Request to Open Items Page setup tables
-					activeModelUUID :window.activeModelUUID,
+				$.getJSON('http://api.universalbusinessmodel.com/ubms_modelcreationsuite_model_add_Procedure.php?callback=?', {//JSONP Request to Open Items Page setup tables
+					key : window.key,
+					username : window.username,
+					activeModelUUID : window.activeModelUUID,
 					activePolicyUUID : window.activePolicyUUID,
 					activeProcedureId : activeProcedureId
 				}, function(res, status) {
@@ -799,7 +799,9 @@ under the License.
 				});	
 			}
 			function addSteptoMyModel(activeStepId){
-				$.getJSON('http://api.universalbusinessmodel.com/ubm_modelcreationsuite_model_add_Step.php?callback=?', {//JSONP Request to Open Items Page setup tables
+				$.getJSON('http://api.universalbusinessmodel.com/ubms_modelcreationsuite_model_add_Step.php?callback=?', {//JSONP Request to Open Items Page setup tables
+					key : window.key,
+					username : window.username,
 					activeModelUUID :window.activeModelUUID,
 					activeProcedureUUID : window.activeProcedureUUID,
 					activeStepId : activeStepId
@@ -883,8 +885,7 @@ under the License.
 			}
 			function getListofPossibleTasks() {//Populates Core Value Listview on Possible CoreValue Popup
 				$.getJSON('http://api.universalbusinessmodel.com/ubm_modelcreationsuite_model_getAll_Tasks.php?callback=?', {//JSONP Request to Open Items Page setup tables
-					key : window.key,
-
+					key : window.key
 				}, function(res, status) {
 //						alert(status);
 						$('#ubmsuite_mcs_my_organizational_chart_content_createNewTaskPopUp_form_UBMRepository').empty();
@@ -895,7 +896,9 @@ under the License.
 				});	
 			}
 			function addTasktoMyModel(activeTaskId){
-				$.getJSON('http://api.universalbusinessmodel.com/ubm_modelcreationsuite_model_add_Task.php?callback=?', {//JSONP Request to Open Items Page setup tables
+				$.getJSON('http://api.universalbusinessmodel.com/ubms_modelcreationsuite_model_add_Task.php?callback=?', {//JSONP Request to Open Items Page setup tables
+					key : window.key,
+					username : window.username,
 					activeModelUUID :window.activeModelUUID,
 					activeStepUUID : window.activeStepUUID,
 					activeTaskId : activeTaskId
