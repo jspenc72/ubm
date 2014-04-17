@@ -700,7 +700,7 @@ under the License.
 			function addProceduretoMyModel(activeProcedureId){
 				$.getJSON('http://api.universalbusinessmodel.com/ubm_modelcreationsuite_model_add_Procedure.php?callback=?', {//JSONP Request to Open Items Page setup tables
 					activeModelUUID :window.activeModelUUID,
-					activePolicyId : window.activePolicyId,
+					activePolicyUUID : window.activePolicyUUID,
 					activeProcedureId : activeProcedureId
 				}, function(res, status) {
 					$().toastmessage('showSuccessToast', res.message);
@@ -801,7 +801,7 @@ under the License.
 			function addSteptoMyModel(activeStepId){
 				$.getJSON('http://api.universalbusinessmodel.com/ubm_modelcreationsuite_model_add_Step.php?callback=?', {//JSONP Request to Open Items Page setup tables
 					activeModelUUID :window.activeModelUUID,
-					activeProcedureId : window.activeProcedureId,
+					activeProcedureUUID : window.activeProcedureUUID,
 					activeStepId : activeStepId
 				}, function(res, status) {
 					$().toastmessage('showSuccessToast', res.message);
@@ -897,7 +897,7 @@ under the License.
 			function addTasktoMyModel(activeTaskId){
 				$.getJSON('http://api.universalbusinessmodel.com/ubm_modelcreationsuite_model_add_Task.php?callback=?', {//JSONP Request to Open Items Page setup tables
 					activeModelUUID :window.activeModelUUID,
-					activeStepId : window.activeStepId,
+					activeStepUUID : window.activeStepUUID,
 					activeTaskId : activeTaskId
 				}, function(res, status) {
 					$().toastmessage('showSuccessToast', res.message);
