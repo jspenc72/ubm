@@ -80,7 +80,7 @@ Hierarchical Object API
 
   + URL String
 
-    * api.universalbusinessmodel.com/ubms/modelcreationsuite/hierarchy/get_ChildElements.php
+    * http://api.universalbusinessmodel.com/ubms/modelcreationsuite/hierarchy/get_ChildElements.php
 
   + JavaScript Usage example:  
 
@@ -109,5 +109,26 @@ Hierarchical Object API
 
     :UUID: The UUID of an object instance that has been created
 
+- Get Element Posterity tree with direct parent child relationships only.
 
+  + Get Parameters:
 
+    :activeObjectUUID: The UUID of an object instance that has been created
+
+  + URL String
+
+    * http://api.universalbusinessmodel.com/ubms_modelcreationsuite_model_get_Direct_ElementPosterityTree.php?callback=?
+    * 
+  + JavaScript Usage example:  
+
+    * Using Jquery $.getJSON()
+
+.. code-block:: javascript
+
+        $.getJSON('http://api.universalbusinessmodel.com/ubms_modelcreationsuite_model_get_Direct_ElementPosterityTree.php?callback=?', {//JSONP Request to get child elements
+            activeObjectUUID : "activeObjectUUID"
+        }, function(res, status) {
+          $.each(res, function(i, item) {
+              //Do something awsome here!
+          });
+        });

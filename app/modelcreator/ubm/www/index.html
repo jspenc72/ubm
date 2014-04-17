@@ -320,7 +320,7 @@ under the License.
 							$('#heirarchyObjectTree_ul').prepend("<li><a data-position-to='origin' href='#ubmsuite_mcs_my_organizational_chart_content_manageJobDescriptionPopUp' data-rel='popup' class='ui-link' data-transition='pop' onclick='setActivePosition2(" + item.descendant_id + ")'>PS-" + item.descendant_id + "</a><ul id='ubmsuite_mcs_my_organizational_chart_heirarchyObjectTree_ul_JD" + item.descendant_id + "'></ul></li>"); 
 						}else if(item.path_length=="1"){//path_length for PS hierarchy suggests the item is a JD
 							
-							$("#ubmsuite_mcs_my_organizational_chart_heirarchyObjectTree_ul_JD" + item.ancestor_id + "").append("<li><a data-position-to='origin' href='#ubmsuite_mcs_my_organizational_chart_content_managePolicyPopUp' data-rel='popup' class='ui-link' data-transition='pop' onclick=''>JD-" + item.descendant_id + "</a><ul id='ubmsuite_mcs_my_organizational_chart_heirarchyObjectTree_ul_PL" + item.descendant_id + "'></ul></li>")
+							$("#ubmsuite_mcs_my_organizational_chart_heirarchyObjectTree_ul_JD" + item.ancestor_id + "").append("<li><a data-position-to='origin' href='#ubmsuite_mcs_my_organizational_chart_content_managePolicyPopUp' data-rel='popup' class='ui-link' data-transition='pop' onclick='setActiveJobDescriptionUUID(" + item.descendant_id + ")'>JD-" + item.descendant_id + "</a><ul id='ubmsuite_mcs_my_organizational_chart_heirarchyObjectTree_ul_PL" + item.descendant_id + "'></ul></li>")
 							// $("#ubmsuite_mcs_my_organizational_chart_heirarchyObjectTree_ul_P" + item.ancestor_id + "").append("<li><a>JD-</a></li>");
 						}else if(item.path_length=="2"){//path_length for PS hierarchy suggests the item is a PL
 							
@@ -365,7 +365,7 @@ under the License.
 						if(window.activeReportsToPosition==item.UUID){
 							$('#heirarchyObjectTree_ul').prepend("<li><a data-position-to='origin' href='#ubmsuite_mcs_my_organizational_chart_content_manageJobDescriptionPopUp' data-rel='popup' class='ui-link' data-transition='pop' onclick='setActivePosition2(" + item.UUID + ")'>PS-" + item.UUID + "</a><ul id='ubmsuite_mcs_my_organizational_chart_heirarchyObjectTree_ul_P'></ul></li>"); 
 						}else{
-							
+
 						}
 					});
 				});	
@@ -376,15 +376,14 @@ under the License.
 		</script>      
 		<!-- End Position JavaScript-->
 		<script>
-			function setActiveJobDescriptionId(activeJobDescriptionId){
+			function setActiveJobDescriptionUUID(activeJobDescriptionUUID){
 				window.activeJobDescriptionId = activeJobDescriptionId;
-				//alert(window.activeJobDescriptionId);
+				alert(activeJobDescriptionId);
 				getPoliciesforBackBoneTable();
 				getPoliciesforHeirarchicalObjectTree();
 				setTimeout(function() {
 					$("#ubmsuite_mcs_my_organizational_chart_content_manageJobDescriptionPopUp").popup('open');
 				}, 10);
-				
 			}
 			function createNewJobDescriptionAddtoMyModel() {
 				$.getJSON('http://api.universalbusinessmodel.com/ubm_modelcreationsuite_model_create_JobDescription.php?callback=?', {//JSONP Request to Open Items Page setup tables
@@ -412,13 +411,12 @@ under the License.
 			}
 			function getListofPossibleJobDescriptions() {//Populates Core Value Listview on Possible CoreValue Popup
 				$.getJSON('http://api.universalbusinessmodel.com/ubm_modelcreationsuite_model_getAll_JobDescriptions.php?callback=?', {//JSONP Request to Open Items Page setup tables
-					key : window.key,
-
+					key : window.key
 				}, function(res, status) {
 //						alert(status);
 						$('#ubmsuite_mcs_my_organizational_chart_content_createNewJobDescriptionPopUp_form_UBMRepository').empty();
 					$.each(res, function(i, item) {
-						$('#ubmsuite_mcs_my_organizational_chart_content_createNewJobDescriptionPopUp_form_UBMRepository').append("<li><a href='#'><p style='white-space:normal;'>" + item.title + "</p></a><a href='#' onclick='addJobDescriptiontoMyModel(" + item.id + ")'>Add Job Description</a></li>");
+						$('#ubmsuite_mcs_my_organizational_chart_content_createNewJobDescriptionPopUp_form_UBMRepository').append("<li><a href='#'><p style='white-space:normal;'>" + item.title + "</p></a><a href='#' onclick='setActiveJobDescriptionId( " + item.id + " ) '>Add Job Description</a></li>");
 						$('#ubmsuite_mcs_my_organizational_chart_content_createNewJobDescriptionPopUp_form_UBMRepository').listview("refresh");
 					})
 				});	
@@ -523,10 +521,13 @@ under the License.
 				});	
 			}
 			function addPolicytoMyModel(activePolicyId){
-				$.getJSON('http://api.universalbusinessmodel.com/ubm_modelcreationsuite_model_add_Policy.php?callback=?', {//JSONP Request to Open Items Page setup tables
+				alert(window.activeJobDescriptionId);
+				$.getJSON('http://api.universalbusinessmodel.com/ubms_modelcreationsuite_model_add_Policy.php?callback=?', {//JSONP Request to Open Items Page setup tables
 					activeModelUUID :window.activeModelUUID,
 					activeJobDescriptionId : window.activeJobDescriptionId,
-					activePolicyId : activePolicyId
+					activePolicyId : activePolicyId,
+					key : window.key,
+					username : window.username
 				}, function(res, status) {
 					$().toastmessage('showSuccessToast', res.message);
 				});
