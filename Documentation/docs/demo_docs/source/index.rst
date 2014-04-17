@@ -3,9 +3,9 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-=================================================
+=========
 Demo Docs
-=================================================
+=========
 
 :Page Status: Incomplete
 :Last Reviewed: 2013-10-29
@@ -19,7 +19,7 @@ TABLE OF CONTENTS:
     ubmWebServiceRESTAPI
     ubmDataModel
     checklist_services
-    javascript
+    library
 
 Maaaaath!
 =========
