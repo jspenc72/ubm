@@ -374,6 +374,11 @@ under the License.
 		</script>      
 		<!-- End Position JavaScript-->
 		<script>
+			function setActivePositionUUID(activePositionUUID){		//Single Click Function
+//1. Set window variable: window.activePositionUUID equal to activePositionUUID.
+				window.activePositionUUID = activePositionUUID;
+				//alert("active PS is called" + window.activePositionUUID);
+			}
 			function setActiveJobDescriptionUUID(activeJobDescriptionUUID){		//Single Click Function
 //1. Set window variable: window.activeJobDescriptionUUID equal to activeJobDescriptionUUID.
 				window.activeJobDescriptionUUID = activeJobDescriptionUUID;
@@ -396,6 +401,8 @@ under the License.
 				window.activeTaskUUID = activeTaskUUID;				
 			}
 			function openNewJDPopup(activePositionUUID){							//Double Click Function
+//1. Set window variable: window.activePositionUUID equal to activePositionUUID.
+				window.activePositionUUID = activePositionUUID;
 //2. Populate the list of predefined job descriptions with those from the reference manual.
 				getListofPossibleJobDescriptions();
 //3. Display the popup.
@@ -456,7 +463,8 @@ under the License.
 							this.reset();
 					});
 					getMyModelsOrgChart();
-					// getChildElements(activeObjectUUID);					
+					buildHierarchicalTree(window.activePositionUUID);
+										// getChildElements(activeObjectUUID);					
 			}
 			function getListofPossibleJobDescriptions() {//Populates Core Value Listview on Possible CoreValue Popup
 				$.getJSON('http://api.universalbusinessmodel.com/ubm_modelcreationsuite_model_getAll_JobDescriptions.php?callback=?', {//JSONP Request to Open Items Page setup tables
@@ -465,24 +473,26 @@ under the License.
 //						alert(status);
 						$('#ubmsuite_mcs_my_organizational_chart_content_createNewJobDescriptionPopUp_form_UBMRepository').empty();
 					$.each(res, function(i, item) {
-						$('#ubmsuite_mcs_my_organizational_chart_content_createNewJobDescriptionPopUp_form_UBMRepository').append("<li><a href='#'><p style='white-space:normal;'>" + item.title + "</p></a><a href='#' onclick='setActiveJobDescriptionId( " + item.id + " ) '>Add Job Description</a></li>");
+						$('#ubmsuite_mcs_my_organizational_chart_content_createNewJobDescriptionPopUp_form_UBMRepository').append("<li><a href='#'><p style='white-space:normal;'>" + item.title + "</p></a><a href='#' onclick='addJobDescriptiontoMyModel( " + item.id + " ) '>Add Job Description</a></li>");
 						$('#ubmsuite_mcs_my_organizational_chart_content_createNewJobDescriptionPopUp_form_UBMRepository').listview("refresh");
 					})
 				});	
 			}
 			function addJobDescriptiontoMyModel(activeJobDescriptionId){
+				//alert(window.activePositionUUID);
 				$.getJSON('http://api.universalbusinessmodel.com/ubms_modelcreationsuite_model_add_JobDescription.php?callback=?', {//JSONP Request to Open Items Page setup tables
 					key : window.key,
 					username : window.username,
 					activeModelUUID :window.activeModelUUID,
-					activePositionId : window.activeReportsToPosition,
+					activePositionUUID : window.activePositionUUID,
 					activeJobDescriptionId : activeJobDescriptionId
 				}, function(res, status) {
 					$().toastmessage('showSuccessToast', res.message);
 				});
 					$("#ubmsuite_mcs_my_organizational_chart_content_createNewJobDescriptionPopUp").popup('close');
 					getMyModelsOrgChart();
-					getChildElements(activeObjectUUID);					
+					buildHierarchicalTree(window.activePositionUUID);
+
 				//Called from Model Settings Page????
 				//1. User selects a position from the list of ubm_model_positions?
 				//2. User is asked whether they wish to also add all positions that report to this position in the master file index?
@@ -491,6 +501,7 @@ under the License.
 				//3. If user selects yes, the relationships between the activeModelUUID and the active position as well as all positions that report to it are created in the the model_has_positions table. 
 				//4. If user selects "no, add this position without any positions that report to it." 
 			}
+
 			function createNewJobDescription () {
 				$("#ubmsuite_mcs_my_organizational_chart_content_manageJobDescriptionPopUp").popup('close');
 				$("#ubmsuite_mcs_my_organizational_chart_content_modifyPositionPopUp").popup('close');
@@ -520,7 +531,7 @@ under the License.
 					$.each(res, function(i, item) {
 //3. Append all children to their respective "reports_to" ul
 //							$('#ubmsuite_mcs_my_organizational_chart_P' + item.reports_to_id + '_ul').append("<li id='orgChartPosition" + item.UUID + "'><div id='demo_box_" + item.UUID + "' class='demo_box' onclick='setActivePosition(" + item.UUID + ")'><div class='pop_ctrl'><i class='fa fa-bars'></i></div><ul id='demo_ul_2'><li class='demo_li'><a href='#' onclick='addChildPositiontoActivePosition()'><div><i class='fa fa-plus-circle'></i></div><p>Add</p></a></li><li class='demo_li'><a href='#' onclick='removeActivePosition()'><div><i class='fa fa-minus-circle'></i></div><p>Remove</p></a></li></ul></div></br>" + item.title + "<ul id='ubmsuite_mcs_my_organizational_chart_P" + item.UUID + "_ul'></ul></li>");	
-							$("#ubmsuite_mcs_my_organizational_chart_heirarchyObjectTree_ul_P").append("<li><a data-position-to='origin' href='#ubmsuite_mcs_my_organizational_chart_content_managePolicyPopUp'data-rel='popup' class='ui-link' data-transition='pop' onclick='setActiveJobDescriptionId(" + item.id + ")'>JD-" + item.id + "</a><ul id='ubmsuite_mcs_my_organizational_chart_heirarchyObjectTree_ul_JD_" + item.id + "'></ul></li>");
+							$("#ubmsuite_mcs_my_organizational_chart_heirarchyObjectTree_ul_P").append("<li><a data-position-to='origin' href='#ubmsuite_mcs_my_organizational_chart_content_managePolicyPopUp'data-rel='popup' class='ui-link' data-transition='pop' onclick='addJobDescriptiontoMyModel(" + item.id + ")'>JD-" + item.id + "</a><ul id='ubmsuite_mcs_my_organizational_chart_heirarchyObjectTree_ul_JD_" + item.id + "'></ul></li>");
 //4. Empty chart Div
 					        $('#chart').empty();
 //5. Call jOrgChart plugin, append new org chart to chart div, set jorgdraganddrop to false to avoid conflicting compatibility issue with other jquery packages.
@@ -569,7 +580,7 @@ under the License.
 			}
 			function addPolicytoMyModel(activePolicyId){
 
-				alert(window.activeJobDescriptionUUID);
+				//alert(window.activeJobDescriptionUUID);
 				$.getJSON('http://api.universalbusinessmodel.com/ubms_modelcreationsuite_model_add_Policy.php?callback=?', {//JSONP Request to Open Items Page setup tables
 					activeModelUUID :window.activeModelUUID,
 					activeJobDescriptionUUID : window.activeJobDescriptionUUID,
@@ -581,6 +592,7 @@ under the License.
 				});
 					$("#ubmsuite_mcs_my_organizational_chart_content_createNewPolciyPopUp").popup('close');
 					getMyModelsOrgChart();
+					buildHierarchicalTree(window.activePositionUUID);
 					// getChildElements(activeObjectUUID);					
 				//Called from Model Settings Page????
 				//1. User selects a position from the list of ubm_model_positions?
@@ -656,6 +668,7 @@ under the License.
 							this.reset();
 						});
 					getMyModelsOrgChart();
+					buildHierarchicalTree(window.activePositionUUID);
 					//getChildElements(activeObjectUUID);					
 			}
 		</script>
@@ -706,7 +719,8 @@ under the License.
 					$().toastmessage('showSuccessToast', res.message);
 				});
 					$("#ubmsuite_mcs_my_organizational_chart_content_createNewProcedurePopUp").popup('close');
-					getMyModelsOrgChart();	
+					getMyModelsOrgChart();
+					buildHierarchicalTree(window.activePositionUUID);	
 					//getChildElements(activeObjectUUID);				
 				//Called from Model Settings Page????
 				//1. User selects a position from the list of ubm_model_positions?
@@ -763,6 +777,7 @@ under the License.
 							this.reset();
 						});
 					getMyModelsOrgChart();	
+					buildHierarchicalTree(window.activePositionUUID);
 					//getChildElements(activeObjectUUID);
 			}
 		</script>
@@ -809,7 +824,8 @@ under the License.
 					$().toastmessage('showSuccessToast', res.message);
 				});
 					$("#ubmsuite_mcs_my_organizational_chart_content_createNewStepPopUp").popup('close');
-					getMyModelsOrgChart();	
+					getMyModelsOrgChart();
+					buildHierarchicalTree(window.activePositionUUID);	
 					//getChildElements(activeObjectUUID);				
 				//Called from Model Settings Page????
 				//1. User selects a position from the list of ubm_model_positions?
@@ -841,6 +857,7 @@ under the License.
 							this.reset();
 						});
 					getMyModelsOrgChart();	
+					buildHierarchicalTree(window.activePositionUUID);
 					//getChildElements(activeObjectUUID);
 			}
 			function getStepsforHeirarchicalObjectTree(){
@@ -907,6 +924,7 @@ under the License.
 				});
 					$("#ubmsuite_mcs_my_organizational_chart_content_createNewStepPopUp").popup('close');
 					getMyModelsOrgChart();
+					buildHierarchicalTree(window.activePositionUUID);
 					//getChildElements(activeObjectUUID);					
 				//Called from Model Settings Page????
 				//1. User selects a position from the list of ubm_model_positions?
@@ -938,6 +956,7 @@ under the License.
 							this.reset();
 						});
 					getMyModelsOrgChart();	
+					buildHierarchicalTree(window.activePositionUUID);
 					//getChildElements(activeObjectUUID);
 			}
 			function getTasksforHeirarchicalObjectTree(){
@@ -974,7 +993,7 @@ under the License.
 							window.activeModelOwnersUUID = item.UUID;
 //1. Set currentActiveOrgChartLevel 
 //2. Append the name of the highest reports to position on the top of the org chart.
-							$('#ubmsuite_mcs_my_organizational_chart_L0_ul').prepend("<a ondblclick='setActivePosition(" + item.UUID + ")' onclick='buildHierarchicalTree(" + item.UUID + ")'><img class='org_img' style='width:25px; height:25px;' src='img/apple.png' /></a></br>" + item.title); 
+							$('#ubmsuite_mcs_my_organizational_chart_L0_ul').prepend("<a ondblclick='setActivePosition(" + item.UUID + ")' onclick='buildHierarchicalTree(" + item.UUID + ");setActivePositionUUID(" + item.UUID + ")'><img class='org_img' style='width:25px; height:25px;' src='img/apple.png' /></a></br>" + item.title); 
 //3. New Append an Empty UL with the highest positions UUID in the id, so that additional positions may be added later.
 							$('#ubmsuite_mcs_my_organizational_chart_L0_ul').append("<ul id='ubmsuite_mcs_my_organizational_chart_P" + item.UUID + "_ul'></ul>");
 //4. Empty chart Div
@@ -998,7 +1017,7 @@ under the License.
 
 				//3. Append all other children to their respective "reports_to" ul
 				//$('#ubmsuite_mcs_my_organizational_chart_P' + item.reports_to_id + '_ul').append("<li id='orgChartPosition" + item.UUID + "'><div id='demo_box_" + item.UUID + "' class='demo_box' onclick='setActivePosition(" + item.UUID + ")'><div class='pop_ctrl'><i class='fa fa-bars'></i></div><ul id='demo_ul_2'><li class='demo_li'><a href='#' onclick='addChildPositiontoActivePosition()'><div><i class='fa fa-plus-circle'></i></div><p>Add</p></a></li><li class='demo_li'><a href='#' onclick='removeActivePosition()'><div><i class='fa fa-minus-circle'></i></div><p>Remove</p></a></li></ul></div></br>" + item.title + "<ul id='ubmsuite_mcs_my_organizational_chart_P" + item.UUID + "_ul'></ul></li>");	
-							$('#ubmsuite_mcs_my_organizational_chart_P' + item.ancestor_UUID + '_ul').append("<li id='orgChartPosition" + item.UUID + "'><a ondblclick='setActivePosition(" + item.UUID + ")' onclick='buildHierarchicalTree(" + item.UUID + ")'><img id='org_img_" + item.UUID + "' style='width:25px; height:25px;' src='img/apple.png' /></a></br>" + item.title + "<ul id='ubmsuite_mcs_my_organizational_chart_P" + item.UUID + "_ul'></ul></li>");	
+							$('#ubmsuite_mcs_my_organizational_chart_P' + item.ancestor_UUID + '_ul').append("<li id='orgChartPosition" + item.UUID + "'><a ondblclick='setActivePosition(" + item.UUID + ")' onclick='buildHierarchicalTree(" + item.UUID + ");setActivePositionUUID(" + item.UUID + ")'><img id='org_img_" + item.UUID + "' style='width:25px; height:25px;' src='img/apple.png' /></a></br>" + item.title + "<ul id='ubmsuite_mcs_my_organizational_chart_P" + item.UUID + "_ul'></ul></li>");	
 				//4. Empty chart Div
 					        $('#chart').empty();
 					        
