@@ -19,6 +19,7 @@ TABLE OF CONTENTS:
     ubmWebServiceRESTAPI
     ubmDataModel
     checklist_services
+    javascript
 
 Maaaaath!
 =========
