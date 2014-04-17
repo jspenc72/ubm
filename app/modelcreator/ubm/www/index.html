@@ -374,19 +374,29 @@ under the License.
 		</script>      
 		<!-- End Position JavaScript-->
 		<script>
-			function setActiveJobDescriptionUUID(activeJobDescriptionUUID){			//Single Click Function
-//1 Set window variable: window.activeJobDescriptionUUID equal to activeJobDescriptionUUID.
+			function setActiveJobDescriptionUUID(activeJobDescriptionUUID){		//Single Click Function
+//1. Set window variable: window.activeJobDescriptionUUID equal to activeJobDescriptionUUID.
 				window.activeJobDescriptionUUID = activeJobDescriptionUUID;
+				//alert("active JD is called" + window.activeJobDescriptionUUID);
 			}
-			function setActivePolicyUUID(activePolicyUUID){							//Single Click Function
-//1 Set window variable: window.activePolicyUUID equal to activePolicyUUID.
+			function setActivePolicyUUID(activePolicyUUID){						//Single Click Function
+//1. Set window variable: window.activePolicyUUID equal to activePolicyUUID.
 				window.activePolicyUUID = activePolicyUUID;				
 			}
-//Need to create additional functions to set active hierarchical object for PR, ST, TK
-
-
-			function openNewJDPopup(activeJobDescriptionUUID){						//Double Click Function
-//1 Set the active Job Description UUID to the element that the user double clicked.
+			function setActiveProcedureUUID(activeProcedureUUID){				//Single Click Function
+//1. Set window variable: window.activeProcedureUUID equal to activeProcedureUUID.
+				window.activeProcedureUUID = activeProcedureUUID;				
+			}
+			function setActiveStepUUID(activeStepUUID){							//Single Click Function
+//1. Set window variable: window.activePolicyUUID equal to activePolicyUUID.
+				window.activePolicyUUID = activePolicyUUID;				
+			}
+			function setActiveTaskUUID(activeTaskUUID){							//Single Click Function
+//1. Set window variable: window.activeStepUUID equal to activeStepUUID.
+				window.activeStepUUID = activeStepUUID;				
+			}
+			function openNewJDPopup(activePositionUUID){							//Double Click Function
+//1 Set the active Job Description UUID to the element on which the user double clicks.
 				setActiveJobDescriptionUUID(activeJobDescriptionUUID);
 //2. Populate the list of predefined job descriptions with those from the reference manual.
 				getListofPossibleJobDescriptions()
@@ -394,25 +404,38 @@ under the License.
 				$("#ubmsuite_mcs_my_organizational_chart_content_createNewJobDescriptionPopUp").popup("open");
 			}
 			function openNewPLPopup(activeJobDescriptionUUID){						//Double Click Function
-//1 Set the active Job Description UUID to the JD element that the user double clicked.
+//1 Set the active Job Description UUID to the JD element on which the user double clicks.
 				setActiveJobDescriptionUUID(activeJobDescriptionUUID);
-//2. Populate the list of predefined job descriptions with those from the reference manual.				
+//2. Populate the list of predefined Policies with those from the reference manual.				
 				getListofPossiblePolicies()
 //3. Display the popup.
 				$("#ubmsuite_mcs_my_organizational_chart_content_createNewPolicyPopUp").popup("open");
 			}
-			function openNewPRPopup(activeJobDescriptionUUID){						//Double Click Function
-//1 Set the active Job Description UUID to the JD element that the user double clicked.
-				setActiveJobDescriptionUUID(activeJobDescriptionUUID);
-//2. Populate the list of predefined job descriptions with those from the reference manual.				
-				getListofPossiblePolicies()
+			function openNewPRPopup(activePolicyUUID){								//Double Click Function
+//1 Set the active Policy UUID to the PL element on which the user double clicks.
+				setActivePolicyUUID(activePolicyUUID);
+//2. Populate the list of predefined Procedures with those from the reference manual.				
+				getListofPossibleProcedures()
 //3. Display the popup.
 				$("#ubmsuite_mcs_my_organizational_chart_content_createNewPolicyPopUp").popup("open");
-			}	
-//Need to create additional functions to show the new Object Popup for PR, ST, TK	
-		
-		
-		
+			}
+			function openNewSTPopup(activeProcedureUUID){							//Double Click Function
+//1 Set the active Procedure UUID to the PR element on which the user double clicks.
+				setActiveProcedureUUID(activeProcedureUUID);
+//2. Populate the list of predefined Steps with those from the reference manual.				
+				getListofPossibleSteps()
+//3. Display the popup.
+				$("#ubmsuite_mcs_my_organizational_chart_content_createNewPolicyPopUp").popup("open");
+			}
+			function openNewTKPopup(activeStepUUID){								//Double Click Function
+//1 Set the active Step UUID to the ST element on which the user double clicks.
+				setActiveJobDescriptionUUID(activeJobDescriptionUUID);
+//2. Populate the list of predefined Tasks with those from the reference manual.				
+				getListofPossibleTasks()
+//3. Display the popup.
+				$("#ubmsuite_mcs_my_organizational_chart_content_createNewPolicyPopUp").popup("open");
+			}
+
 			function createNewJobDescriptionAddtoMyModel() {
 				$.getJSON('http://api.universalbusinessmodel.com/ubm_modelcreationsuite_model_create_JobDescription.php?callback=?', {//JSONP Request to Open Items Page setup tables
 					username: window.username,
@@ -547,10 +570,11 @@ under the License.
 				});	
 			}
 			function addPolicytoMyModel(activePolicyId){
-				alert(window.activeJobDescriptionId);
+
+				alert(window.activeJobDescriptionUUID);
 				$.getJSON('http://api.universalbusinessmodel.com/ubms_modelcreationsuite_model_add_Policy.php?callback=?', {//JSONP Request to Open Items Page setup tables
 					activeModelUUID :window.activeModelUUID,
-					activeJobDescriptionId : window.activeJobDescriptionId,
+					activeJobDescriptionUUID : window.activeJobDescriptionUUID,
 					activePolicyId : activePolicyId,
 					key : window.key,
 					username : window.username
