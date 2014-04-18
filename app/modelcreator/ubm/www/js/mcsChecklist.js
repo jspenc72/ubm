@@ -1,6 +1,6 @@
 
 			//Complete MCS Checklist Tasks
-			function setActiveTaskId(MCSTaskId) {
+			function setActiveMCSTaskId(MCSTaskId) {
 				//alert("The active task is: "+MCSTaskId);
 				window.MCSTaskId = MCSTaskId;
 				var date = new Date();
@@ -144,7 +144,7 @@
 													}, function(res, status) {
 														if (status == "success") {
 															//alert(res.message);
-															setActiveTaskId(MCSTaskId);
+															setActiveMCSTaskId(MCSTaskId);
 															setTimeout(function() {
 																submitMCSTaskPreparedByRecord();
 															}, 1000);
@@ -200,7 +200,7 @@
 										$().toastmessage('showNoticeToast', status);
 										if (status == "success") {
 											//alert(res.message);
-											setActiveTaskId(MCSTaskId);
+											setActiveMCSTaskId(MCSTaskId);
 											setTimeout(function() {
 												submitMCSTaskPreparedByRecord();
 											}, 1000);
