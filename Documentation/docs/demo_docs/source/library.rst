@@ -231,9 +231,10 @@ getListofPossibleFeatures()
 
 	Pulls all Features from the database for the add features button.
 
+addFeatureToMyModel(featureId)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-
-
+	Takes in the featureid when the user chooses a feature from the UBM repository to add to the chosen model. The feature is added to the model.
 
 
 
