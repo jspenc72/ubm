@@ -6,10 +6,13 @@
 
 	<script type="text/javascript" src="http://code.jquery.com/jquery-1.7.0.min.js"></script>
 	<script type="text/javascript" src="js/jquery.tooltipster.min.js"></script>
+	<script type="text/javascript" src="../js/tooltip.js"></script>
 
 	<script>
 		$(document).ready(function() {
-			$('.ajax_tooltip').tooltipster({
+		tooltipContentCreator(112);
+		setTimeout(function() {
+					$('.ajax_tooltip').tooltipster({
 				content: 'Loading...',
 				functionBefore: function(origin, continueTooltip) {
 
@@ -38,6 +41,8 @@
 				delay: 200,
 				content: $('.hidden_tooltip').html()
 			});
+				}, 2000);
+			
 		});
 	</script>
 </head>
