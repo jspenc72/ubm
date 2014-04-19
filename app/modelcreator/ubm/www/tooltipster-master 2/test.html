@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+	<link rel="stylesheet" type="text/css" href="css/tooltipster.css" />
+
+	<script type="text/javascript" src="http://code.jquery.com/jquery-1.7.0.min.js"></script>
+	<script type="text/javascript" src="js/jquery.tooltipster.min.js"></script>
+
+	<script>
+		$(document).ready(function() {
+			$('.ajax_tooltip').tooltipster({
+				content: 'Loading...',
+				functionBefore: function(origin, continueTooltip) {
+
+			        // we'll make this function asynchronous and allow the tooltip to go ahead and show the loading notification while fetching our data
+			        continueTooltip();
+			        
+			        // next, we want to check if our data has already been cached
+			        if (origin.data('ajax') !== 'cached') {
+			        	$.ajax({
+			        		type: 'POST',
+			        		url: 'example.php',
+			        		success: function(data) {
+
+			                    // update our tooltip content with our returned data and cache it
+			                    origin.tooltipster('content', data).data('ajax', 'cached');
+			                }
+			            });
+			        }
+			    }
+			});
+
+
+			$('.my-tooltipster').tooltipster({
+				position: "top",
+				contentAsHTML: true,
+				delay: 200,
+				content: $('.hidden_tooltip').html()
+			});
+		});
+	</script>
+</head>
+<body>
+</br>
+<center>
+	<div class="my-tooltipster" style="margin-top:200px; "> 
+		This div has a tooltip with HTML when you hover over it!
+	</div>
+	<div class="my-tooltipster" style="margin-top:100px; "> 
+		This div has a tooltip with HTML when you hover over it!
+	</div>
+	<div class="my-tooltipster" style="margin-top:100px; "> 
+		This div has a tooltip with HTML when you hover over it!
+	</div>
+	<div class="ajax_tooltip" style="margin-top:100px; "> 
+		This div has a tooltip with HTML when you hover over it!
+	</div>
+</center>
+<div class="hidden_tooltip" style="visibility:hidden;">
+	<span>
+		<img src="puppy.jpg" style="width:100px; height:auto;" /> 
+		<table class="docutils field-list" frame="void" rules="none">
+			<col class="field-name" />
+			<col class="field-body" />
+			<tbody valign="top">
+				<tr class="field-odd field"><th class="field-name">Page Status:</th><td class="field-body">Incomplete</td>
+				</tr>
+				<tr class="field-even field"><th class="field-name">Last Reviewed:</th><td class="field-body">2013-10-29</td>
+				</tr>
+			</tbody>
+		</table>
+	</span>
+</div>
+</body>
+</html>
