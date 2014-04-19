@@ -1,6 +1,6 @@
 function tooltipContentCreator (activeUUID) {
 	$.getJSON('http://api.universalbusinessmodel.com/ubms_modelcreationsuite_model_get_OjectDetail.php?callback=?', {//JSONP Request to Open Items Page setup tables
-		key : window.key,
+		key : "YDoS20lf7Vrnr22h8Ma6NGUV5DblnVhueTPXS7gPynRvQ6U8optzfnMDs3UD",
 		activeUUID : activeUUID
 	}, function(res, status) {
 		$(".hidden_tooltip").empty();
