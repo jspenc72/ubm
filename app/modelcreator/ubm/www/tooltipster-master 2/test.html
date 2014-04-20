@@ -4,16 +4,18 @@
 
 	<link rel="stylesheet" type="text/css" href="css/tooltipster.css" />
 
+	<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css">
+	<script src="//code.jquery.com/jquery-1.10.2.js"></script>
 	<script type="text/javascript" src="http://code.jquery.com/jquery-1.7.0.min.js"></script>
 	<script type="text/javascript" src="js/jquery.tooltipster.min.js"></script>
 	<script type="text/javascript" src="../js/tooltip.js"></script>
-
+	<script src="http://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
 	<script>
 		$(document).ready(function() {
+			window.activeUUID = 112;
 //Check to see that document is ready for manipulation
 		tooltipContentCreator(111);
 //Call ajax function in tooltip.js
-//Call this function 2000 ms after the previous function is called.
 			$('.ajax_tooltip').tooltipster({
 				content: 'Loading...',
 				contentAsHTML: true,
@@ -31,7 +33,7 @@
 			        		crossDomain: true,
 //4. Set appropriate parameters for the request.
 			        		url: 'http://api.universalbusinessmodel.com/ubms_modelcreationsuite_model_get_OjectDetail.php?callback=?',
-			        		data: { key : "YDoS20lf7Vrnr22h8Ma6NGUV5DblnVhueTPXS7gPynRvQ6U8optzfnMDs3UD", activeUUID : 152 } ,
+			        		data: { key : "YDoS20lf7Vrnr22h8Ma6NGUV5DblnVhueTPXS7gPynRvQ6U8optzfnMDs3UD", activeUUID : window.activeUUID } ,
 //5. Pass the api key and the activeUUID to the api to authenticate the request.
 			        		success: function(res) {
 //6. Function to call on success for the request, and pass the information from the api into the function as the object, res.
@@ -43,43 +45,50 @@
 //9. Check that the object_type is equal to Model.
 										updated_content = "<span><img src='puppy.jpg' style='width:100px; height:auto;' /> <table class='docutils field-list' frame='void' rules='none'><col class='field-name' /><col class='field-body' /><tbody valign='top'><tr class='field-odd field'><th class='field-name'>" + item.reference_prefix + "</th><td class='field-body'>" + item.reference + "</td></tr><tr class='field-even field'><th class='field-name'>" + item.title_prefix + "</th><td class='field-body'>" + item.title + "</td></tr><tr class='field-even field'><th class='field-name'>" + item.description_prefix + "</th><td class='field-body'>" + item.description + "</td></tr><tr class='field-even field'><th class='field-name'>" + item.scope_prefix + "</th><td class='field-body'>" + item.scope + "</td></tr><tr class='field-even field'><th class='field-name'>" + item.purpose_prefix + "</th><td class='field-body'>" + item.purpose + "</td></tr><tr class='field-even field'><th class='field-name'>" + item.creator_id_prefix + "</th><td class='field-body'>" + item.creator_id + "</td></tr><tr class='field-even field'><th class='field-name'>" + item.created_date_prefix + "</th><td class='field-body'>" + item.created_date + "</td></tr></tbody></table></span>"
 //10. Set the updated_content variable equal to a string of HTML format with the parameters from the api concatenated into the string.
-										origin.tooltipster('content', updated_content).data('ajax', 'cached');
+										//origin.tooltipster('content', updated_content).data('ajax', 'cached');
+										origin.tooltipster('content', updated_content);
 //11. Update the content of the tooltip.										
 									} else if (item.object_type == "PS") {
 //12. Check that the object_type is equal to Position.
 										updated_content = "<span><img src='puppy.jpg' style='width:100px; height:auto;' /> <table class='docutils field-list' frame='void' rules='none'><col class='field-name' /><col class='field-body' /><tbody valign='top'><tr class='field-odd field'><th class='field-name'>Position Title: </th><td class='field-body'>" + item.title + "</td></tr><tr class='field-even field'><th class='field-name'>Position Description: </th><td class='field-body'>" + item.description + "</td></tr><tr class='field-even field'><th class='field-name'>Position Summary: </th><td class='field-body'>" + item.summary + "</td></tr><tr class='field-even field'><th class='field-name'>Security Level: </th><td class='field-body'>" + item.security_level + "</td></tr><tr class='field-even field'><th class='field-name'>Age Requirement: </th><td class='field-body'>" + item.age_requirements + "</td></tr><tr class='field-even field'><th class='field-name'>Education Requirement: </th><td class='field-body'>" + item.education_requirements + "</td></tr><tr class='field-even field'><th class='field-name'>Physical Demands: </th><td class='field-body'>" + item.physical_demands + "</td></tr></tbody></table></span>"
 //13. Set the updated_content variable equal to a string of HTML format with the parameters from the api concatenated into the string.
-										origin.tooltipster('content', updated_content).data('ajax', 'cached');
+										//origin.tooltipster('content', updated_content).data('ajax', 'cached');
+										origin.tooltipster('content', updated_content);
 //14. Update the content of the tooltip.
 									} else if (item.object_type == "JD") {
 //15. Check that the object_type is equal to Job Description.
 										updated_content = "<span><img src='puppy.jpg' style='width:100px; height:auto;' /> <table class='docutils field-list' frame='void' rules='none'><col class='field-name' /><col class='field-body' /><tbody valign='top'><tr class='field-odd field'><th class='field-name'>Job Description Title: </th><td class='field-body'>" + item.title + "</td></tr><tr class='field-even field'><th class='field-name'>Objective: </th><td class='field-body'>" + item.objective + "</td></tr><tr class='field-even field'><th class='field-name'>Essential Duties and Responsibilities: </th><td class='field-body'>" + item.essential_duties_and_responsibilities + "</td></tr><tr class='field-even field'><th class='field-name'>Age Requirement: </th><td class='field-body'>" + item.age_requirement + "</td></tr><tr class='field-even field'><th class='field-name'>Education Requirements: </th><td class='field-body'>" + item.education_requirements + "</td></tr><tr class='field-even field'><th class='field-name'>Qualifications: </th><td class='field-body'>" + item.qualifications + "</td></tr><tr class='field-even field'><th class='field-name'>Physical Demand: </th><td class='field-body'>" + item.physical_demand + "</td></tr><tr class='field-even field'><th class='field-name'>Work Environment: </th><td class='field-body'>" + item.work_environment + "</td></tr><tr class='field-even field'><th class='field-name'>Creator Id: </th><td class='field-body'>" + item.created_by + "</td></tr><tr class='field-even field'><th class='field-name'>Creation Date: </th><td class='field-body'>" + item.created_date + "</td></tr></tbody></table></span>"
 //16. Set the updated_content variable equal to a string of HTML format with the parameters from the api concatenated into the string.
-										origin.tooltipster('content', updated_content).data('ajax', 'cached');
+										//origin.tooltipster('content', updated_content).data('ajax', 'cached');
+										origin.tooltipster('content', updated_content);
 //17. Update the content of the tooltip.	
 									} else if (item.object_type == "PL") {
 //18. Check that the object_type is equal to Policy.
 										updated_content = "<span><img src='puppy.jpg' style='width:100px; height:auto;'/><table class='docutils field-list' frame='void' rules='none'><col class='field-name' /><col class='field-body' /><tbody valign='top'><tr class='field-odd field'><th class='field-name'>Policy Title: </th><td class='field-body'>" + item.title + "</td></tr><tr class='field-even field'><th class='field-name'>Description: </th><td class='field-body'>" + item.description + "</td></tr><tr class='field-even field'><th class='field-name'>Purpose: </th><td class='field-body'>" + item.purpose + "</td></tr><tr class='field-even field'><th class='field-name'>Scope: </th><td class='field-body'>" + item.scope + "</td></tr><tr class='field-even field'><th class='field-name'>Creator Id: </th><td class='field-body'>" + item.created_by + "</td></tr><tr class='field-even field'><th class='field-name'>Creation Date: </th><td class='field-body'>" + item.created_date + "</td></tr></tbody></table></span>"
 //19. Set the updated_content variable equal to a string of HTML format with the parameters from the api concatenated into the string.
-										origin.tooltipster('content', updated_content).data('ajax', 'cached');
+										//origin.tooltipster('content', updated_content).data('ajax', 'cached');
+										origin.tooltipster('content', updated_content);
 //20. Update the content of the tooltip.
 									} else if (item.object_type == "PR") {
 //21. Check that the object_type is equal to Procedure.
-										updated_content = "<span><img src='puppy.jpg' style='width:100px; height:auto;' /> <table class='docutils field-list' frame='void' rules='none'><col class='field-name' /><col class='field-body' /><tbody valign='top'><tr class='field-odd field'><th class='field-name'>" + item.reference_prefix + "</th><td class='field-body'>" + item.reference + "</td></tr><tr class='field-even field'><th class='field-name'>" + item.title_prefix + "</th><td class='field-body'>" + item.title + "</td></tr><tr class='field-even field'><th class='field-name'>" + item.description_prefix + "</th><td class='field-body'>" + item.description + "</td></tr><tr class='field-even field'><th class='field-name'>" + item.scope_prefix + "</th><td class='field-body'>" + item.scope + "</td></tr><tr class='field-even field'><th class='field-name'>" + item.purpose_prefix + "</th><td class='field-body'>" + item.purpose + "</td></tr><tr class='field-even field'><th class='field-name'>" + item.creator_id_prefix + "</th><td class='field-body'>" + item.creator_id + "</td></tr><tr class='field-even field'><th class='field-name'>" + item.created_date_prefix + "</th><td class='field-body'>" + item.created_date + "</td></tr></tbody></table></span>"
+										updated_content = "<span><img src='puppy.jpg' style='width:100px; height:auto;' /> <table class='docutils field-list' frame='void' rules='none'><col class='field-name' /><col class='field-body' /><tbody valign='top'><tr class='field-odd field'><th class='field-name'>Procedure Title: </th><td class='field-body'>" + item.title + "</td></tr><tr class='field-even field'><th class='field-name'>Description: </th><td class='field-body'>" + item.description + "</td></tr><tr class='field-even field'><th class='field-name'>Purpose: </th><td class='field-body'>" + item.purpose + "</td></tr><tr class='field-even field'><th class='field-name'>Scope: </th><td class='field-body'>" + item.scope + "</td></tr><tr class='field-even field'><th class='field-name'>Creator Id: </th><td class='field-body'>" + item.created_by + "</td></tr><tr class='field-even field'><th class='field-name'>Creation Date: </th><td class='field-body'>" + item.created_date + "</td></tr></tbody></table></span>"
 //22. Set the updated_content variable equal to a string of HTML format with the parameters from the api concatenated into the string.
-										origin.tooltipster('content', updated_content).data('ajax', 'cached');
+										//origin.tooltipster('content', updated_content).data('ajax', 'cached');
+										origin.tooltipster('content', updated_content);
 //23. Update the content of the tooltip.
 									} else if (item.object_type == "ST") {
 //24. Check that the object_type is equal to Step.
-										updated_content = "<span><img src='puppy.jpg' style='width:100px; height:auto;' /> <table class='docutils field-list' frame='void' rules='none'><col class='field-name' /><col class='field-body' /><tbody valign='top'><tr class='field-odd field'><th class='field-name'>" + item.reference_prefix + "</th><td class='field-body'>" + item.reference + "</td></tr><tr class='field-even field'><th class='field-name'>" + item.title_prefix + "</th><td class='field-body'>" + item.title + "</td></tr><tr class='field-even field'><th class='field-name'>" + item.description_prefix + "</th><td class='field-body'>" + item.description + "</td></tr><tr class='field-even field'><th class='field-name'>" + item.scope_prefix + "</th><td class='field-body'>" + item.scope + "</td></tr><tr class='field-even field'><th class='field-name'>" + item.purpose_prefix + "</th><td class='field-body'>" + item.purpose + "</td></tr><tr class='field-even field'><th class='field-name'>" + item.creator_id_prefix + "</th><td class='field-body'>" + item.creator_id + "</td></tr><tr class='field-even field'><th class='field-name'>" + item.created_date_prefix + "</th><td class='field-body'>" + item.created_date + "</td></tr></tbody></table></span>"
+										updated_content = "<span><img src='puppy.jpg' style='width:100px; height:auto;' /> <table class='docutils field-list' frame='void' rules='none'><col class='field-name' /><col class='field-body' /><tbody valign='top'><tr class='field-odd field'><th class='field-name'>Step Title: </th><td class='field-body'>" + item.title + "</td></tr><tr class='field-even field'><th class='field-name'>Description: </th><td class='field-body'>" + item.description + "</td></tr><tr class='field-even field'><th class='field-name'>Purpose: </th><td class='field-body'>" + item.purpose + "</td></tr><tr class='field-even field'><th class='field-name'>Instruction: </th><td class='field-body'>" + item.instruction + "</td></tr><tr class='field-even field'><th class='field-name'>Creator Id: </th><td class='field-body'>" + item.created_by + "</td></tr><tr class='field-even field'><th class='field-name'>Creation Date: </th><td class='field-body'>" + item.creation_date + "</td></tr></tbody></table></span>"
 //25. Set the updated_content variable equal to a string of HTML format with the parameters from the api concatenated into the string.
-										origin.tooltipster('content', updated_content).data('ajax', 'cached');
+										//origin.tooltipster('content', updated_content).data('ajax', 'cached');
+										origin.tooltipster('content', updated_content);
 //26. Update the content of the tooltip.	
 									} else if (item.object_type == "TK") {
 //27. Check that the object_type is equal to Task.
-										updated_content = "<span><img src='puppy.jpg' style='width:100px; height:auto;' /> <table class='docutils field-list' frame='void' rules='none'><col class='field-name' /><col class='field-body' /><tbody valign='top'><tr class='field-odd field'><th class='field-name'>" + item.reference_prefix + "</th><td class='field-body'>" + item.reference + "</td></tr><tr class='field-even field'><th class='field-name'>" + item.title_prefix + "</th><td class='field-body'>" + item.title + "</td></tr><tr class='field-even field'><th class='field-name'>" + item.description_prefix + "</th><td class='field-body'>" + item.description + "</td></tr><tr class='field-even field'><th class='field-name'>" + item.scope_prefix + "</th><td class='field-body'>" + item.scope + "</td></tr><tr class='field-even field'><th class='field-name'>" + item.purpose_prefix + "</th><td class='field-body'>" + item.purpose + "</td></tr><tr class='field-even field'><th class='field-name'>" + item.creator_id_prefix + "</th><td class='field-body'>" + item.creator_id + "</td></tr><tr class='field-even field'><th class='field-name'>" + item.created_date_prefix + "</th><td class='field-body'>" + item.created_date + "</td></tr></tbody></table></span>"
+										updated_content = "<span><img src='puppy.jpg' style='width:100px; height:auto;'/><table class='docutils field-list' frame='void' rules='none'><col class='field-name' /><col class='field-body' /><tbody valign='top'><tr class='field-odd field'><th class='field-name'>Task Title: </th><td class='field-body'>" + item.title + "</td></tr><tr class='field-even field'><th class='field-name'>Task Number: </th><td class='field-body'>" + item.task_number + "</td></tr><tr class='field-even field'><th class='field-name'>Instruction: </th><td class='field-body'>" + item.instruction + "</td></tr><tr class='field-even field'><th class='field-name'>Creator Id: </th><td class='field-body'>" + item.created_by + "</td></tr><tr class='field-even field'><th class='field-name'>Creation Date: </th><td class='field-body'>" + item.creation_date + "</td></tr></tbody></table></span>"
 //28. Set the updated_content variable equal to a string of HTML format with the parameters from the api concatenated into the string.
-										origin.tooltipster('content', updated_content).data('ajax', 'cached');
+										//origin.tooltipster('content', updated_content).data('ajax', 'cached');
+										origin.tooltipster('content', updated_content);
 //29. Update the content of the tooltip with our returned data and cache it	
 									}
 			        			});
@@ -94,18 +103,23 @@
 				delay: 200,
 				content: $('.hidden_tooltip').html()
 			});
+//
+
+		    var spinner = $( "#spinner" ).spinner();
+
+		    $( "#spinner" ).keyup(function() {
+		      window.activeUUID = spinner.spinner( "value" );
+
+		    });
+		    $( "button" ).button();
+
+
 		});
 	</script>
 </head>
 <body>
 </br>
 <center>
-	<div class="my-tooltipster" style="margin-top:200px; "> 
-		This div has a tooltip with HTML when you hover over it!
-	</div>
-	<div class="my-tooltipster" style="margin-top:100px; "> 
-		This div has a tooltip with HTML when you hover over it!
-	</div>
 	<div class="my-tooltipster" style="margin-top:100px; "> 
 		This div has a tooltip with HTML when you hover over it!
 	</div>
@@ -113,6 +127,11 @@
 		This div has a tooltip with HTML when you hover over it!
 	</div>
 </center>
+ 
+<p>
+  <label for="spinner">Select a UUID:</label>
+  <input id="spinner" name="value">
+</p>
 <div class="hidden_tooltip" style="visibility:hidden;">
 	<span>
 		<img src="puppy.jpg" style="width:100px; height:auto;" /> 
