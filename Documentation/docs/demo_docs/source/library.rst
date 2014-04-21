@@ -236,6 +236,323 @@ addFeatureToMyModel(featureId)
 
 	Takes in the featureid when the user chooses a feature from the UBM repository to add to the chosen model. The feature is added to the model.
 
+createNewFeatureAddtoMyModel()
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+	Allows the user to create a new feature to add to the UBM repository. The feature is added to the ubm repository and the chosen model.
+
+removeFeatureFromMyModel()
+~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+	Allows the user to remove a feature from the chosen model.
+
+getChecklistItems.js
+--------------------
+
+getModelCreationSuiteChecklistItems()
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+	Gets the Checklist items for the chosen model.
+
+greeting.js
+-----------
+
+getTodaysDate()
+~~~~~~~~~~~~~~~
+
+	Gets the time and date down to the seconds.
+
+fillTodaysDate()
+~~~~~~~~~~~~~~~~
+
+	Used to put todays date in forms.
+
+greetUser()
+~~~~~~~~~~~
+
+	Chooses the appropriate toast to greet the user with.
+
+investment.js
+-------------
+
+createNewCostDriver()
+~~~~~~~~~~~~~~~~~~~~~
+
+	Creates a new cost driver and adds it to the selected model.
+
+createNewIncomeDriver()
+~~~~~~~~~~~~~~~~~~~~~~~
+
+	Creates a new income driver and adds it to the selected model.
+
+getActiveInvestmentCostDrivers()
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+	Gets the chosen investments cost drivers.
+
+getActiveInvestmentIncomeDrivers()
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+	Gets the chosen investments income drivers.
+
+createNewInvestment()
+~~~~~~~~~~~~~~~~~~~~~
+	
+	Creates a new investment and adds it to the chosen model.
+
+fixit()
+~~~~~~~
+
+	Finds problems with funtions and html and alerts them.
+
+getListofAlternativesforReturnOnInvestment()
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+	Gets the List of Alternatives that are attached to the selected model and puts them in the dropdown for return on investment.
+
+removeCostFromInvestment()
+~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+	Removes a cost from an investment.
+
+removeIncomeFromInvestment()
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+	Removes an income from an investment.
+
+newCalculatedCostDriver()
+~~~~~~~~~~~~~~~~~~~~~~~~~
+
+	Calculates the total cost of a cost driver.
+
+newCalculatedIncomeDriver()
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+	Calculates the total income of an income driver.
+
+mcsChecklist.js
+---------------
+
+setActiveMCSTaskId()
+~~~~~~~~~~~~~~~~~~~~
+
+	Sets the active task id, the active page id and the start time.
+
+submitMCSTaskPreparedByRecord()
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+	Submits the prepared by record of a step.
+
+submitMCSTaskReviewedByRecord()
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+	Submits the reviewed by record of a step.
+
+submitMCSTaskFinalReviewedByRecord()
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+	Submits the final reviewed by record of a step.
+
+submitMCS_phaseSetup_submitT4()
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+	Ensures the information setup form is filled in correctly before submitting it to the database.
+
+submitMCS_phase1_submitT17()
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+	Ensures the primary objects form is filled in correctly before submitting it to the database.
+
+modelSettings.js
+----------------
+
+createModel()
+~~~~~~~~~~~~~
+
+	Takes the information from the create model form and submits it to the database.
+
+getMyModels()
+~~~~~~~~~~~~~
+
+	Gets all the models the specified user created.
+
+getSharedModels()
+~~~~~~~~~~~~~~~~~
+
+	Gets all models that are shared with the specified user.
+	
+model_getuserswithaccess()
+~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+	Gets list of users with access to the chosen model.
+
+setActiveModel(activeModelUUID)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	
+	Takes in the active models UUID and sets it as a window variable.
+
+shareModel()
+~~~~~~~~~~~~
+
+	Allows the creator or a level one user to share a model with another person.
+
+removeUserFromModel()
+~~~~~~~~~~~~~~~~~~~~~
+
+	Removes the selected user from the chosen model.
+
+confirmationPopup()
+~~~~~~~~~~~~~~~~~~~
+
+	Remove user from model confirmation.
+
+setSelectedModelUser(selectedUserId)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+	Takes in the selected user if and sets it as a windows variable. Opens modify user popup.
+
+modelSummary.js
+---------------
+
+getModelSetupSummary()
+~~~~~~~~~~~~~~~~~~~~~~
+
+	Checks the progress of the setup phase and marks steps as completed or not completed.
+
+getControlSummary()
+~~~~~~~~~~~~~~~~~~~
+
+	Checks the progress of the Control phase and marks steps as completed or not completed.
+
+getPhase1Summary()
+~~~~~~~~~~~~~~~~~~
+
+	Checks the progress of Phase 1 and marks steps as completed or not completed.
+	
+getPhase2Summary()
+~~~~~~~~~~~~~~~~~~
+
+	Checks the progress of Phase 2 and marks steps as completed or not completed.
+
+getPhase3Summary()
+~~~~~~~~~~~~~~~~~~
+	
+	Checks the progress of Phase 3 and marks steps as completed or not completed.
+
+getPhase4Summary()
+~~~~~~~~~~~~~~~~~~
+
+	Checks the progress of Phase 4 and marks steps as completed or not completed.
+
+onBodyLoad.js
+---------------
+
+onLoadBody()
+~~~~~~~~~~~~
+
+	Sets the window.key variable. Starts all the open item popups and focuses on the sign in box.
+
+openPointsAndLoader.js
+----------------------
+
+showLoader()
+~~~~~~~~~~~~
+
+	Calls the loader.
+
+hideLoader()
+~~~~~~~~~~~~
+
+	Removes the loader.
+
+confirmCloseOpenItem()
+~~~~~~~~~~~~~~~~~~~~~~
+
+	Show Confirmation menu to close open item.
+
+closeOpenItem()
+~~~~~~~~~~~~~~~
+
+	Mark open item as closed.
+
+refreshOpenItemsList()
+~~~~~~~~~~~~~~~~~~~~~~
+	
+	Refreshes open item list.
+
+getOnlyStatusClosedItems()
+~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+	Sort open items, show only closed items.
+
+getMyOpenItems()
+~~~~~~~~~~~~~~~~
+
+	Filters the open items and displays the open items created for a certain user.
+
+addItemComment(id)
+~~~~~~~~~~~~~~~~
+
+	Takes in the id of the open item and sets it as a window variable. Open the create comment popup.
+
+submitComment()
+~~~~~~~~~~~~~~~
+
+	Submits the comment to the database.
+
+addResolutions()
+~~~~~~~~~~~~~~~~
+
+	Allows a resolution to be added to an open point.
+
+submitResolution()
+~~~~~~~~~~~~~~~~~~
+
+	Submits resolution to the database.
+
+viewResolutions()
+~~~~~~~~~~~~~~~~~
+
+	Gets all of the resolutions and puts them with the appropriate open items.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
