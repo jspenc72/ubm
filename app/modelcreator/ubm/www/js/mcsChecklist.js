@@ -60,7 +60,7 @@
 			}
 			function submitMCS_phaseSetup_submitT4(MCSTaskId) {
 				if (MCSTaskId == 4) {
-					alert("this is a test.");
+					//alert("this is a test.");
 					var modelOwnerLegalEntityVal = document.getElementById("mcs_setup_checklist_setup_identification_setup_popup_form_legalentity").value;
 					var modelOwnerCCODEVal = document.getElementById("mcs_setup_checklist_setup_identification_setup_popup_form_ccode").value;
 					var modelContactNameVal = document.getElementById("mcs_setup_checklist_setup_identification_setup_popup_form_model_contactname").value;
