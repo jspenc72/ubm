@@ -15,7 +15,10 @@
 						});
 					}
 				});
-				getMyModels();
+				setTimeout(function() {
+					getMyModels();
+				}, 800);
+				
 			}
 			function getMyModels() {//Get all models in database where current user is the creator.
 				showLoader();
