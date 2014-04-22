@@ -120,7 +120,7 @@
 					
 				});
 				$(document).on("pageshow", "#ubmsuite_mcs_model_review", function() {
-					getModelSetupSummary();
+					getModelSetupSummary(2);
 				});
 				$(document).on("pageshow", "#ubmsuite_mcs_master_file_index", function() {
 				    getMasterFileIndexItems();

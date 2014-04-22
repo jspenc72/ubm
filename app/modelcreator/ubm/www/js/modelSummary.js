@@ -1,5 +1,49 @@
+			function overview() {
+				$("#links_setup").attr("onclick","getModelSetupSummary(2)");
+				$("#links_control").attr("onclick","getControlSummary(2)");
+				$("#links_phase1").attr("onclick","getPhase1Summary(2)");
+				$("#links_phase2").attr("onclick","getPhase2Summary(2)");
+				$("#links_phase3").attr("onclick","getPhase3Summary(2)");
+				$("#links_phase4").attr("onclick","getPhase4Summary(2)");
+				$("#links_setup").removeClass('ico3');
+				$("#links_setup").addClass('ico4');
+				$("#links_control").removeClass('ico3');
+				$("#links_control").addClass('ico4');
+				$("#links_phase1").removeClass('ico3');
+				$("#links_phase1").addClass('ico4');
+				$("#links_phase2").removeClass('ico3');
+				$("#links_phase2").addClass('ico4');
+				$("#links_phase3").removeClass('ico3');
+				$("#links_phase3").addClass('ico4');
+				$("#links_phase4").removeClass('ico3');
+				$("#links_phase4").addClass('ico4');
 
-			function getModelSetupSummary(){
+			}
+
+			function summary() {
+				$("#links_setup").attr("onclick","getModelSetupSummary(1)");
+				$("#links_control").attr("onclick","getControlSummary(1)");
+				$("#links_phase1").attr("onclick","getPhase1Summary(1)");
+				$("#links_phase2").attr("onclick","getPhase2Summary(1)");
+				$("#links_phase3").attr("onclick","getPhase3Summary(1)");
+				$("#links_phase4").attr("onclick","getPhase4Summary(1)");
+				$("#links_setup").removeClass('ico4');
+				$("#links_setup").addClass('ico3');
+				$("#links_control").removeClass('ico4');
+				$("#links_control").addClass('ico3');
+				$("#links_phase1").removeClass('ico4');
+				$("#links_phase1").addClass('ico3');
+				$("#links_phase2").removeClass('ico4');
+				$("#links_phase2").addClass('ico3');
+				$("#links_phase3").removeClass('ico4');
+				$("#links_phase3").addClass('ico3');
+				$("#links_phase4").removeClass('ico4');
+				$("#links_phase4").addClass('ico3');
+			}
+			
+			function getModelSetupSummary(classId){
+				var complete = 0;
+				var incomplete = 0;
 				$('#ubmsuite_mcs_model_review_ubm_modelSetup_ul').empty();
 				$('#tab-1').show();	
 				$('#tab-2').hide();	
@@ -14,16 +58,23 @@
 				}, function(res, status) {
 					$.each(res, function(i, item) {
 						if(item.status && item.line_number >=1 && item.line_number <=7){
-							$('#ubmsuite_mcs_model_review_ubm_modelSetup_ul').append("<li class='success'>" + item.instruction_detail + "<br>Completed By: " + item.preparer_username + "</li>");												
+							$('#ubmsuite_mcs_model_review_ubm_modelSetup_ul').append("<li class='success'>" + item.instruction_detail + "<br>Completed By: " + item.preparer_username + "</li>");	
+							complete++;											
 						}else if(item.line_number >=1 && item.line_number <=7){
-							$('#ubmsuite_mcs_model_review_ubm_modelSetup_ul').append("<li class='warning'>Warning : <a href='#" + item.href + "'>" + item.instruction_detail + "</a></li>");												
+							$('#ubmsuite_mcs_model_review_ubm_modelSetup_ul').append("<li class='warning'>Warning : <a href='#" + item.href + "'>" + item.instruction_detail + "</a></li>");
+							incomplete++;												
 						}
 					});
+					if(classId==2) {
+						$('#ubmsuite_mcs_model_review_ubm_modelSetup_ul').empty();
+						$('#ubmsuite_mcs_model_review_ubm_modelSetup_ul').append("<li class='warning'>" + complete + "</li>");
+						$('#ubmsuite_mcs_model_review_ubm_modelSetup_ul').append("<li class='warning'>" + incomplete + "</li>");
+					}
 				});
 			}
 		
 		
-			function getControlSummary(){
+			function getControlSummary(classId){
 				$('#ubmsuite_mcs_model_review_ubm_control_ul').empty();		
 				$('#tab-2').show();
 				$('#tab-1').hide();	
@@ -43,12 +94,15 @@
 							$('#ubmsuite_mcs_model_review_ubm_control_ul').append("<li class='warning'>Warning : <a href='#" + item.href + "'>" + item.instruction_detail + "</li>");												
 						}	
 					});
+					if(classId==2) {
+						$('#ubmsuite_mcs_model_review_ubm_control_ul').empty();
+					}
 				});
 				
 			}
 		
 		
-			function getPhase1Summary(){
+			function getPhase1Summary(classId){
 				$('#ubmsuite_mcs_model_review_ubm_phase1_ul').empty();
 				$('#tab-3').show();
 				$('#tab-2').hide();	
@@ -71,12 +125,18 @@
 						}	
 
 					});
+					getModelSummary();
+					if(classId==2) {
+						$('#ubmsuite_mcs_model_review_ubm_phase1_ul').empty();
+					}
 				});
-				getModelSummary();
+
+				
 				
 			}
-		
+
 			function getModelSummary () {
+				$('#ubmsuite_mcs_model_review_ubm_phase1_ul').append("<li><center><h1>Business Model Summary</h1></center></li>");
 				$.getJSON('http://api.universalbusinessmodel.com/ubms_modelcreationsuite_model_getCurrentModel_Summary.php?callback=?', {//JSONP Request
 					username : window.username,					
 					key : window.key,
@@ -195,7 +255,7 @@
 				});
 			}
 
-			function getPhase2Summary(){
+			function getPhase2Summary(classId){
 				$('#ubmsuite_mcs_model_review_ubm_phase2_ul').empty();
 				$('#tab-4').show();
 				$('#tab-2').hide();	
@@ -217,12 +277,15 @@
 							
 						}	
 					});
+					if(classId==2) {
+						$('#ubmsuite_mcs_model_review_ubm_phase2_ul').empty();
+					}
 				});
 				
 			}
 		
 		
-			function getPhase3Summary(){
+			function getPhase3Summary(classId){
 				$('#ubmsuite_mcs_model_review_ubm_phase3_ul').empty();
 				$('#tab-5').show();
 				$('#tab-2').hide();	
@@ -244,12 +307,15 @@
 							
 						}	
 					});
+					if(classId==2) {
+						$('#ubmsuite_mcs_model_review_ubm_phase3_ul').empty();
+					}
 				});
 				
 			}
 		
 		
-			function getPhase4Summary(){
+			function getPhase4Summary(classId){
 				$('#ubmsuite_mcs_model_review_ubm_phase4_ul').empty();
 				$('#tab-6').show();
 				$('#tab-2').hide();	
@@ -270,6 +336,9 @@
 							$('#ubmsuite_mcs_model_review_ubm_phase4_ul').append("<li class='warning'>Warning : <a href='#" + item.href + "'>" + item.instruction_detail + "</li>");												
 						}
 					});
+					if(classId==2) {
+						$('#ubmsuite_mcs_model_review_ubm_phase4_ul').empty();
+					}
 				});
 				
 			}

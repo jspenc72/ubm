@@ -2000,8 +2000,8 @@ under the License.
 		</div>
         <div data-role="page" class="ubm_page" id="ubmsuite_mcs_model_review" data-theme="a">
             <!-- No Panel on this page, instead only back button is needed.-->
-            <div data-role="header" data-position="fixed" data-fullscreen="true">
-                <a href="#" class="back_btn" data-icon="arrow-l" data-iconpos="notext">Back</a>
+            <div data-role="header" style="text-align: center">
+                <a href="#" data-icon="arrow-r" data-iconpos="notext">Back</a>
                 <div id"ubmsuite_mcs_model_review_header_headerRecord_center" style="text-align: center">
                     <div id="ubmsuite_mcs_model_review_header_headerRecord_center_legalentity">
                         Legal Entity: Business Model Consulting, LLC
@@ -2017,7 +2017,7 @@ under the License.
                     </div>
                 </div>
             </div>
-            <div data-role="content">
+            <div data-role="content" style="margin-left:-1%;margin-top:-.7%">
                 <!-- Open Items Popup -->
                 <div data-role="popup" id="ubmsuite_mcs_model_review_openItem_popup" data-theme="a">
                     <form id="ubmsuite_mcs_model_review_open_items_form" name="open_items_form"> <!-- Form Checklist Created By Aaron Miller -->
@@ -2070,23 +2070,23 @@ under the License.
 						<div class="c1">
 							<div class="controls">
 								<nav class="links">
-									<ul>
-										<li><a href="#" onclick="getModelSetupSummary()" class="ico3">Setup</a></li>
+									<ul id="links_setup">
+										<li><a href="#" onclick="getModelSetupSummary(2)" class="ico3">Setup</a></li>
 									</ul>
-									<ul>
-										<li><a href="#" onclick="getControlSummary()" class="ico3">Control</a></li>
+									<ul id="links_control">
+										<li><a href="#" onclick="getControlSummary(2)" class="ico3">Control</a></li>
 									</ul>
-									<ul>
-										<li><a href="#" onclick="getPhase1Summary()" class="ico3">Phase 1</a></li>
+									<ul id="links_phase1">
+										<li><a href="#" onclick="getPhase1Summary(2)" class="ico3">Phase 1</a></li>
 									</ul>
-									<ul>
-										<li><a href="#" onclick="getPhase2Summary()" class="ico3">Phase 2</a></li>
+									<ul id="links_phase2">
+										<li><a href="#" onclick="getPhase2Summary(2)" class="ico3">Phase 2</a></li>
 									</ul>
-									<ul>
-										<li><a href="#" onclick="getPhase3Summary()" class="ico3">Phase 3</a></li>
+									<ulid="links_phase3">
+										<li><a href="#" onclick="getPhase3Summary(2)" class="ico3">Phase 3</a></li>
 									</ul>
-									<ul>
-										<li><a href="#" onclick="getPhase4Summary()" class="ico3">Phase 4</a></li>
+									<ulid="links_phase4">
+										<li><a href="#" onclick="getPhase4Summary(2)" class="ico3">Phase 4</a></li>
 									</ul>
 								</nav>
 								<!--<div class="profile-box">
@@ -2111,6 +2111,9 @@ under the License.
 										</div>
 										<ul id="ubmsuite_mcs_model_review_ubm_modelSetup_ul" class="states">
 										</ul>
+										<div id="ubmsuite_mcs_model_review_ubm_modelSetup_stats">
+
+										</div>
 									</article>
 								</div>
 								<div id="tab-2" class="tab">
@@ -2164,7 +2167,11 @@ under the License.
 					<aside id="sidebar">
 						<ul class="tabset buttons">
 							<li class="active">
-								<a href="#tab-1" class="ico1"><span>Model Summary</span><em></em></a>
+								<a href="#tab-1" class="ico4" onclick="overview()"><span>Overview</span><em></em></a>
+								<span class="tooltip"><span>Checklist Completion Overview</span></span>
+							</li>
+							<li class="active">
+								<a href="#tab-1" class="ico6" onclick="summary()"><span>Model Summary</span><em></em></a>
 								<span class="tooltip"><span>Model Summary</span></span>
 							</li>
 						</ul>
