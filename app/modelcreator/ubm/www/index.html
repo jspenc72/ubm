@@ -3540,7 +3540,6 @@ under the License.
                                     <option value="Level 3">Level 3</option>
                                 </select>
                             </li>
-                            </li>
                         </ul>
 
                         <button style="margin-left:10px;" onclick="shareModel()"class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b" data-transition="flow">Share Model</button>
@@ -3548,6 +3547,22 @@ under the License.
                     </form>
                 </div>
                 <!-- End Share Model Popup -->
+                <!-- Delete Model Popup -->
+                <div data-role="popup" id="ubmsuite_modelSettings_deleteModel_popup" data-theme="a" data-dismissible="true" class="draggable_popup">
+                    <form id="ubmsuite_modelSettings_shareModel_popup_form"> <!-- Form Checklist Created By Aaron Miller -->
+                        <ul data-role="listview" data-inset="true" style="min-width:210px;">
+                            <li style="text-align: center;" data-role="list-divider">
+                               <h1>DELETE Model</h1> 
+                            </li>
+                        </ul>
+                        <p><strong>Warning!</strong> If you continue, the current model will be removed. </br>Are you sure you want to remove this Model and all items that are attached to it?</p>
+                        <center>
+	                        <button style="margin-left:10px;" onclick="deleteModel()"class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b" data-transition="flow">Confirm Removal of this Model</button></br>
+	                        <a type="reset" href="#" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b" data-rel="back" data-transition="flow">Cancel</a>
+                        </center>
+                    </form>
+                </div>
+                <!-- End Delete Model Popup -->
                 <!-- Modify User Popup -->
                 <div id="ubmsuite_modelSettings_modifyUser_popup" data-role="popup" id="ubmsuite_modelSettings_modifyUser_popup" data-overlay-theme="b" data-theme="a" data-dismissible="false" style="max-width:400px;">
                     <div data-role="header"  data-theme="a">
@@ -3950,6 +3965,7 @@ under the License.
 		
 							</ul>					
 							<a data-rel="popup" data-mini="true" data-transition="slideup" href="#ubmsuite_modelSettings_shareModel_popup" style="whitespace:normal" class="ui-btn ui-shadow">Click to give another user </br>access to this model.</a>
+							<a data-rel="popup" data-mini="true" data-transition="slideup" href="#ubmsuite_modelSettings_deleteModel_popup" style="whitespace:normal" class="ui-btn ui-shadow">Delete this model.</a>
 						</li>
 						<li>
 							<a href="#" class="ui-btn ui-shadow ui-corner-all ui-icon-refresh ui-btn-icon-notext ui-btn-a ui-btn-inline" onclick="getMyModelsStrategicAlliances()">Refresh</a>
@@ -4033,7 +4049,15 @@ under the License.
 
 							</ul>	
 						</li>
-						<!-- End of grid blocks -->
+						<li>
+							<a href="#" class="ui-btn ui-shadow ui-corner-all ui-icon-refresh ui-btn-icon-notext ui-btn-a ui-btn-inline" onclick="getMyModelsPositions()">Refresh</a>							
+							<p>Phase 4 Book 2</p>
+							<p>What Positions are attached to my model? </p>
+							<p>Refer to 01.01.02.XX  in the Reference Manual</p>
+							<ul data-role="listview" id="ubmsuite_modelSettings_myPositions_ul" data-filter="true" data-filter-placeholder="Positions..." data-theme="a"  data-inset="true" data-scroll="true">		
+
+							</ul>	
+						</li>						<!-- End of grid blocks -->
 					</ul>
 				</div>
 			</div>
