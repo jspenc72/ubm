@@ -1,9 +1,10 @@
 
 
 
-		function showHierarchicalObjectTooltip(){
-			alert("this is a test");
-//			window.activeUUID = 112;
+
+//
+		$(document).ready(function() {
+			window.activeUUID = 112;
 //Check to see that document is ready for manipulation
 //		tooltipContentCreator(111);
 //Call ajax function in tooltip.js
@@ -88,8 +89,6 @@
 			        }
 			    }
 			});
-		}
-		/*
 			$('.my-tooltipster').tooltipster({
 				position: "top",
 				contentAsHTML: true,
@@ -100,9 +99,10 @@
 		    $( "#spinner" ).keyup(function() {
 		      window.activeUUID = spinner.spinner( "value" );
 		    });
+		});
 
 
-*/
+
 
 //This function appends the contents of a json response into a hidden div whos contents are then used to populate the tooltipster tooltip.
 function tooltipContentCreator (activeUUID) {

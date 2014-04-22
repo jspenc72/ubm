@@ -176,6 +176,7 @@
                 	$('#ok_admin_button').focus();
                 });
 				$(document).on("pageshow", "#ubmsuite_mcs_my_organizational_chart", function() {
+					//initializeTooltipsterItem();
 					/*** /$( "#heirarchyObjectTree_container_frame" ).draggable().resizable({
 				      maxHeight: 550,
 				      maxWidth: $( window ).width()*2,
