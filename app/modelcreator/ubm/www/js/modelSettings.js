@@ -3,7 +3,7 @@
 				$.getJSON('http://api.universalbusinessmodel.com/ubms_modelcreationsuite_createModel.php?callback=?', {//JSONP Request to Create new model
 					key: window.key,
 					reference : document.getElementById("ubmsuite_createModel_popup_newModel_form_reference").value,
-					title : document.getElementById("ubmsuite_createModel_popup_newModel_form_title").value,
+					modelTitle : document.getElementById("ubmsuite_createModel_popup_newModel_form_title").value,
 					description : document.getElementById("ubmsuite_createModel_popup_newModel_form_description").value,
 					username : window.username
 				}, function(res, status) {
