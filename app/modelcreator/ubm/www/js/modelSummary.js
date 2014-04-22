@@ -7,50 +7,19 @@
 				$('#tab-4').hide();	
 				$('#tab-5').hide();	
 				$('#tab-6').hide();	
-				$.getJSON('http://api.universalbusinessmodel.com/ubms_modelcreationsuite_model_getCurrentModel_ModelSummary.php?callback=?', {//JSONP Request
+				$.getJSON('http://api.universalbusinessmodel.com/ubms_modelcreationsuite_getallchecklistitems.php?callback=?', {//JSONP Request
 					username : window.username,					
 					key : window.key,
 					activeModelUUID : window.activeModelUUID
 				}, function(res, status) {
 					$.each(res, function(i, item) {
-						if(item.line_number == 1 && item.status == "TRUE"){
+						if(item.status && item.line_number >=1 && item.line_number <=7){
 							$('#ubmsuite_mcs_model_review_ubm_modelSetup_ul').append("<li class='success'>" + item.instruction_detail + "<br>Completed By: " + item.preparer_username + "</li>");												
-							
-						}else if(item.line_number == 1 && item.status != "TRUE"){
-							$('#ubmsuite_mcs_model_review_ubm_modelSetup_ul').append("<li class='warning'>Warning : <a href='#mcs_setup_1_popUp'>" + item.instruction_detail + "</a></li>");												
-							
-						}	
-						if(item.task_id == 2 && item.status == "TRUE"){
-							$('#ubmsuite_mcs_model_review_ubm_modelSetup_ul').append("<li class='success'>" + item.instruction_detail + "<br>Completed By: " + item.preparer_username + "</li>");												
-							
-						}else if(item.status != "TRUE"){
-							$('#ubmsuite_mcs_model_review_ubm_modelSetup_ul').append("<li class='warning'>Warning : <a href='#mcs_UBMFlowchart'>" + item.instruction_detail + "</a></li>");												
-							
-						}
-						if(item.task_id == 3 && item.status == "TRUE"){
-							$('#ubmsuite_mcs_model_review_ubm_modelSetup_ul').append("<li class='success'>" + item.instruction_detail + "<br>Completed By: " + item.preparer_username + "</li>");												
-							
-						}else if(item.status != "TRUE"){
-							$('#ubmsuite_mcs_model_review_ubm_modelSetup_ul').append("<li class='warning'>Warning : <a href='#mcs_setup_checklist_setup_userGuide_Popup'>" + item.instruction_detail + "</a></li>");												
-							
-						}
-						if(item.task_id == 4 && item.status == "TRUE"){
-							$('#ubmsuite_mcs_model_review_ubm_modelSetup_ul').append("<li class='success'>" + item.instruction_detail + "<br>Completed By: " + item.preparer_username + "</li>");												
-							
-						}else if(item.status != "TRUE"){
-							$('#ubmsuite_mcs_model_review_ubm_modelSetup_ul').append("<li class='warning'>Warning : <a href='#mcs_setup_checklist_setup_identification_setup_popup'>" + item.instruction_detail + "</a></li>");												
-							
-						}
-						if(item.task_id == 5 && item.status == "TRUE"){
-							$('#ubmsuite_mcs_model_review_ubm_modelSetup_ul').append("<li class='success'>" + item.instruction_detail + "<br>Completed By: " + item.preparer_username + "</li>");												
-							
-						}else if(item.status != "TRUE"){
-							$('#ubmsuite_mcs_model_review_ubm_modelSetup_ul').append("<li class='warning'>Warning : <a href='#gettingStarted'>" + item.instruction_detail + "</a></li>");												
-							
+						}else if(item.line_number >=1 && item.line_number <=7){
+							$('#ubmsuite_mcs_model_review_ubm_modelSetup_ul').append("<li class='warning'>Warning : <a href='#" + item.href + "'>" + item.instruction_detail + "</a></li>");												
 						}
 					});
 				});
-				
 			}
 		
 		
@@ -62,32 +31,17 @@
 				$('#tab-4').hide();	
 				$('#tab-5').hide();	
 				$('#tab-6').hide();											
-				$.getJSON('http://api.universalbusinessmodel.com/ubms_modelcreationsuite_model_getCurrentModel_ModelSummary.php?callback=?', {//JSONP Request
+				$.getJSON('http://api.universalbusinessmodel.com/ubms_modelcreationsuite_getallchecklistitems.php?callback=?', {//JSONP Request
 					username : window.username,					
 					key : window.key,
 					activeModelUUID : window.activeModelUUID
 				}, function(res, status) {
 					$.each(res, function(i, item) {
-						if(item.line_number == 8 && item.status == "TRUE"){
+						if(item.line_number >=8 && item.line_number <=11 && item.status == "TRUE"){
 							$('#ubmsuite_mcs_model_review_ubm_control_ul').append("<li class='success'>" + item.instruction_detail + "<br>Completed By: " + item.preparer_username + "</li>");												
-						}else if(item.line_number == 8 && !item.status){
+						}else if (item.line_number >=8 && item.line_number <=11){
 							$('#ubmsuite_mcs_model_review_ubm_control_ul').append("<li class='warning'>Warning : <a href='#" + item.href + "'>" + item.instruction_detail + "</li>");												
 						}	
-						if(item.line_number == 9 && item.status == "TRUE"){
-							$('#ubmsuite_mcs_model_review_ubm_control_ul').append("<li class='success'>" + item.instruction_detail + "<br>Completed By: " + item.preparer_username + "</li>");												
-						}else if(item.line_number == 9 && !item.status){
-							$('#ubmsuite_mcs_model_review_ubm_control_ul').append("<li class='warning'>Warning : <a href='#mcs_setup_checklist_setup_userGuide_Popup'>" + item.instruction_detail + "</a></li>");												
-						}
-						if(item.line_number == 10 && item.status == "TRUE"){
-							$('#ubmsuite_mcs_model_review_ubm_control_ul').append("<li class='success'>" + item.instruction_detail + "<br>Completed By: " + item.preparer_username + "</li>");												
-						}else if(item.line_number == 10 && item.status != "TRUE"){
-							$('#ubmsuite_mcs_model_review_ubm_control_ul').append("<li class='warning'>Warning : <a href='#'>" + item.instruction_detail + "</a></li>");												
-						}
-						if(item.line_number == 11 && item.status == "TRUE"){
-							$('#ubmsuite_mcs_model_review_ubm_control_ul').append("<li class='success'>" + item.instruction_detail + "<br>Completed By: " + item.preparer_username + "</li>");												
-						}else if(item.line_number == 11 && item.status != "TRUE"){
-							$('#ubmsuite_mcs_model_review_ubm_control_ul').append("<li class='warning'>Warning : <a href='#mcs_setup_checklist_setup_identification_setup_popup'>" + item.instruction_detail + "</a></li>");												
-						}
 					});
 				});
 				
@@ -102,60 +56,145 @@
 				$('#tab-4').hide();	
 				$('#tab-5').hide();	
 				$('#tab-6').hide();										
-				$.getJSON('http://api.universalbusinessmodel.com/ubms_modelcreationsuite_model_getCurrentModel_ModelSummary.php?callback=?', {//JSONP Request
+				$.getJSON('http://api.universalbusinessmodel.com/ubms_modelcreationsuite_getallchecklistitems.php?callback=?', {//JSONP Request
 					username : window.username,					
 					key : window.key,
 					activeModelUUID : window.activeModelUUID
 				}, function(res, status) {
 					$.each(res, function(i, item) {
-						if(item.task_id == 15 && item.status == "TRUE"){
-							$('#ubmsuite_mcs_model_review_ubm_phase1_ul').append("<li class='success'>Placeholder. Completed By: " + item.preparer_username + "</li>");												
+						if(item.line_number >=15 && item.line_number <=20 && item.status == "TRUE"){
+							$('#ubmsuite_mcs_model_review_ubm_phase1_ul').append("<li class='success'>" + item.instruction_detail + "<br>Completed By: " + item.preparer_username + "</li>");												
 							
-						}else if(item.status !="TRUE"){
-							$('#ubmsuite_mcs_model_review_ubm_phase1_ul').append("<li class='warning'>Warning : <a href='#mcs_setup_1_popUp'>Placeholder</a></li>");												
+						}else if(item.line_number >=15 && item.line_number <=20){
+							$('#ubmsuite_mcs_model_review_ubm_phase1_ul').append("<li class='warning'>Warning : <a href='#" + item.href + "'>" + item.instruction_detail + "</li>");												
 							
 						}	
-						if(item.task_id == 16 && item.status == "TRUE"){
-							$('#ubmsuite_mcs_model_review_ubm_phase1_ul').append("<li class='success'>User Guide has been read. Completed By: " + item.preparer_username + "</li>");												
-							
-						}else if(item.status != "TRUE"){
-							$('#ubmsuite_mcs_model_review_ubm_phase1_ul').append("<li class='warning'>Warning : <a href='#mcs_setup_checklist_p1_userGuide_popup'>The User Guide for this section has not been read!</a></li>");												
-							
-						}
-						if(item.task_id == 17 && item.status == "TRUE"){
-							$('#ubmsuite_mcs_model_review_ubm_phase1_ul').append("<li class='success'>Conceptual Definitions, Mission Statement and Vision Statement have been added. Completed By: " + item.preparer_username + "</li>");												
-							
-						}else if(item.status != "TRUE"){
-							$('#ubmsuite_mcs_model_review_ubm_phase1_ul').append("<li class='warning'>Warning : <a href='#mcs_setup_checklist_p1_primaryObjects_setup_popup'>Conceptual Definitions, Mission Statement and Vision Statement have not been added!</a></li>");												
-							
-						}
-						if(item.task_id == 18 && item.status == "TRUE"){
-							$('#ubmsuite_mcs_model_review_ubm_phase1_ul').append("<li class='success'>Placeholder. Completed By: " + item.preparer_username + "</li>");												
-							
-						}else if(item.status != "TRUE"){
-							$('#ubmsuite_mcs_model_review_ubm_phase1_ul').append("<li class='warning'>Warning : <a href='#'>Placeholder!</a></li>");												
-							
-						}
-						if(item.task_id == 19 && item.status == "TRUE"){
-							$('#ubmsuite_mcs_model_review_ubm_phase1_ul').append("<li class='success'>Placeholder. Completed By: " + item.preparer_username + "</li>");												
-							
-						}else if(item.status != "TRUE"){
-							$('#ubmsuite_mcs_model_review_ubm_phase1_ul').append("<li class='warning'>Warning : <a href='#'>Placeholder!</a></li>");												
-							
-						}
-						if(item.task_id == 20 && item.status == "TRUE"){
-							$('#ubmsuite_mcs_model_review_ubm_phase1_ul').append("<li class='success'>Placeholder. Completed By: " + item.preparer_username + "</li>");												
-							
-						}else if(item.status != "TRUE"){
-							$('#ubmsuite_mcs_model_review_ubm_phase1_ul').append("<li class='warning'>Warning : <a href='#'>Placeholder!</a></li>");												
-							
-						}
+
 					});
 				});
+				getModelSummary();
 				
 			}
 		
-		
+			function getModelSummary () {
+				$.getJSON('http://api.universalbusinessmodel.com/ubms_modelcreationsuite_model_getCurrentModel_Summary.php?callback=?', {//JSONP Request
+					username : window.username,					
+					key : window.key,
+					activeModelUUID : window.activeModelUUID
+				}, function(res, status) {
+					$.each(res, function(i, item) {
+						if(item.title){
+							$('#ubmsuite_mcs_model_review_ubm_phase1_ul').append("<li class='success'>" + item.title_prefix + " : " + item.title + "</li>");
+
+						}else{
+							$('#ubmsuite_mcs_model_review_ubm_phase1_ul').append("<li class='warning'>Warning : This model doesnt have a Title.</li>");
+
+						}if(item.description){
+							$('#ubmsuite_mcs_model_review_ubm_phase1_ul').append("<li class='success'>" + item.description_prefix + " : " + item.description + "</li>");
+
+						}else{
+							$('#ubmsuite_mcs_model_review_ubm_phase1_ul').append("<li class='warning'>Warning : This model doesnt have a Description.</li>");
+
+						}if(item.scope){
+							$('#ubmsuite_mcs_model_review_ubm_phase1_ul').append("<li class='success'>" + item.scope_prefix + " : " + item.scope + "</li>");
+
+						}else{
+							$('#ubmsuite_mcs_model_review_ubm_phase1_ul').append("<li class='warning'>Warning : This model doesnt have a Scope.</li>");
+
+						}if(item.purpose){
+							$('#ubmsuite_mcs_model_review_ubm_phase1_ul').append("<li class='success'>" + item.purpose_prefix + " : " + item.purpose + "</li>");
+
+						}else{
+							$('#ubmsuite_mcs_model_review_ubm_phase1_ul').append("<li class='error'>Warning : This model doesnt have a purpose!</li>");
+
+						}if(item.conceptual_definition){
+							$('#ubmsuite_mcs_model_review_ubm_phase1_ul').append("<li class='success'>" + item.conceptual_definition_prefix + " : " + item.conceptual_definition + "</li>");
+
+						}else{
+							$('#ubmsuite_mcs_model_review_ubm_phase1_ul').append("<li class='error'>Warning : This model doesnt have a Conceptual Definition.</li>");
+
+						}if(item.mission_statement){
+							$('#ubmsuite_mcs_model_review_ubm_phase1_ul').append("<li class='success'>" + item.mission_statement_prefix + " : " + item.mission_statement + "</li>");
+
+						}else{
+							$('#ubmsuite_mcs_model_review_ubm_phase1_ul').append("<li class='error'>Warning : This model doesnt have a Mission Statement.</li>");
+
+						}if(item.vision_statement){
+							$('#ubmsuite_mcs_model_review_ubm_phase1_ul').append("<li class='success'>" + item.vision_statement_prefix + " : " + item.vision_statement + "</li>");
+
+						}else{
+							$('#ubmsuite_mcs_model_review_ubm_phase1_ul').append("<li class='error'>Warning : This model doesnt have a Vision Statement.</li>");
+
+						}if(item.model_steward){
+							$('#ubmsuite_mcs_model_review_ubm_phase1_ul').append("<li class='success'>" + item.model_steward_prefix + " : " + item.model_steward + "</li>");
+
+						}else{
+							$('#ubmsuite_mcs_model_review_ubm_phase1_ul').append("<li class='warning'>Warning : This model doesnt have a Model Steward.</li>");
+
+						}if(item.creator_id){
+							$('#ubmsuite_mcs_model_review_ubm_phase1_ul').append("<li class='success'>" + item.creator_id_prefix + " : " + item.creator_id + "</li>");
+
+						}else{
+							$('#ubmsuite_mcs_model_review_ubm_phase1_ul').append("<li class='error'>Error : This model doesnt have a Creator ID!.</li>");
+
+						}if(item.created_date){
+							$('#ubmsuite_mcs_model_review_ubm_phase1_ul').append("<li class='success'>" + item.created_date_prefix + " : " + item.created_date + "</li>");
+
+						}else{
+							$('#ubmsuite_mcs_model_review_ubm_phase1_ul').append("<li class='error'>Error : This model doesnt appear to have a on which it was created!</li>");
+
+						}if(item.modified_date){
+							$('#ubmsuite_mcs_model_review_ubm_phase1_ul').append("<li class='success'>" + item.modified_date_prefix + " : " + item.modified_date + "</li>");
+
+						}else{
+							$('#ubmsuite_mcs_model_review_ubm_phase1_ul').append("<li class='warning'>Warning : This model doesnt have a Modified Date.</li>");
+
+						}if(item.model_version){
+							$('#ubmsuite_mcs_model_review_ubm_phase1_ul').append("<li class='success'>" + item.model_version_prefix + " : " + item.model_version + "</li>");
+
+						}else{
+							$('#ubmsuite_mcs_model_review_ubm_phase1_ul').append("<li class='warning'>Warning : This model doesnt have a Model Version.</li>");
+
+						}if(item.owner_legal_entity){
+							$('#ubmsuite_mcs_model_review_ubm_phase1_ul').append("<li class='success'>" + item.owner_legal_entity_prefix + " : " + item.owner_legal_entity + "</li>");
+
+						}else{
+							$('#ubmsuite_mcs_model_review_ubm_phase1_ul').append("<li class='warning'>Warning : This model doesnt have a Legal Entity.</li>");
+
+						}if(item.owner_ccode){
+							$('#ubmsuite_mcs_model_review_ubm_phase1_ul').append("<li class='success'>" + item.owner_ccode_prefix + " : " + item.owner_ccode + "</li>");
+
+						}else{
+							$('#ubmsuite_mcs_model_review_ubm_phase1_ul').append("<li class='error'>Error : This model doesnt have an Owner CCODE on file.</li>");
+
+						}if(item.model_contact_name){
+							$('#ubmsuite_mcs_model_review_ubm_phase1_ul').append("<li class='success'>" + item.model_contact_name_prefix + " : " + item.model_contact_name + "</li>");
+
+						}else{
+							$('#ubmsuite_mcs_model_review_ubm_phase1_ul').append("<li class='error'>Error : We dont have a Contact on file for this model.</li>");
+
+						}if(item.model_contact_phone){
+							$('#ubmsuite_mcs_model_review_ubm_phase1_ul').append("<li class='success'>" + item.model_contact_phone_prefix + " : " + item.model_contact_phone + "</li>");
+
+						}else{
+							$('#ubmsuite_mcs_model_review_ubm_phase1_ul').append("<li class='error'>Error : We dont have a Contact Phone Number on file for this model.</li>");
+
+						}if(item.model_contact_email){
+							$('#ubmsuite_mcs_model_review_ubm_phase1_ul').append("<li class='success'>" + item.model_contact_email_prefix + " : " + item.model_contact_email + "</li>");
+
+						}else{
+							$('#ubmsuite_mcs_model_review_ubm_phase1_ul').append("<li class='warning'>Warning : This model doesnt have a reference.</li>");
+
+						}if(item.system_title){
+							$('#ubmsuite_mcs_model_review_ubm_phase1_ul').append("<li class='success'>" + item.system_title_prefix + " : " + item.system_title + "</li>");
+
+						}else{
+							$('#ubmsuite_mcs_model_review_ubm_phase1_ul').append("<li class='warning'>Warning : This model doesnt have a System Title.</li>");	
+						}
+					});
+				});
+			}
+
 			function getPhase2Summary(){
 				$('#ubmsuite_mcs_model_review_ubm_phase2_ul').empty();
 				$('#tab-4').show();
@@ -164,54 +203,19 @@
 				$('#tab-1').hide();	
 				$('#tab-5').hide();	
 				$('#tab-6').hide();											
-				$.getJSON('http://api.universalbusinessmodel.com/ubms_modelcreationsuite_model_getCurrentModel_ModelSummary.php?callback=?', {//JSONP Request
+				$.getJSON('http://api.universalbusinessmodel.com/ubms_modelcreationsuite_getallchecklistitems.php?callback=?', {//JSONP Request
 					username : window.username,					
 					key : window.key,
 					activeModelUUID : window.activeModelUUID
 				}, function(res, status) {
 					$.each(res, function(i, item) {
-						if(item.task_id == 25 && item.status == "TRUE"){
-							$('#ubmsuite_mcs_model_review_ubm_phase2_ul').append("<li class='success'>Placeholder. Completed By: " + item.preparer_username + "</li>");												
+						if(item.line_number >=25 && item.line_number <=30 && item.status == "TRUE"){
+							$('#ubmsuite_mcs_model_review_ubm_phase2_ul').append("<li class='success'>" + item.instruction_detail + "<br>Completed By: " + item.preparer_username + "</li>");												
 							
-						}else if(item.status != "TRUE"){
-							$('#ubmsuite_mcs_model_review_ubm_phase2_ul').append("<li class='warning'>Warning : <a href='#'>Placeholder!</a></li>");												
+						}else if(item.line_number >=25 && item.line_number <=30){
+							$('#ubmsuite_mcs_model_review_ubm_phase2_ul').append("<li class='warning'>Warning : <a href='#" + item.href + "'>" + item.instruction_detail + "</li>");												
 							
 						}	
-						if(item.task_id == 26 && item.status == "TRUE"){
-							$('#ubmsuite_mcs_model_review_ubm_phase2_ul').append("<li class='success'>User Guide has for this section has been read. Completed By: " + item.preparer_username + "</li>");												
-							
-						}else if(item.status != "TRUE"){
-							$('#ubmsuite_mcs_model_review_ubm_phase2_ul').append("<li class='warning'>Warning : <a href='#mcs_setup_checklist_p2_userGuide_popup'>The user guide for thes section has not been read!</a></li>");												
-							
-						}
-						if(item.task_id == 27 && item.status == "TRUE"){
-							$('#ubmsuite_mcs_model_review_ubm_phase2_ul').append("<li class='success'>List of alternitives has been completed. Completed By: " + item.preparer_username + "</li>");												
-							
-						}else if(item.status != "TRUE"){
-							$('#ubmsuite_mcs_model_review_ubm_phase2_ul').append("<li class='warning'>Warning : <a href='#possible_alternatives'>List of alternitives has not been completed!</a></li>");												
-							
-						}
-						if(item.task_id == 28 && item.status == "TRUE"){
-							$('#ubmsuite_mcs_model_review_ubm_phase2_ul').append("<li class='success'>Return on Investment Analysis form has been completed. Completed By: " + item.preparer_username + "</li>");												
-							
-						}else if(item.status != "TRUE"){
-							$('#ubmsuite_mcs_model_review_ubm_phase2_ul').append("<li class='warning'>Warning : <a href='#return_on_investment'>Return on Investment Analysis form has not been completed</a></li>");												
-							
-						}
-						if(item.task_id == 29 && item.status == "TRUE"){
-							$('#ubmsuite_mcs_model_review_ubm_phase2_ul').append("<li class='success'>Risk Analysis marked as Use Now has been completed. Completed By: " + item.preparer_username + "</li>");												
-							
-						}else if(item.status != "TRUE"){
-							$('#ubmsuite_mcs_model_review_ubm_phase2_ul').append("<li class='warning'>Warning : <a href='#risk_analysis'>Risk Analysis marked as Use Now has not been completed!</a></li>");												
-							
-						}
-						if(item.task_id == 30 && item.status == "TRUE"){
-							$('#ubmsuite_mcs_model_review_ubm_phase2_ul').append("<li class='success'>Placeholder. Completed By: " + item.preparer_username + "</li>");												
-							
-						}else if(item.status != "TRUE"){
-							$('#ubmsuite_mcs_model_review_ubm_phase2_ul').append("<li class='warning'>Warning : <a href='#'>Placeholder!</a></li>");												
-							
-						}
 					});
 				});
 				
@@ -226,119 +230,48 @@
 				$('#tab-4').hide();	
 				$('#tab-1').hide();	
 				$('#tab-6').hide();											
-				$.getJSON('http://api.universalbusinessmodel.com/ubms_modelcreationsuite_model_getCurrentModel_ModelSummary.php?callback=?', {//JSONP Request
+				$.getJSON('http://api.universalbusinessmodel.com/ubms_modelcreationsuite_getallchecklistitems.php?callback=?', {//JSONP Request
 					username : window.username,					
 					key : window.key,
 					activeModelUUID : window.activeModelUUID
 				}, function(res, status) {
 					$.each(res, function(i, item) {
-						if(item.task_id == 34 && item.status == "TRUE"){
-							$('#ubmsuite_mcs_model_review_ubm_phase3_ul').append("<li class='success'>Placeholder. Completed By: " + item.preparer_username + "</li>");												
+						if(item.line_number >=34 && item.line_number <=40 && item.status == "TRUE"){
+							$('#ubmsuite_mcs_model_review_ubm_phase3_ul').append("<li class='success'>" + item.instruction_detail + "<br>Completed By: " + item.preparer_username + "</li>");												
 							
-						}else if(item.status !=  "TRUE"){
-							$('#ubmsuite_mcs_model_review_ubm_phase3_ul').append("<li class='warning'>Warning : <a href='#'>Placeholder!</a></li>");												
+						}else if(item.line_number >=34 && item.line_number <=40){
+							$('#ubmsuite_mcs_model_review_ubm_phase3_ul').append("<li class='warning'>Warning : <a href='#" + item.href + "'>" + item.instruction_detail + "</li>");												
 							
 						}	
-						if(item.task_id == 35 && item.status == "TRUE"){
-							$('#ubmsuite_mcs_model_review_ubm_phase3_ul').append("<li class='success'>User Guide for this phase has been read. Completed By: " + item.preparer_username + "</li>");												
-							
-						}else if(item.status != "TRUE"){
-							$('#ubmsuite_mcs_model_review_ubm_phase3_ul').append("<li class='warning'>Warning : <a href='#mcs_UBMFlowchart'>User Guide for this phase has not been read!</a></li>");												
-							
-						}
-						if(item.task_id == 36 && item.status == "TRUE"){
-							$('#ubmsuite_mcs_model_review_ubm_phase3_ul').append("<li class='success'>Selected Alternatives form has been completed. Completed By: " + item.preparer_username + "</li>");												
-							
-						}else if(item.status != "TRUE"){
-							$('#ubmsuite_mcs_model_review_ubm_phase3_ul').append("<li class='warning'>Warning : <a href='#'>Selected Alternatives form has not been completed!</a></li>");												
-							
-						}
-						if(item.task_id == 37 && item.status == "TRUE"){
-							$('#ubmsuite_mcs_model_review_ubm_phase3_ul').append("<li class='success'>Projected Financial Statement form has been completed. Completed By: " + item.preparer_username + "</li>");												
-							
-						}else if(item.status != "TRUE"){
-							$('#ubmsuite_mcs_model_review_ubm_phase3_ul').append("<li class='warning'>Warning : <a href='#'>Projected Financial Statement form has not been completed!</a></li>");												
-							
-						}
-						if(item.task_id == 38 && item.status == "TRUE"){
-							$('#ubmsuite_mcs_model_review_ubm_phase3_ul').append("<li class='success'>Placeholder. Completed By: " + item.preparer_username + "</li>");												
-							
-						}else if(item.status != "TRUE"){
-							$('#ubmsuite_mcs_model_review_ubm_phase3_ul').append("<li class='warning'>Warning : <a href='#'>Placeholder!</a></li>");												
-							
-						}
-						if(item.task_id == 39 && item.status == "TRUE"){
-							$('#ubmsuite_mcs_model_review_ubm_phase3_ul').append("<li class='success'>Strategic Alliances have been specified. Completed By: " + item.preparer_username + "</li>");												
-							
-						}else if(item.status != "TRUE"){
-							$('#ubmsuite_mcs_model_review_ubm_phase3_ul').append("<li class='warning'>Warning : <a href='#'>Strategic Alliances have not been specified!</a></li>");												
-							
-						}
-						if(item.task_id == 40 && item.status == "TRUE"){
-							$('#ubmsuite_mcs_model_review_ubm_phase3_ul').append("<li class='success'>Placeholder. Completed By: " + item.preparer_username + "</li>");												
-							
-						}else if(item.status != "TRUE"){
-							$('#ubmsuite_mcs_model_review_ubm_phase3_ul').append("<li class='warning'>Warning : <a href='#'>Placeholder!</a></li>");												
-							
-						}
 					});
 				});
 				
 			}
 		
 		
-		// 	function getPhase4Summary(){
-		// 		$('#ubmsuite_mcs_model_review_ubm_phase4_ul').empty();
-		// 		$('#tab-6').show();
-		// 		$('#tab-2').hide();	
-		// 		$('#tab-3').hide();	
-		// 		$('#tab-4').hide();	
-		// 		$('#tab-5').hide();	
-		// 		$('#tab-1').hide();												
-		// 		$.getJSON('http://api.universalbusinessmodel.com/ubms_modelcreationsuite_model_getCurrentModel_ModelSummary.php?callback=?', {//JSONP Request
-		// 			username : window.username,					
-		// 			key : window.key,
-		// 			activeModelUUID : window.activeModelUUID
-		// 		}, function(res, status) {
-		// 			$.each(res, function(i, item) {
-		// 				if(item.task_id == 1 && item.status == "TRUE"){
-		// 					$('#ubmsuite_mcs_model_review_ubm_phase4_ul').append("<li class='success'>License Agreement has been signed. Completed By: " + item.preparer_username + "</li>");												
+			function getPhase4Summary(){
+				$('#ubmsuite_mcs_model_review_ubm_phase4_ul').empty();
+				$('#tab-6').show();
+				$('#tab-2').hide();	
+				$('#tab-3').hide();	
+				$('#tab-4').hide();	
+				$('#tab-5').hide();	
+				$('#tab-1').hide();												
+				$.getJSON('http://api.universalbusinessmodel.com/ubms_modelcreationsuite_getallchecklistitems.php?callback=?', {//JSONP Request
+					username : window.username,					
+					key : window.key,
+					activeModelUUID : window.activeModelUUID
+				}, function(res, status) {
+					$.each(res, function(i, item) {
+						if(item.line_number >=44 && item.line_number <=76 && item.status == "TRUE"){
+							$('#ubmsuite_mcs_model_review_ubm_phase4_ul').append("<li class='success'>" + item.instruction_detail + "<br>Completed By: " + item.preparer_username + "</li>");												
 							
-		// 				}else if(item.status != "TRUE"){
-		// 					$('#ubmsuite_mcs_model_review_ubm_phase4_ul').append("<li class='warning'>Warning : <a href='#mcs_setup_1_popUp'>License Agreement has not been signed!</a></li>");												
-							
-		// 				}	
-		// 				if(item.task_id == 2 && item.status == "TRUE"){
-		// 					$('#ubmsuite_mcs_model_review_ubm_phase4_ul').append("<li class='success'>Flow Chart has been carefully studied. Completed By: " + item.preparer_username + "</li>");												
-							
-		// 				}else if(item.status != "TRUE"){
-		// 					$('#ubmsuite_mcs_model_review_ubm_phase4_ul').append("<li class='warning'>Warning : <a href='#mcs_UBMFlowchart'>The Flow Chart has not been studied!</a></li>");												
-							
-		// 				}
-		// 				if(item.task_id == 3 && item.status == "TRUE"){
-		// 					$('#ubmsuite_mcs_model_review_ubm_phase4_ul').append("<li class='success'>User Guide for this section has been read. Completed By: " + item.preparer_username + "</li>");												
-							
-		// 				}else if(item.status != "TRUE"){
-		// 					$('#ubmsuite_mcs_model_review_ubm_phase4_ul').append("<li class='warning'>Warning : <a href='#mcs_setup_checklist_setup_userGuide_Popup'>The User Guide has not been read for this section!</a></li>");												
-							
-		// 				}
-		// 				if(item.task_id == 4 && item.status == "TRUE"){
-		// 					$('#ubmsuite_mcs_model_review_ubm_phase4_ul').append("<li class='success'>Identification Setup has been completed. Completed By: " + item.preparer_username + "</li>");												
-							
-		// 				}else if(item.status != "TRUE"){
-		// 					$('#ubmsuite_mcs_model_review_ubm_phase4_ul').append("<li class='warning'>Warning : <a href='#mcs_setup_checklist_setup_identification_setup_popup'>Identification Setup has not been completed!</a></li>");												
-							
-		// 				}
-		// 				if(item.task_id == 5 && item.status == "TRUE"){
-		// 					$('#ubmsuite_mcs_model_review_ubm_phase4_ul').append("<li class='success'>The Getting Started page has been read. Completed By: " + item.preparer_username + "</li>");												
-							
-		// 				}else if(item.status != "TRUE"){
-		// 					$('#ubmsuite_mcs_model_review_ubm_phase4_ul').append("<li class='warning'>Warning : <a href='#gettingStarted'>The Getting Started page has not been read!</a></li>");												
-							
-		// 				}
-		// 			});
-		// 		});
+						}else if(item.line_number >=44 && item.line_number <=76){
+							$('#ubmsuite_mcs_model_review_ubm_phase4_ul').append("<li class='warning'>Warning : <a href='#" + item.href + "'>" + item.instruction_detail + "</li>");												
+						}
+					});
+				});
 				
-		// 	}
+			}
 		
 		<!-- Model Summary -->
