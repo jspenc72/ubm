@@ -5481,6 +5481,7 @@ under the License.
 				<div align="center">
 					<a href="#mcs_setup_checklist_setup_searchPopup" data-rel="popup" data-role="button">Model Creation Suite - Setup</a>
 				</div>
+				<a onclick="getModelCreationSuiteChecklistItems()" data-icon="refresh" data-iconpos="notext">Refresh</a>
 			</div><!-- /header -->
 			<div data-role="content">
 				<div data-role="popup" id="mcs_UBMFlowchart" data-overlay-theme="b" data-theme="a" data-corners="false">
@@ -6038,6 +6039,7 @@ under the License.
 				<div align="center">
 					<a href="#mcs_setup_checklist_CS_searchPopup" data-rel="popup" data-role="button">Model Creation Suite - Control</a>
 				</div>
+				<a onclick="getModelCreationSuiteChecklistItems()" data-icon="refresh" data-iconpos="notext">Refresh</a>
 			</div><!-- /header -->
 			<div role="content" class="ui-content">
 				<div data-role="popup" id="mcs_setup_checklist_CS_userGuide_popup" data-theme="a">
@@ -6047,7 +6049,7 @@ under the License.
 					<div role="main" class="ui-content">
 						<h3 class="ui-title">B.	Control Section: </h3>
 						<p>
-							This section will guide you through the steps necessary to complete your process management information. This section is not required and only should be completed if you have at least half a dozen different people working to complete your model
+							This section will guide you through the steps necessary to complete your process management information. <strong>This section is not required </strong> and only should be completed <strong>if you have at least half a dozen different people</strong> working to complete your model.
 						</p>
 							<a href="#" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b" data-rel="back" data-transition="flow">Dismiss</a>
 					</div>
@@ -6410,6 +6412,7 @@ under the License.
 				<div align="center">
 					<a href="#mcs_setup_checklist_p1_searchPopup" data-rel="popup" data-role="button">Model Creation Suite - Phase 1</a>
 				</div>
+				<a onclick="getModelCreationSuiteChecklistItems()" data-icon="refresh" data-iconpos="notext">Refresh</a>
 			</div><!-- /header -->
 			<div role="content" class="ui-content">
 				<!-- Phase One User Guide Popup-->
@@ -6678,7 +6681,7 @@ under the License.
 						<a href="#" onclick="submitMCSTaskFinalReviewedByRecord()" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b" data-rel="back" data-transition="flow">Give the Final Review for this Step</a>
 					</div>
 				</div><!-- /Final Review popup -->
-				<div data-role="popup" id="mcs_setup_checklist_p1_primaryObjects_setup_popup" data-theme="a" data-position-to="window" data-dismissible="false">
+				<div data-role="popup" id="mcs_setup_checklist_p1_primaryObjects_setup_popup" data-theme="a" data-position-to="window" data-dismissible="true">
 					<div data-role="header"  data-theme="a">
 						<h1>Primary Objects Setup</h1>
 					</div>
@@ -6692,6 +6695,7 @@ under the License.
 							<textarea name="mcs_setup_checklist_p1_primaryObjects_setup_popup_form_visionStatement" id="mcs_setup_checklist_p1_primaryObjects_setup_popup_form_visionStatement" placeholder="Vision Statement: Carefully compose a Vision statement for your model. (Refer to 01.01.02.03  in the Reference Manual)"></textarea>
 
 							<a href="#" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b" data-rel="back" data-transition="flow" onclick="submitMCS_phase1_submitT17(17)" >Submit!</a>
+							<a href="#" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b" data-rel="back" data-transition="flow" >Cancel</a>
 						</form>
 					</div>
 				</div><!-- /Primary Objects Setup popup -->
@@ -6800,6 +6804,7 @@ under the License.
 				<center>
 					<a href="#mcs_setup_checklist_p2_searchPopup" data-rel="popup" data-role="button">Model Creation Suite - Phase 2</a>
 				</center>
+				<a onclick="getModelCreationSuiteChecklistItems()" data-icon="refresh" data-iconpos="notext">Refresh</a>
 			</div><!-- /header -->
 			<div role="content" class="ui-content">
 				<!-- Read Phase Two User Guide Popup -->
@@ -7171,6 +7176,7 @@ under the License.
 				<center>
 					<a href="#mcs_setup_checklist_p3_searchPopup" data-rel="popup" data-role="button">Model Creation Suite - Phase 3</a>
 				</center>
+				<a onclick="getModelCreationSuiteChecklistItems()" data-icon="refresh" data-iconpos="notext">Refresh</a>
 			</div><!-- /header -->
 			<div role="content" class="ui-content">
 				<!-- Read Phase Three User Guide Popup -->
@@ -7542,6 +7548,7 @@ under the License.
 				<center>
 					<a href="#mcs_setup_checklist_p4_b1_searchPopup" data-rel="popup" data-role="button">Model Creation Suite - Phase 4 - B1</a>
 				</center>
+				<a onclick="getModelCreationSuiteChecklistItems()" data-icon="refresh" data-iconpos="notext">Refresh</a>
 			</div><!-- /header -->
 			<div role="content" class="ui-content">
 				<div data-role="popup" id="mcs_setup_checklist_p4_userGuide_popup" data-theme="a">
@@ -8394,6 +8401,8 @@ under the License.
 				<center>
 					<a href="#mcs_setup_checklist_p4_b3_searchPopup" data-rel="popup" data-role="button">Model Creation Suite - Phase 4 - B3</a>
 				</center>
+				<a onclick="getModelCreationSuiteChecklistItems()" data-icon="refresh" data-iconpos="notext">Refresh</a>
+
 			</div><!-- /header -->
 			<div data-role="content">
 				<!-- Read Phase 4 Book 3 User Guide Popup -->
@@ -8765,6 +8774,7 @@ under the License.
 				<center>
 					<a href="#mcs_setup_checklist_p4_b4_searchPopup" data-rel="popup" data-role="button">Model Creation Suite - Phase 4 - B4</a>
 				</center>
+				<a onclick="getModelCreationSuiteChecklistItems()" data-icon="refresh" data-iconpos="notext">Refresh</a>
 			</div><!-- /header -->
 			<div data-role="content">
 				<!-- Read Phase 4 Book 4 User Guide Popup -->
@@ -9136,6 +9146,7 @@ under the License.
 				<center>
 					<a href="#mcs_setup_checklist_p4_b5_searchPopup" data-rel="popup" data-role="button">Model Creation Suite - Phase 4 - B5</a>
 				</center>
+				<a onclick="getModelCreationSuiteChecklistItems()" data-icon="refresh" data-iconpos="notext">Refresh</a>
 			</div><!-- /header -->
 			<div data-role="content">
 				<!-- Read Phase Four Book Five User Guide Popup -->
@@ -9507,6 +9518,7 @@ under the License.
 				<center>
 					<a href="#mcs_setup_checklist_p4_b6_searchPopup" data-rel="popup" data-role="button">Model Creation Suite - Phase 4 - B6</a>
 				</center>
+				<a onclick="getModelCreationSuiteChecklistItems()" data-icon="refresh" data-iconpos="notext">Refresh</a>
 			</div><!-- /header -->
 			<div data-role="content">
 				<!-- Read Phase Four Book Six User Guide Popup -->
@@ -9878,6 +9890,7 @@ under the License.
 				<center>
 					<a href="#mcs_setup_checklist_p4_b7_searchPopup" data-rel="popup" data-role="button">Model Creation Suite - Phase 4 - B7</a>
 				</center>
+				<a onclick="getModelCreationSuiteChecklistItems()" data-icon="refresh" data-iconpos="notext">Refresh</a>
 			</div><!-- /header -->
 			<div data-role="content">
 				<!-- Read Phase Four Book Seven Popup -->
@@ -10249,6 +10262,7 @@ under the License.
 				<center>
 					<a href="#mcs_setup_checklist_p4_b8_searchPopup" data-rel="popup" data-role="button">Model Creation Suite - Phase 4 - B8</a>
 				</center>
+				<a onclick="getModelCreationSuiteChecklistItems()" data-icon="refresh" data-iconpos="notext">Refresh</a>
 			</div><!-- /header -->
 			<div data-role="content">
 				<!-- Read Phase Book Eight Popup -->
@@ -10620,6 +10634,7 @@ under the License.
 				<center>
 					<a href="#mcs_setup_checklist_p4_b9_searchPopup" data-rel="popup" data-role="button">Model Creation Suite - Phase 4 - B9</a>
 				</center>
+				<a onclick="getModelCreationSuiteChecklistItems()" data-icon="refresh" data-iconpos="notext">Refresh</a>
 			</div><!-- /header -->
 			<div data-role="content">
 				<!-- Read Phase Four Book Nine Popup -->
@@ -10991,6 +11006,7 @@ under the License.
 				<center>
 					<a href="#mcs_setup_checklist_p4_b10_searchPopup" data-rel="popup" data-role="button">Model Creation Suite - Phase 4 - B10</a>
 				</center>
+				<a onclick="getModelCreationSuiteChecklistItems()" data-icon="refresh" data-iconpos="notext">Refresh</a>
 			</div><!-- /header -->
 			<div data-role="content">
 				<!-- Read Phase Four Book Ten User Guide Popup -->
@@ -11362,6 +11378,7 @@ under the License.
 				<center>
 					<a href="#mcs_setup_checklist_p4_b11_searchPopup" data-rel="popup" data-role="button">Model Creation Suite - Phase 4 - B11</a>
 				</center>
+				<a onclick="getModelCreationSuiteChecklistItems()" data-icon="refresh" data-iconpos="notext">Refresh</a>
 			</div><!-- /header -->
 			<div data-role="content">
 				<!-- Read Phase Four Book Eleven User Guide Popup -->
@@ -11672,67 +11689,68 @@ under the License.
 		</div>
 		<!-- Phase 4 Book 12-->
 		<div data-role="page" class="ubm_page" id="mcs_setup_checklist_p4_b12" data-theme="a">
-                                <div data-role="panel" id="mcs_setup_checklist_p4_b12_lpanel" data-display="overlay" data-position="left">
-                                <ul data-role="listview">
-                                    <li data-icon="home">
-                                        <a href="#ubmsuite_SelectBusinessModel" >My Models</a>
-                                    </li>
-                                    <li data-icon="home">
-                                        <a href="#ubmsuite_modelDashboard" >Edit Model</a>
-                                    </li>
+            <div data-role="panel" id="mcs_setup_checklist_p4_b12_lpanel" data-display="overlay" data-position="left">
+                <ul data-role="listview">
+                    <li data-icon="home">
+                        <a href="#ubmsuite_SelectBusinessModel" >My Models</a>
+                    </li>
+                    <li data-icon="home">
+                        <a href="#ubmsuite_modelDashboard" >Edit Model</a>
+                    </li>
 
-                                    <li>
-                                        <a href="#creator_table_of_contents">Model Creator Table of Contents</a>
-                                    </li>
-                                    <li>
-                                        <a href="#mcs_setup_checklist_setup">MCS Setup</a>
-                                    </li>
-                                    <li>
-                                        <a href="#management_reporting">Management Reporting</a>
-                                    </li>
-                                    <li>
-                                        <a href="#mcs_setup_checklist_CS">Control Section</a>
-                                    </li>
-                                    <li>
-                                        <a href="#mcs_setup_checklist_p1">Phase 1</a>
-                                    </li>
-                                    <li>
-                                        <a href="#mcs_setup_checklist_p2">Phase 2</a>
-                                    </li>
-                                    <li>
-                                        <a href="#mcs_setup_checklist_p3">Phase 3</a>
-                                    </li>
-                                    <li>
-                                        <a href="#mcs_setup_checklist_p4">Phase 4</a>
-                                    </li>
-                                    <li>
-                                        <a href="#mcs_setup_checklist_p5">Phase 5</a>
-                                    </li>
-                                    <li>
-                                        <a href="#mcs_setup_checklist_p6">Phase 6</a>
-                                    </li>
-                                    <li>
-                                        <a href="#mcs_setup_checklist_p7">Phase 7</a>
-                                    </li>
-                                    <li>
-                                        <a href="#mcs_setup_checklist_p8">Phase 8</a>
-                                    </li>
-                                    <li>
-                                        <a href="#open_points_action_items">Open Points Action Items</a>
-                                    </li>
-                                    <li data-icon="delete">
-                                        <a href="#" data-rel="close">Close menu</a>
-                                    </li>
-                                    <li data-icon="delete">
-                                        <a href="#sign_in_sign_up">Sign Out</a>
-                                    </li>
-                                </ul>
-                </div><!-- /panel -->
+                    <li>
+                        <a href="#creator_table_of_contents">Model Creator Table of Contents</a>
+                    </li>
+                    <li>
+                        <a href="#mcs_setup_checklist_setup">MCS Setup</a>
+                    </li>
+                    <li>
+                        <a href="#management_reporting">Management Reporting</a>
+                    </li>
+                    <li>
+                        <a href="#mcs_setup_checklist_CS">Control Section</a>
+                    </li>
+                    <li>
+                        <a href="#mcs_setup_checklist_p1">Phase 1</a>
+                    </li>
+                    <li>
+                        <a href="#mcs_setup_checklist_p2">Phase 2</a>
+                    </li>
+                    <li>
+                        <a href="#mcs_setup_checklist_p3">Phase 3</a>
+                    </li>
+                    <li>
+                        <a href="#mcs_setup_checklist_p4">Phase 4</a>
+                    </li>
+                    <li>
+                        <a href="#mcs_setup_checklist_p5">Phase 5</a>
+                    </li>
+                    <li>
+                        <a href="#mcs_setup_checklist_p6">Phase 6</a>
+                    </li>
+                    <li>
+                        <a href="#mcs_setup_checklist_p7">Phase 7</a>
+                    </li>
+                    <li>
+                        <a href="#mcs_setup_checklist_p8">Phase 8</a>
+                    </li>
+                    <li>
+                        <a href="#open_points_action_items">Open Points Action Items</a>
+                    </li>
+                    <li data-icon="delete">
+                        <a href="#" data-rel="close">Close menu</a>
+                    </li>
+                    <li data-icon="delete">
+                        <a href="#sign_in_sign_up">Sign Out</a>
+                    </li>
+                </ul>
+            </div><!-- /panel -->
                 <div data-role="header" data-position="fixed">
                     <a href="#mcs_setup_checklist_p4_b12_lpanel" data-icon="arrow-r" data-iconpos="notext">Menu</a>
                     <center>
                         <a href="#mcs_setup_checklist_p4_b12_searchPopup" data-rel="popup" data-role="button">Model Creation Suite - Phase 4 - B12</a>
                     </center>
+					<a onclick="getModelCreationSuiteChecklistItems()" data-icon="refresh" data-iconpos="notext">Refresh</a>
                 </div><!-- /header -->
                 <div data-role="content">
                     <!-- Read Phase Four Book Twelve User Guide Popup -->
@@ -12104,6 +12122,7 @@ under the License.
                     <center>
                         <a href="#mcs_setup_checklist_p5_searchPopup" data-rel="popup" data-role="button">Model Creation Suite - Phase 5</a>
                     </center>
+					<a onclick="getModelCreationSuiteChecklistItems()" data-icon="refresh" data-iconpos="notext">Refresh</a>
                 </div><!-- /header -->
                 <div role="content" class="ui-content">
                     <!-- Read Phase Five User Guide Popup -->
@@ -12472,6 +12491,7 @@ under the License.
                     <center>
                         <a href="#mcs_setup_checklist_p6_searchPopup" data-rel="popup" data-role="button">Model Creation Suite - Phase 6</a>
                     </center>
+					<a onclick="getModelCreationSuiteChecklistItems()" data-icon="refresh" data-iconpos="notext">Refresh</a>
                 </div><!-- /header -->
                 <div role="content" class="ui-content">
                     <!-- Read Phase Six User Guide Popup -->
@@ -12843,6 +12863,7 @@ under the License.
                     <center>
                         <a href="#mcs_setup_checklist_p7_searchPopup" data-rel="popup" data-role="button">Model Creation Suite - Phase 7</a>
                     </center>
+					<a onclick="getModelCreationSuiteChecklistItems()" data-icon="refresh" data-iconpos="notext">Refresh</a>
                 </div><!-- /header -->
                 <div role="content" class="ui-content">
                     <div data-role="popup" id="mcs_setup_checklist_p7_userGuide_popup" data-theme="a">
@@ -13213,6 +13234,7 @@ under the License.
                     <center>
                         <a href="#mcs_setup_checklist_p8_searchPopup" data-rel="popup" data-role="button">Model Creation Suite - Phase 8</a>
                     </center>
+					<a onclick="getModelCreationSuiteChecklistItems()" data-icon="refresh" data-iconpos="notext">Refresh</a>
                 </div><!-- /header -->
                 <div role="content" class="ui-content">
                     <!-- Read Phase Eight User Guide Popup -->

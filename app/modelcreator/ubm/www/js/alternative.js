@@ -169,7 +169,7 @@
 				}
 				function createNewAlternative(){
 					showLoader();
-					$.getJSON('http://api.universalbusinessmodel.com/ubm_modelcreationsuite_model_create_Alternative.php?callback=?', {//JSONP Request to Open Items Page setup tables
+					$.getJSON('http://api.universalbusinessmodel.com/ubms_modelcreationsuite_model_create_Alternative.php?callback=?', {//JSONP Request to Open Items Page setup tables
 						key : window.key,
 						activeModelUUID : window.activeModelUUID,
 						alternativeDescription : document.getElementById("possible_alternatives_alternativeDescription").value,
