@@ -135,7 +135,8 @@
 					showLoader();
 					$('#possible_alternitives_pros_table_body').empty();
 
-					$.getJSON('http://api.universalbusinessmodel.com/ubm_modelcreationsuite_model_getCurrentModel_activeAlternativePros.php?callback=?', {//JSONP Request to Open Items Page setup tables
+					$.getJSON('http://api.universalbusinessmodel.com/ubms_modelcreationsuite_model_getCurrentModel_activeAlternativePros.php?callback=?', {//JSONP Request to Open Items Page setup tables
+						key : window.key,
 						activeModelAlternativeId : window.activeModelAlternativeId,
 					}, function(res, status) {
 						if(status=="success"){
@@ -152,7 +153,8 @@
 				function getActiveAlternativeListofCons(){
 					showLoader();
 					$('#possible_alternitives_cons_table_body').empty();
-					$.getJSON('http://api.universalbusinessmodel.com/ubm_modelcreationsuite_model_getCurrentModel_activeAlternativeCons.php?callback=?', {//JSONP Request to Open Items Page setup tables
+					$.getJSON('http://api.universalbusinessmodel.com/ubms_modelcreationsuite_model_getCurrentModel_activeAlternativeCons.php?callback=?', {//JSONP Request to Open Items Page setup tables
+						key : window.key,
 						activeModelAlternativeId : window.activeModelAlternativeId,
 					}, function(res, status) {
 						if(status=="success"){
@@ -186,7 +188,8 @@
 				}
 				function createNewProforactiveModelAlternative(){
 					showLoader();
-					$.getJSON('http://api.universalbusinessmodel.com/ubm_modelcreationsuite_model_create_Alternative_Pro.php?callback=?', {//JSONP Request to Open Items Page setup tables
+					$.getJSON('http://api.universalbusinessmodel.com/ubms_modelcreationsuite_model_create_Alternative_Pro.php?callback=?', {//JSONP Request to Open Items Page setup tables
+						key : window.key,
 						activeModelUUID : window.activeModelUUID,
 						activeModelAlternativeId : window.activeModelAlternativeId,
 						alternativeProDescription : document.getElementById("possible_alternatives_alternativeProDescription").value,
@@ -206,7 +209,8 @@
 				}
 				function createNewConforactiveModelAlternative(){
 					showLoader();
-					$.getJSON('http://api.universalbusinessmodel.com/ubm_modelcreationsuite_model_create_Alternative_Con.php?callback=?', {//JSONP Request to Open Items Page setup tables
+					$.getJSON('http://api.universalbusinessmodel.com/ubms_modelcreationsuite_model_create_Alternative_Con.php?callback=?', {//JSONP Request to Open Items Page setup tables
+						key : window.key,
 						activeModelUUID : window.activeModelUUID,
 						activeModelAlternativeId : window.activeModelAlternativeId,
 						alternativeConDescription : document.getElementById("possible_alternatives_alternativeConDescription").value,
@@ -227,7 +231,7 @@
 				}
 				function removeAlternativefromModel(activeAlternativeId){
 					$().toastmessage('showNoticeToast', "this is a test " + activeAlternativeId + "");
-					$.getJSON('http://api.universalbusinessmodel.com/ubm_modelcreationsuite_model_remove_Alternative.php?callback=?', {//JSONP Request to Open Items Page setup tables
+					$.getJSON('http://api.universalbusinessmodel.com/ubms_modelcreationsuite_model_remove_Alternative.php?callback=?', {//JSONP Request to Open Items Page setup tables
 						key : window.key,
 						activeAlternativeId : activeAlternativeId,
 						activeModelUUID: window.activeModelUUID
