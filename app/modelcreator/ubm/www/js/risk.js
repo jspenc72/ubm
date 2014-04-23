@@ -43,7 +43,8 @@ function newCalculatedRisk() {		//Calculates the Product of
 			function addRisktoMyAlternative(activeModelAlternativeRiskId){
 				$().toastmessage('showNoticeToast', window.activeModelAlternativeId);
 				$().toastmessage('showNoticeToast', "Risk # " + activeModelAlternativeRiskId + " will be added to the active alternative.");
-				$.getJSON('http://api.universalbusinessmodel.com/ubm_modelcreationsuite_model_alternative_add_Risk.php?callback=?', {//JSONP Request to Open Items Page setup tables
+				$.getJSON('http://api.universalbusinessmodel.com/ubms_modelcreationsuite_model_alternative_add_Risk.php?callback=?', {//JSONP Request to Open Items Page setup tables
+					key : window.key,
 					activeModelAlternativeId : window.activeModelAlternativeId,
 					activeModelAlternativeRiskId : activeModelAlternativeRiskId,
 					username : window.username
@@ -62,7 +63,8 @@ function newCalculatedRisk() {		//Calculates the Product of
 						$( "#risk_analysis_load_search_progressbar" ).progressbar({value: 5});
 					}, 50);
 					showLoader();
-				$.getJSON('http://api.universalbusinessmodel.com/ubm_modelcreationsuite_model_getAll_Risks.php?callback=?', {//JSONP Request
+				$.getJSON('http://api.universalbusinessmodel.com/ubms_modelcreationsuite_model_getAll_Risks.php?callback=?', {//JSONP Request
+					key : window.key,
 				}, function(res, status) {
 					setTimeout(function() {
 						$( "#risk_analysis_load_search_progressbar" ).progressbar({value: 10});
@@ -101,7 +103,8 @@ function newCalculatedRisk() {		//Calculates the Product of
 			function getListofRisksforRiskAnalysisTable(){
 				showLoader();
 				var i=0;
-				$.getJSON('http://api.universalbusinessmodel.com/ubm_modelcreationsuite_model_alternative_get_Risks.php?callback=?', {//JSONP Request to Open Items Page setup tables
+				$.getJSON('http://api.universalbusinessmodel.com/ubms_modelcreationsuite_model_alternative_get_Risks.php?callback=?', {//JSONP Request to Open Items Page setup tables
+					key : window.key,
 					activeModelUUID : window.activeModelUUID,
 					username : window.username
 				}, function(res, status) {
@@ -160,7 +163,8 @@ function newCalculatedRisk() {		//Calculates the Product of
 				
 			function removeRiskFromAlternative(activeRiskId){
 				alert("this is a test "+activeRiskId)
-				$.getJSON('http://api.universalbusinessmodel.com/ubm_modelcreationsuite_model_alternative_remove_Risk.php?callback=?', {//JSONP Request to Open Items Page setup tables
+				$.getJSON('http://api.universalbusinessmodel.com/ubms_modelcreationsuite_model_alternative_remove_Risk.php?callback=?', {//JSONP Request to Open Items Page setup tables
+					key : window.key,
 					activeModelAlternativeId : window.activeModelAlternativeId,
 					activeRiskId: activeRiskId
 				}, function(res, status) {
@@ -169,9 +173,9 @@ function newCalculatedRisk() {		//Calculates the Product of
 				getListofRisksforRiskAnalysisTable();
 			}
 			function createNewRiskaddToActiveAlternative(){
-				alert("this is a test");
 				event.preventDefault();
-				$.getJSON('http://api.universalbusinessmodel.com/ubm_modelcreationsuite_model_alternative_create_Risk.php?callback=?', {//JSONP Request to Open Items Page setup tables
+				$.getJSON('http://api.universalbusinessmodel.com/ubms_modelcreationsuite_model_alternative_create_Risk.php?callback=?', {//JSONP Request to Open Items Page setup tables
+					key : window.key,
 					riskDescription : document.getElementById('risk_analysis_define_new_risk_popup_form_description').value,
 					riskCategory : document.getElementById('risk_analysis_define_new_risk_popup_form_category').value,
 					username : window.username,

@@ -105,7 +105,7 @@
 					  	getAllInvestments();
 					  }, 1000);
 					});
-					$("#return_on_investment_alternative_select_investment_menu").bind( "change", function(event, ui) {risk
+					$("#return_on_investment_alternative_select_investment_menu").bind( "change", function(event, ui) {
 					window.activeModelInvestmentId = $("#return_on_investment_alternative_select_investment_menu option:selected").val();
 					setTimeout(function() {
 						getActiveInvestmentIncomeDrivers();

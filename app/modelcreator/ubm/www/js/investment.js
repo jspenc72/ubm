@@ -1,7 +1,8 @@
 
 			function createNewCostDriver () {
 				//alert(window.activeModelInvestmentId);
-				$.getJSON('http://api.universalbusinessmodel.com/ubm_modelcreationsuite_model_investment_create_CostDriver.php?callback=?', {//JSONP Request to Open Items Page setup tables
+				$.getJSON('http://api.universalbusinessmodel.com/ubms_modelcreationsuite_model_investment_create_CostDriver.php?callback=?', {//JSONP Request to Open Items Page setup tables
+					key : window.key,
 					activeInvestmentId : window.activeModelInvestmentId,
 					username : window.username,
 					costPerUnit : document.getElementById("return_on_investment_createNewCostDriver_popup_form_CostperUnit").value,
@@ -18,17 +19,17 @@
 					} else {
 						setTimeout(function() {
 							getActiveInvestmentCostDrivers();
-						}, 1000);
+						}, 2000);
 					}
 				});	
 			}
 			function createNewIncomeDriver () {
-				//alert(window.activeModelInvestmentId);
-				$.getJSON('http://api.universalbusinessmodel.com/ubm_modelcreationsuite_model_investment_create_IncomeDriver.php?callback=?', {//JSONP Request to Open Items Page setup tables
+				$.getJSON('http://api.universalbusinessmodel.com/ubms_modelcreationsuite_model_investment_create_IncomeDriver.php?callback=?', {//JSONP Request to Open Items Page setup tables
+					key : window.key,
 					activeInvestmentId : window.activeModelInvestmentId,
 					username : window.username,
 					incomePerUnit : document.getElementById("return_on_investment_createNewIncomeDriver_popup_form_IncomePerUnit").value,
-					description : document.getElementById("rturn_on_investment_createNewIncomeDriver_popup_form_description").value,
+					description : document.getElementById("return_on_investment_createNewIncomeDriver_popup_form_description").value,
 					numberOfUnits : document.getElementById("return_on_investment_createNewIncomeDriver_popup_form_numberOfUnits").value
 				}, function(res, status) {
 					$().toastmessage('showNoticeToast', res.message);
@@ -41,7 +42,7 @@
 					} else {
 						setTimeout(function() {
 							getActiveInvestmentIncomeDrivers();
-						}, 1000);
+						}, 2000);
 					}
 				});		
 			}
@@ -49,7 +50,8 @@
 				showLoader();
 				//alert(window.activeModelInvestmentId);
 				$('#return_on_investment_input_form_cost_tbody').empty();
-				$.getJSON('http://api.universalbusinessmodel.com/ubm_modelcreationsuite_model_investment_get_CostDrivers.php?callback=?', {//JSONP Request to Open Items Page setup tables
+				$.getJSON('http://api.universalbusinessmodel.com/ubms_modelcreationsuite_model_investment_get_CostDrivers.php?callback=?', {//JSONP Request to Open Items Page setup tables
+					key : window.key,
 					activeModelInvestmentId : window.activeModelInvestmentId
 				}, function(res, status) {
 					$.each(res, function(i, item) {
@@ -70,7 +72,8 @@
 				showLoader();
 				//alert(window.activeModelInvestmentId);
 				$('#return_on_investment_input_form_income_tbody').empty();
-				$.getJSON('http://api.universalbusinessmodel.com/ubm_modelcreationsuite_model_investment_get_IncomeDrivers.php?callback=?', {//JSONP Request to Open Items Page setup tables
+				$.getJSON('http://api.universalbusinessmodel.com/ubms_modelcreationsuite_model_investment_get_IncomeDrivers.php?callback=?', {//JSONP Request to Open Items Page setup tables
+					key : window.key,
 					activeModelInvestmentId : window.activeModelInvestmentId
 				}, function(res, status) {
 					$.each(res, function(i, item) {
@@ -90,7 +93,8 @@
 			}
 			function createNewInvestment () {
 				//alert("was called");
-				$.getJSON('http://api.universalbusinessmodel.com/ubm_modelcreationsuite_model_alternative_create_Investment.php?callback=?', {//JSONP Request to Open Items Page setup tables
+				$.getJSON('http://api.universalbusinessmodel.com/ubms_modelcreationsuite_model_alternative_create_Investment.php?callback=?', {//JSONP Request to Open Items Page setup tables
+					key : window.key,
 					username: window.username,
 					activeModelAlternativeId : window.activeModelUUID,
 					title: document.getElementById("return_on_investment_createNewInvestment_popup_form_title").value,
@@ -144,7 +148,7 @@
 
 				$.getJSON('http://api.universalbusinessmodel.com/ubms_modelcreationsuite_model_getCurrentModel_Alternatives.php?callback=?', {//JSONP Request to Open Items Page setup tables
 					key : window.key,
-					activeModelUUID : window.activeModelUUID,
+					activeModelUUID : window.activeModelUUID
 				}, function(res, status) {
 					$('#risk_analysis_alternative_select_menu').empty();
 					$.each(res, function(i, item) {
@@ -169,23 +173,31 @@
 			}
 			function removeCostFromInvestment (activeCostDriverId) {
 				//alert("this is a test "+activeCostDriverId)
-				$.getJSON('http://api.universalbusinessmodel.com/ubm_modelcreationsuite_model_investment_remove_CostDriver.php?callback=?', {//JSONP Request to Open Items Page setup tables
+				$.getJSON('http://api.universalbusinessmodel.com/ubms_modelcreationsuite_model_investment_remove_CostDriver.php?callback=?', {//JSONP Request to Open Items Page setup tables
+					key : window.key,
 					activeInvestmentId : window.activeModelInvestmentId,
 					activeCostDriverId: activeCostDriverId
 				}, function(res, status) {
 					$().toastmessage('showNoticeToast', res.message);
 				});	
 				getAllInvestments();
+				setTimeout(function(){
+					  	getActiveInvestmentCostDrivers();
+				}, 1000);
 			}
 			function removeIncomeFromInvestment(activeIncomeDriveId) {
 				//alert("this is a test "+activeIncomeDriveId)
-				$.getJSON('http://api.universalbusinessmodel.com/ubm_modelcreationsuite_model_investment_remove_IncomeDriver.php?callback=?', {//JSONP Request to Open Items Page setup tables
+				$.getJSON('http://api.universalbusinessmodel.com/ubms_modelcreationsuite_model_investment_remove_IncomeDriver.php?callback=?', {//JSONP Request to Open Items Page setup tables
+					key : window.key,
 					activeInvestmentId : window.activeModelInvestmentId,
 					activeIncomeDriverId: activeIncomeDriveId
 				}, function(res, status) {
 					$().toastmessage('showNoticeToast', res.message);
 				});	
 				getAllInvestments();
+				setTimeout(function(){
+					  	getActiveInvestmentIncomeDrivers();
+				}, 1000);
 			}
 			function newCalculatedCostDriver() {		//Calculates the Product of 
 			    var sum=0;
