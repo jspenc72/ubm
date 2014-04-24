@@ -102,7 +102,7 @@
 					$("#return_on_investment_alternative_select_menu").bind( "change", function(event, ui) {
 					  window.activeModelAlternativeId = $( "#return_on_investment_alternative_select_menu option:selected" ).val();
 					  setTimeout(function(){
-					  	getAllInvestments();
+					  	getAlternativesInvestments();
 					  }, 1000);
 					});
 					$("#return_on_investment_alternative_select_investment_menu").bind( "change", function(event, ui) {
