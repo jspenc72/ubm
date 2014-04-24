@@ -46,84 +46,37 @@
 					}
 				});		
 			}
-			// function getActiveInvestmentCostDrivers () {
-			// 	showLoader();
-			// 	//alert(window.activeModelInvestmentId);
-			// 	$('#return_on_investment_input_form_cost_tbody').empty();
-			// 	$.getJSON('http://api.universalbusinessmodel.com/ubms_modelcreationsuite_model_investment_get_CostDrivers.php?callback=?', {//JSONP Request to Open Items Page setup tables
-			// 		key : window.key,
-			// 		activeModelInvestmentId : window.activeModelInvestmentId
-			// 	}, function(res, status) {
-			// 		$.each(res, function(i, item) {
-			// 			$('#return_on_investment_input_form_cost_tbody').append("<tr><td><a href='#' onclick='removeCostFromInvestment(" + item.cost_driver_id + ")'><span class='trashico'></span></a></td><td><input value='" + item.description + "' name='return_on_investment_costDescription_form' id='return_on_investment_costDescription_form' placeholder='Cost Driver Description...'><td><input name='return_on_investment_costPerUnit_form' id='return_on_investment_costPerUnit_form' class='costperunit_col_num col_num' placeholder='Cost Per Unit...' value='" + item.cost_per_unit + "'></td><td><input name='return_on_investment_costNumberOfUnits_form' id='return_on_investment_numberOfUnits_form' placeholder='# of Units...' class='numunits_col_num col_num' value='" + item.number_of_units + "'></td><td class='totalcost_col_num'></td><td><button class='return_on_investment_cost_table_form_submit_button'>Update Cost Driver</button></td></tr>");	
-
-			// 			$("#return_on_investment_input_form_cost_tbody").trigger("create");
-			// 		});
-			// 	}); 
-			// 	setTimeout(function() {
-			// 	    $(".col_num").each(function() {				
-			// 	        $(this).keyup(function(){				//Call the newCalculatedCostDriver function each time a keystroke is activated in any of the inputs with col_num as the class.
-			// 	            newCalculatedCostDriver.call(this);
-			// 	        });
-			// 	    });
-			// 		hideLoader();
-			// 	}, 2000);
-			// }
-			// function getActiveInvestmentIncomeDrivers () {
-			// 	showLoader();
-			// 	//alert(window.activeModelInvestmentId);
-			// 	$('#return_on_investment_input_form_income_tbody').empty();
-			// 	$.getJSON('http://api.universalbusinessmodel.com/ubms_modelcreationsuite_model_investment_get_IncomeDrivers.php?callback=?', {//JSONP Request to Open Items Page setup tables
-			// 		key : window.key,
-			// 		activeModelInvestmentId : window.activeModelInvestmentId
-			// 	}, function(res, status) {
-			// 		$.each(res, function(i, item) {
-			// 			$('#return_on_investment_input_form_income_tbody').append("<tr><td><a href='#' onclick='removeIncomeFromInvestment(" + item.income_driver_id + ")'><span class='trashico'></span></a></td><td><input value='" + item.description + "' name='return_on_investment_incomeDescription_form' id='return_on_investment_incomeDescription_form' placeholder='Income Driver Description...' value='" + item.description + "' ></td><td><input name='return_on_investment_incomePerUnit_form' id='return_on_investment_incomePerUnit_form' class='incomeperunit_col_num col_num' placeholder='Income Per Unit...' value='" + item.income_per_unit + "'></td><td><input  name='return_on_investment_incomeNumberOfUnits_form' id='return_on_investment_incomeNumberOfUnits_form' class='numunits_col_num col_num' placeholder='# of Units...' value='" + item.number_of_units + "'></td><td class='totalincome_col_num'></td><td><button class='return_on_investment_income_table_form_submit_button'>Update Income Driver</button></td></tr>");							
-			// 			$("#return_on_investment_input_form_income_tbody").trigger("create");
-
-			// 		});
-			// 	});
-			// 		setTimeout(function() {
-			// 		    $(".col_num").each(function() {				
-			// 		        $(this).keyup(function(){				//Call the newCalculatedCostDriver function each time a keystroke is activated in any of the inputs with col_num as the class.
-			// 		            newCalculatedIncomeDriver.call(this);
-			// 		        });
-			// 		    });
-			// 			hideLoader();
-			// 		}, 2000);
-			// }
-
-
+			
 			function getActiveInvestmentCostDrivers () {
 				showLoader();
-				$('#return_on_investment_input_cost_tbody').empty();
+				$("#return_on_investment_input_cost").empty();
 				$.getJSON('http://api.universalbusinessmodel.com/ubms_modelcreationsuite_model_investment_get_CostDrivers.php?callback=?', {//JSONP Request to Open Items Page setup tables
 					key : window.key,
 					activeModelInvestmentId : window.activeModelInvestmentId
 				}, function(res, status) {
 					$.each(res, function(i, item) {
-						$('#return_on_investment_input_cost_tbody').append("<tr><td><a href='#' onclick='removeCostFromInvestment(" + item.cost_driver_id + ")'><span class='trashico'></span></a></td><td><input value='" + item.description + "' id='return_on_investment_costDescription' placeholder='Cost Driver Description...'><td><input name='return_on_investment_costPerUnit_form' id='return_on_investment_costPerUnit_form' class='costperunit_col_num col_num' placeholder='Cost Per Unit...' value='" + item.cost_per_unit + "'></td><td><input name='return_on_investment_costNumberOfUnits' id='return_on_investment_numberOfUnits' placeholder='# of Units...' class='numunits_col_num col_num' value='" + item.number_of_units + "'></td><td class='totalcost_col_num'></td><td><button class='return_on_investment_cost_table_submit_button'>Update Cost Driver</button></td></tr>");	
-
-						$("#return_on_investment_input_cost_tbody").trigger("create");
+						$('#return_on_investment_input_cost').append("<table id='return_on_investment_cost_table' data-theme='a'><thead><tr><td><h2>Remove Cost Driver</h2></td><td><h2>Cost Driver Description</h2></td><td><h2>Cost Per Unit</h2></td><td><h2># of Units</h2></td><td><h2>Total Cost</h2></td></tr></thead><tbody id='return_on_investment_input_cost_tbody'><tr><td><a href='#' onclick='removeCostFromInvestment(" + item.cost_driver_id + ")'><span class='trashico'></span></a></td><td><input value='" + item.description + "' id='return_on_investment_costDescription' placeholder='Cost Driver Description...'><td><input name='return_on_investment_costPerUnit_form' id='return_on_investment_costPerUnit_form' class='costperunit_col_num col_num' placeholder='Cost Per Unit...' value='" + item.cost_per_unit + "'></td><td><input name='return_on_investment_costNumberOfUnits' id='return_on_investment_numberOfUnits' placeholder='# of Units...' class='numunits_col_num col_num' value='" + item.number_of_units + "'></td><td class='totalcost_col_num'></td><td><button class='return_on_investment_cost_table_submit_button'>Update Cost Driver</button></td></tr></tbody></table>");
+						$("#return_on_investment_input_cost").trigger("create");
 					});
 				});	
 				hideLoader();
+				
 			}
 
 			function getActiveInvestmentIncomeDrivers () {
 				showLoader();
-				$('#return_on_investment_input_income_tbody').empty();
+				$("#return_on_investment_input_income").empty();
 				$.getJSON('http://api.universalbusinessmodel.com/ubms_modelcreationsuite_model_investment_get_IncomeDrivers.php?callback=?', {//JSONP Request to Open Items Page setup tables
 					key : window.key,
 					activeModelInvestmentId : window.activeModelInvestmentId
 				}, function(res, status) {
 					$.each(res, function(i, item) {
-						$('#return_on_investment_input_income_tbody').append("<tr><td><a href='#' onclick='removeIncomeFromInvestment(" + item.income_driver_id + ")'><span class='trashico'></span></a></td><td><input value='" + item.description + "' id='return_on_investment_incomeDescription' placeholder='Income Driver Description...'><td><input name='return_on_investment_incomePerUnit_form' id='return_on_investment_incomePerUnit_form' class='incomeperunit_col_num col_num' placeholder='Income Per Unit...' value='" + item.income_per_unit + "'></td><td><input name='return_on_investment_costNumberOfUnits' id='return_on_investment_numberOfUnits' placeholder='# of Units...' class='numunits_col_num col_num' value='" + item.number_of_units + "'></td><td class='totalcost_col_num'></td><td><button class='return_on_investment_income_table_submit_button'>Update Income Driver</button></td></tr>");	
-
-						$("#return_on_investment_input_income_tbody").trigger("create");
+						$('#return_on_investment_input_income').append("<table id='return_on_investment_income_table' data-theme='a'><thead><tr><td><h2>Remove Income Driver</h2></td><td><h2>Income Driver Description</h2></td><td><h2>Income Per Unit</h2></td><td><h2># of Units</h2></td><td><h2>Total Income</h2></td></tr></thead><tbody id='return_on_investment_input_income_tbody'><tr><td><a href='#' onclick='removeIncomeFromInvestment(" + item.income_driver_id + ")'><span class='trashico'></span></a></td><td><input value='" + item.description + "' id='return_on_investment_incomeDescription' placeholder='Income Driver Description...'><td><input name='return_on_investment_incomePerUnit_form' id='return_on_investment_incomePerUnit_form' class='incomeperunit_col_num col_num' placeholder='Income Per Unit...' value='" + item.income_per_unit + "'></td><td><input name='return_on_investment_costNumberOfUnits' id='return_on_investment_numberOfUnits' placeholder='# of Units...' class='numunits_col_num col_num' value='" + item.number_of_units + "'></td><td class='totalcost_col_num'></td><td><button class='return_on_investment_income_table_submit_button'>Update Income Driver</button></td></tr></tbody></table>");	
+						$("#return_on_investment_input_income").trigger("create");
 					});
 				});	
 				hideLoader();
+				
 			}
 
 			function createNewInvestment () {
@@ -150,66 +103,44 @@
 					}
 				});	
 			}
-		function fixit () {
-			alert("test");
-        	alert(window.username);
-        	alert(window.activeModelUUID);
-        }	
+			function fixit () {
+				alert("test");
+	        	alert(window.username);
+	        	alert(window.activeModelUUID);
+	        }	
 			function getAlternativesInvestments () {
-				var c = 0;
 				//alert(window.activeModelAlternativeId);
 				$('#return_on_investment_alternative_select_investment_menu').empty();
 				$.getJSON('http://api.universalbusinessmodel.com/ubms_modelcreationsuite_model_alternative_get_Investments.php?callback=?', {//JSONP Request to Open Items Page setup tables
 					key : window.key,
 					activeModelAlternativeId : window.activeModelAlternativeId
 				}, function(res, status) {
+							$('#return_on_investment_alternative_select_investment_menu').append("<option>Choose an Investment</option>");							
 					$.each(res, function(i, item) {
-						if (c==0) {
-							window.activeModelInvestmentId = item.investment_id;
-							c=1;
-						}
 						if(item.investment_id == 0) {
-							$('#return_on_investment_alternative_select_investment_menu').append("<option>Choose an Investment</option><option value=''>" + item.title + "</option>");							
+							$('#return_on_investment_alternative_select_investment_menu').append("<option value=''>" + item.title + "</option>");							
 							$('#return_on_investment_alternative_select_investment_menu').selectmenu('refresh', true);
 						}else{
-							$('#return_on_investment_alternative_select_investment_menu').append("<option>Choose an Investment</option><option value='" + item.investment_id + "'>Investment " + item.investment_id + ": " + item.title + "</option>");							
+							$('#return_on_investment_alternative_select_investment_menu').append("<option value='" + item.investment_id + "'>" + item.title + "</option>");							
 							$('#return_on_investment_alternative_select_investment_menu').selectmenu('refresh', true);
 						}
 					});
 				});
-				setTimeout(function(){
-					  	getActiveInvestmentIncomeDrivers();
-					  	getActiveInvestmentCostDrivers();
-					 }, 1000);
 			}
 			function getListofAlternativesforReturnOnInvestment(){//Populates the Alternative Picker at the top of the risk_analysis page.
-				var i = 0;			//Reset Counter
 				$('#return_on_investment_alternative_select_menu').empty();
-
 				$.getJSON('http://api.universalbusinessmodel.com/ubms_modelcreationsuite_model_getCurrentModel_Alternatives.php?callback=?', {//JSONP Request to Open Items Page setup tables
 					key : window.key,
 					activeModelUUID : window.activeModelUUID
 				}, function(res, status) {
-					$('#risk_analysis_alternative_select_menu').empty();
+					$('#return_on_investment_alternative_select_menu').append("<option>Choose an Alternative</option>");
 					$.each(res, function(i, item) {
 						if(item.decision=="Use Now"){
-							if(i==0){	
-								window.activeModelAlternativeId = item.id;	//Set the first item in the callback as the activeModelAlternativeId.
-								i = 1;
-								setTimeout(function() {
-									getAlternativesInvestments();
-								}, 1000);											//Iterate counter
-							}
-							$('#return_on_investment_alternative_select_menu').append("<option>Choose an Alternative</option><option value='" + item.id + "'>Alternative " + item.id + " : " + item.description + "</option>");							
+							$('#return_on_investment_alternative_select_menu').append("<option value='" + item.id + "'>" + item.description + "</option>");							
 							$('#return_on_investment_alternative_select_menu').selectmenu('refresh', true);
-						}else{
-							//$('#').append("...");
 						}
-						
 					});
-					
 				});				
-							//$('#risk_analysis_alternative_select_menu_container').trigger("refresh");
 			}
 			function removeCostFromInvestment (activeCostDriverId) {
 				//alert("this is a test "+activeCostDriverId)

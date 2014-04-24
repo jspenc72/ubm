@@ -99,25 +99,20 @@
 				});
 				
 				$(document).on("pageshow", "#return_on_investment", function() {
+					getListofAlternativesforReturnOnInvestment();
 					$("#return_on_investment_alternative_select_menu").bind( "change", function(event, ui) {
 					  window.activeModelAlternativeId = $( "#return_on_investment_alternative_select_menu option:selected" ).val();
 					  setTimeout(function(){
 					  	getAlternativesInvestments();
-					  }, 1000);
+					  }, 500);
 					});
 					$("#return_on_investment_alternative_select_investment_menu").bind( "change", function(event, ui) {
 					window.activeModelInvestmentId = $("#return_on_investment_alternative_select_investment_menu option:selected").val();
 					setTimeout(function() {
 						getActiveInvestmentIncomeDrivers();
 						getActiveInvestmentCostDrivers();
-						
-					}, 1000);
+					}, 500);
 					});
-					setTimeout(function() {
-						getListofAlternativesforReturnOnInvestment();
-						
-					}, 1000);
-					
 				});
 				$(document).on("pageshow", "#ubmsuite_mcs_model_review", function() {
 					getModelSetupSummary(2);
