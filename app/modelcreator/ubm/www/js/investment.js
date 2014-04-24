@@ -169,10 +169,10 @@
 							c=1;
 						}
 						if(item.investment_id == 0) {
-							$('#return_on_investment_alternative_select_investment_menu').append("<option value=''>" + item.title + "</option>");							
+							$('#return_on_investment_alternative_select_investment_menu').append("<option>Choose an Investment</option><option value=''>" + item.title + "</option>");							
 							$('#return_on_investment_alternative_select_investment_menu').selectmenu('refresh', true);
 						}else{
-							$('#return_on_investment_alternative_select_investment_menu').append("<option value='" + item.investment_id + "'>Investment " + item.investment_id + ": " + item.title + "</option>");							
+							$('#return_on_investment_alternative_select_investment_menu').append("<option>Choose an Investment</option><option value='" + item.investment_id + "'>Investment " + item.investment_id + ": " + item.title + "</option>");							
 							$('#return_on_investment_alternative_select_investment_menu').selectmenu('refresh', true);
 						}
 					});
@@ -200,7 +200,7 @@
 									getAlternativesInvestments();
 								}, 1000);											//Iterate counter
 							}
-							$('#return_on_investment_alternative_select_menu').append("<option value='" + item.id + "'>Alternative " + item.id + " : " + item.description + "</option>");							
+							$('#return_on_investment_alternative_select_menu').append("<option>Choose an Alternative</option><option value='" + item.id + "'>Alternative " + item.id + " : " + item.description + "</option>");							
 							$('#return_on_investment_alternative_select_menu').selectmenu('refresh', true);
 						}else{
 							//$('#').append("...");
