@@ -1076,7 +1076,7 @@ under the License.
 					activeModelUUID: window.activeModelUUID
 				}, function(res, status) {
 					$.each(res, function(i, item) {
-						if(item.path_length=="3"){
+						if(item.ancestor_id==window.activeModelUUID){
 							window.activeModelOwnersUUID = item.UUID;
 //1. Set currentActiveOrgChartLevel 
 //2. Append the name of the highest reports to position on the top of the org chart.
@@ -1115,7 +1115,7 @@ under the License.
 					        });
 					});
 				});	
-			}, 1000);	
+			}, 2000);	
         }
         </script>
 		<!-- End Org Chart Functions -->
