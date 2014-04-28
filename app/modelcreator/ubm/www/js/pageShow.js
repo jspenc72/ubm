@@ -102,12 +102,16 @@
 					getListofAlternativesforReturnOnInvestment();
 					$("#return_on_investment_alternative_select_menu").bind( "change", function(event, ui) {
 					  window.activeModelAlternativeId = $( "#return_on_investment_alternative_select_menu option:selected" ).val();
+					  setTimeout(function(){
 					  	getAlternativesInvestments();
+					  }, 500);
 					});
 					$("#return_on_investment_alternative_select_investment_menu").bind( "change", function(event, ui) {
 					window.activeModelInvestmentId = $("#return_on_investment_alternative_select_investment_menu option:selected").val();
+					setTimeout(function() {
 						getActiveInvestmentIncomeDrivers();
 						getActiveInvestmentCostDrivers();
+					}, 500);
 					});
 				});
 				$(document).on("pageshow", "#ubmsuite_mcs_model_review", function() {
