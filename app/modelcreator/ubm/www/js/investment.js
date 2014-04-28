@@ -78,7 +78,6 @@ function getActiveInvestmentIncomeDrivers() {
     hideLoader();
 }
 
-
 function createNewInvestment() {
     $.getJSON('http://api.universalbusinessmodel.com/ubms_modelcreationsuite_model_alternative_create_Investment.php?callback=?', { //JSONP Request to Open Items Page setup tables
         key : window.key,
