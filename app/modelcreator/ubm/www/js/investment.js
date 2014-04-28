@@ -81,25 +81,19 @@ function getActiveInvestmentIncomeDrivers() {
 
 function createNewInvestment() {
     $.getJSON('http://api.universalbusinessmodel.com/ubms_modelcreationsuite_model_alternative_create_Investment.php?callback=?', { //JSONP Request to Open Items Page setup tables
-        key: window.key,
-        username: window.username,
+        key : window.key,
+        username : window.username,
         activeModelAlternativeId : window.activeModelAlternativeId,
-        title: document.getElementById("return_on_investment_createNewInvestment_popup_form_title").value,
-        description: document.getElementById("return_on_investment_createNewInvestment_popup_form_description").value,
-        type: document.getElementById("return_on_investment_createNewInvestment_popup_form_type").value
+        investmentTitle : document.getElementById("return_on_investment_createNewInvestment_popup_form_title").value,
+        description : document.getElementById("return_on_investment_createNewInvestment_popup_form_description").value,
+        type : document.getElementById("return_on_investment_createNewInvestment_popup_form_type").value
     }, function (res, status) {
         $().toastmessage('showSuccessToast', res.message);
         $("#return_on_investment_createNewInvestment_popup").popup("close");
         $("#return_on_investment_createNewInvestment_popup_form").each(function () {
             this.reset();
         });
-        if (status == "success") {
-            getAlternativesInvestments();
-        } else {
-            setTimeout(function () {
-                getAlternativesInvestments();
-            }, 2000);
-        }
+        
     });
 }
 
