@@ -130,14 +130,14 @@ under the License.
 				window.activeReportsToPosition = activeReportsToPosition;
 				if(positionTitle == "Owners") {
 					$("#manageOwnersListItem").remove();
-					$("#ubmsuite_mcs_my_organizational_chart_content_mangePositionPopUp").append("<li id='manageOwnersListItem' <a href='#' onclick='manageOwners()' class='ui-btn'>Manage Owners</a></li>");
+					$("#ubmsuite_mcs_my_organizational_chart_content_mangePositionPopUp").append("<li id='manageOwnersListItem' <a href='#' onclick='manageOwners();getListOfOwnerNames()' class='ui-btn'>Manage Owners</a></li>");
 				}else {
 					$("#manageOwnersListItem").remove();
 				}
 				setTimeout(function() {
 					$("#ubmsuite_mcs_my_organizational_chart_content_mangePositionPopUp").popup('open');
 					//buildHierarchicalTree(activeReportsToPosition);					
-					getJobDescriptionsforBackBoneTable();
+					getJobDescriptionsforBackBoneTable();	
 				}, 10);		
 			}
 			// This function is the second of two functions that show popups this one is for the hierarchical
@@ -182,7 +182,6 @@ under the License.
 						$('#ubmsuite_mcs_my_organizational_chart_content_createNewPositionPopUp_form_UBMRepository').empty();
 					$.each(res, function(i, item) {
 						$('#ubmsuite_mcs_my_organizational_chart_content_createNewPositionPopUp_form_UBMRepository').append("<li><a href='#'><p style='white-space:normal;'>" + item.title + "</p></a><a href='#' onclick='addPositiontoMyModel(" + item.id + ")'>Add Position</a></li>");
-						$('#ubmsuite_mcs_my_organizational_chart_content_createNewPositionPopUp_form_UBMRepository').append("<li><a href='#' onClick='openPositionSummaryPopup(" + item.id + ")'>  <p style='white-space:normal;'>" + item.title + "</p></a><a href='#' onclick='addPositiontoMyModel(" + item.id + ")'>Add Position</a></li>");
 						$('#ubmsuite_mcs_my_organizational_chart_content_createNewPositionPopUp_form_UBMRepository').listview("refresh");
 					});
 				});
@@ -605,7 +604,7 @@ under the License.
 				$("#ubmsuite_mcs_my_organizational_chart_content_mangePositionPopUp").popup('close');
 
 				setTimeout(function() {
-					$("#ubmsuite_mcs_my_organizational_chart_content_manageOwners").popup('open');
+					$("#ubmsuite_mcs_my_organizational_chart_content_manageOwners_popup").popup('open');
 				}, 1000);		
 			} 
 			function getJobDescriptionsforBackBoneTable(){
@@ -1136,6 +1135,52 @@ under the License.
 				//use this function to call all other functions in sequence.	
 			}
 		</script>
+		<script>
+			function addOwnerNameToOwner() {
+				$.getJSON('http://api.universalbusinessmodel.com/ubms_modelcreationsuite_model_create_OwnerName.php?callback=?', {//JSONP Request to Open Items Page setup tables
+					key : window.key,
+					username: window.username,
+					activeOwnerUUID : window.activeReportsToPosition,
+					percentOwned : document.getElementById("ubmsuite_mcs_my_organizational_chart_content_manageOwners_content_addNewOwner_percentageOwned").value,
+					ownerName : document.getElementById("ubmsuite_mcs_my_organizational_chart_content_manageOwners_content_addNewOwner_addOwner").value
+				}, function(res, status) {
+					$().toastmessage('showSuccessToast', res.message);
+				});
+					$('#ubmsuite_mcs_my_organizational_chart_content_manageOwners_content_addNewOwner_form').each(function() {
+						this.reset();
+					});
+					setTimeout(function() {
+						getListOfOwnerNames();	
+					}, 2000);
+					
+			}
+
+			function getListOfOwnerNames() {
+				$('#my_model_current_owners').empty();
+				$.getJSON('http://api.universalbusinessmodel.com/ubms_modelcreationsuite_model_getCurrentOwner_OwnerNames.php?callback=?', {//JSONP Request to Open Items Page setup tables
+					key : window.key,
+					activeOwnerUUID : window.activeReportsToPosition
+				}, function(res, status) {
+					$.each(res, function(i, item) {
+						$('#my_model_current_owners').append("<li><a href='#'><p>" + item.name + " &nbsp;&nbsp;&nbsp;&nbsp;" + item.percent_owned + "%</p></a><a href='#' onclick='removeOwnersName(" + item.id + ")'>Remove Owner</a></li>");
+						$('#ubmsuite_mcs_my_organizational_chart_content_createNewTaskPopUp_form_UBMRepository').listview("refresh");
+						$('#my_model_current_owners').listview("refresh");
+					});
+				});	
+			}
+			function removeOwnersName(id) {
+				$.getJSON('http://api.universalbusinessmodel.com/ubms_modelcreationsuite_model_remove_OwnerName.php?callback=?', {//JSONP Request to Open Items Page setup tables
+					key : window.key,
+					activeOwnerUUID : window.activeReportsToPosition,
+					ownerNameId : id
+				}, function(res, status) {
+					$().toastmessage('showSuccessToast', res.message);
+				});
+				setTimeout(function() {
+					getListOfOwnerNames();	
+				}, 2000);
+			}
+		</script>
 
 		  <!-- WOOKMARK CSS  -->
 		<style>
@@ -1161,6 +1206,7 @@ under the License.
 				padding:0px 0px 0px 0px;
 		    }
 		</style>
+		
     </head>
     
     <div id="headerRecord_right" style="z-index: 99999; position:fixed; right:60px; top:5px;">
@@ -2414,7 +2460,7 @@ under the License.
 						</div>
 				    </div>
 				</div>
-				<div data-role="popup" id="ubmsuite_mcs_my_organizational_chart_content_manageOwners"  data-theme="a" class="ui-corner-all draggable_popup">
+				<div data-role="popup" id="ubmsuite_mcs_my_organizational_chart_content_manageOwners_popup"  data-theme="a" class="ui-corner-all draggable_popup" style="width:150%">
 				    <div id="ubmsuite_mcs_my_organizational_chart_content_manageOwners_header" data-role="header" data-theme="a">
 						<h1 style="white-space:normal;">Manage Owners</h1>
 						<a href="#" data-rel="back" data-role="button" data-theme="a" data-icon="delete" data-iconpos="notext" class="ui-btn-right">Close</a>
@@ -2423,15 +2469,17 @@ under the License.
 					    <div class="ui-block-a">
 					    	<div id="ubmsuite_mcs_my_organizational_chart_content_manageOwners_content_addNewOwner" data-role="content" data-theme="a">
 					    		<h1>Add Owner</h1>
-			    				<input type="text" placeholder="Owner Name">Add an Owner</input>
-			    				<input type="text" placeholder="% Owned"> Percentage Owned</input>
-			    				<button class="ui-btn" onclick="">Submit</button>
+					    		<form id="ubmsuite_mcs_my_organizational_chart_content_manageOwners_content_addNewOwner_form">
+				    				<input id="ubmsuite_mcs_my_organizational_chart_content_manageOwners_content_addNewOwner_addOwner" type="text" placeholder="Owner Name">Add an Owner</input>
+				    				<input id="ubmsuite_mcs_my_organizational_chart_content_manageOwners_content_addNewOwner_percentageOwned" type="text" placeholder="% Owned"> Percentage Owned</input>
+			    				</form>
+			    				<button class="ui-btn" onclick="addOwnerNameToOwner()">Submit</button>
 		    				</div>
 						</div>
 						<div class="ui-block-b">
 						    <div id="ubmsuite_mcs_my_organizational_chart_content_manageOwners_content_currentOwners" data-role="content" data-theme="a">
 								<h1>Current Owner(s)</h1>
-								<ul id="my_model_current_owners">
+								<ul data-role="listview" data-inset="true" id="my_model_current_owners">
 
 								</ul>
 
