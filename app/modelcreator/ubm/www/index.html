@@ -126,11 +126,16 @@ under the License.
 				//getStepsforBackBoneTable();
 				//getTasksforBackBoneTable();
 			}
-			function setActivePosition(activeReportsToPosition){
+			function setActivePosition(activeReportsToPosition, positionTitle){
 				window.activeReportsToPosition = activeReportsToPosition;
-
+				if(positionTitle == "Owners") {
+					$("#manageOwnersListItem").remove();
+					$("#ubmsuite_mcs_my_organizational_chart_content_mangePositionPopUp").append("<li id='manageOwnersListItem' <a href='#' onclick='manageOwners()' class='ui-btn'>Manage Owners</a></li>");
+				}else {
+					$("#manageOwnersListItem").remove();
+				}
 				setTimeout(function() {
-					$("#ubmsuite_mcs_my_organizational_chart_content_modifyPositionPopUp").popup('open');
+					$("#ubmsuite_mcs_my_organizational_chart_content_mangePositionPopUp").popup('open');
 					//buildHierarchicalTree(activeReportsToPosition);					
 					getJobDescriptionsforBackBoneTable();
 				}, 10);		
@@ -162,7 +167,7 @@ under the License.
 			}
 			
 			function openAddNewPositionPopup(){
-					$("#ubmsuite_mcs_my_organizational_chart_content_modifyPositionPopUp").popup('close');
+					$("#ubmsuite_mcs_my_organizational_chart_content_mangePositionPopUp").popup('close');
 				setTimeout(function() {
 					$("#ubmsuite_mcs_my_organizational_chart_content_createNewPositionPopUp").popup('open');
 				}, 1000);	
@@ -239,7 +244,7 @@ under the License.
 			}
 			
 			function addChildPositiontoActivePosition(){
-					$("#ubmsuite_mcs_my_organizational_chart_content_modifyPositionPopUp").popup('open');
+					$("#ubmsuite_mcs_my_organizational_chart_content_mangePositionPopUp").popup('open');
 
 					$().toastmessage('showSuccessToast', window.activeReportsToPosition);
 				//Called from Model Settings Page????
@@ -282,7 +287,7 @@ under the License.
 					getMyModelsOrgChart();
 			}
 			function confirmRemoveActivePosition(){
-					$("#ubmsuite_mcs_my_organizational_chart_content_modifyPositionPopUp").popup('close');
+					$("#ubmsuite_mcs_my_organizational_chart_content_mangePositionPopUp").popup('close');
 				setTimeout(function() {
 					$("#ubmsuite_mcs_my_organizational_chart_confirm_remove_Position_popup").popup('open');
 				}, 1000);
@@ -589,13 +594,20 @@ under the License.
 			}
 
 			function createNewJobDescription () {
-				$("#ubmsuite_mcs_my_organizational_chart_content_manageJobDescriptionPopUp").popup('close');
-				$("#ubmsuite_mcs_my_organizational_chart_content_modifyPositionPopUp").popup('close');
+				$("#ubmsuite_mcs_my_organizational_chart_content_mangePositionPopUp").popup('close');
 
 				setTimeout(function() {
 					$("#ubmsuite_mcs_my_organizational_chart_content_createNewJobDescriptionPopUp").popup('open');
 				}, 1000);		
 			}
+
+			function manageOwners () {
+				$("#ubmsuite_mcs_my_organizational_chart_content_mangePositionPopUp").popup('close');
+
+				setTimeout(function() {
+					$("#ubmsuite_mcs_my_organizational_chart_content_manageOwners").popup('open');
+				}, 1000);		
+			} 
 			function getJobDescriptionsforBackBoneTable(){
 				$.getJSON('http://api.universalbusinessmodel.com/ubm_modelcreationsuite_model_Position_get_JobDescriptions.php?callback=?', {//JSONP Request to Open Items Page setup tables
 					activeModelUUID : window.activeModelUUID,
@@ -1080,7 +1092,7 @@ under the License.
 							window.activeModelOwnersUUID = item.UUID;
 //1. Set currentActiveOrgChartLevel 
 //2. Append the name of the highest reports to position on the top of the org chart.
-							$('#ubmsuite_mcs_my_organizational_chart_L0_ul').prepend("<a ondblclick='setActivePosition(" + item.UUID + ")' onclick='buildHierarchicalTree(" + item.UUID + ");setActivePositionUUID(" + item.UUID + ")'><img class='org_img' style='width:25px; height:25px;' src='img/apple.png' /></a></br>" + item.title + "</br><h3>PS-" + item.UUID + "</h3>"); 
+							$('#ubmsuite_mcs_my_organizational_chart_L0_ul').prepend("<a ondblclick='setActivePosition(" + item.UUID + ", &quot;" + item.title + "&quot;)' onclick='buildHierarchicalTree(" + item.UUID + ");setActivePositionUUID(" + item.UUID + ")'><img class='org_img' style='width:25px; height:25px;' src='img/apple.png' /></a></br>" + item.title + "</br><h3>PS-" + item.UUID + "</h3>"); 
 //3. New Append an Empty UL with the highest positions UUID in the id, so that additional positions may be added later.
 							$('#ubmsuite_mcs_my_organizational_chart_L0_ul').append("<ul id='ubmsuite_mcs_my_organizational_chart_P" + item.UUID + "_ul'></ul>");
 //4. Empty chart Div
@@ -1104,7 +1116,7 @@ under the License.
 
 				//3. Append all other children to their respective "reports_to" ul
 				//$('#ubmsuite_mcs_my_organizational_chart_P' + item.reports_to_id + '_ul').append("<li id='orgChartPosition" + item.UUID + "'><div id='demo_box_" + item.UUID + "' class='demo_box' onclick='setActivePosition(" + item.UUID + ")'><div class='pop_ctrl'><i class='fa fa-bars'></i></div><ul id='demo_ul_2'><li class='demo_li'><a href='#' onclick='addChildPositiontoActivePosition()'><div><i class='fa fa-plus-circle'></i></div><p>Add</p></a></li><li class='demo_li'><a href='#' onclick='removeActivePosition()'><div><i class='fa fa-minus-circle'></i></div><p>Remove</p></a></li></ul></div></br>" + item.title + "<ul id='ubmsuite_mcs_my_organizational_chart_P" + item.UUID + "_ul'></ul></li>");	
-							$('#ubmsuite_mcs_my_organizational_chart_P' + item.ancestor_UUID + '_ul').append("<li id='orgChartPosition" + item.UUID + "'><a ondblclick='setActivePosition(" + item.UUID + ")' onclick='buildHierarchicalTree(" + item.UUID + ");setActivePositionUUID(" + item.UUID + ")'><img id='org_img_" + item.UUID + "' style='width:25px; height:25px;' src='img/apple.png' /></a></br>" + item.title + "</br><h3>PS-" + item.UUID + "</h3><ul id='ubmsuite_mcs_my_organizational_chart_P" + item.UUID + "_ul'></ul></li>");	
+							$('#ubmsuite_mcs_my_organizational_chart_P' + item.ancestor_UUID + '_ul').append("<li id='orgChartPosition" + item.UUID + "'><a ondblclick='setActivePosition(" + item.UUID + ", &quot;" + item.title + "&quot;)' onclick='buildHierarchicalTree(" + item.UUID + ");setActivePositionUUID(" + item.UUID + ")'><img id='org_img_" + item.UUID + "' style='width:25px; height:25px;' src='img/apple.png' /></a></br>" + item.title + "</br><h3>PS-" + item.UUID + "</h3><ul id='ubmsuite_mcs_my_organizational_chart_P" + item.UUID + "_ul'></ul></li>");	
 				//4. Empty chart Div
 					        $('#chart').empty();
 					        
@@ -2338,11 +2350,11 @@ under the License.
 					</div>
 				</div>
 				<style>
-				#ubmsuite_mcs_my_organizational_chart_content_modifyPositionPopUp li {margin:15px 5px 15px 5px;}
+				#ubmsuite_mcs_my_organizational_chart_content_mangePositionPopUp li {margin:15px 5px 15px 5px;}
 				</style>
 
-				<div data-role="popup" id="ubmsuite_mcs_my_organizational_chart_content_modifyPositionPopUp" data-overlay-theme="b" data-theme="a" data-dismissible="true" style="max-width:400px; min-width: 350px;">
-				    <div id="ubmsuite_mcs_my_organizational_chart_content_modifyPositionPopUp_header" data-role="header" data-theme="a">
+				<div data-role="popup" id="ubmsuite_mcs_my_organizational_chart_content_mangePositionPopUp" data-overlay-theme="b" data-theme="a" data-dismissible="true" style="max-width:400px; min-width: 350px;">
+				    <div id="ubmsuite_mcs_my_organizational_chart_content_mangePositionPopUp_header" data-role="header" data-theme="a">
 						<h1 style="white-space:normal;">Manage Position</h1>
 				    </div>
 				    <div data-role='content' data-theme='a' >
@@ -2372,7 +2384,7 @@ under the License.
 				</div>
 	    		<div data-role="popup" id="ubmsuite_mcs_my_organizational_chart_content_createNewJobDescriptionPopUp"  data-theme="a" class="ui-corner-all draggable_popup">
 				    <div id="ubmsuite_mcs_my_organizational_chart_content_createNewJobDescriptionPopUp_header" data-role="header" data-theme="a">
-						<h1 style="white-space:normal;">New Job Description Popup</h1>
+						<h1 style="white-space:normal;">Add New Job Description</h1>
 						<a href="#" data-rel="back" data-role="button" data-theme="a" data-icon="delete" data-iconpos="notext" class="ui-btn-right">Close</a>
 				    </div>	    			
 	    			<div class="ui-grid-a">
@@ -2393,14 +2405,39 @@ under the License.
 				   		 </form>
 					</div>
 					    <div class="ui-block-b">
-								<div style="padding:10px 20px;">
-									<h2>All UBM Predefined Job Descriptions</h2>
-									<ul data-role="listview" id="ubmsuite_mcs_my_organizational_chart_content_createNewJobDescriptionPopUp_form_UBMRepository"data-inset="true" data-filter="true" data-filter-placeholder="Search UBM Reference Manual" style="max-height:400px; padding-bottom:2em; overflow-y:scroll;">
+							<div style="padding:10px 20px;">
+								<h2>All UBM Predefined Job Descriptions</h2>
+								<ul data-role="listview" id="ubmsuite_mcs_my_organizational_chart_content_createNewJobDescriptionPopUp_form_UBMRepository"data-inset="true" data-filter="true" data-filter-placeholder="Search UBM Reference Manual" style="max-height:400px; padding-bottom:2em; overflow-y:scroll;">
 
-									</ul>
-								</div>
+								</ul>
+							</div>
 						</div>
 				    </div>
+				</div>
+				<div data-role="popup" id="ubmsuite_mcs_my_organizational_chart_content_manageOwners"  data-theme="a" class="ui-corner-all draggable_popup">
+				    <div id="ubmsuite_mcs_my_organizational_chart_content_manageOwners_header" data-role="header" data-theme="a">
+						<h1 style="white-space:normal;">Manage Owners</h1>
+						<a href="#" data-rel="back" data-role="button" data-theme="a" data-icon="delete" data-iconpos="notext" class="ui-btn-right">Close</a>
+				    </div>	
+				    <div class="ui-grid-a">
+					    <div class="ui-block-a">
+					    	<div id="ubmsuite_mcs_my_organizational_chart_content_manageOwners_content_addNewOwner" data-role="content" data-theme="a">
+					    		<h1>Add Owner</h1>
+			    				<input type="text" placeholder="Owner Name">Add an Owner</input>
+			    				<input type="text" placeholder="% Owned"> Percentage Owned</input>
+			    				<button class="ui-btn" onclick="">Submit</button>
+		    				</div>
+						</div>
+						<div class="ui-block-b">
+						    <div id="ubmsuite_mcs_my_organizational_chart_content_manageOwners_content_currentOwners" data-role="content" data-theme="a">
+								<h1>Current Owner(s)</h1>
+								<ul id="my_model_current_owners">
+
+								</ul>
+
+							</div>
+						</div>	
+				    </div>    			
 				</div>
 				<div data-role="popup" id="ubmsuite_mcs_my_organizational_chart_content_createNewPolicyPopUp"  data-theme="a" class="ui-corner-all draggable_popup">
 					<div data-role="header">
