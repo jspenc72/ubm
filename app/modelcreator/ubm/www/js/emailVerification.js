@@ -10,4 +10,4 @@ function checkEmailVerification() {
 						$().toastmessage('showErrorToast', "Your Account Has Not Been Activated");
 					}
 				});
-			}
+}

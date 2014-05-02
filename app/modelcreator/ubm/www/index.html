@@ -228,6 +228,47 @@ under the License.
 						}); 
 					});
 				}
+
+			function openJobDescriptionSummaryPopup(activeJobDescriptionId) {
+				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_model_getCurrentView_Position.php?callback=?', {//JSONP Request to Open Items Page setup tables
+					activeModelUUID :window.activeModelUUID,
+					jobDescriptionReportsTo: window.jobDescriptionReportsTo,
+					activeJobDescriptionId : activeJobDescriptionId
+				}, function(res, status) {
+					
+						$('#ubmsuite_mcs_my_organizational_chart_content_predefined_jobDescriptionSummary_popup_header').empty();
+						$('#ubmsuite_mcs_my_organizational_chart_content_predefined_jobDescriptionSummary_popup_header_title').empty();
+						$('#ubmsuite_mcs_my_organizational_chart_content_predefined_jobDescriptionSummary_popup_content').empty();
+						$().toastmessage('showSuccessToast', res.message);
+					 $.each(res, function(i, item) {
+						
+						$('#ubmsuite_mcs_my_organizational_chart_content_predefined_jobDescriptionSummary_popup_header').append("<h1 style=text-align:center;font-size=100%;margin-top:1%;>" + item.title + "</h1><a href='#' class='ui-btn ui-icon-back ui-btn-icon-left ui-shadow back_btn ui-btn-icon-notext' data-icon='arrow-l' data-rel='back' style='max-width:15%;text-align:left;float:left;margin-top:-3.5%;margin-left:1%' ></a><a onclick='openEditjobDescriptionSummaryPopup(" + activePositionId + ")' style='max-width:15%;text-align:right;float:right;margin-top:-3.5%;margin-right:1%' class='ui-icon-edit ui-btn ui-btn-icon-left ui-shadow ui-corner-all' href='#'>Edit this position</a>");
+						$('#ubmsuite_mcs_my_organizational_chart_content_predefined_jobDescriptionSummary_popup_content').append("<p><strong style='line-height: 1.6;'>Master File Index Position Number: </strong></p><br><p><strong>Grade Level:</strong> &nbsp;&nbsp;___________&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <strong>Organizational Chart Level:</strong> ___________&nbsp;&nbsp;</p><br><p><strong>Branch: </strong>______________&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <strong>Shift: <input disabled='disabled' type='checkbox'/>&nbsp;</strong>Day <input disabled='disabled' type='checkbox'/>&nbsp;Night <input disabled='disabled'type='checkbox'/>&nbsp;Other _________</p><p>&nbsp;</p><p>&nbsp;</p><p><strong>Full or Part Time:</strong>&nbsp; <input disabled='disabled' type='checkbox'/>&nbsp;Full Time <input disabled='disabled' type='checkbox'/>&nbsp;Part Time</p><p><strong>Pay Type: <input disabled='disabled' type='checkbox'/>&nbsp;</strong>Hourly <input disabled='disabled' type='checkbox'/>&nbsp;Salary <input disabled='disabled' type='checkbox'/>&nbsp;Commission <input disabled='disabled' type='checkbox'/>&nbsp;Other ___________ </p><br><p><strong>Position Pay Range:</strong> ______ <strong>to </strong>______</p>	<p><strong>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Low &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;High</strong></p><br><p><strong>Position Reports To:</strong>&nbsp;_____</p><br><p><strong>Position Responsible For: </strong>_____&nbsp;&nbsp;</p><br><p><strong>HR Contact:</strong> ________ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<strong>HR Phone Number:</strong> ________&nbsp;&nbsp;</p><br><p><strong>Position Summary:</strong></p><p>" + item.summary + "</p><br><p><strong>Position Description:</strong></p><p>" + item.description + "</p><br><p><strong>Security Level: </strong></p><p>" + item.security_level + "</p><br><p><strong>Age Requirements: </strong></p><p>" + item.age_requirements + "</p><br><br><p><strong>Education Requirements: </strong></p><p>"+ item.education_requirements + "</p><br><p><strong>Qualifications:</strong></p><p>" + item.qualifications + "</p><br><p><strong>Physical Demands: </strong></p><p>" + item.physical_demands + "</p><br><p><strong>Work Environment: </strong></p><p>" + item.work_environment + "</p><p>&nbsp;</p><p><strong>Published Job Description:</strong><strong>(Summary of all positions age, education, qualifications, physical demands, and work environment requirements)</strong></p>");
+							$('#ubmsuite_mcs_my_organizational_chart_content_predefined_jobDescriptionSummary_popup').listview("refresh");
+					}); 
+				});
+					$("#ubmsuite_mcs_my_organizational_chart_content_createNewPositionPopUp").popup('close');
+					setTimeout(function() {
+						$("#ubmsuite_mcs_my_organizational_chart_content_predefined_jobDescriptionSummary_popup").popup('open');
+					}, 1000);
+				}
+
+				function openEditJobDescriptionSummaryPopup(activeJobDescriptionId) {
+					$.getJSON('http://www.findmydriver.com/ubms_modelcreationsuite_model_getCurrentView_JobDescription.php?callback=?', {//JSONP Request to Open Items Page setup tables
+						activeModelUUID :window.activeModelUUID,
+						jobDescriptionReportsTo: window.jobDescriptionReportsTo,
+						activeJobDescriptionId : activeJobDescriptionId
+					}, function(res, status) {
+						$('#ubmsuite_mcs_my_organizational_chart_content_predefined_jobDescriptionSummary_popup_content').empty();
+						$('#ubmsuite_mcs_my_organizational_chart_content_predefined_jobDescriptionSummary_popup_header').empty();
+					$.each(res, function(i, item) {
+						$('#ubmsuite_mcs_my_organizational_chart_content_predefined_jobDescriptionSummary_popup_header').append("<h1 style=text-align:center;font-size=100%;margin-top:1%;>" + item.title + "</h1><a href='#' onclick='openjobDescriptionSummaryPopup(" + activeJobDescriptionId + ")' class='ui-btn ui-icon-back ui-btn-icon-left ui-shadow back_btn ui-btn-icon-notext' data-icon='arrow-l' data-rel='back' style='max-width:15%;text-align:left;float:left;margin-top:-3.5%;margin-left:1%' data-iconpos='notext'></a><a onclick='submitjobDescriptionSummaryChanges(" + activeJobDescriptionId + ")' style='max-width:15%;text-align:right;float:right;margin-top:-3.5%;margin-right:1%' class='ui-icon-check ui-btn ui-btn-icon-left ui-shadow ui-corner-all' href='#'>Submit Changes</a>");
+						$('#ubmsuite_mcs_my_organizational_chart_content_predefined_jobDescriptionSummary_popup_content').append("<form> <br> <p><strong style='line-height: 1.6;'>Master File Index Position Number: </strong><span style='line-height: 1.6;'>&nbsp; &nbsp; &nbsp; &nbsp;</span></p> <br> <p><strong>Grade Level:</strong> &nbsp;<input type='text'/>&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <strong>Organizational Chart Level:&nbsp;</strong><input type='text'/>&nbsp;</p><br><p><strong>Branch:</strong><input type='text'/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <strong>Shift: <input type='checkbox'/>&nbsp;</strong>Day <input type='checkbox'/>&nbsp;Night <input type='checkbox'/>&nbsp;Other <input type='text'/></p> <br> <p><strong>Full or Part Time:</strong>&nbsp; <input type='checkbox'/>&nbsp;Full Time <input type='checkbox'/>&nbsp;Part Time</p> <p><strong>Pay Type: <input type='checkbox'/>&nbsp;</strong>Hourly <input type='checkbox'/>&nbsp;Salary <input type='checkbox'/>&nbsp;Commission <input type='checkbox'/>&nbsp;Other <input type='text'/> &nbsp;</p> <p><strong>Position Pay Range:</strong> <input type='text' style='max-width:50px;'/> <strong>to </strong><input type='text' style='max-width:50px;'/></p><p><strong>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Low &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;High</strong></p> <br> <p><strong>Position Reports To:</strong>&nbsp;<input type='text'/></p> <br> <p><strong>Position Responsible For: </strong><input type='text'/></p> <br> <p><strong>HR Contact:</strong> <input type='text'/> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<strong>HR Phone Number:</strong> <input type='text'/>&nbsp;</p> <br> <p><strong>Position Summary:</strong>&nbsp;</p> <p><label for='ubmsuite_mcs_my_organizational_chart_content_predefined_jobDescriptionSummary_popup_content_'></label><textarea id='ubmsuite_mcs_my_organizational_chart_content_predefined_jobDescriptionSummary_popup_content_' style='resize: none;overflow-y: scroll;max-height:100px;' cols=80 rows='8'>" + item.summary + "</textarea></p><p><strong>Position Description:</strong>&nbsp;</p> <p><label for='ubmsuite_mcs_my_organizational_chart_content_predefined_jobDescriptionSummary_popup_content_'></label><textarea id='ubmsuite_mcs_my_organizational_chart_content_predefined_jobDescriptionSummary_popup_content_' style='resize: none;overflow-y: scroll;max-height:100px;' cols=80 rows='8'>" + item.description + "</textarea></p> <p><strong>Security Level: </strong> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p> <p><label for='ubmsuite_mcs_my_organizational_chart_content_predefined_jobDescriptionSummary_popup_content_'></label><textarea id='ubmsuite_mcs_my_organizational_chart_content_predefined_jobDescriptionSummary_popup_content_' style='resize: none;overflow-y: scroll;max-height:100px;' cols=80 rows='8'>" + item.security_level + "</textarea></p> <p><strong>Age Requirements: </strong> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p> <p><input type='text' value='" + item.age_requirements + "'></input></p> <br> <p><strong>Education Requirements: </strong></p> <p><label for='ubmsuite_mcs_my_organizational_chart_content_predefined_jobDescriptionSummary_popup_content_'></label><textarea id='ubmsuite_mcs_my_organizational_chart_content_predefined_jobDescriptionSummary_popup_content_' style='resize: none;overflow-y: scroll;max-height:100px;' cols=80 rows='8'>" + item.education_requirements + "</textarea></p> <p><strong>Qualifications:</strong></p> <p><label for='ubmsuite_mcs_my_organizational_chart_content_predefined_jobDescriptionSummary_popup_content_'></label><textarea id='ubmsuite_mcs_my_organizational_chart_content_predefined_jobDescriptionSummary_popup_content_' style='resize: none;overflow-y: scroll;max-height:100px;' cols=80 rows='8'>" + item.qualifications + "</textarea></p> <p><strong>Physical Demands: </strong></p> <p><label for='ubmsuite_mcs_my_organizational_chart_content_predefined_jobDescriptionSummary_popup_content_'></label><textarea id='ubmsuite_mcs_my_organizational_chart_content_predefined_jobDescriptionSummary_popup_content_' style='resize: none;overflow-y: scroll;max-height:100px;' cols=80 rows='8'>" + item.physical_demands + "</textarea></p> <p><strong>Work Environment: </strong></p> <p><label for='ubmsuite_mcs_my_organizational_chart_content_predefined_jobDescriptionSummary_popup_content_'></label><textarea id='ubmsuite_mcs_my_organizational_chart_content_predefined_jobDescriptionSummary_popup_content_' style='resize: none;overflow-y: scroll;max-height:100px;' cols='80' rows='8'>" + item.work_environment + "</textarea></p> <br> <p><strong>Published Job Description:</strong> &nbsp;<strong>(Summary of all positions age, education, qualifications, physical demands, and work environment requirements)</strong> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p> <p><label for='ubmsuite_mcs_my_organizational_chart_content_predefined_jobDescriptionSummary_popup_content_'></label><textarea id='ubmsuite_mcs_my_organizational_chart_content_predefined_jobDescriptionSummary_popup_content_' style='resize: none;overflow-y: scroll;max-height:100px;' cols=80 rows='8'></textarea></p> <br></form>");
+							$('#ubmsuite_mcs_my_organizational_chart_content_predefined_jobDescriptionSummary_popup').listview("refresh");
+						}); 
+					});
+				}
+
 			function submitPositionSummaryChanges() {
 
 			}
@@ -566,7 +607,7 @@ under the License.
 //						alert(status);
 						$('#ubmsuite_mcs_my_organizational_chart_content_createNewJobDescriptionPopUp_form_UBMRepository').empty();
 					$.each(res, function(i, item) {
-						$('#ubmsuite_mcs_my_organizational_chart_content_createNewJobDescriptionPopUp_form_UBMRepository').append("<li><a href='#'><p style='white-space:normal;'>" + item.title + "</p></a><a href='#' onclick='addJobDescriptiontoMyModel( " + item.id + " ) '>Add Job Description</a></li>");
+						$('#ubmsuite_mcs_my_organizational_chart_content_createNewJobDescriptionPopUp_form_UBMRepository').append("<li><a href='#' onClick='openJobDescriptionSummaryPopup(" + item.id + ")'><p style='white-space:normal;'>" + item.title + "</p></a><a href='#' onclick='addJobDescriptiontoMyModel( " + item.id + " ) '>Add Job Description</a></li>");
 						$('#ubmsuite_mcs_my_organizational_chart_content_createNewJobDescriptionPopUp_form_UBMRepository').listview("refresh");
 					})
 				});	
@@ -595,13 +636,6 @@ under the License.
 				//4. If user selects "no, add this position without any positions that report to it." 
 			}
 
-			function createNewJobDescription () {
-				$("#ubmsuite_mcs_my_organizational_chart_content_mangePositionPopUp").popup('close');
-
-				setTimeout(function() {
-					$("#ubmsuite_mcs_my_organizational_chart_content_createNewJobDescriptionPopUp").popup('open');
-				}, 1000);		
-			}
 
 			function manageOwners () {
 				$("#ubmsuite_mcs_my_organizational_chart_content_mangePositionPopUp").popup('close');
@@ -627,7 +661,7 @@ under the License.
 					username: window.username,
 					activePositionUUID : window.activeReportsToPosition,
 					positionName : document.getElementById("ubmsuite_mcs_my_organizational_chart_content_genericManagePosition_popup_addName_input").value,
-					email : document.getElementById("ubmsuite_mcs_my_organizational_chart_content_genericManagePosition_popup_generic").value
+					email : document.getElementById("ubmsuite_mcs_my_organizational_chart_content_genericManagePosition_popup_generic").value,
 				}, function(res, status) {
 					$().toastmessage('showSuccessToast', res.message);
 				});
@@ -1335,6 +1369,18 @@ under the License.
                     </form>
                 </div>
                 <!-- End Open Items Popup -->
+                <!-- Change Password Popup -->
+				<div data-role="popup" id="initialChangePasssword" data-theme="a" class="ui-corner-all">
+				    <form id="initialChangePasssword_form" >
+				        <div style="padding:10px 20px;">
+				            <h3>Change Password</h3>
+				            <input type="password" name="user" id="initialChangePasssword_form_changePassword" value="" placeholder="Password" data-theme="a">
+				            <input type="password" name="pass" id="initialChangePasssword_form_verfyChangePassword" value="" placeholder="Verfiy Password" data-theme="a">
+				            <button onclick='submitNewPassword()' class="ui-btn ui-corner-all ui-shadow ui-btn-b ui-btn-icon-left ui-icon-check">Change Password</button>
+				        </div>
+				    </form>
+				</div>
+				<!-- End Change Password Popup -->
                 <form> <!-- NOTE TO APP DEVELOPER, need to add form id.-->
                     <div style="padding:120px 20px;">
                         <label for="un" class="ui-hidden-accessible">Username:</label>
@@ -1384,6 +1430,7 @@ under the License.
                     </p>
             </div>
         </div>
+        
         <!-- Verify Account Page -->
         <div data-role="page" id="account_verification">
 			<div data-role="header" data-position="fixed" data-fullscreen="true">
