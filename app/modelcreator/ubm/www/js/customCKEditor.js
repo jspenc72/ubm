@@ -33,7 +33,6 @@ var editor, html = '';
 			function removeEditor() {
 				if ( !editor )
 					return;
-	
 				// Retrieve the editor contents. In an Ajax application, this data would be
 				// sent to the server or used in any other way.
 				//1. Encode the Source HTML of the editor as Entities, This is how the product is stored, as an entity, in the database.
@@ -55,14 +54,21 @@ var editor, html = '';
 				}else{
 					var editor_data = CKEDITOR.instances.editor1.getData();
 					var entityEncodedData = encodeHtmlEntity(editor_data);
+					alert(entityEncodedData);					
 					alert(decodeHtmlEntity(entityEncodedData));
-					$.getJSON('http://api.universalbusinessmodel.com/ubm_productreationsuite_saveProduct.php?callback=?', {//JSONP Request to Open Items Page setup tables
+					document.getElementById( 'editorcontents' ).innerHTML = entityEncodedData;
+					document.getElementById( 'editedcontents' ).style.display = '';
+					alert("JSON REQUEST WILL NOW BE SENT");
+					$.getJSON('http://api.universalbusinessmodel.com/ubms_productreationsuite_saveProduct.php?callback=?', {//JSONP Request to Open Items Page setup tables
+						key : window.key,
 						username : window.username,
 						activeModelUUID : window.activeModelUUID,
-						productData : editor_data
+						productSource : editor_data
 					}, function(res, status) {
 						if ( status = "SUCCESS") {//If request is successful, empty the form.
-
+							alert(res.message);
+							//3. Set the editorcontents innerHTML equal to the string handed back by the php script in the message parameter.
+							document.getElementById( 'editorcontents' ).innerHTML = res.message;
 						}
 					});
 				}
