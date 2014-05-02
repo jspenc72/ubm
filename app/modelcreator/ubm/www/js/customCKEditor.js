@@ -1,4 +1,17 @@
 var editor, html = '';
+			var decodeHtmlEntity = function(str) {
+			  return str.replace(/&#(\d+);/g, function(match, dec) {
+			    return String.fromCharCode(dec);
+			  });
+			};
+			 
+			var encodeHtmlEntity = function(str) {
+			  var buf = [];
+			  for (var i=str.length-1;i>=0;i--) {
+			    buf.unshift(['&#', str[i].charCodeAt(), ';'].join(''));
+			  }
+			  return buf.join('');
+			};
 	
 			function createEditor() {
 				showLoader();
@@ -23,9 +36,13 @@ var editor, html = '';
 	
 				// Retrieve the editor contents. In an Ajax application, this data would be
 				// sent to the server or used in any other way.
-				document.getElementById( 'editorcontents' ).innerHTML = html = editor.getData();
+				//1. Encode the Source HTML of the editor as Entities, This is how the product is stored, as an entity, in the database.
+				var entityEncodedHTML = encodeHtmlEntity(CKEDITOR.instances.editor1.getData());
+				//2. Decode the HTML entity version
+				var entityDecodedHTML = decodeHtmlEntity(entityEncodedHTML);
+				//3. Set the editorcontents "PREVIEW" div equal to the decoded version.
+				document.getElementById( 'editorcontents' ).innerHTML = html = entityDecodedHTML;
 				document.getElementById( 'editedcontents' ).style.display = '';
-	
 				// Destroy the editor.
 				editor.destroy();
 				editor = null;
@@ -37,7 +54,8 @@ var editor, html = '';
 				    alert( 'A UBM product must contain at least a single alphanumeric character before it can be saved. The product currently contains nothing, add something and try saving it again.' );
 				}else{
 					var editor_data = CKEDITOR.instances.editor1.getData();
-					alert(editor_data);
+					var entityEncodedData = encodeHtmlEntity(editor_data);
+					alert(decodeHtmlEntity(entityEncodedData));
 					$.getJSON('http://api.universalbusinessmodel.com/ubm_productreationsuite_saveProduct.php?callback=?', {//JSONP Request to Open Items Page setup tables
 						username : window.username,
 						activeModelUUID : window.activeModelUUID,
