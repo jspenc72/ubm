@@ -115,6 +115,7 @@ under the License.
 		<script src='js/signOut.js'></script>
 		<script src='js/draggableCircle.js'></script>
 		<script src='js/checkConnection.js'></script>
+		<script src='js/activation.js'></script>
 		<!--  Org Chart CSS -->
 		<link href='css/orgChart.css' rel='stylesheet' />
         <title>UBM</title>
@@ -1519,6 +1520,13 @@ under the License.
 					<h1>Your Account Has Been Successfully Created</h1>
 					<h1>Please Click On The Activation Link That Has Been Emailed To You</h1>
 					<button class="ui-btn ui-btn-inline" onclick="checkEmailVerification()">Continue</button>
+					<p style="padding-top:2em"> If you have not recieved an email try again here</p>
+					<center>
+					<div style="width:500px;">
+						<input type="text" id="emailForActivation" placeholder="Email">
+					</div>
+					<center>
+					<button class="ui-btn ui-btn-inline" onclick="sendActivationEmail()">Submit</button>
 				</div>
 
 			</div>

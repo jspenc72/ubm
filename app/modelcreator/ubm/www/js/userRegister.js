@@ -65,7 +65,7 @@ function userRegister() {
 	                                    }
 	                                    $.mobile.loading("hide");
 	                                    //Hide Loading Message
-	                                    window.location = "#account_verification"   //Need to modify server side to check if username already exists, if so send a callback to notify the user, Only allow change window location if the user account was created successfully.
+	                                    window.location = "#account_verification";  //Need to modify server side to check if username already exists, if so send a callback to notify the user, Only allow change window location if the user account was created successfully.
 	                                });
 	                            } else {
 	                            	$().toastmessage('showErrorToast', "The passwords you entered do not match!");
