@@ -6,18 +6,18 @@
 				$("#links_phase3").attr("onclick","getPhase3Summary(2)");
 				$("#links_phase4").attr("onclick","getPhase4Summary(2)");
 				$("#links_setup").removeClass('ico3');
-				$("#links_setup").addClass('ico4');
+				$("#links_setup").addClass('ico2');
 				$("#links_control").removeClass('ico3');
-				$("#links_control").addClass('ico4');
+				$("#links_control").addClass('ico2');
 				$("#links_phase1").removeClass('ico3');
-				$("#links_phase1").addClass('ico4');
+				$("#links_phase1").addClass('ico2');
 				$("#links_phase2").removeClass('ico3');
-				$("#links_phase2").addClass('ico4');
+				$("#links_phase2").addClass('ico2');
 				$("#links_phase3").removeClass('ico3');
-				$("#links_phase3").addClass('ico4');
+				$("#links_phase3").addClass('ico2');
 				$("#links_phase4").removeClass('ico3');
-				$("#links_phase4").addClass('ico4');
-
+				$("#links_phase4").addClass('ico2');
+				getModelSetupSummary(2);
 			}
 
 			function summary() {
@@ -27,18 +27,19 @@
 				$("#links_phase2").attr("onclick","getPhase2Summary(1)");
 				$("#links_phase3").attr("onclick","getPhase3Summary(1)");
 				$("#links_phase4").attr("onclick","getPhase4Summary(1)");
-				$("#links_setup").removeClass('ico4');
+				$("#links_setup").removeClass('ico2');
 				$("#links_setup").addClass('ico3');
-				$("#links_control").removeClass('ico4');
+				$("#links_control").removeClass('ico2');
 				$("#links_control").addClass('ico3');
-				$("#links_phase1").removeClass('ico4');
+				$("#links_phase1").removeClass('ico2');
 				$("#links_phase1").addClass('ico3');
-				$("#links_phase2").removeClass('ico4');
+				$("#links_phase2").removeClass('ico2');
 				$("#links_phase2").addClass('ico3');
-				$("#links_phase3").removeClass('ico4');
+				$("#links_phase3").removeClass('ico2');
 				$("#links_phase3").addClass('ico3');
-				$("#links_phase4").removeClass('ico4');
+				$("#links_phase4").removeClass('ico2');
 				$("#links_phase4").addClass('ico3');
+				getModelSetupSummary(1);
 			}
 			
 			function getModelSetupSummary(classId){
@@ -65,9 +66,9 @@
 							incomplete++;												
 						}
 					});
-					if(classId==2) {
+					if (classId==2) {
 						$('#ubmsuite_mcs_model_review_ubm_modelSetup_ul').empty();
-						$('#ubmsuite_mcs_model_review_ubm_modelSetup_ul').append("<li class='warning'>" + complete + "</li>");
+						$('#ubmsuite_mcs_model_review_ubm_modelSetup_ul').append("<li class='success'>" + complete + "</li>");
 						$('#ubmsuite_mcs_model_review_ubm_modelSetup_ul').append("<li class='warning'>" + incomplete + "</li>");
 					}
 				});
@@ -75,6 +76,8 @@
 		
 		
 			function getControlSummary(classId){
+				var complete = 0;
+				var incomplete = 0;
 				$('#ubmsuite_mcs_model_review_ubm_control_ul').empty();		
 				$('#tab-2').show();
 				$('#tab-1').hide();	
@@ -89,13 +92,17 @@
 				}, function(res, status) {
 					$.each(res, function(i, item) {
 						if(item.line_number >=8 && item.line_number <=11 && item.status == "TRUE"){
-							$('#ubmsuite_mcs_model_review_ubm_control_ul').append("<li class='success'>" + item.instruction_detail + "<br>Completed By: " + item.preparer_username + "</li>");												
+							$('#ubmsuite_mcs_model_review_ubm_control_ul').append("<li class='success'>" + item.instruction_detail + "<br>Completed By: " + item.preparer_username + "</li>");		
+							complete++;											
 						}else if (item.line_number >=8 && item.line_number <=11){
-							$('#ubmsuite_mcs_model_review_ubm_control_ul').append("<li class='warning'>Warning : <a href='#" + item.href + "'>" + item.instruction_detail + "</li>");												
+							$('#ubmsuite_mcs_model_review_ubm_control_ul').append("<li class='warning'>Warning : <a href='#" + item.href + "'>" + item.instruction_detail + "</li>");	
+							incomplete++;												
 						}	
 					});
-					if(classId==2) {
+					if (classId==2) {
 						$('#ubmsuite_mcs_model_review_ubm_control_ul').empty();
+						$('#ubmsuite_mcs_model_review_ubm_control_ul').append("<li class='success'>" + complete + "</li>");
+						$('#ubmsuite_mcs_model_review_ubm_control_ul').append("<li class='warning'>" + incomplete + "</li>");
 					}
 				});
 				
@@ -103,6 +110,8 @@
 		
 		
 			function getPhase1Summary(classId){
+				var complete = 0;
+				var incomplete = 0;
 				$('#ubmsuite_mcs_model_review_ubm_phase1_ul').empty();
 				$('#tab-3').show();
 				$('#tab-2').hide();	
@@ -117,17 +126,22 @@
 				}, function(res, status) {
 					$.each(res, function(i, item) {
 						if(item.line_number >=15 && item.line_number <=20 && item.status == "TRUE"){
-							$('#ubmsuite_mcs_model_review_ubm_phase1_ul').append("<li class='success'>" + item.instruction_detail + "<br>Completed By: " + item.preparer_username + "</li>");												
+							$('#ubmsuite_mcs_model_review_ubm_phase1_ul').append("<li class='success'>" + item.instruction_detail + "<br>Completed By: " + item.preparer_username + "</li>");
+							complete++;													
 							
 						}else if(item.line_number >=15 && item.line_number <=20){
-							$('#ubmsuite_mcs_model_review_ubm_phase1_ul').append("<li class='warning'>Warning : <a href='#" + item.href + "'>" + item.instruction_detail + "</li>");												
+							$('#ubmsuite_mcs_model_review_ubm_phase1_ul').append("<li class='warning'>Warning : <a href='#" + item.href + "'>" + item.instruction_detail + "</li>");
+							incomplete++;													
 							
 						}	
-
 					});
-					getModelSummary();
-					if(classId==2) {
+					if(classId==1){
+						getModelSummary();
+					}
+					if (classId==2) {
 						$('#ubmsuite_mcs_model_review_ubm_phase1_ul').empty();
+						$('#ubmsuite_mcs_model_review_ubm_phase1_ul').append("<li class='success'>" + complete + "</li>");
+						$('#ubmsuite_mcs_model_review_ubm_phase1_ul').append("<li class='warning'>" + incomplete + "</li>");
 					}
 				});
 
@@ -136,6 +150,7 @@
 			}
 
 			function getModelSummary () {
+
 				$('#ubmsuite_mcs_model_review_ubm_phase1_ul').append("<li><center><h1>Business Model Summary</h1></center></li>");
 				$.getJSON('http://api.universalbusinessmodel.com/ubms_modelcreationsuite_model_getCurrentModel_Summary.php?callback=?', {//JSONP Request
 					username : window.username,					
@@ -143,6 +158,7 @@
 					activeModelUUID : window.activeModelUUID
 				}, function(res, status) {
 					$.each(res, function(i, item) {
+
 						if(item.title){
 							$('#ubmsuite_mcs_model_review_ubm_phase1_ul').append("<li class='success'>" + item.title_prefix + " : " + item.title + "</li>");
 
@@ -256,6 +272,8 @@
 			}
 
 			function getPhase2Summary(classId){
+				var complete = 0;
+				var incomplete = 0;
 				$('#ubmsuite_mcs_model_review_ubm_phase2_ul').empty();
 				$('#tab-4').show();
 				$('#tab-2').hide();	
@@ -270,22 +288,27 @@
 				}, function(res, status) {
 					$.each(res, function(i, item) {
 						if(item.line_number >=25 && item.line_number <=30 && item.status == "TRUE"){
-							$('#ubmsuite_mcs_model_review_ubm_phase2_ul').append("<li class='success'>" + item.instruction_detail + "<br>Completed By: " + item.preparer_username + "</li>");												
+							$('#ubmsuite_mcs_model_review_ubm_phase2_ul').append("<li class='success'>" + item.instruction_detail + "<br>Completed By: " + item.preparer_username + "</li>");	
+							complete++;												
 							
 						}else if(item.line_number >=25 && item.line_number <=30){
-							$('#ubmsuite_mcs_model_review_ubm_phase2_ul').append("<li class='warning'>Warning : <a href='#" + item.href + "'>" + item.instruction_detail + "</li>");												
+							$('#ubmsuite_mcs_model_review_ubm_phase2_ul').append("<li class='warning'>Warning : <a href='#" + item.href + "'>" + item.instruction_detail + "</li>");	
+							incomplete++;												
 							
 						}	
 					});
-					if(classId==2) {
+					if (classId==2) {
 						$('#ubmsuite_mcs_model_review_ubm_phase2_ul').empty();
+						$('#ubmsuite_mcs_model_review_ubm_phase2_ul').append("<li class='success'>" + complete + "</li>");
+						$('#ubmsuite_mcs_model_review_ubm_phase2_ul').append("<li class='warning'>" + incomplete + "</li>");
 					}
 				});
-				
 			}
 		
 		
 			function getPhase3Summary(classId){
+				var complete = 0;
+				var incomplete = 0;
 				$('#ubmsuite_mcs_model_review_ubm_phase3_ul').empty();
 				$('#tab-5').show();
 				$('#tab-2').hide();	
@@ -300,15 +323,19 @@
 				}, function(res, status) {
 					$.each(res, function(i, item) {
 						if(item.line_number >=34 && item.line_number <=40 && item.status == "TRUE"){
-							$('#ubmsuite_mcs_model_review_ubm_phase3_ul').append("<li class='success'>" + item.instruction_detail + "<br>Completed By: " + item.preparer_username + "</li>");												
+							$('#ubmsuite_mcs_model_review_ubm_phase3_ul').append("<li class='success'>" + item.instruction_detail + "<br>Completed By: " + item.preparer_username + "</li>");		
+							complete++;											
 							
 						}else if(item.line_number >=34 && item.line_number <=40){
-							$('#ubmsuite_mcs_model_review_ubm_phase3_ul').append("<li class='warning'>Warning : <a href='#" + item.href + "'>" + item.instruction_detail + "</li>");												
+							$('#ubmsuite_mcs_model_review_ubm_phase3_ul').append("<li class='warning'>Warning : <a href='#" + item.href + "'>" + item.instruction_detail + "</li>");	
+							incomplete++;												
 							
 						}	
 					});
-					if(classId==2) {
+					if (classId==2) {
 						$('#ubmsuite_mcs_model_review_ubm_phase3_ul').empty();
+						$('#ubmsuite_mcs_model_review_ubm_phase3_ul').append("<li class='success'>" + complete + "</li>	");
+						$('#ubmsuite_mcs_model_review_ubm_phase3_ul').append("<li class='warning'>" + incomplete + "</li>");
 					}
 				});
 				
@@ -316,6 +343,8 @@
 		
 		
 			function getPhase4Summary(classId){
+				var complete = 0;
+				var incomplete = 0;
 				$('#ubmsuite_mcs_model_review_ubm_phase4_ul').empty();
 				$('#tab-6').show();
 				$('#tab-2').hide();	
@@ -330,17 +359,20 @@
 				}, function(res, status) {
 					$.each(res, function(i, item) {
 						if(item.line_number >=44 && item.line_number <=76 && item.status == "TRUE"){
-							$('#ubmsuite_mcs_model_review_ubm_phase4_ul').append("<li class='success'>" + item.instruction_detail + "<br>Completed By: " + item.preparer_username + "</li>");												
+							$('#ubmsuite_mcs_model_review_ubm_phase4_ul').append("<li class='success'>" + item.instruction_detail + "<br>Completed By: " + item.preparer_username + "</li>");		
+							complete++;											
 							
 						}else if(item.line_number >=44 && item.line_number <=76){
-							$('#ubmsuite_mcs_model_review_ubm_phase4_ul').append("<li class='warning'>Warning : <a href='#" + item.href + "'>" + item.instruction_detail + "</li>");												
+							$('#ubmsuite_mcs_model_review_ubm_phase4_ul').append("<li class='warning'>Warning : <a href='#" + item.href + "'>" + item.instruction_detail + "</li>");	
+							incomplete++;												
 						}
 					});
-					if(classId==2) {
+					if (classId==2) {
 						$('#ubmsuite_mcs_model_review_ubm_phase4_ul').empty();
+						$('#ubmsuite_mcs_model_review_ubm_phase4_ul').append("<li class='success'>" + complete + "</li>");
+						$('#ubmsuite_mcs_model_review_ubm_phase4_ul').append("<li class='warning'>" + incomplete + "</li>");
 					}
 				});
 				
 			}
-		
 		<!-- Model Summary -->
