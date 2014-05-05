@@ -67,9 +67,15 @@
 						}
 					});
 					if (classId==2) {
+						if(incomplete != 0){
+							var percentComplete = complete/incomplete * 100 + "%";
+						} else {
+							var percentComplete = 100 + "%";
+						}
 						$('#ubmsuite_mcs_model_review_ubm_modelSetup_ul').empty();
 						$('#ubmsuite_mcs_model_review_ubm_modelSetup_ul').append("<li class='success'>" + complete + "</li>");
 						$('#ubmsuite_mcs_model_review_ubm_modelSetup_ul').append("<li class='warning'>" + incomplete + "</li>");
+						$('#ubmsuite_mcs_model_review_ubm_modelSetup_ul').append("<li class='success'>" + percentComplete + " Complete</li>");
 					}
 				});
 			}
@@ -100,9 +106,15 @@
 						}	
 					});
 					if (classId==2) {
+						if(incomplete != 0){
+							var percentComplete = complete/incomplete * 100 + "%";
+						} else {
+							var percentComplete = 100 + "%";
+						}
 						$('#ubmsuite_mcs_model_review_ubm_control_ul').empty();
 						$('#ubmsuite_mcs_model_review_ubm_control_ul').append("<li class='success'>" + complete + "</li>");
 						$('#ubmsuite_mcs_model_review_ubm_control_ul').append("<li class='warning'>" + incomplete + "</li>");
+						$('#ubmsuite_mcs_model_review_ubm_control_ul').append("<li class='success'>" + percentComplete + " Complete</li>");
 					}
 				});
 				
@@ -139,9 +151,15 @@
 						getModelSummary();
 					}
 					if (classId==2) {
+						if(incomplete != 0){
+							var percentComplete = complete/incomplete * 100 + "%";
+						} else {
+							var percentComplete = 100 + "%";
+						}
 						$('#ubmsuite_mcs_model_review_ubm_phase1_ul').empty();
 						$('#ubmsuite_mcs_model_review_ubm_phase1_ul').append("<li class='success'>" + complete + "</li>");
 						$('#ubmsuite_mcs_model_review_ubm_phase1_ul').append("<li class='warning'>" + incomplete + "</li>");
+						$('#ubmsuite_mcs_model_review_ubm_phase1_ul').append("<li class='success'>" + percentComplete + " Complete</li>");
 					}
 				});
 
@@ -298,9 +316,15 @@
 						}	
 					});
 					if (classId==2) {
+						if(incomplete != 0){
+							var percentComplete = complete/incomplete * 100 + "%";
+						} else {
+							var percentComplete = 100 + "%";
+						}
 						$('#ubmsuite_mcs_model_review_ubm_phase2_ul').empty();
 						$('#ubmsuite_mcs_model_review_ubm_phase2_ul').append("<li class='success'>" + complete + "</li>");
 						$('#ubmsuite_mcs_model_review_ubm_phase2_ul').append("<li class='warning'>" + incomplete + "</li>");
+						$('#ubmsuite_mcs_model_review_ubm_phase2_ul').append("<li class='success'>" + percentComplete + " Complete</li>");
 					}
 				});
 			}
@@ -333,9 +357,15 @@
 						}	
 					});
 					if (classId==2) {
+						if(incomplete != 0){
+							var percentComplete = complete/incomplete * 100 + "%";
+						} else {
+							var percentComplete = 100 + "%";
+						}
 						$('#ubmsuite_mcs_model_review_ubm_phase3_ul').empty();
-						$('#ubmsuite_mcs_model_review_ubm_phase3_ul').append("<li class='success'>" + complete + "</li>	");
+						$('#ubmsuite_mcs_model_review_ubm_phase3_ul').append("<li class='success'>" + complete + "</li>");
 						$('#ubmsuite_mcs_model_review_ubm_phase3_ul').append("<li class='warning'>" + incomplete + "</li>");
+						$('#ubmsuite_mcs_model_review_ubm_phase3_ul').append("<li class='success'>" + percentComplete + " Complete</li>");
 					}
 				});
 				
@@ -368,9 +398,15 @@
 						}
 					});
 					if (classId==2) {
+						if(incomplete != 0){
+							var percentComplete = complete/incomplete * 100 + "%";
+						} else {
+							var percentComplete = 100 + "%";
+						}
 						$('#ubmsuite_mcs_model_review_ubm_phase4_ul').empty();
 						$('#ubmsuite_mcs_model_review_ubm_phase4_ul').append("<li class='success'>" + complete + "</li>");
 						$('#ubmsuite_mcs_model_review_ubm_phase4_ul').append("<li class='warning'>" + incomplete + "</li>");
+						$('#ubmsuite_mcs_model_review_ubm_phase4_ul').append("<li class='success'>" + percentComplete + " Complete</li>");
 					}
 				});
 				
