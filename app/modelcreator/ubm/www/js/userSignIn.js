@@ -35,38 +35,39 @@ function userSignIn() {
 										$('#result').empty().append('<center><p>' + res.message + res.validation + '</p></center>');
 										$('#result').empty();
 										window.accounttype = res.accounttype;
+										if (res.accounttype == 'admin') {
+											//admin only stuff here
+											$().toastmessage('showNoticeToast', "You are an Admin");
+											window.location = "#ubmsuite_SelectBusinessModel"	
+											//$('body').prepend('<div id="overlayTest" class="circleBase type2" style="z-index: 99999; position:fixed;"><a href="#openItem_popup" data-rel="popup" data-transition="slideup" class="ui-btn ui-icon-alert ui-btn-icon-notext ui-corner-all">No text</a><a href="#openItem_popup" data-rel="popup" data-transition="slideup" class="ui-btn ui-icon-action ui-btn-icon-notext ui-corner-all">No text</a><center><a href="#mcs_setup_checklist_setup_searchPopup" data-rel="popup" data-transition="slideup" class="ui-btn ui-icon-search ui-btn-icon-notext ui-corner-all">No text</a></center></div>');
+											$(".circleBase").draggable();
+										} else {
+											if (res.accounttype == 'user') {
+												$().toastmessage('showNoticeToast', "you are a user");
+												window.location = "#ubmsuite_SelectBusinessModel"
+												//Driver only stuff here
+											} else {
+												if (res.accounttype == 'dispatch') {
+													$().toastmessage('showNoticeToast', "You are a dispatch");
+													window.location = "#ubmsuite_SelectBusinessModel"
+
+													//Dispatch only stuff here
+												} else {
+													if (res.accounttype == 'driver') {
+														$().toastmessage('showNoticeToast', "You are a driver");
+														window.location = "#ubmsuite_SelectBusinessModel"
+													} else {
+														$().toastmessage('showNoticeToast', "You do not have an account type!");
+														window.location = "#ubmsuite_SelectBusinessModel"
+													}
+													//User has not been assigned an account type!
+												}
+											}
+										}
 									} else {
 										$('#result').empty().append('<center><p>No account exists with that username or password. Click Register to create your free account</p></center>');
 									}
-									if (res.accounttype == 'admin') {
-										//admin only stuff here
-										$().toastmessage('showNoticeToast', "You are an Admin");
-										window.location = "#ubmsuite_SelectBusinessModel"	
-										//$('body').prepend('<div id="overlayTest" class="circleBase type2" style="z-index: 99999; position:fixed;"><a href="#openItem_popup" data-rel="popup" data-transition="slideup" class="ui-btn ui-icon-alert ui-btn-icon-notext ui-corner-all">No text</a><a href="#openItem_popup" data-rel="popup" data-transition="slideup" class="ui-btn ui-icon-action ui-btn-icon-notext ui-corner-all">No text</a><center><a href="#mcs_setup_checklist_setup_searchPopup" data-rel="popup" data-transition="slideup" class="ui-btn ui-icon-search ui-btn-icon-notext ui-corner-all">No text</a></center></div>');
-										$(".circleBase").draggable();
-									} else {
-										if (res.accounttype == 'user') {
-											$().toastmessage('showNoticeToast', "you are a user");
-											window.location = "#ubmsuite_SelectBusinessModel"
-											//Driver only stuff here
-										} else {
-											if (res.accounttype == 'dispatch') {
-												$().toastmessage('showNoticeToast', "You are a dispatch");
-												window.location = "#ubmsuite_SelectBusinessModel"
-
-												//Dispatch only stuff here
-											} else {
-												if (res.accounttype == 'driver') {
-													$().toastmessage('showNoticeToast', "You are a driver");
-													window.location = "#ubmsuite_SelectBusinessModel"
-												} else {
-													$().toastmessage('showNoticeToast', "You do not have an account type!");
-													window.location = "#ubmsuite_SelectBusinessModel"
-												}
-												//User has not been assigned an account type!
-											}
-										}
-									}
+									
 								}
 							}
 							//						$('#result').empty().append('<center><p>'+ res.validation + '</p></center>');
