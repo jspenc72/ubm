@@ -43,6 +43,7 @@
 			}
 			
 			function getModelSetupSummary(classId){
+				showLoader();
 				var complete = 0;
 				var incomplete = 0;
 				$('#ubmsuite_mcs_model_review_ubm_modelSetup_ul').empty();
@@ -73,15 +74,17 @@
 							var percentComplete = 100 + "%";
 						}
 						$('#ubmsuite_mcs_model_review_ubm_modelSetup_ul').empty();
-						$('#ubmsuite_mcs_model_review_ubm_modelSetup_ul').append("<li class='success'>" + complete + "</li>");
-						$('#ubmsuite_mcs_model_review_ubm_modelSetup_ul').append("<li class='warning'>" + incomplete + "</li>");
+						$('#ubmsuite_mcs_model_review_ubm_modelSetup_ul').append("<li class='success'>Items Completed: " + complete + "</li>");
+						$('#ubmsuite_mcs_model_review_ubm_modelSetup_ul').append("<li class='warning'>Items Incomplete: " + incomplete + "</li>");
 						$('#ubmsuite_mcs_model_review_ubm_modelSetup_ul').append("<li class='success'>" + percentComplete + " Complete</li>");
 					}
+					hideLoader();
 				});
 			}
 		
 		
 			function getControlSummary(classId){
+				showLoader();
 				var complete = 0;
 				var incomplete = 0;
 				$('#ubmsuite_mcs_model_review_ubm_control_ul').empty();		
@@ -112,16 +115,18 @@
 							var percentComplete = 100 + "%";
 						}
 						$('#ubmsuite_mcs_model_review_ubm_control_ul').empty();
-						$('#ubmsuite_mcs_model_review_ubm_control_ul').append("<li class='success'>" + complete + "</li>");
-						$('#ubmsuite_mcs_model_review_ubm_control_ul').append("<li class='warning'>" + incomplete + "</li>");
+						$('#ubmsuite_mcs_model_review_ubm_control_ul').append("<li class='success'>Items Completed: " + complete + "</li>");
+						$('#ubmsuite_mcs_model_review_ubm_control_ul').append("<li class='warning'>Items Incomplete: " + incomplete + "</li>");
 						$('#ubmsuite_mcs_model_review_ubm_control_ul').append("<li class='success'>" + percentComplete + " Complete</li>");
 					}
+					hideLoader();
 				});
 				
 			}
 		
 		
 			function getPhase1Summary(classId){
+				showLoader();
 				var complete = 0;
 				var incomplete = 0;
 				$('#ubmsuite_mcs_model_review_ubm_phase1_ul').empty();
@@ -157,10 +162,11 @@
 							var percentComplete = 100 + "%";
 						}
 						$('#ubmsuite_mcs_model_review_ubm_phase1_ul').empty();
-						$('#ubmsuite_mcs_model_review_ubm_phase1_ul').append("<li class='success'>" + complete + "</li>");
-						$('#ubmsuite_mcs_model_review_ubm_phase1_ul').append("<li class='warning'>" + incomplete + "</li>");
+						$('#ubmsuite_mcs_model_review_ubm_phase1_ul').append("<li class='success'>Items Completed: " + complete + "</li>");
+						$('#ubmsuite_mcs_model_review_ubm_phase1_ul').append("<li class='warning'>Items Incomplete: " + incomplete + "</li>");
 						$('#ubmsuite_mcs_model_review_ubm_phase1_ul').append("<li class='success'>" + percentComplete + " Complete</li>");
 					}
+					hideLoader();
 				});
 
 				
@@ -168,7 +174,7 @@
 			}
 
 			function getModelSummary () {
-
+				showLoader();
 				$('#ubmsuite_mcs_model_review_ubm_phase1_ul').append("<li><center><h1>Business Model Summary</h1></center></li>");
 				$.getJSON('http://api.universalbusinessmodel.com/ubms_modelcreationsuite_model_getCurrentModel_Summary.php?callback=?', {//JSONP Request
 					username : window.username,					
@@ -286,10 +292,12 @@
 							$('#ubmsuite_mcs_model_review_ubm_phase1_ul').append("<li class='warning'>Warning : This model doesnt have a System Title.</li>");	
 						}
 					});
+					hideLoader();
 				});
 			}
 
 			function getPhase2Summary(classId){
+				showLoader();
 				var complete = 0;
 				var incomplete = 0;
 				$('#ubmsuite_mcs_model_review_ubm_phase2_ul').empty();
@@ -322,15 +330,17 @@
 							var percentComplete = 100 + "%";
 						}
 						$('#ubmsuite_mcs_model_review_ubm_phase2_ul').empty();
-						$('#ubmsuite_mcs_model_review_ubm_phase2_ul').append("<li class='success'>" + complete + "</li>");
-						$('#ubmsuite_mcs_model_review_ubm_phase2_ul').append("<li class='warning'>" + incomplete + "</li>");
+						$('#ubmsuite_mcs_model_review_ubm_phase2_ul').append("<li class='success'>Items Completed: " + complete + "</li>");
+						$('#ubmsuite_mcs_model_review_ubm_phase2_ul').append("<li class='warning'>Items Incomplete: " + incomplete + "</li>");
 						$('#ubmsuite_mcs_model_review_ubm_phase2_ul').append("<li class='success'>" + percentComplete + " Complete</li>");
 					}
+					hideLoader();
 				});
 			}
 		
 		
 			function getPhase3Summary(classId){
+				showLoader();
 				var complete = 0;
 				var incomplete = 0;
 				$('#ubmsuite_mcs_model_review_ubm_phase3_ul').empty();
@@ -363,16 +373,18 @@
 							var percentComplete = 100 + "%";
 						}
 						$('#ubmsuite_mcs_model_review_ubm_phase3_ul').empty();
-						$('#ubmsuite_mcs_model_review_ubm_phase3_ul').append("<li class='success'>" + complete + "</li>");
-						$('#ubmsuite_mcs_model_review_ubm_phase3_ul').append("<li class='warning'>" + incomplete + "</li>");
+						$('#ubmsuite_mcs_model_review_ubm_phase3_ul').append("<li class='success'>Items Completed: " + complete + "</li>");
+						$('#ubmsuite_mcs_model_review_ubm_phase3_ul').append("<li class='warning'>Items Incomplete: " + incomplete + "</li>");
 						$('#ubmsuite_mcs_model_review_ubm_phase3_ul').append("<li class='success'>" + percentComplete + " Complete</li>");
 					}
+					hideLoader();
 				});
 				
 			}
 		
 		
 			function getPhase4Summary(classId){
+				showLoader();
 				var complete = 0;
 				var incomplete = 0;
 				$('#ubmsuite_mcs_model_review_ubm_phase4_ul').empty();
@@ -404,10 +416,11 @@
 							var percentComplete = 100 + "%";
 						}
 						$('#ubmsuite_mcs_model_review_ubm_phase4_ul').empty();
-						$('#ubmsuite_mcs_model_review_ubm_phase4_ul').append("<li class='success'>" + complete + "</li>");
-						$('#ubmsuite_mcs_model_review_ubm_phase4_ul').append("<li class='warning'>" + incomplete + "</li>");
+						$('#ubmsuite_mcs_model_review_ubm_phase4_ul').append("<li class='success'>Items Completed: " + complete + "</li>");
+						$('#ubmsuite_mcs_model_review_ubm_phase4_ul').append("<li class='warning'>Items Incomplete: " + incomplete + "</li>");
 						$('#ubmsuite_mcs_model_review_ubm_phase4_ul').append("<li class='success'>" + percentComplete + " Complete</li>");
 					}
+					hideLoader();
 				});
 				
 			}
