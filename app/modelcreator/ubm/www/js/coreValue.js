@@ -3,7 +3,7 @@ function setActiveCoreValueId(activeCoreValueId){
 			}
 			//Model Core Values
 			function getMyModelsCoreValues() {
-				$.getJSON('http://api.universalbusinessmodel.com/ubms_modelcreationsuite_model_getCurrentModel_CoreValues.php?callback=?', {//JSONP Request to Open Items Page setup tables
+				$.getJSON('http://api.universalbusinessmodel.com/ubms_modelcreationsuite_model_getCurrentModel_CoreValues.php?callback=?', {//JSONP Request
 					username : window.username,
 					key : window.key,
 					activeModelUUID : window.activeModelUUID
@@ -29,7 +29,7 @@ function setActiveCoreValueId(activeCoreValueId){
 
 			}
 			function getListofPossibleCoreValues() {//Populates Core Value Listview on Possible CoreValue Popup
-				$.getJSON('http://api.universalbusinessmodel.com/ubm_modelcreationsuite_model_getAll_CoreValues.php?callback=?', {//JSONP Request to Open Items Page setup tables
+				$.getJSON('http://api.universalbusinessmodel.com/ubm_modelcreationsuite_model_getAll_CoreValues.php?callback=?', {//JSONP Request
 					key : window.key,
 
 				}, function(res, status) {
@@ -43,7 +43,7 @@ function setActiveCoreValueId(activeCoreValueId){
 			}
 			function addCoreValueToMyModel(coreValueId) {//Called when the user selects an item from the Core Value Listview in the Possible CoreValues Popup
 				//(coreValueId+" will be added to this model");
-				$.getJSON('http://api.universalbusinessmodel.com/ubms_modelcreationsuite_model_add_CoreValue.php?callback=?', {//JSONP Request to Open Items Page setup tables
+				$.getJSON('http://api.universalbusinessmodel.com/ubms_modelcreationsuite_model_add_CoreValue.php?callback=?', {//JSONP Request
 					key : window.key,
 					username : window.username,
 					activeModelUUID : window.activeModelUUID,
@@ -55,7 +55,7 @@ function setActiveCoreValueId(activeCoreValueId){
 				getMyModelsCoreValues();	
 			}
 			function createNewCoreValueAddtoMyModel(){	//Called when the user submits the create new CoreValue Form
-				$.getJSON('http://api.universalbusinessmodel.com/ubms_modelcreationsuite_model_create_CoreValue.php?callback=?', {//JSONP Request to Open Items Page setup tables
+				$.getJSON('http://api.universalbusinessmodel.com/ubms_modelcreationsuite_model_create_CoreValue.php?callback=?', {//JSONP Request
 					key : window.key,
 					coreValueTitle: document.getElementById("ubmsuite_modelSettings_createCoreValue_popup_createCoreValue_title").value,
 					coreValueSummary: document.getElementById("ubmsuite_modelSettings_createCoreValue_popup_createCoreValue_summary").value,
@@ -76,7 +76,7 @@ function setActiveCoreValueId(activeCoreValueId){
 			}
 
 			function removeCorevalueFromMyModel() {//Called when the user selects the side button for each item in the My Models Has Core Values Listview
-				$.getJSON('http://api.universalbusinessmodel.com/ubms_modelcreationsuite_model_remove_CoreValue.php/callback=?', {//JSONP Request to Open Items Page setup tables
+				$.getJSON('http://api.universalbusinessmodel.com/ubms_modelcreationsuite_model_remove_CoreValue.php/callback=?', {//JSONP Request
 					username : window.username,
 					key : window.key,
 					activeCoreValueId: window.activeCoreValueId,

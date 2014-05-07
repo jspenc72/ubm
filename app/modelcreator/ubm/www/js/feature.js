@@ -3,7 +3,7 @@
                 window.activeFeatureId = activeFeatureId;
             }
 			function getMyModelsFeatures() {//Populates Customer  Listview on Model Settings Page
-				$.getJSON('http://api.universalbusinessmodel.com/ubms_modelcreationsuite_model_getCurrentModel_Features.php?callback=?', {//JSONP Request to Open Items Page setup tables
+				$.getJSON('http://api.universalbusinessmodel.com/ubms_modelcreationsuite_model_getCurrentModel_Features.php?callback=?', {//JSONP Request
 					username : window.username,					
 					key : window.key,
 					activeModelUUID : window.activeModelUUID
@@ -25,7 +25,7 @@
 				$('#tiles').trigger('refreshWookmark');													//Layout items in Wookmark Grid
 			}
 			function getListofPossibleFeatures() {//Populates Customer Listview on Possible Customers Popup
-				$.getJSON('http://api.universalbusinessmodel.com/ubm_modelcreationsuite_model_getAll_Features.php?callback=?', {//JSONP Request to Open Items Page setup tables
+				$.getJSON('http://api.universalbusinessmodel.com/ubm_modelcreationsuite_model_getAll_Features.php?callback=?', {//JSONP Request
 					key : window.key,
 				}, function(res, status) {
 //						alert(status);
@@ -37,7 +37,7 @@
 				});	
 			}
 			function addFeatureToMyModel(featureId) {//Called when the user selects an item from the Customer Listview in the Possible Customer Popup
-				$.getJSON('http://api.universalbusinessmodel.com/ubms_modelcreationsuite_model_add_Feature.php?callback=?', {//JSONP Request to Open Items Page setup tables
+				$.getJSON('http://api.universalbusinessmodel.com/ubms_modelcreationsuite_model_add_Feature.php?callback=?', {//JSONP Request
 					key : window.key,
 					activeModelUUID : window.activeModelUUID,
 					activeFeatureId: featureId
@@ -48,7 +48,7 @@
 				getMyModelsFeatures();	
 			}			
 			function createNewFeatureAddtoMyModel() {//Called when the user submits the create new Customer Form
-				$.getJSON('http://api.universalbusinessmodel.com/ubms_modelcreationsuite_model_create_Feature.php?callback=?', {//JSONP Request to Open Items Page setup tables
+				$.getJSON('http://api.universalbusinessmodel.com/ubms_modelcreationsuite_model_create_Feature.php?callback=?', {//JSONP Request
 					key : window.key,
 					activeModelUUID : window.activeModelUUID,
 					featureDescription : document.getElementById("ubmsuite_modelSettings_createFeature_popup_Feature_description").value,
@@ -65,7 +65,7 @@
 				});
 			}
 			function removeFeatureFromMyModel() {//Called when the user selects the side button for each item in the My Models Has Core Values Listview
-				$.getJSON('http://api.universalbusinessmodel.com/ubms_modelcreationsuite_model_remove_Feature.php?callback=?', {//JSONP Request to Open Items Page setup tables
+				$.getJSON('http://api.universalbusinessmodel.com/ubms_modelcreationsuite_model_remove_Feature.php?callback=?', {//JSONP Request
 					key : window.key,
 					activeModelUUID: window.activeModelUUID,
 					activeFeatureId : window.activeFeatureId

@@ -3,7 +3,7 @@ function setActiveCustomerId(activeCustomerId) {
             }
 			function getMyModelsCustomers() {//Populates Customer  Listview on Model Settings Page
 								//alert("Customers was called");
-				$.getJSON('http://api.universalbusinessmodel.com/ubms_modelcreationsuite_model_getCurrentModel_Customers.php?callback=?', {//JSONP Request to Open Items Page setup tables
+				$.getJSON('http://api.universalbusinessmodel.com/ubms_modelcreationsuite_model_getCurrentModel_Customers.php?callback=?', {//JSONP Request
 					username : window.username,					
 					key : window.key,
 					activeModelUUID : window.activeModelUUID
@@ -28,7 +28,7 @@ function setActiveCustomerId(activeCustomerId) {
 				}, 1000);			}
 
 			function getListofPossibleCustomers() {//Populates Customer Listview on Possible Customers Popup
-				$.getJSON('http://api.universalbusinessmodel.com/ubm_modelcreationsuite_model_getAll_Customers.php?callback=?', {//JSONP Request to Open Items Page setup tables
+				$.getJSON('http://api.universalbusinessmodel.com/ubm_modelcreationsuite_model_getAll_Customers.php?callback=?', {//JSONP Request
 					key : window.key,
 
 				}, function(res, status) {
@@ -42,7 +42,7 @@ function setActiveCustomerId(activeCustomerId) {
 			}
 
 			function addCustomerToMyModel(customerId) {//Called when the user selects an item from the Customer Listview in the Possible Customer Popup
-				$.getJSON('http://api.universalbusinessmodel.com/ubms_modelcreationsuite_model_add_Customer.php?callback=?', {//JSONP Request to Open Items Page setup tables
+				$.getJSON('http://api.universalbusinessmodel.com/ubms_modelcreationsuite_model_add_Customer.php?callback=?', {//JSONP Request
 					key : window.key,
 					username : window.username,
 					activeModelUUID : window.activeModelUUID,
@@ -55,7 +55,7 @@ function setActiveCustomerId(activeCustomerId) {
 			}
 
 			function createNewCustomerAddtoMyModel() {//Called when the user submits the create new Customer Form
-				$.getJSON('http://api.universalbusinessmodel.com/ubms_modelcreationsuite_model_create_Customer.php?callback=?', {//JSONP Request to Open Items Page setup tables
+				$.getJSON('http://api.universalbusinessmodel.com/ubms_modelcreationsuite_model_create_Customer.php?callback=?', {//JSONP Request
 					key : window.key,
 					activeModelUUID : window.activeModelUUID,
 					customerName : document.getElementById("ubmsuite_modelSettings_createCustomer_popup_createCustomer_name").value
@@ -71,7 +71,7 @@ function setActiveCustomerId(activeCustomerId) {
 			}
 
 			function removeCustomerFromMyModel() {//Called when the user selects the side button for each item in the My Models Has Core Values Listview
-				$.getJSON('http://api.universalbusinessmodel.com/ubms_modelcreationsuite_model_remove_Customer.php?callback=?', {//JSONP Request to Open Items Page setup tables
+				$.getJSON('http://api.universalbusinessmodel.com/ubms_modelcreationsuite_model_remove_Customer.php?callback=?', {//JSONP Request
 					key : window.key,
 					username : window.username,
 					activeCustomerId: window.activeCustomerId,
