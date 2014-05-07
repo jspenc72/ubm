@@ -59,8 +59,8 @@ module.exports = function(grunt) {
 
     exec: {
       bower_update: {
-        cmd: 'bower update'
-      },
+      	cmd: "bower update"
+      }
       build_sphinx: {
         cmd: 'sphinx-build demo_docs/source demo_docs/build'
       }
