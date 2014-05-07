@@ -102,21 +102,21 @@ function fixit() {
     alert(window.activeModelUUID);
 }
 
-function getAlternativesInvestments() {
+function getAlternativesInvestments() { //Populates the Investment Picker at the top of the risk_analysis page.
     showLoader();
     //alert(window.activeModelAlternativeId);
     $('#return_on_investment_alternative_select_investment_menu').empty();
-    $.getJSON('http://api.universalbusinessmodel.com/ubms_modelcreationsuite_model_alternative_get_Investments.php?callback=?', { //JSONP Request to Open Items Page setup tables
+    $.getJSON('http://api.universalbusinessmodel.com/ubms_modelcreationsuite_model_alternative_get_Investments.php?callback=?', { 
         key: window.key,
         activeModelAlternativeId: window.activeModelAlternativeId
     }, function (res, status) {
-        $('#return_on_investment_alternative_select_investment_menu').append("<option>Choose an Investment</option>");
+        $('#return_on_investment_alternative_select_investment_menu').append("<option>Choose an Investment</option>"); //Adds Choose Investment to investment dropdown as the title
         $.each(res, function (i, item) {
-            if (item.investment_id == 0) {
-                $('#return_on_investment_alternative_select_investment_menu').append("<option value=''>" + item.title + "</option>");
+            if (item.investment_id == 0) { //Checks if their are any investments in the chosen alternatve
+                $('#return_on_investment_alternative_select_investment_menu').append("<option value=''>" + item.title + "</option>");// If no investments are returned it says no investments exist
                 $('#return_on_investment_alternative_select_investment_menu').selectmenu('refresh', true);
             } else {
-                $('#return_on_investment_alternative_select_investment_menu').append("<option value='" + item.investment_id + "'>" + item.title + "</option>");
+                $('#return_on_investment_alternative_select_investment_menu').append("<option value='" + item.investment_id + "'>" + item.title + "</option>");// If the alternative does have investments they are added to the dropdown
                 $('#return_on_investment_alternative_select_investment_menu').selectmenu('refresh', true);
             }
         });
@@ -131,10 +131,10 @@ function getListofAlternativesforReturnOnInvestment() { //Populates the Alternat
         key: window.key,
         activeModelUUID: window.activeModelUUID
     }, function (res, status) {
-        $('#return_on_investment_alternative_select_menu').append("<option>Choose an Alternative</option>");
+        $('#return_on_investment_alternative_select_menu').append("<option>Choose an Alternative</option>");// Adds choose alternative to the alternative dropdown as the title
         $.each(res, function (i, item) {
-            if (item.decision == "Use Now") {
-                $('#return_on_investment_alternative_select_menu').append("<option value='" + item.id + "'>" + item.description + "</option>");
+            if (item.decision == "Use Now") { //Checks if the alternative is marked as use now, if it is then it is used
+                $('#return_on_investment_alternative_select_menu').append("<option value='" + item.id + "'>" + item.description + "</option>"); //Adds the alternative to the dropdown list
                 $('#return_on_investment_alternative_select_menu').selectmenu('refresh', true);
             }
         });
