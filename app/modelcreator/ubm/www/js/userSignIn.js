@@ -96,6 +96,7 @@ $.getJSON('http://api.universalbusinessmodel.com/ubms_changePassword.php?callbac
 				this.reset();
 		});
 		window.location = "sign_in_sign_up";
+		$().toastmessage('showSuccessToast', "Your password has been changed, please log in.");
 		location.reload();
 	});
 	}
