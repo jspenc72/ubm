@@ -7,7 +7,7 @@ function sendActivationEmail() {
     }, function(res, status) {
         if (status) {
             $().toastmessage('showNoticeToast', res.message);
-            window.location="#sign_in_sign_up";
+            $('#email_has_been_sent').append("<p>The email has been sent, please click the link that was emailed to you, then click continue.");
         }
-        });
+    });
 }
