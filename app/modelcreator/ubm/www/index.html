@@ -1271,10 +1271,9 @@ under the License.
 		</script>
 			<!-- End Task-->
         <script>
-<<<<<<< HEAD
 	        function getMyModelsOrgChart(){
 						$('#ubmsuite_mcs_my_organizational_chart_L0_ul').empty();
-					$.getJSON('http://api.universalbusinessmodel.com/ubms_modelcreationsuite_getActiveModelOwnerforOrgChart.php?callback=?', {//JSONP Request to Open Items Page setup tables
+					$.getJSON('http://api.universalbusinessmodel.com/ubms_modelcreationsuite_getActiveModelOwnerforOrgChart.php?callback=?', {//JSONP Request 
 						key: window.key,
 						activeModelUUID: window.activeModelUUID
 					}, function(res, status) {
@@ -1299,7 +1298,7 @@ under the License.
 						});
 					});	
 				setTimeout(function() {
-					$.getJSON('http://api.universalbusinessmodel.com/ubms_modelcreationsuite_getActiveModelPositionsforOrgChart.php?callback=?', {//JSONP Request to Open Items Page setup tables
+					$.getJSON('http://api.universalbusinessmodel.com/ubms_modelcreationsuite_getActiveModelPositionsforOrgChart.php?callback=?', {//JSONP Request
 						key: window.key,
 						activeModelOwnersUUID: window.activeModelOwnersUUID
 					}, function(res, status) {
@@ -1320,56 +1319,6 @@ under the License.
 					});	
 				}, 2000);	
 	        }
-=======
-        function getMyModelsOrgChart(){
-					$('#ubmsuite_mcs_my_organizational_chart_L0_ul').empty();
-				$.getJSON('http://api.universalbusinessmodel.com/ubms_modelcreationsuite_getActiveModelOwnerforOrgChart.php?callback=?', {//JSONP Request
-					key: window.key,
-					activeModelUUID: window.activeModelUUID
-				}, function(res, status) {
-					$.each(res, function(i, item) {
-						if(item.ancestor_id==window.activeModelUUID){
-							window.activeModelOwnersUUID = item.UUID;
-//1. Set currentActiveOrgChartLevel 
-//2. Append the name of the highest reports to position on the top of the org chart.
-							$('#ubmsuite_mcs_my_organizational_chart_L0_ul').prepend("<a ondblclick='setActivePosition(" + item.UUID + ", &quot;" + item.title + "&quot;)' onclick='buildHierarchicalTree(" + item.UUID + ");setActivePositionUUID(" + item.UUID + ")'><img class='org_img' style='width:25px; height:25px;' src='img/apple.png' /></a></br>" + item.title + "</br><h3>PS-" + item.UUID + "</h3>"); 
-//3. New Append an Empty UL with the highest positions UUID in the id, so that additional positions may be added later.
-							$('#ubmsuite_mcs_my_organizational_chart_L0_ul').append("<ul id='ubmsuite_mcs_my_organizational_chart_P" + item.UUID + "_ul'></ul>");
-//4. Empty chart Div
-					        $('#chart').empty();
-					        $("#modelOrgChart").jOrgChart({
-					            chartElement : '#chart',
-					            dragAndDrop  : false
-					        });		
-					      getChildElements(item.UUID);
-						}else{
-
-						}
-					});
-				});	
-			setTimeout(function() {
-				$.getJSON('http://api.universalbusinessmodel.com/ubms_modelcreationsuite_getActiveModelPositionsforOrgChart.php?callback=?', {//JSONP Request
-					key: window.key,
-					activeModelOwnersUUID: window.activeModelOwnersUUID
-				}, function(res, status) {
-					$.each(res, function(i, item) {
-
-				//3. Append all other children to their respective "reports_to" ul
-				//$('#ubmsuite_mcs_my_organizational_chart_P' + item.reports_to_id + '_ul').append("<li id='orgChartPosition" + item.UUID + "'><div id='demo_box_" + item.UUID + "' class='demo_box' onclick='setActivePosition(" + item.UUID + ")'><div class='pop_ctrl'><i class='fa fa-bars'></i></div><ul id='demo_ul_2'><li class='demo_li'><a href='#' onclick='addChildPositiontoActivePosition()'><div><i class='fa fa-plus-circle'></i></div><p>Add</p></a></li><li class='demo_li'><a href='#' onclick='removeActivePosition()'><div><i class='fa fa-minus-circle'></i></div><p>Remove</p></a></li></ul></div></br>" + item.title + "<ul id='ubmsuite_mcs_my_organizational_chart_P" + item.UUID + "_ul'></ul></li>");	
-							$('#ubmsuite_mcs_my_organizational_chart_P' + item.ancestor_UUID + '_ul').append("<li id='orgChartPosition" + item.UUID + "'><a ondblclick='setActivePosition(" + item.UUID + ", &quot;" + item.title + "&quot;)' onclick='buildHierarchicalTree(" + item.UUID + ");setActivePositionUUID(" + item.UUID + ")'><img id='org_img_" + item.UUID + "' style='width:25px; height:25px;' src='img/apple.png' /></a></br>" + item.title + "</br><h3>PS-" + item.UUID + "</h3><ul id='ubmsuite_mcs_my_organizational_chart_P" + item.UUID + "_ul'></ul></li>");	
-				//4. Empty chart Div
-					        $('#chart').empty();
-					        
-				//5. Call jOrgChart plugin, append new org chart to chart div, set jorgdraganddrop to false to avoid conflicting compatibility issue with other jquery packages.
-					        $("#modelOrgChart").jOrgChart({
-					            chartElement : '#chart',
-					            dragAndDrop  : false
-					        });
-					});
-				});	
-			}, 2000);	
-        }
->>>>>>> FETCH_HEAD
         </script>
 		<!-- End Org Chart Functions -->
 		<script>
