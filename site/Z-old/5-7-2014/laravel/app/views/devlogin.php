@@ -19,9 +19,8 @@ under the License.
     <head>
         <meta charset="utf-8" />
         <meta name="format-detection" content="telephone=no" />
-        <!-- <meta http-equiv="refresh" content="0; URL=./index.html"> -->
         <!-- WARNING: for iOS 7, remove the width=device-width and height=device-height attributes. See https://issues.apache.org/jira/browse/CB-4323 -->
-        <meta name="viewport" content="user-scalable=yes, initial-scale=1, maximum-scale=1.0, minimum-scale=1.0, width=device-width, height=device-height, target-densitydpi=device-dpi" />
+        <meta name="viewport" content="user-scalable=yes, initial-scale=1, maximum-scale=5.0, minimum-scale=1.0, width=device-width, height=device-height, target-densitydpi=device-dpi" />
 		<!-- Font Awesome CSS -->
 	    <link rel="stylesheet" href="lib/font-awesome/css/font-awesome.min.css"/>
 		<!-- Bootstrap Tree CSS -->
@@ -36,9 +35,6 @@ under the License.
 		<link media="all" rel="stylesheet" type="text/css" href="css/allModelSummary.css" />
         <script src="js/jquery-1.9.1.min.js"></script>
         <script src="js/jquery-mobile-1.4.0.min.js"></script>
-        <!-- ImageMapping JS -->
-        <script src="js/jquery.rwdImageMaps.js"></script>
-        <script src="js/jquery.rwdImageMaps.min.js"></script>
 		<!-- Begin Pie-Menu JS-->
 		<script src="js/jquery.menu.js"></script>
 		<!-- Boostrap Tree JS -->
@@ -53,12 +49,13 @@ under the License.
 		<link rel="stylesheet" href="css/editableGrid.css" type="text/css" media="screen">
 		<!-- EditableGrid Javascript -->
 		<script src="js/editablegrid-2.0.1.js"></script>   
-		<script src="js/editableGrid.js" ></script>	<!-- Handles the AJAX calls to send and recieve information from the server -->
         <script src="js/jquery-ui.js"></script>
         <script src="js/jquery.ui.touch-punch.js"></script>
         <script src="js/circles.js"></script>
 		<!-- Begin JORG Chart Builder-->
 		<script type="text/javascript" src="js/jquery.jOrgChart.js"></script>
+		<script src="js/editableGrid.js" ></script>	<!-- Handles the AJAX calls to send and recieve information from the server -->
+
 		<link rel="stylesheet" href="css/jquery.jOrgChart.css"/> 
 		<!-- Hierarchical Object -->
 		<link rel="stylesheet" href="css/heirarchicalChart.css"/>
@@ -69,56 +66,1172 @@ under the License.
 		<!-- Font Awesome JS -->
 	    <script src="src/jquery.popmenu.js"></script>
 		<link rel="stylesheet" href="05.css">
-		<script src="ckeditor-8/ckeditor.js"></script>
-		<link href="ckeditor-8/samples/ckeditorSample.css" rel="stylesheet">
 		<link rel="stylesheet" href="themes/theme.css" />
-		<!-- Full Calendar -->
-		<link href='css/fullcalendar/fullcalendar.css' rel='stylesheet' />
-		<link href='css/fullcalendar/fullcalendar.print.css' rel='stylesheet' media='print' />
-		<!--<script src='lib/jquery.min.js'></script> -->
-		<!-- Tooltipster -->
-		<link rel="stylesheet" type="text/css" href="css/tooltipster.css" />
-		<script type="text/javascript" src="js/jquery.tooltipster.min.js"></script>
-
-		<!-- JS -->
-		<script src='lib/jquery-ui.custom.min.js'></script>
-		<script src='js/fullcalendar/fullcalendar.min.js'></script>
-		<script src='js/customCKEditor.js'></script>
-		<script src='js/greeting.js'></script>
-		<script src='js/openPointsAndLoader.js'></script>
-		<script src='js/modelSettings.js'></script>
-		<script src='js/coreValue.js'></script>
-		<script src='js/customer.js'></script>
-		<script src='js/product.js'></script>
-		<script src='js/service.js'></script>
-		<script src='js/physicalFacility.js'></script>
-		<script src='js/organizationalStructure.js'></script>
-		<script src='js/strategicAlliance.js'></script>
-		<script src='js/strategicPositioningQuestion.js'></script>
-		<script src='js/feature.js'></script>
-		<script src='js/mfiObsolete.js'></script>
-		<script src='js/alternative.js'></script>
-		<script src='js/investment.js'></script>
-		<script src='js/risk.js'></script>
-		<script src='js/getChecklistItems.js'></script>
-		<script src='js/modelSummary.js'></script>
-		<script src='js/pieMenu.js'></script>
-		<script src='js/onBodyLoad.js'></script>
-		<script src='js/pageShow.js'></script>
-		<script src='js/reviewPoint.js'></script>
-		<script src='js/mcsChecklist.js'></script>
-		<script src='js/checkEmail.js'></script>
-		<script src='js/userRegister.js'></script>
-		<script src='js/userSignIn.js'></script>
-		<script src='js/userPreferences.js'></script>
-		<script src='js/emailVerification.js'></script>
-		<script src='js/signOut.js'></script>
-		<script src='js/draggableCircle.js'></script>
-		<script src='js/checkConnection.js'></script>
-		<script src='js/activation.js'></script>
-		<!--  Org Chart CSS -->
-		<link href='css/orgChart.css' rel='stylesheet' />
         <title>UBM</title>
+
+        <script>
+        	window.globalCounter = 0;
+        	function getTodaysDate () {
+        		window.today = new Date();
+        		window.dd = today.getDate(); 
+        		window.mm = today.getMonth()+1;
+        		window.yyyy = today.getFullYear(); 
+        		window.h = today.getHours();
+        		window.m = today.getMinutes();
+        		window.s = today.getSeconds();
+        	}
+        	function fillTodaysDate() {
+        		getTodaysDate();
+        		document.getElementById('mcs_setup_checklist_p4_b1_NewBusinessAccount_popup_form_TodaysDate').value= '' + window.mm + '/' + window.dd + '/' + window.yyyy + '';
+        	}
+        	function greetUser() {
+        		$().toastmessage({position : 'middle-center'});
+        		getTodaysDate();
+        		if (window.h >=5 && window.h<12) {
+        			$().toastmessage('showSuccessToast', "Good Morning " + window.username + "");
+        		}
+        		if (window.h >=12 && window.h<17) {
+        			$().toastmessage('showSuccessToast', "Good Afternoon " + window.username + "");
+        		}
+        		if (window.h >=17 && window.h<20) {
+        			$().toastmessage('showSuccessToast', "Good Evening " + window.username + "");
+
+        		}
+        		if (window.h >=20 && window.h<=24 || window.h>=1 && window.h <5) {
+        			$().toastmessage('showWarningToast', "You Should Go To Bed " + window.username + "");
+        		}
+        		//$().toastmessage({position : 'bottom-right'});
+        	}
+			function showLoader(){
+				//Show Loader Message
+				var $this = $("#page_loading_message"), theme = $this.jqmData("theme") || $.mobile.loader.prototype.options.theme, msgText = $this.jqmData("msgtext") || $.mobile.loader.prototype.options.text, textVisible = $this.jqmData("textvisible") || $.mobile.loader.prototype.options.textVisible, textonly = !!$this.jqmData("textonly");
+				html = $this.jqmData("html") || "";
+				$.mobile.loading("show", {
+					text : msgText,
+					textVisible : textVisible,
+					theme : theme,
+					textonly : textonly,
+					html : html
+				});
+				//End Show Loader Message				
+			}
+			function hideLoader(){
+				$.mobile.loading("hide");
+			}
+			//Open Item Functions
+			function confirmCloseOpenItem(id) {
+				$("#mcs_open_points_action_items_closeitem_popup").popup('open');
+				window.openitemid = id;
+			}
+			function closeOpenItem() {
+				$().toastmessage('showSuccessToast', "This item will now be closed: " + window.openitemid + "");
+				$("#mcs_open_points_action_items_closeitem_popup").popup('close');
+				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_openitem_markasclosed.php?callback=?', {//JSONP Request to Open Items Page setup tables
+					openitemid : window.openitemid,
+					username : window.username
+				}, function(res, status) {
+					$().toastmessage('showSuccessToast', "json request returned: " + status + "");
+				});
+			}
+			function refreshOpenItemsList() {
+				//Show Loader Message
+				var $this = $("#page_loading_message"), theme = $this.jqmData("theme") || $.mobile.loader.prototype.options.theme, msgText = $this.jqmData("msgtext") || $.mobile.loader.prototype.options.text, textVisible = $this.jqmData("textvisible") || $.mobile.loader.prototype.options.textVisible, textonly = !!$this.jqmData("textonly");
+				html = $this.jqmData("html") || "";
+				$.mobile.loading("show", {
+					text : msgText,
+					textVisible : textVisible,
+					theme : theme,
+					textonly : textonly,
+					html : html
+				});
+				//End Show Loader Message
+				$.getJSON('http://www.findmydriver.com/ubmopenitemsonlystatusopenitems.php?callback=?', {//JSONP Request to Open Items Page setup tables
+				}, function(res, status) {
+					//	alert("request for open items was a success!");
+					$('#mcs_open_points_action_items_table_body').empty();
+					$.each(res, function(i, item) {
+						if (window.accounttype == "admin") {//If user accounttype is admin, allow user to add new resolutions. If not, only allow them to view existing resolutions.
+							if (window.username.toUpperCase() == item.opened_by.toUpperCase()) {//if current window.username is the same as the user who created the review point insert a button to allow user to mark the review point as closed.
+								//alert(window.accounttype);
+								if (item.number_resolutions !== "0") {//If item doesnt have any resolutions associated with it, use theme a for the "View" Resolutions button
+									$('#mcs_open_points_action_items_table_body').append("<tr ><th class='label'>" + item.id + "</th><td>" + item.form_ref + "</td><td>" + item.priority + "</td><td>" + item.opened_by + "<a href='#' onclick='confirmCloseOpenItem(" + item.id + ")' class='ui-btn ui-btn-inline ui-icon-delete ui-btn-icon-left' data-mini='true' >Close <br> Item</a></td><td>" + item.date_opened + "</td><td>" + item.action_required + "</td><td>" + item.assigned_to + "</td><td>" + item.date_opened + "</td><td>" + item.due_date + "</td><td>b</td><td>c</td><td>d</td><td><a href='#' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-comment ui-btn-icon-left ui-btn-b' onclick='viewResolutions(" + item.id + ")'>View &nbsp&nbsp&nbsp&nbsp<span class='ui-li-has-count ui-btn-up-c ui-btn-corner-all'>" + item.number_resolutions + "</span></a><a href='#' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-plus ui-btn-icon-left ui-btn-a' onclick='addResolutions(" + item.id + ")'>Resolve &nbsp&nbsp&nbsp&nbsp</a><a href='#' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-plus ui-btn-icon-left ui-btn-a' onclick='addItemComment(" + item.id + ")'>Comment &nbsp&nbsp&nbsp&nbsp</a></td></tr>");
+									$("#mcs_open_points_action_items_table").table("refresh");
+								} else {
+									$('#mcs_open_points_action_items_table_body').append("<tr ><th class='label'>" + item.id + "</th><td>" + item.form_ref + "</td><td>" + item.priority + "</td><td>" + item.opened_by + "<a href='#' onclick='confirmCloseOpenItem(" + item.id + ")' class='ui-btn ui-btn-inline ui-icon-delete ui-btn-icon-left' data-mini='true' >Close <br> Item</a></td><td>" + item.date_opened + "</td><td>" + item.action_required + "</td><td>" + item.assigned_to + "</td><td>" + item.date_opened + "</td><td>" + item.due_date + "</td><td>b</td><td>c</td><td>d</td><td><a href='#' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-comment ui-btn-icon-left ui-btn-a' onclick='viewResolutions(" + item.id + ")'>View &nbsp&nbsp&nbsp&nbsp<span class='ui-li-has-count ui-btn-up-c ui-btn-corner-all'>" + item.number_resolutions + "</span></a><a href='#' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-plus ui-btn-icon-left ui-btn-a' onclick='addResolutions(" + item.id + ")'>Resolve &nbsp&nbsp&nbsp&nbsp</a><a href='#' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-plus ui-btn-icon-left ui-btn-a' onclick='addItemComment(" + item.id + ")'>Comment &nbsp&nbsp&nbsp&nbsp</a></td></tr>");
+									$("#mcs_open_points_action_items_table").table("refresh");
+								}
+							} else {
+								//alert(window.accounttype);
+								if (item.number_resolutions !== "0") {//If item doesnt have any resolutions associated with it, use theme a for the "View" Resolutions button
+									$('#mcs_open_points_action_items_table_body').append("<tr ><th class='label'>" + item.id + "</th><td>" + item.form_ref + "</td><td>" + item.priority + "</td><td>" + item.opened_by + "</td><td>" + item.date_opened + "</td><td>" + item.action_required + "</td><td>" + item.assigned_to + "</td><td>" + item.date_opened + "</td><td>" + item.due_date + "</td><td>b</td><td>c</td><td>d</td><td><a href='#' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-comment ui-btn-icon-left ui-btn-b' onclick='viewResolutions(" + item.id + ")'>View &nbsp&nbsp&nbsp&nbsp<span class='ui-li-has-count ui-btn-up-c ui-btn-corner-all'>" + item.number_resolutions + "</span></a><a href='#' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-plus ui-btn-icon-left ui-btn-a' onclick='addResolutions(" + item.id + ")'>Resolve &nbsp&nbsp&nbsp&nbsp</a><a href='#' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-plus ui-btn-icon-left ui-btn-a' onclick='addItemComment(" + item.id + ")'>Comment &nbsp&nbsp&nbsp&nbsp</a></td></tr>");
+									$("#mcs_open_points_action_items_table").table("refresh");
+								} else {
+									$('#mcs_open_points_action_items_table_body').append("<tr ><th class='label'>" + item.id + "</th><td>" + item.form_ref + "</td><td>" + item.priority + "</td><td>" + item.opened_by + "</td><td>" + item.date_opened + "</td><td>" + item.action_required + "</td><td>" + item.assigned_to + "</td><td>" + item.date_opened + "</td><td>" + item.due_date + "</td><td>b</td><td>c</td><td>d</td><td><a href='#' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-comment ui-btn-icon-left ui-btn-a' onclick='viewResolutions(" + item.id + ")'>View &nbsp&nbsp&nbsp&nbsp<span class='ui-li-has-count ui-btn-up-c ui-btn-corner-all'>" + item.number_resolutions + "</span></a><a href='#' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-plus ui-btn-icon-left ui-btn-a' onclick='addResolutions(" + item.id + ")'>Resolve &nbsp&nbsp&nbsp&nbsp</a><a href='#' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-plus ui-btn-icon-left ui-btn-a' onclick='addItemComment(" + item.id + ")'>Comment &nbsp&nbsp&nbsp&nbsp</a></td></tr>");
+									$("#mcs_open_points_action_items_table").table("refresh");
+								}
+							}
+						} else {//If user accounttype is not admin,	dont allow user to add new resolutions.
+							if (window.username.toUpperCase() == item.opened_by.toUpperCase()) {//if current window.username is the same as the user who created the review point insert a button to allow user to close the review point.
+								//alert(window.accounttype);
+								if (item.number_resolutions !== "0") {//If item doesnt have any resolutions associated with it, use theme a for the "View" Resolutions button
+									$('#mcs_open_points_action_items_table_body').append("<tr ><th class='label'>" + item.id + "</th><td>" + item.form_ref + "</td><td>" + item.priority + "</td><td>" + item.opened_by + "<a href='#' onclick='confirmCloseOpenItem(" + item.id + ")' class='ui-btn ui-btn-inline ui-icon-delete ui-btn-icon-left' data-mini='true' >Close <br> Item</a></td><td>" + item.date_opened + "</td><td>" + item.action_required + "</td><td>" + item.assigned_to + "</td><td>" + item.date_opened + "</td><td>" + item.due_date + "</td><td>b</td><td>c</td><td>d</td><td><a href='#' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-comment ui-btn-icon-left ui-btn-b' onclick='viewResolutions(" + item.id + ")'>View &nbsp&nbsp&nbsp&nbsp<span class='ui-li-has-count ui-btn-up-c ui-btn-corner-all'>" + item.number_resolutions + "</span></a><a href='#' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-plus ui-btn-icon-left ui-btn-a' onclick='addResolutions(" + item.id + ")'>Resolve &nbsp&nbsp&nbsp&nbsp</a><a href='#' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-plus ui-btn-icon-left ui-btn-a' onclick='addItemComment(" + item.id + ")'>Comment &nbsp&nbsp&nbsp&nbsp</a></td></tr>");
+								} else {
+									$('#mcs_open_points_action_items_table_body').append("<tr ><th class='label'>" + item.id + "</th><td>" + item.form_ref + "</td><td>" + item.priority + "</td><td>" + item.opened_by + "<a href='#' onclick='confirmCloseOpenItem(" + item.id + ")' class='ui-btn ui-btn-inline ui-icon-delete ui-btn-icon-left' data-mini='true' >Close <br> Item</a></td><td>" + item.date_opened + "</td><td>" + item.action_required + "</td><td>" + item.assigned_to + "</td><td>" + item.date_opened + "</td><td>" + item.due_date + "</td><td>b</td><td>c</td><td>d</td><td><a href='#' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-comment ui-btn-icon-left ui-btn-a' onclick='viewResolutions(" + item.id + ")'>View &nbsp&nbsp&nbsp&nbsp<span class='ui-li-has-count ui-btn-up-c ui-btn-corner-all'>" + item.number_resolutions + "</span></a><a href='#' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-plus ui-btn-icon-left ui-btn-a' onclick='addResolutions(" + item.id + ")'>Resolve &nbsp&nbsp&nbsp&nbsp</a><a href='#' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-plus ui-btn-icon-left ui-btn-a' onclick='addItemComment(" + item.id + ")'>Comment &nbsp&nbsp&nbsp&nbsp</a></td></tr>");
+									$("#mcs_open_points_action_items_table").table("refresh");
+								}
+							} else {
+								//alert(window.accounttype);
+								if (item.number_resolutions !== "0") {//If item doesnt have any resolutions associated with it, use theme a for the "View" Resolutions button
+									$('#mcs_open_points_action_items_table_body').append("<tr ><th class='label'>" + item.id + "</th><td>" + item.form_ref + "</td><td>" + item.priority + "</td><td>" + item.opened_by + "</td><td>" + item.date_opened + "</td><td>" + item.action_required + "</td><td>" + item.assigned_to + "</td><td>" + item.date_opened + "</td><td>" + item.due_date + "</td><td>b</td><td>c</td><td>d</td><td><a href='#' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-comment ui-btn-icon-left ui-btn-b' onclick='viewResolutions(" + item.id + ")'>View &nbsp&nbsp&nbsp&nbsp<span class='ui-li-has-count ui-btn-up-c ui-btn-corner-all'>" + item.number_resolutions + "</span></a><a href='#' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-plus ui-btn-icon-left ui-btn-a' onclick='addResolutions(" + item.id + ")'>Resolve &nbsp&nbsp&nbsp&nbsp</a><a href='#' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-plus ui-btn-icon-left ui-btn-a' onclick='addItemComment(" + item.id + ")'>Comment &nbsp&nbsp&nbsp&nbsp</a></td></tr>");
+								} else {
+									$('#mcs_open_points_action_items_table_body').append("<tr ><th class='label'>" + item.id + "</th><td>" + item.form_ref + "</td><td>" + item.priority + "</td><td>" + item.opened_by + "</td><td>" + item.date_opened + "</td><td>" + item.action_required + "</td><td>" + item.assigned_to + "</td><td>" + item.date_opened + "</td><td>" + item.due_date + "</td><td>b</td><td>c</td><td>d</td><td><a href='#' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-comment ui-btn-icon-left ui-btn-a' onclick='viewResolutions(" + item.id + ")'>View &nbsp&nbsp&nbsp&nbsp<span class='ui-li-has-count ui-btn-up-c ui-btn-corner-all'>" + item.number_resolutions + "</span></a><a href='#' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-plus ui-btn-icon-left ui-btn-a' onclick='addResolutions(" + item.id + ")'>Resolve &nbsp&nbsp&nbsp&nbsp</a><a href='#' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-plus ui-btn-icon-left ui-btn-a' onclick='addItemComment(" + item.id + ")'>Comment &nbsp&nbsp&nbsp&nbsp</a></td></tr>");
+									$("#mcs_open_points_action_items_table").table("refresh");
+								}
+							}
+						}
+						//Start Hide Loading Message
+						$.mobile.loading("hide");
+						//End Hide Loading Message
+					})
+					$("#mcs_open_points_action_items_table").trigger("create");
+				});
+			}
+
+			function getOnlyStatusClosedItems() {
+				$.getJSON('http://www.findmydriver.com/ubmopenitemsonlystatuscloseditems.php?callback=?', {//JSONP Request to Open Items Page setup tables
+				}, function(res, status) {
+					//	alert("request for open items was a success!");
+					$('#mcs_open_points_action_items_table_body').empty();
+					$.each(res, function(i, item) {
+						if (window.accounttype == "admin") {//If user accounttype is admin, allow user to add new resolutions. If not, only allow them to view existing resolutions.
+							if (window.username.toUpperCase() == item.opened_by.toUpperCase()) {//if current window.username is the same as the user who created the review point insert a button to allow user to mark the review point as closed.
+								//alert(window.accounttype);
+								if (item.number_resolutions !== "0") {//If item doesnt have any resolutions associated with it, use theme a for the "View" Resolutions button
+									$('#mcs_open_points_action_items_table_body').append("<tr ><th class='label'>" + item.id + "</th><td>" + item.form_ref + "</td><td>" + item.priority + "</td><td>" + item.opened_by + "<a href='#' onclick='confirmCloseOpenItem(" + item.id + ")' class='ui-btn ui-btn-inline ui-icon-delete ui-btn-icon-left' data-mini='true' >Close <br> Item</a></td><td>" + item.date_opened + "</td><td>" + item.action_required + "</td><td>" + item.assigned_to + "</td><td>" + item.date_opened + "</td><td>" + item.due_date + "</td><td>b</td><td>c</td><td>d</td><td><a href='#' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-comment ui-btn-icon-left ui-btn-b' onclick='viewResolutions(" + item.id + ")'>View &nbsp&nbsp&nbsp&nbsp<span class='ui-li-has-count ui-btn-up-c ui-btn-corner-all'>" + item.number_resolutions + "</span></a><a href='#' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-plus ui-btn-icon-left ui-btn-a' onclick='addResolutions(" + item.id + ")'>Resolve &nbsp&nbsp&nbsp&nbsp</a><a href='#' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-plus ui-btn-icon-left ui-btn-a' onclick='addItemComment(" + item.id + ")'>Comment &nbsp&nbsp&nbsp&nbsp</a></td></tr>");
+									$("#mcs_open_points_action_items_table").table("refresh");
+								} else {
+									$('#mcs_open_points_action_items_table_body').append("<tr ><th class='label'>" + item.id + "</th><td>" + item.form_ref + "</td><td>" + item.priority + "</td><td>" + item.opened_by + "<a href='#' onclick='confirmCloseOpenItem(" + item.id + ")' class='ui-btn ui-btn-inline ui-icon-delete ui-btn-icon-left' data-mini='true' >Close <br> Item</a></td><td>" + item.date_opened + "</td><td>" + item.action_required + "</td><td>" + item.assigned_to + "</td><td>" + item.date_opened + "</td><td>" + item.due_date + "</td><td>b</td><td>c</td><td>d</td><td><a href='#' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-comment ui-btn-icon-left ui-btn-a' onclick='viewResolutions(" + item.id + ")'>View &nbsp&nbsp&nbsp&nbsp<span class='ui-li-has-count ui-btn-up-c ui-btn-corner-all'>" + item.number_resolutions + "</span></a><a href='#' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-plus ui-btn-icon-left ui-btn-a' onclick='addResolutions(" + item.id + ")'>Resolve &nbsp&nbsp&nbsp&nbsp</a><a href='#' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-plus ui-btn-icon-left ui-btn-a' onclick='addItemComment(" + item.id + ")'>Comment &nbsp&nbsp&nbsp&nbsp</a></td></tr>");
+									$("#mcs_open_points_action_items_table").table("refresh");
+								}
+							} else {
+								//alert(window.accounttype);
+								if (item.number_resolutions !== "0") {//If item doesnt have any resolutions associated with it, use theme a for the "View" Resolutions button
+									$('#mcs_open_points_action_items_table_body').append("<tr ><th class='label'>" + item.id + "</th><td>" + item.form_ref + "</td><td>" + item.priority + "</td><td>" + item.opened_by + "</td><td>" + item.date_opened + "</td><td>" + item.action_required + "</td><td>" + item.assigned_to + "</td><td>" + item.date_opened + "</td><td>" + item.due_date + "</td><td>b</td><td>c</td><td>d</td><td><a href='#' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-comment ui-btn-icon-left ui-btn-b' onclick='viewResolutions(" + item.id + ")'>View &nbsp&nbsp&nbsp&nbsp<span class='ui-li-has-count ui-btn-up-c ui-btn-corner-all'>" + item.number_resolutions + "</span></a><a href='#' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-plus ui-btn-icon-left ui-btn-a' onclick='addResolutions(" + item.id + ")'>Resolve &nbsp&nbsp&nbsp&nbsp</a><a href='#' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-plus ui-btn-icon-left ui-btn-a' onclick='addItemComment(" + item.id + ")'>Comment &nbsp&nbsp&nbsp&nbsp</a></td></tr>");
+									$("#mcs_open_points_action_items_table").table("refresh");
+								} else {
+									$('#mcs_open_points_action_items_table_body').append("<tr ><th class='label'>" + item.id + "</th><td>" + item.form_ref + "</td><td>" + item.priority + "</td><td>" + item.opened_by + "</td><td>" + item.date_opened + "</td><td>" + item.action_required + "</td><td>" + item.assigned_to + "</td><td>" + item.date_opened + "</td><td>" + item.due_date + "</td><td>b</td><td>c</td><td>d</td><td><a href='#' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-comment ui-btn-icon-left ui-btn-a' onclick='viewResolutions(" + item.id + ")'>View &nbsp&nbsp&nbsp&nbsp<span class='ui-li-has-count ui-btn-up-c ui-btn-corner-all'>" + item.number_resolutions + "</span></a><a href='#' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-plus ui-btn-icon-left ui-btn-a' onclick='addResolutions(" + item.id + ")'>Resolve &nbsp&nbsp&nbsp&nbsp</a><a href='#' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-plus ui-btn-icon-left ui-btn-a' onclick='addItemComment(" + item.id + ")'>Comment &nbsp&nbsp&nbsp&nbsp</a></td></tr>");
+									$("#mcs_open_points_action_items_table").table("refresh");
+								}
+							}
+						} else {//If user accounttype is not admin,	dont allow user to add new resolutions.
+							if (window.username.toUpperCase() == item.opened_by.toUpperCase()) {//if current window.username is the same as the user who created the review point insert a button to allow user to close the review point.
+								//alert(window.accounttype);
+								if (item.number_resolutions !== "0") {//If item doesnt have any resolutions associated with it, use theme a for the "View" Resolutions button
+									$('#mcs_open_points_action_items_table_body').append("<tr ><th class='label'>" + item.id + "</th><td>" + item.form_ref + "</td><td>" + item.priority + "</td><td>" + item.opened_by + "<a href='#' onclick='confirmCloseOpenItem(" + item.id + ")' class='ui-btn ui-btn-inline ui-icon-delete ui-btn-icon-left' data-mini='true' >Close <br> Item</a></td><td>" + item.date_opened + "</td><td>" + item.action_required + "</td><td>" + item.assigned_to + "</td><td>" + item.date_opened + "</td><td>" + item.due_date + "</td><td>b</td><td>c</td><td>d</td><td><a href='#' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-comment ui-btn-icon-left ui-btn-b' onclick='viewResolutions(" + item.id + ")'>View &nbsp&nbsp&nbsp&nbsp<span class='ui-li-has-count ui-btn-up-c ui-btn-corner-all'>" + item.number_resolutions + "</span></a><a href='#' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-plus ui-btn-icon-left ui-btn-a' onclick='addResolutions(" + item.id + ")'>Resolve &nbsp&nbsp&nbsp&nbsp</a><a href='#' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-plus ui-btn-icon-left ui-btn-a' onclick='addItemComment(" + item.id + ")'>Comment &nbsp&nbsp&nbsp&nbsp</a></td></tr>");
+								} else {
+									$('#mcs_open_points_action_items_table_body').append("<tr ><th class='label'>" + item.id + "</th><td>" + item.form_ref + "</td><td>" + item.priority + "</td><td>" + item.opened_by + "<a href='#' onclick='confirmCloseOpenItem(" + item.id + ")' class='ui-btn ui-btn-inline ui-icon-delete ui-btn-icon-left' data-mini='true' >Close <br> Item</a></td><td>" + item.date_opened + "</td><td>" + item.action_required + "</td><td>" + item.assigned_to + "</td><td>" + item.date_opened + "</td><td>" + item.due_date + "</td><td>b</td><td>c</td><td>d</td><td><a href='#' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-comment ui-btn-icon-left ui-btn-a' onclick='viewResolutions(" + item.id + ")'>View &nbsp&nbsp&nbsp&nbsp<span class='ui-li-has-count ui-btn-up-c ui-btn-corner-all'>" + item.number_resolutions + "</span></a><a href='#' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-plus ui-btn-icon-left ui-btn-a' onclick='addResolutions(" + item.id + ")'>Resolve &nbsp&nbsp&nbsp&nbsp</a><a href='#' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-plus ui-btn-icon-left ui-btn-a' onclick='addItemComment(" + item.id + ")'>Comment &nbsp&nbsp&nbsp&nbsp</a></td></tr>");
+									$("#mcs_open_points_action_items_table").table("refresh");
+								}
+							} else {
+								//alert(wi/ndow.accounttype);
+								if (item.number_resolutions !== "0") {//If item doesnt have any resolutions associated with it, use theme a for the "View" Resolutions button
+									$('#mcs_open_points_action_items_table_body').append("<tr ><th class='label'>" + item.id + "</th><td>" + item.form_ref + "</td><td>" + item.priority + "</td><td>" + item.opened_by + "</td><td>" + item.date_opened + "</td><td>" + item.action_required + "</td><td>" + item.assigned_to + "</td><td>" + item.date_opened + "</td><td>" + item.due_date + "</td><td>b</td><td>c</td><td>d</td><td><a href='#' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-comment ui-btn-icon-left ui-btn-b' onclick='viewResolutions(" + item.id + ")'>View &nbsp&nbsp&nbsp&nbsp<span class='ui-li-has-count ui-btn-up-c ui-btn-corner-all'>" + item.number_resolutions + "</span></a><a href='#' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-plus ui-btn-icon-left ui-btn-a' onclick='addResolutions(" + item.id + ")'>Resolve &nbsp&nbsp&nbsp&nbsp</a><a href='#' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-plus ui-btn-icon-left ui-btn-a' onclick='addItemComment(" + item.id + ")'>Comment &nbsp&nbsp&nbsp&nbsp</a></td></tr>");
+								} else {
+									$('#mcs_open_points_action_items_table_body').append("<tr ><th class='label'>" + item.id + "</th><td>" + item.form_ref + "</td><td>" + item.priority + "</td><td>" + item.opened_by + "</td><td>" + item.date_opened + "</td><td>" + item.action_required + "</td><td>" + item.assigned_to + "</td><td>" + item.date_opened + "</td><td>" + item.due_date + "</td><td>b</td><td>c</td><td>d</td><td><a href='#' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-comment ui-btn-icon-left ui-btn-a' onclick='viewResolutions(" + item.id + ")'>View &nbsp&nbsp&nbsp&nbsp<span class='ui-li-has-count ui-btn-up-c ui-btn-corner-all'>" + item.number_resolutions + "</span></a><a href='#' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-plus ui-btn-icon-left ui-btn-a' onclick='addResolutions(" + item.id + ")'>Resolve &nbsp&nbsp&nbsp&nbsp</a><a href='#' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-plus ui-btn-icon-left ui-btn-a' onclick='addItemComment(" + item.id + ")'>Comment &nbsp&nbsp&nbsp&nbsp</a></td></tr>");
+									$("#mcs_open_points_action_items_table").table("refresh");
+								}
+							}
+						}
+						//Start Hide Loading Message
+						$.mobile.loading("hide");
+						//End Hide Loading Message
+					})
+					$("#mcs_open_points_action_items_table").trigger("create");
+				});
+			}
+
+			function getMyOpenItems() {
+				$.getJSON('http://www.findmydriver.com/ubmopenitemsonlystatusopenitemscurrentuser.php?callback=?', {//JSONP Request to Open Items Page setup tables
+					username : window.username
+				}, function(res, status) {
+					//	alert("request for open items was a success!");
+					$('#mcs_open_points_action_items_table_body').empty();
+					$.each(res, function(i, item) {
+						if (window.accounttype == "admin") {//If user accounttype is admin, allow user to add new resolutions. If not, only allow them to view existing resolutions.
+							if (window.username.toUpperCase() == item.opened_by.toUpperCase()) {//if current window.username is the same as the user who created the review point insert a button to allow user to mark the review point as closed.
+								//alert(window.accounttype);
+								if (item.number_resolutions !== "0") {//If item doesnt have any resolutions associated with it, use theme a for the "View" Resolutions button
+									$('#mcs_open_points_action_items_table_body').append("<tr ><th class='label'>" + item.id + "</th><td>" + item.form_ref + "</td><td>" + item.priority + "</td><td>" + item.opened_by + "<a href='#' onclick='confirmCloseOpenItem(" + item.id + ")' class='ui-btn ui-btn-inline ui-icon-delete ui-btn-icon-left' data-mini='true'>Close <br> Item</a></td><td>" + item.date_opened + "</td><td>" + item.action_required + "</td><td>" + item.assigned_to + "</td><td>" + item.date_opened + "</td><td>" + item.due_date + "</td><td>b</td><td>c</td><td>d</td><td><a href='#' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-comment ui-btn-icon-left ui-btn-b' onclick='viewResolutions(" + item.id + ")'>View &nbsp&nbsp&nbsp&nbsp<span class='ui-li-has-count ui-btn-up-c ui-btn-corner-all'>" + item.number_resolutions + "</span></a><a href='#' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-plus ui-btn-icon-left ui-btn-a' onclick='addResolutions(" + item.id + ")'>Resolve &nbsp&nbsp&nbsp&nbsp</a><a href='#' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-plus ui-btn-icon-left ui-btn-a' onclick='addItemComment(" + item.id + ")'>Comment &nbsp&nbsp&nbsp&nbsp</a></td></tr>");
+									$("#mcs_open_points_action_items_table").table("refresh");
+								} else {
+									$('#mcs_open_points_action_items_table_body').append("<tr ><th class='label'>" + item.id + "</th><td>" + item.form_ref + "</td><td>" + item.priority + "</td><td>" + item.opened_by + "<a href='#' onclick='confirmCloseOpenItem(" + item.id + ")' class='ui-btn ui-btn-inline ui-icon-delete ui-btn-icon-left' data-mini='true'>Close <br> Item</a></td><td>" + item.date_opened + "</td><td>" + item.action_required + "</td><td>" + item.assigned_to + "</td><td>" + item.date_opened + "</td><td>" + item.due_date + "</td><td>b</td><td>c</td><td>d</td><td><a href='#' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-comment ui-btn-icon-left ui-btn-a' onclick='viewResolutions(" + item.id + ")'>View &nbsp&nbsp&nbsp&nbsp<span class='ui-li-has-count ui-btn-up-c ui-btn-corner-all'>" + item.number_resolutions + "</span></a><a href='#' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-plus ui-btn-icon-left ui-btn-a' onclick='addResolutions(" + item.id + ")'>Resolve &nbsp&nbsp&nbsp&nbsp</a><a href='#' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-plus ui-btn-icon-left ui-btn-a' onclick='addItemComment(" + item.id + ")'>Comment &nbsp&nbsp&nbsp&nbsp</a></td></tr>");
+									$("#mcs_open_points_action_items_table").table("refresh");
+								}
+							} else {
+								//alert(window.accounttype);
+								if (item.number_resolutions !== "0") {//If item doesnt have any resolutions associated with it, use theme a for the "View" Resolutions button
+									$('#mcs_open_points_action_items_table_body').append("<tr ><th class='label'>" + item.id + "</th><td>" + item.form_ref + "</td><td>" + item.priority + "</td><td>" + item.opened_by + "</td><td>" + item.date_opened + "</td><td>" + item.action_required + "</td><td>" + item.assigned_to + "</td><td>" + item.date_opened + "</td><td>" + item.due_date + "</td><td>b</td><td>c</td><td>d</td><td><a href='#' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-comment ui-btn-icon-left ui-btn-b' onclick='viewResolutions(" + item.id + ")'>View &nbsp&nbsp&nbsp&nbsp<span class='ui-li-has-count ui-btn-up-c ui-btn-corner-all'>" + item.number_resolutions + "</span></a><a href='#' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-plus ui-btn-icon-left ui-btn-a' onclick='addResolutions(" + item.id + ")'>Resolve &nbsp&nbsp&nbsp&nbsp</a><a href='#' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-plus ui-btn-icon-left ui-btn-a' onclick='addItemComment(" + item.id + ")'>Comment &nbsp&nbsp&nbsp&nbsp</a></td></tr>");
+									$("#mcs_open_points_action_items_table").table("refresh");
+								} else {
+									$('#mcs_open_points_action_items_table_body').append("<tr ><th class='label'>" + item.id + "</th><td>" + item.form_ref + "</td><td>" + item.priority + "</td><td>" + item.opened_by + "</td><td>" + item.date_opened + "</td><td>" + item.action_required + "</td><td>" + item.assigned_to + "</td><td>" + item.date_opened + "</td><td>" + item.due_date + "</td><td>b</td><td>c</td><td>d</td><td><a href='#' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-comment ui-btn-icon-left ui-btn-a' onclick='viewResolutions(" + item.id + ")'>View &nbsp&nbsp&nbsp&nbsp<span class='ui-li-has-count ui-btn-up-c ui-btn-corner-all'>" + item.number_resolutions + "</span></a><a href='#' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-plus ui-btn-icon-left ui-btn-a' onclick='addResolutions(" + item.id + ")'>Resolve &nbsp&nbsp&nbsp&nbsp</a><a href='#' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-plus ui-btn-icon-left ui-btn-a' onclick='addItemComment(" + item.id + ")'>Comment &nbsp&nbsp&nbsp&nbsp</a></td></tr>");
+									$("#mcs_open_points_action_items_table").table("refresh");
+								}
+							}
+						} else {//If user accounttype is not admin,	dont allow user to add new resolutions.
+							if (window.username.toUpperCase() == item.opened_by.toUpperCase()) {//if current window.username is the same as the user who created the review point insert a button to allow user to close the review point.
+								//alert(window.accounttype);
+								if (item.number_resolutions !== "0") {//If item doesnt have any resolutions associated with it, use theme a for the "View" Resolutions button
+									$('#mcs_open_points_action_items_table_body').append("<tr ><th class='label'>" + item.id + "</th><td>" + item.form_ref + "</td><td>" + item.priority + "</td><td>" + item.opened_by + "<a href='#' onclick='confirmCloseOpenItem(" + item.id + ")' class='ui-btn ui-btn-inline ui-icon-delete ui-btn-icon-left'data-mini='true' >Close <br> Item</a></td><td>" + item.date_opened + "</td><td>" + item.action_required + "</td><td>" + item.assigned_to + "</td><td>" + item.date_opened + "</td><td>" + item.due_date + "</td><td>b</td><td>c</td><td>d</td><td><a href='#' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-comment ui-btn-icon-left ui-btn-b' onclick='viewResolutions(" + item.id + ")'>View &nbsp&nbsp&nbsp&nbsp<span class='ui-li-has-count ui-btn-up-c ui-btn-corner-all'>" + item.number_resolutions + "</span></a><a href='#' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-plus ui-btn-icon-left ui-btn-a' onclick='addResolutions(" + item.id + ")'>Resolve &nbsp&nbsp&nbsp&nbsp</a><a href='#' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-plus ui-btn-icon-left ui-btn-a' onclick='addItemComment(" + item.id + ")'>Comment &nbsp&nbsp&nbsp&nbsp</a></td></tr>");
+								} else {
+									$('#mcs_open_points_action_items_table_body').append("<tr ><th class='label'>" + item.id + "</th><td>" + item.form_ref + "</td><td>" + item.priority + "</td><td>" + item.opened_by + "<a href='#' onclick='confirmCloseOpenItem(" + item.id + ")' class='ui-btn ui-btn-inline ui-icon-delete ui-btn-icon-left'data-mini='true' >Close <br> Item</a></td><td>" + item.date_opened + "</td><td>" + item.action_required + "</td><td>" + item.assigned_to + "</td><td>" + item.date_opened + "</td><td>" + item.due_date + "</td><td>b</td><td>c</td><td>d</td><td><a href='#' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-comment ui-btn-icon-left ui-btn-a' onclick='viewResolutions(" + item.id + ")'>View &nbsp&nbsp&nbsp&nbsp<span class='ui-li-has-count ui-btn-up-c ui-btn-corner-all'>" + item.number_resolutions + "</span></a><a href='#' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-plus ui-btn-icon-left ui-btn-a' onclick='addResolutions(" + item.id + ")'>Resolve &nbsp&nbsp&nbsp&nbsp</a><a href='#' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-plus ui-btn-icon-left ui-btn-a' onclick='addItemComment(" + item.id + ")'>Comment &nbsp&nbsp&nbsp&nbsp</a></td></tr>");
+									$("#mcs_open_points_action_items_table").table("refresh");
+								}
+							} else {
+								//alert(window.accounttype);
+								if (item.number_resolutions !== "0") {//If item doesnt have any resolutions associated with it, use theme a for the "View" Resolutions button
+									$('#mcs_open_points_action_items_table_body').append("<tr ><th class='label'>" + item.id + "</th><td>" + item.form_ref + "</td><td>" + item.priority + "</td><td>" + item.opened_by + "</td><td>" + item.date_opened + "</td><td>" + item.action_required + "</td><td>" + item.assigned_to + "</td><td>" + item.date_opened + "</td><td>" + item.due_date + "</td><td>b</td><td>c</td><td>d</td><td><a href='#' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-comment ui-btn-icon-left ui-btn-b' onclick='viewResolutions(" + item.id + ")'>View &nbsp&nbsp&nbsp&nbsp<span class='ui-li-has-count ui-btn-up-c ui-btn-corner-all'>" + item.number_resolutions + "</span></a><a href='#' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-plus ui-btn-icon-left ui-btn-a' onclick='addResolutions(" + item.id + ")'>Resolve &nbsp&nbsp&nbsp&nbsp</a><a href='#' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-plus ui-btn-icon-left ui-btn-a' onclick='addItemComment(" + item.id + ")'>Comment &nbsp&nbsp&nbsp&nbsp</a></td></tr>");
+								} else {
+									$('#mcs_open_points_action_items_table_body').append("<tr ><th class='label'>" + item.id + "</th><td>" + item.form_ref + "</td><td>" + item.priority + "</td><td>" + item.opened_by + "</td><td>" + item.date_opened + "</td><td>" + item.action_required + "</td><td>" + item.assigned_to + "</td><td>" + item.date_opened + "</td><td>" + item.due_date + "</td><td>b</td><td>c</td><td>d</td><td><a href='#' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-comment ui-btn-icon-left ui-btn-a' onclick='viewResolutions(" + item.id + ")'>View &nbsp&nbsp&nbsp&nbsp<span class='ui-li-has-count ui-btn-up-c ui-btn-corner-all'>" + item.number_resolutions + "</span></a><a href='#' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-plus ui-btn-icon-left ui-btn-a' onclick='addResolutions(" + item.id + ")'>Resolve &nbsp&nbsp&nbsp&nbsp</a><a href='#' data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-plus ui-btn-icon-left ui-btn-a' onclick='addItemComment(" + item.id + ")'>Comment &nbsp&nbsp&nbsp&nbsp</a></td></tr>");
+									$("#mcs_open_points_action_items_table").table("refresh");
+								}
+							}
+						}
+						//Start Hide Loading Message
+						$.mobile.loading("hide");
+						//End Hide Loading Message
+					})
+					$("#mcs_open_points_action_items_table").trigger("create");
+				});
+
+			}
+
+			function addItemComment(id) {
+				window.openitemid = id;
+				$("#mcs_open_points_action_items_submitcomment_popup").popup('open');
+			}
+
+			function submitComment() {
+				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_openitem_createcomment.php?callback=?', {//JSONP Request
+					openitemid : window.openitemid,
+					author : window.username,
+					comment : document.getElementById("open_points_action_items_submitComment_form_comment").value,
+					type : document.getElementById("open_points_action_items_submitComment_form_type").value
+				}, function(res, status) {
+					$().toastmessage('showSuccessToast', "Comment Submission Status! " + status + "");
+						$('#open_points_action_items_submitComment_form').each(function() {
+							this.reset();
+						});
+						$('mcs_open_points_action_items_submitcomment_popup').popup("close");
+				});
+				
+			}
+
+			function addResolutions(id) {
+				window.openitemid = id;
+				$("#mcs_open_points_action_items_submitresolution_popup").popup('open');
+				//window.openitemid = id;
+				//submitResolution();
+			}
+
+			function submitResolution() {
+				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_openitem_createresolutions1.php?callback=?', {//JSONP Request to Open Items Page setup tables
+					openitemid : window.openitemid,
+					username : window.username,
+					disposition : document.getElementById("open_points_action_items_submitResolution_form_disposition").value,
+					githuburl : document.getElementById("open_points_action_items_submitResolution_form_githuturl").value
+				}, function(res, status) {
+					if ( status = "SUCCESS") {//If request is successful, empty the form.
+						$('#open_points_action_items_submitResolution_form').each(function() {
+							this.reset();
+						});
+					}
+				});
+				setTimeout(function() {
+				}, 1500);
+			}
+
+			function viewResolutions(id) {
+				showLoader();
+				$.getJSON('http://www.findmydriver.com/ubm_selectallresolutions.php?callback=?', {//JSONP Request to Open Items Page setup tables
+					openitemid : id,
+					username : window.username
+				}, function(res, status) {
+					//alert("json returned successfully! " + status);
+					$('#mcs_open_points_action_items_resolution_popup_ul').empty();
+					$.each(res, function(i, item) {
+						//alert(item.disposition);
+						$('#mcs_open_points_action_items_resolution_popup_ul').append("<li><a href='#' data-rel='popup' data-position-to='window' data-transition='pop'><h1>" + item.closed_by + "</h1><p style='white-space:normal;'>" + item.disposition + "</p><p class='ui-li-aside'>Resolution Date:</br> <strong>" + item.resolution_date + "</strong></p></a></li>");
+						$('#mcs_open_points_action_items_resolution_popup_ul').append("<li data-role='list-divider' >" + item.githuburl + "</p></li>");
+						//$('#mcs_open_points_action_items_resolution_popup_ul').append("<div style='height:200px; width:200px; text-wrap: normal;'>New Resolution: " + item.disposition + "</div>");
+						$('#mcs_open_points_action_items_resolution_popup_ul').listview("refresh");
+					})
+				});
+				$.getJSON('http://www.findmydriver.com/ubm_select_allActiveOpenItemComments.php?callback=?', {//JSONP Request to Open Items Page setup tables
+					openitemid : id,
+					username : window.username
+				}, function(res, status) {
+					//alert("json returned successfully! " + status);
+					$('#mcs_open_points_action_items_comment_popup_ul').empty();
+
+					$.each(res, function(i, item) {
+						//alert(item.disposition);
+						$('#mcs_open_points_action_items_comment_popup_ul').append("<li><a href='#' data-rel='popup' data-position-to='window' data-transition='pop'><h1>" + item.author + "</h1><p style='white-space:normal;'>" + item.comment + "</p><p class='ui-li-aside'>Comment Date:</br> <strong>" + item.date_added + "</strong></p></a></li>");
+						//$('#mcs_open_points_action_items_resolution_popup_ul').append("<div style='height:200px; width:200px; text-wrap: normal;'>New Resolution: " + item.disposition + "</div>");
+						$('#mcs_open_points_action_items_comment_popup_ul').listview("refresh");
+					})
+				});
+
+
+				$('#mcs_open_points_action_items_resolution_popup_ul').listview("refresh");
+				setTimeout(function() {
+					$("#mcs_open_points_action_items_resolution_popup").popup('open');
+					hideLoader();
+				}, 1500);
+			}
+        </script>
+        <script>
+			//Model Management
+			function createModel() {
+				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_createmodel.php?callback=?', {//JSONP Request to Create new model
+					reference : document.getElementById("ubmsuite_createModel_popup_newModel_form_reference").value,
+					title : document.getElementById("ubmsuite_createModel_popup_newModel_form_title").value,
+					description : document.getElementById("ubmsuite_createModel_popup_newModel_form_description").value,
+					creator_id : window.username,
+
+				}, function(res, status) {
+					$().toastmessage('showSuccessToast', "json returned successfully! " + status + "");
+					if (status == "success") {//Tests whether the json request was successful, if so it will clear the contents of the form submitted.
+						$('#ubmsuite_createModel_popup_newModel_form').each(function() {
+							this.reset();
+							$("#ubmsuite_createModel_popup").popup('close');
+						});
+					}
+				});
+				getMyModels();
+
+			}
+			function getMyModels() {//Get all models in database where current user is the creator.
+				showLoader();
+				
+				$.getJSON('http://api.universalbusinessmodel.com/ubms_modelcreationsuite_getMyModels.php?callback=?', {//JSONP Request to Create new model
+					username : window.username,
+					key : 'YDoS20lf7Vrnr22h8Ma6NGUV5DblnVhueTPXS7gPynRvQ6U8optzfnMDs3UD'					
+				}, function(res, status) {
+					$('#ubmsuite_SelectBusinessModel_MyModels_ul').empty();
+					$('#ubmsuite_SelectBusinessModel_MyModels_ul').append("<li data-role='list-divider'><center>My Models</center></li>");
+					$('#ubmsuite_SelectBusinessModel_MyModels_ul').listview("refresh");
+
+					$.each(res, function(i, item) {
+						$('#ubmsuite_SelectBusinessModel_MyModels_ul').append("<li id='creator_name_list_divider' data-role='list-divider'>Model Contact: " + item.model_contact_name + "</li>");
+						$('#ubmsuite_SelectBusinessModel_MyModels_ul').append("<li><a href='#ubmsuite_modelDashboard' onclick='setActiveModel(" + item.id + ")'></br></br></br><h2 style='white-space:normal;'>Title: " + item.title + "</h2><p><strong>Model Reference: " + item.reference + "</strong></p><p style='white-space:normal;'>" + item.description + "</p><p class='ui-li-aside'>Creation Date:</br> <strong>" + item.created_date + "</strong></p></a></li>");
+						$('#ubmsuite_SelectBusinessModel_MyModels_ul').listview("refresh");
+					})
+				});
+				hideLoader();
+			}
+			function getSharedModels() {//Get all models in database where current user is the creator.
+				showLoader();
+				$.getJSON('http://api.universalbusinessmodel.com/ubms_modelcreationsuite_getSharedModels.php?callback=?', {//JSONP Request to Create new model
+					username : window.username,
+					key : 'YDoS20lf7Vrnr22h8Ma6NGUV5DblnVhueTPXS7gPynRvQ6U8optzfnMDs3UD'
+				}, function(res, status) {
+					$('#ubmsuite_SelectBusinessModel_SharedModels_ul').empty();
+					$('#ubmsuite_SelectBusinessModel_SharedModels_ul').append("<li data-role='list-divider'><center>Shared Models</center></li>");
+					$('#ubmsuite_SelectBusinessModel_SharedModels_ul').listview("refresh");
+					$.each(res, function(i, item) {
+						if (window.username !== item.creator_id) {
+							$('#ubmsuite_SelectBusinessModel_SharedModels_ul').append("<li data-role='list-divider'>Model Creator: " + item.model_contact_name + "</li>");
+							$('#ubmsuite_SelectBusinessModel_SharedModels_ul').append("<li><a href='#ubmsuite_sharedModelDashboard' onclick='setActiveModel(" + item.id + ")'></br></br></br><h2 style='white-space:normal;'>Title: " + item.title + "</h2><p><strong>Model Reference: " + item.reference + "</strong></p><p style='white-space:normal;'>" + item.description + "</p><p class='ui-li-aside'>Creation Date:</br> <strong>" + item.created_date + "</strong></p></a></li>");
+							$('#ubmsuite_SelectBusinessModel_SharedModels_ul').listview("refresh");
+						}
+					})
+				});
+				hideLoader();
+			}
+			function model_getuserswithaccess() {
+				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_model_getuserswithaccess.php?callback=?', {//JSONP Request to Create new model
+					username : window.username,
+					activeModelId : window.activeModelId,
+				}, function(res, status) {
+					$('#ubmsuite_modelSettings_modelusers_ul').empty();
+					$.each(res, function(i, item) {
+						$('#ubmsuite_modelSettings_modelusers_ul').append("<li><a href='#' onclick='setSelectedModelUser(" + item.id + ")'>" + item.member_id + "</a></li>");
+						$('#ubmsuite_modelSettings_modelusers_ul').listview("refresh");
+					})
+				});
+			}
+			function setActiveModel(activeModelId) {
+				window.activeModelId = activeModelId;
+			}
+
+			function shareModel() {
+				event.preventDefault();
+				var invite_email = document.getElementById("ubmsuite_modelSettings_shareModel_inviteEmail").value;
+				var invite_username = invite_email.split("@", 1).toString();
+				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_addusertomodel.php?callback=?', {//JSONP Request to Create new model
+					username : window.username,
+					activeModelId : window.activeModelId,
+					memberRole : document.getElementById("ubmsuite_modelSettings_shareModel_setRole").value,
+					inviteUsername : invite_username,
+					inviteEmail : document.getElementById("ubmsuite_modelSettings_shareModel_inviteEmail").value
+				}, function(res, status) {
+					if (status == "success") {//Tests whether the json request was successful, if so it will clear the contents of the form submitted.
+						$('#ubmsuite_modelSettings_shareModel_popup_form').each(function() {
+							this.reset();
+						});
+					}
+				});
+				model_getuserswithaccess();
+			}
+
+			function removeUserFromModel() {
+				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_removeUserFromModel.php?callback=?', {//JSONP Request
+					username : window.username,
+					selectedUserId : window.selectedModelUserId,
+					activeModelId : window.activeModelId
+				}, function(res, status) {
+					//alert(res.message);
+				});
+				$("#ubmsuite_modelSettings_removeUser_popup").popup('close');
+				model_getuserswithaccess();
+			}
+
+			function confirmationPopup() {//Remove user from model confirmation
+				$("#ubmsuite_modelSettings_modifyUser_popup").popup('close');
+				setTimeout(function() {
+					$("#ubmsuite_modelSettings_removeUser_popup").popup('open');
+				}, 500);
+
+			}
+
+			function setSelectedModelUser(selectedUserId) {
+				window.selectedModelUserId = selectedUserId;
+				$("#ubmsuite_modelSettings_modifyUser_popup").popup('open');
+			}
+        </script>
+        <script>
+			function setActiveCoreValueId(activeCoreValueId){
+				window.activeCoreValueId = activeCoreValueId;
+			}
+			//Model Core Values
+			function getMyModelsCoreValues() {
+				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_model_getCurrentModel_CoreValues.php?callback=?', {//JSONP Request to Open Items Page setup tables
+					activeModelId : window.activeModelId
+				}, function(res, status) {
+					//alert(status);
+						$('#ubmsuite_modelSettings_myCoreValues_ul').empty();
+						$('#ubmsuite_modelSettings_myCoreValues_ul').append("<li><a data-rel='popup' data-mini='true' data-transition='slideup' href='#ubmsuite_modelSettings_coreValues_popup' class='ui-btn ui-shadow'>UBM core values. </a></li>");		
+						$('#ubmsuite_modelSettings_myCoreValues_ul').append("<li><a data-rel='popup' data-transition='slideup' href='#ubmsuite_modelSettings_createCoreValue_popup' class='ui-btn ui-shadow'>Create new!</a></li>");
+						//Visual Representation
+						$('#ubmsuite_mcs_model_visual_content_core_values_ul').empty();
+					$.each(res, function(i, item) {
+						$('#ubmsuite_mcs_model_visual_content_core_values_ul').append("<li><a>" + item.value_title +"</a></li>");
+						//$('#ubmsuite_mcs_model_visual_content_core_values_ul').listview("refresh");
+						$('#ubmsuite_modelSettings_myCoreValues_ul').append("<li><a data-mini='true' href='#'><h2 style='white-space:normal;'>" + item.value_title +"</h2><p style='white-space:normal;'>" + item.value_summary + "</p></a><a href='#ubmsuite_modelSettings_confirm_remove_CoreValue_popup' data-mini='true' data-rel='popup' data-position-to='window' data-transition='pop' onclick='setActiveCoreValueId("+ item.id + ")'>Remove Core Value</a></li>");
+						$('#ubmsuite_modelSettings_myCoreValues_ul').listview("refresh");
+					})
+						$('#ubmsuite_modelSettings_myCoreValues_ul').listview("refresh");
+						$('#ubmsuite_mcs_model_visual_content_core_values_ul').listview("refresh");
+				});	
+				setTimeout(function() {
+					$('#tiles').trigger('refreshWookmark');													//Layout items in Wookmark Grid
+				}, 1000);
+
+			}
+
+			function getListofPossibleCoreValues() {//Populates Core Value Listview on Possible CoreValue Popup
+				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_model_getAll_CoreValues.php?callback=?', {//JSONP Request to Open Items Page setup tables
+
+				}, function(res, status) {
+//						alert(status);
+						$('#ubmsuite_modelSettings_coreValues_popup_listview').empty();
+					$.each(res, function(i, item) {
+						$('#ubmsuite_modelSettings_coreValues_popup_listview').append("<li><a href='#'><p style='white-space:normal;'>" + item.value_title + "</p></a><a href='#' onclick='addCoreValueToMyModel(" + item.id + ")'>Add Core Value</a></li>");
+						$('#ubmsuite_modelSettings_coreValues_popup_listview').listview("refresh");
+					})
+				});	
+			}
+
+			function addCoreValueToMyModel(coreValueId) {//Called when the user selects an item from the Core Value Listview in the Possible CoreValues Popup
+				//(coreValueId+" will be added to this model");
+				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_model_add_CoreValue.php?callback=?', {//JSONP Request to Open Items Page setup tables
+					activeModelId : window.activeModelId,
+					activeCoreValueId: coreValueId
+				}, function(res, status) {
+						//alert(status);
+				});
+				getMyModelsCoreValues();	
+			}
+			function createNewCoreValueAddtoMyModel(){	//Called when the user submits the create new CoreValue Form
+				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_model_create_CoreValue.php?callback=?', {//JSONP Request to Open Items Page setup tables
+					coreValueTitle: document.getElementById("ubmsuite_modelSettings_createCoreValue_popup_createCoreValue_title").value,
+					coreValueSummary: document.getElementById("ubmsuite_modelSettings_createCoreValue_popup_createCoreValue_summary").value,
+					username: window.username,
+					activeModelId : window.activeModelId
+				}, function(res, status) {
+						$().toastmessage('showSuccessToast', res.message);
+				if (status == "success") {
+                        $('#ubmsuite_modelSettings_createCoreValue_popup_form').each(function() {
+                            this.reset();
+                        $("#ubmsuite_modelSettings_createCoreValue_popup").popup('close');
+
+                            getMyModelsProducts();
+                        });                     
+                    }
+                                        });
+				getMyModelsCoreValues();
+			}
+			function removeCorevalueFromMyModel(coreValueId) {//Called when the user selects the side button for each item in the My Models Has Core Values Listview
+				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_model_remove_CoreValue.php/callback=?', {//JSONP Request to Open Items Page setup tables
+					activeCoreValueId: window.activeCoreValueId,
+					activeModelId : window.activeModelId
+				}, function(res, status) {
+					$().toastmessage('showSuccessToast', res.message);
+				});					
+				
+				getMyModelsCoreValues();
+
+			}
+        </script>
+		<!-- End Core Values JavaScript -->
+        <script>
+            function setActiveCustomerId(activeCustomerId) {
+                window.activeCustomerId = activeCustomerId;
+            }
+			function getMyModelsCustomers() {//Populates Customer  Listview on Model Settings Page
+								//alert("Customers was called");
+				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_model_getCurrentModel_Customers.php?callback=?', {//JSONP Request to Open Items Page setup tables
+					activeModelId : window.activeModelId
+				}, function(res, status) {
+//						alert(status);
+						$('#ubmsuite_modelSettings_myCustomers_ul').empty();
+						$('#ubmsuite_mcs_model_visual_content_customers_ul').empty();
+						$('#ubmsuite_modelSettings_myCustomers_ul').append("<li><a data-rel='popup' data-transition='slideup' href='#ubmsuite_modelSettings_customers_popup' class='ui-btn ui-shadow'>UBM Customers. </a></li>");		
+						$('#ubmsuite_modelSettings_myCustomers_ul').append("<li><a data-rel='popup' data-transition='slideup' href='#ubmsuite_modelSettings_createCustomer_popup' class='ui-btn ui-shadow'>Create new!</a></li>");
+					$.each(res, function(i, item) {
+						$('#ubmsuite_mcs_model_visual_content_customers_ul').append("<li><a>" + item.name +"</a></li>");
+						//$('#ubmsuite_mcs_model_visual_content_customers_ul').listview("refresh");
+						$('#ubmsuite_modelSettings_myCustomers_ul').append("<li><a href='#'> <h2 style='white-space:normal;'>" + item.name +"</h2><p>" + item.id + "</p></a><a href='#ubmsuite_modelSettings_confirm_remove_Customer_popup' data-rel='popup' data-position-to='window' data-transition='pop' onclick='setActiveCustomerId("+ item.id + ")'>Remove Customer</a></li>");
+						$('#ubmsuite_modelSettings_myCustomers_ul').listview("refresh");
+					})
+						$('#ubmsuite_mcs_model_visual_content_customers_ul').listview("refresh");
+						$('#ubmsuite_modelSettings_myCustomers_ul').listview("refresh");
+				});
+
+					setTimeout(function() {
+					$('#tiles').trigger('refreshWookmark');													//Layout items in Wookmark Grid
+				}, 1000);			}
+
+			function getListofPossibleCustomers() {//Populates Customer Listview on Possible Customers Popup
+				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_model_getAll_Customers.php?callback=?', {//JSONP Request to Open Items Page setup tables
+
+				}, function(res, status) {
+//						alert(status);
+						$('#ubmsuite_modelSettings_customers_popup_listview').empty();
+					$.each(res, function(i, item) {
+						$('#ubmsuite_modelSettings_customers_popup_listview').append("<li><a href='#'><p>" + item.name + "</p></a><a href='#' onclick='addCustomerToMyModel(" + item.id + ")'>Add Customer</a></li>");
+						$('#ubmsuite_modelSettings_customers_popup_listview').listview("refresh");
+					})
+				});	
+			}
+
+			function addCustomerToMyModel(customerId) {//Called when the user selects an item from the Customer Listview in the Possible Customer Popup
+				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_model_add_Customer.php?callback=?', {//JSONP Request to Open Items Page setup tables
+					activeModelId : window.activeModelId,
+					activeCustomerId: customerId
+				}, function(res, status) {
+						//alert(status);
+				});
+				getMyModelsCustomers();	
+			}
+
+			function createNewCustomerAddtoMyModel() {//Called when the user submits the create new Customer Form
+				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_model_create_Customer.php?callback=?', {//JSONP Request to Open Items Page setup tables
+					activeModelId : window.activeModelId,
+					customerName : document.getElementById("ubmsuite_modelSettings_createCustomer_popup_createCustomer_name").value
+				}, function(res, status) {
+					if (status == "success") {
+						$('#ubmsuite_modelSettings_createCustomer_popup_form').each(function() {
+							this.reset();
+						$("#ubmsuite_modelSettings_createCustomer_popup").popup('close');	
+							getMyModelsCustomers();
+						});						
+					}
+				});
+			}
+
+			function removeCustomerFromMyModel() {//Called when the user selects the side button for each item in the My Models Has Core Values Listview
+				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_model_remove_Customer.php?callback=?', {//JSONP Request to Open Items Page setup tables
+					activeCustomerId: window.activeCustomerId,
+					activeModelId : window.activeModelId
+				}, function(res, status) {
+						//alert(status);
+				});
+				getMyModelsCustomers();	
+
+			}
+        </script>
+		<!-- End Customers JavaScript -->
+		<script>
+            function setActiveProductId(activeProductId) {
+                window.activeProductId = activeProductId;
+            }
+			function getMyModelsProducts() {//Populates Customer  Listview on Model Settings Page
+								//alert("Customers was called");
+				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_model_getCurrentModel_Products.php?callback=?', {//JSONP Request to Open Items Page setup tables
+					activeModelId : window.activeModelId
+				}, function(res, status) {
+//						alert(status);
+						$('#ubmsuite_mcs_model_visual_content_products_ul').empty();
+						$('#ubmsuite_modelSettings_myProducts_ul').empty();
+						$('#ubmsuite_modelSettings_myProducts_ul').append("<li><a data-rel='popup' data-transition='slideup' href='#ubmsuite_modelSettings_products_popup' class='ui-btn ui-shadow'>UBM Products. </a></li>");		
+						$('#ubmsuite_modelSettings_myProducts_ul').append("<li><a data-rel='popup' data-transition='slideup' href='#ubmsuite_modelSettings_createProduct_popup' class='ui-btn ui-shadow'>Create new!</a></li>");
+					$.each(res, function(i, item) {
+						$('#ubmsuite_mcs_model_visual_content_products_ul').append("<li><a>" + item.title +"</a></li>");
+						//$('#ubmsuite_mcs_model_visual_content_products_ul').listview("refresh");
+						$('#ubmsuite_modelSettings_myProducts_ul').append("<li><a href='#'> <h2 style='white-space:normal;'>" + item.title +"</h2><p>" + item.id + "</p></a><a href='#ubmsuite_modelSettings_confirm_remove_Product_popup' data-rel='popup' data-position-to='window' data-transition='pop' onclick='setActiveProductId("+ item.id + ")'>Remove Product</a></li>");
+						$('#ubmsuite_modelSettings_myProducts_ul').listview("refresh");
+						
+					})
+						$('#ubmsuite_mcs_model_visual_content_products_ul').listview("refresh");
+						$('#ubmsuite_modelSettings_myProducts_ul').listview("refresh");
+				});
+
+				setTimeout(function() {
+					$('#tiles').trigger('refreshWookmark');													//Layout items in Wookmark Grid
+				}, 1000);			}
+			function getListofPossibleProducts() {//Populates Customer Listview on Possible Customers Popup
+				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_model_getAll_Products.php?callback=?', {//JSONP Request to Open Items Page setup tables
+
+				}, function(res, status) {
+//						alert(status);
+						$('#ubmsuite_modelSettings_products_popup_listview').empty();
+					$.each(res, function(i, item) {
+						$('#ubmsuite_modelSettings_products_popup_listview').append("<li><a href='#'><pstyle='white-space:normal;'>" + item.title + "</p></a><a href='#' onclick='addProductToMyModel(" + item.id + ")'>Add Product</a></li>");
+						$('#ubmsuite_modelSettings_products_popup_listview').listview("refresh");
+					})
+				});	
+			}
+			function addProductToMyModel(productId) {//Called when the user selects an item from the Customer Listview in the Possible Customer Popup
+				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_model_add_Product.php?callback=?', {//JSONP Request to Open Items Page setup tables
+					activeModelId : window.activeModelId,
+					activeProductId: productId
+				}, function(res, status) {
+						//alert(status);
+				});
+				getMyModelsProducts();	
+			}
+			function createNewProductAddtoMyModel() {//Called when the user submits the create new Customer Form
+				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_model_create_Product.php?callback=?', {//JSONP Request to Open Items Page setup tables
+					activeModelId : window.activeModelId,
+					productTitle : document.getElementById("ubmsuite_modelSettings_createProduct_popup_Product_title").value
+				}, function(res, status) {
+					if (status == "success") {
+						$('#ubmsuite_modelSettings_createProduct_popup_form').each(function() {
+							this.reset();
+						$("#ubmsuite_modelSettings_createProduct_popup").popup('close');
+	
+							getMyModelsProducts();
+						});						
+					}
+				});
+			}
+			function removeProductFromMyModel() {//Called when the user selects the side button for each item in the My Models Has Core Values Listview
+				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_model_remove_Product.php?callback=?', {//JSONP Request to Open Items Page setup tables
+					activeProductId: window.activeProductId,
+					activeModelId : window.activeModelId
+				}, function(res, status) {
+						//alert(status);
+				});
+				getMyModelsProducts();	
+
+			}
+		</script>
+		<!-- End Products JavaScript -->
+		<script>
+            function setActiveServiceId(activeServiceId) {
+                window.activeServiceId = activeServiceId;
+            }
+			function getMyModelsServices() {//Populates Customer  Listview on Model Settings Page
+								//alert("Customers was called");
+				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_model_getCurrentModel_Services.php?callback=?', {//JSONP Request to Open Items Page setup tables
+					activeModelId : window.activeModelId
+				}, function(res, status) {
+//						alert(status);
+						$('#ubmsuite_mcs_model_visual_content_services_ul').empty();
+						$('#ubmsuite_modelSettings_myServices_ul').empty();
+						$('#ubmsuite_modelSettings_myServices_ul').append("<li><a data-rel='popup' data-transition='slideup' href='#ubmsuite_modelSettings_services_popup' class='ui-btn ui-shadow'>UBM Services. </a></li>");		
+						$('#ubmsuite_modelSettings_myServices_ul').append("<li><a data-rel='popup' data-transition='slideup' href='#ubmsuite_modelSettings_createService_popup' class='ui-btn ui-shadow'>Create new!</a></li>");
+					$.each(res, function(i, item) {
+						$('#ubmsuite_mcs_model_visual_content_services_ul').append("<li><a style='padding:0px 0px 0px 0px; width:100%'>" + item.title +"</a></li>");
+						//$('#ubmsuite_mcs_model_visual_content_services_ul').listview("refresh");
+						$('#ubmsuite_modelSettings_myServices_ul').append("<li><a href='#'> <h2 style='white-space:normal;'>" + item.title +"</h2><p>" + item.id + "</p></a><a href='#ubmsuite_modelSettings_confirm_remove_Service_popup' data-rel='popup' data-position-to='window' data-transition='pop' onclick='setActiveServiceId("+ item.id + ")'>Remove Service</a></li>");
+						$('#ubmsuite_modelSettings_myServices_ul').listview("refresh");
+					})
+						$('#ubmsuite_mcs_model_visual_content_services_ul').listview("refresh");
+						$('#ubmsuite_modelSettings_myServices_ul').listview("refresh");
+						
+				});
+				setTimeout(function() {
+					$('#tiles').trigger('refreshWookmark');													//Layout items in Wookmark Grid
+				}, 1000);			}
+
+			function getListofPossibleServices() {//Populates Customer Listview on Possible Customers Popup
+				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_model_getAll_Services.php?callback=?', {//JSONP Request to Open Items Page setup tables
+
+				}, function(res, status) {
+//						alert(status);
+						$('#ubmsuite_modelSettings_services_popup_listview').empty();
+					$.each(res, function(i, item) {
+						$('#ubmsuite_modelSettings_services_popup_listview').append("<li><a href='#'><p style='white-space:normal;'>" + item.title + "</p></a><a href='#' onclick='addServiceToMyModel(" + item.id + ")'>Add Service</a></li>");
+						$('#ubmsuite_modelSettings_services_popup_listview').listview("refresh");
+					})
+				});	
+			}
+			function addServiceToMyModel(serviceId) {//Called when the user selects an item from the Customer Listview in the Possible Customer Popup
+				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_model_add_Service.php?callback=?', {//JSONP Request to Open Items Page setup tables
+					activeModelId : window.activeModelId,
+					activeServiceId: serviceId
+				}, function(res, status) {
+						//alert(status);
+				});
+				getMyModelsServices();	
+			}
+			function createNewServiceAddtoMyModel() {//Called when the user submits the create new Customer Form
+				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_model_create_Service.php?callback=?', {//JSONP Request to Open Items Page setup tables
+					activeModelId : window.activeModelId,
+					serviceTitle : document.getElementById("ubmsuite_modelSettings_createService_popup_Service_title").value
+				}, function(res, status) {
+					if (status == "success") {
+						$('#ubmsuite_modelSettings_createService_popup_form').each(function() {
+							this.reset();
+						$("#ubmsuite_modelSettings_createService_popup").popup('close');	
+							getMyModelsServices();
+						});						
+					}
+				});
+			}
+			function removeServiceFromMyModel() {//Called when the user selects the side button for each item in the My Models Has Core Values Listview
+				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_model_remove_Service.php?callback=?', {//JSONP Request to Open Items Page setup tables
+					activeModelId: window.activeModelId,
+					activeServiceId : window.activeServiceId
+				}, function(res, status) {
+						//alert(status);
+				});
+				getMyModelsServices();	
+
+			}
+		</script>
+		<!-- End Service JavaScript -->
+		<script>
+            function setActivePhysicalFacilityId(activePhysicalFacilityId) {
+                window.activePhysicalFacilityId = activePhysicalFacilityId;
+            }
+			function getMyModelsPhysicalFacilities() {//Populates Customer  Listview on Model Settings Page
+								//alert("Customers was called");
+				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_model_getCurrentModel_PhysicalFacilities.php?callback=?', {//JSONP Request to Open Items Page setup tables
+					activeModelId : window.activeModelId
+				}, function(res, status) {
+//						alert(status);
+						$('#ubmsuite_mcs_model_visual_content_physical_facilitiei_ul').empty();
+						$('#ubmsuite_modelSettings_myPhysicalFacilities_ul').empty();
+						$('#ubmsuite_modelSettings_myPhysicalFacilities_ul').append("<li><a data-rel='popup' data-transition='slideup' href='#ubmsuite_modelSettings_physicalfacilities_popup' class='ui-btn ui-shadow'>UBM Physical Facilities. </a></li>");		
+						$('#ubmsuite_modelSettings_myPhysicalFacilities_ul').append("<li><a data-rel='popup' data-transition='slideup' href='#ubmsuite_modelSettings_createPhysicalFacility_popup' class='ui-btn ui-shadow'>Create new!</a></li>");
+					$.each(res, function(i, item) {
+						$('#ubmsuite_mcs_model_visual_content_physical_facilitiei_ul').append("<li><a>" + item.facility_title +"</a></li>");
+						//$('#ubmsuite_mcs_model_visual_content_physical_facilitiei_ul').listview("refresh");
+						$('#ubmsuite_modelSettings_myPhysicalFacilities_ul').append("<li><a href='#'> <h2 style='white-space:normal;'>" + item.facility_title +"</h2><p>" + item.id + "</p></a><a href='#ubmsuite_modelSettings_confirm_remove_PhysicalFacility_popup' data-rel='popup' data-position-to='window' data-transition='pop' onclick='setActivePhysicalFacilityId("+ item.id + ")'>Remove Physical Facility</a></li>");
+						$('#ubmsuite_modelSettings_myPhysicalFacilities_ul').listview("refresh");
+					})
+						$('#ubmsuite_mcs_model_visual_content_physical_facilitiei_ul').listview("refresh");
+						$('#ubmsuite_modelSettings_myPhysicalFacilities_ul').listview("refresh");
+				});
+				setTimeout(function() {
+					$('#tiles').trigger('refreshWookmark');													//Layout items in Wookmark Grid
+				}, 1000);			}
+
+			function getListofPossiblePhysicalFacilities() {//Populates Customer Listview on Possible Customers Popup
+				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_model_getAll_PhysicalFacilities.php?callback=?', {//JSONP Request to Open Items Page setup tables
+				}, function(res, status) {
+//						alert(status);
+						$('#ubmsuite_modelSettings_physicalfacilities_popup_listview').empty();
+					$.each(res, function(i, item) {
+						$('#ubmsuite_modelSettings_physicalfacilities_popup_listview').append("<li><a href='#'><p style='white-space:normal;'>" + item.facility_title + "</p></a><a href='#' onclick='addPhysicalFacilitiesToMyModel(" + item.id + ")'>Add Physical Facility</a></li>");
+						$('#ubmsuite_modelSettings_physicalfacilities_popup_listview').listview("refresh");
+					})
+				});	
+			}
+			function addPhysicalFacilitiesToMyModel(physicalFacilityId) {//Called when the user selects an item from the Customer Listview in the Possible Customer Popup
+				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_model_add_PhysicalFacility.php?callback=?', {//JSONP Request to Open Items Page setup tables
+					activeModelId : window.activeModelId,
+					activePhysicalFacilityId: physicalFacilityId
+				}, function(res, status) {
+						//alert(status);
+				});
+				getMyModelsPhysicalFacilities();	
+			}
+			function createNewPhysicalFacilityAddtoMyModel() {//Called when the user submits the create new Customer Form
+				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_model_create_PhysicalFacility.php?callback=?', {//JSONP Request to Open Items Page setup tables
+					activeModelId : window.activeModelId,
+					physicalFacilityTitle : document.getElementById("ubmsuite_modelSettings_createPhysicalFacility_popup_PhysicalFacility_title").value,
+					physicalFacilityAssociatedCost : document.getElementById("ubmsuite_modelSettings_createPhysicalFacility_popup_PhysicalFacility_associated_cost").value
+				}, function(res, status) {
+					if (status == "success") {
+						$('#ubmsuite_modelSettings_createPhysicalFacility_popup_form').each(function() {
+							this.reset();
+						$("#ubmsuite_modelSettings_createPhysicalFacility_popup").popup('close');
+						});						
+						getMyModelsPhysicalFacilities();
+					}
+				});
+			}			
+			function removePhysicalFacilityFromMyModel() {//Called when the user selects the side button for each item in the My Models Has Core Values Listview
+				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_model_remove_PhysicalFacility.php?callback=?', {//JSONP Request to Open Items Page setup tables
+					activeModelId: window.activeModelId,
+					activePhysicalFacilityId : window.activePhysicalFacilityId
+				}, function(res, status) {
+						//alert(status);
+				});
+				getMyModelsPhysicalFacilities();	
+			}
+		</script>
+		<!-- End Physical Facility JavaScript -->
+		<script>
+            function setActiveOrganizationalStructureId(activeOrganizationalStructureId) {
+                window.activeOrganizationalStructureId = activeOrganizationalStructureId;
+            }
+			function getMyModelsOrganizationalStructures() {//Populates Customer  Listview on Model Settings Page
+								//alert("Customers was called");
+				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_model_getCurrentModel_OrganizationalStructures.php?callback=?', {//JSONP Request to Open Items Page setup tables
+					activeModelId : window.activeModelId
+				}, function(res, status) {
+//						alert(status);
+						$('#ubmsuite_mcs_model_visual_content_organizational_structure_ul').empty();
+						$('#ubmsuite_modelSettings_myOrganizationalStructure_ul').empty();
+						$('#ubmsuite_modelSettings_myOrganizationalStructure_ul').append("<li><a data-rel='popup' data-transition='slideup' href='#ubmsuite_modelSettings_organizationalstructure_popup' class='ui-btn ui-shadow'>UBM Organizational Structure. </a></li>");		
+						$('#ubmsuite_modelSettings_myOrganizationalStructure_ul').append("<li><a data-rel='popup' data-transition='slideup' href='#ubmsuite_modelSettings_createOrganizationalStructure_popup' class='ui-btn ui-shadow'>Create new!</a></li>");
+					$.each(res, function(i, item) {
+						$('#ubmsuite_mcs_model_visual_content_organizational_structure_ul').append("<li><a>" + item.structure_title +"</a></li>");
+						//$('#ubmsuite_mcs_model_visual_content_organizational_structure_ul').listview("refresh");
+						$('#ubmsuite_modelSettings_myOrganizationalStructure_ul').append("<li><a href='#'> <h2 style='white-space:normal;'>" + item.structure_title +"</h2><p>" + item.id + "</p></a><a href='#ubmsuite_modelSettings_confirm_remove_OrganizationalStructure_popup' data-rel='popup' data-position-to='window' data-transition='pop' onclick='setActiveOrganizationalStructureId("+ item.id + ")'>Remove Organizational Structure</a></li>");
+						$('#ubmsuite_modelSettings_myOrganizationalStructure_ul').listview("refresh");
+					})
+						$('#ubmsuite_mcs_model_visual_content_contact_ul').listview("refresh");
+						$('#ubmsuite_modelSettings_myOrganizationalStructure_ul').listview("refresh");
+				});
+				setTimeout(function() {
+					$('#tiles').trigger('refreshWookmark');													//Layout items in Wookmark Grid
+				}, 1000);			}
+			function getListofPossibleOrganizationalStructures() {//Populates Customer Listview on Possible Customers Popup
+				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_model_getAll_OrganizationalStructures.php?callback=?', {//JSONP Request to Open Items Page setup tables
+				}, function(res, status) {
+//						alert(status);
+						$('#ubmsuite_modelSettings_organizationalstructure_popup_listview').empty();
+					$.each(res, function(i, item) {
+						$('#ubmsuite_modelSettings_organizationalstructure_popup_listview').append("<li><a href='#'><p style='white-space:normal;'>" + item.structure_title + "</p></a><a href='#' onclick='addOrganizationalStructureToMyModel(" + item.id + ")'>Add Organizational Structure</a></li>");
+						$('#ubmsuite_modelSettings_organizationalstructure_popup_listview').listview("refresh");
+					})
+				});	
+			}
+			function addOrganizationalStructureToMyModel(organizationalStructureId) {//Called when the user selects an item from the Customer Listview in the Possible Customer Popup
+				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_model_add_OrganizationalStructure.php?callback=?', {//JSONP Request to Open Items Page setup tables
+					activeModelId : window.activeModelId,
+					organizationalStructureId: organizationalStructureId
+				}, function(res, status) {
+						//alert(status);
+				});
+				getMyModelsOrganizationalStructures();	
+			}
+			function createNewOrganizationalStructureAddtoMyModel() {//Called when the user submits the create new Customer Form
+				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_model_create_OrganizationalStructure.php?callback=?', {//JSONP Request to Open Items Page setup tables
+					activeModelId : window.activeModelId,
+					organizationalStructureTitle : document.getElementById("ubmsuite_modelSettings_createOrganizationalStructure_popup_OrganizationalStructure_title").value,
+					organizationalStructureTitleReportsTo : document.getElementById("ubmsuite_modelSettings_createOrganizationalStructure_popup_OrganizationalStructure_reports_to").value
+				}, function(res, status) {
+					if (status == "success") {
+						$('#ubmsuite_modelSettings_createOrganizationalStructure_popup_form').each(function() {
+							this.reset();
+						$("#ubmsuite_modelSettings_createOrganizationalStructure_popup").popup('close');
+							getMyModelsOrganizationalStructures();
+						});						
+					}
+				});
+			}
+			function removeOrganizationalStructureFromMyModel() {//Called when the user selects the side button for each item in the My Models Has Core Values Listview
+				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_model_remove_OrganiztionalStructure.php?callback=?', {//JSONP Request to Open Items Page setup tables
+					activeModelId: window.activeModelId,
+					activeOrganizationalStructureId : window.activeOrganizationalStructureId
+				}, function(res, status) {
+						//alert(status);
+				});
+				getMyModelsOrganizationalStructures();	
+			}
+		</script>
+		<!-- End Organizational Structure JavaScript -->
+		<script>
+            function setActiveStrategicAllianceId(activeStrategicAllianceId) {
+                window.activeStrategicAllianceId = activeStrategicAllianceId;
+            }
+			function getMyModelsStrategicAlliances() {//Populates Customer  Listview on Model Settings Page
+								//alert("Customers was called");
+				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_model_getCurrentModel_StrategicAlliances.php?callback=?', {//JSONP Request to Open Items Page setup tables
+					activeModelId : window.activeModelId
+				}, function(res, status) {
+//						alert(status);
+						$('#ubmsuite_mcs_model_visual_content_strategic_alliances_ul').empty();
+						$('#ubmsuite_modelSettings_myStrategicAlliances_ul').empty();
+						$('#ubmsuite_modelSettings_myStrategicAlliances_ul').append("<li><a data-rel='popup' data-transition='slideup' href='#ubmsuite_modelSettings_strategicalliances_popup' class='ui-btn ui-shadow'>UBM Strategic Alliance. </a></li>");		
+						$('#ubmsuite_modelSettings_myOrganizationalStructure_ul').append("<li><a data-rel='popup' data-transition='slideup' href='#ubmsuite_modelSettings_createOrganizationalStructure_popup' class='ui-btn ui-shadow'>Create new!</a></li>");
+					$.each(res, function(i, item) {
+
+						
+						$('#ubmsuite_mcs_model_visual_content_strategic_alliances_ul').append("<li><a style='width:100%'>" + item.strategicalliance_description +"</a></li>");
+						
+						$('#ubmsuite_modelSettings_myStrategicAlliances_ul').append("<li><a href='#'> <h2 style='white-space:normal;'>" + item.strategicalliance_comment +"</h2><p>" + item.strategicalliance_description + "</p></a><a href='#ubmsuite_modelSettings_confirm_remove_StrategicAlliance_popup' data-rel='popup' data-position-to='window' data-transition='pop' onclick='setActiveStrategicAllianceId("+ item.id + ")'>Remove Strategic Alliance</a></li>");
+
+						$('#ubmsuite_modelSettings_myStrategicAlliances_ul').listview("refresh");
+					})
+						$('#ubmsuite_modelSettings_myStrategicAlliances_ul').append("<li><a data-rel='popup' data-transition='slideup' href='#ubmsuite_modelSettings_createStrategicAlliance_popup' class='ui-btn ui-shadow'>Create new!</a></li>");
+						$('#ubmsuite_modelSettings_myStrategicAlliances_ul').listview("refresh");
+						$('#ubmsuite_mcs_model_visual_content_strategic_alliances_ul').listview("refresh");
+				});
+				setTimeout(function() {
+					$('#tiles').trigger('refreshWookmark');													//Layout items in Wookmark Grid
+				}, 1000);			}
+			function getListofPossibleStrategicAlliances() {//Populates Customer Listview on Possible Customers Popup
+				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_model_getAll_StrategicAlliances.php?callback=?', {//JSONP Request to Open Items Page setup tables
+				}, function(res, status) {
+//						alert(status);
+						$('#ubmsuite_modelSettings_strategicalliances_popup_listview').empty();
+					$.each(res, function(i, item) {
+						$('#ubmsuite_modelSettings_strategicalliances_popup_listview').append("<li><a href='#'><p style='white-space:normal;'>" + item.strategicalliance_description + "</p></a><a href='#' onclick='addStrategicAllianceToMyModel(" + item.id + ")'>Add Strategic Alliance</a></li>");
+						$('#ubmsuite_modelSettings_strategicalliances_popup_listview').listview("refresh");
+					})
+				});	
+			}
+			function addStrategicAllianceToMyModel(strategicAllianceId) {//Called when the user selects an item from the Customer Listview in the Possible Customer Popup
+				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_model_add_StrategicAlliance.php?callback=?', {//JSONP Request to Open Items Page setup tables
+					activeModelId : window.activeModelId,
+					activeStrategicAllianceId: strategicAllianceId
+				}, function(res, status) {
+						//alert(status);
+				});
+				getMyModelsStrategicAlliances();	
+			}
+			function createNewStrategicAllianceAddtoMyModel() {//Called when the user submits the create new Customer Form
+				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_model_create_StrategicAlliance.php?callback=?', {//JSONP Request to Open Items Page setup tables
+					activeModelId : window.activeModelId,
+					strategicAllianceDescription : document.getElementById("ubmsuite_modelSettings_createStrategicAlliance_popup_StrategicAlliance_description").value,
+					strategicAllianceComment : document.getElementById("ubmsuite_modelSettings_createStrategicAlliance_popup_StrategicAlliance_comment").value
+				}, function(res, status) {
+					if (status == "success") {
+						$('#ubmsuite_modelSettings_createStrategicAlliance_popup_form').each(function() {
+							this.reset();
+						$("#ubmsuite_modelSettings_createStrategicAlliance_popup").popup('close');
+							
+						});						
+							getMyModelsStrategicAlliances();
+					}
+				});
+			}
+			function removeStrategicAllianceFromMyModel() {//Called when the user selects the side button for each item in the My Models Has Core Values Listview
+				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_model_remove_StrategicAlliance.php?callback=?', {//JSONP Request to Open Items Page setup tables
+					activeModelId: window.activeModelId,
+					activeStrategicAllianceId : window.activeStrategicAllianceId
+				}, function(res, status) {
+
+				});
+				getMyModelsStrategicAlliances();	
+			}
+		</script>
+		<!-- End Strategic Alliance JavaScript -->
+		<script>
+            function setActiveStrategicPositioningQuestionId(activeStrategicPositioningId) {
+                window.activeStrategicPositioningId = activeStrategicPositioningId;
+            }
+			function getMyModelsStrategicPositioningQuestions() {//Populates Customer  Listview on Model Settings Page
+								//alert("Customers was called");
+				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_model_getCurrentModel_StrategicPositioning.php?callback=?', {//JSONP Request to Open Items Page setup tables
+					activeModelId : window.activeModelId
+				}, function(res, status) {
+//						alert(status);
+						$('#ubmsuite_mcs_model_visual_content_strategic_positioning_questions_ul').empty();
+						$('#ubmsuite_modelSettings_myStrategicPositioningQuestions_ul').empty();
+						$('#ubmsuite_modelSettings_myStrategicPositioningQuestions_ul').append("<li><a data-rel='popup' data-transition='slideup' href='#ubmsuite_modelSettings_strategicpositioningquestions_popup' class='ui-btn ui-shadow'>UBM Strategic Positioning Question. </a></li>");		
+						$('#ubmsuite_modelSettings_myStrategicPositioningQuestions_ul').append("<li><a data-rel='popup' data-transition='slideup' href='#ubmsuite_modelSettings_createStrategicPositioningQuestion_popup' class='ui-btn ui-shadow'>Create new!</a></li>");
+					$.each(res, function(i, item) {
+
+						$('#ubmsuite_mcs_model_visual_content_strategic_positioning_questions_ul').append("<li><a>" + item.id +"</a></li>");
+
+						
+						$('#ubmsuite_modelSettings_myStrategicPositioningQuestions_ul').append("<li><a href='#'> <h2 style='white-space:normal;'>" + item.question +"</h2><p>" + item.id + "</p></a><a href='#ubmsuite_modelSettings_confirm_remove_StrategicPositioningQuestion_popup' data-rel='popup' data-position-to='window' data-transition='pop' onclick='setActiveStrategicPositioningQuestionId("+ item.id + ")'>Remove Strategic Positioning Question</a></li>");
+						$('#ubmsuite_modelSettings_myStrategicPositioningQuestions_ul').listview("refresh");
+					})
+						$('#ubmsuite_mcs_model_visual_content_strategic_positioning_questions_ul').listview("refresh");
+						$('#ubmsuite_modelSettings_myStrategicPositioningQuestions_ul').listview("refresh");
+				});
+				$('#tiles').trigger('refreshWookmark');													//Layout items in Wookmark Grid
+			}
+			function getListofPossibleStrategicPositioningQuestions() {//Populates Customer Listview on Possible Customers Popup
+				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_model_getAll_StrategicPositioning.php?callback=?', {//JSONP Request to Open Items Page setup tables
+				}, function(res, status) {
+//						alert(status);
+						$('#ubmsuite_modelSettings_strategicpositioningquestions_popup_listview').empty();
+					$.each(res, function(i, item) {
+						$('#ubmsuite_modelSettings_strategicpositioningquestions_popup_listview').append("<li><a href='#'><p style='white-space:normal;'>" + item.question + "</p></a><a href='#' onclick='addStrategicPositioningQuestionToMyModel(" + item.id + ")'>Add Strategic Positioning Question</a></li>");
+						$('#ubmsuite_modelSettings_strategicpositioningquestions_popup_listview').listview("refresh");
+					})
+				});	
+			}
+			function addStrategicPositioningQuestionToMyModel(activeStrategicPositioningId) {//Called when the user selects an item from the Customer Listview in the Possible Customer Popup
+				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_model_add_StrategicPositioning.php?callback=?', {//JSONP Request to Open Items Page setup tables
+					activeModelId : window.activeModelId,
+					activeStrategicPositioningId: activeStrategicPositioningId
+				}, function(res, status) {
+						//alert(status);
+				});
+				getMyModelsStrategicPositioningQuestions();	
+			}
+			function createNewStrategicPositioningQuestionAddtoMyModel() {//Called when the user submits the create new Customer Form
+				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_model_create_StrategicPositioning.php?callback=?', {//JSONP Request to Open Items Page setup tables
+					activeModelId : window.activeModelId,
+					strategicPosistionQuestion : document.getElementById("ubmsuite_modelSettings_createStrategicPositioningQuestion_popup_StrategicPositioningQuestion_question").value,
+				}, function(res, status) {
+					if (status == "success") {
+						$('#ubmsuite_modelSettings_createStrategicPositioningQuestion_popup_form').each(function() {
+							this.reset();
+						$("#ubmsuite_modelSettings_createStrategicPositioningQuestion_popup").popup('close');
+						});						
+							getMyModelsStrategicPositioningQuestions();
+					}
+				});
+			}
+			function removeStrategicPositioningQuestionFromMyModel() {//Called when the user selects the side button for each item in the My Models Has Core Values Listview
+				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_model_remove_StrategicPositioning.php?callback=?', {//JSONP Request to Open Items Page setup tables
+					activeModelId: window.activeModelId,
+					activeStrategicPositioningId : window.activeStrategicPositioningId
+				}, function(res, status) {
+						//alert(status);
+				});
+				getMyModelsStrategicPositioningQuestions();	
+			}
+		</script>
+		<!-- End Strategic Positioning Questions JavaScript -->
+		<script>
+            function setActiveFeatureId(activeFeatureId) {
+                window.activeFeatureId = activeFeatureId;
+            }
+			function getMyModelsFeatures() {//Populates Customer  Listview on Model Settings Page
+								//alert("Customers was called");
+				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_model_getCurrentModel_Features.php?callback=?', {//JSONP Request to Open Items Page setup tables
+					activeModelId : window.activeModelId
+				}, function(res, status) {
+//						alert(status);
+						$('#ubmsuite_mcs_model_visual_content_features_ul').empty();
+						$('#ubmsuite_modelSettings_myFeatures_ul').empty();
+						$('#ubmsuite_modelSettings_myFeatures_ul').append("<li><a data-rel='popup' data-transition='slideup' href='#ubmsuite_modelSettings_features_popup' class='ui-btn ui-shadow'>UBM Features. </a></li>");		
+						$('#ubmsuite_modelSettings_myFeatures_ul').append("<li><a data-rel='popup' data-transition='slideup' href='#ubmsuite_modelSettings_createFeature_popup' class='ui-btn ui-shadow'>Create new!</a></li>");
+					$.each(res, function(i, item) {
+						$('#ubmsuite_mcs_model_visual_content_features_ul').append("<li><a>" + item.feature_title +"</a></li>");
+						//$('#ubmsuite_mcs_model_visual_content_features_ul').listview("refresh");
+						$('#ubmsuite_modelSettings_myFeatures_ul').append("<li><a href='#'> <h2 style='white-space:normal;'>" + item.feature_title +"</h2><p>" + item.feature_description + "</p></a><a href='#ubmsuite_modelSettings_confirm_remove_Feature_popup' data-rel='popup' data-position-to='window' data-transition='pop' onclick='setActiveFeatureId("+ item.id + ")'>Remove Feature</a></li>");
+						$('#ubmsuite_modelSettings_myFeatures_ul').listview("refresh");
+					})
+						$('#ubmsuite_mcs_model_visual_content_features_ul').listview("refresh");
+						$('#ubmsuite_modelSettings_myFeatures_ul').listview("refresh");
+				});
+				$('#tiles').trigger('refreshWookmark');													//Layout items in Wookmark Grid
+			}
+			function getListofPossibleFeatures() {//Populates Customer Listview on Possible Customers Popup
+				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_model_getAll_Features.php?callback=?', {//JSONP Request to Open Items Page setup tables
+				}, function(res, status) {
+//						alert(status);
+						$('#ubmsuite_modelSettings_features_popup_listview').empty();
+					$.each(res, function(i, item) {
+						$('#ubmsuite_modelSettings_features_popup_listview').append("<li><a href='#'><p>" + item.feature_title + "</p></a><a href='#' onclick='addFeatureToMyModel(" + item.id + ")'>Add Feature</a></li>");
+						$('#ubmsuite_modelSettings_features_popup_listview').listview("refresh");
+					})
+				});	
+			}
+			function addFeatureToMyModel(featureId) {//Called when the user selects an item from the Customer Listview in the Possible Customer Popup
+				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_model_add_Feature.php?callback=?', {//JSONP Request to Open Items Page setup tables
+					activeModelId : window.activeModelId,
+					activeFeatureId: featureId
+				}, function(res, status) {
+						//alert(status);
+				});
+				getMyModelsFeatures();	
+			}			
+			function createNewFeatureAddtoMyModel() {//Called when the user submits the create new Customer Form
+				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_model_create_Feature.php?callback=?', {//JSONP Request to Open Items Page setup tables
+					activeModelId : window.activeModelId,
+					featureDescription : document.getElementById("ubmsuite_modelSettings_createFeature_popup_Feature_description").value,
+					featureTitle : document.getElementById("ubmsuite_modelSettings_createFeature_popup_Feature_title").value
+
+				}, function(res, status) {
+					if (status == "success") {
+						$('#ubmsuite_modelSettings_createFeature_popup_form').each(function() {
+							this.reset();
+						$("#ubmsuite_modelSettings_createFeature_popup").popup('close');
+						});						
+							getMyModelsFeatures();
+					}
+				});
+			}
+			function removeFeatureFromMyModel() {//Called when the user selects the side button for each item in the My Models Has Core Values Listview
+				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_model_remove_Feature.php?callback=?', {//JSONP Request to Open Items Page setup tables
+					activeModelId: window.activeModelId,
+					activeFeatureId : window.activeFeatureId
+				}, function(res, status) {
+						//alert(status);
+				});
+				getMyModelsFeatures();	
+			}
+		</script>
+		<!-- End Features JavaScript -->
+        <script>
+			function getMasterFileIndexItems00() {
+				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_getMasterFileIndexItems_00.php?callback=?', {//JSONP Request to Open Items Page setup tables
+					activeModelId : window.activeModelId
+				}, function(res, status) {
+					$.each(res, function(i, item) {
+						$('#mfi_firstChild_1').append("<li><input type='checkbox'/><span>" + item.name + "</span></li>");
+					});
+				});
+
+			}
+
+			function getMasterFileIndexItems01() {
+				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_getMasterFileIndexItems_01.php?callback=?', {//JSONP Request to Open Items Page setup tables
+					activeModelId : window.activeModelId
+				}, function(res, status) {
+					$.each(res, function(i, item) {
+						$('#mfi_firstChild_2').append("<li><input type='checkbox'/><span>" + item.name + "</span></li>");
+					});
+
+				});
+			}
+
+			function getMasterFileIndexItems() {
+				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_getMasterFileIndexItems.php?callback=?', {//JSONP Request to Open Items Page setup tables
+					activeModelId : window.activeModelId
+				}, function(res, status) {
+					$('#ubmsuite_mcs_master_file_index_tree').empty();
+					$.each(res, function(i, item) {
+						if (item.ubm_required == "yes") {
+							$('#ubmsuite_mcs_master_file_index_tree').append("<li><input disabled='' type='checkbox' checked/><a>" + item.mfi_ref + "&nbsp &nbsp " + item.title + "</a> <ul id='mfi_firstChild_" + item.id + "'></ul></li>");
+						} else {
+							$('#ubmsuite_mcs_master_file_index_tree').append("<li><input type='checkbox'/><a>" + item.mfi_ref + " &nbsp &nbsp " + item.title + " </a><ul id='mfi_firstChild_" + item.id + "'></ul></li>");
+						}
+					});
+					getMasterFileIndexItems01();
+					getMasterFileIndexItems00();
+					coolify();
+				});
+			}
+
+        </script>
+        <!-- End Master File Index -->
 		<script>
 			function refreshBackboneTable(){
 				getJobDescriptionsforBackBoneTable();
@@ -127,193 +1240,65 @@ under the License.
 				//getStepsforBackBoneTable();
 				//getTasksforBackBoneTable();
 			}
-			function setActivePosition(activeReportsToPosition, positionTitle){
+			function setActivePosition(activeReportsToPosition){
 				window.activeReportsToPosition = activeReportsToPosition;
-				if(positionTitle == "Owners") {
-					$("#genericManagePosition").remove();
-					$("#manageOwnersListItem").remove();
-					$("#ubmsuite_mcs_my_organizational_chart_content_mangePositionPopUp").append("<li id='manageOwnersListItem' <a href='#' onclick='manageOwners();getListOfOwnerNames()' class='ui-btn'>Manage Owners</a></li>");
-				}else {
-					$("#genericManagePosition").remove();
-					$("#manageOwnersListItem").remove();
-					$("#ubmsuite_mcs_my_organizational_chart_content_mangePositionPopUp").append("<li id='genericManagePosition' <a href='#' onclick='managePosition();getListOfPositionNames()' class='ui-btn'>Manage Position</a></li>");
-				}
+			//	alert(window.activeReportsToPosition);
+	//6. Call popmenu plugin with the given parameters as plugin options.
+	            $('.demo_box_popup').popmenu({
+				    'controller': true,       // use control button or not
+				    'width': '300px',         // width of menu
+				    'background': '#34495e',  // background color of menu
+				    'focusColor': '#1abc9c',  // hover color of menu's buttons
+				    'borderRadius': '10px',   // radian of angles, '0' for right angle
+				    'top': '50',              // pixels that move up
+				    'left': '0',              // pixels that move left
+				    'iconSize': '75px'        // size of menu's buttons
+	            });
 				setTimeout(function() {
-					$("#ubmsuite_mcs_my_organizational_chart_content_mangePositionPopUp").popup('open');
-					//buildHierarchicalTree(activeReportsToPosition);					
-					getJobDescriptionsforBackBoneTable();	
-				}, 10);
+					$("#ubmsuite_mcs_my_organizational_chart_content_modifyPositionPopUp").popup('open');
+					getPositionforHeirarchicalObjectTree();
+					getJobDescriptionsforBackBoneTable();
+				}, 10);		
+				
 			}
 			// This function is the second of two functions that show popups this one is for the hierarchical
 			function setActivePosition2(activeReportsToPosition){
 				window.activeReportsToPosition = activeReportsToPosition;
-				//	alert(window.activeReportsToPosition);
-				//6. Call popmenu plugin with the given parameters as plugin options.
+			//	alert(window.activeReportsToPosition);
+	//6. Call popmenu plugin with the given parameters as plugin options.
 				setTimeout(function() {
 					$("#ubmsuite_mcs_my_organizational_chart_content_manageJobDescriptionPopUp").popup('open');
-						getJobDescriptionsforBackBoneTable();
-						getListofPossiblePositions();
+					getPositionforHeirarchicalObjectTree();
+					getJobDescriptionsforBackBoneTable();
 				}, 10);		
+				
 			}
-			
 			function getMyModelsPositions(){
-				$.getJSON('http://api.universalbusinessmodel.com/ubm_modelcreationsuite_model_getCurrentModel_Positions.php?callback=?', {//JSONP Request to Open Items Page setup tables
-					activeModelUUID : window.activeModelUUID,
-					key : window.key,
-				}, function(res, status) {
-						$("#ubsuite_mcs_managment_reporting_modelHasPositions_positions").empty();
-					$.each(res, function(i, item) {
-						$("#ubsuite_mcs_managment_reporting_modelHasPositions_positions").append("<li><a href='#'>" + item.title + "</a></li>");
-						$('#ubsuite_mcs_managment_reporting_modelHasPositions_positions').listview("refresh");
-					});
-
-				});	
+				
 			}
-			
-			function openAddNewPositionPopup(){
-				$("#ubmsuite_mcs_my_organizational_chart_content_mangePositionPopUp").popup('close');
+			function openCreateNewPositionPopup(){
+					$("#ubmsuite_mcs_my_organizational_chart_content_modifyPositionPopUp").popup('close');
 				setTimeout(function() {
 					$("#ubmsuite_mcs_my_organizational_chart_content_createNewPositionPopUp").popup('open');
 				}, 1000);	
+				
 			}
-			function getListofPossiblePositions() {//Populates the Create new Position Listview on the Possible Positions Popup
+			function getListofPossiblePositions() {//Populates Core Value Listview on Possible CoreValue Popup
 				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_model_getAll_Positions.php?callback=?', {//JSONP Request to Open Items Page setup tables
-					key : window.key,
+
 				}, function(res, status) {
+//						alert(status);
 						$('#ubmsuite_mcs_my_organizational_chart_content_createNewPositionPopUp_form_UBMRepository').empty();
 					$.each(res, function(i, item) {
-						$('#ubmsuite_mcs_my_organizational_chart_content_createNewPositionPopUp_form_UBMRepository').append("<li><a href='#' onclick='openPositionSummaryPopup(" + item.id + ")'><p style='white-space:normal;'>" + item.title + "</p></a><a href='#' onclick='addPositiontoMyModel(" + item.id + ")'>Add Position</a></li>");
+						$('#ubmsuite_mcs_my_organizational_chart_content_createNewPositionPopUp_form_UBMRepository').append("<li><a href='#'><p style='white-space:normal;'>" + item.title + "</p></a><a href='#' onclick='addPositiontoMyModel(" + item.id + ")'>Add Position</a></li>");
 						$('#ubmsuite_mcs_my_organizational_chart_content_createNewPositionPopUp_form_UBMRepository').listview("refresh");
-					});
-				});
+					})
+				});	
 			}
-			function openPositionSummaryPopup(activePositionId) {
-				$.getJSON('http://www.findmydriver.com/ubms_modelcreationsuite_model_getCurrentView_Position.php?callback=?', {//JSONP Request to Open Items Page setup tables
-					key : window.key,
-					activePositionId : activePositionId
-				}, function(res, status) {
-					
-						$('#ubmsuite_mcs_my_organizational_chart_content_predefined_positionSummary_popup_header').empty();
-						$('#ubmsuite_mcs_my_organizational_chart_content_predefined_positionSummary_popup_content').empty();
-						$().toastmessage('showSuccessToast', res.message);
-					 $.each(res, function(i, item) {
-						
-						$('#ubmsuite_mcs_my_organizational_chart_content_predefined_positionSummary_popup_header').append("<h1 style=text-align:center;font-size=100%;margin-top:1%;>" + item.title + "</h1><a href='#' class='ui-btn ui-icon-back ui-btn-icon-left ui-shadow back_btn ui-btn-icon-notext' data-icon='arrow-l' data-rel='back' style='max-width:15%;text-align:left;float:left;margin-top:-3.5%;margin-left:1%' ></a><a onclick='openEditPositionSummaryPopup(" + activePositionId + ")' style='max-width:15%;text-align:right;float:right;margin-top:-3.5%;margin-right:1%' class='ui-icon-edit ui-btn ui-btn-icon-left ui-shadow ui-corner-all' href='#'>Edit this position</a>");
-						$('#ubmsuite_mcs_my_organizational_chart_content_predefined_positionSummary_popup_content').append("<p><strong style='line-height: 1.6;'>Master File Index Position Number: </strong></p><br><p><strong>Grade Level:</strong> &nbsp;&nbsp;___________&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <strong>Organizational Chart Level:</strong> ___________&nbsp;&nbsp;</p><br><p><strong>Branch: </strong>______________&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <strong>Shift: <input disabled='disabled' type='checkbox'/>&nbsp;</strong>Day <input disabled='disabled' type='checkbox'/>&nbsp;Night <input disabled='disabled'type='checkbox'/>&nbsp;Other _________</p><p>&nbsp;</p><p>&nbsp;</p><p><strong>Full or Part Time:</strong>&nbsp; <input disabled='disabled' type='checkbox'/>&nbsp;Full Time <input disabled='disabled' type='checkbox'/>&nbsp;Part Time</p><p><strong>Pay Type: <input disabled='disabled' type='checkbox'/>&nbsp;</strong>Hourly <input disabled='disabled' type='checkbox'/>&nbsp;Salary <input disabled='disabled' type='checkbox'/>&nbsp;Commission <input disabled='disabled' type='checkbox'/>&nbsp;Other ___________ </p><br><p><strong>Position Pay Range:</strong> ______ <strong>to </strong>______</p>	<p><strong>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Low &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;High</strong></p><br><p><strong>Position Reports To:</strong>&nbsp;_____</p><br><p><strong>Position Responsible For: </strong>_____&nbsp;&nbsp;</p><br><p><strong>HR Contact:</strong> ________ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<strong>HR Phone Number:</strong> ________&nbsp;&nbsp;</p><br><p><strong>Position Summary:</strong></p><p>" + item.summary + "</p><br><p><strong>Position Description:</strong></p><p>" + item.description + "</p><br><p><strong>Security Level: </strong></p><p>" + item.security_level + "</p><br><p><strong>Age Requirements: </strong></p><p>" + item.age_requirements + "</p><br><br><p><strong>Education Requirements: </strong></p><p>"+ item.education_requirements + "</p><br><p><strong>Qualifications:</strong></p><p>" + item.qualifications + "</p><br><p><strong>Physical Demands: </strong></p><p>" + item.physical_demands + "</p><br><p><strong>Work Environment: </strong></p><p>" + item.work_environment + "</p><p>&nbsp;</p><p><strong>Published Job Description:</strong><strong>(Summary of all positions age, education, qualifications, physical demands, and work environment requirements)</strong></p>");
-							$('#ubmsuite_mcs_my_organizational_chart_content_predefined_positionSummary_popup').listview("refresh");
-					}); 
-				});
-					$("#ubmsuite_mcs_my_organizational_chart_content_createNewPositionPopUp").popup('close');
-					setTimeout(function() {
-						$("#ubmsuite_mcs_my_organizational_chart_content_predefined_positionSummary_popup").popup('open');
-					}, 1000);
-				}
-
-				function openEditPositionSummaryPopup(activePositionId) {
-					$.getJSON('http://www.findmydriver.com/ubms_modelcreationsuite_model_getCurrentView_Position.php?callback=?', {//JSONP Request to Open Items Page setup tables
-						key : window.key,
-						activePositionId : activePositionId
-					}, function(res, status) {
-						$('#ubmsuite_mcs_my_organizational_chart_content_predefined_positionSummary_popup_content').empty();
-						$('#ubmsuite_mcs_my_organizational_chart_content_predefined_positionSummary_popup_header').empty();
-					$.each(res, function(i, item) {
-						$('#ubmsuite_mcs_my_organizational_chart_content_predefined_positionSummary_popup_header').append("<h1 style=text-align:center;font-size=100%;margin-top:1%;>" + item.title + "</h1><a href='#' onclick='openPositionSummaryPopup(" + activePositionId + ")' class='ui-btn ui-icon-back ui-btn-icon-left ui-shadow back_btn ui-btn-icon-notext' data-icon='arrow-l' data-rel='back' style='max-width:15%;text-align:left;float:left;margin-top:-3.5%;margin-left:1%' data-iconpos='notext'></a><a onclick='submitPositionSummaryChanges(" + activePositionId + ")' style='max-width:15%;text-align:right;float:right;margin-top:-3.5%;margin-right:1%' class='ui-icon-check ui-btn ui-btn-icon-left ui-shadow ui-corner-all' href='#'>Submit Changes</a>");
-						$('#ubmsuite_mcs_my_organizational_chart_content_predefined_positionSummary_popup_content').append("<form> <br> <p><strong style='line-height: 1.6;'>Master File Index Position Number: </strong><span style='line-height: 1.6;'>&nbsp; &nbsp; &nbsp; &nbsp;</span></p> <br> <p><strong>Grade Level:</strong> &nbsp;<input type='text'/>&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <strong>Organizational Chart Level:&nbsp;</strong><input type='text'/>&nbsp;</p><br><p><strong>Branch:</strong><input type='text'/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <strong>Shift: <input type='checkbox'/>&nbsp;</strong>Day <input type='checkbox'/>&nbsp;Night <input type='checkbox'/>&nbsp;Other <input type='text'/></p> <br> <p><strong>Full or Part Time:</strong>&nbsp; <input type='checkbox'/>&nbsp;Full Time <input type='checkbox'/>&nbsp;Part Time</p> <p><strong>Pay Type: <input type='checkbox'/>&nbsp;</strong>Hourly <input type='checkbox'/>&nbsp;Salary <input type='checkbox'/>&nbsp;Commission <input type='checkbox'/>&nbsp;Other <input type='text'/> &nbsp;</p> <p><strong>Position Pay Range:</strong> <input type='text' style='max-width:50px;'/> <strong>to </strong><input type='text' style='max-width:50px;'/></p><p><strong>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Low &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;High</strong></p> <br> <p><strong>Position Reports To:</strong>&nbsp;<input type='text'/></p> <br> <p><strong>Position Responsible For: </strong><input type='text'/></p> <br> <p><strong>HR Contact:</strong> <input type='text'/> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<strong>HR Phone Number:</strong> <input type='text'/>&nbsp;</p> <br> <p><strong>Position Summary:</strong>&nbsp;</p> <p><label for='ubmsuite_mcs_my_organizational_chart_content_predefined_positionSummary_popup_content_'></label><textarea id='ubmsuite_mcs_my_organizational_chart_content_predefined_positionSummary_popup_content_' style='resize: none;overflow-y: scroll;max-height:100px;' cols=80 rows='8'>" + item.summary + "</textarea></p><p><strong>Position Description:</strong>&nbsp;</p> <p><label for='ubmsuite_mcs_my_organizational_chart_content_predefined_positionSummary_popup_content_'></label><textarea id='ubmsuite_mcs_my_organizational_chart_content_predefined_positionSummary_popup_content_' style='resize: none;overflow-y: scroll;max-height:100px;' cols=80 rows='8'>" + item.description + "</textarea></p> <p><strong>Security Level: </strong> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p> <p><label for='ubmsuite_mcs_my_organizational_chart_content_predefined_positionSummary_popup_content_'></label><textarea id='ubmsuite_mcs_my_organizational_chart_content_predefined_positionSummary_popup_content_' style='resize: none;overflow-y: scroll;max-height:100px;' cols=80 rows='8'>" + item.security_level + "</textarea></p> <p><strong>Age Requirements: </strong> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p> <p><input type='text' value='" + item.age_requirements + "'></input></p> <br> <p><strong>Education Requirements: </strong></p> <p><label for='ubmsuite_mcs_my_organizational_chart_content_predefined_positionSummary_popup_content_'></label><textarea id='ubmsuite_mcs_my_organizational_chart_content_predefined_positionSummary_popup_content_' style='resize: none;overflow-y: scroll;max-height:100px;' cols=80 rows='8'>" + item.education_requirements + "</textarea></p> <p><strong>Qualifications:</strong></p> <p><label for='ubmsuite_mcs_my_organizational_chart_content_predefined_positionSummary_popup_content_'></label><textarea id='ubmsuite_mcs_my_organizational_chart_content_predefined_positionSummary_popup_content_' style='resize: none;overflow-y: scroll;max-height:100px;' cols=80 rows='8'>" + item.qualifications + "</textarea></p> <p><strong>Physical Demands: </strong></p> <p><label for='ubmsuite_mcs_my_organizational_chart_content_predefined_positionSummary_popup_content_'></label><textarea id='ubmsuite_mcs_my_organizational_chart_content_predefined_positionSummary_popup_content_' style='resize: none;overflow-y: scroll;max-height:100px;' cols=80 rows='8'>" + item.physical_demands + "</textarea></p> <p><strong>Work Environment: </strong></p> <p><label for='ubmsuite_mcs_my_organizational_chart_content_predefined_positionSummary_popup_content_'></label><textarea id='ubmsuite_mcs_my_organizational_chart_content_predefined_positionSummary_popup_content_' style='resize: none;overflow-y: scroll;max-height:100px;' cols='80' rows='8'>" + item.work_environment + "</textarea></p> <br> <p><strong>Published Job Description:</strong> &nbsp;<strong>(Summary of all positions age, education, qualifications, physical demands, and work environment requirements)</strong> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p> <p><label for='ubmsuite_mcs_my_organizational_chart_content_predefined_positionSummary_popup_content_'></label><textarea id='ubmsuite_mcs_my_organizational_chart_content_predefined_positionSummary_popup_content_' style='resize: none;overflow-y: scroll;max-height:100px;' cols=80 rows='8'></textarea></p> <br></form>");
-							$('#ubmsuite_mcs_my_organizational_chart_content_predefined_positionSummary_popup').listview("refresh");
-						}); 
-					});
-				}
-
-			function submitPositionSummaryChanges() {
-
-			}
-
-			function openJobDescriptionSummaryPopup(activeJobDescriptionId) {
-				$.getJSON('http://www.findmydriver.com/ubms_modelcreationsuite_model_getCurrentView_JobDescription.php?callback=?', {//JSONP Request to Open Items Page setup tables
-					key : window.key,
-					activeJobDescriptionId : activeJobDescriptionId
-				}, function(res, status) {
-					
-						$('#ubmsuite_mcs_my_organizational_chart_content_predefined_jobDescriptionSummary_popup_header').empty();
-						$('#ubmsuite_mcs_my_organizational_chart_content_predefined_jobDescriptionSummary_popup_content').empty();
-						$().toastmessage('showSuccessToast', res.message);
-					 $.each(res, function(i, item) {
-						
-						$('#ubmsuite_mcs_my_organizational_chart_content_predefined_jobDescriptionSummary_popup_header').append("<h1 style=text-align:center;font-size=100%;margin-top:1%;>" + item.title + "</h1><a href='#' class='ui-btn ui-icon-back ui-btn-icon-left ui-shadow back_btn ui-btn-icon-notext' data-icon='arrow-l' data-rel='back' style='max-width:15%;text-align:left;float:left;margin-top:-3.5%;margin-left:1%' ></a><a onclick='openEditJobDescriptionSummaryPopup(" + activeJobDescriptionId + ")' style='max-width:15%;text-align:right;float:right;margin-top:-3.5%;margin-right:1%' class='ui-icon-edit ui-btn ui-btn-icon-left ui-shadow ui-corner-all' href='#'>Edit this job description</a>");
-						$('#ubmsuite_mcs_my_organizational_chart_content_predefined_jobDescriptionSummary_popup_content').append("<p><strong style='line-height: 1.6;'>Master File Index Position Number: </strong></p><br><p><strong>Grade Level:</strong> &nbsp;&nbsp;___________<br><br><p><strong>Objective of Job Description:</strong></p><p>" + item.objective + "</p><br><p><strong>Essential Duties and Responsibilities:</strong></p><p>" + item.essential_duties_and_responsibilities + "</p><br><p><strong>Age Requirements: </strong></p><p>" + item.age_requirement + "</p><br><p><strong>Education Requirements: </strong></p><p>"+ item.education_requirements + "</p><br><p><strong>Qualifications:</strong></p><p>" + item.qualifications + "</p><br><p><strong>Physical Demands: </strong></p><p>" + item.physical_demand + "</p><br><p><strong>Work Environment: </strong></p><p>" + item.work_environment + "</p>");
-							$('#ubmsuite_mcs_my_organizational_chart_content_predefined_jobDescriptionSummary_popup').listview("refresh");
-					}); 
-				});
-					$("#ubmsuite_mcs_my_organizational_chart_content_createNewJobDescriptionPopUp").popup('close');
-					setTimeout(function() {
-						$("#ubmsuite_mcs_my_organizational_chart_content_predefined_jobDescriptionSummary_popup").popup('open');
-					}, 1000);
-				}
-
-			function openEditJobDescriptionSummaryPopup(activeJobDescriptionId) {
-				$.getJSON('http://www.findmydriver.com/ubms_modelcreationsuite_model_getCurrentView_JobDescription.php?callback=?', {//JSONP Request to Open Items Page setup tables
-					key : window.key,
-					activeJobDescriptionId : activeJobDescriptionId
-				}, function(res, status) {
-					$('#ubmsuite_mcs_my_organizational_chart_content_predefined_jobDescriptionSummary_popup_header').empty();
-					$('#ubmsuite_mcs_my_organizational_chart_content_predefined_jobDescriptionSummary_popup_content').empty();
-				$.each(res, function(i, item) {
-					$('#ubmsuite_mcs_my_organizational_chart_content_predefined_jobDescriptionSummary_popup_header').append("<h1 style=text-align:center;font-size=100%;margin-top:1%;>" + item.title + "</h1><a href='#' onclick='openJobDescriptionSummaryPopup(" + activeJobDescriptionId + ")' class='ui-btn ui-icon-back ui-btn-icon-left ui-shadow back_btn ui-btn-icon-notext' data-icon='arrow-l' data-rel='back' style='max-width:15%;text-align:left;float:left;margin-top:-3.5%;margin-left:1%' data-iconpos='notext'></a><a onclick='submitjobDescriptionSummaryChanges(" + activeJobDescriptionId + ")' style='max-width:15%;text-align:right;float:right;margin-top:-3.5%;margin-right:1%' class='ui-icon-check ui-btn ui-btn-icon-left ui-shadow ui-corner-all' href='#'>Submit Changes</a>");
-					$('#ubmsuite_mcs_my_organizational_chart_content_predefined_jobDescriptionSummary_popup_content').append("<form> <br> <p><strong style='line-height: 1.6;'>Master File Index Position Number: </strong><span style='line-height: 1.6;'>&nbsp; &nbsp; &nbsp; &nbsp;</span></p> <br> <p><strong>Grade Level:</strong> &nbsp;<input type='text'/> <br> <p><strong>Objective of Job Description:</strong>&nbsp;</p> <p><label for='ubmsuite_mcs_my_organizational_chart_content_predefined_jobDescriptionSummary_popup_content_Objective'></label><textarea id='ubmsuite_mcs_my_organizational_chart_content_predefined_jobDescriptionSummary_popup_content_Objective' style='resize: none;overflow-y: scroll;max-height:100px;' cols=80 rows='8'>" + item.objective + "</textarea></p><p><strong>Essential Duties and Responsibilities:</strong>&nbsp;</p> <p><label for='ubmsuite_mcs_my_organizational_chart_content_predefined_jobDescriptionSummary_popup_content_EssentialDutiesAndResponsibilities'></label><textarea id='ubmsuite_mcs_my_organizational_chart_content_predefined_jobDescriptionSummary_popup_content_EssentialDutiesAndResponsibilities' style='resize: none;overflow-y: scroll;max-height:100px;' cols=80 rows='8'>" + item.essential_duties_and_responsibilities + "</textarea></p> <p><strong>Age Requirements: </strong> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p> <p><label for='ubmsuite_mcs_my_organizational_chart_content_predefined_jobDescriptionSummary_popup_content_AgeRequirements'></label><textarea id='ubmsuite_mcs_my_organizational_chart_content_predefined_jobDescriptionSummary_popup_content_AgeRequirements' style='resize: none;overflow-y: scroll;max-height:100px;' cols=80 rows='8'>" + item.age_requirement + "</textarea></p> <br> <p><strong>Education Requirements: </strong></p> <p><label for='ubmsuite_mcs_my_organizational_chart_content_predefined_jobDescriptionSummary_popup_content_EducationRequirements'></label><textarea id='ubmsuite_mcs_my_organizational_chart_content_predefined_jobDescriptionSummary_popup_content_EducationRequirements' style='resize: none;overflow-y: scroll;max-height:100px;' cols=80 rows='8'>" + item.education_requirements + "</textarea></p> <p><strong>Qualifications:</strong></p> <p><label for='ubmsuite_mcs_my_organizational_chart_content_predefined_jobDescriptionSummary_popup_content_Qualifications'></label><textarea id='ubmsuite_mcs_my_organizational_chart_content_predefined_jobDescriptionSummary_popup_content_Qualifications' style='resize: none;overflow-y: scroll;max-height:100px;' cols=80 rows='8'>" + item.qualifications + "</textarea></p> <p><strong>Physical Demands: </strong></p> <p><label for='ubmsuite_mcs_my_organizational_chart_content_predefined_jobDescriptionSummary_popup_content_PhysicalDemands'></label><textarea id='ubmsuite_mcs_my_organizational_chart_content_predefined_jobDescriptionSummary_popup_content_PhysicalDemands' style='resize: none;overflow-y: scroll;max-height:100px;' cols=80 rows='8'>" + item.physical_demand + "</textarea></p> <p><strong>Work Environment: </strong></p> <p><label for='ubmsuite_mcs_my_organizational_chart_content_predefined_jobDescriptionSummary_popup_content_WorkEnvironment'></label><textarea id='ubmsuite_mcs_my_organizational_chart_content_predefined_jobDescriptionSummary_popup_content_WorkEnvironment' style='resize: none;overflow-y: scroll;max-height:100px;' cols='80' rows='8'>" + item.work_environment + "</textarea></p> <br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp;</form>");
-						$('#ubmsuite_mcs_my_organizational_chart_content_predefined_jobDescriptionSummary_popup').listview("refresh");
-					}); 
-				});
-			}
-
-			function submitJobDescritptionSummaryChanges() {
-
-			}
-
-			function openPolicySummaryPopup(activePolicyId) {
-				$.getJSON('http://www.findmydriver.com/ubms_modelcreationsuite_model_getCurrentView_Policy.php?callback=?', {//JSONP Request to Open Items Page setup tables
-					key : window.key,
-					activePolicyId : activePolicyId
-				}, function(res, status) {
-					
-						$('#ubmsuite_mcs_my_organizational_chart_content_predefined_policySummary_popup_header').empty();
-						$('#ubmsuite_mcs_my_organizational_chart_content_predefined_policySummary_popup_content').empty();
-						$().toastmessage('showSuccessToast', res.message);
-					 $.each(res, function(i, item) {
-						
-						$('#ubmsuite_mcs_my_organizational_chart_content_predefined_policySummary_popup_header').append("<h1 style=text-align:center;font-size=100%;margin-top:1%;>" + item.title + "</h1><a href='#' class='ui-btn ui-icon-back ui-btn-icon-left ui-shadow back_btn ui-btn-icon-notext' data-icon='arrow-l' data-rel='back' style='max-width:15%;text-align:left;float:left;margin-top:-3.5%;margin-left:1%' ></a><a onclick='openEditPolicySummaryPopup(" + activePolicyId + ")' style='max-width:15%;text-align:right;float:right;margin-top:-3.5%;margin-right:1%' class='ui-icon-edit ui-btn ui-btn-icon-left ui-shadow ui-corner-all' href='#'>Edit this job description</a>");
-						$('#ubmsuite_mcs_my_organizational_chart_content_predefined_policySummary_popup_content').append("<p><strong style='line-height: 1.6;'>Master File Index Position Number: </strong></p><br><p><strong>Policy Reference:</strong> &nbsp;&nbsp;___________<br><br><p><strong>Description:</strong></p><p>" + item.description + "</p><br><p><strong>Purpose:</strong></p><p>" + item.purpose + "</p><br><p><strong>Scope: </strong></p><p>" + item.scope + "</p><br><p><strong>Policy Type: </strong><p>Company <input disabled='disabled' type='checkbox'/>&nbsp;Position <input disabled='disabled' type='checkbox'/>&nbsp;Other <input disabled='disabled' type='checkbox'/>___________ </p>");
-							$('#ubmsuite_mcs_my_organizational_chart_content_predefined_policySummary_popup').listview("refresh");
-					}); 
-				});
-					$("#ubmsuite_mcs_my_organizational_chart_content_createNewPolicyPopUp").popup('close');
-					setTimeout(function() {
-						$("#ubmsuite_mcs_my_organizational_chart_content_predefined_policySummary_popup").popup('open');
-					}, 1000);
-				}
-
-			function openEditPolicySummaryPopup(activePolicyId) {
-				$.getJSON('http://www.findmydriver.com/ubms_modelcreationsuite_model_getCurrentView_Policy.php?callback=?', {//JSONP Request to Open Items Page setup tables
-					key : window.key,
-					activePolicyId : activePolicyId
-				}, function(res, status) {
-					$('#ubmsuite_mcs_my_organizational_chart_content_predefined_policySummary_popup_header').empty();
-					$('#ubmsuite_mcs_my_organizational_chart_content_predefined_policySummary_popup_content').empty();
-				$.each(res, function(i, item) {
-					$('#ubmsuite_mcs_my_organizational_chart_content_predefined_policySummary_popup_header').append("<h1 style=text-align:center;font-size=100%;margin-top:1%;>" + item.title + "</h1><a href='#' onclick='openPolicySummaryPopup(" + activePolicyId + ")' class='ui-btn ui-icon-back ui-btn-icon-left ui-shadow back_btn ui-btn-icon-notext' data-icon='arrow-l' data-rel='back' style='max-width:15%;text-align:left;float:left;margin-top:-3.5%;margin-left:1%' data-iconpos='notext'></a><a onclick='submitPolicySummaryChanges(" + activePolicyId + ")' style='max-width:15%;text-align:right;float:right;margin-top:-3.5%;margin-right:1%' class='ui-icon-check ui-btn ui-btn-icon-left ui-shadow ui-corner-all' href='#'>Submit Changes</a>");
-					$('#ubmsuite_mcs_my_organizational_chart_content_predefined_policySummary_popup_content').append("<form> <br> <p><strong style='line-height: 1.6;'>Master File Index Position Number: </strong><span style='line-height: 1.6;'>&nbsp; &nbsp; &nbsp; &nbsp;</span></p><br> <p><strong>Description:</strong>&nbsp;</p> <p><label for='ubmsuite_mcs_my_organizational_chart_content_predefined_PolicySummary_popup_content_Description'></label><textarea id='ubmsuite_mcs_my_organizational_chart_content_predefined_PolicySummary_popup_content_Description' style='resize: none;overflow-y: scroll;max-height:100px;' cols=80 rows='8'>" + item.description + "</textarea></p><p><strong>Purpose:</strong>&nbsp;</p> <p><label for='ubmsuite_mcs_my_organizational_chart_content_predefined_PolicySummary_popup_content_Purpose'></label><textarea id='ubmsuite_mcs_my_organizational_chart_content_predefined_PolicySummary_popup_content_Purpose' style='resize: none;overflow-y: scroll;max-height:100px;' cols=80 rows='8'>" + item.purpose + "</textarea></p> <p><strong>Scope: </strong> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p> <p><label for='ubmsuite_mcs_my_organizational_chart_content_predefined_PolicySummary_popup_content_Scope'></label><textarea id='ubmsuite_mcs_my_organizational_chart_content_predefined_PolicySummary_popup_content_Scope' style='resize: none;overflow-y: scroll;max-height:100px;' cols=80 rows='8'>" + item.scope + "</textarea></p> <br> <strong>Policy Type: <input type='checkbox'/>&nbsp;</strong>Company <input type='checkbox'/>&nbsp;Position <input type='checkbox'/>&nbsp;Other <input type='text'/></p><br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp;</form>");
-						$('#ubmsuite_mcs_my_organizational_chart_content_predefined_policySummary_popup').listview("refresh");
-					}); 
-				});
-			}
-
-			function submitPolicySummaryChanges() {
-
-			}
-
 			function createNewPositionAddtoMyModel(){
-				$.getJSON('http://api.universalbusinessmodel.com/ubm_modelcreationsuite_model_create_Position.php?callback=?', {//JSONP Request to Open Items Page setup tables
+				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_model_create_Position.php?callback=?', {//JSONP Request to Open Items Page setup tables
 					username: window.username,
-					activeModelUUID : window.activeModelUUID,
+					activeModelId : window.activeModelId,
 					positionTitle: document.getElementById("ubmsuite_mcs_my_organizational_chart_content_createNewPositionPopUp_form_positionTitle").value,
 					positionDescription: document.getElementById("ubmsuite_mcs_my_organizational_chart_content_createNewPositionPopUp_form_positionDescription").value,
 					positionReportsTo: window.activeReportsToPosition
@@ -321,46 +1306,42 @@ under the License.
 					$().toastmessage('showSuccessToast', res.message);
 				});
 					$("#ubmsuite_mcs_my_organizational_chart_content_createNewPositionPopUp").popup('close');
-					getMyModelsOrgChart();
+					getMyModelsOrgChart();					
 			}
-			
 			function addChildPositiontoActivePosition(){
-					$("#ubmsuite_mcs_my_organizational_chart_content_mangePositionPopUp").popup('open');
+					$("#ubmsuite_mcs_my_organizational_chart_content_modifyPositionPopUp").popup('open');
 
 					$().toastmessage('showSuccessToast', window.activeReportsToPosition);
 				//Called from Model Settings Page????
 				//1. User selects a position from the list of ubm_model_positions?
 				//2. User is asked whether they wish to also add all positions that report to this position in the master file index?
 				//3. User is asked to decide which position on the org chart they would like the position to report to and which level (Level 1, Level 2, Level 3...) on the org chart they wish to assign the position.
-				//3. If user selects yes, the relationships between the activeModelUUID and the active position as well as all positions that report to it are created in the the model_has_positions table. 
+				//3. If user selects yes, the relationships between the activeModelId and the active position as well as all positions that report to it are created in the the model_has_positions table. 
 				//4. If user selects "no, add this position without any positions that report to it." 
 				
 			}
 			function addPositiontoMyModel(activePositionId){
-				$.getJSON('http://api.universalbusinessmodel.com/ubms_modelcreationsuite_model_add_Position.php?callback=?', {//JSONP Request to Open Items Page setup tables
-					key: window.key,
-					activeModelUUID :window.activeModelUUID,
+				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_model_add_Position.php?callback=?', {//JSONP Request to Open Items Page setup tables
+					activeModelId :window.activeModelId,
 					positionReportsTo: window.activeReportsToPosition,
-					activePositionId : activePositionId,
-					username: window.username
+					activePositionId : activePositionId
 				}, function(res, status) {
 					$().toastmessage('showSuccessToast', res.message);
 				});
 					$("#ubmsuite_mcs_my_organizational_chart_content_createNewPositionPopUp").popup('close');
-					getMyModelsOrgChart();	
+					getMyModelsOrgChart();					
 				//Called from Model Settings Page????
 				//1. User selects a position from the list of ubm_model_positions?
 				//2. User is asked whether they wish to also add all positions that report to this position in the master file index?
 				//3. User is asked to decide which of their existing positions on the org chart they would like the position to report to and which level (Level 1, Level 2, Level 3...) on the org chart they wish to assign the position.
 				//4. User selects the "reports to position from a list of existing positions attached to their model.
-				//3. If user selects yes, the relationships between the activeModelUUID and the active position as well as all positions that report to it are created in the the model_has_positions table. 
+				//3. If user selects yes, the relationships between the activeModelId and the active position as well as all positions that report to it are created in the the model_has_positions table. 
 				//4. If user selects "no, add this position without any positions that report to it." 
 			}
 			function removeActivePositionfromMyModel(){
-				$.getJSON('http://api.universalbusinessmodel.com/ubms_modelcreationsuite_model_remove_Positions.php?callback=?', {//JSONP Request to Open Items Page setup tables
-					key : window.key,
+				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_model_remove_Positions.php?callback=?', {//JSONP Request to Open Items Page setup tables
 					username: window.username,
-					activeModelUUID : window.activeModelUUID,
+					activeModelId : window.activeModelId,
 					activePositionId: window.activeReportsToPosition
 				}, function(res, status) {
 					$().toastmessage('showSuccessToast', res.message);
@@ -368,19 +1349,19 @@ under the License.
 					getMyModelsOrgChart();
 			}
 			function confirmRemoveActivePosition(){
-				$("#ubmsuite_mcs_my_organizational_chart_content_mangePositionPopUp").popup('close');
+					$("#ubmsuite_mcs_my_organizational_chart_content_modifyPositionPopUp").popup('close');
 				setTimeout(function() {
 					$("#ubmsuite_mcs_my_organizational_chart_confirm_remove_Position_popup").popup('open');
 				}, 1000);
 			}
 			function modifyActivePosition(){
-				$().toastmessage('showNoticeToast', window.activeReportsToPosition);
+				alert(window.activeReportsToPosition);
 				//1. Checks to see if the currently active user is the creator of the active position.
 				//2. If user is creator, allows user to modify the position.
 				//3. If user is not the creator, user is notified that only the creator may modify a position and give them the option to copy the position.
 			}
 			function viewActivePositionHierachyObjects(){
-				$().toastmessage('showNoticeToast', "This Functionality is still in development.");
+				alert("This Functionality is still in development.");
 			}
 			function getObjectsforBackboneTable(){
 				//This basic function will allow us to build the table dynamically based on the position or the object selected.
@@ -398,223 +1379,53 @@ under the License.
 				//1. Add position popup should have a listview filled with positions that report to the active position.
 				//2. This function will retrieve all model_positions that report to the active position and will populate the listview with those positions. 
 			}
-		
-
-
-			function displayHierarchicalTree(ElementsArray){				//Callback function for when getChildElementsforHierarchicalTree() is complete 
-				if(ElementsArray){
-					//1. Start by prepending the position to the tree.
-							$('#heirarchyObjectTree_ul').prepend("<li><a data-thisUUID='" + window.activePositionUUID + "' class='hierarchyObjectTreeItem ajax_tooltip' onclick='setActivePositionUUID(" + window.activePositionUUID + ")' ondblclick='openNewJDPopup(" + window.activePositionUUID + ")'>PS-" + window.activePositionUUID + "</a><ul id='ubmsuite_mcs_my_organizational_chart_heirarchyObjectTree_ul_" + window.activePositionUUID + "'></ul></li>"); 						
-					$.each(ElementsArray, function(i, item) {			
-						if(item.jobDescription_id>="1"){
-						//2. jobDescription_id for Object hierarchy suggests the item is a JD
-							$("#ubmsuite_mcs_my_organizational_chart_heirarchyObjectTree_ul_" + item.ancestor_id + "").append("<li><a data-thisUUID='" + item.descendant_id + "' class='hierarchyObjectTreeItem ajax_tooltip' onclick='setActiveJobDescriptionUUID(" + item.descendant_id + ")' ondblclick='openNewPLPopup(" + item.descendant_id + ")'>JD-" + item.descendant_id + "</a><ul id='ubmsuite_mcs_my_organizational_chart_heirarchyObjectTree_ul_" + item.descendant_id + "'></ul></li>")
-						}else if(item.policy_id>="1"){
-						//3. policy_id for Object hierarchy suggests the item is a PL
-							$("#ubmsuite_mcs_my_organizational_chart_heirarchyObjectTree_ul_" + item.ancestor_id + "").append("<li><a data-thisUUID='" + item.descendant_id + "' class='hierarchyObjectTreeItem ajax_tooltip' onclick='setActivePolicyUUID(" + item.descendant_id + ")' ondblclick='openNewPRPopup(" + item.descendant_id + ")'>PL-" + item.descendant_id + "</a><ul id='ubmsuite_mcs_my_organizational_chart_heirarchyObjectTree_ul_" + item.descendant_id + "'></ul></li>")
-						}else if(item.procedure_id>="1"){
-						//4. procedure_id for Object hierarchy suggests the item is a PR
-							$("#ubmsuite_mcs_my_organizational_chart_heirarchyObjectTree_ul_" + item.ancestor_id + "").append("<li><a data-thisUUID='" + item.descendant_id + "' class='hierarchyObjectTreeItem ajax_tooltip' onclick='setActiveProcedureUUID(" + item.descendant_id + ")' ondblclick='openNewSTPopup(" + item.descendant_id + ")'>PR-" + item.descendant_id + "</a><ul id='ubmsuite_mcs_my_organizational_chart_heirarchyObjectTree_ul_" + item.descendant_id + "'></ul></li>")
-						}else if(item.step_id>="1"){
-						//5. step_id for Object hierarchy suggests the item is a ST
-							$("#ubmsuite_mcs_my_organizational_chart_heirarchyObjectTree_ul_" + item.ancestor_id + "").append("<li><a data-thisUUID='" + item.descendant_id + "' class='hierarchyObjectTreeItem ajax_tooltip' onclick='setActiveStepUUID(" + item.descendant_id + ")' ondblclick='openNewTKPopup(" + item.descendant_id + ")'>ST-" + item.descendant_id + "</a><ul id='ubmsuite_mcs_my_organizational_chart_heirarchyObjectTree_ul_" + item.descendant_id + "'></ul></li>")
-						}else if(item.task_id>="1"){
-						//6. task_id for Object hierarchy suggests the item is a TK
-							$("#ubmsuite_mcs_my_organizational_chart_heirarchyObjectTree_ul_" + item.ancestor_id + "").append("<li><a data-thisUUID='" + item.descendant_id + "' class='hierarchyObjectTreeItem ajax_tooltip' onclick='setActiveTaskUUID(" + item.descendant_id + ")' ondblclick='openNewTKPopup(" + item.descendant_id + ")'>TK-" + item.descendant_id + "</a></li>")
+			function getPositionforHeirarchicalObjectTree(){
+					$('#heirarchyObjectTree_ul').empty();
+				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_getActiveModelPositionsforOrgChart.php?callback=?', {//JSONP Request to Open Items Page setup tables
+					activeModelId:window.activeModelId
+				}, function(res, status) {
+					$.each(res, function(i, item) {
+						if(window.activeReportsToPosition==item.position_id){
+//1. Set currentActiveOrgChartLevel 
+//2. Append the name of the highest reports to position on the top of the org chart.
+							$('#heirarchyObjectTree_ul').prepend("<li><a data-position-to='origin' href='#ubmsuite_mcs_my_organizational_chart_content_manageJobDescriptionUp'data-rel='popup' class='ui-link' data-transition='pop' onclick='setActivePosition2(" + item.position_id + ")'>PS-" + item.position_id + "</a><ul id='ubmsuite_mcs_my_organizational_chart_heirarchyObjectTree_ul_P'></ul></li>"); 
+						}else{
+							
+							/*
+//3. Append all other childre to their respective "reports_to" ul
+//							$('#ubmsuite_mcs_my_organizational_chart_P' + item.reports_to_id + '_ul').append("<li id='orgChartPosition" + item.position_id + "'><div id='demo_box_" + item.position_id + "' class='demo_box' onclick='setActivePosition(" + item.position_id + ")'><div class='pop_ctrl'><i class='fa fa-bars'></i></div><ul id='demo_ul_2'><li class='demo_li'><a href='#' onclick='addChildPositiontoActivePosition()'><div><i class='fa fa-plus-circle'></i></div><p>Add</p></a></li><li class='demo_li'><a href='#' onclick='removeActivePosition()'><div><i class='fa fa-minus-circle'></i></div><p>Remove</p></a></li></ul></div></br>" + item.title + "<ul id='ubmsuite_mcs_my_organizational_chart_P" + item.position_id + "_ul'></ul></li>");	
+							$('#ubmsuite_mcs_my_organizational_chart_heirarchyObjectTree_ul_P' + item.reports_to_id + '_ul').append("<li id='orgChartPosition" + item.position_id + "'><a onclick='setActivePosition(" + item.position_id + ")'><img id='org_img_" + item.position_id + "' style='width:25px; height:25px;' src='img/apple.png' /></a></br>" + item.title + "<ul id='ubmsuite_mcs_my_organizational_chart_P" + item.position_id + "_ul'></ul></li>");	
+//4. Empty chart Div
+					        $('#chart').empty();
+//5. Call jOrgChart plugin, append new org chart to chart div, set jorgdraganddrop to false to avoid conflicting compatibility issue with other jquery packages.
+					        $("#modelOrgChart").jOrgChart({
+					            chartElement : '#chart',
+					            dragAndDrop  : false
+					        }); /***/
 						}
 					});
-				}	
-				//7. Add hover event listener to all items on the tree.
-				$(".hierarchyObjectTreeItem").hover(function(){
-				//	alert("This is a test. IN");
-						  $(this).css("background-color","yellow");
-						  	window.activeUUID = $(this).attr("data-thisUUID");
-							$(this).tooltipster({
-								content: 'Loading...',
-								contentAsHTML: true,
-								maxWidth: 1000,
-								interactive: true,
-								functionBefore: function(origin, continueTooltip) {
-				//1. We'll make this function asynchronous and allow the tooltip to go ahead and show the loading notification while fetching our data
-							        continueTooltip();
-							        if (origin.data('ajax') !== 'cached') {
-				//2. next, to avoid unnecessary AJAX calls, we check if our data has already been cached.
-							        	$.ajax({
-				//3. Send AJAX call to UBMS API
-							        		type: 'GET',
-							        		dataType: "jsonp",
-							        		crossDomain: true,
-				//4. Set appropriate parameters for the request.
-							        		url: 'http://api.universalbusinessmodel.com/ubms_modelcreationsuite_model_get_OjectDetail.php?callback=?',
-							        		data: { key : "YDoS20lf7Vrnr22h8Ma6NGUV5DblnVhueTPXS7gPynRvQ6U8optzfnMDs3UD", activeUUID : $(this).attr("data-thisUUID") } ,
-				//5. Pass the api key and the activeUUID to the api to authenticate the request.
-							        		success: function(res) {
-				//6. Function to call on success for the request, and pass the information from the api into the function as the object, res.
-							        			$.each(res, function(i, item) {
-				//7. The api documentation shows that the information returned is an array of jsonp arrays so we iterate through the parent array with $.each function
-							        				var updated_content = 0;
-				//8. We define a variable to hold the appropriate content for the tooltip.
-													if (item.object_type == "MD") {
-				//9. Check that the object_type is equal to Model.
-														updated_content = "<span><img src='images/puppy.jpg' style='width:100px; height:auto;' /> <table class='docutils field-list' frame='void' rules='none'><col class='tooltipster field-name' /><col class='field-body' /><tbody valign='top'><tr class='field-odd field'><th class='tooltipster field-name'>" + item.reference_prefix + "</th><td class='field-body'>" + item.reference + "</td></tr><tr class='field-even field'><th class='tooltipster field-name'>Model " + item.title_prefix + "</th><td class='field-body'>" + item.title + "</td></tr><tr class='field-even field'><th class='tooltipster field-name'>" + item.description_prefix + "</th><td class='field-body'>" + item.description + "</td></tr><tr class='field-even field'><th class='tooltipster field-name'>" + item.scope_prefix + "</th><td class='field-body'>" + item.scope + "</td></tr><tr class='field-even field'><th class='tooltipster field-name'>" + item.purpose_prefix + "</th><td class='field-body'>" + item.purpose + "</td></tr><tr class='field-even field'><th class='tooltipster field-name'>" + item.creator_id_prefix + "</th><td class='field-body'>" + item.creator_id + "</td></tr><tr class='field-even field'><th class='tooltipster field-name'>" + item.created_date_prefix + "</th><td class='field-body'>" + item.created_date + "</td></tr></tbody></table></span>"
-				//10. Set the updated_content variable equal to a string of HTML format with the parameters from the api concatenated into the string.
-														//origin.tooltipster('content', updated_content).data('ajax', 'cached');
-														origin.tooltipster('content', updated_content);
-				//11. Update the content of the tooltip.										
-													} else if (item.object_type == "PS") {
-				//12. Check that the object_type is equal to Position.
-														updated_content = "<span><img src='images/puppy.jpg' style='width:100px; height:auto;' /> <table class='docutils field-list' frame='void' rules='none'><col class='tooltipster field-name' /><col class='field-body' /><tbody valign='top'><tr class='field-odd field'><th class='tooltipster field-name'>Position Title: </th><td class='field-body'>" + item.title + "</td></tr><tr class='field-even field'><th class='tooltipster field-name'>Position Description: </th><td class='field-body'>" + item.description + "</td></tr><tr class='field-even field'><th class='tooltipster field-name'>Position Summary: </th><td class='field-body'>" + item.summary + "</td></tr><tr class='field-even field'><th class='tooltipster field-name'>Security Level: </th><td class='field-body'>" + item.security_level + "</td></tr><tr class='field-even field'><th class='tooltipster field-name'>Age Requirement: </th><td class='field-body'>" + item.age_requirements + "</td></tr><tr class='field-even field'><th class='tooltipster field-name'>Education Requirement: </th><td class='field-body'>" + item.education_requirements + "</td></tr><tr class='field-even field'><th class='tooltipster field-name'>Physical Demands: </th><td class='field-body'>" + item.physical_demands + "</td></tr></tbody></table></span>"
-				//13. Set the updated_content variable equal to a string of HTML format with the parameters from the api concatenated into the string.
-														//origin.tooltipster('content', updated_content).data('ajax', 'cached');
-														origin.tooltipster('content', updated_content);
-				//14. Update the content of the tooltip.
-													} else if (item.object_type == "JD") {
-				//15. Check that the object_type is equal to Job Description.
-														updated_content = "<span><img src='images/puppy.jpg' style='width:100px; height:auto;' /> <table class='docutils field-list' frame='void' rules='none'><col class='tooltipster field-name' /><col class='field-body' /><tbody valign='top'><tr class='field-odd field'><th class='tooltipster field-name'>Job Description Title: </th><td class='field-body'>" + item.title + "</td></tr><tr class='field-even field'><th class='tooltipster field-name'>Objective: </th><td class='field-body'>" + item.objective + "</td></tr><tr class='field-even field'><th class='tooltipster field-name'>Essential Duties and Responsibilities: </th><td class='field-body'>" + item.essential_duties_and_responsibilities + "</td></tr><tr class='field-even field'><th class='tooltipster field-name'>Age Requirement: </th><td class='field-body'>" + item.age_requirement + "</td></tr><tr class='field-even field'><th class='tooltipster field-name'>Education Requirements: </th><td class='field-body'>" + item.education_requirements + "</td></tr><tr class='field-even field'><th class='tooltipster field-name'>Qualifications: </th><td class='field-body'>" + item.qualifications + "</td></tr><tr class='field-even field'><th class='tooltipster field-name'>Physical Demand: </th><td class='field-body'>" + item.physical_demand + "</td></tr><tr class='field-even field'><th class='tooltipster field-name'>Work Environment: </th><td class='field-body'>" + item.work_environment + "</td></tr><tr class='field-even field'><th class='tooltipster field-name'>Creator Id: </th><td class='field-body'>" + item.created_by + "</td></tr><tr class='field-even field'><th class='tooltipster field-name'>Creation Date: </th><td class='field-body'>" + item.created_date + "</td></tr></tbody></table></span>"
-				//16. Set the updated_content variable equal to a string of HTML format with the parameters from the api concatenated into the string.
-														//origin.tooltipster('content', updated_content).data('ajax', 'cached');
-														origin.tooltipster('content', updated_content);
-				//17. Update the content of the tooltip.	
-													} else if (item.object_type == "PL") {
-				//18. Check that the object_type is equal to Policy.
-														updated_content = "<span><img src='images/puppy.jpg' style='width:100px; height:auto;'/><table class='docutils field-list' frame='void' rules='none'><col class='tooltipster field-name' /><col class='field-body' /><tbody valign='top'><tr class='field-odd field'><th class='tooltipster field-name'>Policy Title: </th><td class='field-body'>" + item.title + "</td></tr><tr class='field-even field'><th class='tooltipster field-name'>Description: </th><td class='field-body'>" + item.description + "</td></tr><tr class='field-even field'><th class='tooltipster field-name'>Purpose: </th><td class='field-body'>" + item.purpose + "</td></tr><tr class='field-even field'><th class='tooltipster field-name'>Scope: </th><td class='field-body'>" + item.scope + "</td></tr><tr class='field-even field'><th class='tooltipster field-name'>Creator Id: </th><td class='field-body'>" + item.created_by + "</td></tr><tr class='field-even field'><th class='tooltipster field-name'>Creation Date: </th><td class='field-body'>" + item.created_date + "</td></tr></tbody></table></span>"
-				//19. Set the updated_content variable equal to a string of HTML format with the parameters from the api concatenated into the string.
-														//origin.tooltipster('content', updated_content).data('ajax', 'cached');
-														origin.tooltipster('content', updated_content);
-				//20. Update the content of the tooltip.
-													} else if (item.object_type == "PR") {
-				//21. Check that the object_type is equal to Procedure.
-														updated_content = "<span><img src='images/puppy.jpg' style='width:100px; height:auto;' /> <table class='docutils field-list' frame='void' rules='none'><col class='tooltipster field-name' /><col class='field-body' /><tbody valign='top'><tr class='field-odd field'><th class='tooltipster field-name'>Procedure Title: </th><td class='field-body'>" + item.title + "</td></tr><tr class='field-even field'><th class='tooltipster field-name'>Description: </th><td class='field-body'>" + item.description + "</td></tr><tr class='field-even field'><th class='tooltipster field-name'>Purpose: </th><td class='field-body'>" + item.purpose + "</td></tr><tr class='field-even field'><th class='tooltipster field-name'>Scope: </th><td class='field-body'>" + item.scope + "</td></tr><tr class='field-even field'><th class='tooltipster field-name'>Creator Id: </th><td class='field-body'>" + item.created_by + "</td></tr><tr class='field-even field'><th class='tooltipster field-name'>Creation Date: </th><td class='field-body'>" + item.created_date + "</td></tr></tbody></table></span>"
-				//22. Set the updated_content variable equal to a string of HTML format with the parameters from the api concatenated into the string.
-														//origin.tooltipster('content', updated_content).data('ajax', 'cached');
-														origin.tooltipster('content', updated_content);
-				//23. Update the content of the tooltip.
-													} else if (item.object_type == "ST") {
-				//24. Check that the object_type is equal to Step.
-														updated_content = "<span><img src='images/puppy.jpg' style='width:100px; height:auto;' /> <table class='docutils field-list' frame='void' rules='none'><col class='tooltipster field-name' /><col class='field-body' /><tbody valign='top'><tr class='field-odd field'><th class='tooltipster field-name'>Step Title: </th><td class='field-body'>" + item.title + "</td></tr><tr class='field-even field'><th class='tooltipster field-name'>Description: </th><td class='field-body'>" + item.description + "</td></tr><tr class='field-even field'><th class='tooltipster field-name'>Purpose: </th><td class='field-body'>" + item.purpose + "</td></tr><tr class='field-even field'><th class='tooltipster field-name'>Instruction: </th><td class='field-body'>" + item.instruction + "</td></tr><tr class='field-even field'><th class='tooltipster field-name'>Creator Id: </th><td class='field-body'>" + item.created_by + "</td></tr><tr class='field-even field'><th class='tooltipster field-name'>Creation Date: </th><td class='field-body'>" + item.creation_date + "</td></tr></tbody></table></span>"
-				//25. Set the updated_content variable equal to a string of HTML format with the parameters from the api concatenated into the string.
-														//origin.tooltipster('content', updated_content).data('ajax', 'cached');
-														origin.tooltipster('content', updated_content);
-				//26. Update the content of the tooltip.	
-													} else if (item.object_type == "TK") {
-				//27. Check that the object_type is equal to Task.
-														updated_content = "<span><img src='images/puppy.jpg' style='width:100px; height:auto;'/><table class='docutils field-list' frame='void' rules='none'><col class='tooltipster field-name' /><col class='field-body' /><tbody valign='top'><tr class='field-odd field'><th class='tooltipster field-name'>Task Title: </th><td class='field-body'>" + item.title + "</td></tr><tr class='field-even field'><th class='tooltipster field-name'>Task Number: </th><td class='field-body'>" + item.task_number + "</td></tr><tr class='field-even field'><th class='tooltipster field-name'>Instruction: </th><td class='field-body'>" + item.instruction + "</td></tr><tr class='field-even field'><th class='tooltipster field-name'>Creator Id: </th><td class='field-body'>" + item.created_by + "</td></tr><tr class='field-even field'><th class='tooltipster field-name'>Creation Date: </th><td class='field-body'>" + item.creation_date + "</td></tr></tbody></table></span>"
-				//28. Set the updated_content variable equal to a string of HTML format with the parameters from the api concatenated into the string.
-														//origin.tooltipster('content', updated_content).data('ajax', 'cached');
-														origin.tooltipster('content', updated_content);
-				//29. Update the content of the tooltip with our returned data and cache it	
-													}
-							        			});
-							                }
-							            });
-							        }
-							    }
-							});
-
-
-
-
-				  },function(){
-				  	var thisItemHTML = $(this).html();
-				  	//alert( thisItemHTML );
-
-					//alert( $(this).attr("data-thisUUID") );
-				  $(this).css("background-color","pink");
 				});	
-			}
-			function getChildElementsforHierarchicalTree (activeObjectUUID) {
-				var ElementsArray = new Array();
-				$.getJSON('http://api.universalbusinessmodel.com/ubms_modelcreationsuite_model_get_Direct_ElementPosterityTree.php?callback=?', {
-					key : window.key,
-					activeObjectUUID : activeObjectUUID
-				}, function(res, status) {
-					ElementsArray = res;
-					displayHierarchicalTree(ElementsArray);
-				});
-			}
-			function buildHierarchicalTree(uuid){
-				$('#heirarchyObjectTree_ul').empty();
-				//Called when user clicks on a position displayed on the org chart.
-				// 1. Gets the child elements of uuid
-				getChildElementsforHierarchicalTree(uuid);
-				// 2. Calls the displayHierarchicalTree function and passes the array of items to the function.
-				// 3. Update the Header with the name of the current object heirarchyObjectTree_container_header_currentObject
-			}
-
+				setTimeout(function() {
+					getJobDescriptionforHeirarchicalObjectTree();
+				}, 1000);	
+			}			
 		</script>      
 		<!-- End Position JavaScript-->
 		<script>
-			function setActivePositionUUID(activePositionUUID){		//Single Click Function
-				//1. Set window variable: window.activePositionUUID equal to activePositionUUID.
-				window.activePositionUUID = activePositionUUID;
-				//alert("active PS is called" + window.activePositionUUID);
+			function setActiveJobDescriptionId(activeJobDescriptionId){
+				window.activeJobDescriptionId = activeJobDescriptionId;
+				//alert(window.activeJobDescriptionId);
+				getPoliciesforBackBoneTable();
+				getPoliciesforHeirarchicalObjectTree();
+				setTimeout(function() {
+					$("#ubmsuite_mcs_my_organizational_chart_content_manageJobDescriptionPopUp").popup('open');
+				}, 10);
+				
 			}
-			function setActiveJobDescriptionUUID(activeJobDescriptionUUID){		//Single Click Function
-				//1. Set window variable: window.activeJobDescriptionUUID equal to activeJobDescriptionUUID.
-				window.activeJobDescriptionUUID = activeJobDescriptionUUID;
-				//alert("active JD is called" + window.activeJobDescriptionUUID);
-			}
-			function setActivePolicyUUID(activePolicyUUID){						//Single Click Function
-				//1. Set window variable: window.activePolicyUUID equal to activePolicyUUID.
-				window.activePolicyUUID = activePolicyUUID;				
-			}
-			function setActiveProcedureUUID(activeProcedureUUID){				//Single Click Function
-				//1. Set window variable: window.activeProcedureUUID equal to activeProcedureUUID.
-				window.activeProcedureUUID = activeProcedureUUID;				
-			}
-			function setActiveStepUUID(activeStepUUID){							//Single Click Function
-				//1. Set window variable: window.activePolicyUUID equal to activePolicyUUID.
-				window.activeStepUUID = activeStepUUID;				
-			}
-			function setActiveTaskUUID(activeTaskUUID){							//Single Click Function
-				//1. Set window variable: window.activeStepUUID equal to activeStepUUID.
-				window.activeTaskUUID = activeTaskUUID;				
-			}
-			function openNewJDPopup(activePositionUUID){							//Double Click Function
-				//1. Set window variable: window.activePositionUUID equal to activePositionUUID.
-				window.activePositionUUID = activePositionUUID;
-				//2. Populate the list of predefined job descriptions with those from the reference manual.
-				getListofPossibleJobDescriptions();
-				//3. Display the popup.
-				$("#ubmsuite_mcs_my_organizational_chart_content_createNewJobDescriptionPopUp").popup("open");
-			}
-			function openNewPLPopup(activeJobDescriptionUUID){						//Double Click Function
-				//1 Set the active Job Description UUID to the JD element on which the user double clicks.
-				setActiveJobDescriptionUUID(activeJobDescriptionUUID);
-				//2. Populate the list of predefined Policies with those from the reference manual.				
-				getListofPossiblePolicies();
-				//3. Display the popup.
-				$("#ubmsuite_mcs_my_organizational_chart_content_createNewPolicyPopUp").popup("open");
-			}
-			function openNewPRPopup(activePolicyUUID){								//Double Click Function
-				//1 Set the active Policy UUID to the PL element on which the user double clicks.
-				setActivePolicyUUID(activePolicyUUID);
-				//2. Populate the list of predefined Procedures with those from the reference manual.				
-				getListofPossibleProcedures();
-				//3. Display the popup.
-				$("#ubmsuite_mcs_my_organizational_chart_content_createNewProcedurePopUp").popup("open");
-			}
-			function openNewSTPopup(activeProcedureUUID){							//Double Click Function
-				//1 Set the active Procedure UUID to the PR element on which the user double clicks.
-				setActiveProcedureUUID(activeProcedureUUID);
-				//2. Populate the list of predefined Steps with those from the reference manual.				
-				getListofPossibleSteps();
-				//3. Display the popup.
-				$("#ubmsuite_mcs_my_organizational_chart_content_createNewStepPopUp").popup("open");
-			}
-			function openNewTKPopup(activeStepUUID){								//Double Click Function
-				//1 Set the active Step UUID to the ST element on which the user double clicks.
-				setActiveStepUUID(activeStepUUID);
-				//2. Populate the list of predefined Tasks with those from the reference manual.				
-				getListofPossibleTasks();
-				//3. Display the popup.
-				$("#ubmsuite_mcs_my_organizational_chart_content_createNewTaskPopUp").popup("open");
-			}
-
 			function createNewJobDescriptionAddtoMyModel() {
-				$.getJSON('http://api.universalbusinessmodel.com/ubm_modelcreationsuite_model_create_JobDescription.php?callback=?', {//JSONP Request to Open Items Page setup tables
+				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_model_create_JobDescription.php?callback=?', {//JSONP Request to Open Items Page setup tables
 					username: window.username,
-					activeModelUUID : window.activeModelUUID,
+					activeModelId : window.activeModelId,
 					title: document.getElementById("ubmsuite_mcs_my_organizational_chart_content_createNewJobDescriptionPopUp_form_JobDescriptionTitle").value,
 					objective: document.getElementById("ubmsuite_mcs_my_organizational_chart_content_createNewJobDescriptionPopUp_form_JobDescriptionObjective").value,
 					qualifications: document.getElementById("ubmsuite_mcs_my_organizational_chart_content_createNewJobDescriptionPopUp_form_JobDescriptionQualificaions").value,
@@ -625,170 +1436,49 @@ under the License.
 					dutiesAndResponsibilities: document.getElementById("ubmsuite_mcs_my_organizational_chart_content_createNewJobDescriptionPopUp_form_JobDescriptionDutiesAndResponsibilities").value,
 					positionId : window.activeReportsToPosition
 				}, function(res, status) {
-					$().toastmessage('showNoticeToast', res.message);
+					alert(res.message);
 				});
 					
 					$("#ubmsuite_mcs_my_organizational_chart_content_createNewJobDescriptionPopUp").popup('close');
 					$('#ubmsuite_mcs_my_organizational_chart_content_createNewJobDescriptionPopUp_form_createJobDescription_form').each(function() {
 							this.reset();
-					});
-					getMyModelsOrgChart();
-					buildHierarchicalTree(window.activePositionUUID);
-										// getChildElements(activeObjectUUID);					
+						});
+					getMyModelsOrgChart();					
 			}
-			function getListofPossibleJobDescriptions() {//Populates Core Value Listview on Possible CoreValue Popup
-				$.getJSON('http://api.universalbusinessmodel.com/ubm_modelcreationsuite_model_getAll_JobDescriptions.php?callback=?', {//JSONP Request to Open Items Page setup tables
-					key : window.key
-				}, function(res, status) {
-						$('#ubmsuite_mcs_my_organizational_chart_content_createNewJobDescriptionPopUp_form_UBMRepository').empty();
-					$.each(res, function(i, item) {
-						$('#ubmsuite_mcs_my_organizational_chart_content_createNewJobDescriptionPopUp_form_UBMRepository').append("<li><a href='#' onClick='openJobDescriptionSummaryPopup(" + item.id + ")'><p style='white-space:normal;'>" + item.title + "</p></a><a href='#' onclick='addJobDescriptiontoMyModel( " + item.id + " ) '>Add Job Description</a></li>");
-						$('#ubmsuite_mcs_my_organizational_chart_content_createNewJobDescriptionPopUp_form_UBMRepository').listview("refresh");
-					})
-				});	
-			}
-			function addJobDescriptiontoMyModel(activeJobDescriptionId){
-				//alert(window.activePositionUUID);
-				$.getJSON('http://api.universalbusinessmodel.com/ubms_modelcreationsuite_model_add_JobDescription.php?callback=?', {//JSONP Request to Open Items Page setup tables
-					key : window.key,
-					username : window.username,
-					activeModelUUID :window.activeModelUUID,
-					activePositionUUID : window.activePositionUUID,
-					activeJobDescriptionId : activeJobDescriptionId
-				}, function(res, status) {
-					$().toastmessage('showSuccessToast', res.message);
-				});
-					$("#ubmsuite_mcs_my_organizational_chart_content_createNewJobDescriptionPopUp").popup('close');
-					getMyModelsOrgChart();
-					buildHierarchicalTree(window.activePositionUUID);
-
-				//Called from Model Settings Page????
-				//1. User selects a position from the list of ubm_model_positions?
-				//2. User is asked whether they wish to also add all positions that report to this position in the master file index?
-				//3. User is asked to decide which of their existing positions on the org chart they would like the position to report to and which level (Level 1, Level 2, Level 3...) on the org chart they wish to assign the position.
-				//4. User selects the "reports to position from a list of existing positions attached to their model.
-				//3. If user selects yes, the relationships between the activeModelUUID and the active position as well as all positions that report to it are created in the the model_has_positions table. 
-				//4. If user selects "no, add this position without any positions that report to it." 
-			}
-
-
-			function manageOwners () {
-				$("#ubmsuite_mcs_my_organizational_chart_content_mangePositionPopUp").popup('close');
+			function createNewJobDescription () {
+				$("#ubmsuite_mcs_my_organizational_chart_content_manageJobDescriptionPopUp").popup('close');
+				$("#ubmsuite_mcs_my_organizational_chart_content_modifyPositionPopUp").popup('close');
 
 				setTimeout(function() {
-					$("#ubmsuite_mcs_my_organizational_chart_content_manageOwners_popup").popup('open');
+					$("#ubmsuite_mcs_my_organizational_chart_content_createNewJobDescriptionPopUp").popup('open');
 				}, 1000);		
-			} 
-
-			function managePosition () {
-				$("#ubmsuite_mcs_my_organizational_chart_content_mangePositionPopUp").popup('close');
-
-				setTimeout(function() {
-					$("#ubmsuite_mcs_my_organizational_chart_content_genericManagePosition_popup").popup('open');
-					$("#ubmsuite_mcs_my_organizational_chart_content_genericManagePosition_popup_addName_submit_button").empty();
-					$("#ubmsuite_mcs_my_organizational_chart_content_genericManagePosition_popup_addName_submit_button").append("");
-				}, 500);		
 			}
-
-			function addNameToPosition() {
-				$.getJSON('http://api.universalbusinessmodel.com/ubms_modelcreationsuite_model_create_PositionName.php?callback=?', {//JSONP Request to Open Items Page setup tables
-					key : window.key,
-					username: window.username,
-					activePositionUUID : window.activeReportsToPosition,
-					positionName : document.getElementById("ubmsuite_mcs_my_organizational_chart_content_genericManagePosition_popup_addName_input").value,
-					email : document.getElementById("ubmsuite_mcs_my_organizational_chart_content_genericManagePosition_popup_generic").value,
-				}, function(res, status) {
-					$().toastmessage('showSuccessToast', res.message);
-				});
-					$('#ubmsuite_mcs_my_organizational_chart_content_genericManagePosition_popup_form').each(function() {
-						this.reset();
-					});
-					setTimeout(function() {
-						getListOfPositionNames();	
-					}, 2000);
-					
-			}
-
-			function getListOfPositionNames() {
-				$('#my_model_current_names').empty();
-				$.getJSON('http://api.universalbusinessmodel.com/ubms_modelcreationsuite_model_getCurrentPosition_Names.php?callback=?', {//JSONP Request to Open Items Page setup tables
-					key : window.key,
-					activePositionUUID : window.activeReportsToPosition
-				}, function(res, status) {
-					$.each(res, function(i, item) {
-						$('#my_model_current_names').append("<li><a href='#' onClick='openModifyPositionPopup(" + item.id + ")'><p>" + item.name + "</p></a><a href='#' onclick='removePositionName(" + item.id + ")'>Remove Name</a></li>");
-						$('#my_model_current_names').listview("refresh");
-					});
-				});		
-			}
-
-			function openModifyPositionPopup (id) {
-				window.positionNameId = id;
-				$("#ubmsuite_mcs_my_organizational_chart_content_genericManagePosition_popup").popup('close');
-				setTimeout(function() {
-						$("#ubmsuite_mcs_my_organizational_chart_content_modify_genericManagePosition_popup").popup('open');	
-					}, 1000);
-				
-			}
-
-			function modifyPositionName() {
-				$.getJSON('http://api.universalbusinessmodel.com/ubms_modelcreationsuite_model_modify_PositionName.php?callback=?', {//JSONP Request to Open Items Page setup tables
-					key : window.key,
-					positionNameId : window.positionNameId,
-					name : document.getElementById("ubmsuite_mcs_my_organizational_chart_content_modify_genericManagePosition_popup_addName_input").value,
-					email : document.getElementById("ubmsuite_mcs_my_organizational_chart_content_modify_genericManagePosition_popup_generic").value
-				}, function(res, status) {
-					$().toastmessage('showSuccessToast', res.message);
-				});
-					$('#ubmsuite_mcs_my_organizational_chart_content_modify_genericManagePosition_popup_form').each(function() {
-						this.reset();
-					});
-					$("#ubmsuite_mcs_my_organizational_chart_content_modify_genericManagePosition_popup").popup('close');
-					setTimeout(function() {
-						getListOfPositionNames();	
-					}, 2000);
-					
-					$("#ubmsuite_mcs_my_organizational_chart_content_genericManagePosition_popup").popup('open');
-			}
-
-			function removePositionName(id) {
-				$.getJSON('http://api.universalbusinessmodel.com/ubms_modelcreationsuite_model_remove_PositionName.php?callback=?', {//JSONP Request to Open Items Page setup tables
-					key : window.key,
-					activePositionUUID : window.activeReportsToPosition,
-					positionNameId : id
-				}, function(res, status) {
-					$().toastmessage('showSuccessToast', res.message);
-				});
-				setTimeout(function() {
-					getListOfPositionNames();	
-				}, 1000);
-			}
-
 			function getJobDescriptionsforBackBoneTable(){
-				$.getJSON('http://api.universalbusinessmodel.com/ubm_modelcreationsuite_model_Position_get_JobDescriptions.php?callback=?', {//JSONP Request to Open Items Page setup tables
-					activeModelUUID : window.activeModelUUID,
+				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_model_Position_get_JobDescriptions.php?callback=?', {//JSONP Request to Open Items Page setup tables
+					activeModelId : window.activeModelId,
 					activePositionId: window.activeReportsToPosition
 				}, function(res, status) {
 						$("#heirarchyObjectBackbone_table_body").empty();
 					$.each(res, function(i, item) {
-						$("#heirarchyObjectBackbone_table_body").append("<tr><td class='tg-031e'>" + item.mfi_reference + "</td><td class='tg-031e'>PS-" + window.activeReportsToPosition + "</td><td class='tg-gcpq'>" + item.id + "</td><td class='tg-gcpq'>JD-" + item.id + "</td><td class='tg-2tnls'></td><td class='tg-2tnls'></td><td class='tg-hnhqs'></td><td class='tg-hnhqs'></td><td class='tg-4nips'></td><td class='tg-4nips'></td><td class='tg-gl8ns'></td><td class='tg-gl8ns'></td><td class='tg-akd2s'></td><td class='tg-akd2s'></td><td class='tg-8474s'></td><td class='tg-8474s'></td><td class='tg-w2xps'></td><td class='tg-w2xps'></td><td class='tg-w2xps'></td><td class='tg-w2xps'></td><td class='tg-w2xps'></td><td class='tg-w2xps'></td><td class='tg-w2xps'></td><td class='tg-w2xps'></td><td class='tg-48oos'></td><td class='tg-48oos'></td><td class='tg-48oos'></td><td class='tg-48oos'></td><td class='tg-48oos'></td><td class='tg-031e'>PS-" + window.activeReportsToPosition + ".JD-" + item.id + "</td><td class='tg-031e'>MD-" + window.activeModelUUID + "</td><td class='tg-031e'>PS-" + window.activeReportsToPosition + ".JD-" + item.id + "</td><td class='tg-031e'>" + item.title + "</td><td class='tg-031e'>Active</td></tr>");					
+						$("#heirarchyObjectBackbone_table_body").append("<tr><td class='tg-031e'>" + item.mfi_reference + "</td><td class='tg-031e'>PS-" + window.activeReportsToPosition + "</td><td class='tg-gcpq'>" + item.id + "</td><td class='tg-gcpq'>JD-" + item.id + "</td><td class='tg-2tnls'></td><td class='tg-2tnls'></td><td class='tg-hnhqs'></td><td class='tg-hnhqs'></td><td class='tg-4nips'></td><td class='tg-4nips'></td><td class='tg-gl8ns'></td><td class='tg-gl8ns'></td><td class='tg-akd2s'></td><td class='tg-akd2s'></td><td class='tg-8474s'></td><td class='tg-8474s'></td><td class='tg-w2xps'></td><td class='tg-w2xps'></td><td class='tg-w2xps'></td><td class='tg-w2xps'></td><td class='tg-w2xps'></td><td class='tg-w2xps'></td><td class='tg-w2xps'></td><td class='tg-w2xps'></td><td class='tg-48oos'></td><td class='tg-48oos'></td><td class='tg-48oos'></td><td class='tg-48oos'></td><td class='tg-48oos'></td><td class='tg-031e'>PS-" + window.activeReportsToPosition + ".JD-" + item.id + "</td><td class='tg-031e'>MD-" + window.activeModelId + "</td><td class='tg-031e'>PS-" + window.activeReportsToPosition + ".JD-" + item.id + "</td><td class='tg-031e'>" + item.title + "</td><td class='tg-031e'>Active</td></tr>");					
 					});
 						$("#heirarchyObjectBackbone_table").table( "refresh" );
-				});
-			}
 
+				});				
+			}
 			function getJobDescriptionforHeirarchicalObjectTree(){
 				//alert("this is a test");
-				$.getJSON('http://api.universalbusinessmodel.com/ubm_modelcreationsuite_model_Position_get_JobDescriptions.php?callback=?', {//JSONP Request to Open Items Page setup tables
-					activeModelUUID:window.activeModelUUID,
+				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_model_Position_get_JobDescriptions.php?callback=?', {//JSONP Request to Open Items Page setup tables
+					activeModelId:window.activeModelId,
 					activePositionId:window.activeReportsToPosition
 				}, function(res, status) {
 					$.each(res, function(i, item) {
-							//3. Append all children to their respective "reports_to" ul
-							$("#ubmsuite_mcs_my_organizational_chart_heirarchyObjectTree_ul_P").append("<li><a data-position-to='origin' href='#ubmsuite_mcs_my_organizational_chart_content_managePolicyPopUp'data-rel='popup' class='ui-link' data-transition='pop' onclick='addJobDescriptiontoMyModel(" + item.id + ")'>JD-" + item.id + "</a><ul id='ubmsuite_mcs_my_organizational_chart_heirarchyObjectTree_ul_JD_" + item.id + "'></ul></li>");
-							//4. Empty chart Div
+//3. Append all children to their respective "reports_to" ul
+//							$('#ubmsuite_mcs_my_organizational_chart_P' + item.reports_to_id + '_ul').append("<li id='orgChartPosition" + item.position_id + "'><div id='demo_box_" + item.position_id + "' class='demo_box' onclick='setActivePosition(" + item.position_id + ")'><div class='pop_ctrl'><i class='fa fa-bars'></i></div><ul id='demo_ul_2'><li class='demo_li'><a href='#' onclick='addChildPositiontoActivePosition()'><div><i class='fa fa-plus-circle'></i></div><p>Add</p></a></li><li class='demo_li'><a href='#' onclick='removeActivePosition()'><div><i class='fa fa-minus-circle'></i></div><p>Remove</p></a></li></ul></div></br>" + item.title + "<ul id='ubmsuite_mcs_my_organizational_chart_P" + item.position_id + "_ul'></ul></li>");	
+							$("#ubmsuite_mcs_my_organizational_chart_heirarchyObjectTree_ul_P").append("<li><a data-position-to='origin' href='#ubmsuite_mcs_my_organizational_chart_content_managePolicyPopUp'data-rel='popup' class='ui-link' data-transition='pop' onclick='setActiveJobDescriptionId(" + item.id + ")'>JD-" + item.id + "</a><ul id='ubmsuite_mcs_my_organizational_chart_heirarchyObjectTree_ul_JD_" + item.id + "'></ul></li>");
+//4. Empty chart Div
 					        $('#chart').empty();
-							//5. Call jOrgChart plugin, append new org chart to chart div, set jorgdraganddrop to false to avoid conflicting compatibility issue with other jquery packages.
+//5. Call jOrgChart plugin, append new org chart to chart div, set jorgdraganddrop to false to avoid conflicting compatibility issue with other jquery packages.
 					        $("#modelOrgChart").jOrgChart({
 					            chartElement : '#chart',
 					            dragAndDrop  : false
@@ -811,63 +1501,29 @@ under the License.
 				//alert(window.activePolicyId);
 			}
 			function getPoliciesforBackBoneTable(){				
-				$.getJSON('http://api.universalbusinessmodel.com/ubm_modelcreationsuite_model_JobDescription_get_Policies.php?callback=?', {//JSONP Request to Open Items Page setup tables
-					activeModelUUID : window.activeModelUUID,
+				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_model_JobDescription_get_Policies.php?callback=?', {//JSONP Request to Open Items Page setup tables
+					activeModelId : window.activeModelId,
 					activeJobDescriptionId: window.activeJobDescriptionId
 				}, function(res, status) {
 					$("#heirarchyObjectBackbone_table_body").empty()
 					$.each(res, function(i, item) {
-						$("#heirarchyObjectBackbone_table_body").append("<tr><td class='tg-031e'>" + item.mfi_reference + "</td><td class='tg-031e'>PS-" + window.activeReportsToPosition + "</td><td class='tg-gcpq'>" + window.activeJobDescriptionId + "</td><td class='tg-gcpq'>JD-" + window.activeJobDescriptionId + "</td><td class='tg-2tnl'>" + item.id + "</td><td class='tg-2tnl'>PL-" + item.id + "</td><td class='tg-hnhqs'></td><td class='tg-hnhqs'></td><td class='tg-4nips'></td><td class='tg-4nips'></td><td class='tg-gl8ns'></td><td class='tg-gl8ns'></td><td class='tg-akd2s'></td><td class='tg-akd2s'></td><td class='tg-8474s'></td><td class='tg-8474s'></td><td class='tg-w2xps'></td><td class='tg-w2xps'></td><td class='tg-w2xps'></td><td class='tg-w2xps'></td><td class='tg-w2xps'></td><td class='tg-w2xps'></td><td class='tg-w2xps'></td><td class='tg-w2xps'></td><td class='tg-48oos'></td><td class='tg-48oos'></td><td class='tg-48oos'></td><td class='tg-48oos'></td><td class='tg-48oos'></td><td class='tg-031e'>PS-" + window.activeReportsToPosition + ".JD-" + window.activeJobDescriptionId + ".PL-" + item.id + "</td><td class='tg-031e'>MD-" + window.activeModelUUID + "</td><td class='tg-031e'>PS-" + window.activeReportsToPosition + ".JD-" + window.activeJobDescriptionId + ".PL-" + item.id + "</td><td class='tg-031e'>" + item.title + "</td><td class='tg-031e'>Active</td></tr>");					
+						$("#heirarchyObjectBackbone_table_body").append("<tr><td class='tg-031e'>" + item.mfi_reference + "</td><td class='tg-031e'>PS-" + window.activeReportsToPosition + "</td><td class='tg-gcpq'>" + window.activeJobDescriptionId + "</td><td class='tg-gcpq'>JD-" + window.activeJobDescriptionId + "</td><td class='tg-2tnl'>" + item.id + "</td><td class='tg-2tnl'>PL-" + item.id + "</td><td class='tg-hnhqs'></td><td class='tg-hnhqs'></td><td class='tg-4nips'></td><td class='tg-4nips'></td><td class='tg-gl8ns'></td><td class='tg-gl8ns'></td><td class='tg-akd2s'></td><td class='tg-akd2s'></td><td class='tg-8474s'></td><td class='tg-8474s'></td><td class='tg-w2xps'></td><td class='tg-w2xps'></td><td class='tg-w2xps'></td><td class='tg-w2xps'></td><td class='tg-w2xps'></td><td class='tg-w2xps'></td><td class='tg-w2xps'></td><td class='tg-w2xps'></td><td class='tg-48oos'></td><td class='tg-48oos'></td><td class='tg-48oos'></td><td class='tg-48oos'></td><td class='tg-48oos'></td><td class='tg-031e'>PS-" + window.activeReportsToPosition + ".JD-" + window.activeJobDescriptionId + ".PL-" + item.id + "</td><td class='tg-031e'>MD-" + window.activeModelId + "</td><td class='tg-031e'>PS-" + window.activeReportsToPosition + ".JD-" + window.activeJobDescriptionId + ".PL-" + item.id + "</td><td class='tg-031e'>" + item.title + "</td><td class='tg-031e'>Active</td></tr>");					
 					});
 				});				
 			}
-			function getListofPossiblePolicies() {//Populates Core Value Listview on Possible CoreValue Popup
-				$.getJSON('http://api.universalbusinessmodel.com/ubm_modelcreationsuite_model_getAll_Policies.php?callback=?', {//JSONP Request to Open Items Page setup tables
-					key : window.key,
-				}, function(res, status) {
-						$('#ubmsuite_mcs_my_organizational_chart_content_createNewPolicyPopUp_form_UBMRepository').empty();
-					$.each(res, function(i, item) {
-						$('#ubmsuite_mcs_my_organizational_chart_content_createNewPolicyPopUp_form_UBMRepository').append("<li><a href='#' onClick='openPolicySummaryPopup(" + item.id + ")'><p>" + item.title + "</p></a><a href='#' onclick='addPolicytoMyModel(" + item.id + ")'>Add Policy</a></li>");
-						$('#ubmsuite_mcs_my_organizational_chart_content_createNewPolicyPopUp_form_UBMRepository').listview("refresh");
-					})
-				});	
-			}
-			function addPolicytoMyModel(activePolicyId){
-
-				//alert(window.activeJobDescriptionUUID);
-				$.getJSON('http://api.universalbusinessmodel.com/ubms_modelcreationsuite_model_add_Policy.php?callback=?', {//JSONP Request to Open Items Page setup tables
-					activeModelUUID :window.activeModelUUID,
-					activeJobDescriptionUUID : window.activeJobDescriptionUUID,
-					activePolicyId : activePolicyId,
-					key : window.key,
-					username : window.username
-				}, function(res, status) {
-					$().toastmessage('showSuccessToast', res.message);
-				});
-					$("#ubmsuite_mcs_my_organizational_chart_content_createNewPolciyPopUp").popup('close');
-					getMyModelsOrgChart();
-					buildHierarchicalTree(window.activePositionUUID);
-					// getChildElements(activeObjectUUID);					
-				//Called from Model Settings Page????
-				//1. User selects a position from the list of ubm_model_positions?
-				//2. User is asked whether they wish to also add all positions that report to this position in the master file index?
-				//3. User is asked to decide which of their existing positions on the org chart they would like the position to report to and which level (Level 1, Level 2, Level 3...) on the org chart they wish to assign the position.
-				//4. User selects the "reports to position from a list of existing positions attached to their model.
-				//3. If user selects yes, the relationships between the activeModelUUID and the active position as well as all positions that report to it are created in the the model_has_positions table. 
-				//4. If user selects "no, add this position without any positions that report to it." 
-			}
 			function getPoliciesforHeirarchicalObjectTree(){
-				$.getJSON('http://api.universalbusinessmodel.com/ubm_modelcreationsuite_model_JobDescription_get_Policies.php?callback=?', {//JSONP Request to Open Items Page setup tables
-					activeModelUUID:window.activeModelUUID,
+				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_model_JobDescription_get_Policies.php?callback=?', {//JSONP Request to Open Items Page setup tables
+					activeModelId:window.activeModelId,
 					activeJobDescriptionId:window.activeJobDescriptionId
 				}, function(res, status) {
 							$("#ubmsuite_mcs_my_organizational_chart_heirarchyObjectTree_ul_JD_" + window.activeJobDescriptionId + "").empty();
 					$.each(res, function(i, item) {
-							//3. Append all children to their respective "reports_to" ul
+//3. Append all children to their respective "reports_to" ul
+//							$('#ubmsuite_mcs_my_organizational_chart_P' + item.reports_to_id + '_ul').append("<li id='orgChartPosition" + item.position_id + "'><div id='demo_box_" + item.position_id + "' class='demo_box' onclick='setActivePosition(" + item.position_id + ")'><div class='pop_ctrl'><i class='fa fa-bars'></i></div><ul id='demo_ul_2'><li class='demo_li'><a href='#' onclick='addChildPositiontoActivePosition()'><div><i class='fa fa-plus-circle'></i></div><p>Add</p></a></li><li class='demo_li'><a href='#' onclick='removeActivePosition()'><div><i class='fa fa-minus-circle'></i></div><p>Remove</p></a></li></ul></div></br>" + item.title + "<ul id='ubmsuite_mcs_my_organizational_chart_P" + item.position_id + "_ul'></ul></li>");	
 							$("#ubmsuite_mcs_my_organizational_chart_heirarchyObjectTree_ul_JD_" + window.activeJobDescriptionId + "").append("<li><a data-position-to='origin' href='#ubmsuite_mcs_my_organizational_chart_content_manageProcedurePopUp'data-rel='popup' class='ui-link' data-transition='pop' onclick='setActivePolicyId(" + item.id + ")'>PL-" + item.id + "</a><ul id='ubmsuite_mcs_my_organizational_chart_heirarchyObjectTree_ul_PL_" + item.id + "'></ul></li>");
-							//4. Empty chart Div
+//4. Empty chart Div
 					        $('#chart').empty();
-							//5. Call jOrgChart plugin, append new org chart to chart div, set jorgdraganddrop to false to avoid conflicting compatibility issue with other jquery packages.
+//5. Call jOrgChart plugin, append new org chart to chart div, set jorgdraganddrop to false to avoid conflicting compatibility issue with other jquery packages.
 					        $("#modelOrgChart").jOrgChart({
 					            chartElement : '#chart',
 					            dragAndDrop  : false
@@ -905,9 +1561,9 @@ under the License.
 				}
 				//alert("got past the if");
 				//alert(window.policyType);
-				$.getJSON('http://api.universalbusinessmodel.com/ubm_modelcreationsuite_model_create_Policy.php?callback=?', {//JSONP Request to Open Items Page setup tables
+				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_model_create_Policy.php?callback=?', {//JSONP Request to Open Items Page setup tables
 					username : window.username,
-					activeModelUUID : window.activeModelUUID,
+					activeModelId : window.activeModelId,
 					title : document.getElementById("ubmsuite_mcs_my_organizational_chart_content_createNewPolicyPopUp_form_PolicyTitle").value,
 					purpose: document.getElementById("ubmsuite_mcs_my_organizational_chart_content_createNewPolicyPopUp_form_PolicyPurpose").value,
 					scope: document.getElementById("ubmsuite_mcs_my_organizational_chart_content_createNewPolicyPopUp_form_PolicyScope").value,
@@ -915,15 +1571,13 @@ under the License.
 					description : document.getElementById("ubmsuite_mcs_my_organizational_chart_content_createNewPolicyPopUp_form_PolicyDescription").value,
 					jobDescriptionId : window.activeJobDescriptionId
 				}, function(res, status) {
-					$().toastmessage('showNoticeToast', res.message);
+					alert(res.message);
 				});
 					$("#ubmsuite_mcs_my_organizational_chart_content_createNewPolicyPopUp").popup('close');
 					$('#ubmsuite_mcs_my_organizational_chart_content_createNewPolicyPopUp_form_CreatePolicy_form').each(function() {
 							this.reset();
 						});
-					getMyModelsOrgChart();
-					buildHierarchicalTree(window.activePositionUUID);
-					//getChildElements(activeObjectUUID);					
+					getMyModelsOrgChart();					
 			}
 		</script>
 		<!-- End Policy-->
@@ -939,49 +1593,15 @@ under the License.
 			}
 			function getProceduresforBackBoneTable(){
 				//alert("this is a test");
-				$.getJSON('http://api.universalbusinessmodel.com/ubm_modelcreationsuite_model_Policy_get_Procedures.php?callback=?', {//JSONP Request to Open Items Page setup tables
-					activeModelUUID : window.activeModelUUID,
+				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_model_Policy_get_Procedures.php?callback=?', {//JSONP Request to Open Items Page setup tables
+					activeModelId : window.activeModelId,
 					activePolicyId: window.activePolicyId
 				}, function(res, status) {
 					$.each(res, function(i, item) {
-						$("#heirarchyObjectBackbone_table_body").append("<tr><td class='tg-031e'>" + item.mfi_reference + "</td><td class='tg-031e'>PS-" + window.activeReportsToPosition + "</td><td class='tg-gcpq'>" + window.activeJobDescriptionId + "</td><td class='tg-gcpq'>JD-" + window.activeJobDescriptionId + "</td><td class='tg-2tnl'>" + window.activePolicyId + "</td><td class='tg-2tnl'>PL-" + window.activePolicyId + "</td><td class='tg-hnhq'>" + item.id + "</td><td class='tg-hnhq'>PR-" + item.id + "</td><td class='tg-4nips'></td><td class='tg-4nips'></td><td class='tg-gl8ns'></td><td class='tg-gl8ns'></td><td class='tg-akd2s'></td><td class='tg-akd2s'></td><td class='tg-8474s'></td><td class='tg-8474s'></td><td class='tg-w2xps'></td><td class='tg-w2xps'></td><td class='tg-w2xps'></td><td class='tg-w2xps'></td><td class='tg-w2xps'></td><td class='tg-w2xps'></td><td class='tg-w2xps'></td><td class='tg-w2xps'></td><td class='tg-48oos'></td><td class='tg-48oos'></td><td class='tg-48oos'></td><td class='tg-48oos'></td><td class='tg-48oos'></td><td class='tg-031e'>PS-" + window.activeReportsToPosition + ".JD-" + window.activeJobDescriptionId + ".PL-" + item.id + "</td><td class='tg-031e'>MD-" + window.activeModelUUID + "</td><td class='tg-031e'>PS-" + window.activeReportsToPosition + ".JD-" + window.activeJobDescriptionId + ".PL-" + item.id + "</td><td class='tg-031e'>" + item.title + "</td><td class='tg-031e'>Active</td></tr>");					
+						$("#heirarchyObjectBackbone_table_body").append("<tr><td class='tg-031e'>" + item.mfi_reference + "</td><td class='tg-031e'>PS-" + window.activeReportsToPosition + "</td><td class='tg-gcpq'>" + window.activeJobDescriptionId + "</td><td class='tg-gcpq'>JD-" + window.activeJobDescriptionId + "</td><td class='tg-2tnl'>" + window.activePolicyId + "</td><td class='tg-2tnl'>PL-" + window.activePolicyId + "</td><td class='tg-hnhq'>" + item.id + "</td><td class='tg-hnhq'>PR-" + item.id + "</td><td class='tg-4nips'></td><td class='tg-4nips'></td><td class='tg-gl8ns'></td><td class='tg-gl8ns'></td><td class='tg-akd2s'></td><td class='tg-akd2s'></td><td class='tg-8474s'></td><td class='tg-8474s'></td><td class='tg-w2xps'></td><td class='tg-w2xps'></td><td class='tg-w2xps'></td><td class='tg-w2xps'></td><td class='tg-w2xps'></td><td class='tg-w2xps'></td><td class='tg-w2xps'></td><td class='tg-w2xps'></td><td class='tg-48oos'></td><td class='tg-48oos'></td><td class='tg-48oos'></td><td class='tg-48oos'></td><td class='tg-48oos'></td><td class='tg-031e'>PS-" + window.activeReportsToPosition + ".JD-" + window.activeJobDescriptionId + ".PL-" + item.id + "</td><td class='tg-031e'>MD-" + window.activeModelId + "</td><td class='tg-031e'>PS-" + window.activeReportsToPosition + ".JD-" + window.activeJobDescriptionId + ".PL-" + item.id + "</td><td class='tg-031e'>" + item.title + "</td><td class='tg-031e'>Active</td></tr>");					
 
 					});
 				});				
-			}
-			function getListofPossibleProcedures() {//Populates Core Value Listview on Possible CoreValue Popup
-				$.getJSON('http://api.universalbusinessmodel.com/ubm_modelcreationsuite_model_getAll_Procedures.php?callback=?', {//JSONP Request to Open Items Page setup tables
-					key : window.key,
-
-				}, function(res, status) {
-						$('#ubmsuite_mcs_my_organizational_chart_content_createNewProcedurePopUp_form_UBMRepository').empty();
-					$.each(res, function(i, item) {
-						$('#ubmsuite_mcs_my_organizational_chart_content_createNewProcedurePopUp_form_UBMRepository').append("<li><a href='#'><p style='white-space:normal;'>" + item.title + "</p></a><a href='#' onclick='addProceduretoMyModel(" + item.id + ")'>Add Procedure</a></li>");
-						$('#ubmsuite_mcs_my_organizational_chart_content_createNewProcedurePopUp_form_UBMRepository').listview("refresh");
-					})
-				});	
-			}
-			function addProceduretoMyModel(activeProcedureId){
-				$.getJSON('http://api.universalbusinessmodel.com/ubms_modelcreationsuite_model_add_Procedure.php?callback=?', {//JSONP Request to Open Items Page setup tables
-					key : window.key,
-					username : window.username,
-					activeModelUUID : window.activeModelUUID,
-					activePolicyUUID : window.activePolicyUUID,
-					activeProcedureId : activeProcedureId
-				}, function(res, status) {
-					$().toastmessage('showSuccessToast', res.message);
-				});
-					$("#ubmsuite_mcs_my_organizational_chart_content_createNewProcedurePopUp").popup('close');
-					getMyModelsOrgChart();
-					buildHierarchicalTree(window.activePositionUUID);	
-					//getChildElements(activeObjectUUID);				
-				//Called from Model Settings Page????
-				//1. User selects a position from the list of ubm_model_positions?
-				//2. User is asked whether they wish to also add all positions that report to this position in the master file index?
-				//3. User is asked to decide which of their existing positions on the org chart they would like the position to report to and which level (Level 1, Level 2, Level 3...) on the org chart they wish to assign the position.
-				//4. User selects the "reports to position from a list of existing positions attached to their model.
-				//3. If user selects yes, the relationships between the activeModelUUID and the active position as well as all positions that report to it are created in the the model_has_positions table. 
-				//4. If user selects "no, add this position without any positions that report to it." 
 			}
 			function createNewProcedure() {
 				$("#ubmsuite_mcs_my_organizational_chart_content_manageProcedurePopUp").popup('close');
@@ -991,17 +1611,18 @@ under the License.
 			}
 			function getProceduresforHeirarchicalObjectTree(){
 				//alert("This is a test");
-				$.getJSON('http://api.universalbusinessmodel.com/ubm_modelcreationsuite_model_Policy_get_Procedures.php?callback=?', {//JSONP Request to Open Items Page setup tables
-					activeModelUUID:window.activeModelUUID,
+				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_model_Policy_get_Procedures.php?callback=?', {//JSONP Request to Open Items Page setup tables
+					activeModelId:window.activeModelId,
 					activePolicyId:window.activePolicyId
 				}, function(res, status) {
 							$("#ubmsuite_mcs_my_organizational_chart_heirarchyObjectTree_ul_PL_" + window.activePolicyId + "").empty();
 					$.each(res, function(i, item) {
-							//3. Append all children to their respective "reports_to" ul
+//3. Append all children to their respective "reports_to" ul
+//							$('#ubmsuite_mcs_my_organizational_chart_P' + item.reports_to_id + '_ul').append("<li id='orgChartPosition" + item.position_id + "'><div id='demo_box_" + item.position_id + "' class='demo_box' onclick='setActivePosition(" + item.position_id + ")'><div class='pop_ctrl'><i class='fa fa-bars'></i></div><ul id='demo_ul_2'><li class='demo_li'><a href='#' onclick='addChildPositiontoActivePosition()'><div><i class='fa fa-plus-circle'></i></div><p>Add</p></a></li><li class='demo_li'><a href='#' onclick='removeActivePosition()'><div><i class='fa fa-minus-circle'></i></div><p>Remove</p></a></li></ul></div></br>" + item.title + "<ul id='ubmsuite_mcs_my_organizational_chart_P" + item.position_id + "_ul'></ul></li>");	
 							$("#ubmsuite_mcs_my_organizational_chart_heirarchyObjectTree_ul_PL_" + window.activePolicyId + "").append("<li><a data-position-to='origin' href='#ubmsuite_mcs_my_organizational_chart_content_manageStepPopUp'data-rel='popup' class='ui-link' data-transition='pop' onclick='setActiveProcedureId(" + item.id + ")'>PR-" + item.id + "</a><ul id='ubmsuite_mcs_my_organizational_chart_heirarchyObjectTree_ul_PR_" + item.id + "'></ul></li>");
-							//4. Empty chart Div
+//4. Empty chart Div
 					        $('#chart').empty();
-							//5. Call jOrgChart plugin, append new org chart to chart div, set jorgdraganddrop to false to avoid conflicting compatibility issue with other jquery packages.
+//5. Call jOrgChart plugin, append new org chart to chart div, set jorgdraganddrop to false to avoid conflicting compatibility issue with other jquery packages.
 					        $("#modelOrgChart").jOrgChart({
 					            chartElement : '#chart',
 					            dragAndDrop  : false
@@ -1013,9 +1634,9 @@ under the License.
 				//alert("This is a test");	
 			}
 			function createNewProcedureAddtoMyModel() {
-				$.getJSON('http://api.universalbusinessmodel.com/ubm_modelcreationsuite_model_create_Procedure.php?callback=?', {//JSONP Request to Open Items Page setup tables
+				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_model_create_Procedure.php?callback=?', {//JSONP Request to Open Items Page setup tables
 					username: window.username,
-					activeModelUUID : window.activeModelUUID,
+					activeModelId : window.activeModelId,
 					title: document.getElementById("ubmsuite_mcs_my_organizational_chart_content_createNewProcedurePopUp_form_ProcedureTitle").value,
 					description: document.getElementById("ubmsuite_mcs_my_organizational_chart_content_createNewProcedurePopUp_form_ProcedureDescription").value,
 					effectiveDate: document.getElementById("ubmsuite_mcs_my_organizational_chart_content_createNewProcedurePopUp_form_ProcedureEffectiveDate").value,
@@ -1023,15 +1644,13 @@ under the License.
 					scope: document.getElementById("ubmsuite_mcs_my_organizational_chart_content_createNewProcedurePopUp_form_ProcedureScope").value,
 					policyId : window.activePolicyId
 				}, function(res, status) {
-					$().toastmessage('showNoticeToast', res.message);
+					alert(res.message);
 				});
 					$("#ubmsuite_mcs_my_organizational_chart_content_createNewProcedurePopUp").popup('close');
 					$('#ubmsuite_mcs_my_organizational_chart_content_createNewProcedurePopUp_form_createProcedure_form').each(function() {
 							this.reset();
 						});
 					getMyModelsOrgChart();	
-					buildHierarchicalTree(window.activePositionUUID);
-					//getChildElements(activeObjectUUID);
 			}
 		</script>
 		<!-- End Procedure-->
@@ -1044,48 +1663,14 @@ under the License.
 			}
 			function getStepsforBackBoneTable(){
 				//alert("this is a test");
-				$.getJSON('http://api.universalbusinessmodel.com/ubm_modelcreationsuite_model_Procedure_get_Steps.php?callback=?', {//JSONP Request to Open Items Page setup tables
-					activeModelUUID : window.activeModelUUID,
+				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_model_Procedure_get_Steps.php?callback=?', {//JSONP Request to Open Items Page setup tables
+					activeModelId : window.activeModelId,
 					activeProcedureId: window.activeProcedureId
 				}, function(res, status) {
 					$.each(res, function(i, item) {
 						$("#heirarchyObjectBackbone_table_body").append("<tr><td class='tg-031e'>1</td><td class='tg-031e'>2</td><td class='tg-031e'>3</td><td class='tg-031e'>4</td><td class='tg-031e'>5</td><td class='tg-031e'>6</td><td class='tg-031e'>7</td><td class='tg-031e'>8</td><td class='tg-031e'>9</td><td class='tg-031e'>10</td><td class='tg-031e'>11</td><td class='tg-031e'>12</td><td class='tg-031e'>13</td><td class='tg-031e'>14</td><td class='tg-031e'>15</td><td class='tg-031e'>16</td><td class='tg-031e'>17</td><td class='tg-031e'>18</td><td class='tg-031e'>19</td><td class='tg-031e'>20</td></tr>");					
 					});
 				});				
-			}
-			function getListofPossibleSteps() {//Populates Core Value Listview on Possible CoreValue Popup
-				$.getJSON('http://api.universalbusinessmodel.com/ubm_modelcreationsuite_model_getAll_Steps.php?callback=?', {//JSONP Request to Open Items Page setup 
-					key : window.key,
-
-				}, function(res, status) {
-						$('#ubmsuite_mcs_my_organizational_chart_content_createNewStepPopUp_form_UBMRepository').empty();
-					$.each(res, function(i, item) {
-						$('#ubmsuite_mcs_my_organizational_chart_content_createNewStepPopUp_form_UBMRepository').append("<li><a href='#'><p style='white-space:normal;'>" + item.title + "</p></a><a href='#' onclick='addSteptoMyModel(" + item.id + ")'>Add Step</a></li>");
-						$('#ubmsuite_mcs_my_organizational_chart_content_createNewStepPopUp_form_UBMRepository').listview("refresh");
-					})
-				});	
-			}
-			function addSteptoMyModel(activeStepId){
-				$.getJSON('http://api.universalbusinessmodel.com/ubms_modelcreationsuite_model_add_Step.php?callback=?', {//JSONP Request to Open Items Page setup tables
-					key : window.key,
-					username : window.username,
-					activeModelUUID :window.activeModelUUID,
-					activeProcedureUUID : window.activeProcedureUUID,
-					activeStepId : activeStepId
-				}, function(res, status) {
-					$().toastmessage('showSuccessToast', res.message);
-				});
-					$("#ubmsuite_mcs_my_organizational_chart_content_createNewStepPopUp").popup('close');
-					getMyModelsOrgChart();
-					buildHierarchicalTree(window.activePositionUUID);	
-					//getChildElements(activeObjectUUID);				
-				//Called from Model Settings Page????
-				//1. User selects a position from the list of ubm_model_positions?
-				//2. User is asked whether they wish to also add all positions that report to this position in the master file index?
-				//3. User is asked to decide which of their existing positions on the org chart they would like the position to report to and which level (Level 1, Level 2, Level 3...) on the org chart they wish to assign the position.
-				//4. User selects the "reports to position from a list of existing positions attached to their model.
-				//3. If user selects yes, the relationships between the activeModelUUID and the active position as well as all positions that report to it are created in the the model_has_positions table. 
-				//4. If user selects "no, add this position without any positions that report to it." 
 			}
 			function createNewStep() {
 				$("#ubmsuite_mcs_my_organizational_chart_content_manageStepPopUp").popup('close');
@@ -1094,36 +1679,35 @@ under the License.
 				}, 1000);
 			}
 			function createNewStepAddtoMyModel() {
-				$.getJSON('http://api.universalbusinessmodel.com/ubm_modelcreationsuite_model_create_Step.php?callback=?', {//JSONP Request to Open Items Page setup tables
+				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_model_create_Step.php?callback=?', {//JSONP Request to Open Items Page setup tables
 					username: window.username,
-					activeModelUUID : window.activeModelUUID,
+					activeModelId : window.activeModelId,
 					title: document.getElementById("ubmsuite_mcs_my_organizational_chart_content_createNewStepPopUp_form_StepTitle").value,
 					instruction: document.getElementById("ubmsuite_mcs_my_organizational_chart_content_createNewStepPopUp_form_StepInstruction").value,
 					stepNumber: document.getElementById("ubmsuite_mcs_my_organizational_chart_content_createNewStepPopUp_form_StepNumber").value,
 					procedureId : window.activeProcedureId
 				}, function(res, status) {
-					$().toastmessage('showNoticeToast', res.message);
+					alert(res.message);
 				});
 					$("#ubmsuite_mcs_my_organizational_chart_content_createNewStepPopUp").popup('close');
 					$('#ubmsuite_mcs_my_organizational_chart_content_createNewStepPopUp_form_createStep_form').each(function() {
 							this.reset();
 						});
 					getMyModelsOrgChart();	
-					buildHierarchicalTree(window.activePositionUUID);
-					//getChildElements(activeObjectUUID);
 			}
 			function getStepsforHeirarchicalObjectTree(){
-				$.getJSON('http://api.universalbusinessmodel.com/ubm_modelcreationsuite_model_Procedure_get_Steps.php?callback=?', {//JSONP Request to Open Items Page setup tables
-					activeModelUUID:window.activeModelUUID,
+				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_model_Procedure_get_Steps.php?callback=?', {//JSONP Request to Open Items Page setup tables
+					activeModelId:window.activeModelId,
 					activeProcedureId:window.activeProcedureId
 				}, function(res, status) {
 							$("#ubmsuite_mcs_my_organizational_chart_heirarchyObjectTree_ul_PR_" + window.activeProcedureId + "").empty();
 					$.each(res, function(i, item) {
-							//3. Append all children to their respective "reports_to" ul
+//3. Append all children to their respective "reports_to" ul
+//							$('#ubmsuite_mcs_my_organizational_chart_P' + item.reports_to_id + '_ul').append("<li id='orgChartPosition" + item.position_id + "'><div id='demo_box_" + item.position_id + "' class='demo_box' onclick='setActivePosition(" + item.position_id + ")'><div class='pop_ctrl'><i class='fa fa-bars'></i></div><ul id='demo_ul_2'><li class='demo_li'><a href='#' onclick='addChildPositiontoActivePosition()'><div><i class='fa fa-plus-circle'></i></div><p>Add</p></a></li><li class='demo_li'><a href='#' onclick='removeActivePosition()'><div><i class='fa fa-minus-circle'></i></div><p>Remove</p></a></li></ul></div></br>" + item.title + "<ul id='ubmsuite_mcs_my_organizational_chart_P" + item.position_id + "_ul'></ul></li>");	
 							$("#ubmsuite_mcs_my_organizational_chart_heirarchyObjectTree_ul_PR_" + window.activeProcedureId + "").append("<li><a data-position-to='origin' href='#ubmsuite_mcs_my_organizational_chart_content_manageTaskPopUp'data-rel='popup' class='ui-link' data-transition='pop' onclick='setActiveStepId(" + item.id + ")'>ST-" + item.id + "</a><ul id='ubmsuite_mcs_my_organizational_chart_heirarchyObjectTree_ul_ST_" + item.id + "'></ul></li>");
-							//4. Empty chart Div
+//4. Empty chart Div
 					        $('#chart').empty();
-							//5. Call jOrgChart plugin, append new org chart to chart div, set jorgdraganddrop to false to avoid conflicting compatibility issue with other jquery packages.
+//5. Call jOrgChart plugin, append new org chart to chart div, set jorgdraganddrop to false to avoid conflicting compatibility issue with other jquery packages.
 					        $("#modelOrgChart").jOrgChart({
 					            chartElement : '#chart',
 					            dragAndDrop  : false
@@ -1136,55 +1720,21 @@ under the License.
 		</script>
 		<!-- End Step-->
 		<script>
-			
 			function setActiveTaskId(activeTaskId){
 				window.activeTaskId = activeTaskId;
-				//$().toastmessage('showNoticeToast', window.activeTaskId);
+				alert(window.activeTaskId);
 				
 			}
 			function getTasksforBackBoneTable(){
 				//alert("this is a test");
-				$.getJSON('http://api.universalbusinessmodel.com/ubm_modelcreationsuite_model_Step_get_Tasks.php?callback=?', {//JSONP Request to Open Items Page setup tables
-					activeModelUUID : window.activeModelUUID,
+				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_model_Step_get_Tasks.php?callback=?', {//JSONP Request to Open Items Page setup tables
+					activeModelId : window.activeModelId,
 					activeStepId: window.activeStepId
 				}, function(res, status) {
 					$.each(res, function(i, item) {
 						$("#heirarchyObjectBackbone_table_body").append("<tr><td class='tg-031e'>1</td><td class='tg-031e'>2</td><td class='tg-031e'>3</td><td class='tg-031e'>4</td><td class='tg-031e'>5</td><td class='tg-031e'>6</td><td class='tg-031e'>7</td><td class='tg-031e'>8</td><td class='tg-031e'>9</td><td class='tg-031e'>10</td><td class='tg-031e'>11</td><td class='tg-031e'>12</td><td class='tg-031e'>13</td><td class='tg-031e'>14</td><td class='tg-031e'>15</td><td class='tg-031e'>16</td><td class='tg-031e'>17</td><td class='tg-031e'>18</td><td class='tg-031e'>19</td><td class='tg-031e'>20</td></tr>");					
 					});
 				});				
-			}
-			function getListofPossibleTasks() {//Populates Core Value Listview on Possible CoreValue Popup
-				$.getJSON('http://api.universalbusinessmodel.com/ubm_modelcreationsuite_model_getAll_Tasks.php?callback=?', {//JSONP Request to Open Items Page setup tables
-					key : window.key
-				}, function(res, status) {
-						$('#ubmsuite_mcs_my_organizational_chart_content_createNewTaskPopUp_form_UBMRepository').empty();
-					$.each(res, function(i, item) {
-						$('#ubmsuite_mcs_my_organizational_chart_content_createNewTaskPopUp_form_UBMRepository').append("<li><a href='#'><p style='white-space:normal;'>" + item.title + "</p></a><a href='#' onclick='addTasktoMyModel(" + item.id + ")'>Add Task</a></li>");
-						$('#ubmsuite_mcs_my_organizational_chart_content_createNewTaskPopUp_form_UBMRepository').listview("refresh");
-					})
-				});	
-			}
-			function addTasktoMyModel(activeTaskId){
-				$.getJSON('http://api.universalbusinessmodel.com/ubms_modelcreationsuite_model_add_Task.php?callback=?', {//JSONP Request to Open Items Page setup tables
-					key : window.key,
-					username : window.username,
-					activeModelUUID :window.activeModelUUID,
-					activeStepUUID : window.activeStepUUID,
-					activeTaskId : activeTaskId
-				}, function(res, status) {
-					$().toastmessage('showSuccessToast', res.message);
-				});
-					$("#ubmsuite_mcs_my_organizational_chart_content_createNewStepPopUp").popup('close');
-					getMyModelsOrgChart();
-					buildHierarchicalTree(window.activePositionUUID);
-					//getChildElements(activeObjectUUID);					
-				//Called from Model Settings Page????
-				//1. User selects a position from the list of ubm_model_positions?
-				//2. User is asked whether they wish to also add all positions that report to this position in the master file index?
-				//3. User is asked to decide which of their existing positions on the org chart they would like the position to report to and which level (Level 1, Level 2, Level 3...) on the org chart they wish to assign the position.
-				//4. User selects the "reports to position from a list of existing positions attached to their model.
-				//3. If user selects yes, the relationships between the activeModelUUID and the active position as well as all positions that report to it are created in the the model_has_positions table. 
-				//4. If user selects "no, add this position without any positions that report to it." 
 			}
 			function createNewTask() {
 				$("#ubmsuite_mcs_my_organizational_chart_content_manageTaskPopUp").popup('close');
@@ -1193,95 +1743,89 @@ under the License.
 				}, 1000);
 			}
 			function createNewTaskAddtoMyModel() {
-				$.getJSON('http://api.universalbusinessmodel.com/ubm_modelcreationsuite_model_create_Task.php?callback=?', {//JSONP Request to Open Items Page setup tables
+				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_model_create_Task.php?callback=?', {//JSONP Request to Open Items Page setup tables
 					username: window.username,
-					activeModelUUID : window.activeModelUUID,
+					activeModelId : window.activeModelId,
 					title: document.getElementById("ubmsuite_mcs_my_organizational_chart_content_createNewTaskPopUp_form_TaskTitle").value,
 					instruction: document.getElementById("ubmsuite_mcs_my_organizational_chart_content_createNewTaskPopUp_form_TaskInstruction").value,
 					taskNumber: document.getElementById("ubmsuite_mcs_my_organizational_chart_content_createNewTaskPopUp_form_TaskNumber").value,
 					stepId : window.activeStepId
 				}, function(res, status) {
-					$().toastmessage('showNoticeToast', res.message);
+					alert(res.message);
 				});
 					$("#ubmsuite_mcs_my_organizational_chart_content_createNewTaskPopUp").popup('close');
 					$('#ubmsuite_mcs_my_organizational_chart_content_createNewTaskPopUp_form_createTask_form').each(function() {
 							this.reset();
 						});
 					getMyModelsOrgChart();	
-					buildHierarchicalTree(window.activePositionUUID);
-					//getChildElements(activeObjectUUID);
 			}
 			function getTasksforHeirarchicalObjectTree(){
-				$.getJSON('http://api.universalbusinessmodel.com/ubm_modelcreationsuite_model_Step_get_Tasks.php?callback=?', {//JSONP Request to Open Items Page setup tables
-					activeModelUUID:window.activeModelUUID,
+				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_model_Step_get_Tasks.php?callback=?', {//JSONP Request to Open Items Page setup tables
+					activeModelId:window.activeModelId,
 					activeStepId:window.activeStepId
 				}, function(res, status) {
 							$("#ubmsuite_mcs_my_organizational_chart_heirarchyObjectTree_ul_ST_" + window.activeStepId + "").empty();
 					$.each(res, function(i, item) {
-							//3. Append all children to their respective "reports_to" ul
+//3. Append all children to their respective "reports_to" ul
+//							$('#ubmsuite_mcs_my_organizational_chart_P' + item.reports_to_id + '_ul').append("<li id='orgChartPosition" + item.position_id + "'><div id='demo_box_" + item.position_id + "' class='demo_box' onclick='setActivePosition(" + item.position_id + ")'><div class='pop_ctrl'><i class='fa fa-bars'></i></div><ul id='demo_ul_2'><li class='demo_li'><a href='#' onclick='addChildPositiontoActivePosition()'><div><i class='fa fa-plus-circle'></i></div><p>Add</p></a></li><li class='demo_li'><a href='#' onclick='removeActivePosition()'><div><i class='fa fa-minus-circle'></i></div><p>Remove</p></a></li></ul></div></br>" + item.title + "<ul id='ubmsuite_mcs_my_organizational_chart_P" + item.position_id + "_ul'></ul></li>");	
 							$("#ubmsuite_mcs_my_organizational_chart_heirarchyObjectTree_ul_ST_" + window.activeStepId + "").append("<li><a  onclick='setActiveTaskId(" + item.id + ")'>TK-" + item.id + "</a><ul id='ubmsuite_mcs_my_organizational_chart_heirarchyObjectTree_ul_TK_" + item.id + "'></ul></li>");
-							//4. Empty chart Div
+//4. Empty chart Div
 					        $('#chart').empty();
-							//5. Call jOrgChart plugin, append new org chart to chart div, set jorgdraganddrop to false to avoid conflicting compatibility issue with other jquery packages.
+//5. Call jOrgChart plugin, append new org chart to chart div, set jorgdraganddrop to false to avoid conflicting compatibility issue with other jquery packages.
 					        $("#modelOrgChart").jOrgChart({
 					            chartElement : '#chart',
 					            dragAndDrop  : false
 					        }); /***/
+						
 					});
 				});			
 				$("#heirarchyObjectTree").trigger("create");		
 			}
 		</script>
-			<!-- End Task-->
+		<!-- End Task-->
         <script>
-	        function getMyModelsOrgChart(){
-						$('#ubmsuite_mcs_my_organizational_chart_L0_ul').empty();
-					$.getJSON('http://api.universalbusinessmodel.com/ubms_modelcreationsuite_getActiveModelOwnerforOrgChart.php?callback=?', {//JSONP Request to Open Items Page setup tables
-						key: window.key,
-						activeModelUUID: window.activeModelUUID
-					}, function(res, status) {
-						$.each(res, function(i, item) {
-							if(item.ancestor_id==window.activeModelUUID){
-								window.activeModelOwnersUUID = item.UUID;
-						//1. Set currentActiveOrgChartLevel 
-						//2. Append the name of the highest reports to position on the top of the org chart.
-								$('#ubmsuite_mcs_my_organizational_chart_L0_ul').prepend("<a ondblclick='setActivePosition(" + item.UUID + ", &quot;" + item.title + "&quot;)' onclick='buildHierarchicalTree(" + item.UUID + ");setActivePositionUUID(" + item.UUID + ")'><img class='org_img' style='width:25px; height:25px;' src='img/apple.png' /></a></br>" + item.title + "</br><h3>PS-" + item.UUID + "</h3>"); 
-						//3. New Append an Empty UL with the highest positions UUID in the id, so that additional positions may be added later.
-								$('#ubmsuite_mcs_my_organizational_chart_L0_ul').append("<ul id='ubmsuite_mcs_my_organizational_chart_P" + item.UUID + "_ul'></ul>");
-						//4. Empty chart Div
-						        $('#chart').empty();
-						        $("#modelOrgChart").jOrgChart({
-						            chartElement : '#chart',
-						            dragAndDrop  : false
-						        });		
-						      getChildElements(item.UUID);
-							}else{
-
-							}
-						});
-					});	
-				setTimeout(function() {
-					$.getJSON('http://api.universalbusinessmodel.com/ubms_modelcreationsuite_getActiveModelPositionsforOrgChart.php?callback=?', {//JSONP Request to Open Items Page setup tables
-						key: window.key,
-						activeModelOwnersUUID: window.activeModelOwnersUUID
-					}, function(res, status) {
-						$.each(res, function(i, item) {
-
-					//3. Append all other children to their respective "reports_to" ul
-					//$('#ubmsuite_mcs_my_organizational_chart_P' + item.reports_to_id + '_ul').append("<li id='orgChartPosition" + item.UUID + "'><div id='demo_box_" + item.UUID + "' class='demo_box' onclick='setActivePosition(" + item.UUID + ")'><div class='pop_ctrl'><i class='fa fa-bars'></i></div><ul id='demo_ul_2'><li class='demo_li'><a href='#' onclick='addChildPositiontoActivePosition()'><div><i class='fa fa-plus-circle'></i></div><p>Add</p></a></li><li class='demo_li'><a href='#' onclick='removeActivePosition()'><div><i class='fa fa-minus-circle'></i></div><p>Remove</p></a></li></ul></div></br>" + item.title + "<ul id='ubmsuite_mcs_my_organizational_chart_P" + item.UUID + "_ul'></ul></li>");	
-								$('#ubmsuite_mcs_my_organizational_chart_P' + item.ancestor_UUID + '_ul').append("<li id='orgChartPosition" + item.UUID + "'><a ondblclick='setActivePosition(" + item.UUID + ", &quot;" + item.title + "&quot;)' onclick='buildHierarchicalTree(" + item.UUID + ");setActivePositionUUID(" + item.UUID + ")'><img id='org_img_" + item.UUID + "' style='width:25px; height:25px;' src='img/apple.png' /></a></br>" + item.title + "</br><h3>PS-" + item.UUID + "</h3><ul id='ubmsuite_mcs_my_organizational_chart_P" + item.UUID + "_ul'></ul></li>");	
-					//4. Empty chart Div
-						        $('#chart').empty();
-						        
-					//5. Call jOrgChart plugin, append new org chart to chart div, set jorgdraganddrop to false to avoid conflicting compatibility issue with other jquery packages.
-						        $("#modelOrgChart").jOrgChart({
-						            chartElement : '#chart',
-						            dragAndDrop  : false
-						        });
-						});
-					});	
-				}, 2000);	
-	        }
+        function getMyModelsOrgChart(){
+					$('#ubmsuite_mcs_my_organizational_chart_L0_ul').empty();
+				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_getActiveModelPositionsforOrgChart.php?callback=?', {//JSONP Request to Open Items Page setup tables
+					activeModelId:window.activeModelId
+				}, function(res, status) {
+					$.each(res, function(i, item) {
+						if(item.model_position_reports_to_id==item.position_id){
+//1. Set currentActiveOrgChartLevel 
+//2. Append the name of the highest reports to position on the top of the org chart.
+							$('#ubmsuite_mcs_my_organizational_chart_L0_ul').prepend("<a onclick='setActivePosition(" + item.position_id + ")'><img class='org_img' style='width:25px; height:25px;' src='img/apple.png' /></a></br>" + item.title); 
+							$('#ubmsuite_mcs_my_organizational_chart_L0_ul').append("<ul id='ubmsuite_mcs_my_organizational_chart_P" + item.position_id + "_ul'></ul>");
+					        $("#modelOrgChart").jOrgChart({
+					            chartElement : '#chart',
+					            dragAndDrop  : false
+					        });							
+						}else{
+//3. Append all other childre to their respective "reports_to" ul
+//							$('#ubmsuite_mcs_my_organizational_chart_P' + item.reports_to_id + '_ul').append("<li id='orgChartPosition" + item.position_id + "'><div id='demo_box_" + item.position_id + "' class='demo_box' onclick='setActivePosition(" + item.position_id + ")'><div class='pop_ctrl'><i class='fa fa-bars'></i></div><ul id='demo_ul_2'><li class='demo_li'><a href='#' onclick='addChildPositiontoActivePosition()'><div><i class='fa fa-plus-circle'></i></div><p>Add</p></a></li><li class='demo_li'><a href='#' onclick='removeActivePosition()'><div><i class='fa fa-minus-circle'></i></div><p>Remove</p></a></li></ul></div></br>" + item.title + "<ul id='ubmsuite_mcs_my_organizational_chart_P" + item.position_id + "_ul'></ul></li>");	
+							$('#ubmsuite_mcs_my_organizational_chart_P' + item.model_position_reports_to_id + '_ul').append("<li id='orgChartPosition" + item.position_id + "'><a onclick='setActivePosition(" + item.position_id + ")'><img id='org_img_" + item.position_id + "' style='width:25px; height:25px;' src='img/apple.png' /></a></br>" + item.title + "<ul id='ubmsuite_mcs_my_organizational_chart_P" + item.position_id + "_ul'></ul></li>");	
+//4. Empty chart Div
+					        $('#chart').empty();
+//5. Call jOrgChart plugin, append new org chart to chart div, set jorgdraganddrop to false to avoid conflicting compatibility issue with other jquery packages.
+					        $("#modelOrgChart").jOrgChart({
+					            chartElement : '#chart',
+					            dragAndDrop  : false
+					        });
+						}
+//6. Call popmenu plugin with the given parameters as plugin options.
+			          /*  $('.demo_box').popmenu({
+						    'controller': true,       // use control button or not
+						    'width': '150px',         // width of menu
+						    'background': '#34495e',  // background color of menu
+						    'focusColor': '#1abc9c',  // hover color of menu's buttons
+						    'borderRadius': '10px',   // radian of angles, '0' for right angle
+						    'top': '50',              // pixels that move up
+						    'left': '0',              // pixels that move left
+						    'iconSize': '75px'        // size of menu's buttons
+			            	});
+			          */
+					});
+				});	
+        }
         </script>
 		<!-- End Org Chart Functions -->
 		<script>
@@ -1290,51 +1834,2371 @@ under the License.
 			}
 		</script>
 		<script>
-			function addOwnerNameToOwner() {
-				$.getJSON('http://api.universalbusinessmodel.com/ubms_modelcreationsuite_model_create_OwnerName.php?callback=?', {//JSONP Request to Open Items Page setup tables
-					key : window.key,
-					username: window.username,
-					activeOwnerUUID : window.activeReportsToPosition,
-					percentOwned : document.getElementById("ubmsuite_mcs_my_organizational_chart_content_manageOwners_content_addNewOwner_percentageOwned").value,
-					ownerName : document.getElementById("ubmsuite_mcs_my_organizational_chart_content_manageOwners_content_addNewOwner_addOwner").value
+//Initialize Slider for Pro Hi and Low Monetary Benefit
+				  $(function() {
+				    $( "#possible_alternatives_pro_monetary_gain_slider" ).slider({
+				      range: true,
+				      min: 0,
+				      max: 500,
+				      values: [ 75, 300 ],
+				      slide: function( event, ui ) {
+				    		$( "#possible_alternatives_pro_monetary_gain_input" ).val( "$" + ui.values[ 0 ] + " - $" + ui.values[ 1 ] ); //Populate the text input with the Low and High values from the slider.
+					      $("#possible_alternatives_pro_monetary_gain_input_low").val(ui.values[ 0 ]);
+					      $("#possible_alternatives_pro_monetary_gain_input_high").val(ui.values[ 1 ]);	      
+				      }
+				    });
+				    $( "#possible_alternatives_pro_monetary_gain_input" ).val( "$" + $( "#possible_alternatives_pro_monetary_gain_slider" ).slider( "values", 0 ) +
+				      " - $" + $( "#possible_alternatives_pro_monetary_gain_slider" ).slider( "values", 1 ) );
+				      $("#possible_alternatives_pro_monetary_gain_input_low").val($( "#possible_alternatives_pro_monetary_gain_slider" ).slider("values", 0));
+				      $("#possible_alternatives_pro_monetary_gain_input_high").val($( "#possible_alternatives_pro_monetary_gain_slider" ).slider("values", 1));
+				  });
+//Initialize Slider for Con Hi and Low Monetary Benefit
+				  $(function() {
+				    $( "#possible_alternatives_con_monetary_cost_slider" ).slider({
+				      range: true,
+				      min: -1000,
+				      max: 0,
+				      values: [ -500, -10 ],
+				      slide: function( event, ui ) {
+				        $( "#possible_alternatives_con_monetary_cost_input" ).val( "$" + ui.values[ 0 ] + " - $" + ui.values[ 1 ] ); //Populate the text input with the Low and High values from the slider.
+				      }
+				    });
+				    $( "#possible_alternatives_con_monetary_cost_input" ).val( "$" + $( "#possible_alternatives_con_monetary_cost_slider" ).slider( "values", 0 ) +
+				      " - $" + $( "#possible_alternatives_con_monetary_cost_slider" ).slider( "values", 1 ) );
+				      $("#possible_alternatives_con_monetary_cost_input_low").val($( "#possible_alternatives_con_monetary_cost_slider" ).slider("values", 0));
+				      $("#possible_alternatives_con_monetary_cost_input_high").val($( "#possible_alternatives_con_monetary_cost_slider" ).slider("values", 1));
+				  });
+				function newLowSum() {		//Calculates the Sum of the Low Annual Expected ROI Costs and Benefits 
+				    var sum=0;
+				    var thisRow = $(this).closest('tr');
+				    
+				    var total=0;
+				
+				    //iterate through each input and add to sum
+				    $(thisRow).find(".low_col_num").each(function() {
+				            sum += parseInt(this.value);                     
+				    }); 
+				    //change value of total
+				    $(thisRow).find(".low_total").html(sum);
+				    
+				     
+				     // the grand total
+				    /*** / $('.total').each(function() {
+				         total += parseInt($(this).html());
+				     });/***/
+				      
+				   // $('.result').val(total);
+				}
+				function newHighSum() {		//Calculates the Sum of the Low Annual Expected ROI Costs and Benefits 
+				    var sum=0;
+				    var thisRow = $(this).closest('tr');
+				    var total=0;				
+				    //iterate through each input and add to sum
+				    $(thisRow).find("td:not(.total) .high_col_num").each(function() {
+				            sum += parseInt(this.value);                     
+				    }); 
+				    //change value of total
+				    $(thisRow).find(".high_total").html(sum);
+				     // the grand total
+				     $('.high_total').each(function() {
+				         total += parseInt($(this).html());
+				     });
+				    $('.result').val(total);
+				}
+				function setActiveAlternativePro(activeModelAlternativeProId){
+					window.activeModelAlternativeProId = activeModelAlternativeProId;
+				}
+				function setActiveAlternativeCon(activeModelAlternativeConId){
+					window.activeModelAlternativeConId = activeModelAlternativeConId;
+				}
+				function setActiveAlternative(activeModelAlternativeId){
+					window.activeModelAlternativeId = activeModelAlternativeId;
+					alert(window.activeModelAlternativeId);
+					//alert(window.activeModelAlternativeId);
+					setTimeout(function() {
+						getActiveAlternativeListofPros();
+						getActiveAlternativeListofCons();
+						getActiveAlternativeListofRisks();
+					}, 1000);						
+				}
+				function getMyModelsListofAlternatives(){
+					showLoader();
+					$('#possible_alternitives_table_body').empty();
+					$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_model_getCurrentModel_Alternatives.php?callback=?', {//JSONP Request to Open Items Page setup tables
+						activeModelId : window.activeModelId,
+					}, function(res, status) {
+						$.each(res, function(i, item) {
+							if(item.decision=="Use Now"){
+								$('#possible_alternitives_table_body').append("<tr><td><a href='#' onclick='removeAlternativefromModel(" + item.id + ")'><span class='trashico'></span></a></td><td>" + item.id + "<a href='#' onclick='setActiveAlternative(" + item.id + ")' class='ui-btn ui-icon-tag ui-btn-icon-notext ui-corner-all'>No text</a></td><td>" + item.description + "</td><td><fieldset class='alternative_decision_controlgroup' data-role='controlgroup' data-type='horizontal'><button data-icon='refresh' onclick='setActiveAlternative(" + item.id + ")'>Show Pros and Cons</button><label for='select-more-1a' class='ui-hidden-accessible'>More</label><select name='select-more-1a' id='select-more-1a' data-theme='d'><option value='#' selected='selected'>Use Now</option><option value='#'>Consider for the future</option><option value='#'>Not a forseen use</option></select></fieldset></td><td><input class='high_col_num' value = '" + item.annual_cost_high + "'/></td><td><input class='low_col_num' value = '" + item.annual_cost_low + "'/></td><td><input class='high_col_num' value = '" + item.annual_benefit_high + "'/></td><td><input class='low_col_num' value = '" + item.annual_benefit_low + "'/></td><td class='high_total'>High ROI</td><td class='low_total'>Low ROI</td><td><a href='#' class='ui-btn risk_analysis_table' onclick='saveAlternativeAnalysis(" + item.id + ")'>Save Alternative </br> Analysis</a></td></tr>");							
+								$( "#possible_alternitives_table" ).table( "refresh" );
+								$(".alternative_decision_controlgroup").trigger("create");
+							}else{
+								if(item.decision=="Consider for the future"){
+									$('#possible_alternitives_table_body').append("<tr><td><a href='#' onclick='removeAlternativefromModel(" + item.id + ")'><span class='trashico'></span></a></td><td>" + item.id + "<a href='#' onclick='setActiveAlternative(" + item.id + ")' class='ui-btn ui-icon-tag ui-btn-icon-notext ui-corner-all'>No text</a></td><td>" + item.description + "</td><td><fieldset class='alternative_decision_controlgroup' data-role='controlgroup' data-type='horizontal'><button data-icon='refresh' onclick='setActiveAlternative(" + item.id + ")'>Show Pros and Cons</button><label for='select-more-1a' class='ui-hidden-accessible'>More</label><select name='select-more-1a' id='select-more-1a' data-theme='b'><option value='#'>Use Now</option><option value='#' selected='selected'>Consider for the future</option><option value='#'>Not a forseen use</option></select></fieldset></td><td><input class='high_col_num' value = '" + item.annual_cost_high + "'/></td><td><input class='low_col_num' value = '" + item.annual_cost_low + "'/></td><td><input class='high_col_num' value = '" + item.annual_benefit_high + "'/></td><td><input class='low_col_num' value = '" + item.annual_benefit_low + "'/></td><td class='high_total'>High ROI</td><td class='low_total'>Low ROI</td><td><a href='#' class='ui-btn risk_analysis_table' onclick='saveAlternativeAnalysis(" + item.id + ")'>Save Alternative </br> Analysis</a></td></tr>");
+									$( "#possible_alternitives_table" ).table( "refresh" );
+									$(".alternative_decision_controlgroup").trigger("create");								
+								}else{
+									if(item.decision=="Not a forseen use"){
+										$('#possible_alternitives_table_body').append("<tr><td><a href='#' onclick='removeAlternativefromModel(" + item.id + ")'><span class='trashico'></span></a></td><td>" + item.id + "<a href='#' onclick='setActiveAlternative(" + item.id + ")' class='ui-btn ui-icon-tag ui-btn-icon-notext ui-corner-all'>No text</a></td><td>" + item.description + "</td><td><fieldset class='alternative_decision_controlgroup' data-role='controlgroup' data-type='horizontal'><button data-icon='refresh' onclick='setActiveAlternative(" + item.id + ")'>Show Pros and Cons</button><label for='select-more-1a' class='ui-hidden-accessible'>More</label><select name='select-more-1a' id='select-more-1a' data-theme='c'><option value='#'>Use Now</option><option value='#'>Consider for the future</option><option value='#' selected='selected'>Not a forseen use</option></select></fieldset></td><td><input class='high_col_num' value = '" + item.annual_cost_high + "'/></td><td><input class='low_col_num' value = '" + item.annual_cost_low + "'/></td><td><input class='high_col_num' value = '" + item.annual_benefit_high + "'/></td><td><input class='low_col_num' value = '" + item.annual_benefit_low + "'/></td><td class='high_total'>High ROI</td><td class='low_total'>Low ROI</td><td><a href='#' class='ui-btn risk_analysis_table' onclick='saveAlternativeAnalysis(" + item.id + ")'>Save Alternative </br> Analysis</a></td></tr>");
+										$( "#possible_alternitives_table" ).table( "refresh" );
+										$(".alternative_decision_controlgroup").trigger("create");
+									}else{
+										
+									}
+								}
+							}
+
+						});
+					});				
+					setTimeout(function() {
+					    $(".low_col_num").each(function() {				
+					        $(this).keyup(function(){				//Call the newSum function each time a keystroke is activated in any of the inputs with col_num as the class.
+					            newLowSum.call(this);
+					        });
+					    });
+					    $(".high_col_num").each(function() {				
+					        $(this).keyup(function(){				//Call the newSum function each time a keystroke is activated in any of the inputs with col_num as the class.
+					            newHighSum.call(this);
+					        });
+					    });
+
+						hideLoader();
+					}, 5000);
+				}
+				function getActiveAlternativeListofPros(){
+					showLoader();
+					$('#possible_alternitives_pros_table_body').empty();
+
+					$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_model_getCurrentModel_activeAlternativePros.php?callback=?', {//JSONP Request to Open Items Page setup tables
+						activeModelAlternativeId : window.activeModelAlternativeId,
+					}, function(res, status) {
+						if(status=="success"){
+							setTimeout(function() {
+								hideLoader();
+							}, 1000);							
+						}
+						$.each(res, function(i, item) {
+							$('#possible_alternitives_pros_table_body').append("<tr><td>" + item.id + "<a href='#' onclick='setActiveAlternativePro(" + item.id + ")' class='ui-btn ui-icon-tag ui-btn-icon-notext ui-corner-all'>No text</a></td><td>" + item.description + "</td><td><input class='high_col_num' value = '" + item.benefit_high + "'/></td><td><input class='low_col_num' value = '" + item.benefit_low + "'/></td></tr>");
+							$( "#possible_alternitives_pros_table" ).table( "refresh" );
+						});
+					});						
+				}
+				function getActiveAlternativeListofCons(){
+					showLoader();
+					$('#possible_alternitives_cons_table_body').empty();
+					$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_model_getCurrentModel_activeAlternativeCons.php?callback=?', {//JSONP Request to Open Items Page setup tables
+						activeModelAlternativeId : window.activeModelAlternativeId,
+					}, function(res, status) {
+						if(status=="success"){
+							setTimeout(function() {
+								hideLoader();
+							}, 1000);							
+						}
+						$.each(res, function(i, item) {
+							$('#possible_alternitives_cons_table_body').append("<tr><td>" + item.id + "<a href='#' onclick='setActiveAlternativeCon(" + item.id + ")' class='ui-btn ui-icon-tag ui-btn-icon-notext ui-corner-all'>No text</a></td><td>" + item.description + "</td><td><input class='high_col_num' value = '" + item.cost_low + "'/></td><td><input class='low_col_num' value = '" + item.cost_high + "'/></td></tr>");
+							$( "#possible_alternitives_cons_table" ).table( "refresh" );
+						});
+
+					});						
+				}
+				function createNewAlternative(){
+					showLoader();
+
+					$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_model_create_Alternative.php?callback=?', {//JSONP Request to Open Items Page setup tables
+						activeModelId : window.activeModelId,
+						alternativeDescription : document.getElementById("possible_alternatives_alternativeDescription").value,
+						alternativeDecision : document.getElementById("possible_alternatives_alternativeDecision").value,
+						username : window.username
+					}, function(res, status) {
+						if(status=="success"){
+							setTimeout(function() {
+								getMyModelsListofAlternatives();
+								hideLoader();
+							}, 1000);							
+						}
+					});
+				}
+				function createNewProforactiveModelAlternative(){
+					showLoader();
+					$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_model_create_Alternative_Pro.php?callback=?', {//JSONP Request to Open Items Page setup tables
+						activeModelId : window.activeModelId,
+						activeModelAlternativeId : window.activeModelAlternativeId,
+						alternativeProDescription : document.getElementById("possible_alternatives_alternativeProDescription").value,
+						alternativeProROIRef : document.getElementById("possible_alternatives_alternativeProROIRef").value,
+						alternativeProHighBenefit : document.getElementById("possible_alternatives_pro_monetary_gain_input_high").value,
+						alternativeProLowBenefit : document.getElementById("possible_alternatives_pro_monetary_gain_input_low").value,
+						username : window.username
+					}, function(res, status) {
+						if(status=="success"){
+							setTimeout(function() {
+								getMyModelsListofAlternatives();
+								getActiveAlternativeListofPros();
+								hideLoader();
+							}, 1000);							
+						}
+					});
+				}
+				function createNewConforactiveModelAlternative(){
+					showLoader();
+					$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_model_create_Alternative_Con.php?callback=?', {//JSONP Request to Open Items Page setup tables
+						activeModelId : window.activeModelId,
+						activeModelAlternativeId : window.activeModelAlternativeId,
+						alternativeConDescription : document.getElementById("possible_alternatives_alternativeConDescription").value,
+						alternativeConROIRef : document.getElementById("possible_alternatives_alternativeConROIRef").value,
+						alternativeConHighCost : document.getElementById("possible_alternatives_con_monetary_cost_input_low").value,
+						alternativeConLowCost : document.getElementById("possible_alternatives_con_monetary_cost_input_high").value,
+						username : window.username
+					}, function(res, status) {
+						alert(status);
+						if(status=="success"){
+							setTimeout(function() {
+								getMyModelsListofAlternatives();
+								getActiveAlternativeListofCons();
+								hideLoader();
+							}, 1000);							
+						}
+					});
+				}
+				function removeAlternativefromModel(activeAlternativeId){
+				alert("this is a test " + activeAlternativeId)
+				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_model_remove_Alternative.php?callback=?', {//JSONP Request to Open Items Page setup tables
+					activeAlternativeId : activeAlternativeId,
+					activeModelId: window.activeModelId
 				}, function(res, status) {
-					$().toastmessage('showSuccessToast', res.message);
-				});
-					$('#ubmsuite_mcs_my_organizational_chart_content_manageOwners_content_addNewOwner_form').each(function() {
+					alert(res.message);
+				});	
+				getMyModelsListofAlternatives();
+			}
+				function saveAlternativeAnalysis(){
+					alert("alternative analysis will be save to this model.");
+				}
+
+	  </script>
+		<!-- End Model Alternatives Functions-->
+		<script>
+			function createNewCostDriver () {
+				//alert(window.activeModelInvestmentId);
+				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_model_investment_create_CostDriver.php?callback=?', {//JSONP Request to Open Items Page setup tables
+					activeInvestmentId : window.activeModelInvestmentId,
+					username : window.username,
+					costPerUnit : document.getElementById("return_on_investment_createNewCostDriver_popup_form_CostperUnit").value,
+					description : document.getElementById("return_on_investment_createNewCostDriver_popup_form_description").value,
+					numberOfUnits : document.getElementById("return_on_investment_createNewCostDriver_popup_form_numberOfUnits").value
+				}, function(res, status) {
+					alert(res.message);
+					$("#return_on_investment_createNewCostDriver_popup").popup("close");
+					$("#return_on_investment_createNewCostDriver_popup_form").each(function() {
 						this.reset();
 					});
-					setTimeout(function() {
-						getListOfOwnerNames();	
-					}, 2000);
-					
-			}
-
-			function getListOfOwnerNames() {
-				$('#my_model_current_owners').empty();
-				$.getJSON('http://api.universalbusinessmodel.com/ubms_modelcreationsuite_model_getCurrentOwner_OwnerNames.php?callback=?', {//JSONP Request to Open Items Page setup tables
-					key : window.key,
-					activeOwnerUUID : window.activeReportsToPosition
-				}, function(res, status) {
-					$.each(res, function(i, item) {
-						$('#my_model_current_owners').append("<li><a href='#'><p>" + item.name + " &nbsp;&nbsp;&nbsp;&nbsp;" + item.percent_owned + "%</p></a><a href='#' onclick='removeOwnersName(" + item.id + ")'>Remove Owner</a></li>");
-						$('#my_model_current_owners').listview("refresh");
-					});
+					if (status == "success") {
+						getActiveInvestmentCostDrivers();
+					} else {
+						setTimeout(function() {
+							getActiveInvestmentCostDrivers();
+						}, 1000);
+					}
 				});	
 			}
-			function removeOwnersName(id) {
-				$.getJSON('http://api.universalbusinessmodel.com/ubms_modelcreationsuite_model_remove_OwnerName.php?callback=?', {//JSONP Request to Open Items Page setup tables
-					key : window.key,
-					activeOwnerUUID : window.activeReportsToPosition,
-					ownerNameId : id
+			function createNewIncomeDriver () {
+				//alert(window.activeModelInvestmentId);
+				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_model_investment_create_IncomeDriver.php?callback=?', {//JSONP Request to Open Items Page setup tables
+					activeInvestmentId : window.activeModelInvestmentId,
+					username : window.username,
+					incomePerUnit : document.getElementById("return_on_investment_createNewIncomeDriver_popup_form_IncomePerUnit").value,
+					description : document.getElementById("rturn_on_investment_createNewIncomeDriver_popup_form_description").value,
+					numberOfUnits : document.getElementById("return_on_investment_createNewIncomeDriver_popup_form_numberOfUnits").value
 				}, function(res, status) {
-					$().toastmessage('showSuccessToast', res.message);
-				});
+					alert(res.message);
+					$("#return_on_investment_createNewIncomeDriver_popup").popup("close");
+					$("#return_on_investment_createNewIncomeDriver_popup_form").each(function() {
+						this.reset();
+					});
+					if (status == "success") {
+						getActiveInvestmentIncomeDrivers();
+					} else {
+						setTimeout(function() {
+							getActiveInvestmentIncomeDrivers();
+						}, 1000);
+					}
+				});		
+			}
+			function getActiveInvestmentCostDrivers () {
+				showLoader();
+				//alert(window.activeModelInvestmentId);
+				$('#return_on_investment_input_form_cost_tbody').empty();
+				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_model_investment_get_CostDrivers.php?callback=?', {//JSONP Request to Open Items Page setup tables
+					activeModelInvestmentId : window.activeModelInvestmentId
+				}, function(res, status) {
+					$.each(res, function(i, item) {
+						$('#return_on_investment_input_form_cost_tbody').append("<tr><td><a href='#' onclick='removeCostFromInvestment(" + item.cost_driver_id + ")'><span class='trashico'></span></a></td><td><input value='" + item.description + "' name='return_on_investment_costDescription_form' id='return_on_investment_costDescription_form' placeholder='Cost Driver Description...'><td><input name='return_on_investment_costPerUnit_form' id='return_on_investment_costPerUnit_form' class='costperunit_col_num col_num' placeholder='Cost Per Unit...' value='" + item.cost_per_unit + "'></td><td><input name='return_on_investment_costNumberOfUnits_form' id='return_on_investment_numberOfUnits_form' placeholder='# of Units...' class='numunits_col_num col_num' value='" + item.number_of_units + "'></td><td class='totalcost_col_num'></td><td><button class='return_on_investment_cost_table_form_submit_button'>Save Cost Driver</button></td></tr>");							
+						$("#return_on_investment_input_form_cost_tbody").trigger("create");
+					});
+				}); 
 				setTimeout(function() {
-					getListOfOwnerNames();	
+				    $(".col_num").each(function() {				
+				        $(this).keyup(function(){				//Call the newCalculatedCostDriver function each time a keystroke is activated in any of the inputs with col_num as the class.
+				            newCalculatedCostDriver.call(this);
+				        });
+				    });
+					hideLoader();
 				}, 2000);
 			}
-		</script>
+			function getActiveInvestmentIncomeDrivers () {
+				showLoader();
+				//alert(window.activeModelInvestmentId);
+				$('#return_on_investment_input_form_income_tbody').empty();
+				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_model_investment_get_IncomeDrivers.php?callback=?', {//JSONP Request to Open Items Page setup tables
+					activeModelInvestmentId : window.activeModelInvestmentId
+				}, function(res, status) {
+					$.each(res, function(i, item) {
+						$('#return_on_investment_input_form_income_tbody').append("<tr><td><a href='#' onclick='removeIncomeFromInvestment(" + item.income_driver_id + ")'><span class='trashico'></span></a></td><td><input value='" + item.description + "' name='return_on_investment_incomeDescription_form' id='return_on_investment_incomeDescription_form' placeholder='Income Driver Description...' value='" + item.description + "' ></td><td><input name='return_on_investment_incomePerUnit_form' id='return_on_investment_incomePerUnit_form' class='incomeperunit_col_num col_num' placeholder='Income Per Unit...' value='" + item.income_per_unit + "'></td><td><input  name='return_on_investment_incomeNumberOfUnits_form' id='return_on_investment_incomeNumberOfUnits_form' class='numunits_col_num col_num' placeholder='# of Units...' value='" + item.number_of_units + "'></td><td class='totalincome_col_num'></td><td><button class='return_on_investment_income_table_form_submit_button'>Save Income Driver</button></td></tr>");							
+						$("#return_on_investment_input_form_income_tbody").trigger("create");
 
+					})
+				});
+					setTimeout(function() {
+					    $(".col_num").each(function() {				
+					        $(this).keyup(function(){				//Call the newCalculatedCostDriver function each time a keystroke is activated in any of the inputs with col_num as the class.
+					            newCalculatedIncomeDriver.call(this);
+					        });
+					    });
+						hideLoader();
+					}, 2000);
+			}
+			function createNewInvestment () {
+				//alert("was called");
+				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_model_alternative_create_Investment.php?callback=?', {//JSONP Request to Open Items Page setup tables
+					username: window.username,
+					activeModelAlternativeId : window.activeModelId,
+					title: document.getElementById("return_on_investment_createNewInvestment_popup_form_title").value,
+					description: document.getElementById("return_on_investment_createNewInvestment_popup_form_description").value,
+					type: document.getElementById("return_on_investment_createNewInvestment_popup_form_type").value
+				}, function(res, status) {
+					alert(res.message);
+					$("#return_on_investment_createNewInvestment_popup").popup("close");
+					$("#return_on_investment_createNewInvestment_popup_form").each(function() {
+						this.reset();
+					});
+					if (status == "success") {
+						getAllInvestments();
+					} else {
+						setTimeout(function() {
+						getAllInvestments();
+						}, 1000);
+					}
+				});	
+			}	
+			function getAllInvestments () {
+				var i = 0;
+				//alert(window.activeModelAlternativeId);
+				$('#return_on_investment_alternative_select_investment_menu').empty();
+				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_model_alternative_get_Investments.php?callback=?', {//JSONP Request to Open Items Page setup tables
+					activeModelAlternativeId : window.activeModelAlternativeId
+				}, function(res, status) {
+					$.each(res, function(i, item) {
+						if (i==0) {
+							window.activeModelInvestmentId = item.investment_id;
+							i=1;
+						}
+							$('#return_on_investment_alternative_select_investment_menu').append("<option value='" + item.investment_id + "'>Investment " + item.investment_id + ": " + item.title + "</option>");							
+							$('#return_on_investment_alternative_select_investment_menu').selectmenu('refresh', true);
+					});
+				});
+				setTimeout(function(){
+					  	getActiveInvestmentIncomeDrivers();
+					  	getActiveInvestmentCostDrivers();
+					 }, 1000);
+			}
+			function getListofAlternativesforReturnOnInvestment(){//Populates the Alternative Picker at the top of the risk_analysis page.
+				var i = 0;			//Reset Counter
+				$('#return_on_investment_alternative_select_menu').empty();
+
+				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_model_getCurrentModel_Alternatives.php?callback=?', {//JSONP Request to Open Items Page setup tables
+					activeModelId : window.activeModelId,
+				}, function(res, status) {
+					$('#risk_analysis_alternative_select_menu').empty();
+					$.each(res, function(i, item) {
+						if(item.decision=="Use Now"){
+							if(i==0){	
+								window.activeModelAlternativeId = item.id;	//Set the first item in the callback as the activeModelAlternativeId.
+								i = 1;
+								setTimeout(function() {
+									getAllInvestments();
+								}, 1000);											//Iterate counter
+							}
+							$('#return_on_investment_alternative_select_menu').append("<option value='" + item.id + "'>Alternative " + item.id + " : " + item.description + "</option>");							
+							$('#return_on_investment_alternative_select_menu').selectmenu('refresh', true);
+						}else{
+							//$('#').append("...");
+						}
+						
+					});
+					
+				});				
+							//$('#risk_analysis_alternative_select_menu_container').trigger("refresh");
+			}
+			function removeCostFromInvestment (activeCostDriverId) {
+				//alert("this is a test "+activeCostDriverId)
+				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_model_investment_remove_CostDriver.php?callback=?', {//JSONP Request to Open Items Page setup tables
+					activeInvestmentId : window.activeModelInvestmentId,
+					activeCostDriverId: activeCostDriverId
+				}, function(res, status) {
+					alert(res.message);
+				});	
+				getAllInvestments();
+			}
+			function removeIncomeFromInvestment(activeIncomeDriveId) {
+				//alert("this is a test "+activeIncomeDriveId)
+				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_model_investment_remove_IncomeDriver.php?callback=?', {//JSONP Request to Open Items Page setup tables
+					activeInvestmentId : window.activeModelInvestmentId,
+					activeIncomeDriverId: activeIncomeDriveId
+				}, function(res, status) {
+					alert(res.message);
+				});	
+				getAllInvestments();
+			}
+			function newCalculatedCostDriver() {		//Calculates the Product of 
+			    var sum=0;
+			    var costperunit = 0;
+			    var numunits = 0;
+			    var totalcost = 0;
+			    var thisRow = $(this).closest('tr');
+			    //iterate through each input and add to sum
+			    $(thisRow).find("td:not(.total) .costperunit_col_num").each(function() {
+			            costperunit = parseFloat(this.value);  
+			    });
+			    $(thisRow).find("td:not(.total) .numunits_col_num").each(function() {
+			            numunits = parseFloat(this.value);                     
+			    }); 
+			    totalcost = costperunit*numunits;
+			    //change value of Risk
+			    var totalcost_input = $(thisRow).find(".totalcost_col_num");
+			    totalcost_input.html('$'+ totalcost);
+			}
+			function newCalculatedIncomeDriver() {		//Calculates the Product of 
+			    var sum=0;
+			    var incomeperunit = 0;
+			    var numunits = 0;
+			    var totalincome = 0;
+			    var thisRow = $(this).closest('tr');
+			    //iterate through each input and add to sum
+			    $(thisRow).find("td:not(.total) .incomeperunit_col_num").each(function() {
+			            incomeperunit = parseFloat(this.value);  
+			    });
+			    $(thisRow).find("td:not(.total) .numunits_col_num").each(function() {
+			            numunits = parseFloat(this.value);                     
+			    }); 
+			    totalincome = incomeperunit*numunits;
+			    //change value of Risk
+			    var totalincome_input = $(thisRow).find(".totalincome_col_num");
+			    totalincome_input.html('$'+ totalincome);
+			}	
+		</script>
+		<!-- Investments -->
+		<script>
+			function newCalculatedRisk() {		//Calculates the Product of 
+			    var sum=0;
+			    var risk = 0;
+			    var probability = 0;
+			    var impact = 0;
+			    var thisRow = $(this).closest('tr');
+			    //iterate through each input and add to sum
+			    $(thisRow).find("td:not(.total) .probability_col_num").each(function() {
+			            probability = parseFloat(this.value);  
+			    }); 
+			    $(thisRow).find("td:not(.total) .impact_col_num").each(function() {
+			            impact = parseFloat(this.value);                     
+			    }); 
+			    risk = probability*impact/100;
+			    //change value of Risk
+			    var risk_input = $(thisRow).find(".risk_col_num");
+			    risk_input.html(risk + '%');
+			    
+
+			}
+			function getListofAlternativesforRiskAnalysis(){//Populates the Alternative Picker at the top of the risk_analysis page.
+				var i = 0;			//Reset Counter
+				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_model_getCurrentModel_Alternatives.php?callback=?', {//JSONP Request to Open Items Page setup tables
+					activeModelId : window.activeModelId,
+				}, function(res, status) {
+					$('#risk_analysis_alternative_select_menu').empty();
+					$.each(res, function(i, item) {
+						if(item.decision=="Use Now"){
+							if(i==0){	
+								window.activeModelAlternativeId = item.id;	//Set the first item in the callback as the activeModelAlternativeId.
+								i = 1;										//Iterate counter
+							}
+							$('#risk_analysis_alternative_select_menu').append("<option value='" + item.id + "'>Investment " + item.id + " : " + item.description + "</option>");							
+							$('#risk_analysis_alternative_select_menu').selectmenu('refresh', true);
+						}else{
+							//$('#').append("...");
+						}
+					});
+				});				
+							//$('#risk_analysis_alternative_select_menu_container').trigger("refresh");
+			}
+			function addRisktoMyAlternative(activeModelAlternativeRiskId){
+				alert(window.activeModelAlternativeId);
+				alert("Risk # " + activeModelAlternativeRiskId + " will be added to the active alternative.");
+				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_model_alternative_add_Risk.php?callback=?', {//JSONP Request to Open Items Page setup tables
+					activeModelAlternativeId : window.activeModelAlternativeId,
+					activeModelAlternativeRiskId : activeModelAlternativeRiskId,
+					username : window.username
+				}, function(res, status) {
+					alert(res.message);
+					if(status=="success"){
+						getListofRisksforRiskAnalysisTable();
+						
+					}
+				});	
+			}
+			function getListofRisksforSearchBars(){
+						$( "#risk_analysis_load_search_progressbar" ).show();
+
+					setTimeout(function() {
+						$( "#risk_analysis_load_search_progressbar" ).progressbar({value: 5});
+					}, 50);
+					showLoader();
+				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_model_getAll_Risks.php?callback=?', {//JSONP Request
+				}, function(res, status) {
+					setTimeout(function() {
+						$( "#risk_analysis_load_search_progressbar" ).progressbar({value: 10});
+						setTimeout(function() {
+							$( "#risk_analysis_load_search_progressbar" ).progressbar({value: 20});
+							setTimeout(function() {
+								$( "#risk_analysis_load_search_progressbar" ).progressbar({value: 30});
+								setTimeout(function() {
+									$( "#risk_analysis_load_search_progressbar" ).progressbar({value: 40});
+									setTimeout(function() {
+										$( "#risk_analysis_load_search_progressbar" ).progressbar({value: 50});
+									}, 10);
+								}, 10);							
+							}, 10);						
+						}, 10);
+					}, 10);
+					$(".risk_analysis_search").empty();
+					$.each(res, function(i, item) {
+						$( "#risk_analysis_load_search_progressbar" ).progressbar({value: 90*item.id/res.length});
+						$(".risk_analysis_search").append("<li><a href='#'><h2>Risk Category: " + item.category + "</h2><p>Risk: " + item.description + "</p></a><a href='#purchase'  onclick='addRisktoMyAlternative(" + item.id + ")'>Add Risk</a></li>");
+					});
+					$("#risk_analysis_search_containter1").append("<li><a href='#'>Cant find the risk you are looking for? Click Here to define a new one.</a></li>");
+					$("#risk_analysis_search_containter2").append("<li><a href='#'>Cant find the risk you are looking for? Click Here to define a new one.</a></li>");
+
+					$(".risk_analysis_search").listview("refresh");
+//					$( ".risk_analysis_search" ).filterable({ filterReveal: true, input: "#input-for-filterable" });
+
+					$(".risk_analysis_search").listview("refresh");
+					setTimeout(function() {
+						$( "#risk_analysis_load_search_progressbar" ).progressbar({value: 100});
+						hideLoader();
+						$( "#risk_analysis_load_search_progressbar" ).hide();
+					}, 1000);
+				});	
+			}
+			function getListofRisksforRiskAnalysisTable(){
+				showLoader();
+				var i=0;
+				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_model_alternative_get_Risks.php?callback=?', {//JSONP Request to Open Items Page setup tables
+					activeModelId : window.activeModelId,
+					username : window.username
+				}, function(res, status) {
+					$('#risk_analysis_table_body').empty()
+					$.each(res, function(i, item) {
+						if(item.alternative_id==window.activeModelAlternativeId){
+							i=i+1;
+							$('#risk_analysis_table_body').append("<tr><td><a href='#' onclick='removeRiskFromAlternative(" + item.id + ")'><span class='trashico'></span></a></td><td class='tg-031e'>" + i + "</td><td class='tg-031e'>" + item.alternative_id + "</td><td class='tg-031e'>" + item.description + "</td><td class='tg-031e'><input class='probability_col_num col_num' value = '" + item.probability + "'/></td><td class='tg-031e'><input class='impact_col_num col_num' value = '" + item.impact + "'/></td><td class='tg-031e risk_col_num'></td><td class='tg-031e'  ><fieldset class='retain_full_risk_radio' data-role='controlgroup' data-type='vertical' data-mini='true'><input type='radio' class='retain_full_risk_radio' name='radio-choice-b" + i + "' id='radio-choice-c" + i + "' value='Yes' checked='checked'><label class='retain_full_risk_radio' for='radio-choice-c" + i + "'>Yes</label><input class='retain_full_risk_radio' type='radio' name='radio-choice-b" + i + "' id='radio-choice-d" + i + "' value=' No '><label class='retain_full_risk_radio' for='radio-choice-d" + i + "'>No</label></fieldset></td><td class='tg-031e' style='max-width:150px;'><select name='select-choice-8' id='select-choice-8" + i + "' multiple='multiple' data-native-menu='false' data-icon='grid' data-iconpos='left'><option>Select the measures your will take:</option><option value='Policies and Procedures' selected=''>Policies and Procedures</option><optgroup label='Insurance'><option value='Property and Causality'>Property and Causality</option><option value='Auto'>Auto</option><option value='General Liability'>General Liability</option></optgroup><optgroup label='Others'><option value='Other'>Other</option><option value='Out Source'>Out Source</option></optgroup></select></td><td class='tg-031e'><input class='low_col_num' value = '" + item.amount + "'/></td><td class='tg-031e'><input class='low_col_num' value = '" + item.reference + "'/></td><td class='tg-031e'><textarea cols='20' rows='3' name='textarea' id='textarea'>" + item.preventative_measures_explanation + "</textarea></td><td><a id='saveRiskAnalysisButton_" + item.id + "' href='#' class='ui-btn save_risk_analysis_button risk_analysis_table' >Save Analysis</a></td></tr>");							
+							$('#risk_analysis_table_body').trigger("create");
+							$('.retain_full_risk_radio').trigger("create");
+						}else{
+							//$('#').append("...");
+						}
+					});
+
+				});	
+			setTimeout(function() {
+			    $(".col_num").each(function() {		//The Class of the Input element that triggers the calculation			
+			        $(this).change(function(){				//Call the newSum function each time a keystroke is activated in any of the inputs with col_num as the class.
+			            newCalculatedRisk.call(this);
+			        });
+			    });
+			    $(".save_risk_analysis_button").each(function() {		//The Class of the Input element that triggers the calculation			
+				  $(this).bind('click', function(){
+			        	alert("this is a test");
+
+			            saveRiskAnalysis.call(this);
+
+				  });			       
+
+			    });
+				hideLoader();
+			}, 2500);
+			}
+			function saveRiskAnalysis(){
+				     alert(parseInt($(this).attr('id')));
+				    // var reg_username = reg_email.split("@", 1).toString();
+/*** /
+
+			    var impact = 0;
+			    var thisRow = $(this).closest('tr');
+			    //iterate through each input and add to sum
+			    $(thisRow).find("td:not(.total) .probability_col_num").each(function() {
+			            probability = parseFloat(this.value);  
+			    }); 
+			    $(thisRow).find("td:not(.total) .impact_col_num").each(function() {
+			            impact = parseFloat(this.value);                     
+			    }); 
+			    risk = probability*impact/100;
+			    //change value of Risk
+			    var risk_input = $(thisRow).find(".risk_col_num");
+			    risk_input.html(risk + '%');			
+			    /***/	
+				alert("risk analysis will now be saved.");
+			}
+				
+			function removeRiskFromAlternative(activeRiskId){
+				alert("this is a test "+activeRiskId)
+				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_model_alternative_remove_Risk.php?callback=?', {//JSONP Request to Open Items Page setup tables
+					activeModelAlternativeId : window.activeModelAlternativeId,
+					activeRiskId: activeRiskId
+				}, function(res, status) {
+					alert(res.message);
+				});	
+				getListofRisksforRiskAnalysisTable();
+			}
+			function createNewRiskaddToActiveAlternative(){
+				alert("this is a test");
+				event.preventDefault();
+				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_model_alternative_create_Risk.php?callback=?', {//JSONP Request to Open Items Page setup tables
+					riskDescription : document.getElementById('risk_analysis_define_new_risk_popup_form_description').value,
+					riskCategory : document.getElementById('risk_analysis_define_new_risk_popup_form_category').value,
+					username : window.username,
+					activeModelAlternativeId : window.activeModelAlternativeId
+				}, function(res, status) {
+					alert(res.message);
+					if(status=="success"){
+						setTimeout(function() {
+							$('#risk_analysis_define_new_risk_popup').popup('close');
+							getListofRisksforRiskAnalysisTable();						
+						}, 1000);
+						$('#risk_analysis_define_new_risk_popup_form').each(function() {
+							this.reset();
+						});	
+					}
+				});					
+			}
+		</script>
+		<!-- End Risk Analysis / Assessment-->
+        <script>
+			//Refresh Model Creation Suite Checklist
+			function getModelCreationSuiteChecklistItems() {
+				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_getallchecklistitems.php?callback=?', {//JSONP Request to Checklist Setup Table
+					activeModelId : window.activeModelId
+				}, function(res, status) {
+					$('#mcs_setup_checklist_setup_mfi_table_body > tr').remove();
+					$('#mcs_setup_checklist_CS_mfi_table_body > tr').remove();
+					$('#mcs_setup_checklist_p1_mfi_table_body > tr').remove();
+					$('#mcs_setup_checklist_p2_mfi_table_body > tr').remove();
+					$('#mcs_setup_checklist_p3_mfi_table_body > tr').remove();
+					$('#mcs_setup_checklist_p4_b1_mfi_table_body > tr').remove();
+					$('#mcs_setup_checklist_p4_b2_mfi_table_body > tr').remove();
+					$('#mcs_setup_checklist_p4_b3_mfi_table_body > tr').remove();
+					$('#mcs_setup_checklist_p4_b4_mfi_table_body > tr').remove();
+					$('#mcs_setup_checklist_p4_b5_mfi_table_body > tr').remove();
+					$('#mcs_setup_checklist_p4_b6_mfi_table_body > tr').remove();
+					$('#mcs_setup_checklist_p4_b7_mfi_table_body > tr').remove();
+					$('#mcs_setup_checklist_p4_b8_mfi_table_body > tr').remove();
+					$('#mcs_setup_checklist_p4_b9_mfi_table_body > tr').remove();
+					$('#mcs_setup_checklist_p4_b10_mfi_table_body > tr').remove();
+					$('#mcs_setup_checklist_p4_b11_mfi_table_body > tr').remove();
+					$('#mcs_setup_checklist_p4_b12_mfi_table_body > tr').remove();
+					$('#mcs_setup_checklist_p5_mfi_table_body > tr').remove();
+					$('#mcs_setup_checklist_p6_mfi_table_body > tr').remove();
+					$('#mcs_setup_checklist_p7_mfi_table_body > tr').remove();
+					$('#mcs_setup_checklist_p8_mfi_table_body > tr').remove();
+					$.each(res, function(i, item) {
+						if (item.phase_id == "MFIS") {
+							//	$( "#mcs_setup_checklist_setup_mfi_table" ).table( "refresh" );
+							if(item.event_type == "POPUP"){
+								if (item.preparer_username == null) {//Check whether item has been prepared
+									$('#mcs_setup_checklist_setup_mfi_table_body').append("<tr ><th class='label'>" + item.line_number + "</th><td>.</td><td>.</td><td>.</td><td>.</td><td><a href='#" + item.preparedBy_href + "' onclick='setActiveTaskId(" + item.line_number + ")'  data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/redMinus.png' alt='PreparedBy' style='width:60%'></a></td><td></td><td>" + item.mfi_explanation_ref + "</td><td>" + item.mfi_template_process_ref + "</td><td>" + item.source_model_mfi_ref + "</td><td><div data-role='controlgroup' data-type='horizontal' ><a href='#" + item.href + "'onclick='setActiveTaskId(" + item.line_number + ")'  data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a'><div style='white-space:normal'>" + item.instruction_detail + "</div></a></div></td><td>" + item.budgeted_hours + "</td><td>l</td><td>m</td><td>n</td></tr>");
+								} else {
+									if (item.reviewer_username == null) {//Check whether item has been reviewed
+										$('#mcs_setup_checklist_setup_mfi_table_body').append("<tr ><th class='label'>" + item.line_number + "</th><td>.</td><td>.</td><td><a href='#" + item.reviewedBy_href + "' data-rel='popup' onclick='setActiveTaskId(" + item.line_number + ")'  data-position-to='window' data-transition='fade'><img class='popphoto' src='img/redMinus.png' alt='ReviewedBy' style='width:60%'></a></td><td></td><td>" + item.preparer_username + "<a href='#popupParis' data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/greenCheck.png' alt='PreparedBy' style='width:60%'></a></td><td>" + item.prepared_date + "</td><td>" + item.mfi_explanation_ref + "</td><td>" + item.mfi_template_process_ref + "</td><td>" + item.source_model_mfi_ref + "</td><td><div data-role='controlgroup' data-type='horizontal' ><a href='#" + item.href + "' data-rel='popup' data-transition='slideup' class='ui-btn ui-disabled ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a'><div style='white-space:normal'>" + item.instruction_detail + "</div></a></div></td><td>" + item.budgeted_hours + "</td><td>l</td><td>m</td><td>n</td></tr>");
+									} else {
+										if (item.final_reviewer_username == null) {//Check whether item has received its final review
+											$('#mcs_setup_checklist_setup_mfi_table_body').append("<tr ><th class='label'>" + item.line_number + "</th><td><a href='#" + item.finalReviewedBy_href + "' data-rel='popup' onclick='setActiveTaskId(" + item.line_number + ")' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/redMinus.png' alt='PreparedBy' style='width:60%'></a></td><td></td><td>" + item.reviewer_username + "<a href='#popupParis' data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/greenCheck.png' alt='PreparedBy' style='width:60%'></a></td><td>" + item.review_date + "</td><td>" + item.preparer_username + "<a href='#popupParis' data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/greenCheck.png' alt='PreparedBy' style='width:60%'></a></td><td>" + item.prepared_date + "</td><td>" + item.mfi_explanation_ref + "</td><td>" + item.mfi_template_process_ref + "</td><td>" + item.source_model_mfi_ref + "</td><td><div data-role='controlgroup' data-type='horizontal' ><a href='#" + item.href + "' data-rel='popup' data-transition='slideup' class='ui-btn ui-disabled  ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a'><div style='white-space:normal'>" + item.instruction_detail + "</div></a></div></td><td>" + item.budgeted_hours + "</td><td>l</td><td>m</td><td>n</td></tr>");
+										} else {
+											$('#mcs_setup_checklist_setup_mfi_table_body').append("<tr ><th class='label'>" + item.line_number + "</th><td>" + item.final_reviewer_username + "<a href='#' data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/greenCheck.png' alt='PreparedBy' style='width:60%'></a></td><td>" + item.final_review_date + "</td><td>" + item.reviewer_username + "<a href='#popupParis' data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/greenCheck.png' alt='PreparedBy' style='width:60%'></a></td><td>" + item.review_date + "</td><td>" + item.preparer_username + "<a href='#popupParis' data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/greenCheck.png' alt='PreparedBy' style='width:60%'></a></td><td>" + item.prepared_date + "</td><td>" + item.mfi_explanation_ref + "</td><td>" + item.mfi_template_process_ref + "</td><td>" + item.source_model_mfi_ref + "</td><td><div data-role='controlgroup' data-type='horizontal' ><a href='#" + item.href + "' data-rel='popup' data-transition='slideup' class='ui-btn ui-disabled ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a'><div style='white-space:normal'>" + item.instruction_detail + "</div></a></div></td><td>" + item.budgeted_hours + "</td><td>l</td><td>m</td><td>n</td></tr>");
+										}
+									}
+								}
+							}else{
+								if(item.event_type == "LINKTOPAGE"){
+									if (item.preparer_username == null) {//Check whether item has been prepared
+										$('#mcs_setup_checklist_setup_mfi_table_body').append("<tr ><th class='label'>" + item.line_number + "</th><td>.</td><td>.</td><td>.</td><td>.</td><td><a href='#" + item.preparedBy_href + "' onclick='setActiveTaskId(" + item.line_number + ")'  data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/redMinus.png' alt='PreparedBy' style='width:60%'></a></td><td></td><td>" + item.mfi_explanation_ref + "</td><td>" + item.mfi_template_process_ref + "</td><td>" + item.source_model_mfi_ref + "</td><td><div data-role='controlgroup' data-type='horizontal' ><a href='#" + item.href + "'onclick='setActiveTaskId(" + item.line_number + ")' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a'><div style='white-space:normal'>" + item.instruction_detail + "</div></a></div></td><td>" + item.budgeted_hours + "</td><td>l</td><td>m</td><td>n</td></tr>");
+									} else {
+										if (item.reviewer_username == null) {//Check whether item has been reviewed
+											$('#mcs_setup_checklist_setup_mfi_table_body').append("<tr ><th class='label'>" + item.line_number + "</th><td>.</td><td>.</td><td><a href='#" + item.reviewedBy_href + "' data-rel='popup' onclick='setActiveTaskId(" + item.line_number + ")'  data-position-to='window' data-transition='fade'><img class='popphoto' src='img/redMinus.png' alt='ReviewedBy' style='width:60%'></a></td><td></td><td>" + item.preparer_username + "<a href='#popupParis' data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/greenCheck.png' alt='PreparedBy' style='width:60%'></a></td><td>" + item.prepared_date + "</td><td>" + item.mfi_explanation_ref + "</td><td>" + item.mfi_template_process_ref + "</td><td>" + item.source_model_mfi_ref + "</td><td><div data-role='controlgroup' data-type='horizontal' ><a href='#" + item.href + "' class='ui-btn ui-disabled ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a'><div style='white-space:normal'>" + item.instruction_detail + "</div></a></div></td><td>" + item.budgeted_hours + "</td><td>l</td><td>m</td><td>n</td></tr>");
+										} else {
+											if (item.final_reviewer_username == null) {//Check whether item has received its final review
+												$('#mcs_setup_checklist_setup_mfi_table_body').append("<tr ><th class='label'>" + item.line_number + "</th><td><a href='#" + item.finalReviewedBy_href + "' data-rel='popup' onclick='setActiveTaskId(" + item.line_number + ")' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/redMinus.png' alt='PreparedBy' style='width:60%'></a></td><td></td><td>" + item.reviewer_username + "<a href='#popupParis' data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/greenCheck.png' alt='PreparedBy' style='width:60%'></a></td><td>" + item.review_date + "</td><td>" + item.preparer_username + "<a href='#popupParis' data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/greenCheck.png' alt='PreparedBy' style='width:60%'></a></td><td>" + item.prepared_date + "</td><td>" + item.mfi_explanation_ref + "</td><td>" + item.mfi_template_process_ref + "</td><td>" + item.source_model_mfi_ref + "</td><td><div data-role='controlgroup' data-type='horizontal' ><a href='#" + item.href + "' class='ui-btn ui-disabled  ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a'><div style='white-space:normal'>" + item.instruction_detail + "</div></a></div></td><td>" + item.budgeted_hours + "</td><td>l</td><td>m</td><td>n</td></tr>");
+											} else {
+												$('#mcs_setup_checklist_setup_mfi_table_body').append("<tr ><th class='label'>" + item.line_number + "</th><td>" + item.final_reviewer_username + "<a href='#' data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/greenCheck.png' alt='PreparedBy' style='width:60%'></a></td><td>" + item.final_review_date + "</td><td>" + item.reviewer_username + "<a href='#popupParis' data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/greenCheck.png' alt='PreparedBy' style='width:60%'></a></td><td>" + item.review_date + "</td><td>" + item.preparer_username + "<a href='#popupParis' data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/greenCheck.png' alt='PreparedBy' style='width:60%'></a></td><td>" + item.prepared_date + "</td><td>" + item.mfi_explanation_ref + "</td><td>" + item.mfi_template_process_ref + "</td><td>" + item.source_model_mfi_ref + "</td><td><div data-role='controlgroup' data-type='horizontal' ><a href='#" + item.href + "'  class='ui-btn ui-disabled ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a'><div style='white-space:normal'>" + item.instruction_detail + "</div></a></div></td><td>" + item.budgeted_hours + "</td><td>l</td><td>m</td><td>n</td></tr>");
+											}
+										}
+		
+									}
+								}
+							}
+						} else {
+							if (item.phase_id == "CS") {
+								if(item.event_type == "POPUP"){
+									if (item.preparer_username == null) {//Check whether item has been prepared
+										$('#mcs_setup_checklist_CS_mfi_table_body').append("<tr ><th class='label'>" + item.line_number + "</th><td>.</td><td>.</td><td>.</td><td>.</td><td><a href='#" + item.preparedBy_href + "' onclick='setActiveTaskId(" + item.line_number + ")'  data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/redMinus.png' alt='PreparedBy' style='width:60%'></a></td><td></td><td>" + item.mfi_explanation_ref + "</td><td>" + item.mfi_template_process_ref + "</td><td>" + item.source_model_mfi_ref + "</td><td><div data-role='controlgroup' data-type='horizontal' ><a href='#" + item.href + "'onclick='setActiveTaskId(" + item.line_number + ")'  data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a'><div style='white-space:normal'>" + item.instruction_detail + "</div></a></div></td><td>" + item.budgeted_hours + "</td><td>l</td><td>m</td><td>n</td></tr>");
+									} else {
+										if (item.reviewer_username == null) {//Check whether item has been reviewed
+											$('#mcs_setup_checklist_CS_mfi_table_body').append("<tr ><th class='label'>" + item.line_number + "</th><td></td><td></td><td><a href='#" + item.reviewedBy_href + "' data-rel='popup' onclick='setActiveTaskId(" + item.line_number + ")'  data-position-to='window' data-transition='fade'><img class='popphoto' src='img/redMinus.png' alt='ReviewedBy' style='width:60%'></a></td><td></td><td>" + item.preparer_username + "<a href='#popupParis' data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/greenCheck.png' alt='PreparedBy' style='width:60%'></a></td><td>" + item.prepared_date + "</td><td>" + item.mfi_explanation_ref + "</td><td>" + item.mfi_template_process_ref + "</td><td>" + item.source_model_mfi_ref + "</td><td><div data-role='controlgroup' data-type='horizontal' ><a href='#" + item.href + "' data-rel='popup' data-transition='slideup' class='ui-btn ui-disabled ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a'><div style='white-space:normal'>" + item.instruction_detail + "</div></a></div></td><td>" + item.budgeted_hours + "</td><td>l</td><td>m</td><td>n</td></tr>");
+										} else {
+											if (item.final_reviewer_username == null) {//Check whether item has received its final review
+												$('#mcs_setup_checklist_CS_mfi_table_body').append("<tr ><th class='label'>" + item.line_number + "</th><td><a href='#" + item.finalReviewedBy_href + "' data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/redMinus.png' alt='PreparedBy' style='width:60%'></a></td><td></td><td>" + item.reviewer_username + "<a href='#popupParis' data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/greenCheck.png' alt='PreparedBy' style='width:60%'></a></td><td>" + item.review_date + "</td><td>" + item.preparer_username + "<a href='#popupParis' data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/greenCheck.png' alt='PreparedBy' style='width:60%'></a></td><td>" + item.prepared_date + "</td><td>" + item.mfi_explanation_ref + "</td><td>" + item.mfi_template_process_ref + "</td><td>" + item.source_model_mfi_ref + "</td><td><div data-role='controlgroup' data-type='horizontal' ><a href='#" + item.href + "' data-rel='popup' data-transition='slideup' class='ui-btn ui-disabled ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a'><div style='white-space:normal'>" + item.instruction_detail + "</div></a></div></td><td>" + item.budgeted_hours + "</td><td>l</td><td>m</td><td>n</td></tr>");
+											} else {
+												$('#mcs_setup_checklist_CS_mfi_table_body').append("<tr ><th class='label'>" + item.line_number + "</th><td>" + item.final_reviewer_username + "<a href='#' data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/greenCheck.png' alt='PreparedBy' style='width:60%'></a></td><td>" + item.final_review_date + "</td><td>" + item.reviewer_username + "<a href='#popupParis' data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/greenCheck.png' alt='PreparedBy' style='width:60%'></a></td><td>" + item.review_date + "</td><td>" + item.preparer_username + "<a href='#popupParis' data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/greenCheck.png' alt='PreparedBy' style='width:60%'></a></td><td>" + item.prepared_date + "</td><td>" + item.mfi_explanation_ref + "</td><td>" + item.mfi_template_process_ref + "</td><td>" + item.source_model_mfi_ref + "</td><td><div data-role='controlgroup' data-type='horizontal' ><a href='#" + item.href + "' data-rel='popup' data-transition='slideup' class='ui-btn ui-disabled ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a'><div style='white-space:normal'>" + item.instruction_detail + "</div></a></div></td><td>" + item.budgeted_hours + "</td><td>l</td><td>m</td><td>n</td></tr>");
+											}
+										}
+									}
+								}else{
+									if(item.event_type == "LINKTOPAGE"){
+										if (item.preparer_username == null) {//Check whether item has been prepared
+											$('#mcs_setup_checklist_CS_mfi_table_body').append("<tr ><th class='label'>" + item.line_number + "</th><td>.</td><td>.</td><td>.</td><td>.</td><td><a href='#" + item.preparedBy_href + "' onclick='setActiveTaskId(" + item.line_number + ")'  data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/redMinus.png' alt='PreparedBy' style='width:60%'></a></td><td></td><td>" + item.mfi_explanation_ref + "</td><td>" + item.mfi_template_process_ref + "</td><td>" + item.source_model_mfi_ref + "</td><td><div data-role='controlgroup' data-type='horizontal' ><a href='#" + item.href + "'onclick='setActiveTaskId(" + item.line_number + ")' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a'><div style='white-space:normal'>" + item.instruction_detail + "</div></a></div></td><td>" + item.budgeted_hours + "</td><td>l</td><td>m</td><td>n</td></tr>");
+										} else {
+											if (item.reviewer_username == null) {//Check whether item has been reviewed
+												$('#mcs_setup_checklist_CS_mfi_table_body').append("<tr ><th class='label'>" + item.line_number + "</th><td>.</td><td>.</td><td><a href='#" + item.reviewedBy_href + "' data-rel='popup' onclick='setActiveTaskId(" + item.line_number + ")'  data-position-to='window' data-transition='fade'><img class='popphoto' src='img/redMinus.png' alt='ReviewedBy' style='width:60%'></a></td><td></td><td>" + item.preparer_username + "<a href='#popupParis' data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/greenCheck.png' alt='PreparedBy' style='width:60%'></a></td><td>" + item.prepared_date + "</td><td>" + item.mfi_explanation_ref + "</td><td>" + item.mfi_template_process_ref + "</td><td>" + item.source_model_mfi_ref + "</td><td><div data-role='controlgroup' data-type='horizontal' ><a href='#" + item.href + "' class='ui-btn ui-disabled ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a'><div style='white-space:normal'>" + item.instruction_detail + "</div></a></div></td><td>" + item.budgeted_hours + "</td><td>l</td><td>m</td><td>n</td></tr>");
+											} else {
+												if (item.final_reviewer_username == null) {//Check whether item has received its final review
+													$('#mcs_setup_checklist_CS_mfi_table_body').append("<tr ><th class='label'>" + item.line_number + "</th><td><a href='#" + item.finalReviewedBy_href + "' data-rel='popup' onclick='setActiveTaskId(" + item.line_number + ")' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/redMinus.png' alt='PreparedBy' style='width:60%'></a></td><td></td><td>" + item.reviewer_username + "<a href='#popupParis' data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/greenCheck.png' alt='PreparedBy' style='width:60%'></a></td><td>" + item.review_date + "</td><td>" + item.preparer_username + "<a href='#popupParis' data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/greenCheck.png' alt='PreparedBy' style='width:60%'></a></td><td>" + item.prepared_date + "</td><td>" + item.mfi_explanation_ref + "</td><td>" + item.mfi_template_process_ref + "</td><td>" + item.source_model_mfi_ref + "</td><td><div data-role='controlgroup' data-type='horizontal' ><a href='#" + item.href + "' class='ui-btn ui-disabled  ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a'><div style='white-space:normal'>" + item.instruction_detail + "</div></a></div></td><td>" + item.budgeted_hours + "</td><td>l</td><td>m</td><td>n</td></tr>");
+												} else {
+													$('#mcs_setup_checklist_CS_mfi_table_body').append("<tr ><th class='label'>" + item.line_number + "</th><td>" + item.final_reviewer_username + "<a href='#' data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/greenCheck.png' alt='PreparedBy' style='width:60%'></a></td><td>" + item.final_review_date + "</td><td>" + item.reviewer_username + "<a href='#popupParis' data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/greenCheck.png' alt='PreparedBy' style='width:60%'></a></td><td>" + item.review_date + "</td><td>" + item.preparer_username + "<a href='#popupParis' data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/greenCheck.png' alt='PreparedBy' style='width:60%'></a></td><td>" + item.prepared_date + "</td><td>" + item.mfi_explanation_ref + "</td><td>" + item.mfi_template_process_ref + "</td><td>" + item.source_model_mfi_ref + "</td><td><div data-role='controlgroup' data-type='horizontal' ><a href='#" + item.href + "'  class='ui-btn ui-disabled ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a'><div style='white-space:normal'>" + item.instruction_detail + "</div></a></div></td><td>" + item.budgeted_hours + "</td><td>l</td><td>m</td><td>n</td></tr>");
+												}
+											}
+			
+										}										
+									}
+								}
+							} else {
+									if (item.phase_id == "P1") {
+										if(item.event_type == "POPUP"){
+											if (item.preparer_username == null) {//Check whether item has been prepared
+												$('#mcs_setup_checklist_p1_mfi_table_body').append("<tr ><th class='label'>" + item.line_number + "</th><td>.</td><td>.</td><td>.</td><td>.</td><td><a href='#" + item.preparedBy_href + "' onclick='setActiveTaskId(" + item.line_number + ")'  data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/redMinus.png' alt='PreparedBy' style='width:60%'></a></td><td></td><td>" + item.mfi_explanation_ref + "</td><td>" + item.mfi_template_process_ref + "</td><td>" + item.source_model_mfi_ref + "</td><td><div data-role='controlgroup' data-type='horizontal' ><a href='#" + item.href + "'onclick='setActiveTaskId(" + item.line_number + ")'  data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a'><div style='white-space:normal'>" + item.instruction_detail + "</div></a></div></td><td>" + item.budgeted_hours + "</td><td>l</td><td>m</td><td>n</td></tr>");
+											} else {
+												if (item.reviewer_username == null) {//Check whether item has been reviewed
+													$('#mcs_setup_checklist_p1_mfi_table_body').append("<tr ><th class='label'>" + item.line_number + "</th><td></td><td></td><td><a href='#" + item.reviewedBy_href + "' data-rel='popup' onclick='setActiveTaskId(" + item.line_number + ")'  data-position-to='window' data-transition='fade'><img class='popphoto' src='img/redMinus.png' alt='ReviewedBy' style='width:60%'></a></td><td></td><td>" + item.preparer_username + "<a href='#popupParis' data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/greenCheck.png' alt='PreparedBy' style='width:60%'></a></td><td>" + item.prepared_date + "</td><td>" + item.mfi_explanation_ref + "</td><td>" + item.mfi_template_process_ref + "</td><td>" + item.source_model_mfi_ref + "</td><td><div data-role='controlgroup' data-type='horizontal' ><a href='#" + item.href + "' data-rel='popup' data-transition='slideup' class='ui-btn ui-disabled ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a'><div style='white-space:normal'>" + item.instruction_detail + "</div></a></div></td><td>" + item.budgeted_hours + "</td><td>l</td><td>m</td><td>n</td></tr>");
+												} else {
+													if (item.final_reviewer_username == null) {//Check whether item has received its final review
+														$('#mcs_setup_checklist_p1_mfi_table_body').append("<tr ><th class='label'>" + item.line_number + "</th><td><a href='#" + item.finalReviewedBy_href + "' data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/redMinus.png' alt='PreparedBy' style='width:60%'></a></td><td></td><td>" + item.reviewer_username + "<a href='#popupParis' data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/greenCheck.png' alt='PreparedBy' style='width:60%'></a></td><td>" + item.review_date + "</td><td>" + item.preparer_username + "<a href='#popupParis' data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/greenCheck.png' alt='PreparedBy' style='width:60%'></a></td><td>" + item.prepared_date + "</td><td>" + item.mfi_explanation_ref + "</td><td>" + item.mfi_template_process_ref + "</td><td>" + item.source_model_mfi_ref + "</td><td><div data-role='controlgroup' data-type='horizontal' ><a href='#" + item.href + "' data-rel='popup' data-transition='slideup' class='ui-btn ui-disabled ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a'><div style='white-space:normal'>" + item.instruction_detail + "</div></a></div></td><td>" + item.budgeted_hours + "</td><td>l</td><td>m</td><td>n</td></tr>");
+													} else {
+														$('#mcs_setup_checklist_p1_mfi_table_body').append("<tr ><th class='label'>" + item.line_number + "</th><td>" + item.final_reviewer_username + "<a href='#' data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/greenCheck.png' alt='PreparedBy' style='width:60%'></a></td><td>" + item.final_review_date + "</td><td>" + item.reviewer_username + "<a href='#popupParis' data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/greenCheck.png' alt='PreparedBy' style='width:60%'></a></td><td>" + item.review_date + "</td><td>" + item.preparer_username + "<a href='#popupParis' data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/greenCheck.png' alt='PreparedBy' style='width:60%'></a></td><td>" + item.prepared_date + "</td><td>" + item.mfi_explanation_ref + "</td><td>" + item.mfi_template_process_ref + "</td><td>" + item.source_model_mfi_ref + "</td><td><div data-role='controlgroup' data-type='horizontal' ><a href='#" + item.href + "' data-rel='popup' data-transition='slideup' class='ui-btn ui-disabled ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a'><div style='white-space:normal'>" + item.instruction_detail + "</div></a></div></td><td>" + item.budgeted_hours + "</td><td>l</td><td>m</td><td>n</td></tr>");
+													}
+												}
+	
+											}
+										}else{
+											if(item.event_type == "LINKTOPAGE"){
+												if (item.preparer_username == null) {//Check whether item has been prepared
+													$('#mcs_setup_checklist_p1_mfi_table_body').append("<tr ><th class='label'>" + item.line_number + "</th><td>.</td><td>.</td><td>.</td><td>.</td><td><a href='#" + item.preparedBy_href + "' onclick='setActiveTaskId(" + item.line_number + ")'  data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/redMinus.png' alt='PreparedBy' style='width:60%'></a></td><td></td><td>" + item.mfi_explanation_ref + "</td><td>" + item.mfi_template_process_ref + "</td><td>" + item.source_model_mfi_ref + "</td><td><div data-role='controlgroup' data-type='horizontal' ><a href='#" + item.href + "'onclick='setActiveTaskId(" + item.line_number + ")' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a'><div style='white-space:normal'>" + item.instruction_detail + "</div></a></div></td><td>" + item.budgeted_hours + "</td><td>l</td><td>m</td><td>n</td></tr>");
+												} else {
+													if (item.reviewer_username == null) {//Check whether item has been reviewed
+														$('#mcs_setup_checklist_p1_mfi_table_body').append("<tr ><th class='label'>" + item.line_number + "</th><td>.</td><td>.</td><td><a href='#" + item.reviewedBy_href + "' data-rel='popup' onclick='setActiveTaskId(" + item.line_number + ")'  data-position-to='window' data-transition='fade'><img class='popphoto' src='img/redMinus.png' alt='ReviewedBy' style='width:60%'></a></td><td></td><td>" + item.preparer_username + "<a href='#popupParis' data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/greenCheck.png' alt='PreparedBy' style='width:60%'></a></td><td>" + item.prepared_date + "</td><td>" + item.mfi_explanation_ref + "</td><td>" + item.mfi_template_process_ref + "</td><td>" + item.source_model_mfi_ref + "</td><td><div data-role='controlgroup' data-type='horizontal' ><a href='#" + item.href + "' class='ui-btn ui-disabled ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a'><div style='white-space:normal'>" + item.instruction_detail + "</div></a></div></td><td>" + item.budgeted_hours + "</td><td>l</td><td>m</td><td>n</td></tr>");
+													} else {
+														if (item.final_reviewer_username == null) {//Check whether item has received its final review
+															$('#mcs_setup_checklist_p1_mfi_table_body').append("<tr ><th class='label'>" + item.line_number + "</th><td><a href='#" + item.finalReviewedBy_href + "' data-rel='popup' onclick='setActiveTaskId(" + item.line_number + ")' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/redMinus.png' alt='PreparedBy' style='width:60%'></a></td><td></td><td>" + item.reviewer_username + "<a href='#popupParis' data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/greenCheck.png' alt='PreparedBy' style='width:60%'></a></td><td>" + item.review_date + "</td><td>" + item.preparer_username + "<a href='#popupParis' data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/greenCheck.png' alt='PreparedBy' style='width:60%'></a></td><td>" + item.prepared_date + "</td><td>" + item.mfi_explanation_ref + "</td><td>" + item.mfi_template_process_ref + "</td><td>" + item.source_model_mfi_ref + "</td><td><div data-role='controlgroup' data-type='horizontal' ><a href='#" + item.href + "' class='ui-btn ui-disabled  ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a'><div style='white-space:normal'>" + item.instruction_detail + "</div></a></div></td><td>" + item.budgeted_hours + "</td><td>l</td><td>m</td><td>n</td></tr>");
+														} else {
+															$('#mcs_setup_checklist_p1_mfi_table_body').append("<tr ><th class='label'>" + item.line_number + "</th><td>" + item.final_reviewer_username + "<a href='#' data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/greenCheck.png' alt='PreparedBy' style='width:60%'></a></td><td>" + item.final_review_date + "</td><td>" + item.reviewer_username + "<a href='#popupParis' data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/greenCheck.png' alt='PreparedBy' style='width:60%'></a></td><td>" + item.review_date + "</td><td>" + item.preparer_username + "<a href='#popupParis' data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/greenCheck.png' alt='PreparedBy' style='width:60%'></a></td><td>" + item.prepared_date + "</td><td>" + item.mfi_explanation_ref + "</td><td>" + item.mfi_template_process_ref + "</td><td>" + item.source_model_mfi_ref + "</td><td><div data-role='controlgroup' data-type='horizontal' ><a href='#" + item.href + "'  class='ui-btn ui-disabled ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a'><div style='white-space:normal'>" + item.instruction_detail + "</div></a></div></td><td>" + item.budgeted_hours + "</td><td>l</td><td>m</td><td>n</td></tr>");
+														}
+													}
+					
+												}												
+											}
+										}
+									} else {
+										if (item.phase_id == "P2") {
+											if(item.event_type == "POPUP"){
+													if (item.preparer_username == null) {//Check whether item has been prepared
+														$('#mcs_setup_checklist_p2_mfi_table_body').append("<tr ><th class='label'>" + item.line_number + "</th><td>.</td><td>.</td><td>.</td><td>.</td><td><a href='#" + item.preparedBy_href + "' onclick='setActiveTaskId(" + item.line_number + ")'  data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/redMinus.png' alt='PreparedBy' style='width:60%'></a></td><td></td><td>" + item.mfi_explanation_ref + "</td><td>" + item.mfi_template_process_ref + "</td><td>" + item.source_model_mfi_ref + "</td><td><div data-role='controlgroup' data-type='horizontal' ><a href='#" + item.href + "'onclick='setActiveTaskId(" + item.line_number + ")'  data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a'><div style='white-space:normal'>" + item.instruction_detail + "</div></a></div></td><td>" + item.budgeted_hours + "</td><td>l</td><td>m</td><td>n</td></tr>");
+													} else {
+														if (item.reviewer_username == null) {//Check whether item has been reviewed
+															$('#mcs_setup_checklist_p2_mfi_table_body').append("<tr ><th class='label'>" + item.line_number + "</th><td></td><td></td><td><a href='#" + item.reviewedBy_href + "' data-rel='popup' onclick='setActiveTaskId(" + item.line_number + ")'  data-position-to='window' data-transition='fade'><img class='popphoto' src='img/redMinus.png' alt='ReviewedBy' style='width:60%'></a></td><td></td><td>" + item.preparer_username + "<a href='#popupParis' data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/greenCheck.png' alt='PreparedBy' style='width:60%'></a></td><td>" + item.prepared_date + "</td><td>" + item.mfi_explanation_ref + "</td><td>" + item.mfi_template_process_ref + "</td><td>" + item.source_model_mfi_ref + "</td><td><div data-role='controlgroup' data-type='horizontal' ><a href='#" + item.href + "' data-rel='popup' data-transition='slideup' class='ui-btn ui-disabled ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a'><div style='white-space:normal'>" + item.instruction_detail + "</div></a></div></td><td>" + item.budgeted_hours + "</td><td>l</td><td>m</td><td>n</td></tr>");
+														} else {
+															if (item.final_reviewer_username == null) {//Check whether item has received its final review
+																$('#mcs_setup_checklist_p2_mfi_table_body').append("<tr ><th class='label'>" + item.line_number + "</th><td><a href='#" + item.finalReviewedBy_href + "' data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/redMinus.png' alt='PreparedBy' style='width:60%'></a></td><td></td><td>" + item.reviewer_username + "<a href='#popupParis' data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/greenCheck.png' alt='PreparedBy' style='width:60%'></a></td><td>" + item.review_date + "</td><td>" + item.preparer_username + "<a href='#popupParis' data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/greenCheck.png' alt='PreparedBy' style='width:60%'></a></td><td>" + item.prepared_date + "</td><td>" + item.mfi_explanation_ref + "</td><td>" + item.mfi_template_process_ref + "</td><td>" + item.source_model_mfi_ref + "</td><td><div data-role='controlgroup' data-type='horizontal' ><a href='#" + item.href + "' data-rel='popup' data-transition='slideup' class='ui-btn ui-disabled ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a'><div style='white-space:normal'>" + item.instruction_detail + "</div></a></div></td><td>" + item.budgeted_hours + "</td><td>l</td><td>m</td><td>n</td></tr>");
+															} else {
+																$('#mcs_setup_checklist_p2_mfi_table_body').append("<tr ><th class='label'>" + item.line_number + "</th><td>" + item.final_reviewer_username + "<a href='#' data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/greenCheck.png' alt='PreparedBy' style='width:60%'></a></td><td>" + item.final_review_date + "</td><td>" + item.reviewer_username + "<a href='#popupParis' data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/greenCheck.png' alt='PreparedBy' style='width:60%'></a></td><td>" + item.review_date + "</td><td>" + item.preparer_username + "<a href='#popupParis' data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/greenCheck.png' alt='PreparedBy' style='width:60%'></a></td><td>" + item.prepared_date + "</td><td>" + item.mfi_explanation_ref + "</td><td>" + item.mfi_template_process_ref + "</td><td>" + item.source_model_mfi_ref + "</td><td><div data-role='controlgroup' data-type='horizontal' ><a href='#" + item.href + "' data-rel='popup' data-transition='slideup' class='ui-btn ui-disabled ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a'><div style='white-space:normal'>" + item.instruction_detail + "</div></a></div></td><td>" + item.budgeted_hours + "</td><td>l</td><td>m</td><td>n</td></tr>");
+															}
+														}
+													}
+												}else{
+													if(item.event_type == "LINKTOPAGE"){
+														if (item.preparer_username == null) {//Check whether item has been prepared
+															$('#mcs_setup_checklist_p2_mfi_table_body').append("<tr ><th class='label'>" + item.line_number + "</th><td>.</td><td>.</td><td>.</td><td>.</td><td><a href='#" + item.preparedBy_href + "' onclick='setActiveTaskId(" + item.line_number + ")'  data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/redMinus.png' alt='PreparedBy' style='width:60%'></a></td><td></td><td>" + item.mfi_explanation_ref + "</td><td>" + item.mfi_template_process_ref + "</td><td>" + item.source_model_mfi_ref + "</td><td><div data-role='controlgroup' data-type='horizontal' ><a href='#" + item.href + "'onclick='setActiveTaskId(" + item.line_number + ")' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a'><div style='white-space:normal'>" + item.instruction_detail + "</div></a></div></td><td>" + item.budgeted_hours + "</td><td>l</td><td>m</td><td>n</td></tr>");
+														} else {
+															if (item.reviewer_username == null) {//Check whether item has been reviewed
+																$('#mcs_setup_checklist_p2_mfi_table_body').append("<tr ><th class='label'>" + item.line_number + "</th><td>.</td><td>.</td><td><a href='#" + item.reviewedBy_href + "' data-rel='popup' onclick='setActiveTaskId(" + item.line_number + ")'  data-position-to='window' data-transition='fade'><img class='popphoto' src='img/redMinus.png' alt='ReviewedBy' style='width:60%'></a></td><td></td><td>" + item.preparer_username + "<a href='#popupParis' data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/greenCheck.png' alt='PreparedBy' style='width:60%'></a></td><td>" + item.prepared_date + "</td><td>" + item.mfi_explanation_ref + "</td><td>" + item.mfi_template_process_ref + "</td><td>" + item.source_model_mfi_ref + "</td><td><div data-role='controlgroup' data-type='horizontal' ><a href='#" + item.href + "' class='ui-btn ui-disabled ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a'><div style='white-space:normal'>" + item.instruction_detail + "</div></a></div></td><td>" + item.budgeted_hours + "</td><td>l</td><td>m</td><td>n</td></tr>");
+															} else {
+																if (item.final_reviewer_username == null) {//Check whether item has received its final review
+																	$('#mcs_setup_checklist_p2_mfi_table_body').append("<tr ><th class='label'>" + item.line_number + "</th><td><a href='#" + item.finalReviewedBy_href + "' data-rel='popup' onclick='setActiveTaskId(" + item.line_number + ")' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/redMinus.png' alt='PreparedBy' style='width:60%'></a></td><td></td><td>" + item.reviewer_username + "<a href='#popupParis' data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/greenCheck.png' alt='PreparedBy' style='width:60%'></a></td><td>" + item.review_date + "</td><td>" + item.preparer_username + "<a href='#popupParis' data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/greenCheck.png' alt='PreparedBy' style='width:60%'></a></td><td>" + item.prepared_date + "</td><td>" + item.mfi_explanation_ref + "</td><td>" + item.mfi_template_process_ref + "</td><td>" + item.source_model_mfi_ref + "</td><td><div data-role='controlgroup' data-type='horizontal' ><a href='#" + item.href + "' class='ui-btn ui-disabled  ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a'><div style='white-space:normal'>" + item.instruction_detail + "</div></a></div></td><td>" + item.budgeted_hours + "</td><td>l</td><td>m</td><td>n</td></tr>");
+																} else {
+																	$('#mcs_setup_checklist_p2_mfi_table_body').append("<tr ><th class='label'>" + item.line_number + "</th><td>" + item.final_reviewer_username + "<a href='#' data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/greenCheck.png' alt='PreparedBy' style='width:60%'></a></td><td>" + item.final_review_date + "</td><td>" + item.reviewer_username + "<a href='#popupParis' data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/greenCheck.png' alt='PreparedBy' style='width:60%'></a></td><td>" + item.review_date + "</td><td>" + item.preparer_username + "<a href='#popupParis' data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/greenCheck.png' alt='PreparedBy' style='width:60%'></a></td><td>" + item.prepared_date + "</td><td>" + item.mfi_explanation_ref + "</td><td>" + item.mfi_template_process_ref + "</td><td>" + item.source_model_mfi_ref + "</td><td><div data-role='controlgroup' data-type='horizontal' ><a href='#" + item.href + "'  class='ui-btn ui-disabled ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a'><div style='white-space:normal'>" + item.instruction_detail + "</div></a></div></td><td>" + item.budgeted_hours + "</td><td>l</td><td>m</td><td>n</td></tr>");
+																}
+															}
+														}														
+													}
+												}
+										} else {
+											if (item.phase_id == "P3") {
+												if(item.event_type == "POPUP"){
+													if (item.preparer_username == null) {//Check whether item has been prepared
+														$('#mcs_setup_checklist_p3_mfi_table_body').append("<tr ><th class='label'>" + item.line_number + "</th><td>.</td><td>.</td><td>.</td><td>.</td><td><a href='#" + item.preparedBy_href + "' onclick='setActiveTaskId(" + item.line_number + ")'  data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/redMinus.png' alt='PreparedBy' style='width:60%'></a></td><td></td><td>" + item.mfi_explanation_ref + "</td><td>" + item.mfi_template_process_ref + "</td><td>" + item.source_model_mfi_ref + "</td><td><div data-role='controlgroup' data-type='horizontal' ><a href='#" + item.href + "'onclick='setActiveTaskId(" + item.line_number + ")'  data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a'><div style='white-space:normal'>" + item.instruction_detail + "</div></a></div></td><td>" + item.budgeted_hours + "</td><td>l</td><td>m</td><td>n</td></tr>");
+													} else {
+														if (item.reviewer_username == null) {//Check whether item has been reviewed
+															$('#mcs_setup_checklist_p3_mfi_table_body').append("<tr ><th class='label'>" + item.line_number + "</th><td></td><td></td><td><a href='#" + item.reviewedBy_href + "' data-rel='popup' onclick='setActiveTaskId(" + item.line_number + ")'  data-position-to='window' data-transition='fade'><img class='popphoto' src='img/redMinus.png' alt='ReviewedBy' style='width:60%'></a></td><td></td><td>" + item.preparer_username + "<a href='#popupParis' data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/greenCheck.png' alt='PreparedBy' style='width:60%'></a></td><td>" + item.prepared_date + "</td><td>" + item.mfi_explanation_ref + "</td><td>" + item.mfi_template_process_ref + "</td><td>" + item.source_model_mfi_ref + "</td><td><div data-role='controlgroup' data-type='horizontal' ><a href='#" + item.href + "' data-rel='popup' data-transition='slideup' class='ui-btn ui-disabled ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a'><div style='white-space:normal'>" + item.instruction_detail + "</div></a></div></td><td>" + item.budgeted_hours + "</td><td>l</td><td>m</td><td>n</td></tr>");
+														} else {
+															if (item.final_reviewer_username == null) {//Check whether item has received its final review
+																$('#mcs_setup_checklist_p3_mfi_table_body').append("<tr ><th class='label'>" + item.line_number + "</th><td><a href='#" + item.finalReviewedBy_href + "' data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/redMinus.png' alt='PreparedBy' style='width:60%'></a></td><td></td><td>" + item.reviewer_username + "<a href='#popupParis' data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/greenCheck.png' alt='PreparedBy' style='width:60%'></a></td><td>" + item.review_date + "</td><td>" + item.preparer_username + "<a href='#popupParis' data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/greenCheck.png' alt='PreparedBy' style='width:60%'></a></td><td>" + item.prepared_date + "</td><td>" + item.mfi_explanation_ref + "</td><td>" + item.mfi_template_process_ref + "</td><td>" + item.source_model_mfi_ref + "</td><td><div data-role='controlgroup' data-type='horizontal' ><a href='#" + item.href + "' data-rel='popup' data-transition='slideup' class='ui-btn ui-disabled ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a'><div style='white-space:normal'>" + item.instruction_detail + "</div></a></div></td><td>" + item.budgeted_hours + "</td><td>l</td><td>m</td><td>n</td></tr>");
+															} else {
+																$('#mcs_setup_checklist_p3_mfi_table_body').append("<tr ><th class='label'>" + item.line_number + "</th><td>" + item.final_reviewer_username + "<a href='#' data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/greenCheck.png' alt='PreparedBy' style='width:60%'></a></td><td>" + item.final_review_date + "</td><td>" + item.reviewer_username + "<a href='#popupParis' data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/greenCheck.png' alt='PreparedBy' style='width:60%'></a></td><td>" + item.review_date + "</td><td>" + item.preparer_username + "<a href='#popupParis' data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/greenCheck.png' alt='PreparedBy' style='width:60%'></a></td><td>" + item.prepared_date + "</td><td>" + item.mfi_explanation_ref + "</td><td>" + item.mfi_template_process_ref + "</td><td>" + item.source_model_mfi_ref + "</td><td><div data-role='controlgroup' data-type='horizontal' ><a href='#" + item.href + "' data-rel='popup' data-transition='slideup' class='ui-btn ui-disabled ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a'><div style='white-space:normal'>" + item.instruction_detail + "</div></a></div></td><td>" + item.budgeted_hours + "</td><td>l</td><td>m</td><td>n</td></tr>");
+															}
+														}
+	
+													}												
+												}else{
+													if(item.event_type == "LINKTOPAGE"){
+														if (item.preparer_username == null) {//Check whether item has been prepared
+															$('#mcs_setup_checklist_p3_mfi_table_body').append("<tr ><th class='label'>" + item.line_number + "</th><td>.</td><td>.</td><td>.</td><td>.</td><td><a href='#" + item.preparedBy_href + "' onclick='setActiveTaskId(" + item.line_number + ")'  data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/redMinus.png' alt='PreparedBy' style='width:60%'></a></td><td></td><td>" + item.mfi_explanation_ref + "</td><td>" + item.mfi_template_process_ref + "</td><td>" + item.source_model_mfi_ref + "</td><td><div data-role='controlgroup' data-type='horizontal' ><a href='#" + item.href + "'onclick='setActiveTaskId(" + item.line_number + ")' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a'><div style='white-space:normal'>" + item.instruction_detail + "</div></a></div></td><td>" + item.budgeted_hours + "</td><td>l</td><td>m</td><td>n</td></tr>");
+														} else {
+															if (item.reviewer_username == null) {//Check whether item has been reviewed
+																$('#mcs_setup_checklist_p3_mfi_table_body').append("<tr ><th class='label'>" + item.line_number + "</th><td>.</td><td>.</td><td><a href='#" + item.reviewedBy_href + "' data-rel='popup' onclick='setActiveTaskId(" + item.line_number + ")'  data-position-to='window' data-transition='fade'><img class='popphoto' src='img/redMinus.png' alt='ReviewedBy' style='width:60%'></a></td><td></td><td>" + item.preparer_username + "<a href='#popupParis' data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/greenCheck.png' alt='PreparedBy' style='width:60%'></a></td><td>" + item.prepared_date + "</td><td>" + item.mfi_explanation_ref + "</td><td>" + item.mfi_template_process_ref + "</td><td>" + item.source_model_mfi_ref + "</td><td><div data-role='controlgroup' data-type='horizontal' ><a href='#" + item.href + "' class='ui-btn ui-disabled ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a'><div style='white-space:normal'>" + item.instruction_detail + "</div></a></div></td><td>" + item.budgeted_hours + "</td><td>l</td><td>m</td><td>n</td></tr>");
+															} else {
+																if (item.final_reviewer_username == null) {//Check whether item has received its final review
+																	$('#mcs_setup_checklist_p3_mfi_table_body').append("<tr ><th class='label'>" + item.line_number + "</th><td><a href='#" + item.finalReviewedBy_href + "' data-rel='popup' onclick='setActiveTaskId(" + item.line_number + ")' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/redMinus.png' alt='PreparedBy' style='width:60%'></a></td><td></td><td>" + item.reviewer_username + "<a href='#popupParis' data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/greenCheck.png' alt='PreparedBy' style='width:60%'></a></td><td>" + item.review_date + "</td><td>" + item.preparer_username + "<a href='#popupParis' data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/greenCheck.png' alt='PreparedBy' style='width:60%'></a></td><td>" + item.prepared_date + "</td><td>" + item.mfi_explanation_ref + "</td><td>" + item.mfi_template_process_ref + "</td><td>" + item.source_model_mfi_ref + "</td><td><div data-role='controlgroup' data-type='horizontal' ><a href='#" + item.href + "' class='ui-btn ui-disabled  ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a'><div style='white-space:normal'>" + item.instruction_detail + "</div></a></div></td><td>" + item.budgeted_hours + "</td><td>l</td><td>m</td><td>n</td></tr>");
+																} else {
+																	$('#mcs_setup_checklist_p3_mfi_table_body').append("<tr ><th class='label'>" + item.line_number + "</th><td>" + item.final_reviewer_username + "<a href='#' data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/greenCheck.png' alt='PreparedBy' style='width:60%'></a></td><td>" + item.final_review_date + "</td><td>" + item.reviewer_username + "<a href='#popupParis' data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/greenCheck.png' alt='PreparedBy' style='width:60%'></a></td><td>" + item.review_date + "</td><td>" + item.preparer_username + "<a href='#popupParis' data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/greenCheck.png' alt='PreparedBy' style='width:60%'></a></td><td>" + item.prepared_date + "</td><td>" + item.mfi_explanation_ref + "</td><td>" + item.mfi_template_process_ref + "</td><td>" + item.source_model_mfi_ref + "</td><td><div data-role='controlgroup' data-type='horizontal' ><a href='#" + item.href + "'  class='ui-btn ui-disabled ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a'><div style='white-space:normal'>" + item.instruction_detail + "</div></a></div></td><td>" + item.budgeted_hours + "</td><td>l</td><td>m</td><td>n</td></tr>");
+																}
+															}
+														}														
+													}
+													
+												}
+											} else {
+												if (item.phase_id == "P4B1") {
+													if (item.preparer_username == null) {//Check whether item has been prepared
+														$('#mcs_setup_checklist_p4_b1_mfi_table_body').append("<tr ><th class='label'>" + item.line_number + "</th><td>.</td><td>.</td><td>.</td><td>.</td><td><a href='#" + item.preparedBy_href + "' onclick='setActiveTaskId(" + item.line_number + ")'  data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/redMinus.png' alt='PreparedBy' style='width:60%'></a></td><td></td><td>" + item.mfi_explanation_ref + "</td><td>" + item.mfi_template_process_ref + "</td><td>" + item.source_model_mfi_ref + "</td><td><div data-role='controlgroup' data-type='horizontal' ><a href='#" + item.href + "'onclick='setActiveTaskId(" + item.line_number + ")'  data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a'><div style='white-space:normal'>" + item.instruction_detail + "</div></a></div></td><td>" + item.budgeted_hours + "</td><td>l</td><td>m</td><td>n</td></tr>");
+													} else {
+														if (item.reviewer_username == null) {//Check whether item has been reviewed
+															$('#mcs_setup_checklist_p4_b1_mfi_table_body').append("<tr ><th class='label'>" + item.line_number + "</th><td></td><td></td><td><a href='#" + item.reviewedBy_href + "' data-rel='popup' onclick='setActiveTaskId(" + item.line_number + ")'  data-position-to='window' data-transition='fade'><img class='popphoto' src='img/redMinus.png' alt='ReviewedBy' style='width:60%'></a></td><td></td><td>" + item.preparer_username + "<a href='#popupParis' data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/greenCheck.png' alt='PreparedBy' style='width:60%'></a></td><td>" + item.prepared_date + "</td><td>" + item.mfi_explanation_ref + "</td><td>" + item.mfi_template_process_ref + "</td><td>" + item.source_model_mfi_ref + "</td><td><div data-role='controlgroup' data-type='horizontal' ><a href='#" + item.href + "' data-rel='popup' data-transition='slideup' class='ui-btn ui-disabled ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a'><div style='white-space:normal'>" + item.instruction_detail + "</div></a></div></td><td>" + item.budgeted_hours + "</td><td>l</td><td>m</td><td>n</td></tr>");
+														} else {
+															if (item.final_reviewer_username == null) {//Check whether item has received its final review
+																$('#mcs_setup_checklist_p4_b1_mfi_table_body').append("<tr ><th class='label'>" + item.line_number + "</th><td><a href='#" + item.finalReviewedBy_href + "' data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/redMinus.png' alt='PreparedBy' style='width:60%'></a></td><td></td><td>" + item.reviewer_username + "<a href='#popupParis' data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/greenCheck.png' alt='PreparedBy' style='width:60%'></a></td><td>" + item.review_date + "</td><td>" + item.preparer_username + "<a href='#popupParis' data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/greenCheck.png' alt='PreparedBy' style='width:60%'></a></td><td>" + item.prepared_date + "</td><td>" + item.mfi_explanation_ref + "</td><td>" + item.mfi_template_process_ref + "</td><td>" + item.source_model_mfi_ref + "</td><td><div data-role='controlgroup' data-type='horizontal' ><a href='#" + item.href + "' data-rel='popup' data-transition='slideup' class='ui-btn ui-disabled ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a'><div style='white-space:normal'>" + item.instruction_detail + "</div></a></div></td><td>" + item.budgeted_hours + "</td><td>l</td><td>m</td><td>n</td></tr>");
+															} else {
+																$('#mcs_setup_checklist_p4_b1_mfi_table_body').append("<tr ><th class='label'>" + item.line_number + "</th><td>" + item.final_reviewer_username + "<a href='#' data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/greenCheck.png' alt='PreparedBy' style='width:60%'></a></td><td>" + item.final_review_date + "</td><td>" + item.reviewer_username + "<a href='#popupParis' data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/greenCheck.png' alt='PreparedBy' style='width:60%'></a></td><td>" + item.review_date + "</td><td>" + item.preparer_username + "<a href='#popupParis' data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/greenCheck.png' alt='PreparedBy' style='width:60%'></a></td><td>" + item.prepared_date + "</td><td>" + item.mfi_explanation_ref + "</td><td>" + item.mfi_template_process_ref + "</td><td>" + item.source_model_mfi_ref + "</td><td><div data-role='controlgroup' data-type='horizontal' ><a href='#" + item.href + "' data-rel='popup' data-transition='slideup' class='ui-btn ui-disabled ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a'><div style='white-space:normal'>" + item.instruction_detail + "</div></a></div></td><td>" + item.budgeted_hours + "</td><td>l</td><td>m</td><td>n</td></tr>");
+															}
+														}
+
+													}
+												} else {
+													if (item.phase_id == "P4B2") {
+														if (item.preparer_username == null) {//Check whether item has been prepared
+															$('#mcs_setup_checklist_p4_b2_mfi_table_body').append("<tr ><th class='label'>" + item.line_number + "</th><td>.</td><td>.</td><td>.</td><td>.</td><td><a href='#" + item.preparedBy_href + "' onclick='setActiveTaskId(" + item.line_number + ")'  data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/redMinus.png' alt='PreparedBy' style='width:60%'></a></td><td></td><td>" + item.mfi_explanation_ref + "</td><td>" + item.mfi_template_process_ref + "</td><td>" + item.source_model_mfi_ref + "</td><td><div data-role='controlgroup' data-type='horizontal' ><a href='#" + item.href + "'onclick='setActiveTaskId(" + item.line_number + ")'  data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a'><div style='white-space:normal'>" + item.instruction_detail + "</div></a></div></td><td>" + item.budgeted_hours + "</td><td>l</td><td>m</td><td>n</td></tr>");
+														} else {
+															if (item.reviewer_username == null) {//Check whether item has been reviewed
+																$('#mcs_setup_checklist_p4_b2_mfi_table_body').append("<tr ><th class='label'>" + item.line_number + "</th><td></td><td></td><td><a href='#" + item.reviewedBy_href + "' data-rel='popup' onclick='setActiveTaskId(" + item.line_number + ")'  data-position-to='window' data-transition='fade'><img class='popphoto' src='img/redMinus.png' alt='ReviewedBy' style='width:60%'></a></td><td></td><td>" + item.preparer_username + "<a href='#popupParis' data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/greenCheck.png' alt='PreparedBy' style='width:60%'></a></td><td>" + item.prepared_date + "</td><td>" + item.mfi_explanation_ref + "</td><td>" + item.mfi_template_process_ref + "</td><td>" + item.source_model_mfi_ref + "</td><td><div data-role='controlgroup' data-type='horizontal' ><a href='#" + item.href + "' data-rel='popup' data-transition='slideup' class='ui-btn ui-disabled ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a'><div style='white-space:normal'>" + item.instruction_detail + "</div></a></div></td><td>" + item.budgeted_hours + "</td><td>l</td><td>m</td><td>n</td></tr>");
+															} else {
+																if (item.final_reviewer_username == null) {//Check whether item has received its final review
+																	$('#mcs_setup_checklist_p4_b2_mfi_table_body').append("<tr ><th class='label'>" + item.line_number + "</th><td><a href='#" + item.finalReviewedBy_href + "' data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/redMinus.png' alt='PreparedBy' style='width:60%'></a></td><td></td><td>" + item.reviewer_username + "<a href='#popupParis' data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/greenCheck.png' alt='PreparedBy' style='width:60%'></a></td><td>" + item.review_date + "</td><td>" + item.preparer_username + "<a href='#popupParis' data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/greenCheck.png' alt='PreparedBy' style='width:60%'></a></td><td>" + item.prepared_date + "</td><td>" + item.mfi_explanation_ref + "</td><td>" + item.mfi_template_process_ref + "</td><td>" + item.source_model_mfi_ref + "</td><td><div data-role='controlgroup' data-type='horizontal' ><a href='#" + item.href + "' data-rel='popup' data-transition='slideup' class='ui-btn ui-disabled ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a'><div style='white-space:normal'>" + item.instruction_detail + "</div></a></div></td><td>" + item.budgeted_hours + "</td><td>l</td><td>m</td><td>n</td></tr>");
+																} else {
+																	$('#mcs_setup_checklist_p4_b2_mfi_table_body').append("<tr ><th class='label'>" + item.line_number + "</th><td>" + item.final_reviewer_username + "<a href='#' data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/greenCheck.png' alt='PreparedBy' style='width:60%'></a></td><td>" + item.final_review_date + "</td><td>" + item.reviewer_username + "<a href='#popupParis' data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/greenCheck.png' alt='PreparedBy' style='width:60%'></a></td><td>" + item.review_date + "</td><td>" + item.preparer_username + "<a href='#popupParis' data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/greenCheck.png' alt='PreparedBy' style='width:60%'></a></td><td>" + item.prepared_date + "</td><td>" + item.mfi_explanation_ref + "</td><td>" + item.mfi_template_process_ref + "</td><td>" + item.source_model_mfi_ref + "</td><td><div data-role='controlgroup' data-type='horizontal' ><a href='#" + item.href + "' data-rel='popup' data-transition='slideup' class='ui-btn ui-disabled ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a'><div style='white-space:normal'>" + item.instruction_detail + "</div></a></div></td><td>" + item.budgeted_hours + "</td><td>l</td><td>m</td><td>n</td></tr>");
+																}
+															}
+
+														}
+													} else {
+														if (item.phase_id == "P4B3") {
+															if (item.preparer_username == null) {//Check whether item has been prepared
+																$('#mcs_setup_checklist_p4_b3_mfi_table_body').append("<tr ><th class='label'>" + item.line_number + "</th><td>.</td><td>.</td><td>.</td><td>.</td><td><a href='#" + item.preparedBy_href + "' onclick='setActiveTaskId(" + item.line_number + ")'  data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/redMinus.png' alt='PreparedBy' style='width:60%'></a></td><td></td><td>" + item.mfi_explanation_ref + "</td><td>" + item.mfi_template_process_ref + "</td><td>" + item.source_model_mfi_ref + "</td><td><div data-role='controlgroup' data-type='horizontal' ><a href='#" + item.href + "'onclick='setActiveTaskId(" + item.line_number + ")'  data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a'><div style='white-space:normal'>" + item.instruction_detail + "</div></a></div></td><td>" + item.budgeted_hours + "</td><td>l</td><td>m</td><td>n</td></tr>");
+															} else {
+																if (item.reviewer_username == null) {//Check whether item has been reviewed
+																	$('#mcs_setup_checklist_p4_b3_mfi_table_body').append("<tr ><th class='label'>" + item.line_number + "</th><td></td><td></td><td><a href='#" + item.reviewedBy_href + "' data-rel='popup' onclick='setActiveTaskId(" + item.line_number + ")'  data-position-to='window' data-transition='fade'><img class='popphoto' src='img/redMinus.png' alt='ReviewedBy' style='width:60%'></a></td><td></td><td>" + item.preparer_username + "<a href='#popupParis' data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/greenCheck.png' alt='PreparedBy' style='width:60%'></a></td><td>" + item.prepared_date + "</td><td>" + item.mfi_explanation_ref + "</td><td>" + item.mfi_template_process_ref + "</td><td>" + item.source_model_mfi_ref + "</td><td><div data-role='controlgroup' data-type='horizontal' ><a href='#" + item.href + "' data-rel='popup' data-transition='slideup' class='ui-btn ui-disabled ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a'><div style='white-space:normal'>" + item.instruction_detail + "</div></a></div></td><td>" + item.budgeted_hours + "</td><td>l</td><td>m</td><td>n</td></tr>");
+																} else {
+																	if (item.final_reviewer_username == null) {//Check whether item has received its final review
+																		$('#mcs_setup_checklist_p4_b3_mfi_table_body').append("<tr ><th class='label'>" + item.line_number + "</th><td><a href='#" + item.finalReviewedBy_href + "' data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/redMinus.png' alt='PreparedBy' style='width:60%'></a></td><td></td><td>" + item.reviewer_username + "<a href='#popupParis' data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/greenCheck.png' alt='PreparedBy' style='width:60%'></a></td><td>" + item.review_date + "</td><td>" + item.preparer_username + "<a href='#popupParis' data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/greenCheck.png' alt='PreparedBy' style='width:60%'></a></td><td>" + item.prepared_date + "</td><td>" + item.mfi_explanation_ref + "</td><td>" + item.mfi_template_process_ref + "</td><td>" + item.source_model_mfi_ref + "</td><td><div data-role='controlgroup' data-type='horizontal' ><a href='#" + item.href + "' data-rel='popup' data-transition='slideup' class='ui-btn ui-disabled ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a'><div style='white-space:normal'>" + item.instruction_detail + "</div></a></div></td><td>" + item.budgeted_hours + "</td><td>l</td><td>m</td><td>n</td></tr>");
+																	} else {
+																		$('#mcs_setup_checklist_p4_b3_mfi_table_body').append("<tr ><th class='label'>" + item.line_number + "</th><td>" + item.final_reviewer_username + "<a href='#' data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/greenCheck.png' alt='PreparedBy' style='width:60%'></a></td><td>" + item.final_review_date + "</td><td>" + item.reviewer_username + "<a href='#popupParis' data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/greenCheck.png' alt='PreparedBy' style='width:60%'></a></td><td>" + item.review_date + "</td><td>" + item.preparer_username + "<a href='#popupParis' data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/greenCheck.png' alt='PreparedBy' style='width:60%'></a></td><td>" + item.prepared_date + "</td><td>" + item.mfi_explanation_ref + "</td><td>" + item.mfi_template_process_ref + "</td><td>" + item.source_model_mfi_ref + "</td><td><div data-role='controlgroup' data-type='horizontal' ><a href='#" + item.href + "' data-rel='popup' data-transition='slideup' class='ui-btn ui-disabled ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a'><div style='white-space:normal'>" + item.instruction_detail + "</div></a></div></td><td>" + item.budgeted_hours + "</td><td>l</td><td>m</td><td>n</td></tr>");
+																	}
+																}
+
+															}
+														} else {
+															if (item.phase_id == "P4B4") {
+																if (item.preparer_username == null) {//Check whether item has been prepared
+																	$('#mcs_setup_checklist_p4_b4_mfi_table_body').append("<tr ><th class='label'>" + item.line_number + "</th><td>.</td><td>.</td><td>.</td><td>.</td><td><a href='#" + item.preparedBy_href + "' onclick='setActiveTaskId(" + item.line_number + ")'  data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/redMinus.png' alt='PreparedBy' style='width:60%'></a></td><td></td><td>" + item.mfi_explanation_ref + "</td><td>" + item.mfi_template_process_ref + "</td><td>" + item.source_model_mfi_ref + "</td><td><div data-role='controlgroup' data-type='horizontal' ><a href='#" + item.href + "'onclick='setActiveTaskId(" + item.line_number + ")'  data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a'><div style='white-space:normal'>" + item.instruction_detail + "</div></a></div></td><td>" + item.budgeted_hours + "</td><td>l</td><td>m</td><td>n</td></tr>");
+																} else {
+																	if (item.reviewer_username == null) {//Check whether item has been reviewed
+																		$('#mcs_setup_checklist_p4_b4_mfi_table_body').append("<tr ><th class='label'>" + item.line_number + "</th><td></td><td></td><td><a href='#" + item.reviewedBy_href + "' data-rel='popup' onclick='setActiveTaskId(" + item.line_number + ")'  data-position-to='window' data-transition='fade'><img class='popphoto' src='img/redMinus.png' alt='ReviewedBy' style='width:60%'></a></td><td></td><td>" + item.preparer_username + "<a href='#popupParis' data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/greenCheck.png' alt='PreparedBy' style='width:60%'></a></td><td>" + item.prepared_date + "</td><td>" + item.mfi_explanation_ref + "</td><td>" + item.mfi_template_process_ref + "</td><td>" + item.source_model_mfi_ref + "</td><td><div data-role='controlgroup' data-type='horizontal' ><a href='#" + item.href + "' data-rel='popup' data-transition='slideup' class='ui-btn ui-disabled ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a'><div style='white-space:normal'>" + item.instruction_detail + "</div></a></div></td><td>" + item.budgeted_hours + "</td><td>l</td><td>m</td><td>n</td></tr>");
+																	} else {
+																		if (item.final_reviewer_username == null) {//Check whether item has received its final review
+																			$('#mcs_setup_checklist_p4_b4_mfi_table_body').append("<tr ><th class='label'>" + item.line_number + "</th><td><a href='#" + item.finalReviewedBy_href + "' data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/redMinus.png' alt='PreparedBy' style='width:60%'></a></td><td></td><td>" + item.reviewer_username + "<a href='#popupParis' data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/greenCheck.png' alt='PreparedBy' style='width:60%'></a></td><td>" + item.review_date + "</td><td>" + item.preparer_username + "<a href='#popupParis' data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/greenCheck.png' alt='PreparedBy' style='width:60%'></a></td><td>" + item.prepared_date + "</td><td>" + item.mfi_explanation_ref + "</td><td>" + item.mfi_template_process_ref + "</td><td>" + item.source_model_mfi_ref + "</td><td><div data-role='controlgroup' data-type='horizontal' ><a href='#" + item.href + "' data-rel='popup' data-transition='slideup' class='ui-btn ui-disabled ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a'><div style='white-space:normal'>" + item.instruction_detail + "</div></a></div></td><td>" + item.budgeted_hours + "</td><td>l</td><td>m</td><td>n</td></tr>");
+																		} else {
+																			$('#mcs_setup_checklist_p4_b4_mfi_table_body').append("<tr ><th class='label'>" + item.line_number + "</th><td>" + item.final_reviewer_username + "<a href='#' data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/greenCheck.png' alt='PreparedBy' style='width:60%'></a></td><td>" + item.final_review_date + "</td><td>" + item.reviewer_username + "<a href='#popupParis' data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/greenCheck.png' alt='PreparedBy' style='width:60%'></a></td><td>" + item.review_date + "</td><td>" + item.preparer_username + "<a href='#popupParis' data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/greenCheck.png' alt='PreparedBy' style='width:60%'></a></td><td>" + item.prepared_date + "</td><td>" + item.mfi_explanation_ref + "</td><td>" + item.mfi_template_process_ref + "</td><td>" + item.source_model_mfi_ref + "</td><td><div data-role='controlgroup' data-type='horizontal' ><a href='#" + item.href + "' data-rel='popup' data-transition='slideup' class='ui-btn ui-disabled ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a'><div style='white-space:normal'>" + item.instruction_detail + "</div></a></div></td><td>" + item.budgeted_hours + "</td><td>l</td><td>m</td><td>n</td></tr>");
+																		}
+																	}
+
+																}
+															} else {
+																if (item.phase_id == "P4B5") {
+																	if (item.preparer_username == null) {//Check whether item has been prepared
+																		$('#mcs_setup_checklist_p4_b5_mfi_table_body').append("<tr ><th class='label'>" + item.line_number + "</th><td>.</td><td>.</td><td>.</td><td>.</td><td><a href='#" + item.preparedBy_href + "' onclick='setActiveTaskId(" + item.line_number + ")'  data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/redMinus.png' alt='PreparedBy' style='width:60%'></a></td><td></td><td>" + item.mfi_explanation_ref + "</td><td>" + item.mfi_template_process_ref + "</td><td>" + item.source_model_mfi_ref + "</td><td><div data-role='controlgroup' data-type='horizontal' ><a href='#" + item.href + "'onclick='setActiveTaskId(" + item.line_number + ")'  data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a'><div style='white-space:normal'>" + item.instruction_detail + "</div></a></div></td><td>" + item.budgeted_hours + "</td><td>l</td><td>m</td><td>n</td></tr>");
+																	} else {
+																		if (item.reviewer_username == null) {//Check whether item has been reviewed
+																			$('#mcs_setup_checklist_p4_b5_mfi_table_body').append("<tr ><th class='label'>" + item.line_number + "</th><td></td><td></td><td><a href='#" + item.reviewedBy_href + "' data-rel='popup' onclick='setActiveTaskId(" + item.line_number + ")'  data-position-to='window' data-transition='fade'><img class='popphoto' src='img/redMinus.png' alt='ReviewedBy' style='width:60%'></a></td><td></td><td>" + item.preparer_username + "<a href='#popupParis' data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/greenCheck.png' alt='PreparedBy' style='width:60%'></a></td><td>" + item.prepared_date + "</td><td>" + item.mfi_explanation_ref + "</td><td>" + item.mfi_template_process_ref + "</td><td>" + item.source_model_mfi_ref + "</td><td><div data-role='controlgroup' data-type='horizontal' ><a href='#" + item.href + "' data-rel='popup' data-transition='slideup' class='ui-btn ui-disabled ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a'><div style='white-space:normal'>" + item.instruction_detail + "</div></a></div></td><td>" + item.budgeted_hours + "</td><td>l</td><td>m</td><td>n</td></tr>");
+																		} else {
+																			if (item.final_reviewer_username == null) {//Check whether item has received its final review
+																				$('#mcs_setup_checklist_p4_b5_mfi_table_body').append("<tr ><th class='label'>" + item.line_number + "</th><td><a href='#" + item.finalReviewedBy_href + "' data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/redMinus.png' alt='PreparedBy' style='width:60%'></a></td><td></td><td>" + item.reviewer_username + "<a href='#popupParis' data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/greenCheck.png' alt='PreparedBy' style='width:60%'></a></td><td>" + item.review_date + "</td><td>" + item.preparer_username + "<a href='#popupParis' data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/greenCheck.png' alt='PreparedBy' style='width:60%'></a></td><td>" + item.prepared_date + "</td><td>" + item.mfi_explanation_ref + "</td><td>" + item.mfi_template_process_ref + "</td><td>" + item.source_model_mfi_ref + "</td><td><div data-role='controlgroup' data-type='horizontal' ><a href='#" + item.href + "' data-rel='popup' data-transition='slideup' class='ui-btn ui-disabled ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a'><div style='white-space:normal'>" + item.instruction_detail + "</div></a></div></td><td>" + item.budgeted_hours + "</td><td>l</td><td>m</td><td>n</td></tr>");
+																			} else {
+																				$('#mcs_setup_checklist_p4_b5_mfi_table_body').append("<tr ><th class='label'>" + item.line_number + "</th><td>" + item.final_reviewer_username + "<a href='#' data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/greenCheck.png' alt='PreparedBy' style='width:60%'></a></td><td>" + item.final_review_date + "</td><td>" + item.reviewer_username + "<a href='#popupParis' data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/greenCheck.png' alt='PreparedBy' style='width:60%'></a></td><td>" + item.review_date + "</td><td>" + item.preparer_username + "<a href='#popupParis' data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/greenCheck.png' alt='PreparedBy' style='width:60%'></a></td><td>" + item.prepared_date + "</td><td>" + item.mfi_explanation_ref + "</td><td>" + item.mfi_template_process_ref + "</td><td>" + item.source_model_mfi_ref + "</td><td><div data-role='controlgroup' data-type='horizontal' ><a href='#" + item.href + "' data-rel='popup' data-transition='slideup' class='ui-btn ui-disabled ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a'><div style='white-space:normal'>" + item.instruction_detail + "</div></a></div></td><td>" + item.budgeted_hours + "</td><td>l</td><td>m</td><td>n</td></tr>");
+																			}
+																		}
+																	}
+																} else {
+																	if (item.phase_id == "P4B6") {
+																		if (item.preparer_username == null) {//Check whether item has been prepared
+																			$('#mcs_setup_checklist_p4_b6_mfi_table_body').append("<tr ><th class='label'>" + item.line_number + "</th><td>.</td><td>.</td><td>.</td><td>.</td><td><a href='#" + item.preparedBy_href + "' onclick='setActiveTaskId(" + item.line_number + ")'  data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/redMinus.png' alt='PreparedBy' style='width:60%'></a></td><td></td><td>" + item.mfi_explanation_ref + "</td><td>" + item.mfi_template_process_ref + "</td><td>" + item.source_model_mfi_ref + "</td><td><div data-role='controlgroup' data-type='horizontal' ><a href='#" + item.href + "'onclick='setActiveTaskId(" + item.line_number + ")'  data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a'><div style='white-space:normal'>" + item.instruction_detail + "</div></a></div></td><td>" + item.budgeted_hours + "</td><td>l</td><td>m</td><td>n</td></tr>");
+																		} else {
+																			if (item.reviewer_username == null) {//Check whether item has been reviewed
+																				$('#mcs_setup_checklist_p4_b6_mfi_table_body').append("<tr ><th class='label'>" + item.line_number + "</th><td></td><td></td><td><a href='#" + item.reviewedBy_href + "' data-rel='popup' onclick='setActiveTaskId(" + item.line_number + ")'  data-position-to='window' data-transition='fade'><img class='popphoto' src='img/redMinus.png' alt='ReviewedBy' style='width:60%'></a></td><td></td><td>" + item.preparer_username + "<a href='#popupParis' data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/greenCheck.png' alt='PreparedBy' style='width:60%'></a></td><td>" + item.prepared_date + "</td><td>" + item.mfi_explanation_ref + "</td><td>" + item.mfi_template_process_ref + "</td><td>" + item.source_model_mfi_ref + "</td><td><div data-role='controlgroup' data-type='horizontal' ><a href='#" + item.href + "' data-rel='popup' data-transition='slideup' class='ui-btn ui-disabled ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a'><div style='white-space:normal'>" + item.instruction_detail + "</div></a></div></td><td>" + item.budgeted_hours + "</td><td>l</td><td>m</td><td>n</td></tr>");
+																			} else {
+																				if (item.final_reviewer_username == null) {//Check whether item has received its final review
+																					$('#mcs_setup_checklist_p4_b6_mfi_table_body').append("<tr ><th class='label'>" + item.line_number + "</th><td><a href='#" + item.finalReviewedBy_href + "' data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/redMinus.png' alt='PreparedBy' style='width:60%'></a></td><td></td><td>" + item.reviewer_username + "<a href='#popupParis' data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/greenCheck.png' alt='PreparedBy' style='width:60%'></a></td><td>" + item.review_date + "</td><td>" + item.preparer_username + "<a href='#popupParis' data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/greenCheck.png' alt='PreparedBy' style='width:60%'></a></td><td>" + item.prepared_date + "</td><td>" + item.mfi_explanation_ref + "</td><td>" + item.mfi_template_process_ref + "</td><td>" + item.source_model_mfi_ref + "</td><td><div data-role='controlgroup' data-type='horizontal' ><a href='#" + item.href + "' data-rel='popup' data-transition='slideup' class='ui-btn ui-disabled ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a'><div style='white-space:normal'>" + item.instruction_detail + "</div></a></div></td><td>" + item.budgeted_hours + "</td><td>l</td><td>m</td><td>n</td></tr>");
+																				} else {
+																					$('#mcs_setup_checklist_p4_b6_mfi_table_body').append("<tr ><th class='label'>" + item.line_number + "</th><td>" + item.final_reviewer_username + "<a href='#' data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/greenCheck.png' alt='PreparedBy' style='width:60%'></a></td><td>" + item.final_review_date + "</td><td>" + item.reviewer_username + "<a href='#popupParis' data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/greenCheck.png' alt='PreparedBy' style='width:60%'></a></td><td>" + item.review_date + "</td><td>" + item.preparer_username + "<a href='#popupParis' data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/greenCheck.png' alt='PreparedBy' style='width:60%'></a></td><td>" + item.prepared_date + "</td><td>" + item.mfi_explanation_ref + "</td><td>" + item.mfi_template_process_ref + "</td><td>" + item.source_model_mfi_ref + "</td><td><div data-role='controlgroup' data-type='horizontal' ><a href='#" + item.href + "' data-rel='popup' data-transition='slideup' class='ui-btn ui-disabled ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a'><div style='white-space:normal'>" + item.instruction_detail + "</div></a></div></td><td>" + item.budgeted_hours + "</td><td>l</td><td>m</td><td>n</td></tr>");
+																				}
+																			}
+																		}
+																	} else {
+																		if (item.phase_id == "P4B7") {
+																			if (item.preparer_username == null) {//Check whether item has been prepared
+																				$('#mcs_setup_checklist_p4_b7_mfi_table_body').append("<tr ><th class='label'>" + item.line_number + "</th><td>.</td><td>.</td><td>.</td><td>.</td><td><a href='#" + item.preparedBy_href + "' onclick='setActiveTaskId(" + item.line_number + ")'  data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/redMinus.png' alt='PreparedBy' style='width:60%'></a></td><td></td><td>" + item.mfi_explanation_ref + "</td><td>" + item.mfi_template_process_ref + "</td><td>" + item.source_model_mfi_ref + "</td><td><div data-role='controlgroup' data-type='horizontal' ><a href='#" + item.href + "'onclick='setActiveTaskId(" + item.line_number + ")'  data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a'><div style='white-space:normal'>" + item.instruction_detail + "</div></a></div></td><td>" + item.budgeted_hours + "</td><td>l</td><td>m</td><td>n</td></tr>");
+																			} else {
+																				if (item.reviewer_username == null) {//Check whether item has been reviewed
+																					$('#mcs_setup_checklist_p4_b7_mfi_table_body').append("<tr ><th class='label'>" + item.line_number + "</th><td></td><td></td><td><a href='#" + item.reviewedBy_href + "' data-rel='popup' onclick='setActiveTaskId(" + item.line_number + ")'  data-position-to='window' data-transition='fade'><img class='popphoto' src='img/redMinus.png' alt='ReviewedBy' style='width:60%'></a></td><td></td><td>" + item.preparer_username + "<a href='#popupParis' data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/greenCheck.png' alt='PreparedBy' style='width:60%'></a></td><td>" + item.prepared_date + "</td><td>" + item.mfi_explanation_ref + "</td><td>" + item.mfi_template_process_ref + "</td><td>" + item.source_model_mfi_ref + "</td><td><div data-role='controlgroup' data-type='horizontal' ><a href='#" + item.href + "' data-rel='popup' data-transition='slideup' class='ui-btn ui-disabled ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a'><div style='white-space:normal'>" + item.instruction_detail + "</div></a></div></td><td>" + item.budgeted_hours + "</td><td>l</td><td>m</td><td>n</td></tr>");
+																				} else {
+																					if (item.final_reviewer_username == null) {//Check whether item has received its final review
+																						$('#mcs_setup_checklist_p4_b7_mfi_table_body').append("<tr ><th class='label'>" + item.line_number + "</th><td><a href='#" + item.finalReviewedBy_href + "' data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/redMinus.png' alt='PreparedBy' style='width:60%'></a></td><td></td><td>" + item.reviewer_username + "<a href='#popupParis' data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/greenCheck.png' alt='PreparedBy' style='width:60%'></a></td><td>" + item.review_date + "</td><td>" + item.preparer_username + "<a href='#popupParis' data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/greenCheck.png' alt='PreparedBy' style='width:60%'></a></td><td>" + item.prepared_date + "</td><td>" + item.mfi_explanation_ref + "</td><td>" + item.mfi_template_process_ref + "</td><td>" + item.source_model_mfi_ref + "</td><td><div data-role='controlgroup' data-type='horizontal' ><a href='#" + item.href + "' data-rel='popup' data-transition='slideup' class='ui-btn ui-disabled ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a'><div style='white-space:normal'>" + item.instruction_detail + "</div></a></div></td><td>" + item.budgeted_hours + "</td><td>l</td><td>m</td><td>n</td></tr>");
+																					} else {
+																						$('#mcs_setup_checklist_p4_b7_mfi_table_body').append("<tr ><th class='label'>" + item.line_number + "</th><td>" + item.final_reviewer_username + "<a href='#' data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/greenCheck.png' alt='PreparedBy' style='width:60%'></a></td><td>" + item.final_review_date + "</td><td>" + item.reviewer_username + "<a href='#popupParis' data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/greenCheck.png' alt='PreparedBy' style='width:60%'></a></td><td>" + item.review_date + "</td><td>" + item.preparer_username + "<a href='#popupParis' data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/greenCheck.png' alt='PreparedBy' style='width:60%'></a></td><td>" + item.prepared_date + "</td><td>" + item.mfi_explanation_ref + "</td><td>" + item.mfi_template_process_ref + "</td><td>" + item.source_model_mfi_ref + "</td><td><div data-role='controlgroup' data-type='horizontal' ><a href='#" + item.href + "' data-rel='popup' data-transition='slideup' class='ui-btn ui-disabled ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a'><div style='white-space:normal'>" + item.instruction_detail + "</div></a></div></td><td>" + item.budgeted_hours + "</td><td>l</td><td>m</td><td>n</td></tr>");
+																					}
+																				}
+																			}
+																		} else {
+																			if (item.phase_id == "P4B8") {
+																				if (item.preparer_username == null) {//Check whether item has been prepared
+																					$('#mcs_setup_checklist_p4_b8_mfi_table_body').append("<tr ><th class='label'>" + item.line_number + "</th><td>.</td><td>.</td><td>.</td><td>.</td><td><a href='#" + item.preparedBy_href + "' onclick='setActiveTaskId(" + item.line_number + ")'  data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/redMinus.png' alt='PreparedBy' style='width:60%'></a></td><td></td><td>" + item.mfi_explanation_ref + "</td><td>" + item.mfi_template_process_ref + "</td><td>" + item.source_model_mfi_ref + "</td><td><div data-role='controlgroup' data-type='horizontal' ><a href='#" + item.href + "'onclick='setActiveTaskId(" + item.line_number + ")'  data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a'><div style='white-space:normal'>" + item.instruction_detail + "</div></a></div></td><td>" + item.budgeted_hours + "</td><td>l</td><td>m</td><td>n</td></tr>");
+																				} else {
+																					if (item.reviewer_username == null) {//Check whether item has been reviewed
+																						$('#mcs_setup_checklist_p4_b8_mfi_table_body').append("<tr ><th class='label'>" + item.line_number + "</th><td></td><td></td><td><a href='#" + item.reviewedBy_href + "' data-rel='popup' onclick='setActiveTaskId(" + item.line_number + ")'  data-position-to='window' data-transition='fade'><img class='popphoto' src='img/redMinus.png' alt='ReviewedBy' style='width:60%'></a></td><td></td><td>" + item.preparer_username + "<a href='#popupParis' data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/greenCheck.png' alt='PreparedBy' style='width:60%'></a></td><td>" + item.prepared_date + "</td><td>" + item.mfi_explanation_ref + "</td><td>" + item.mfi_template_process_ref + "</td><td>" + item.source_model_mfi_ref + "</td><td><div data-role='controlgroup' data-type='horizontal' ><a href='#" + item.href + "' data-rel='popup' data-transition='slideup' class='ui-btn ui-disabled ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a'><div style='white-space:normal'>" + item.instruction_detail + "</div></a></div></td><td>" + item.budgeted_hours + "</td><td>l</td><td>m</td><td>n</td></tr>");
+																					} else {
+																						if (item.final_reviewer_username == null) {//Check whether item has received its final review
+																							$('#mcs_setup_checklist_p4_b8_mfi_table_body').append("<tr ><th class='label'>" + item.line_number + "</th><td><a href='#" + item.finalReviewedBy_href + "' data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/redMinus.png' alt='PreparedBy' style='width:60%'></a></td><td></td><td>" + item.reviewer_username + "<a href='#popupParis' data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/greenCheck.png' alt='PreparedBy' style='width:60%'></a></td><td>" + item.review_date + "</td><td>" + item.preparer_username + "<a href='#popupParis' data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/greenCheck.png' alt='PreparedBy' style='width:60%'></a></td><td>" + item.prepared_date + "</td><td>" + item.mfi_explanation_ref + "</td><td>" + item.mfi_template_process_ref + "</td><td>" + item.source_model_mfi_ref + "</td><td><div data-role='controlgroup' data-type='horizontal' ><a href='#" + item.href + "' data-rel='popup' data-transition='slideup' class='ui-btn ui-disabled ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a'><div style='white-space:normal'>" + item.instruction_detail + "</div></a></div></td><td>" + item.budgeted_hours + "</td><td>l</td><td>m</td><td>n</td></tr>");
+																						} else {
+																							$('#mcs_setup_checklist_p4_b8_mfi_table_body').append("<tr ><th class='label'>" + item.line_number + "</th><td>" + item.final_reviewer_username + "<a href='#' data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/greenCheck.png' alt='PreparedBy' style='width:60%'></a></td><td>" + item.final_review_date + "</td><td>" + item.reviewer_username + "<a href='#popupParis' data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/greenCheck.png' alt='PreparedBy' style='width:60%'></a></td><td>" + item.review_date + "</td><td>" + item.preparer_username + "<a href='#popupParis' data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/greenCheck.png' alt='PreparedBy' style='width:60%'></a></td><td>" + item.prepared_date + "</td><td>" + item.mfi_explanation_ref + "</td><td>" + item.mfi_template_process_ref + "</td><td>" + item.source_model_mfi_ref + "</td><td><div data-role='controlgroup' data-type='horizontal' ><a href='#" + item.href + "' data-rel='popup' data-transition='slideup' class='ui-btn ui-disabled ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a'><div style='white-space:normal'>" + item.instruction_detail + "</div></a></div></td><td>" + item.budgeted_hours + "</td><td>l</td><td>m</td><td>n</td></tr>");
+																						}
+																					}
+																				}
+																			} else {
+																				if (item.phase_id == "P4B9") {
+																					if (item.preparer_username == null) {//Check whether item has been prepared
+																						$('#mcs_setup_checklist_p4_b9_mfi_table_body').append("<tr ><th class='label'>" + item.line_number + "</th><td>.</td><td>.</td><td>.</td><td>.</td><td><a href='#" + item.preparedBy_href + "' onclick='setActiveTaskId(" + item.line_number + ")'  data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/redMinus.png' alt='PreparedBy' style='width:60%'></a></td><td></td><td>" + item.mfi_explanation_ref + "</td><td>" + item.mfi_template_process_ref + "</td><td>" + item.source_model_mfi_ref + "</td><td><div data-role='controlgroup' data-type='horizontal' ><a href='#" + item.href + "'onclick='setActiveTaskId(" + item.line_number + ")'  data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a'><div style='white-space:normal'>" + item.instruction_detail + "</div></a></div></td><td>" + item.budgeted_hours + "</td><td>l</td><td>m</td><td>n</td></tr>");
+																					} else {
+																						if (item.reviewer_username == null) {//Check whether item has been reviewed
+																							$('#mcs_setup_checklist_p4_b9_mfi_table_body').append("<tr ><th class='label'>" + item.line_number + "</th><td></td><td></td><td><a href='#" + item.reviewedBy_href + "' data-rel='popup' onclick='setActiveTaskId(" + item.line_number + ")'  data-position-to='window' data-transition='fade'><img class='popphoto' src='img/redMinus.png' alt='ReviewedBy' style='width:60%'></a></td><td></td><td>" + item.preparer_username + "<a href='#popupParis' data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/greenCheck.png' alt='PreparedBy' style='width:60%'></a></td><td>" + item.prepared_date + "</td><td>" + item.mfi_explanation_ref + "</td><td>" + item.mfi_template_process_ref + "</td><td>" + item.source_model_mfi_ref + "</td><td><div data-role='controlgroup' data-type='horizontal' ><a href='#" + item.href + "' data-rel='popup' data-transition='slideup' class='ui-btn ui-disabled ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a'><div style='white-space:normal'>" + item.instruction_detail + "</div></a></div></td><td>" + item.budgeted_hours + "</td><td>l</td><td>m</td><td>n</td></tr>");
+																						} else {
+																							if (item.final_reviewer_username == null) {//Check whether item has received its final review
+																								$('#mcs_setup_checklist_p4_b9_mfi_table_body').append("<tr ><th class='label'>" + item.line_number + "</th><td><a href='#" + item.finalReviewedBy_href + "' data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/redMinus.png' alt='PreparedBy' style='width:60%'></a></td><td></td><td>" + item.reviewer_username + "<a href='#popupParis' data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/greenCheck.png' alt='PreparedBy' style='width:60%'></a></td><td>" + item.review_date + "</td><td>" + item.preparer_username + "<a href='#popupParis' data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/greenCheck.png' alt='PreparedBy' style='width:60%'></a></td><td>" + item.prepared_date + "</td><td>" + item.mfi_explanation_ref + "</td><td>" + item.mfi_template_process_ref + "</td><td>" + item.source_model_mfi_ref + "</td><td><div data-role='controlgroup' data-type='horizontal' ><a href='#" + item.href + "' data-rel='popup' data-transition='slideup' class='ui-btn ui-disabled ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a'><div style='white-space:normal'>" + item.instruction_detail + "</div></a></div></td><td>" + item.budgeted_hours + "</td><td>l</td><td>m</td><td>n</td></tr>");
+																							} else {
+																								$('#mcs_setup_checklist_p4_b9_mfi_table_body').append("<tr ><th class='label'>" + item.line_number + "</th><td>" + item.final_reviewer_username + "<a href='#' data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/greenCheck.png' alt='PreparedBy' style='width:60%'></a></td><td>" + item.final_review_date + "</td><td>" + item.reviewer_username + "<a href='#popupParis' data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/greenCheck.png' alt='PreparedBy' style='width:60%'></a></td><td>" + item.review_date + "</td><td>" + item.preparer_username + "<a href='#popupParis' data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/greenCheck.png' alt='PreparedBy' style='width:60%'></a></td><td>" + item.prepared_date + "</td><td>" + item.mfi_explanation_ref + "</td><td>" + item.mfi_template_process_ref + "</td><td>" + item.source_model_mfi_ref + "</td><td><div data-role='controlgroup' data-type='horizontal' ><a href='#" + item.href + "' data-rel='popup' data-transition='slideup' class='ui-btn ui-disabled ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a'><div style='white-space:normal'>" + item.instruction_detail + "</div></a></div></td><td>" + item.budgeted_hours + "</td><td>l</td><td>m</td><td>n</td></tr>");
+																							}
+																						}
+																					}
+																				} else {
+																					if (item.phase_id == "P4B10") {
+																						if (item.preparer_username == null) {//Check whether item has been prepared
+																							$('#mcs_setup_checklist_p4_b10_mfi_table_body').append("<tr ><th class='label'>" + item.line_number + "</th><td>.</td><td>.</td><td>.</td><td>.</td><td><a href='#" + item.preparedBy_href + "' onclick='setActiveTaskId(" + item.line_number + ")'  data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/redMinus.png' alt='PreparedBy' style='width:60%'></a></td><td></td><td>" + item.mfi_explanation_ref + "</td><td>" + item.mfi_template_process_ref + "</td><td>" + item.source_model_mfi_ref + "</td><td><div data-role='controlgroup' data-type='horizontal' ><a href='#" + item.href + "'onclick='setActiveTaskId(" + item.line_number + ")'  data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a'><div style='white-space:normal'>" + item.instruction_detail + "</div></a></div></td><td>" + item.budgeted_hours + "</td><td>l</td><td>m</td><td>n</td></tr>");
+																						} else {
+																							if (item.reviewer_username == null) {//Check whether item has been reviewed
+																								$('#mcs_setup_checklist_p4_b10_mfi_table_body').append("<tr ><th class='label'>" + item.line_number + "</th><td></td><td></td><td><a href='#" + item.reviewedBy_href + "' data-rel='popup' onclick='setActiveTaskId(" + item.line_number + ")'  data-position-to='window' data-transition='fade'><img class='popphoto' src='img/redMinus.png' alt='ReviewedBy' style='width:60%'></a></td><td></td><td>" + item.preparer_username + "<a href='#popupParis' data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/greenCheck.png' alt='PreparedBy' style='width:60%'></a></td><td>" + item.prepared_date + "</td><td>" + item.mfi_explanation_ref + "</td><td>" + item.mfi_template_process_ref + "</td><td>" + item.source_model_mfi_ref + "</td><td><div data-role='controlgroup' data-type='horizontal' ><a href='#" + item.href + "' data-rel='popup' data-transition='slideup' class='ui-btn ui-disabled ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a'><div style='white-space:normal'>" + item.instruction_detail + "</div></a></div></td><td>" + item.budgeted_hours + "</td><td>l</td><td>m</td><td>n</td></tr>");
+																							} else {
+																								if (item.final_reviewer_username == null) {//Check whether item has received its final review
+																									$('#mcs_setup_checklist_p4_b10_mfi_table_body').append("<tr ><th class='label'>" + item.line_number + "</th><td><a href='#" + item.finalReviewedBy_href + "' data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/redMinus.png' alt='PreparedBy' style='width:60%'></a></td><td></td><td>" + item.reviewer_username + "<a href='#popupParis' data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/greenCheck.png' alt='PreparedBy' style='width:60%'></a></td><td>" + item.review_date + "</td><td>" + item.preparer_username + "<a href='#popupParis' data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/greenCheck.png' alt='PreparedBy' style='width:60%'></a></td><td>" + item.prepared_date + "</td><td>" + item.mfi_explanation_ref + "</td><td>" + item.mfi_template_process_ref + "</td><td>" + item.source_model_mfi_ref + "</td><td><div data-role='controlgroup' data-type='horizontal' ><a href='#" + item.href + "' data-rel='popup' data-transition='slideup' class='ui-btn ui-disabled ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a'><div style='white-space:normal'>" + item.instruction_detail + "</div></a></div></td><td>" + item.budgeted_hours + "</td><td>l</td><td>m</td><td>n</td></tr>");
+																								} else {
+																									$('#mcs_setup_checklist_p4_b10_mfi_table_body').append("<tr ><th class='label'>" + item.line_number + "</th><td>" + item.final_reviewer_username + "<a href='#' data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/greenCheck.png' alt='PreparedBy' style='width:60%'></a></td><td>" + item.final_review_date + "</td><td>" + item.reviewer_username + "<a href='#popupParis' data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/greenCheck.png' alt='PreparedBy' style='width:60%'></a></td><td>" + item.review_date + "</td><td>" + item.preparer_username + "<a href='#popupParis' data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/greenCheck.png' alt='PreparedBy' style='width:60%'></a></td><td>" + item.prepared_date + "</td><td>" + item.mfi_explanation_ref + "</td><td>" + item.mfi_template_process_ref + "</td><td>" + item.source_model_mfi_ref + "</td><td><div data-role='controlgroup' data-type='horizontal' ><a href='#" + item.href + "' data-rel='popup' data-transition='slideup' class='ui-btn ui-disabled ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a'><div style='white-space:normal'>" + item.instruction_detail + "</div></a></div></td><td>" + item.budgeted_hours + "</td><td>l</td><td>m</td><td>n</td></tr>");
+																								}
+																							}
+																						}
+																					} else {
+																						if (item.phase_id == "P4B11") {
+																							if (item.preparer_username == null) {//Check whether item has been prepared
+																								$('#mcs_setup_checklist_p4_b11_mfi_table_body').append("<tr ><th class='label'>" + item.line_number + "</th><td>.</td><td>.</td><td>.</td><td>.</td><td><a href='#" + item.preparedBy_href + "' onclick='setActiveTaskId(" + item.line_number + ")'  data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/redMinus.png' alt='PreparedBy' style='width:60%'></a></td><td></td><td>" + item.mfi_explanation_ref + "</td><td>" + item.mfi_template_process_ref + "</td><td>" + item.source_model_mfi_ref + "</td><td><div data-role='controlgroup' data-type='horizontal' ><a href='#" + item.href + "'onclick='setActiveTaskId(" + item.line_number + ")'  data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a'><div style='white-space:normal'>" + item.instruction_detail + "</div></a></div></td><td>" + item.budgeted_hours + "</td><td>l</td><td>m</td><td>n</td></tr>");
+																							} else {
+																								if (item.reviewer_username == null) {//Check whether item has been reviewed
+																									$('#mcs_setup_checklist_p4_b11_mfi_table_body').append("<tr ><th class='label'>" + item.line_number + "</th><td></td><td></td><td><a href='#" + item.reviewedBy_href + "' data-rel='popup' onclick='setActiveTaskId(" + item.line_number + ")'  data-position-to='window' data-transition='fade'><img class='popphoto' src='img/redMinus.png' alt='ReviewedBy' style='width:60%'></a></td><td></td><td>" + item.preparer_username + "<a href='#popupParis' data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/greenCheck.png' alt='PreparedBy' style='width:60%'></a></td><td>" + item.prepared_date + "</td><td>" + item.mfi_explanation_ref + "</td><td>" + item.mfi_template_process_ref + "</td><td>" + item.source_model_mfi_ref + "</td><td><div data-role='controlgroup' data-type='horizontal' ><a href='#" + item.href + "' data-rel='popup' data-transition='slideup' class='ui-btn ui-disabled ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a'><div style='white-space:normal'>" + item.instruction_detail + "</div></a></div></td><td>" + item.budgeted_hours + "</td><td>l</td><td>m</td><td>n</td></tr>");
+																								} else {
+																									if (item.final_reviewer_username == null) {//Check whether item has received its final review
+																										$('#mcs_setup_checklist_p4_b11_mfi_table_body').append("<tr ><th class='label'>" + item.line_number + "</th><td><a href='#" + item.finalReviewedBy_href + "' data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/redMinus.png' alt='PreparedBy' style='width:60%'></a></td><td></td><td>" + item.reviewer_username + "<a href='#popupParis' data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/greenCheck.png' alt='PreparedBy' style='width:60%'></a></td><td>" + item.review_date + "</td><td>" + item.preparer_username + "<a href='#popupParis' data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/greenCheck.png' alt='PreparedBy' style='width:60%'></a></td><td>" + item.prepared_date + "</td><td>" + item.mfi_explanation_ref + "</td><td>" + item.mfi_template_process_ref + "</td><td>" + item.source_model_mfi_ref + "</td><td><div data-role='controlgroup' data-type='horizontal' ><a href='#" + item.href + "' data-rel='popup' data-transition='slideup' class='ui-btn ui-disabled ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a'><div style='white-space:normal'>" + item.instruction_detail + "</div></a></div></td><td>" + item.budgeted_hours + "</td><td>l</td><td>m</td><td>n</td></tr>");
+																									} else {
+																										$('#mcs_setup_checklist_p4_b11_mfi_table_body').append("<tr ><th class='label'>" + item.line_number + "</th><td>" + item.final_reviewer_username + "<a href='#' data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/greenCheck.png' alt='PreparedBy' style='width:60%'></a></td><td>" + item.final_review_date + "</td><td>" + item.reviewer_username + "<a href='#popupParis' data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/greenCheck.png' alt='PreparedBy' style='width:60%'></a></td><td>" + item.review_date + "</td><td>" + item.preparer_username + "<a href='#popupParis' data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/greenCheck.png' alt='PreparedBy' style='width:60%'></a></td><td>" + item.prepared_date + "</td><td>" + item.mfi_explanation_ref + "</td><td>" + item.mfi_template_process_ref + "</td><td>" + item.source_model_mfi_ref + "</td><td><div data-role='controlgroup' data-type='horizontal' ><a href='#" + item.href + "' data-rel='popup' data-transition='slideup' class='ui-btn ui-disabled ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a'><div style='white-space:normal'>" + item.instruction_detail + "</div></a></div></td><td>" + item.budgeted_hours + "</td><td>l</td><td>m</td><td>n</td></tr>");
+																									}
+																								}
+																							}
+																						} else {
+																							if (item.phase_id == "P4B12") {
+																								if (item.preparer_username == null) {//Check whether item has been prepared
+																									$('#mcs_setup_checklist_p4_b12_mfi_table_body').append("<tr ><th class='label'>" + item.line_number + "</th><td>.</td><td>.</td><td>.</td><td>.</td><td><a href='#" + item.preparedBy_href + "' onclick='setActiveTaskId(" + item.line_number + ")'  data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/redMinus.png' alt='PreparedBy' style='width:60%'></a></td><td></td><td>" + item.mfi_explanation_ref + "</td><td>" + item.mfi_template_process_ref + "</td><td>" + item.source_model_mfi_ref + "</td><td><div data-role='controlgroup' data-type='horizontal' ><a href='#" + item.href + "'onclick='setActiveTaskId(" + item.line_number + ")'  data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a'><div style='white-space:normal'>" + item.instruction_detail + "</div></a></div></td><td>" + item.budgeted_hours + "</td><td>l</td><td>m</td><td>n</td></tr>");
+																								} else {
+																									if (item.reviewer_username == null) {//Check whether item has been reviewed
+																										$('#mcs_setup_checklist_p4_b12_mfi_table_body').append("<tr ><th class='label'>" + item.line_number + "</th><td></td><td></td><td><a href='#" + item.reviewedBy_href + "' data-rel='popup' onclick='setActiveTaskId(" + item.line_number + ")'  data-position-to='window' data-transition='fade'><img class='popphoto' src='img/redMinus.png' alt='ReviewedBy' style='width:60%'></a></td><td></td><td>" + item.preparer_username + "<a href='#popupParis' data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/greenCheck.png' alt='PreparedBy' style='width:60%'></a></td><td>" + item.prepared_date + "</td><td>" + item.mfi_explanation_ref + "</td><td>" + item.mfi_template_process_ref + "</td><td>" + item.source_model_mfi_ref + "</td><td><div data-role='controlgroup' data-type='horizontal' ><a href='#" + item.href + "' data-rel='popup' data-transition='slideup' class='ui-btn ui-disabled ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a'><div style='white-space:normal'>" + item.instruction_detail + "</div></a></div></td><td>" + item.budgeted_hours + "</td><td>l</td><td>m</td><td>n</td></tr>");
+																									} else {
+																										if (item.final_reviewer_username == null) {//Check whether item has received its final review
+																											$('#mcs_setup_checklist_p4_b12_mfi_table_body').append("<tr ><th class='label'>" + item.line_number + "</th><td><a href='#" + item.finalReviewedBy_href + "' data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/redMinus.png' alt='PreparedBy' style='width:60%'></a></td><td></td><td>" + item.reviewer_username + "<a href='#popupParis' data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/greenCheck.png' alt='PreparedBy' style='width:60%'></a></td><td>" + item.review_date + "</td><td>" + item.preparer_username + "<a href='#popupParis' data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/greenCheck.png' alt='PreparedBy' style='width:60%'></a></td><td>" + item.prepared_date + "</td><td>" + item.mfi_explanation_ref + "</td><td>" + item.mfi_template_process_ref + "</td><td>" + item.source_model_mfi_ref + "</td><td><div data-role='controlgroup' data-type='horizontal' ><a href='#" + item.href + "' data-rel='popup' data-transition='slideup' class='ui-btn ui-disabled ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a'><div style='white-space:normal'>" + item.instruction_detail + "</div></a></div></td><td>" + item.budgeted_hours + "</td><td>l</td><td>m</td><td>n</td></tr>");
+																										} else {
+																											$('#mcs_setup_checklist_p4_b12_mfi_table_body').append("<tr ><th class='label'>" + item.line_number + "</th><td>" + item.final_reviewer_username + "<a href='#' data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/greenCheck.png' alt='PreparedBy' style='width:60%'></a></td><td>" + item.final_review_date + "</td><td>" + item.reviewer_username + "<a href='#popupParis' data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/greenCheck.png' alt='PreparedBy' style='width:60%'></a></td><td>" + item.review_date + "</td><td>" + item.preparer_username + "<a href='#popupParis' data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/greenCheck.png' alt='PreparedBy' style='width:60%'></a></td><td>" + item.prepared_date + "</td><td>" + item.mfi_explanation_ref + "</td><td>" + item.mfi_template_process_ref + "</td><td>" + item.source_model_mfi_ref + "</td><td><div data-role='controlgroup' data-type='horizontal' ><a href='#" + item.href + "' data-rel='popup' data-transition='slideup' class='ui-btn ui-disabled ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a'><div style='white-space:normal'>" + item.instruction_detail + "</div></a></div></td><td>" + item.budgeted_hours + "</td><td>l</td><td>m</td><td>n</td></tr>");
+																										}
+																									}
+																								}
+																							} else {
+																								if (item.phase_id == "P5") {
+																									if (item.preparer_username == null) {//Check whether item has been prepared
+																										$('#mcs_setup_checklist_p5_mfi_table_body').append("<tr ><th class='label'>" + item.line_number + "</th><td>.</td><td>.</td><td>.</td><td>.</td><td><a href='#" + item.preparedBy_href + "' onclick='setActiveTaskId(" + item.line_number + ")'  data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/redMinus.png' alt='PreparedBy' style='width:60%'></a></td><td></td><td>" + item.mfi_explanation_ref + "</td><td>" + item.mfi_template_process_ref + "</td><td>" + item.source_model_mfi_ref + "</td><td><div data-role='controlgroup' data-type='horizontal' ><a href='#" + item.href + "'onclick='setActiveTaskId(" + item.line_number + ")'  data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a'><div style='white-space:normal'>" + item.instruction_detail + "</div></a></div></td><td>" + item.budgeted_hours + "</td><td>l</td><td>m</td><td>n</td></tr>");
+																									} else {
+																										if (item.reviewer_username == null) {//Check whether item has been reviewed
+																											$('#mcs_setup_checklist_p5_mfi_table_body').append("<tr ><th class='label'>" + item.line_number + "</th><td></td><td></td><td><a href='#" + item.reviewedBy_href + "' data-rel='popup' onclick='setActiveTaskId(" + item.line_number + ")'  data-position-to='window' data-transition='fade'><img class='popphoto' src='img/redMinus.png' alt='ReviewedBy' style='width:60%'></a></td><td></td><td>" + item.preparer_username + "<a href='#popupParis' data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/greenCheck.png' alt='PreparedBy' style='width:60%'></a></td><td>" + item.prepared_date + "</td><td>" + item.mfi_explanation_ref + "</td><td>" + item.mfi_template_process_ref + "</td><td>" + item.source_model_mfi_ref + "</td><td><div data-role='controlgroup' data-type='horizontal' ><a href='#" + item.href + "' data-rel='popup' data-transition='slideup' class='ui-btn ui-disabled ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a'><div style='white-space:normal'>" + item.instruction_detail + "</div></a></div></td><td>" + item.budgeted_hours + "</td><td>l</td><td>m</td><td>n</td></tr>");
+																										} else {
+																											if (item.final_reviewer_username == null) {//Check whether item has received its final review
+																												$('#mcs_setup_checklist_p5_mfi_table_body').append("<tr ><th class='label'>" + item.line_number + "</th><td><a href='#" + item.finalReviewedBy_href + "' data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/redMinus.png' alt='PreparedBy' style='width:60%'></a></td><td></td><td>" + item.reviewer_username + "<a href='#popupParis' data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/greenCheck.png' alt='PreparedBy' style='width:60%'></a></td><td>" + item.review_date + "</td><td>" + item.preparer_username + "<a href='#popupParis' data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/greenCheck.png' alt='PreparedBy' style='width:60%'></a></td><td>" + item.prepared_date + "</td><td>" + item.mfi_explanation_ref + "</td><td>" + item.mfi_template_process_ref + "</td><td>" + item.source_model_mfi_ref + "</td><td><div data-role='controlgroup' data-type='horizontal' ><a href='#" + item.href + "' data-rel='popup' data-transition='slideup' class='ui-btn ui-disabled ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a'><div style='white-space:normal'>" + item.instruction_detail + "</div></a></div></td><td>" + item.budgeted_hours + "</td><td>l</td><td>m</td><td>n</td></tr>");
+																											} else {
+																												$('#mcs_setup_checklist_p5_mfi_table_body').append("<tr ><th class='label'>" + item.line_number + "</th><td>" + item.final_reviewer_username + "<a href='#' data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/greenCheck.png' alt='PreparedBy' style='width:60%'></a></td><td>" + item.final_review_date + "</td><td>" + item.reviewer_username + "<a href='#popupParis' data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/greenCheck.png' alt='PreparedBy' style='width:60%'></a></td><td>" + item.review_date + "</td><td>" + item.preparer_username + "<a href='#popupParis' data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/greenCheck.png' alt='PreparedBy' style='width:60%'></a></td><td>" + item.prepared_date + "</td><td>" + item.mfi_explanation_ref + "</td><td>" + item.mfi_template_process_ref + "</td><td>" + item.source_model_mfi_ref + "</td><td><div data-role='controlgroup' data-type='horizontal' ><a href='#" + item.href + "' data-rel='popup' data-transition='slideup' class='ui-btn ui-disabled ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a'><div style='white-space:normal'>" + item.instruction_detail + "</div></a></div></td><td>" + item.budgeted_hours + "</td><td>l</td><td>m</td><td>n</td></tr>");
+																											}
+																										}
+																									}
+																								} else {
+																									if (item.phase_id == "P6") {
+																										if (item.preparer_username == null) {//Check whether item has been prepared
+																											$('#mcs_setup_checklist_p6_mfi_table_body').append("<tr ><th class='label'>" + item.line_number + "</th><td>.</td><td>.</td><td>.</td><td>.</td><td><a href='#" + item.preparedBy_href + "' onclick='setActiveTaskId(" + item.line_number + ")'  data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/redMinus.png' alt='PreparedBy' style='width:60%'></a></td><td></td><td>" + item.mfi_explanation_ref + "</td><td>" + item.mfi_template_process_ref + "</td><td>" + item.source_model_mfi_ref + "</td><td><div data-role='controlgroup' data-type='horizontal' ><a href='#" + item.href + "'onclick='setActiveTaskId(" + item.line_number + ")'  data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a'><div style='white-space:normal'>" + item.instruction_detail + "</div></a></div></td><td>" + item.budgeted_hours + "</td><td>l</td><td>m</td><td>n</td></tr>");
+																										} else {
+																											if (item.reviewer_username == null) {//Check whether item has been reviewed
+																												$('#mcs_setup_checklist_p6_mfi_table_body').append("<tr ><th class='label'>" + item.line_number + "</th><td></td><td></td><td><a href='#" + item.reviewedBy_href + "' data-rel='popup' onclick='setActiveTaskId(" + item.line_number + ")'  data-position-to='window' data-transition='fade'><img class='popphoto' src='img/redMinus.png' alt='ReviewedBy' style='width:60%'></a></td><td></td><td>" + item.preparer_username + "<a href='#popupParis' data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/greenCheck.png' alt='PreparedBy' style='width:60%'></a></td><td>" + item.prepared_date + "</td><td>" + item.mfi_explanation_ref + "</td><td>" + item.mfi_template_process_ref + "</td><td>" + item.source_model_mfi_ref + "</td><td><div data-role='controlgroup' data-type='horizontal' ><a href='#" + item.href + "' data-rel='popup' data-transition='slideup' class='ui-btn ui-disabled ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a'><div style='white-space:normal'>" + item.instruction_detail + "</div></a></div></td><td>" + item.budgeted_hours + "</td><td>l</td><td>m</td><td>n</td></tr>");
+																											} else {
+																												if (item.final_reviewer_username == null) {//Check whether item has received its final review
+																													$('#mcs_setup_checklist_p6_mfi_table_body').append("<tr ><th class='label'>" + item.line_number + "</th><td><a href='#" + item.finalReviewedBy_href + "' data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/redMinus.png' alt='PreparedBy' style='width:60%'></a></td><td></td><td>" + item.reviewer_username + "<a href='#popupParis' data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/greenCheck.png' alt='PreparedBy' style='width:60%'></a></td><td>" + item.review_date + "</td><td>" + item.preparer_username + "<a href='#popupParis' data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/greenCheck.png' alt='PreparedBy' style='width:60%'></a></td><td>" + item.prepared_date + "</td><td>" + item.mfi_explanation_ref + "</td><td>" + item.mfi_template_process_ref + "</td><td>" + item.source_model_mfi_ref + "</td><td><div data-role='controlgroup' data-type='horizontal' ><a href='#" + item.href + "' data-rel='popup' data-transition='slideup' class='ui-btn ui-disabled ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a'><div style='white-space:normal'>" + item.instruction_detail + "</div></a></div></td><td>" + item.budgeted_hours + "</td><td>l</td><td>m</td><td>n</td></tr>");
+																												} else {
+																													$('#mcs_setup_checklist_p6_mfi_table_body').append("<tr ><th class='label'>" + item.line_number + "</th><td>" + item.final_reviewer_username + "<a href='#' data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/greenCheck.png' alt='PreparedBy' style='width:60%'></a></td><td>" + item.final_review_date + "</td><td>" + item.reviewer_username + "<a href='#popupParis' data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/greenCheck.png' alt='PreparedBy' style='width:60%'></a></td><td>" + item.review_date + "</td><td>" + item.preparer_username + "<a href='#popupParis' data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/greenCheck.png' alt='PreparedBy' style='width:60%'></a></td><td>" + item.prepared_date + "</td><td>" + item.mfi_explanation_ref + "</td><td>" + item.mfi_template_process_ref + "</td><td>" + item.source_model_mfi_ref + "</td><td><div data-role='controlgroup' data-type='horizontal' ><a href='#" + item.href + "' data-rel='popup' data-transition='slideup' class='ui-btn ui-disabled ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a'><div style='white-space:normal'>" + item.instruction_detail + "</div></a></div></td><td>" + item.budgeted_hours + "</td><td>l</td><td>m</td><td>n</td></tr>");
+																												}
+																											}
+																										}
+																									} else {
+																										if (item.phase_id == "P7") {
+																											if (item.preparer_username == null) {//Check whether item has been prepared
+																												$('#mcs_setup_checklist_p7_mfi_table_body').append("<tr ><th class='label'>" + item.line_number + "</th><td>.</td><td>.</td><td>.</td><td>.</td><td><a href='#" + item.preparedBy_href + "' onclick='setActiveTaskId(" + item.line_number + ")'  data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/redMinus.png' alt='PreparedBy' style='width:60%'></a></td><td></td><td>" + item.mfi_explanation_ref + "</td><td>" + item.mfi_template_process_ref + "</td><td>" + item.source_model_mfi_ref + "</td><td><div data-role='controlgroup' data-type='horizontal' ><a href='#" + item.href + "'onclick='setActiveTaskId(" + item.line_number + ")'  data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a'><div style='white-space:normal'>" + item.instruction_detail + "</div></a></div></td><td>" + item.budgeted_hours + "</td><td>l</td><td>m</td><td>n</td></tr>");
+																											} else {
+																												if (item.reviewer_username == null) {//Check whether item has been reviewed
+																													$('#mcs_setup_checklist_p7_mfi_table_body').append("<tr ><th class='label'>" + item.line_number + "</th><td></td><td></td><td><a href='#" + item.reviewedBy_href + "' data-rel='popup' onclick='setActiveTaskId(" + item.line_number + ")'  data-position-to='window' data-transition='fade'><img class='popphoto' src='img/redMinus.png' alt='ReviewedBy' style='width:60%'></a></td><td></td><td>" + item.preparer_username + "<a href='#popupParis' data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/greenCheck.png' alt='PreparedBy' style='width:60%'></a></td><td>" + item.prepared_date + "</td><td>" + item.mfi_explanation_ref + "</td><td>" + item.mfi_template_process_ref + "</td><td>" + item.source_model_mfi_ref + "</td><td><div data-role='controlgroup' data-type='horizontal' ><a href='#" + item.href + "' data-rel='popup' data-transition='slideup' class='ui-btn ui-disabled ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a'><div style='white-space:normal'>" + item.instruction_detail + "</div></a></div></td><td>" + item.budgeted_hours + "</td><td>l</td><td>m</td><td>n</td></tr>");
+																												} else {
+																													if (item.final_reviewer_username == null) {//Check whether item has received its final review
+																														$('#mcs_setup_checklist_p7_mfi_table_body').append("<tr ><th class='label'>" + item.line_number + "</th><td><a href='#" + item.finalReviewedBy_href + "' data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/redMinus.png' alt='PreparedBy' style='width:60%'></a></td><td></td><td>" + item.reviewer_username + "<a href='#popupParis' data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/greenCheck.png' alt='PreparedBy' style='width:60%'></a></td><td>" + item.review_date + "</td><td>" + item.preparer_username + "<a href='#popupParis' data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/greenCheck.png' alt='PreparedBy' style='width:60%'></a></td><td>" + item.prepared_date + "</td><td>" + item.mfi_explanation_ref + "</td><td>" + item.mfi_template_process_ref + "</td><td>" + item.source_model_mfi_ref + "</td><td><div data-role='controlgroup' data-type='horizontal' ><a href='#" + item.href + "' data-rel='popup' data-transition='slideup' class='ui-btn ui-disabled ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a'><div style='white-space:normal'>" + item.instruction_detail + "</div></a></div></td><td>" + item.budgeted_hours + "</td><td>l</td><td>m</td><td>n</td></tr>");
+																													} else {
+																														$('#mcs_setup_checklist_p7_mfi_table_body').append("<tr ><th class='label'>" + item.line_number + "</th><td>" + item.final_reviewer_username + "<a href='#' data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/greenCheck.png' alt='PreparedBy' style='width:60%'></a></td><td>" + item.final_review_date + "</td><td>" + item.reviewer_username + "<a href='#popupParis' data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/greenCheck.png' alt='PreparedBy' style='width:60%'></a></td><td>" + item.review_date + "</td><td>" + item.preparer_username + "<a href='#popupParis' data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/greenCheck.png' alt='PreparedBy' style='width:60%'></a></td><td>" + item.prepared_date + "</td><td>" + item.mfi_explanation_ref + "</td><td>" + item.mfi_template_process_ref + "</td><td>" + item.source_model_mfi_ref + "</td><td><div data-role='controlgroup' data-type='horizontal' ><a href='#" + item.href + "' data-rel='popup' data-transition='slideup' class='ui-btn ui-disabled ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a'><div style='white-space:normal'>" + item.instruction_detail + "</div></a></div></td><td>" + item.budgeted_hours + "</td><td>l</td><td>m</td><td>n</td></tr>");
+																													}
+																												}
+																											}
+																										} else {
+																											if (item.phase_id == "P8") {
+																												if (item.preparer_username == null) {//Check whether item has been prepared
+																													$('#mcs_setup_checklist_p8_mfi_table_body').append("<tr ><th class='label'>" + item.line_number + "</th><td>.</td><td>.</td><td>.</td><td>.</td><td><a href='#" + item.preparedBy_href + "' onclick='setActiveTaskId(" + item.line_number + ")'  data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/redMinus.png' alt='PreparedBy' style='width:60%'></a></td><td></td><td>" + item.mfi_explanation_ref + "</td><td>" + item.mfi_template_process_ref + "</td><td>" + item.source_model_mfi_ref + "</td><td><div data-role='controlgroup' data-type='horizontal' ><a href='#" + item.href + "'onclick='setActiveTaskId(" + item.line_number + ")'  data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a'><div style='white-space:normal'>" + item.instruction_detail + "</div></a></div></td><td>" + item.budgeted_hours + "</td><td>l</td><td>m</td><td>n</td></tr>");
+																												} else {
+																													if (item.reviewer_username == null) {//Check whether item has been reviewed
+																														$('#mcs_setup_checklist_p8_mfi_table_body').append("<tr ><th class='label'>" + item.line_number + "</th><td></td><td></td><td><a href='#" + item.reviewedBy_href + "' data-rel='popup' onclick='setActiveTaskId(" + item.line_number + ")'  data-position-to='window' data-transition='fade'><img class='popphoto' src='img/redMinus.png' alt='ReviewedBy' style='width:60%'></a></td><td></td><td>" + item.preparer_username + "<a href='#popupParis' data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/greenCheck.png' alt='PreparedBy' style='width:60%'></a></td><td>" + item.prepared_date + "</td><td>" + item.mfi_explanation_ref + "</td><td>" + item.mfi_template_process_ref + "</td><td>" + item.source_model_mfi_ref + "</td><td><div data-role='controlgroup' data-type='horizontal' ><a href='#" + item.href + "' data-rel='popup' data-transition='slideup' class='ui-btn ui-disabled ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a'><div style='white-space:normal'>" + item.instruction_detail + "</div></a></div></td><td>" + item.budgeted_hours + "</td><td>l</td><td>m</td><td>n</td></tr>");
+																													} else {
+																														if (item.final_reviewer_username == null) {//Check whether item has received its final review
+																															$('#mcs_setup_checklist_p8_mfi_table_body').append("<tr ><th class='label'>" + item.line_number + "</th><td><a href='#" + item.finalReviewedBy_href + "' data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/redMinus.png' alt='PreparedBy' style='width:60%'></a></td><td></td><td>" + item.reviewer_username + "<a href='#popupParis' data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/greenCheck.png' alt='PreparedBy' style='width:60%'></a></td><td>" + item.review_date + "</td><td>" + item.preparer_username + "<a href='#popupParis' data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/greenCheck.png' alt='PreparedBy' style='width:60%'></a></td><td>" + item.prepared_date + "</td><td>" + item.mfi_explanation_ref + "</td><td>" + item.mfi_template_process_ref + "</td><td>" + item.source_model_mfi_ref + "</td><td><div data-role='controlgroup' data-type='horizontal' ><a href='#" + item.href + "' data-rel='popup' data-transition='slideup' class='ui-btn ui-disabled ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a'><div style='white-space:normal'>" + item.instruction_detail + "</div></a></div></td><td>" + item.budgeted_hours + "</td><td>l</td><td>m</td><td>n</td></tr>");
+																														} else {
+																															$('#mcs_setup_checklist_p8_mfi_table_body').append("<tr ><th class='label'>" + item.line_number + "</th><td>" + item.final_reviewer_username + "<a href='#' data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/greenCheck.png' alt='PreparedBy' style='width:60%'></a></td><td>" + item.final_review_date + "</td><td>" + item.reviewer_username + "<a href='#popupParis' data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/greenCheck.png' alt='PreparedBy' style='width:60%'></a></td><td>" + item.review_date + "</td><td>" + item.preparer_username + "<a href='#popupParis' data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/greenCheck.png' alt='PreparedBy' style='width:60%'></a></td><td>" + item.prepared_date + "</td><td>" + item.mfi_explanation_ref + "</td><td>" + item.mfi_template_process_ref + "</td><td>" + item.source_model_mfi_ref + "</td><td><div data-role='controlgroup' data-type='horizontal' ><a href='#" + item.href + "' data-rel='popup' data-transition='slideup' class='ui-btn ui-disabled ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a'><div style='white-space:normal'>" + item.instruction_detail + "</div></a></div></td><td>" + item.budgeted_hours + "</td><td>l</td><td>m</td><td>n</td></tr>");
+																														}
+																													}
+																												}
+																											}
+																										}
+																									}
+																								}
+																							}
+																						}
+																					}
+																				}
+																			}
+																		}
+																	}
+																}
+															}
+														}
+													}
+												}
+											}
+										}
+									}
+								}
+						}
+					});
+					$("#mcs_setup_checklist_setup_mfi_table").table("rebuild");
+					$("#mcs_setup_checklist_CS_mfi_table").table("rebuild");
+					$("#mcs_setup_checklist_p1_mfi_table").table("rebuild");
+					$("#mcs_setup_checklist_p2_mfi_table").table("rebuild");
+					$("#mcs_setup_checklist_p3_mfi_table").table("rebuild");
+					$("#mcs_setup_checklist_p4_b1_mfi_table").table("rebuild");
+					$("#mcs_setup_checklist_p4_b2_mfi_table").table("rebuild");
+					$("#mcs_setup_checklist_p4_b3_mfi_table").table("rebuild");
+					$("#mcs_setup_checklist_p4_b4_mfi_table").table("rebuild");
+					$("#mcs_setup_checklist_p4_b5_mfi_table").table("rebuild");
+					$("#mcs_setup_checklist_p4_b6_mfi_table").table("rebuild");
+					$("#mcs_setup_checklist_p4_b7_mfi_table").table("rebuild");
+					$("#mcs_setup_checklist_p4_b8_mfi_table").table("rebuild");
+					$("#mcs_setup_checklist_p4_b9_mfi_table").table("rebuild");
+					$("#mcs_setup_checklist_p4_b10_mfi_table").table("rebuild");
+					$("#mcs_setup_checklist_p4_b11_mfi_table").table("rebuild");
+					$("#mcs_setup_checklist_p4_b12_mfi_table").table("rebuild");
+					$("#mcs_setup_checklist_p5_mfi_table").table("rebuild");
+					$("#mcs_setup_checklist_p6_mfi_table").table("rebuild");
+					$("#mcs_setup_checklist_p7_mfi_table").table("rebuild");
+					$("#mcs_setup_checklist_p8_mfi_table").table("rebuild");
+					$("#mcs_setup_checklist_p8_mfi_table").table("rebuild");
+
+				});
+			}
+        </script>
+		<!-- MCS Checklist -->
+		<script>
+			function getModelSummary(){
+				$('#ubmsuite_mcs_model_review_ubm_model_ul').empty();												
+				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_model_getCurrentModel_ModelSummary.php?callback=?', {//JSONP Request
+					activeModelId : window.activeModelId
+				}, function(res, status) {
+					$.each(res, function(i, item) {
+						if(item.reference){
+							$('#ubmsuite_mcs_model_review_ubm_model_ul').append("<li class='success'>" + item.reference_prefix + " : " + item.reference + "</li>");												
+							
+						}else{
+							$('#ubmsuite_mcs_model_review_ubm_model_ul').append("<li class='warning'>Warning : This model doesnt have a reference.</li>");												
+							
+						}	
+						if(item.title){
+							$('#ubmsuite_mcs_model_review_ubm_model_ul').append("<li class='success'>" + item.title_prefix + " : " + item.title + "</li>");												
+							
+						}else{
+							$('#ubmsuite_mcs_model_review_ubm_model_ul').append("<li class='warning'>Warning : This model doesnt have a Title.</li>");												
+							
+						}
+						if(item.description){
+							$('#ubmsuite_mcs_model_review_ubm_model_ul').append("<li class='success'>" + item.description_prefix + " : " + item.description + "</li>");												
+							
+						}else{
+							$('#ubmsuite_mcs_model_review_ubm_model_ul').append("<li class='warning'>Warning : This model doesnt have a Description.</li>");												
+							
+						}
+						if(item.scope){
+							$('#ubmsuite_mcs_model_review_ubm_model_ul').append("<li class='success'>" + item.scope_prefix + " : " + item.scope + "</li>");												
+							
+						}else{
+							$('#ubmsuite_mcs_model_review_ubm_model_ul').append("<li class='warning'>Warning : This model doesnt have a Scope.</li>");												
+							
+						}
+						if(item.purpose){
+							$('#ubmsuite_mcs_model_review_ubm_model_ul').append("<li class='success'>" + item.purpose_prefix + " : " + item.purpose + "</li>");												
+							
+						}else{
+							$('#ubmsuite_mcs_model_review_ubm_model_ul').append("<li class='error'>Warning : This model doesnt have a purpose!</li>");												
+							
+						}
+						if(item.conceptual_definition){
+							$('#ubmsuite_mcs_model_review_ubm_model_ul').append("<li class='success'>" + item.conceptual_definition_prefix + " : " + item.conceptual_definition + "</li>");												
+							
+						}else{
+							$('#ubmsuite_mcs_model_review_ubm_model_ul').append("<li class='error'>Warning : This model doesnt have a Conceptual Definition.</li>");												
+							
+						}
+						if(item.mission_statement){
+							$('#ubmsuite_mcs_model_review_ubm_model_ul').append("<li class='success'>" + item.mission_statement_prefix + " : " + item.mission_statement + "</li>");												
+							
+						}else{
+							$('#ubmsuite_mcs_model_review_ubm_model_ul').append("<li class='error'>Warning : This model doesnt have a Mission Statement.</li>");												
+							
+						}
+						if(item.vision_statement){
+							$('#ubmsuite_mcs_model_review_ubm_model_ul').append("<li class='success'>" + item.vision_statement_prefix + " : " + item.vision_statement + "</li>");												
+							
+						}else{
+							$('#ubmsuite_mcs_model_review_ubm_model_ul').append("<li class='error'>Warning : This model doesnt have a Vision Statement.</li>");												
+							
+						}
+						if(item.model_steward){
+							$('#ubmsuite_mcs_model_review_ubm_model_ul').append("<li class='success'>" + item.model_steward_prefix + " : " + item.model_steward + "</li>");												
+							
+						}else{
+							$('#ubmsuite_mcs_model_review_ubm_model_ul').append("<li class='warning'>Warning : This model doesnt have a Model Steward.</li>");												
+							
+						}
+						if(item.creator_id){
+							$('#ubmsuite_mcs_model_review_ubm_model_ul').append("<li class='success'>" + item.creator_id_prefix + " : " + item.creator_id + "</li>");												
+							
+						}else{
+							$('#ubmsuite_mcs_model_review_ubm_model_ul').append("<li class='error'>Error : This model doesnt have a Creator ID!.</li>");												
+							
+						}
+						if(item.created_date){
+							$('#ubmsuite_mcs_model_review_ubm_model_ul').append("<li class='success'>" + item.created_date_prefix + " : " + item.created_date + "</li>");												
+							
+						}else{
+							$('#ubmsuite_mcs_model_review_ubm_model_ul').append("<li class='error'>Error : This model doesnt appear to have a on which it was created!</li>");												
+							
+						}
+						if(item.modified_date){
+							$('#ubmsuite_mcs_model_review_ubm_model_ul').append("<li class='success'>" + item.modified_date_prefix + " : " + item.modified_date + "</li>");												
+							
+						}else{
+							$('#ubmsuite_mcs_model_review_ubm_model_ul').append("<li class='warning'>Warning : This model doesnt have a Modified Date.</li>");												
+							
+						}
+						if(item.model_version){
+							$('#ubmsuite_mcs_model_review_ubm_model_ul').append("<li class='success'>" + item.model_version_prefix + " : " + item.model_version + "</li>");												
+							
+						}else{
+							$('#ubmsuite_mcs_model_review_ubm_model_ul').append("<li class='warning'>Warning : This model doesnt have a Model Version.</li>");												
+							
+						}
+						if(item.owner_legal_entity){
+							$('#ubmsuite_mcs_model_review_ubm_model_ul').append("<li class='success'>" + item.owner_legal_entity_prefix + " : " + item.owner_legal_entity + "</li>");												
+							
+						}else{
+							$('#ubmsuite_mcs_model_review_ubm_model_ul').append("<li class='warning'>Warning : This model doesnt have a Legal Entity.</li>");												
+							
+						}
+						if(item.owner_ccode){
+							$('#ubmsuite_mcs_model_review_ubm_model_ul').append("<li class='success'>" + item.owner_ccode_prefix + " : " + item.owner_ccode + "</li>");												
+							
+						}else{
+							$('#ubmsuite_mcs_model_review_ubm_model_ul').append("<li class='error'>Error : This model doesnt have an Owner CCODE on file.</li>");												
+							
+						}
+						if(item.model_contact_name){
+							$('#ubmsuite_mcs_model_review_ubm_model_ul').append("<li class='success'>" + item.model_contact_name_prefix + " : " + item.model_contact_name + "</li>");												
+							
+						}else{
+							$('#ubmsuite_mcs_model_review_ubm_model_ul').append("<li class='error'>Error : We dont have a Contact on file for this model.</li>");												
+							
+						}
+						if(item.model_contact_phone){
+							$('#ubmsuite_mcs_model_review_ubm_model_ul').append("<li class='success'>" + item.model_contact_phone_prefix + " : " + item.model_contact_phone + "</li>");												
+							
+						}else{
+							$('#ubmsuite_mcs_model_review_ubm_model_ul').append("<li class='error'>Error : We dont have a Contact Phone Number on file for this model.</li>");												
+							
+						}
+						if(item.model_contact_email){
+							$('#ubmsuite_mcs_model_review_ubm_model_ul').append("<li class='success'>" + item.model_contact_email_prefix + " : " + item.model_contact_email + "</li>");												
+							
+						}else{
+							$('#ubmsuite_mcs_model_review_ubm_model_ul').append("<li class='warning'>Warning : This model doesnt have a reference.</li>");												
+							
+						}
+						if(item.system_title){
+							$('#ubmsuite_mcs_model_review_ubm_model_ul').append("<li class='success'>" + item.system_title_prefix + " : " + item.system_title + "</li>");												
+							
+						}else{
+							$('#ubmsuite_mcs_model_review_ubm_model_ul').append("<li class='warning'>Warning : This model doesnt have a System Title.</li>");												
+							
+						}
+					});
+				});
+				
+			}
+		</script>
+		<!-- Model Summary -->
+        <script>
+			function PieMenuInit(){		
+				$('#overlayTest').PieMenu({
+					'starting_angel':35,
+					'angel_difference' : 270,
+					'radius':50,
+				});			
+			}
+			$(function() {          
+				$("#submit_button").click(function() {reset(); }); 
+				//$( "#overlayTest" ).draggable();
+				PieMenuInit();
+				
+			});
+			function reset(){
+				if($(".menu_button").hasClass('btn-rotate'))
+				$(".menu_button").trigger('click');
+				
+				$("#info").fadeIn("slow").fadeOut("slow");
+				PieMenuInit();
+			}
+		//End Pie Menu
+
+			//Generic Init variables and functions
+			function onLoadBody() {
+
+				//	alert("This is an Alert!");
+				$('.back_btn').click(function() {
+					parent.history.back();
+					return false;
+				});
+				$(".ubm_page").on("pageremove", function(event) {
+					//alert("beforeshow!");
+				});
+				$(".ubm_page").on("pageshow", function(event) {//bind to a ubm page change event!
+					var str = window.location.hash;
+					//get current page from window as a string
+					var strarray = str.split("#", 2);
+					//spli the string to remove the hash
+					window.activeubm_page = strarray[1];
+					if (strarray[1] == "gettingStarted") {
+						var link = document.getElementById("openItem_popup_button");
+						//Get the popup on the current page.
+						link.setAttribute("href", '#gettingStarted_openItem_popup');
+						//Set the Attribute of the open item button to the popup on the current page.
+					} else {
+						if (strarray[1] == "ubmsuite_table_of_contents") {
+							var link = document.getElementById("openItem_popup_button");
+							//Get the popup on the current page.
+							link.setAttribute("href", '#ubmsuite_table_of_contents_openItem_popup');
+							//Set the Attribute of the open item button to the popup on the current page.
+						} else {
+							if (strarray[1] == "creator_table_of_contents") {
+								var link = document.getElementById("openItem_popup_button");
+								//Get the popup on the current page.
+								link.setAttribute("href", '#creator_table_of_contents_openItem_popup');
+								//Set the Attribute of the open item button to the popup on the current page.
+							} else {
+								if (strarray[1] == "identification_setup") {
+									var link = document.getElementById("openItem_popup_button");
+									//Get the popup on the current page.
+									link.setAttribute("href", '#identification_setup_openItem_popup');
+									//Set the Attribute of the open item button to the popup on the current page.
+								} else {
+									if (strarray[1] == "primary_objects_setup_table") {
+										var link = document.getElementById("openItem_popup_button");
+										//Get the popup on the current page.
+										link.setAttribute("href", '#primary_objects_setup_table_openItem_popup');
+										//Set the Attribute of the open item button to the popup on the current page.
+									} else {
+										if (strarray[1] == "possible_alternatives") {
+											var link = document.getElementById("openItem_popup_button");
+											//Get the popup on the current page.
+											link.setAttribute("href", '#possible_alternatives_openItem_popup');
+											//Set the Attribute of the open item button to the popup on the current page.
+										} else {
+											if (strarray[1] == "mcs_setup_checklist_setup") {
+												var link = document.getElementById("openItem_popup_button");
+												//Get the popup on the current page.
+												link.setAttribute("href", '#mcs_setup_checklist_setup_openItem_popup');
+												//Set the Attribute of the open item button to the popup on the current page.
+											} else {
+												if (strarray[1] == "mcs_setup_checklist_CS") {
+													var link = document.getElementById("openItem_popup_button");
+													//Get the popup on the current page.
+													link.setAttribute("href", '#mcs_setup_checklist_CS_openItem_popup');
+													//Set the Attribute of the open item button to the popup on the current page.
+												} else {
+													if (strarray[1] == "mcs_setup_checklist_p1") {
+														var link = document.getElementById("openItem_popup_button");
+														//Get the popup on the current page.
+														link.setAttribute("href", '#mcs_setup_checklist_p1_openItem_popup');
+														//Set the Attribute of the open item button to the popup on the current page.
+													} else {
+														if (strarray[1] == "mcs_setup_checklist_p2") {
+															var link = document.getElementById("openItem_popup_button");
+															//Get the popup on the current page.
+															link.setAttribute("href", '#mcs_setup_checklist_p2_openItem_popup');
+															//Set the Attribute of the open item button to the popup on the current page.
+														} else {
+															if (strarray[1] == "mcs_setup_checklist_p3") {
+																var link = document.getElementById("openItem_popup_button");
+																//Get the popup on the current page.
+																link.setAttribute("href", '#mcs_setup_checklist_p3_openItem_popup');
+																//Set the Attribute of the open item button to the popup on the current page.
+															} else {
+																if (strarray[1] == "mcs_setup_checklist_p4_b1") {
+																	var link = document.getElementById("openItem_popup_button");
+																	//Get the popup on the current page.
+																	link.setAttribute("href", '#mcs_setup_checklist_p4_b1_openItem_popup');
+																	//Set the Attribute of the open item button to the popup on the current page.
+																} else {
+																	if (strarray[1] == "mcs_setup_checklist_p4_b2") {
+																		var link = document.getElementById("openItem_popup_button");
+																		//Get the popup on the current page.
+																		link.setAttribute("href", '#mcs_setup_checklist_p4_b2_openItem_popup');
+																		//Set the Attribute of the open item button to the popup on the current page.
+																	} else {
+																		if (strarray[1] == "mcs_setup_checklist_p5") {
+																			var link = document.getElementById("openItem_popup_button");
+																			//Get the popup on the current page.
+																			link.setAttribute("href", '#mcs_setup_checklist_p5_openItem_popup');
+																			//Set the Attribute of the open item button to the popup on the current page.
+																		} else {
+																			if (strarray[1] == "mcs_setup_checklist_p6") {
+																				var link = document.getElementById("openItem_popup_button");
+																				//Get the popup on the current page.
+																				link.setAttribute("href", '#mcs_setup_checklist_p6_openItem_popup');
+																				//Set the Attribute of the open item button to the popup on the current page.
+																			} else {
+																				if (strarray[1] == "mcs_setup_checklist_p7") {
+																					var link = document.getElementById("openItem_popup_button");
+																					//Get the popup on the current page.
+																					link.setAttribute("href", '#mcs_setup_checklist_p7_openItem_popup');
+																					//Set the Attribute of the open item button to the popup on the current page.
+																				} else {
+																					if (strarray[1] == "mcs_setup_checklist_p8") {
+																						var link = document.getElementById("openItem_popup_button");
+																						//Get the popup on the current page.
+																						link.setAttribute("href", '#mcs_setup_checklist_p8_openItem_popup');
+																						//Set the Attribute of the open item button to the popup on the current page.
+																					} else {
+																						if (strarray[1] == "open_points_action_items") {
+																							var link = document.getElementById("openItem_popup_button");
+																							//Get the popup on the current page.
+																							link.setAttribute("href", '#open_points_action_items_openItem_popup');
+																							//Set the Attribute of the open item button to the popup on the current page.
+																						}else{
+																							if(strarray[1] == "ubmsuite_SelectBusinessModel"){
+																								var link = document.getElementById("openItem_popup_button");
+																								//Get the popup on the current page.
+																								link.setAttribute("href", '#ubmsuite_SelectBusinessModel_openItem_popup');
+																								//Set the Attribute of the open item button to the popup on the current page.
+																							}else{
+																								if(strarray[1] == "ubmsuite_modelDashboard"){
+																									var link = document.getElementById("openItem_popup_button");
+																									//Get the popup on the current page.
+																									link.setAttribute("href", '#ubmsuite_modelDashboard_openItem_popup');
+																									//Set the Attribute of the open item button to the popup on the current page.																									
+																								}
+																							}
+																						}
+
+																					}
+																				}
+																			}
+																		}
+																	}
+																}
+															}
+														}
+													}
+												}
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+					//		alert(window.location.hash);									//outputs the original hash
+					//alert(strarray[1]);												//outputs the split string which has the hash removed
+					$.getJSON('http://www.findmydriver.com/getubmpagereference.php?callback=?', {//JSONP Request to the app_pages table.
+						pageid : strarray[1]	// sends the current page to the server.
+					}, function(res, status) {
+						//	alert("json returned successfully! "+ status);
+						//	alert(res.message); // Alerts the current page which was sent in the call back from the server.
+					});
+
+				});
+				$("#si_email").focus();
+			}
+        </script>
+		<!-- PieMenuInit() and onLoadBody()x -->
+        <script>
+			//Complete MCS Checklist Tasks
+			function setActiveTaskId(MCSTaskId) {
+				//alert("The active task is: "+MCSTaskId);
+				window.MCSTaskId = MCSTaskId;
+				var date = new Date();
+				window.MCSTaskPreparedByStartTime = date;
+				//Sets the current time as the task start time for the preparer.
+				var currentPage;
+				window.activeubm_page = currentPage;
+				//$("#" + currentPage + "_prepareTaskPopup").popup('open');
+			}
+			function submitMCSTaskPreparedByRecord() {
+				if (window.MCSTaskId > 0) {
+					$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_submitTaskPreparedBy.php?callback=?', {//JSONP Request
+						activeModelId : window.activeModelId,
+						taskId : window.MCSTaskId,
+						startTime : window.MCSTaskPreparedByStartTime,
+						username : window.username
+					}, function(res, status) {
+						alert(res.message);
+					});
+					getModelCreationSuiteChecklistItems();
+				} else {
+
+				}
+			}
+			function submitMCSTaskReviewedByRecord() {
+				if (window.MCSTaskId > 0) {
+					$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_submitTaskReviewedBy.php?callback=?', {//JSONP Request
+						activeModelId : window.activeModelId,
+						taskId : window.MCSTaskId,
+						startTime : window.MCSTaskStartTime,
+						username : window.username
+					}, function(res, status) {
+						alert(res.message);
+					});
+					getModelCreationSuiteChecklistItems();
+				} else {
+
+				}
+			}
+			function submitMCSTaskFinalReviewedByRecord() {
+				if (window.MCSTaskId > 0) {
+					$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_submitTaskFinalReviewedBy.php?callback=?', {//JSONP Request
+						activeModelId : window.activeModelId,
+						taskId : window.MCSTaskId,
+						startTime : window.MCSTaskStartTime,
+						username : window.username
+					}, function(res, status) {
+						alert(res.message);
+					});
+					getModelCreationSuiteChecklistItems();
+				} else {
+
+				}
+			}
+			function submitMCS_phaseSetup_submitT4(MCSTaskId) {
+				if (MCSTaskId == 4) {
+					var modelOwnerLegalEntityVal = document.getElementById("mcs_setup_checklist_setup_identification_setup_popup_form_legalentity").value;
+					var modelOwnerCCODEVal = document.getElementById("mcs_setup_checklist_setup_identification_setup_popup_form_ccode").value;
+					var modelContactNameVal = document.getElementById("mcs_setup_checklist_setup_identification_setup_popup_form_model_contactname").value;
+					var modelContactPhoneVal = document.getElementById("mcs_setup_checklist_setup_identification_setup_popup_form_modelcontactphone").value;
+					var modelContactEmailVal = document.getElementById("mcs_setup_checklist_setup_identification_setup_popup_form_modelcontactemail").value;
+					var modelPurposeVal = document.getElementById("mcs_setup_checklist_setup_identification_setup_popup_form_purpose").value;
+					var modelScopeVal = document.getElementById("mcs_setup_checklist_setup_identification_setup_popup_form_scope").value;
+					var catBusinessVal = $('#mcs_setup_checklist_setup_identification_setup_popup_form_category_business').is(':checked');
+					var catEducationVal = $('#mcs_setup_checklist_setup_identification_setup_popup_form_category_education').is(':checked');
+					var catFamilyVal = $('#mcs_setup_checklist_setup_identification_setup_popup_form_category_family').is(':checked');
+					var catHealthVal = $('#mcs_setup_checklist_setup_identification_setup_popup_form_category_health').is(':checked');
+					var catMedicalVal = $('#mcs_setup_checklist_setup_identification_setup_popup_form_category_medical').is(':checked');
+					var catProductivityVal = $('#mcs_setup_checklist_setup_identification_setup_popup_form_category_productivity').is(':checked');
+					var catUtilityVal = $('#mcs_setup_checklist_setup_identification_setup_popup_form_category_utilities').is(':checked');
+					var catChurchVal = $('#mcs_setup_checklist_setup_identification_setup_popup_form_category_church').is(':checked');
+					var catCoopVal = $('#mcs_setup_checklist_setup_identification_setup_popup_form_category_coop').is(':checked');
+					var catOtherVal = $('#mcs_setup_checklist_setup_identification_setup_popup_form_category_other').is(':checked');
+					var formStringArray = new Array();
+					formStringArray.push({
+						modelOwnerLegalEntityVal : modelOwnerLegalEntityVal,
+						modelOwnerCCODEVal : modelOwnerCCODEVal,
+						modelContactNameVal : modelContactNameVal,
+						modelContactPhoneVal : modelContactPhoneVal,
+						modelContactEmailVal : modelContactEmailVal,
+						modelPurposeVal : modelPurposeVal,
+						modelScopeVal : modelScopeVal,
+						catBusinessVal : catBusinessVal,
+						catEducationVal : catEducationVal,
+						catFamilyVal : catFamilyVal,
+						catHealthVal : catHealthVal,
+						catMedicalVal : catMedicalVal,
+						catProductivityVal : catProductivityVal,
+						catUtilityVal : catUtilityVal,
+						catChurchVal : catChurchVal,
+						catCoopVal : catCoopVal,
+						catOtherVal : catOtherVal,
+					});
+					$.each(formStringArray, function(index, val) {
+						if (!val.modelOwnerLegalEntityVal) {
+							alert('Your model must have a legal entity associated with it.');
+						} else {
+							if (!val.modelOwnerCCODEVal) {
+								alert('Your model must have an associated CCODE.');
+							} else {
+								if (!val.modelContactNameVal) {
+									alert('A model must have a contact associated with it.');
+								} else {
+									if (!val.modelContactPhoneVal) {
+										alert('The model contact must have a valid phone number.');
+									} else {
+										if (!val.modelContactEmailVal) {
+											alert('The model contact must have a valid email.');
+										} else {
+											if (!val.modelPurposeVal) {
+												alert('A model must have a purpose.');
+											} else {
+												if (!val.modelScopeVal) {
+													alert('A model must be limited to a specific scope.');
+												} else {
+													$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_phaseSetup_submitT4.php?callback=?', {//JSONP Request
+														username : window.username,
+														activeModelId : window.activeModelId,
+														modelOwnerLegalEntity : modelOwnerLegalEntityVal,
+														modelOwnerCCODE : modelOwnerCCODEVal,
+														modelContactName : modelContactNameVal,
+														modelContactPhone : modelContactPhoneVal,
+														modelContactEmail : modelContactEmailVal,
+														modelPurpose : modelPurposeVal,
+														modelScope : modelScopeVal,
+														catBusiness : catBusinessVal,
+														catEducation : catEducationVal,
+														catFamily : catFamilyVal,
+														catHealth : catHealthVal,
+														catMedical : catMedicalVal,
+														catProductivity : catProductivityVal,
+														catUtility : catUtilityVal,
+														catChurch : catChurchVal,
+														catCoop : catCoopVal,
+														catOther : catOtherVal
+
+													}, function(res, status) {
+														if (status == "success") {
+															//alert(res.message);
+															setActiveTaskId(MCSTaskId);
+															setTimeout(function() {
+																submitMCSTaskPreparedByRecord();
+															}, 1000);
+														}
+													});
+												}
+											}
+										}
+									}
+								}
+							}
+						}
+					});
+
+				} else {
+					if (MCSTaskId == 5) {
+
+					} else {
+
+					}
+				}
+			}
+			function submitMCS_phase1_submitT17(MCSTaskId){
+				if (MCSTaskId == 17) {
+					var conceptualDefinition = document.getElementById("mcs_setup_checklist_p1_primaryObjects_setup_popup_form_conceptualDefinition").value;
+					var missionStatement = document.getElementById("mcs_setup_checklist_p1_primaryObjects_setup_popup_form_missionStatement").value;
+					var visionStatement = document.getElementById("mcs_setup_checklist_p1_primaryObjects_setup_popup_form_visionStatement").value;
+					var formStringArray = new Array();
+					
+					formStringArray.push({
+						conceptualDefinition : conceptualDefinition,
+						missionStatement : missionStatement,
+						visionStatement : visionStatement,
+					});
+					$.each(formStringArray, function(index, val) {
+						if (!val.conceptualDefinition) {
+							alert('Your model must have at least one conceptual definition.');
+						} else {
+							if (!val.missionStatement) {
+								alert('Your model must have a mission statement.');
+							} else {
+								if (!val.visionStatement) {
+									alert('A model must have a vision statement.');
+								} else {
+									$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_phase1_submitT17.php?callback=?', {//JSONP Request
+										username : window.username,
+										activeModelId : window.activeModelId,
+										conceptualDefinition : conceptualDefinition,
+										missionStatement : missionStatement,
+										visionStatement : visionStatement
+									}, function(res, status) {
+										alert(status);
+										if (status == "success") {
+											//alert(res.message);
+											setActiveTaskId(MCSTaskId);
+											setTimeout(function() {
+												submitMCSTaskPreparedByRecord();
+											}, 1000);
+										}
+									});
+								}
+							}
+						}
+					});
+
+				} else {
+					if (MCSTaskId == 5) {
+
+					} else {
+
+					}
+				}				
+			}
+			function setReviewedByStartTime(itemId) {
+				var date = new Date();
+				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_setActiveReviewedByTime.php?callback=?', {//JSONP Request
+					itemId : window.itemId,
+					date : window.setActiveReviewedByTime,
+					activeModelId : window.activeModelId
+				}, function(res, status) {
+					alert(res.message);
+				});
+			}
+
+			function setFinalReviewedByStartTime(itemId) {
+				var date = new Date();
+				$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_setActiveFinalReviewedByTime.php?callback=?', {//JSONP Request
+					itemId : window.itemId,
+					date : window.setActiveFinalReviewedByTime,
+					activeModelId : window.activeModelId
+				}, function(res, status) {
+					alert(res.message);
+				});
+			}
+
+			function getMyModelsListofAvailableApplications(){
+					/*$.getJSON('http://www.findmydriver.com/ubm_modelcreationsuite_submitTaskFinalReviewedBy.php?callback=?', {//JSONP Request
+						activeModelId : window.activeModelId,
+						taskId : window.MCSTaskId,
+						startTime : window.MCSTaskStartTime,
+						username : window.username
+					}, function(res, status) {
+						alert(res.message);
+					});			*/	
+			}
+			window.c = 0;
+			//Set window variable so that the counter persists each time the function is called.
+			function addField(c, cloned) {
+				var c = window.c;
+				//Set c equal to the window variable
+				var cloned //define a variable to serve as the reference for inserting a new element
+				event.preventDefault();
+				//prevent the default from happening
+				cloned = $('#gettingStarted_content_textarea' + c);
+				//set cloned as the element being cloned.
+				$("#gettingStarted_content_textarea" + c).clone().attr('id', 'gettingStarted_content_textarea' + (++c)).insertAfter(cloned);
+
+				$("#gettingStarted_content_textarea" + c).text('gettingStarted_content_textarea' + c);
+				// JUST TO TEST
+				window.c = c;
+				//alert("addField was called");
+				//$( "p" ).clone().add( "<span>Again</span>" ).appendTo( document.body );
+
+				//		$('#gettingStarted_content').append($( "#gettingStarted_content_textarea" ).clone());
+				//alert("addField was executed");
+			}
+
+			function submitReviewPoint(popupid) {
+				//Show Loader Message
+				var $this = $("#page_loading_message"), theme = $this.jqmData("theme") || $.mobile.loader.prototype.options.theme, msgText = $this.jqmData("msgtext") || $.mobile.loader.prototype.options.text, textVisible = $this.jqmData("textvisible") || $.mobile.loader.prototype.options.textVisible, textonly = !!$this.jqmData("textonly");
+				html = $this.jqmData("html") || "";
+				$.mobile.loading("show", {
+					text : msgText,
+					textVisible : textVisible,
+					theme : theme,
+					textonly : textonly,
+					html : html
+				});
+				if (popupid == "sign_in_sign_up_") {
+					alert("this is the popup: " + popupid);
+				}
+				//End Show Loader Message
+				//event.preventDefault();
+				//alert(window.username);
+				$.getJSON('http://www.findmydriver.com/ubmsubmitopenitems.php?callback=?', {
+					appname : "UBMMFICS",
+					RQType : "sumbitReviewPoint",
+					username : window.username,
+					formref : document.getElementById(popupid + "submitreviewpoint_formref").value,
+					priority : document.getElementById(popupid + "submitreviewpoint_priority").value,
+					actionrequired : document.getElementById(popupid + "submitreviewpoint_actionrequired").value,
+					assignedto : document.getElementById(popupid + "submitreviewpoint_assignedto").value,
+					duedate : document.getElementById(popupid + "submitreviewpoint_duedatetime").value,
+				}, function(res, status) {
+					alert("init: " + status);
+					if (status == "success") {
+						alert(res.message);
+						$('#gettingStarted_open_items_form').each(function() {
+							this.reset();
+						});
+						$('#sign_in_sign_up_open_items_form').each(function() {
+							this.reset();
+						});
+						$('#ubmsuite_table_of_contents_open_items_form').each(function() {
+							this.reset();
+						});
+						$('#creator_table_of_contents_open_items_form').each(function() {
+							this.reset();
+						});
+						$('#identification_setup_open_items_form').each(function() {
+							this.reset();
+						});
+						$('#primary_objects_setup_table_open_items_form').each(function() {
+							this.reset();
+						});
+						$('#management_reporting_open_items_form').each(function() {
+							this.reset();
+						});
+						$('#mcs_setup_checklist_setup_open_items_form').each(function() {
+							this.reset();
+						});
+						$('#mcs_setup_checklist_CS_open_items_form').each(function() {
+							this.reset();
+						});
+						$('#mcs_setup_checklist_p1_open_items_form').each(function() {
+							this.reset();
+						});
+						$('#mcs_setup_checklist_p2_open_items_form').each(function() {
+							this.reset();
+						});
+						$('#mcs_setup_checklist_p3_open_items_form').each(function() {
+							this.reset();
+						});
+						$('#mcs_setup_checklist_p4_b1_open_items_form').each(function() {
+							this.reset();
+						});
+						$('#mcs_setup_checklist_p4_b2_open_items_form').each(function() {
+							this.reset();
+						});
+						$('#mcs_setup_checklist_p4_b3_open_items_form').each(function() {
+							this.reset();
+						});
+						$('#mcs_setup_checklist_p4_b4_open_items_form').each(function() {
+							this.reset();
+						});
+						$('#mcs_setup_checklist_p4_b5_open_items_form').each(function() {
+							this.reset();
+						});
+						$('#mcs_setup_checklist_p4_b6_open_items_form').each(function() {
+							this.reset();
+						});
+						$('#mcs_setup_checklist_p4_b7_open_items_form').each(function() {
+							this.reset();
+						});
+						$('#mcs_setup_checklist_p4_b8_open_items_form').each(function() {
+							this.reset();
+						});
+						$('#mcs_setup_checklist_p4_b9_open_items_form').each(function() {
+							this.reset();
+						});
+						$('#mcs_setup_checklist_p4_b10_open_items_form').each(function() {
+							this.reset();
+						});
+						$('#mcs_setup_checklist_p4_b11_open_items_form').each(function() {
+							this.reset();
+						});
+						$('#mcs_setup_checklist_p4_b12_open_items_form').each(function() {
+							this.reset();
+						});
+						$('#mcs_setup_checklist_p5_open_items_form').each(function() {
+							this.reset();
+						});
+						$('#mcs_setup_checklist_p6_open_items_form').each(function() {
+							this.reset();
+						});
+						$('#mcs_setup_checklist_p7_open_items_form').each(function() {
+							this.reset();
+						});
+						$('#mcs_setup_checklist_p8_open_items_form').each(function() {
+							this.reset();
+						});
+						$('#open_points_action_items_open_items_form').each(function() {
+							this.reset();
+						});
+						$('#ubmsuite_SelectBusinessModel_open_items_form').each(function() {
+							this.reset();
+						});
+						$('#ubmsuite_modelSettings_open_items_form').each(function() {
+							this.reset();
+						});
+					}
+					//Start Show Loading Message
+					$.mobile.loading("hide");
+					//End Hide Loading Message
+				});
+			}
+
+			function checkEmail() {
+
+                var email = document.getElementById('reg_email');
+                var filter = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+            
+                if (!filter.test(email.value)) {
+                alert('Please provide a valid email address');
+                reg_email.focus;
+                return false;
+             }
+            }
+			
+    function userRegister() {
+                //Show Loader Message
+                var $this = $("#page_loading_message"), theme = $this.jqmData("theme") || $.mobile.loader.prototype.options.theme, msgText = $this.jqmData("msgtext") || $.mobile.loader.prototype.options.text, textVisible = $this.jqmData("textvisible") || $.mobile.loader.prototype.options.textVisible, textonly = !!$this.jqmData("textonly");
+                html = $this.jqmData("html") || "";
+
+                $.mobile.loading("show", {
+                    text : msgText,
+                    textVisible : textVisible,
+                    theme : theme,
+                    textonly : textonly,
+                    html : html
+                });
+                //End Show Loader Message
+                event.preventDefault();
+                var reg_passwd1 = document.getElementById("reg_pw1").value;
+                //  alert(reg_passwd1);
+                var reg_passwd2 = document.getElementById("reg_pw2").value;
+                //  alert(reg_passwd2);
+                var reg_email = document.getElementById("reg_email").value;
+                var terms_of_service = document.getElementById("register_termsOfService").checked;
+                var license_agreement = document.getElementById("register_license_agreement").checked;
+                    
+
+                    if (terms_of_service == false) {
+                        alert("You Must Agree to the Terms of Service!");
+                                    $.mobile.loading("hide");
+                        return false;
+                    } else {
+                        if (license_agreement == false) {
+                            alert("You Must Agree to the License Agreement!");
+                                    $.mobile.loading("hide");
+                            return false;
+                            }
+                        else {
+                
+                            var filter = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+                        
+                            if (!filter.test(reg_email)) {
+                            alert('Please provide a valid email address');
+                                    $.mobile.loading("hide");
+                            reg_email.focus;
+                            return false;
+                         }
+                            var reg_username = reg_email.split("@", 1).toString();
+                            window.username = reg_username;
+                            alert(reg_username);
+							if(reg_passwd1.length<8){
+								alert("Your password must be at least 8 characters.");
+	                                    $.mobile.loading("hide");								
+							}else{
+	                            if (reg_passwd1 == reg_passwd2) {
+	                                //alert("passwords match!");
+	                                $.getJSON('http://www.findmydriver.com/ubms_usreg.php?callback=?', {
+	                                    key : "YDoS20lf7Vrnr22h8Ma6NGUV5DblnVhueTPXS7gPynRvQ6U8optzfnMDs3UD",
+	                                    appname : "FindMyDriver",
+	                                    RQType : "userRegister",
+	                                    email : reg_email,
+	                                    password : reg_passwd1,
+	                                    username : reg_username,
+	                                }, function(res, status) {
+	                                    alert(res.message);
+	                                    if ( status = "SUCCESS") {
+	                                        $('#registration_form').each(function() {
+	                                        this.reset();
+	                                    });
+	                                    }
+	                                    $.mobile.loading("hide");
+	                                    //Hide Loading Message
+	                                    window.location = "#ubmsuite_SelectBusinessModel"   //Need to modify server side to check if username already exists, if so send a callback to notify the user, Only allow change window location if the user account was created successfully.
+	                                });
+	                            } else {
+	                                alert("The passwords you entered do not match!");
+	                            }
+								
+							}
+
+                     }
+                }
+            }
+
+			function userSignIn() {				
+				event.preventDefault();
+				var si_email = document.getElementById("si_email").value;
+				var si_passWord = document.getElementById("si_pw").value;
+				var si_userName = si_email.split("@", 1).toString();
+				window.username = si_userName;
+				//var si_userName = si_userNameArray.toString();
+				//				alert(si_userName);
+				if (si_userName.length < 1) {
+					alert("You must enter a username!");
+				} else {
+					if (si_passWord.length < 1) {
+						alert("You must enter your password");
+					} else {
+						$('#result').empty().append('<center><p>Performing your sign in request...</p></center>');
+						/* stop form from submitting normally */
+						$.getJSON('http://api.universalbusinessmodel.com/ubms_usrsi.php?callback=?', {
+							key : "YDoS20lf7Vrnr22h8Ma6NGUV5DblnVhueTPXS7gPynRvQ6U8optzfnMDs3UD",
+							appname : "FindMyDriver",
+							RQType : "userSignIn",
+							email : si_email,
+							username : si_userName,
+							password : si_passWord
+						}, function(res, status) {
+							//				    alert(res.message);
+							if (res.validation == 'TRUE') {
+								$('#result').empty().append('<center><p>' + res.message + res.validation + '</p></center>');
+								$('#result').empty();
+								window.accounttype = res.accounttype;
+							} else {
+								$('#result').empty().append('<center><p>No account exists with that username or password. Click Register to create your free account</p></center>');
+							}
+							if (res.accounttype == 'admin') {
+								//admin only stuff here
+								window.location = "#AdminSignIn_dialog"	
+								//$('body').prepend('<div id="overlayTest" class="circleBase type2" style="z-index: 99999; position:fixed;"><a href="#openItem_popup" data-rel="popup" data-transition="slideup" class="ui-btn ui-icon-alert ui-btn-icon-notext ui-corner-all">No text</a><a href="#openItem_popup" data-rel="popup" data-transition="slideup" class="ui-btn ui-icon-action ui-btn-icon-notext ui-corner-all">No text</a><center><a href="#mcs_setup_checklist_setup_searchPopup" data-rel="popup" data-transition="slideup" class="ui-btn ui-icon-search ui-btn-icon-notext ui-corner-all">No text</a></center></div>');
+								$(".circleBase").draggable();
+							} else {
+								if (res.accounttype == 'user') {
+									alert("you are a user");
+									window.location = "#ubmsuite_SelectBusinessModel"
+									//Driver only stuff here
+								} else {
+									if (res.accounttype == 'dispatch') {
+										alert("You are a dispatch");
+										window.location = "#ubmsuite_SelectBusinessModel"
+
+										//Dispatch only stuff here
+									} else {
+										if (res.accounttype == 'driver') {
+											alert("You are a driver");
+											window.location = "#ubmsuite_SelectBusinessModel"
+										}
+										//User has not been assigned an account type!
+									}
+								}
+							}
+							//						$('#result').empty().append('<center><p>'+ res.validation + '</p></center>');
+							//					    alert(status);
+						});
+					}
+				}
+				//		alert("user Sign in Clicked");
+				//	$.mobile.changePage( "#home", { transition: "fade", changeHash: false, reloadPage: true });
+			}
+
+			function updateUserPreferences() {
+				updatePhoneNumber();
+			}
+
+			function updatePhoneNumber() {
+				if (document.getElementById("ubmsuite_UserPreferences_selectCarrier").value != "Verizon") {
+					alert("Notice: \"Your Carrier is not currently supported!\"");
+				}
+
+				$.getJSON('http://www.findmydriver.com/app_users_preferences_phoneNumberCarrier.php?callback=?', {//JSONP Request
+					carrier : document.getElementById("ubmsuite_UserPreferences_selectCarrier").value,
+					phoneNumber : document.getElementById("ubmsuite_UserPreferences_cell").value,
+					username : window.username
+				}, function(res, status) {
+					alert("Phone Number Successfully Added!");
+				});
+			}
+
+			function userSignOut() {
+				window.username = 0;
+			}
+
+			$(function() {
+				$(".circleBase").draggable();
+			});
+			$(function() {
+				$('.bxslider').bxSlider({
+					speed : 100,
+				});
+			});
+			$(document).on("click", ".show-page-loading-msg", function() {
+				var $this = $("#page_loading_message"), theme = $this.jqmData("theme") || $.mobile.loader.prototype.options.theme, msgText = $this.jqmData("msgtext") || $.mobile.loader.prototype.options.text, textVisible = $this.jqmData("textvisible") || $.mobile.loader.prototype.options.textVisible, textonly = !!$this.jqmData("textonly");
+				html = $this.jqmData("html") || "";
+
+				$.mobile.loading("show", {
+					text : msgText,
+					textVisible : textVisible,
+					theme : theme,
+					textonly : textonly,
+					html : html
+				});
+			}).on("click", ".hide-page-loading-msg", function() {
+				$.mobile.loading("hide");
+			});
+
+			function checkConnection() {
+				alert("Check Connection Called");
+				var networkState = navigator.connection.type;
+				alert("After Network STate");
+				var states = {};
+				states[Connection.UNKNOWN] = 'Unknown connection';
+				states[Connection.ETHERNET] = 'Ethernet connection';
+				states[Connection.WIFI] = 'WiFi connection';
+				states[Connection.CELL_2G] = 'Cell 2G connection';
+				states[Connection.CELL_3G] = 'Cell 3G connection';
+				states[Connection.CELL_4G] = 'Cell 4G connection';
+				states[Connection.CELL] = 'Cell generic connection';
+				states[Connection.NONE] = 'No network connection';
+				alert('Connection type: ' + states[networkState]);
+			}
+
+			function getPosition() {
+				var onSuccess = function(position) {
+					alert('Latitude: ' + position.coords.latitude + '\n' + 'Longitude: ' + position.coords.longitude + '\n' + 'Altitude: ' + position.coords.altitude + '\n' + 'Accuracy: ' + position.coords.accuracy + '\n' + 'Altitude Accuracy: ' + position.coords.altitudeAccuracy + '\n' + 'Heading: ' + position.coords.heading + '\n' + 'Speed: ' + position.coords.speed + '\n' + 'Timestamp: ' + position.timestamp + '\n');
+				};
+				// onError Callback receives a PositionError object
+				function onError(error) {
+					alert('code: ' + error.code + '\n' + 'message: ' + error.message + '\n');
+				}
+
+
+				navigator.geolocation.getCurrentPosition(onSuccess, onError);
+			}
+        </script>
+        <style>
+        /* Styling for Org Chart Page */
+			.org_chart{
+				background 			: url('img/bkgd.png') repeat top left;
+				color 				: white;
+				font-family 		: tahoma;
+				font-weight 		: lighter;
+				padding-top 		: 40px;
+			}       
+        /* Styling for Model Listview Popups*/
+			#ubmsuite_modelSettings_coreValues_popup_listview
+			{
+			width:230px;
+			height:400px;
+			overflow-y:scroll;
+			}
+			#ubmsuite_modelSettings_customers_popup_listview
+			{
+			width:230px;
+			height:400px;
+			overflow-y:scroll;
+			}
+			#ubmsuite_modelSettings_products_popup_listview
+			{
+			width:230px;
+			height:400px;
+			overflow-y:scroll;
+			}
+			#ubmsuite_modelSettings_services_popup_listview
+			{
+			width:230px;
+			height:400px;
+			overflow-y:scroll;
+			}
+			#ubmsuite_modelSettings_organizationalstructure_popup_listview
+			{
+			width:230px;
+			height:400px;
+			overflow-y:scroll;
+			}
+			#ubmsuite_modelSettings_physicalfacilities_popup_listview
+			{
+			width:230px;
+			height:400px;
+			overflow-y:scroll;
+			}
+			#ubmsuite_modelSettings_strategicalliances_popup_listview
+			{
+			width:230px;
+			height:400px;
+			overflow-y:scroll;
+			}
+			#ubmsuite_modelSettings_strategicpositioningquestions_popup_listview
+			{
+			width:230px;
+			height:400px;
+			overflow-y:scroll;
+			}
+			#ubmsuite_modelSettings_features_popup_listview
+			{
+			width:230px;
+			height:400px;
+			overflow-y:scroll;
+			}
+			#ubmsuite_modelSettings_requestedapplications_popup_listview
+			{
+			width:230px;
+			height:400px;
+			overflow-y:scroll;
+			}
+
+			/* styling for overlay test, which is the red review point tool */
+			#overlayTest {
+				width: 31px;
+				height: 31px;
+				padding: 0.5em;
+				float: left;
+				margin: 30px 10px 10px 0;
+			}
+
+			.circleBase {
+				-webkit-border-radius: 888px;
+				-moz-border-radius: 888px;
+				border-radius: 888px;
+				behavior: url(PIE.htc);
+			}
+			.type1 {
+				width: 30px;
+				height: 30px;
+				background-color: rgba(0,0,0,0.5);
+				border: 3px solid blue
+			}
+			.type2 {
+				width: 40px;
+				height: 40px;
+				background-color: rgba(0,0,255,0.5);
+				border: 3px solid blue
+			}
+
+			/** CSS for Scrolling panels */
+			.ui-panel.ui-panel-open {
+				position: fixed;
+			}
+			.ui-panel-inner {
+				position: absolute;
+				top: 1px;
+				left: 0;
+				right: 0;
+				bottom: 0px;
+				overflow: scroll;
+				-webkit-overflow-scrolling: touch;
+			}/***/
+
+			/* class="my-page" custom styling */
+
+			/* A bit custom styling */
+			.my-page .ui-listview li .ui-btn p {
+				color: #c0c0c0;
+			}
+			.my-page .ui-listview li .ui-btn .ui-li-aside {
+				color: #eee;
+			}
+			/* First breakpoint is 48em (768px). 3 column layout. Tiles 250x250 pixels incl. margin at the breakpoint. */
+			@media (min-width: 48em) {
+				.my-page .ui-content {
+					padding: .5625em; /* 9px */
+				}
+				.my-page .ui-listview li {
+					float: left;
+					width: 30.9333%; /* 33.3333% incl. 2 x 1.2% margin */
+					height: 14.5em; /* 232p */
+					margin: .5625em 1.2%;
+				}
+				.my-page .ui-listview li > .ui-btn {
+					-webkit-box-sizing: border-box; /* include padding and border in height so we can set it to 100% */
+					-moz-box-sizing: border-box;
+					-ms-box-sizing: border-box;
+					box-sizing: border-box;
+					height: 100%;
+				}
+				.my-page .ui-listview li.ui-li-has-thumb .ui-li-thumb {
+					height: auto; /* To keep aspect ratio. */
+					max-width: 100%;
+					max-height: none;
+				}
+				/* Make all list items and anchors inherit the border-radius from the UL. */
+				.my-page .ui-listview li, .my-page .ui-listview li .ui-btn, .my-page .ui-listview .ui-li-thumb {
+					-webkit-border-radius: inherit;
+					border-radius: inherit;
+				}
+				/* Hide the icon */
+				.my-page .ui-listview .ui-btn-icon-right:after {
+					display: none;
+				}
+				/* Make text wrap. */
+				.my-page .ui-listview h2, .my-page .ui-listview p {
+					white-space: normal;
+					overflow: visible;
+					position: absolute;
+					left: 0;
+					right: 0;
+				}
+				/* Text position */
+				.my-page .ui-listview h2 {
+					font-size: 1.25em;
+					margin: 0;
+					padding: .125em 1em;
+					bottom: 50%;
+				}
+				.my-page .ui-listview p {
+					font-size: 1em;
+					margin: 0;
+					padding: 0 1.25em;
+					min-height: 50%;
+					bottom: 0;
+				}
+				/* Semi transparent background and different position if there is a thumb. The button has overflow hidden so we don't need to set border-radius. */
+				.ui-listview .ui-li-has-thumb h2, .ui-listview .ui-li-has-thumb p {
+					background: #111;
+					background: rgba(0,0,0,.8);
+				}
+				.ui-listview .ui-li-has-thumb h2 {
+					bottom: 35%;
+				}
+				.ui-listview .ui-li-has-thumb p {
+					min-height: 35%;
+				}
+				/* ui-li-aside has class .ui-li-desc as well so we have to override some things. */
+				.my-page .ui-listview .ui-li-aside {
+					padding: .125em .625em;
+					width: auto;
+					min-height: 0;
+					top: 0;
+					left: auto;
+					bottom: auto;
+					/* Custom styling. */
+					background: #990099;
+					background: rgba(153,0,153,.85);
+					-webkit-border-top-right-radius: inherit;
+					border-top-right-radius: inherit;
+					-webkit-border-bottom-left-radius: inherit;
+					border-bottom-left-radius: inherit;
+					-webkit-border-bottom-right-radius: 0;
+					border-bottom-right-radius: 0;
+				}
+				/* If you want to add shadow, don't kill the focus style. */
+				.my-page .ui-listview li {
+					-moz-box-shadow: 0px 0px 9px #111;
+					-webkit-box-shadow: 0px 0px 9px #111;
+					box-shadow: 0px 0px 9px #111;
+				}
+				/* Images mask the hover bg color so we give desktop users feedback by applying the focus style on hover as well. */
+				.my-page .ui-listview li > .ui-btn:hover {
+					-moz-box-shadow: 0px 0px 12px #33ccff;
+					-webkit-box-shadow: 0px 0px 12px #33ccff;
+					box-shadow: 0px 0px 12px #33ccff;
+				}
+				/* Animate focus and hover style, and resizing. */
+				.my-page .ui-listview li, .my-page .ui-listview .ui-btn {
+					-webkit-transition: all 500ms ease;
+					-moz-transition: all 500ms ease;
+					-o-transition: all 500ms ease;
+					-ms-transition: all 500ms ease;
+					transition: all 500ms ease;
+				}
+			}
+			/* Second breakpoint is 63.75em (1020px). 4 column layout. Tiles will be 250x250 pixels incl. margin again at the breakpoint. */
+			@media (min-width: 63.75em) {
+				.my-page .ui-content {
+					padding: .625em; /* 10px */
+				}
+				/* Set a max-width for the last breakpoint to prevent too much stretching on large screens.
+				 By setting the max-width equal to the breakpoint width minus padding we keep square tiles. */
+				.my-page .ui-listview {
+					max-width: 62.5em; /* 1000px */
+					margin: 0 auto;
+				}
+				/* Because of the 1000px max-width the width will always be 230px (and margin left/right 10px),
+				 but we stick to percentage values for demo purposes. */
+				.my-page .ui-listview li {
+					width: 23%;
+					height: 230px;
+					margin: .625em 1%;
+				}
+			}
+			/* For this demo we used images with a size of 310x310 pixels. Just before the second breakpoint the images reach their max width: 1019px - 2 x 9px padding = 1001px x 30.9333% = ~310px */
+        </style>
 		  <!-- WOOKMARK CSS  -->
 		<style>
 		    /**
@@ -1359,24 +4223,16 @@ under the License.
 				padding:0px 0px 0px 0px;
 		    }
 		</style>
-		
     </head>
     
     <div id="headerRecord_right" style="z-index: 99999; position:fixed; right:60px; top:5px;">
         <div id="headerRecord_right_formref" style="color:red;">
             00.01
         </div>
+        <div id="headerRecord_right_page">
+            1 of 1
+        </div>
     </div>
-        
-        <!-- This is the Google sign in API -->
-    <script type="text/javascript">
-      (function() {
-       var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
-       po.src = 'https://apis.google.com/js/client:plusone.js';
-       var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
-     })();
-    </script> <!-- END This is the Google sign in API -->
-    
     <body onload="onLoadBody()">
         <div id="overlayTest" class="circleBase type1 outer_container" style="z-index: 99999; position:fixed; right:20px; top:300px;">
 			<a class="menu_button" href="#" title="Toggle"><span>Menu</span></a>
@@ -1410,18 +4266,6 @@ under the License.
                     </form>
                 </div>
                 <!-- End Open Items Popup -->
-                <!-- Change Password Popup -->
-				<div data-role="popup" id="initialChangePasssword" data-theme="a" class="ui-corner-all">
-				    <form id="initialChangePasssword_form" >
-				        <div style="padding:10px 20px;">
-				            <h3>Your account has been reset, you must change your password</h3>
-				            <input type="password" name="user" id="initialChangePasssword_form_changePassword" value="" placeholder="Password" data-theme="a">
-				            <input type="password" name="pass" id="initialChangePasssword_form_verfyChangePassword" value="" placeholder="Verfiy Password" data-theme="a">
-				            <button onclick='submitNewPassword()' class="ui-btn ui-corner-all ui-shadow ui-btn-b ui-btn-icon-left ui-icon-check">Change Password</button>
-				        </div>
-				    </form>
-				</div>
-				<!-- End Change Password Popup -->
                 <form> <!-- NOTE TO APP DEVELOPER, need to add form id.-->
                     <div style="padding:120px 20px;">
                         <label for="un" class="ui-hidden-accessible">Username:</label>
@@ -1433,61 +4277,7 @@ under the License.
                         </button>
                     </div>
                 </form>
-			   <div style="padding:120px 20px;">
-                        <meta name="google-signin-clientid" content="CLIENT_ID" />
-						<meta name="google-signin-scope" content="https://www.googleapis.com/auth/plus.login" />
-						<meta name="google-signin-requestvisibleactions" content="http://schemas.google.com/AddActivity" />
-						<meta name="google-signin-cookiepolicy" content="single_host_origin" />
-						<script type="text/javascript">
-						 (function() {
-						   var po = document.createElement('script');
-						   po.type = 'text/javascript'; po.async = true;
-						   po.src = 'https://apis.google.com/js/client:plusone.js?onload=render';
-						   var s = document.getElementsByTagName('script')[0];
-						   s.parentNode.insertBefore(po, s);
-						 })();
-
-						   /* Executed when the APIs finish loading */
-						 function render() {
-
-						   // Additional params including the callback, the rest of the params will
-						   // come from the page-level configuration.
-						   var additionalParams = {
-						     'callback': signinCallback
-						     'clientid' : 'xxxxxxxxxxxxxx..apps.googleusercontent.com',
-						     'cookiepolicy' : 'single_host_origin',
-						     'scope' : 'https://www.googleapis.com/auth/plus.login',
-						     'requestvisibleactions' : 'http://schemas.google.com/AddActivity'
-						    // Additional parameters;
-						   };
-
-						   // Attach a click listener to a button to trigger the flow.
-						   var signinButton = document.getElementById('signinButton');
-						   signinButton.addEventListener('click', function() {
-						   alert("button was clicked");
-						     gapi.auth.signIn(additionalParams); // Will use page level configuration
-						   });
-						 }
-						 function signinCallback(authResult) {
-						  if (authResult['status']['signed_in']) {
-						  	alert("user was signed in");
-						    // Update the app to reflect a signed in user
-						    // Hide the sign-in button now that the user is authorized, for example:
-						    document.getElementById('signinButton').setAttribute('style', 'display: none');
-						  } else 
-						  {alert("user was not signed in");
-						    // Update the app to reflect a signed out user
-						    // Possible error values:
-						    //   "user_signed_out" - User is signed-out
-						    //   "access_denied" - User denied access to your app
-						    //   "immediate_failed" - Could not automatically log in the user
-						    console.log('Sign-in state: ' + authResult['error']);
-						  }
-						}
-						</script>
-
-			   </div>             
-			   <div id="result" style="background-color: white;">
+                <div id="result" style="background-color: white;">
 
                 </div>
                 <div align="center">
@@ -1525,43 +4315,6 @@ under the License.
                     </p>
             </div>
         </div>
-        
-        <!-- Verify Account Page -->
-        <div data-role="page" id="account_verification">
-			<div data-role="header" data-position="fixed" data-fullscreen="true">
-				<div id="ubmsuite_mcs_management_reporting_header_headerRecord_center" style="text-align: center">
-					<div id="ubmsuite_mcs_management_reporting_header_headerRecord_center_legalentity">
-						Legal Entity:
-					</div>
-					<div id="ubmsuite_mcs_management_reporting_header_headerRecord_center_systemtitle">
-						System Title:
-					</div>
-					<div id="ubmsuite_mcs_management_reporting_header_headerRecord_center_modelapptitle">
-						Model / App Title:
-					</div>
-					<div id="ubmsuite_mcs_management_reporting_header_headerRecord_center_pagetitle">
-						Registeration Verification
-					</div>
-				</div>
-			</div>
-			<div role="main" class="ui-content">
-				<div style="padding-top:15%;text-align:center;">
-					<h1>Your Account Has Been Successfully Created</h1>
-					<h1>Please Click On The Activation Link That Has Been Emailed To You</h1>
-					<button class="ui-btn ui-btn-inline" onclick="checkEmailVerification()">Continue</button>
-					<p style="padding-top:2em"> If you have not recieved an email try again here</p>
-					<center>
-					<div style="width:500px;">
-						<input type="email" id="emailForActivation" placeholder="Email">
-					</div>
-					<center>
-					<button class="ui-btn ui-btn-inline" onclick="sendActivationEmail()">Submit</button>
-				</div>
-
-			</div>
-		</div>
-        <!-- End Verify Account Page -->
-
         <!-- User Preferences -->
         <div data-role="page" class="ubm_page" id="ubmsuite_UserPreferences"  data-theme="a">
             <!-- No Panel on this page, instead only back button is needed.-->
@@ -1631,26 +4384,22 @@ under the License.
                 </div>
                 <!-- End Open Items Popup -->
                 <div class="ui-grid-a">
-                    <div class="ui-block-a" style="margin-top:5%;max-width:25%;padding-left:1%">
+                    <div class="ui-block-a" style="margin-top:5em">
 
                         <select  id="ubmsuite_UserPreferences_selectCarrier" value="Select" data-native-menu="false" >
-                            <option>Choose Your Carrier</option>
+                            <option>Carrier</option>
                             <option value="Verizon">Verizon</option>
                             <option value="Sprint">Sprint</option>
                             <option value="T-Mobile">T-Mobile</option>
                             <option value="AT&T">AT&amp; T</option>
                         </select>
-                        
                         <input type="tel" data-clear-btn="false" name="tel-1" placeholder="10 Digit cell phone number" id="ubmsuite_UserPreferences_cell" value="">
-                        <h3 style="text-align:center">What is your name?</h1>
-                        <input type="text" placeholder="First Name" value=""> </input>
-                        <input type="text" placeholder="Last Name" value=""> </input>
                         <button class="ui-btn ui-shadow ui-corner-all ui-btn-icon-left ui-icon-forward" onclick="updateUserPreferences()">
                             Update
                         </button>
                     </div>
                     <div class="ui-block-b">
-                        <div class="ui-block-a" style="margin-top:10%;float:right">
+                        <div class="ui-block-a" style="margin-top:5em">
                             <a href="#gettingStarted" class="ui-btn ui-icon-info ui-btn-icon-left ui-shadow-icon">Getting Started</a>
                         </div>
                     </div>
@@ -1701,7 +4450,7 @@ under the License.
                         My UBM Control Panel
                     </div>
                 </div>
-                <a href="#" data-icon="refresh" data-iconpos="notext" onclick="getMyModels();getSharedModels()">Refresh</a>
+                <a href="#" data-icon="refresh" data-iconpos="notext" onclick="getMyModels()">Refresh</a>
             </div>
             <div data-role="content">
                 <!-- Open Items Popup -->
@@ -1748,7 +4497,7 @@ under the License.
                             </li>
                         </ul>
                     </form>
-                </div
+                </div>
                 <!-- End Open Items Popup -->
                 <!-- Create Model Popup -->
                 <div data-role="popup" id="ubmsuite_createModel_popup" data-theme="a" data-position-to="window" data-dismissible="false">
@@ -1784,7 +4533,7 @@ under the License.
 	                </ul>                	
                 </div>
 				<div style="min-width:250px; width:50%; float:left; ">
-	                <ul data-role='listview' data-inset='true' id='ubmsuite_SelectBusinessModel_SharedModels_ul' data-theme="b" style="max-height: 400px; overflow-y: scroll;">
+	                <ul data-role='listview' data-inset='true' id='ubmsuite_SelectBusinessModel_SharedModels_ul' data-theme="a" style="max-height: 400px; overflow-y: scroll;">
 	
 	                </ul>					
 				</div>
@@ -1887,7 +4636,7 @@ under the License.
 		                        </p></a>
 		                    </li>
 		                    <li>
-		                        <a href="#possible_alternatives"> <img src="img/alternitives.jpg" class="ui-li-thumb"> <h2>Alternatives</h2>
+		                        <a href="#"> <img src="img/alternitives.jpg" class="ui-li-thumb"> <h2>Alternatives</h2>
 		                        <p>
 		                            ROI, Risk Analysis, Project Financial Statement
 		                        </p>
@@ -1914,7 +4663,7 @@ under the License.
 		                        </p></a>
 		                    </li>
 		                    <li>
-		                        <a href="#ubm_product_creation_suite"> <img src="img/lightbulb.jpg" class="ui-li-thumb"><h2>Product Creation Suite</h2>
+		                        <a href="#"> <img src="img/lightbulb.jpg" class="ui-li-thumb"><h2>Product Creation Suite</h2>
 		                        <p>
 		                            Create your Product.
 		                        </p>
@@ -1950,30 +4699,12 @@ under the License.
 		                        </p></a>
 		                    </li>
 		                    <li>
-			                        <a href="#ubmsuite_swotAnalysis"> <img src="img/swot.png" class="ui-li-thumb"> <h2>SWOT Analysis</h2>
-			                        <p>
-			                           Strengths, Weaknesses, Opportunities, and Threats.
-			                        </p>
-			                        <p class="ui-li-aside">
-			                            SA
-			                        </p></a>
-			                    </li>
-		                    <li>
 		                        <a href="#ubmsuite_modelSettings"> <img src="img/gear.png" class="ui-li-thumb"> <h2>Model Settings</h2>
 		                        <p>
 		                            Modify user access, Edit Model Properties, etc...
 		                        </p>
 		                        <p class="ui-li-aside">
 		                            MS
-		                        </p></a>
-		                    </li>
-		                    <li>
-		                        <a href="#ubmsuite_mcs_position_strategic_command_center"> <img src="img/gear.png" class="ui-li-thumb"> <h2>Position Strategic Command Center</h2>
-		                        <p>
-		                            Reporting portal, Top 10 and Calendar of Events
-		                        </p>
-		                        <p class="ui-li-aside">
-		                            PSCC
 		                        </p></a>
 		                    </li>
 		                </ul>                	
@@ -2106,7 +4837,7 @@ under the License.
 	                        </p></a>
 	                    </li>
 	                    <li>
-	                        <a href="#possible_alternatives"> <img src="img/alternitives.jpg" class="ui-li-thumb"> <h2>Alternatives</h2>
+	                        <a href="#"> <img src="img/alternitives.jpg" class="ui-li-thumb"> <h2>Alternatives</h2>
 	                        <p>
 	                            ROI, Risk Analysis, Project Financial Statement
 	                        </p>
@@ -2133,7 +4864,7 @@ under the License.
 	                        </p></a>
 	                    </li>
 	                    <li>
-	                        <a href="#ubm_product_creation_suite"> <img src="img/lightbulb.jpg" class="ui-li-thumb"><h2>Product Creation Suite</h2>
+	                        <a href="#"> <img src="img/lightbulb.jpg" class="ui-li-thumb"><h2>Product Creation Suite</h2>
 	                        <p>
 	                            Create your Product.
 	                        </p>
@@ -2169,30 +4900,12 @@ under the License.
 	                        </p></a>
 	                    </li>
 	                    <li>
-		                        <a href="#ubmsuite_swotAnalysis"> <img src="img/swot.png" class="ui-li-thumb"> <h2>SWOT Analysis</h2>
-		                        <p>
-		                           Strengths, Weaknesses, Opportunities, and Threats.
-		                        </p>
-		                        <p class="ui-li-aside">
-		                            SA
-		                        </p></a>
-		                    </li>
-	                    <li>
 	                        <a href="#ubmsuite_modelSettings"> <img src="img/gear.png" class="ui-li-thumb"> <h2>Model Settings</h2>
 	                        <p>
 	                            Modify user access, Edit Model Properties, etc...
 	                        </p>
 	                        <p class="ui-li-aside">
 	                            MS
-	                        </p></a>
-	                    </li>
-	                    <li>
-	                        <a href="#ubmsuite_mcs_position_strategic_command_center"> <img src="img/gear.png" class="ui-li-thumb"> <h2>Position Strategic Command Center</h2>
-	                        <p>
-	                            Reporting portal, Top 10 and Calendar of Events
-	                        </p>
-	                        <p class="ui-li-aside">
-	                            PSCC
 	                        </p></a>
 	                    </li>
 	                </ul>                	
@@ -2242,14 +4955,33 @@ under the License.
                         Model / App Title: UBM Automator v3.3.1
                     </div>
                     <div id="ubmsuite_mcs_model_review_header_headerRecord_center_pagetitle">
-                        My Applications
+                        Model Overview
                     </div>
                 </div>
             </div>
             <div data-role="content">
 				<div>
-	                <ul id="ubmsuite_mcs_my_applications_myApps_ul" data-role="listview" data-inset="true">
-
+	                <ul data-role="listview" data-inset="true">
+	                    <li>
+	                        <a href="#ubmsuite_mcs_my_applications"> <img src="img/time-for-review.jpg" class="ui-li-thumb"> <h2>My Applications</h2>
+		                        <p>
+		                            Manage the interface between your applications and your model.
+		                        </p>
+		                        <p class="ui-li-aside">
+		                            MA
+		                        </p> 
+	                        </a>
+	                    </li> 
+	                    <li>
+	                        <a href="#ubmsuite_mcs_list_of_available_applications"> <img src="img/time-for-review.jpg" class="ui-li-thumb"> <h2>List of Available Applications</h2>
+		                        <p>
+		                            Select from a list of all UBM compliant applications that are currently available.
+		                        </p>
+		                        <p class="ui-li-aside">
+		                            MA
+		                        </p> 
+	                        </a>
+	                    </li>                    
 	                </ul>					
 				</div>
 			</div>
@@ -2257,46 +4989,10 @@ under the License.
 				
 			</div>			
 		</div>
-		<div data-role="page" class="ubm_page" id="ubmsuite_mcs_position_strategic_command_center">
-            <!-- No Panel on this page, instead only back button is needed.-->
-            <div data-role="header" data-position="fixed">
-                <a href="#" class="back_btn" data-icon="arrow-l" data-iconpos="notext">Back</a>
-                <div id"ubmsuite_mcs_position_strategic_command_center_header_headerRecord_center" style="text-align: center">
-                    <div id="ubmsuite_mcs_position_strategic_command_center_header_headerRecord_center_legalentity">
-                        Legal Entity: Business Model Consulting, LLC
-                    </div>
-                    <div id="ubmsuite_mcs_position_strategic_command_center_header_headerRecord_center_systemtitle">
-                        System Title: UBM Suite v 1.0
-                    </div>
-                    <div id="ubmsuite_mcs_position_strategic_command_center_header_headerRecord_center_modelapptitle">
-                        Model / App Title: UBM Automator v3.3.1
-                    </div>
-                    <div id="ubmsuite_mcs_position_strategic_command_center_header_headerRecord_center_pagetitle">
-                        Position Strategic Command Center
-                    </div>
-                </div>
-            </div>
-            	<style>
-					#calendar {
-						width: 900px;
-						margin: 0 auto;
-						}            		
-            	</style>
-            <div data-role="content">
-           	</br>
-            </br>
-           	</br>
-            </br>
-				
-			</div>
-			<div data-role="footer">
-				
-			</div>			
-		</div>
         <div data-role="page" class="ubm_page" id="ubmsuite_mcs_model_review" data-theme="a">
             <!-- No Panel on this page, instead only back button is needed.-->
-            <div data-role="header" style="text-align: center">
-                <a href="#" class="back_btn ui-link ui-btn-left ui-btn ui-icon-arrow-l ui-btn-icon-notext ui-shadow ui-corner-all" data-icon="arrow-l" data-iconpos="notext" data-role="button">Back</a>
+            <div data-role="header" data-position="fixed" data-fullscreen="true">
+                <a href="#" class="back_btn" data-icon="arrow-l" data-iconpos="notext">Back</a>
                 <div id"ubmsuite_mcs_model_review_header_headerRecord_center" style="text-align: center">
                     <div id="ubmsuite_mcs_model_review_header_headerRecord_center_legalentity">
                         Legal Entity: Business Model Consulting, LLC
@@ -2312,7 +5008,7 @@ under the License.
                     </div>
                 </div>
             </div>
-            <div data-role="content" style="margin-left:-1%;margin-top:-.7%">
+            <div data-role="content">
                 <!-- Open Items Popup -->
                 <div data-role="popup" id="ubmsuite_mcs_model_review_openItem_popup" data-theme="a">
                     <form id="ubmsuite_mcs_model_review_open_items_form" name="open_items_form"> <!-- Form Checklist Created By Aaron Miller -->
@@ -2366,22 +5062,10 @@ under the License.
 							<div class="controls">
 								<nav class="links">
 									<ul>
-										<li><a id="links_setup" href="#" onclick="getModelSetupSummary(2)" class="ico3">Setup</a></li>
+										<li><a href="#" class="ico1">Setup <span class="num">19</span></a></li>
 									</ul>
 									<ul>
-										<li><a href="#" id="links_control" onclick="getControlSummary(2)" class="ico3">Control</a></li>
-									</ul>
-									<ul>
-										<li><a href="#" id="links_phase1" onclick="getPhase1Summary(2)" class="ico3">Phase 1</a></li>
-									</ul>
-									<ul>
-										<li><a href="#" id="links_phase2" onclick="getPhase2Summary(2)" class="ico3">Phase 2</a></li>
-									</ul>
-									<ul>
-										<li><a href="#" id="links_phase3" onclick="getPhase3Summary(2)" class="ico3">Phase 3</a></li>
-									</ul>
-									<ul>
-										<li><a href="#" id="links_phase4" onclick="getPhase4Summary(2)" class="ico3">Phase 4</a></li>
+										<li><a href="#" class="ico1">Control <span class="num">0</span></a></li>
 									</ul>
 								</nav>
 								<!--<div class="profile-box">
@@ -2404,55 +5088,7 @@ under the License.
 										<div class="text-section">
 											<h1>Model Setup</h1>
 										</div>
-										<ul id="ubmsuite_mcs_model_review_ubm_modelSetup_ul" class="states">
-										</ul>
-										<div id="ubmsuite_mcs_model_review_ubm_modelSetup_stats">
-
-										</div>
-									</article>
-								</div>
-								<div id="tab-2" class="tab">
-									<article>
-										<div class="text-section">
-											<h1>Control</h1>
-										</div>
-										<ul id="ubmsuite_mcs_model_review_ubm_control_ul" class="states">
-										</ul>
-									</article>
-								</div>
-								<div id="tab-3" class="tab">
-									<article>
-										<div class="text-section">
-											<h1>Phase 1</h1>
-										</div>
-										<ul id="ubmsuite_mcs_model_review_ubm_phase1_ul" class="states">
-										</ul>
-									</article>
-								</div>
-								<div id="tab-4" class="tab">
-									<article>
-										<div class="text-section">
-											<h1>Phase 2</h1>
-										</div>
-										<ul id="ubmsuite_mcs_model_review_ubm_phase2_ul" class="states">
-										</ul>
-									</article>
-								</div>
-								<div id="tab-5" class="tab">
-									<article>
-										<div class="text-section">
-											<h1>Phase 3</h1>
-										</div>
-										<ul id="ubmsuite_mcs_model_review_ubm_phase3_ul" class="states">
-										</ul>
-									</article>
-								</div>
-								<div id="tab-6" class="tab">
-									<article>
-										<div class="text-section">
-											<h1>Phase 4</h1>
-										</div>
-										<ul id="ubmsuite_mcs_model_review_ubm_phase4_ul" class="states">
+										<ul id="ubmsuite_mcs_model_review_ubm_model_ul" class="states">
 										</ul>
 									</article>
 								</div>
@@ -2462,17 +5098,18 @@ under the License.
 					<aside id="sidebar">
 						<ul class="tabset buttons">
 							<li class="active">
-								<a href="#tab-1" class="ico4" onclick="overview()"><span>Overview</span><em></em></a>
-								<span class="tooltip"><span>Checklist Completion Overview</span></span>
-							</li>
-							<li class="active">
-								<a href="#tab-1" class="ico6" onclick="summary()"><span>Model Summary</span><em></em></a>
+								<a href="#tab-1" class="ico1"><span>Model Summary</span><em></em></a>
 								<span class="tooltip"><span>Model Summary</span></span>
 							</li>
 						</ul>
 						<span class="shadow"></span>
 					</aside>
 				</div>
+
+            </div>
+
+            <div data-role="footer" data-position="fixed" data-fullscreen="true">
+
             </div>
         </div>
 		<!-- Master File Index -->
@@ -2581,7 +5218,7 @@ under the License.
 		</div>
 		<div data-role="page" class="ubm_page" id="ubmsuite_mcs_my_organizational_chart" data-theme="a">
 			<!-- UBM Suite Table of Contents Page-->
-			<div data-role="header" data-position="fixed" data-fullscreen="true" >
+			<div data-role="header" data-position="fixed" data-fullscreen="true">
                 	<a href="#" class="back_btn" data-icon="arrow-l" data-iconpos="notext">Back</a>
 				<div id="ubmsuite_mcs_my_organizational_chart_header_headerRecord_center" style="text-align: center">
 					<div id="ubmsuite_mcs_my_organizational_chart_header_headerRecord_center_legalentity">
@@ -2594,22 +5231,21 @@ under the License.
 						Model / App Title: UBM Automator v3.3.1 UBM Suite
 					</div>
 					<div id="ubmsuite_mcs_my_organizational_chart_header_headerRecord_center_pagetitle">
-						MCS Model Structure Dashboard
+						MCS Example Model Organizational Chart
 					</div>
 				</div>
 					<a href="#" class="ui-btn ui-shadow ui-corner-all ui-icon-refresh ui-btn-icon-notext" onclick="getMyModelsOrgChart()">Refresh</a>				
 			</div>
-			<div data-role="content" id="ubmsuite_mcs_my_organizational_chart_content" style="padding-top:100px;">
+			<div data-role="content" id="ubmsuite_mcs_my_organizational_chart_content">
 				<div data-role="popup" id="ubmsuite_mcs_my_organizational_chart_confirm_remove_Position_popup"  data-theme="a" data-overlay-theme="b" class="ui-content" style="max-width:340px; padding-bottom:2em;">
 				    <h3>Remove Position?</h3>
 				    <p>Removing this position will remove all child positions!</p>
 				    <a href="index.html" data-rel="back" class="ui-shadow ui-btn ui-corner-all ui-btn-b ui-icon-check ui-btn-icon-left ui-btn-inline ui-mini" onclick="removeActivePositionfromMyModel()">Confirm Remove Position</a>
 				    <a href="index.html" data-rel="back" class="ui-shadow ui-btn ui-corner-all ui-btn-inline ui-mini">Cancel</a>
 				</div>				
-				<div data-role="popup" id="ubmsuite_mcs_my_organizational_chart_content_createNewPositionPopUp"  data-theme="a" class="ui-corner-all draggable_popup">
+				<div data-role="popup" id="ubmsuite_mcs_my_organizational_chart_content_createNewPositionPopUp"  data-theme="a" class="ui-corner-all">
 					<div data-role="header">
 						<h1>Add Position</h1>
-						<a href="#" data-rel="back" data-role="button" data-theme="a" data-icon="delete" data-iconpos="notext" class="ui-btn-right">Close</a>
 					</div>
 					<div class="ui-grid-a">
 					    <div class="ui-block-a">
@@ -2623,339 +5259,152 @@ under the License.
 						    </form>	
 					    </div>
 					    <div class="ui-block-b" style="padding-top:15px;">
-							<div style="padding:10px 20px;">
+					    	<form>
 								<h3>All UBM Predefined Positions</h3>
-								<ul data-role="listview" id="ubmsuite_mcs_my_organizational_chart_content_createNewPositionPopUp_form_UBMRepository"data-inset="true" data-filter="true" data-filter-placeholder="Search UBM Reference Manual" style="max-height:400px; padding-bottom:2em; overflow-y:scroll;">
-
-								</ul>	
-							</div>											
+								<ul data-role="listview" id="ubmsuite_mcs_my_organizational_chart_content_createNewPositionPopUp_form_UBMRepository"data-inset="true" data-filter="true" data-filter-placeholder="Search UBM Repository" style="max-height:400px; padding-bottom:2em; overflow-y:scroll;">
+							</form>
+							</ul>					
 					    </div>
 					</div>
 				</div>
-				<style>
-				#ubmsuite_mcs_my_organizational_chart_content_mangePositionPopUp li {margin:15px 5px 15px 5px;}
-				</style>
-
-				<div data-role="popup" id="ubmsuite_mcs_my_organizational_chart_content_mangePositionPopUp" data-overlay-theme="b" data-theme="a" data-dismissible="true" style="max-width:400px; min-width: 350px;">
-				    <div id="ubmsuite_mcs_my_organizational_chart_content_mangePositionPopUp_header" data-role="header" data-theme="a">
-						<h1 style="white-space:normal;">Manage Position</h1>
+				<div data-role="popup" id="ubmsuite_mcs_my_organizational_chart_content_modifyPositionPopUp" data-overlay-theme="b" data-theme="a" data-dismissible="true" style="max-width:400px; min-width: 350px;">
+				    <div id="ubmsuite_mcs_my_organizational_chart_content_modifyPositionPopUp_header" data-role="header"  data-theme="a">
+						<h1>Manage Position</h1>
 				    </div>
-				    <div data-role='content' data-theme='a' >
-							<ul data-role="listview">
-								<li <a href="#" onclick='openAddNewPositionPopup();getListofPossiblePositions()' class="ui-btn">Add New Position to Model</a></li>
-								<li <a href="#" onclick='confirmRemoveActivePosition()' class="ui-btn">Remove</a></li>
-								<li <a href="#" onclick='modifyActivePosition()' class="ui-btn">Modify</a></li>
-								<li <a href="#" onclick='viewActivePositionHierachyObjects()' class="ui-btn">View Hierarchical Objects</a></li>
-								<!-- <li <a href="#" onclick='createNewJobDescription()' class="ui-btn">Create A New Job Description</a></li> -->
-							</ul>
-				    </div>	
+				    <div role="main" class="ui-content">
+				        <h3 class="ui-title">Click/Tap the icon below for additional options.</h3>
+						<center>
+							<div id='demo_box_popup' class='demo_box_popup'>
+								<div class='pop_ctrl'>
+									<i class='fa fa-wrench'></i>
+								</div>
+								<ul id='demo_ul_2'>
+									<li class='demo_li'><a href='#' onclick='openCreateNewPositionPopup();getListofPossiblePositions()'><div><i class='fa fa-edit'></i></div><p>Add New Position</p></a></li>
+									<li class='demo_li'><a href='#' onclick='confirmRemoveActivePosition()'><div><i class='fa fa-minus-circle'></i></div><p>Remove</p></a></li>
+									<li class='demo_li'><a href='#' onclick='modifyActivePosition()'><div><i class='fa fa-edit'></i></div><p>Modify Position</p></a></li>
+									<li class='demo_li'><a href='#' onclick='viewActivePositionHierachyObjects()'><div><i class='fa fa-sitemap'></i></div><p>View Hierarchical Objects</p></a></li>
+									<li class='demo_li'><a href='#' onclick='createNewJobDescription()'><div><i class='fa fa-sitemap'></i></div><p>Create A New Job Description</p></a></li>
+								</ul>
+							</div>
+						</center>
+				    </div>
 				</div>	
 				<div data-role="popup" id="ubmsuite_mcs_my_organizational_chart_content_manageJobDescriptionPopUp">
-					<a href="#" onclick="createNewJobDescription();getListofPossibleJobDescriptions()" data-rel="popup" data-transition="pop" class="my-tooltip-btn ui-btn ui-alt-icon ui-nodisc-icon ui-btn-inline ui-icon-plus ui-btn-icon-notext" title="Add a New Job Description">Add a New Job Description</a>
+				<a href="#" onclick="createNewJobDescription()" data-rel="popup" data-transition="pop" class="my-tooltip-btn ui-btn ui-alt-icon ui-nodisc-icon ui-btn-inline ui-icon-plus ui-btn-icon-notext" title="Add a New Job Description">Add a New Job Description</a>
 				</div>
 				<div data-role="popup" id="ubmsuite_mcs_my_organizational_chart_content_managePolicyPopUp">
-					<a href="#" onclick="createNewPolicy();getListofPossiblePolicies()" data-rel="popup" data-transition="pop" class="my-tooltip-btn ui-btn ui-alt-icon ui-nodisc-icon ui-btn-inline ui-icon-plus ui-btn-icon-notext" title="Add a Policy">Add a Policy</a>
+				<a href="#" onclick="createNewPolicy()" data-rel="popup" data-transition="pop" class="my-tooltip-btn ui-btn ui-alt-icon ui-nodisc-icon ui-btn-inline ui-icon-plus ui-btn-icon-notext" title="Add a Policy">Add a Policy</a>
 				</div>
 				<div data-role="popup" id="ubmsuite_mcs_my_organizational_chart_content_manageProcedurePopUp">
-					<a href="#" onclick="createNewProcedure();getListofPossibleProcedures()" data-rel="popup" data-transition="pop" class="my-tooltip-btn ui-btn ui-alt-icon ui-nodisc-icon ui-btn-inline ui-icon-plus ui-btn-icon-notext" title="Add a New Procedure">Add a New Procedure</a>
+				<a href="#" onclick="createNewProcedure()" data-rel="popup" data-transition="pop" class="my-tooltip-btn ui-btn ui-alt-icon ui-nodisc-icon ui-btn-inline ui-icon-plus ui-btn-icon-notext" title="Add a New Procedure">Add a New Procedure</a>
 				</div>
 				<div data-role="popup" id="ubmsuite_mcs_my_organizational_chart_content_manageStepPopUp">
-					<a href="#" onclick="createNewStep();getListofPossibleSteps()" data-rel="popup" data-transition="pop" class="my-tooltip-btn ui-btn ui-alt-icon ui-nodisc-icon ui-btn-inline ui-icon-plus ui-btn-icon-notext" title="Add a New Job Description">Add a New Step</a>
+				<a href="#" onclick="createNewStep()" data-rel="popup" data-transition="pop" class="my-tooltip-btn ui-btn ui-alt-icon ui-nodisc-icon ui-btn-inline ui-icon-plus ui-btn-icon-notext" title="Add a New Job Description">Add a New Step</a>
 				</div>
 				<div data-role="popup" id="ubmsuite_mcs_my_organizational_chart_content_manageTaskPopUp">
-					<a href="#" onclick="createNewTask();getListofPossibleTasks()" data-rel="popup" data-transition="pop" class="my-tooltip-btn ui-btn ui-alt-icon ui-nodisc-icon ui-btn-inline ui-icon-plus ui-btn-icon-notext" title="Add a New Job Description">Add a New Task</a>
+				<a href="#" onclick="createNewTask()" data-rel="popup" data-transition="pop" class="my-tooltip-btn ui-btn ui-alt-icon ui-nodisc-icon ui-btn-inline ui-icon-plus ui-btn-icon-notext" title="Add a New Job Description">Add a New Task</a>
 				</div>
-	    		<div data-role="popup" id="ubmsuite_mcs_my_organizational_chart_content_createNewJobDescriptionPopUp"  data-theme="a" class="ui-corner-all draggable_popup">
-				    <div id="ubmsuite_mcs_my_organizational_chart_content_createNewJobDescriptionPopUp_header" data-role="header" data-theme="a">
-						<h1 style="white-space:normal;">Add New Job Description</h1>
-						<a href="#" data-rel="back" data-role="button" data-theme="a" data-icon="delete" data-iconpos="notext" class="ui-btn-right">Close</a>
-				    </div>	    			
-	    			<div class="ui-grid-a">
-					    <div class="ui-block-a">
-					    	<form id="ubmsuite_mcs_my_organizational_chart_content_createNewJobDescriptionPopUp_form_createJobDescription_form"> <!-- Form Checklist Created By Aaron Miller -->
-								<div style="padding:10px 20px;">
-						            <center><h2>Create New Job Description</h2></center>
-						            <input type="text" name="ubmsuite_mcs_my_organizational_chart_content_createNewJobDescriptionPopUp_form_JobDescriptionTitle" id="ubmsuite_mcs_my_organizational_chart_content_createNewJobDescriptionPopUp_form_JobDescriptionTitle" value="" placeholder="Job Description Title"  data-theme="a">
-									<textarea data-mini="true"  cols="40" rows="8" id="ubmsuite_mcs_my_organizational_chart_content_createNewJobDescriptionPopUp_form_JobDescriptionObjective" placeholder="Objective of Job Description..."></textarea>
-									<textarea data-mini="true" cols="40" rows="8" id="ubmsuite_mcs_my_organizational_chart_content_createNewJobDescriptionPopUp_form_JobDescriptionDutiesAndResponsibilities" placeholder="Essential Duties and Responsibilities..."></textarea>
-									<input type="text" name="ubmsuite_mcs_my_organizational_chart_content_createNewJobDescriptionPopUp_form_JobDescriptionTitle" id="ubmsuite_mcs_my_organizational_chart_content_createNewJobDescriptionPopUp_form_JobDescriptionAgeRequirement" value="" placeholder="Age Requirement"  data-theme="a">
-						            <textarea data-mini="true" cols="40" rows="8" id="ubmsuite_mcs_my_organizational_chart_content_createNewJobDescriptionPopUp_form_JobDescriptionEducationRequirements" placeholder="Education Requirements..."></textarea>
-									<textarea data-mini="true" cols="40" rows="8" id="ubmsuite_mcs_my_organizational_chart_content_createNewJobDescriptionPopUp_form_JobDescriptionQualificaions" placeholder="Qualifications..."></textarea>
-									<textarea data-mini="true" cols="40" rows="8" id="ubmsuite_mcs_my_organizational_chart_content_createNewJobDescriptionPopUp_form_JobDescriptionPhysicalDemands" placeholder="Physical Demands..."></textarea>
-									<textarea data-mini="true" cols="40" rows="8" id="ubmsuite_mcs_my_organizational_chart_content_createNewJobDescriptionPopUp_form_JobDescriptionWorkEnvironment" placeholder="Work Environment..."></textarea>
-						            <a href="#" class="ui-btn" onclick="createNewJobDescriptionAddtoMyModel()">Create Job Description</a>
-								</div>
-				   		 </form>
-					</div>
-					    <div class="ui-block-b">
-							<div style="padding:10px 20px;">
-								<h2>All UBM Predefined Job Descriptions</h2>
-								<ul data-role="listview" id="ubmsuite_mcs_my_organizational_chart_content_createNewJobDescriptionPopUp_form_UBMRepository"data-inset="true" data-filter="true" data-filter-placeholder="Search UBM Reference Manual" style="max-height:400px; padding-bottom:2em; overflow-y:scroll;">
-
-								</ul>
-							</div>
-						</div>
-				    </div>
+	    		<div data-role="popup" id="ubmsuite_mcs_my_organizational_chart_content_createNewJobDescriptionPopUp"  data-theme="a" class="ui-corner-all">
+				    <form id="ubmsuite_mcs_my_organizational_chart_content_createNewJobDescriptionPopUp_form_createJobDescription_form"> <!-- Form Checklist Created By Aaron Miller -->
+				        <div style="padding:10px 20px;">
+				            <center><h1>Create New Job Description</h1></center>
+				            <input type="text" name="ubmsuite_mcs_my_organizational_chart_content_createNewJobDescriptionPopUp_form_JobDescriptionTitle" id="ubmsuite_mcs_my_organizational_chart_content_createNewJobDescriptionPopUp_form_JobDescriptionTitle" value="" placeholder="Job Description Title"  data-theme="a">
+							<textarea data-mini="true"  cols="40" rows="8" id="ubmsuite_mcs_my_organizational_chart_content_createNewJobDescriptionPopUp_form_JobDescriptionObjective" placeholder="Objective of Job Description..."></textarea>
+							<textarea data-mini="true" cols="40" rows="8" id="ubmsuite_mcs_my_organizational_chart_content_createNewJobDescriptionPopUp_form_JobDescriptionDutiesAndResponsibilities" placeholder="Essential Duties and Responsibilities..."></textarea>
+							<input type="text" name="ubmsuite_mcs_my_organizational_chart_content_createNewJobDescriptionPopUp_form_JobDescriptionTitle" id="ubmsuite_mcs_my_organizational_chart_content_createNewJobDescriptionPopUp_form_JobDescriptionAgeRequirement" value="" placeholder="Age Requirement"  data-theme="a">
+				            <textarea data-mini="true" cols="40" rows="8" id="ubmsuite_mcs_my_organizational_chart_content_createNewJobDescriptionPopUp_form_JobDescriptionEducationRequirements" placeholder="Education Requirements..."></textarea>
+							<textarea data-mini="true" cols="40" rows="8" id="ubmsuite_mcs_my_organizational_chart_content_createNewJobDescriptionPopUp_form_JobDescriptionQualificaions" placeholder="Qualifications..."></textarea>
+							<textarea data-mini="true" cols="40" rows="8" id="ubmsuite_mcs_my_organizational_chart_content_createNewJobDescriptionPopUp_form_JobDescriptionPhysicalDemands" placeholder="Physical Demands..."></textarea>
+							<textarea data-mini="true" cols="40" rows="8" id="ubmsuite_mcs_my_organizational_chart_content_createNewJobDescriptionPopUp_form_JobDescriptionWorkEnvironment" placeholder="Work Environment..."></textarea>
+				            <a href="#" class="ui-btn" onclick="createNewJobDescriptionAddtoMyModel()">Create Job Description</a>
+				        </div>
+				    </form>
 				</div>
-				<div data-role="popup" id="ubmsuite_mcs_my_organizational_chart_content_manageOwners_popup"  data-theme="a" class="ui-corner-all draggable_popup" style="width:150%">
-				    <div id="ubmsuite_mcs_my_organizational_chart_content_manageOwners_header" data-role="header" data-theme="a">
-						<h1 style="white-space:normal;">Manage Owners</h1>
-						<a href="#" data-rel="back" data-role="button" data-theme="a" data-icon="delete" data-iconpos="notext" class="ui-btn-right">Close</a>
-				    </div>	
-				    <div class="ui-grid-a">
-					    <div class="ui-block-a">
-					    	<div id="ubmsuite_mcs_my_organizational_chart_content_manageOwners_content_addNewOwner" data-role="content" data-theme="a">
-					    		<h1>Add Owner</h1>
-					    		<form id="ubmsuite_mcs_my_organizational_chart_content_manageOwners_content_addNewOwner_form">
-					    			<p>Add an Owner</p>
-				    				<input id="ubmsuite_mcs_my_organizational_chart_content_manageOwners_content_addNewOwner_addOwner" type="text" placeholder="Owner Name"></input>
-				    				<p>Percentage Owned</p>
-				    				<input id="ubmsuite_mcs_my_organizational_chart_content_manageOwners_content_addNewOwner_percentageOwned" type="text" placeholder="% Owned"></input>
-			    				</form>
-			    				<button class="ui-btn" onclick="addOwnerNameToOwner()">Submit</button>
-		    				</div>
-						</div>
-						<div class="ui-block-b">
-						    <div id="ubmsuite_mcs_my_organizational_chart_content_manageOwners_content_currentOwners" data-role="content" data-theme="a">
-								<h1>Current Owner(s)</h1>
-								<ul data-role="listview" data-inset="true" id="my_model_current_owners">
-
-								</ul>
-
-							</div>
-						</div>	
-				    </div>    			
-				</div>
-				<div data-role="popup" id="ubmsuite_mcs_my_organizational_chart_content_genericManagePosition_popup"  data-theme="a" class="ui-corner-all draggable_popup" style="width:150%">
-				    <div id="ubmsuite_mcs_my_organizational_chart_content_genericManagePosition_popup_header" data-role="header" data-theme="a">
-						<h1 style="white-space:normal;">Manage Position</h1>
-						<a href="#" data-rel="back" data-role="button" data-theme="a" data-icon="delete" data-iconpos="notext" class="ui-btn-right">Close</a>
-				    </div>	
-				    <div class="ui-grid-a">
-					    <div class="ui-block-a">
-					    	<div id="ubmsuite_mcs_my_organizational_chart_content_genericManagePosition_popup_addName" data-role="content" data-theme="a">
-					    		<h1>Add Person</h1>
-					    		<form id="ubmsuite_mcs_my_organizational_chart_content_genericManagePosition_popup_form">
-					    			<p>Add Person to Position</p>
-				    				<input id="ubmsuite_mcs_my_organizational_chart_content_genericManagePosition_popup_addName_input" type="text" placeholder="Name"></input>
-				    				<p>Email</p>
-				    				<input id="ubmsuite_mcs_my_organizational_chart_content_genericManagePosition_popup_generic" type="text" placeholder="Email"></input>
-			    				</form>
-			    				<button class='ui-btn' onclick='addNameToPosition()'>Submit</button>
-		    				</div>
-						</div>
-						<div class="ui-block-b">
-						    <div id="ubmsuite_mcs_my_organizational_chart_content_genericManagePosition_popup_currentNames" data-role="content" data-theme="a">
-								<h1>Current People</h1>
-								<ul data-role="listview" data-inset="true" id="my_model_current_names">
-
-								</ul>
-
-							</div>
-						</div>	
-				    </div>    			
-				</div>
-				<div data-role="popup" id="ubmsuite_mcs_my_organizational_chart_content_modify_genericManagePosition_popup"  data-theme="a" class="ui-corner-all draggable_popup" style="width:150%">
-				    <div id="ubmsuite_mcs_my_organizational_chart_content_modify_genericManagePosition_popup_header" data-role="header" data-theme="a">
-						<h1 style="white-space:normal;">Modify Person</h1>
-						<a href="#" data-rel="back" data-role="button" data-theme="a" data-icon="delete" data-iconpos="notext" class="ui-btn-right">Close</a>
-				    </div>	
-			    	<div id="ubmsuite_mcs_my_organizational_chart_content_modify_genericManagePosition_popup_addName" data-role="content" data-theme="a">
-			    		<form id="ubmsuite_mcs_my_organizational_chart_content_modify_genericManagePosition_popup_form">
-		    				<input id="ubmsuite_mcs_my_organizational_chart_content_modify_genericManagePosition_popup_addName_input" type="text" placeholder="Name"></input>
-		    				<input id="ubmsuite_mcs_my_organizational_chart_content_modify_genericManagePosition_popup_generic" type="text" placeholder="Email"></input>
-	    				</form>
-	    				<button class='ui-btn' onclick='modifyPositionName()'>Submit</button>
-    				</div>
-				</div>
-				<div data-role="popup" id="ubmsuite_mcs_my_organizational_chart_content_createNewPolicyPopUp"  data-theme="a" class="ui-corner-all draggable_popup">
-					<div data-role="header">
-						<h1>New Policy Popup</h1>
-						<a href="#" data-rel="back" data-role="button" data-theme="a" data-icon="delete" data-iconpos="notext" class="ui-btn-right">Close</a>
-					</div>
-					<div class="ui-grid-a">
-					    <div class="ui-block-a">
-					    	<form id="ubmsuite_mcs_my_organizational_chart_content_createNewPolicyPopUp_form_CreatePolicy_form"> <!-- Form Checklist Created By Aaron Miller -->
-								<div style="padding:10px 20px;">
-						            <center><h2>Create New Policy</h2></center>
-						            <input type="text" name="ubmsuite_mcs_my_organizational_chart_content_createNewPolicyPopUp_form_PolicyTitle" id="ubmsuite_mcs_my_organizational_chart_content_createNewPolicyPopUp_form_PolicyTitle" value="" placeholder="Policy Title"  data-theme="a">
-									<textarea data-mini="true"  cols="40" rows="8" id="ubmsuite_mcs_my_organizational_chart_content_createNewPolicyPopUp_form_PolicyDescription" placeholder="Description..."></textarea>
-									<textarea data-mini="true" cols="40" rows="8" id="ubmsuite_mcs_my_organizational_chart_content_createNewPolicyPopUp_form_PolicyPurpose" placeholder="Purpose..."></textarea>
-						            <textarea data-mini="true" cols="40" rows="8" id="ubmsuite_mcs_my_organizational_chart_content_createNewPolicyPopUp_form_PolicyScope" placeholder="Scope..."></textarea>
-									<fieldset data-role="controlgroup" data-type="horizontal" id="ubmsuite_mcs_my_organizational_chart_content_createNewPolicyPopUp_form_PolicyType">
-								        <legend>Policy Type</legend>
-								        <input type="radio" class="PolicyRadio" name="radio-choice-h-2" id="ubmsuite_mcs_my_organizational_chart_content_createNewPolicyPopUp_radio_PolicyType_company" value="Company">
-								        <label for="ubmsuite_mcs_my_organizational_chart_content_createNewPolicyPopUp_radio_PolicyType_company">Company</label>
-								        <input type="radio" class="PolicyRadio" name="radio-choice-h-2" id="ubmsuite_mcs_my_organizational_chart_content_createNewPolicyPopUp_radio_PolicyType_position" value="Posistion">
-								        <label for="ubmsuite_mcs_my_organizational_chart_content_createNewPolicyPopUp_radio_PolicyType_position">Position</label>
-								        <input type="radio" class="PolicyRadio" name="radio-choice-h-2" id="ubmsuite_mcs_my_organizational_chart_content_createNewPolicyPopUp_radio_PolicyType_other" value="other">
-								        <label for="ubmsuite_mcs_my_organizational_chart_content_createNewPolicyPopUp_radio_PolicyType_other" >Other</label>
-								        <input type="text" id="ubmsuite_mcs_my_organizational_chart_content_createNewPolicyPopUp_form_Other" value="" placeHolder="Other..." data-theme="a">
-								    </fieldset>
-						            <a href="#" class="ui-btn" onclick="createNewPolicyAddtoMyModel()">Create New Policy</a>
-								</div>
-				    		</form>
-					    </div>
-					    <div class="ui-block-b">
-							<div style="padding:10px 20px;">
-						    	<center><h2>All UBM Predefined Policies</h2></center>
-								<ul data-role="listview" id="ubmsuite_mcs_my_organizational_chart_content_createNewPolicyPopUp_form_UBMRepository"data-inset="true" data-filter="true" data-filter-placeholder="Search UBM Reference Manual" style="max-height:400px; padding-bottom:2em; overflow-y:scroll;">
-
-								</ul>
-							</div>
-					    </div>
-					</div>
-				    
+				<div data-role="popup" id="ubmsuite_mcs_my_organizational_chart_content_createNewPolicyPopUp"  data-theme="a" class="ui-corner-all">
+				    <form id="ubmsuite_mcs_my_organizational_chart_content_createNewPolicyPopUp_form_CreatePolicy_form"> <!-- Form Checklist Created By Aaron Miller -->
+				        <div style="padding:10px 20px;">
+				            <center><h1>Create New Policy</h1></center>
+				            <input type="text" name="ubmsuite_mcs_my_organizational_chart_content_createNewPolicyPopUp_form_PolicyTitle" id="ubmsuite_mcs_my_organizational_chart_content_createNewPolicyPopUp_form_PolicyTitle" value="" placeholder="Policy Title"  data-theme="a">
+							<textarea data-mini="true"  cols="40" rows="8" id="ubmsuite_mcs_my_organizational_chart_content_createNewPolicyPopUp_form_PolicyDescription" placeholder="Description..."></textarea>
+							<textarea data-mini="true" cols="40" rows="8" id="ubmsuite_mcs_my_organizational_chart_content_createNewPolicyPopUp_form_PolicyPurpose" placeholder="Purpose..."></textarea>
+				            <textarea data-mini="true" cols="40" rows="8" id="ubmsuite_mcs_my_organizational_chart_content_createNewPolicyPopUp_form_PolicyScope" placeholder="Scope..."></textarea>
+							<fieldset data-role="controlgroup" data-type="horizontal" id="ubmsuite_mcs_my_organizational_chart_content_createNewPolicyPopUp_form_PolicyType">
+						        <legend>Policy Type</legend>
+						        <input type="radio" class="PolicyRadio" name="radio-choice-h-2" id="ubmsuite_mcs_my_organizational_chart_content_createNewPolicyPopUp_radio_PolicyType_company" value="Company">
+						        <label for="ubmsuite_mcs_my_organizational_chart_content_createNewPolicyPopUp_radio_PolicyType_company">Company</label>
+						        <input type="radio" class="PolicyRadio" name="radio-choice-h-2" id="ubmsuite_mcs_my_organizational_chart_content_createNewPolicyPopUp_radio_PolicyType_position" value="Posistion">
+						        <label for="ubmsuite_mcs_my_organizational_chart_content_createNewPolicyPopUp_radio_PolicyType_position">Position</label>
+						        <input type="radio" class="PolicyRadio" name="radio-choice-h-2" id="ubmsuite_mcs_my_organizational_chart_content_createNewPolicyPopUp_radio_PolicyType_other" value="other">
+						        <label for="ubmsuite_mcs_my_organizational_chart_content_createNewPolicyPopUp_radio_PolicyType_other" >Other</label>
+						        <input type="text" id="ubmsuite_mcs_my_organizational_chart_content_createNewPolicyPopUp_form_Other" value="" placeHolder="Other..." data-theme="a">
+						    </fieldset>
+				            <a href="#" class="ui-btn" onclick="createNewPolicyAddtoMyModel()">Create Policy</a>
+				        </div>
+				    </form>
 				</div>	
-				<div data-role="popup" id="ubmsuite_mcs_my_organizational_chart_content_createNewProcedurePopUp"  data-theme="a" class="ui-corner-all draggable_popup">
-					<div data-role="header">
-						<h1>New Procedure Popup</h1>
-						<a href="#" data-rel="back" data-role="button" data-theme="a" data-icon="delete" data-iconpos="notext" class="ui-btn-right">Close</a>
-					</div>					
-					<div class="ui-grid-a">
-					    <div class="ui-block-a">
-					    	<form id="ubmsuite_mcs_my_organizational_chart_content_createNewProcedurePopUp_form_createProcedure_form">
-						        <div style="padding:10px 20px;">
-						            <center><h1>Create New Procedure</h1></center>
-						            <input type="text" name="ubmsuite_mcs_my_organizational_chart_content_createNewProcedurePopUp_form_ProcedureTitle" id="ubmsuite_mcs_my_organizational_chart_content_createNewProcedurePopUp_form_ProcedureTitle" value="" placeholder="Procedure Title"  data-theme="a">
-						            <input type="text" name="ubmsuite_mcs_my_organizational_chart_content_createNewProcedurePopUp_form_ProcedureEffectiveDate" id="ubmsuite_mcs_my_organizational_chart_content_createNewProcedurePopUp_form_ProcedureEffectiveDate" value="" placeholder="Effective Date"  data-theme="a">
-									<textarea data-mini="true"  cols="40" rows="8" id="ubmsuite_mcs_my_organizational_chart_content_createNewProcedurePopUp_form_ProcedureDescription" placeholder="Procedure Description..."></textarea>
-						            <textarea data-mini="true" cols="40" rows="8" id="ubmsuite_mcs_my_organizational_chart_content_createNewProcedurePopUp_form_ProcedurePurpose" placeholder="Purpose..."></textarea>
-									<textarea data-mini="true" cols="40" rows="8" id="ubmsuite_mcs_my_organizational_chart_content_createNewProcedurePopUp_form_ProcedureScope" placeholder="Scope..."></textarea>
-						            <a href="#" class="ui-btn" onclick="createNewProcedureAddtoMyModel()">Create Procedure</a>
-						        </div>
-						    </form>
-					    </div>
-					    <div class="ui-block-b">
-					    	<form>
-								<h3>All UBM Predefined Procedures</h3>
-								<ul data-role="listview" id="ubmsuite_mcs_my_organizational_chart_content_createNewProcedurePopUp_form_UBMRepository"data-inset="true" data-filter="true" data-filter-placeholder="Search UBM Reference Manual" style="max-height:400px; padding-bottom:2em; overflow-y:scroll;">
-
-								</ul>
-							</form>
-					    </div>
-					</div>
+				<div data-role="popup" id="ubmsuite_mcs_my_organizational_chart_content_createNewProcedurePopUp"  data-theme="a" class="ui-corner-all">
+				    <form id="ubmsuite_mcs_my_organizational_chart_content_createNewProcedurePopUp_form_createProcedure_form">
+				        <div style="padding:10px 20px;">
+				            <center><h1>Create New Procedure</h1></center>
+				            <input type="text" name="ubmsuite_mcs_my_organizational_chart_content_createNewProcedurePopUp_form_ProcedureTitle" id="ubmsuite_mcs_my_organizational_chart_content_createNewProcedurePopUp_form_ProcedureTitle" value="" placeholder="Procedure Title"  data-theme="a">
+				            <input type="text" name="ubmsuite_mcs_my_organizational_chart_content_createNewProcedurePopUp_form_ProcedureEffectiveDate" id="ubmsuite_mcs_my_organizational_chart_content_createNewProcedurePopUp_form_ProcedureEffectiveDate" value="" placeholder="Effective Date"  data-theme="a">
+							<textarea data-mini="true"  cols="40" rows="8" id="ubmsuite_mcs_my_organizational_chart_content_createNewProcedurePopUp_form_ProcedureDescription" placeholder="Procedure Description..."></textarea>
+				            <textarea data-mini="true" cols="40" rows="8" id="ubmsuite_mcs_my_organizational_chart_content_createNewProcedurePopUp_form_ProcedurePurpose" placeholder="Purpose..."></textarea>
+							<textarea data-mini="true" cols="40" rows="8" id="ubmsuite_mcs_my_organizational_chart_content_createNewProcedurePopUp_form_ProcedureScope" placeholder="Scope..."></textarea>
+				            <a href="#" class="ui-btn" onclick="createNewProcedureAddtoMyModel()">Create Procedure</a>
+				        </div>
+				    </form>
 				</div>	
-				<div data-role="popup" id="ubmsuite_mcs_my_organizational_chart_content_createNewStepPopUp"  data-theme="a" class="ui-corner-all draggable_popup">
-					<div data-role="header">
-						<h1>New Step Popup</h1>
-						<a href="#" data-rel="back" data-role="button" data-theme="a" data-icon="delete" data-iconpos="notext" class="ui-btn-right">Close</a>
-					</div>					
-					<div class="ui-grid-a">
-					    <div class="ui-block-a">
-					    	<form id="ubmsuite_mcs_my_organizational_chart_content_createNewStepPopUp_form_createStep_form"> <!-- Form Checklist Created By Aaron Miller -->
-						        <div style="padding:10px 20px;">
-						            <center><h1>Create New Step</h1></center>
-						            <input type="text" name="ubmsuite_mcs_my_organizational_chart_content_createNewStepPopUp_form_StepTitle" id="ubmsuite_mcs_my_organizational_chart_content_createNewStepPopUp_form_StepTitle" value="" placeholder="Step Title"  data-theme="a">
-						            <input type="text" name="ubmsuite_mcs_my_organizational_chart_content_createNewStepPopUp_form_StepNumber" id="ubmsuite_mcs_my_organizational_chart_content_createNewStepPopUp_form_StepNumber" value="" placeholder="Step #"  data-theme="a">
-									<textarea data-mini="true"  cols="40" rows="8" id="ubmsuite_mcs_my_organizational_chart_content_createNewStepPopUp_form_StepInstruction" placeholder="Step Instruction..."></textarea>
-						            <a href="#" class="ui-btn" onclick="createNewStepAddtoMyModel()">Create Step</a>
-						        </div>
-						    </form>
-					    </div>
-					    <div class="ui-block-b">
-							<div style="padding:10px 20px;">
-								<h3>All UBM Predefined Steps</h3>
-								<ul data-role="listview" id="ubmsuite_mcs_my_organizational_chart_content_createNewStepPopUp_form_UBMRepository"data-inset="true" data-filter="true" data-filter-placeholder="Search UBM Reference Manual" style="max-height:400px; padding-bottom:2em; overflow-y:scroll;">
-
-								</ul>
-							</div>
-					    </div>
-					</div>
-				    
+				<div data-role="popup" id="ubmsuite_mcs_my_organizational_chart_content_createNewStepPopUp"  data-theme="a" class="ui-corner-all">
+				    <form id="ubmsuite_mcs_my_organizational_chart_content_createNewStepPopUp_form_createStep_form"> <!-- Form Checklist Created By Aaron Miller -->
+				        <div style="padding:10px 20px;">
+				            <center><h1>Create New Step</h1></center>
+				            <input type="text" name="ubmsuite_mcs_my_organizational_chart_content_createNewStepPopUp_form_StepTitle" id="ubmsuite_mcs_my_organizational_chart_content_createNewStepPopUp_form_StepTitle" value="" placeholder="Step Title"  data-theme="a">
+				            <input type="text" name="ubmsuite_mcs_my_organizational_chart_content_createNewStepPopUp_form_StepNumber" id="ubmsuite_mcs_my_organizational_chart_content_createNewStepPopUp_form_StepNumber" value="" placeholder="Step #"  data-theme="a">
+							<textarea data-mini="true"  cols="40" rows="8" id="ubmsuite_mcs_my_organizational_chart_content_createNewStepPopUp_form_StepInstruction" placeholder="Step Instruction..."></textarea>
+				            <a href="#" class="ui-btn" onclick="createNewStepAddtoMyModel()">Create Step</a>
+				        </div>
+				    </form>
 				</div>	
-				<div data-role="popup" id="ubmsuite_mcs_my_organizational_chart_content_createNewTaskPopUp"  data-theme="a" class="ui-corner-all draggable_popup">
-					<div data-role="header">
-						<h1>New Task Popup</h1>
-						<a href="#" data-rel="back" data-role="button" data-theme="a" data-icon="delete" data-iconpos="notext" class="ui-btn-right">Close</a>
-					</div>					
-					<div class="ui-grid-a">
-					    <div class="ui-block-a">
-					    	<form id="ubmsuite_mcs_my_organizational_chart_content_createNewTaskPopUp_form_createTask_form"> <!-- Form Checklist Created By Aaron Miller -->
-						        <div style="padding:10px 20px;">
-						            <center><h1>Create New Task</h1></center>
-						            <input type="text" name="ubmsuite_mcs_my_organizational_chart_content_createNewTaskPopUp_form_TaskTitle" id="ubmsuite_mcs_my_organizational_chart_content_createNewTaskPopUp_form_TaskTitle" value="" placeholder="Task Title"  data-theme="a">
-						            <input type="text" name="ubmsuite_mcs_my_organizational_chart_content_createNewTaskPopUp_form_TaskNumber" id="ubmsuite_mcs_my_organizational_chart_content_createNewTaskPopUp_form_TaskNumber" value="" placeholder="Task #"  data-theme="a">
-									<textarea data-mini="true"  cols="40" rows="8" id="ubmsuite_mcs_my_organizational_chart_content_createNewTaskPopUp_form_TaskInstruction" placeholder="Task Instruction..."></textarea>
-						            <a href="#" class="ui-btn" onclick="createNewTaskAddtoMyModel()">Create Task</a>
-						        </div>
-						    </form>
-					    </div>
-					    <div class="ui-block-b">
-					    	<form>
-								<h3>All UBM Predefined Tasks</h3>
-								<ul data-role="listview" id="ubmsuite_mcs_my_organizational_chart_content_createNewTaskPopUp_form_UBMRepository"data-inset="true" data-filter="true" data-filter-placeholder="Search UBM Reference Manual" style="max-height:400px; padding-bottom:2em; overflow-y:scroll;">
-
-								</ul>
-							</form>
-					    </div>
-					</div>
-				    
-				</div>	
-
-				<div data-role="popup" id="ubmsuite_mcs_my_organizational_chart_content_predefined_positionSummary_popup" data-position-to="window" data-theme="a" class="ui-corner-all" >
-					<div date-role="header" data-theme="a" id="ubmsuite_mcs_my_organizational_chart_content_predefined_positionSummary_popup_header" style="padding-bottom:25px;">
-
-					</div>
-
-					<div data-theme='a' data-role="content" id="ubmsuite_mcs_my_organizational_chart_content_predefined_positionSummary_popup_content" >
-						
-
-
-
-					</div>	
-				</div>
-
-				<div data-role="popup" id="ubmsuite_mcs_my_organizational_chart_content_predefined_jobDescriptionSummary_popup" data-position-to="window" data-theme="a" class="ui-corner-all">
-					<div date-role="header" data-theme="a" id="ubmsuite_mcs_my_organizational_chart_content_predefined_jobDescriptionSummary_popup_header" style="padding-bottom:25px;">
-
-					</div>
-
-					<div data-theme='a' data-role="content" id="ubmsuite_mcs_my_organizational_chart_content_predefined_jobDescriptionSummary_popup_content">
-						
-
-					</div>	
-				</div>
-
-				<div data-role="popup" id="ubmsuite_mcs_my_organizational_chart_content_predefined_policySummary_popup" data-position-to="window" data-theme="a" class="ui-corner-all">
-					<div date-role="header" data-theme="a" id="ubmsuite_mcs_my_organizational_chart_content_predefined_policySummary_popup_header" style="padding-bottom:25px;">
-
-					</div>
-
-					<div data-theme='a' data-role="content" id="ubmsuite_mcs_my_organizational_chart_content_predefined_policySummary_popup_content">
-						
-
-					</div>	
-				</div>
-
-				<div id="ubmsuite_mcs_my_organizational_chart_container" >
-				    <ul id="modelOrgChart" style="display:none;">
+				<div data-role="popup" id="ubmsuite_mcs_my_organizational_chart_content_createNewTaskPopUp"  data-theme="a" class="ui-corner-all">
+				    <form id="ubmsuite_mcs_my_organizational_chart_content_createNewTaskPopUp_form_createTask_form"> <!-- Form Checklist Created By Aaron Miller -->
+				        <div style="padding:10px 20px;">
+				            <center><h1>Create New Task</h1></center>
+				            <input type="text" name="ubmsuite_mcs_my_organizational_chart_content_createNewTaskPopUp_form_TaskTitle" id="ubmsuite_mcs_my_organizational_chart_content_createNewTaskPopUp_form_TaskTitle" value="" placeholder="Task Title"  data-theme="a">
+				            <input type="text" name="ubmsuite_mcs_my_organizational_chart_content_createNewTaskPopUp_form_TaskNumber" id="ubmsuite_mcs_my_organizational_chart_content_createNewTaskPopUp_form_TaskNumber" value="" placeholder="Task #"  data-theme="a">
+							<textarea data-mini="true"  cols="40" rows="8" id="ubmsuite_mcs_my_organizational_chart_content_createNewTaskPopUp_form_TaskInstruction" placeholder="Task Instruction..."></textarea>
+				            <a href="#" class="ui-btn" onclick="createNewTaskAddtoMyModel()">Create Task</a>
+				        </div>
+				    </form>
+				</div>			
+				<div id="ubmsuite_mcs_my_organizational_chart_container" style="width:95%; margin-left:auto; margin-right:auto;">
+				    <ul id="modelOrgChart" style="display:none; width:95%; margin-left:auto; margin-right:auto;">
 						<li id="ubmsuite_mcs_my_organizational_chart_L0_ul" ><!-- Owner Name Injected Here-->
 	
 						</li>
 				   </ul>            
 			    </div>
-			    <div id="chart" class="orgChart org_chart">
+			    <div id="chart" class="orgChart org_chart" style="overflow-y:scroll; overflow-x:scroll; width:100%; padding:75px 10px 75px 10px;">
 			    	
-			    </div>	
-			    	<fieldset>	
+			    </div>		
+					<fieldset class="ui-grid-a">
+					    <div class="ui-block-a">
+								<a href="#" class="ui-btn" onclick="getPositionforHeirarchicalObjectTree()">Refresh</a>
+
 							<div id="heirarchyObjectTree_container">
 								<!--
 								heirarchyObjectTree uses CSS(3) to display objects.
 								-->
-								<div id="heirarchyObjectTree_container_header">
-									<center>Hierarchical Objects</center>
-									<div id="heirarchyObjectTree_container_header_currentObject">
-										
-									</div>
-								</div>
+								<center>Hierarchical Objects</center>
 								<div id="heirarchyObjectTree" class="heirarchyObjectTree" >
 
-									<ul id="heirarchyObjectTree_ul" >
-										
+									<ul id="heirarchyObjectTree_ul" style="overflow-x:scroll;">
+
 									</ul>
 								</div>					
 							</div>	
+					    </div>
+					    <div class="ui-block-b">
 							<div id="heirarchyObjectBackbone_container" style="width:100%; float:left; overflow-x:scroll; overflow-y:	scroll;">
 								<style type="text/css">
 									.tg  {border-collapse:collapse;border-spacing:0;}
@@ -3044,11 +5493,12 @@ under the License.
 
 
 							</div>					
+					    </div>
 					</fieldset>
 			</div>
 		</div>
 		<div data-role="page" class="ubm_page" id="ubmsuite_mcs_model_visual" data-theme="a">
-			<div data-role="header" data-position="fixed" data-fullscreen="false">
+			<div data-role="header" data-position="fixed" data-fullscreen="true">
 				<a href="#" class="back_btn" data-icon="arrow-l" data-iconpos="notext">Back</a>
 				<div id="ubmsuite_mcs_model_visual_header_headerRecord_center" style="text-align: center">
 					<div id="ubmsuite_mcs_model_visual_header_headerRecord_center_legalentity">
@@ -3196,359 +5646,7 @@ under the License.
 				</div>
 			</div>
 			<div data-role="content">
-				<div id="ubmsuite_mcs_management_reporting_boardMeetings">
-
-				</div>
-				<div id="ubmsuite_mcs_management_reporting_ceo">
-
-				</div>
-				<div id="ubsuite_mcs_managment_reporting_modelHasPositions" style=" margin-top:5%; max-width:15%; margin-left:1%;float:left; ">
-					<ul style="overflow-y:scroll;max-height:300px;" data-role="listview" data-filter="true" data-filter-placeholder="Search Positions..." data-inset="true" id="ubsuite_mcs_managment_reporting_modelHasPositions_positions">
-						  
-					</ul>
-				</div>
 				
-				
-				<div id="ubmsuite_mcs_management_reporting_cfo" style="float:rights;margin-top:3%;">
-					<a href="#" onclick="fixit()">Click Me to Fix Me</a>
-					<div id="ubmsuite_mcs_management_reporting_cfo_financialInformation" style="float:right;padding-top:2%;margin-right:1%;max-width:75%;">
-						<style type="text/css">
-						.tg_financialInformation  {border-collapse:collapse;border-spacing:0;}
-						.tg_financialInformation td{font-family:Arial, sans-serif;font-size:14px;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;}
-						.tg_financialInformation th{font-family:Arial, sans-serif;font-size:14px;font-weight:normal;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;}
-						.tg_financialInformation .tg-jng0{font-weight:bold;background-color:#3498db;text-align:center}
-						.tg_financialInformation .tg-s6z2{text-align:center;background-color:#bddbef}}
-						</style>
-						<table class="tg_financialInformation">
-						  <tr>
-						    <th class="tg-jng0" colspan="14">Financial Information</th>
-						  </tr>
-						  <tr>
-						    <td class="tg-s6z2">Title</td>
-						    <td class="tg-s6z2">January</td>
-						    <td class="tg-s6z2">February</td>
-						    <td class="tg-s6z2">March</td>
-						    <td class="tg-s6z2">April</td>
-						    <td class="tg-s6z2">May</td>
-						    <td class="tg-s6z2">June</td>
-						    <td class="tg-s6z2">July</td>
-						    <td class="tg-s6z2">August</td>
-						    <td class="tg-s6z2">September</td>
-						    <td class="tg-s6z2">November</td>
-						    <td class="tg-s6z2">December</td>
-						    <td class="tg-s6z2">YTD Totals</td>
-						    <td class="tg-s6z2">Last YTD Totals</td>
-						  </tr>
-						  <tr>
-						    <td class="tg-031e"></td>
-						    <td class="tg-031e"></td>
-						    <td class="tg-031e"></td>
-						    <td class="tg-031e"></td>
-						    <td class="tg-031e"></td>
-						    <td class="tg-031e"></td>
-						    <td class="tg-031e"></td>
-						    <td class="tg-031e"></td>
-						    <td class="tg-031e"></td>
-						    <td class="tg-031e"></td>
-						    <td class="tg-031e"></td>
-						    <td class="tg-031e"></td>
-						    <td class="tg-031e"></td>
-						    <td class="tg-031e"></td>
-						  </tr>
-						</table>
-					</div>
-					<div id="ubmsuite_mcs_management_reporting_cfo_longtermManagementLedgers" style="float:left;padding-top:2%;margin-left:1%;max-width:50%;">
-						<style type="text/css">
-						.tg  {border-collapse:collapse;border-spacing:0;}
-						.tg td{font-family:Arial, sans-serif;font-size:14px;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;}
-						.tg th{font-family:Arial, sans-serif;font-size:14px;font-weight:normal;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;}
-						.tg .tg-jng0{font-weight:bold;background-color:#3498db;text-align:center}
-						.tg .tg-cv8e{background-color:#bddbef;text-align:center}
-						</style>
-						<table class="tg">
-						  <tr>
-						    <th class="tg-jng0" colspan="9">Long Term N/P Management Ledgers</th>
-						  </tr>
-						  <tr>
-						    <td class="tg-cv8e">Creditor</td>
-						    <td class="tg-cv8e">Beginning Balance</td>
-						    <td class="tg-cv8e">Interest Balance</td>
-						    <td class="tg-cv8e">Principle Balance</td>
-						    <td class="tg-cv8e">Total Balance</td>
-						    <td class="tg-cv8e">0-30 Past Due</td>
-						    <td class="tg-cv8e">30-60 Past Due</td>
-						    <td class="tg-cv8e">90+ Past Due</td>
-						    <td class="tg-cv8e">Total Past Due</td>
-						  </tr>
-						  <tr>
-						    <td class="tg-031e"></td>
-						    <td class="tg-031e"></td>
-						    <td class="tg-031e"></td>
-						    <td class="tg-031e"></td>
-						    <td class="tg-031e"></td>
-						    <td class="tg-031e"></td>
-						    <td class="tg-031e"></td>
-						    <td class="tg-031e"></td>
-						    <td class="tg-031e"></td>
-						  </tr>
-						</table>
-					</div>
-					<div id="ubmsuite_mcs_management_reporting_cfo_longtermnp" style="float:left;padding-top:2%;margin-left:1%;max-width:50%;">
-						<style type="text/css">
-						.tg_longtermnp  {border-collapse:collapse;border-spacing:0;}
-						.tg_longtermnp td{font-family:Arial, sans-serif;font-size:14px;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;}
-						.tg_longtermnp th{font-family:Arial, sans-serif;font-size:14px;font-weight:normal;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;}
-						.tg_longtermnp .tg-jng0{font-weight:bold;background-color:#3498db;text-align:center}
-						.tg_longtermnp .tg-cv8e{background-color:#bddbef;text-align:center}
-						</style>
-						<table class="tg_longtermnp">
-						  <tr>
-						    <th class="tg-jng0" colspan="9">Long Term N/P</th>
-						  </tr>
-						  <tr>
-						    <td class="tg-cv8e">Creditor</td>
-						    <td class="tg-cv8e">Beginning Balance</td>
-						    <td class="tg-cv8e">Interest Balance</td>
-						    <td class="tg-cv8e">Principle Balance</td>
-						    <td class="tg-cv8e">Total Balance</td>
-						    <td class="tg-cv8e">0-30 Past Due</td>
-						    <td class="tg-cv8e">30-60 Past Due</td>
-						    <td class="tg-cv8e">90+ Past Due</td>
-						    <td class="tg-cv8e">Total Past Due</td>
-						  </tr>
-						  <tr>
-						    <td class="tg-031e"></td>
-						    <td class="tg-031e"></td>
-						    <td class="tg-031e"></td>
-						    <td class="tg-031e"></td>
-						    <td class="tg-031e"></td>
-						    <td class="tg-031e"></td>
-						    <td class="tg-031e"></td>
-						    <td class="tg-031e"></td>
-						    <td class="tg-031e"></td>
-						  </tr>
-						</table>
-					</div>
-					<div id="ubmsuite_mcs_management_reporting_cfo_aratb" style="float:right;padding-top:2%;margin-right:1%;max-width:25%;">
-						<style type="text/css">
-						.tg  {border-collapse:collapse;border-spacing:0;}
-						.tg td{font-family:Arial, sans-serif;font-size:14px;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;}
-						.tg th{font-family:Arial, sans-serif;font-size:14px;font-weight:normal;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;}
-						.tg .tg-jng0{font-weight:bold;background-color:#3498db;text-align:center}
-						.tg .tg-cv8e{background-color:#bddbef;text-align:center}
-						</style>
-						<table class="tg">
-						  <tr>
-						    <th class="tg-jng0" colspan="6">A/R ATB</th>
-						  </tr>
-						  <tr>
-						    <td class="tg-cv8e">Customer</td>
-						    <td class="tg-cv8e">Total A/R</td>
-						    <td class="tg-cv8e">0-30</td>
-						    <td class="tg-cv8e">30-60</td>
-						    <td class="tg-cv8e">90+</td>
-						    <td class="tg-cv8e">Total Past Due</td>
-						  </tr>
-						  <tr>
-						    <td class="tg-031e"></td>
-						    <td class="tg-031e"></td>
-						    <td class="tg-031e"></td>
-						    <td class="tg-031e"></td>
-						    <td class="tg-031e"></td>
-						    <td class="tg-031e"></td>
-						  </tr>
-						</table>
-					</div>
-					<div id="ubmsuite_mcs_management_reporting_cfo_apatb" style="float:right;padding-top:2%;margin-right:1%;max-width:25%;">
-						<style type="text/css">
-						.tg  {border-collapse:collapse;border-spacing:0;}
-						.tg td{font-family:Arial, sans-serif;font-size:14px;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;}
-						.tg th{font-family:Arial, sans-serif;font-size:14px;font-weight:normal;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;}
-						.tg .tg-jng0{font-weight:bold;background-color:#3498db;text-align:center}
-						.tg .tg-cv8e{background-color:#bddbef;text-align:center}
-						</style>
-						<table class="tg">
-						  <tr>
-						    <th class="tg-jng0" colspan="6">A/P ATB</th>
-						  </tr>
-						  <tr>
-						    <td class="tg-cv8e">Customer</td>
-						    <td class="tg-cv8e">Total A/R</td>
-						    <td class="tg-cv8e">0-30</td>
-						    <td class="tg-cv8e">30-60</td>
-						    <td class="tg-cv8e">90+</td>
-						    <td class="tg-cv8e">Total Past Due</td>
-						  </tr>
-						  <tr>
-						    <td class="tg-031e"></td>
-						    <td class="tg-031e"></td>
-						    <td class="tg-031e"></td>
-						    <td class="tg-031e"></td>
-						    <td class="tg-031e"></td>
-						    <td class="tg-031e"></td>
-						  </tr>
-						</table>
-					</div>
-					<div id="ubmsuite_mcs_management_reporting_cfo_financialRatiosROI" style="float:right;padding-top:2%;margin-left:1%;max-width:50%;padding-right:1%">
-						<style type="text/css">
-						.tg_financialRatiosROI  {border-collapse:collapse;border-spacing:0;}
-						.tg_financialRatiosROI td{font-family:Arial, sans-serif;font-size:14px;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;}
-						.tg_financialRatiosROI th{font-family:Arial, sans-serif;font-size:14px;font-weight:normal;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;}
-						.tg_financialRatiosROI .tg-jng0{font-weight:bold;background-color:#3498db;text-align:center}
-						.tg_financialRatiosROI .tg-cv8e{background-color:#bddbef;text-align:center}
-						</style>
-						<table class="tg_financialRatiosROI">
-						  <tr>
-						    <th class="tg-jng0" colspan="2">Financial Ratios</th>
-						  </tr>
-						  <tr>
-						    <td class="tg-cv8e">Description</td>
-						    <td class="tg-cv8e">Value</td>
-						  </tr>
-						  <tr>
-						    <td class="tg-031e"></td>
-						    <td class="tg-031e"></td>
-						  </tr>
-						</table>
-					</div>
-				</div>
-				<div id="ubmsuite_mcs_management_reporting_businessModelManager" style="max-width:50%;float;right;padding-left:1%">
-
-					<div id="ubmsuite_mcs_management_reporting_businessModelManager_modelStatistics">
-
-						<div id="ubmsuite_mcs_management_reporting_businessModelManager_modelStatistics_creationStatistics" style="float:left;padding-top:2%;padding-right:1%;padding-left:2%;">
-							<style type="text/css">
-							.tg_creationStatistics  {border-collapse:collapse;border-spacing:0;}
-							.tg_creationStatistics td{font-family:Arial, sans-serif;font-size:14px;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;}
-							.tg_creationStatistics th{font-family:Arial, sans-serif;font-size:14px;font-weight:normal;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;}
-							.tg_creationStatistics .tg-h9jk{background-color:#aadfe2;text-align:center}
-							.tg_creationStatistics .tg-gcr2{background-color:#aadfe2}
-							.tg_creationStatistics .tg-0r25{font-weight:bold;background-color:#2d8ea3;text-align:center}
-							</style>
-							<table class="tg_creationStatistics">
-							  <tr>
-							    <th class="tg-0r25" colspan="6">Creation Statistics</th>
-							  </tr>
-							  <tr>
-							    <td class="tg-h9jk">Item Description</td>
-							    <td class="tg-h9jk">Checklist Lines Identified</td>
-							    <td class="tg-gcr2">Checklist Lines Completed</td>
-							    <td class="tg-gcr2">Completed Ratios</td>
-							    <td class="tg-gcr2">Items Final Review</td>
-							    <td class="tg-gcr2">Approved Ratios</td>
-							  </tr>
-							  <tr>
-							    <td class="tg-031e"></td>
-							    <td class="tg-031e"></td>
-							    <td class="tg-031e"></td>
-							    <td class="tg-031e"></td>
-							    <td class="tg-031e"></td>
-							    <td class="tg-031e"></td>
-							  </tr>
-							</table>
-						</div>
-
-						<div id="ubmsuite_mcs_management_reporting_businessModelManager_modelStatistics_objectStatistics" style="float:left;padding-top:2%;padding-right:1%;padding-left:32%">
-							<style type="text/css">
-							.tg_objectStatistics  {border-collapse:collapse;border-spacing:0;}
-							.tg_objectStatistics td{font-family:Arial, sans-serif;font-size:14px;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;}
-							.tg_objectStatistics th{font-family:Arial, sans-serif;font-size:14px;font-weight:normal;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;}
-							.tg_objectStatistics .tg-h9jk{background-color:#aadfe2;text-align:center}
-							.tg_objectStatistics .tg-gcr2{background-color:#aadfe2}
-							.tg_objectStatistics .tg-0r25{font-weight:bold;background-color:#2d8ea3;text-align:center}
-							</style>
-							<table class="tg_objectStatistics">
-							  <tr>
-							    <th class="tg-0r25" colspan="6">Object Statistics</th>
-							  </tr>
-							  <tr>
-							    <td class="tg-h9jk">Item Description</td>
-							    <td class="tg-h9jk">Checklist Lines Identified</td>
-							    <td class="tg-gcr2">Checklist Lines Completed</td>
-							    <td class="tg-gcr2">Completed Ratios</td>
-							    <td class="tg-gcr2">Items Final Review</td>
-							    <td class="tg-gcr2">Approved Ratios</td>
-							  </tr>
-							  <tr>
-							    <td class="tg-031e"></td>
-							    <td class="tg-031e"></td>
-							    <td class="tg-031e"></td>
-							    <td class="tg-031e"></td>
-							    <td class="tg-031e"></td>
-							    <td class="tg-031e"></td>
-							  </tr>
-							</table>
-						</div>
-
-					</div>
-
-				</div>
-				<div id="ubmsuite_mcs_management_reporting_operations">
-
-				</div>
-
-				<div id="ubmsuite_mcs_management_reporting_humanResources" style="float:right;margin-right:1%;margin-top:-10%">
-					<div id="ubmsuite_mcs_management_reporting_employeeUtilization" style="float:right;padding-top:2%;margin-left:1%;">
-						<style type="text/css">
-						.tg_employeeUtilization  {border-collapse:collapse;border-spacing:0;}
-						.tg_employeeUtilization td{font-family:Arial, sans-serif;font-size:14px;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;}
-						.tg_employeeUtilization th{font-family:Arial, sans-serif;font-size:14px;font-weight:normal;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;}
-						.tg_employeeUtilization .tg-vec2{font-weight:bold;background-color:#5fad6b;text-align:center}
-						.tg_employeeUtilization .tg-pg38{background-color:#c9e8ce;text-align:center}
-						.tg_employeeUtilization .tg-mt9y{background-color:#c9e8ce}
-						</style>
-						<table class="tg_employeeUtilization">
-						  <tr>
-						    <th class="tg-vec2" colspan="6">Employee Utilization</th>
-						  </tr>
-						  <tr>
-						    <td class="tg-pg38">Employee Name</td>
-						    <td class="tg-pg38">Billable Hours</td>
-						    <td class="tg-mt9y">Admin Hours</td>
-						    <td class="tg-mt9y">Total Hours</td>
-						    <td class="tg-mt9y">Billable Ratio</td>
-						    <td class="tg-mt9y">Paid Payroll</td>
-						  </tr>
-						  <tr>
-						    <td class="tg-031e"></td>
-						    <td class="tg-031e"></td>
-						    <td class="tg-031e"></td>
-						    <td class="tg-031e"></td>
-						    <td class="tg-031e"></td>
-						    <td class="tg-031e"></td>
-						  </tr>
-						</table>
-					</div>
-					<div id="ubmsuite_mcs_management_reporting_humanResources_humanResources" style="float:right;padding-top:2%;margin-left:1%;">
-						<style type="text/css">
-						.tg_humanResources  {border-collapse:collapse;border-spacing:0;}
-						.tg_humanResources td{font-family:Arial, sans-serif;font-size:14px;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;}
-						.tg_humanResources th{font-family:Arial, sans-serif;font-size:14px;font-weight:normal;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;}
-						.tg_humanResources .tg-vec2{font-weight:bold;background-color:#5fad6b;text-align:center}
-						.tg_humanResources .tg-pg38{background-color:#c9e8ce;text-align:center}
-						.tg_humanResources .tg-mt9y{background-color:#c9e8ce}
-						</style>
-						<table class="tg_humanResources">
-						  <tr>
-						    <th class="tg-vec2" colspan="5">Human Resources</th>
-						  </tr>
-						  <tr>
-						    <td class="tg-pg38">Total # of Company Positions</td>
-						    <td class="tg-pg38"># of Outsourced Positions</td>
-						    <td class="tg-mt9y"># of Filled Positions</td>
-						    <td class="tg-mt9y"># of Vacant Positions</td>
-						    <td class="tg-mt9y"># of Employees</td>
-						  </tr>
-						  <tr>
-						    <td class="tg-031e"></td>
-						    <td class="tg-031e"></td>
-						    <td class="tg-031e"></td>
-						    <td class="tg-031e"></td>
-						    <td class="tg-031e"></td>
-						  </tr>
-						</table>
-					</div>
-				</div>
 			</div>
 		</div>
         <div data-role="page" class="ubm_page" id="gettingStarted" data-theme="a">
@@ -3753,9 +5851,7 @@ under the License.
                 </div>
                 <div id="continue_button">
                     <a href="#ubmsuite_SelectBusinessModel" data-role="button" data-inline="true">Continue to your UBM Control Panel</a>
-                    <a href="#mcs_setup_checklist_CS" data-role="button" data-inline="true">Continue to the Control Phase</a>
                 </div>
-
 
                 <!--<textarea cols="40" rows="8" name="textarea" id="gettingStarted_content_textarea0"></textarea>
                 <a href="#" class="ui-btn" onclick="addField()">add Field</a>							addField duplicates the textarea and inserts a new text area below the existing one						-->
@@ -3770,85 +5866,8 @@ under the License.
             <div data-role="footer">
 
             </div>
+
         </div>
-        <!-- SWOT Analysis -->
-        <div data-role="page" class="ubm_page" id="ubmsuite_swotAnalysis" data-theme="a">
-			<div data-role="header" data-position="fixed" data-fullscreen="true">
-                <a href="#" class="back_btn" data-icon="arrow-l" data-iconpos="notext">Back</a>
-				<h1> SWOT Analysis </h1>
-			</div>
-			<div data-role="content">
-				<center><img id="Image-Maps-Com-image-maps-2014-03-26-194910" style="position:relative; top:100px;" src="http://reflectoragent.com/wp-content/uploads/2010/03/swot-analysis-image.png" border="0" width="320" height="315" orgWidth="320" orgHeight="315" usemap="#image-maps-2014-03-26-194910" alt="" /></center>
-				<map name="image-maps-2014-03-26-194910" id="ImageMapsCom-image-maps-2014-03-26-194910">
-					<area title="strength" shape="rect" coords="62,57,180,177" style="outline:none;" target="_self"     />
-					<area title="weakness" shape="rect" coords="180,55,298,175" style="outline:none;" target="_self"     />
-					<area title="opportunity" hape="rect" coords="62,175,180,295" style="outline:none;" target="_self"     />
-					<area title="threat" shape="rect" coords="180,175,298,295" style="outline:none;" target="_self"     />
-					<area shape="rect" coords="318,313,320,315" alt="Image Map" style="outline:none;" title="Image Map" href="http://www.image-maps.com/index.php?aff=mapped_users_0" />
-				</map>
-				<center><div class="ui-grid-d center draggable" style="z-index:999; display: block; position:relative; margin:0px auto; margin-top: 300px; text-align: center; transform:rotate(45deg);-ms-transform:rotate(45deg); /* IE 9 */-webkit-transform:rotate(45deg); /* Opera, Chrome, and Safari */">
-				    <div class="ui-block-a" style="width:120px; height:120px; transform:rotate(-45deg);-ms-transform:rotate(-45deg); /* IE 9 */-webkit-transform:rotate(-45deg); /* Opera, Chrome, and Safari */"><a class="ui-shadow ui-btn ui-corner-all ui-icon-plus ui-btn-icon-notext ui-btn-inline" >Button</a><p>Leverage</p></div>
-				    <div class="ui-block-b" style="width:120px; height:120px; transform:rotate(-45deg);-ms-transform:rotate(-45deg); /* IE 9 */-webkit-transform:rotate(-45deg); /* Opera, Chrome, and Safari */"><a class="ui-shadow ui-btn ui-corner-all ui-icon-plus ui-btn-icon-notext ui-btn-inline" >Button</a><p>Vulnerability</p></div>
-				    <div class="ui-block-a" style="width:120px; height:120px; transform:rotate(-45deg);-ms-transform:rotate(-45deg); /* IE 9 */-webkit-transform:rotate(-45deg); /* Opera, Chrome, and Safari */"><a class="ui-shadow ui-btn ui-corner-all ui-icon-plus ui-btn-icon-notext ui-btn-inline" >Button</a><p>Constraint</p></div>
-				    <div class="ui-block-b" style="width:120px; height:120px; transform:rotate(-45deg);-ms-transform:rotate(-45deg); /* IE 9 */-webkit-transform:rotate(-45deg); /* Opera, Chrome, and Safari */"><a class="ui-shadow ui-btn ui-corner-all ui-icon-plus ui-btn-icon-notext ui-btn-inline" >Button</a><p>Problem</p></div>
-				</div></center>
-					<div data-role="popup" id="ubmsuite_swotAnalysis_add_strength_popup" data-theme="a" class="ui-corner-all">
-					    <form>
-					        <div style="padding:10px 20px;">
-					            <h3>Add a Strength</h3>
-					            <label for="ubmsuite_swotAnalysis_add_strength_popup_form_title" class="ui-hidden-accessible">Title</label>
-					            <input type="text" id="ubmsuite_swotAnalysis_add_strength_popup_form_title" value="" placeholder="Title..." data-theme="a">
-					            <label for="ubmsuite_swotAnalysis_add_strength_popup_form_title" class="ui-hidden-accessible">Catagory</label>
-					            <input type="text" id="ubmsuite_swotAnalysis_add_strength_popup_form_title" value="" placeholder="Category..." data-theme="a">
-					            <label for="ubmsuite_swotAnalysis_add_strength_popup_form_title" class="ui-hidden-accessible">Description</label>
-					            <textarea type="text" id="ubmsuite_swotAnalysis_add_strength_popup_form_title" value="" placeholder="Description..." data-theme="a"></textarea>
-					            <button type="submit" class="ui-btn ui-corner-all ui-shadow ui-btn-b ui-btn-icon-left ui-icon-check">Add</button>
-					        </div>
-					    </form>
-					</div>
-					<div data-role="popup" id="ubmsuite_swotAnalysis_add_weakness_popup" data-theme="a" class="ui-corner-all">
-					    <form>
-					        <div style="padding:10px 20px;">
-					            <h3>Add a Weakness</h3>
-					            <label for="ubmsuite_swotAnalysis_add_weakness_popup_form_title" class="ui-hidden-accessible">Title</label>
-					            <input type="text" id="ubmsuite_swotAnalysis_add_weakness_popup_form_title" value="" placeholder="Title..." data-theme="a">
-					            <label for="ubmsuite_swotAnalysis_add_weakness_popup_form_title" class="ui-hidden-accessible">Catagory</label>
-					            <input type="text" id="ubmsuite_swotAnalysis_add_sweakness_popup_form_title" value="" placeholder="Category..." data-theme="a">
-					            <label for="ubmsuite_swotAnalysis_add_weakness_popup_form_title" class="ui-hidden-accessible">Description</label>
-					            <textarea type="text" id="ubmsuite_swotAnalysis_add_weakness_popup_form_title" value="" placeholder="Description..." data-theme="a"></textarea>
-					            <button type="submit" class="ui-btn ui-corner-all ui-shadow ui-btn-b ui-btn-icon-left ui-icon-check">Add</button>
-					        </div>
-					    </form>
-					</div>
-					<div data-role="popup" id="ubmsuite_swotAnalysis_add_opportunity_popup" data-theme="a" class="ui-corner-all">
-					    <form>
-					        <div style="padding:10px 20px;">
-					            <h3>Add an Opportunity</h3>
-					            <label for="ubmsuite_swotAnalysis_add_opportunity_popup_form_title" class="ui-hidden-accessible">Title</label>
-					            <input type="text" id="ubmsuite_swotAnalysis_add_opportunity_popup_form_title" value="" placeholder="Title..." data-theme="a">
-					            <label for="ubmsuite_swotAnalysis_add_opportunity_popup_form_title" class="ui-hidden-accessible">Catagory</label>
-					            <input type="text" id="ubmsuite_swotAnalysis_add_opportunity_popup_form_title" value="" placeholder="Category..." data-theme="a">
-					            <label for="ubmsuite_swotAnalysis_add_opportunity_popup_form_title" class="ui-hidden-accessible">Description</label>
-					            <textarea type="text" id="ubmsuite_swotAnalysis_add_opportunity_popup_form_title" value="" placeholder="Description..." data-theme="a"></textarea>
-					            <button type="submit" class="ui-btn ui-corner-all ui-shadow ui-btn-b ui-btn-icon-left ui-icon-check">Add</button>					        </div>
-					    </form>
-					</div>
-					<div data-role="popup" id="ubmsuite_swotAnalysis_add_threat_popup" data-theme="a" class="ui-corner-all">
-					    <form>
-					        <div style="padding:10px 20px;">
-					            <h3>Add a Threat</h3>
-					            <label for="ubmsuite_swotAnalysis_add_threat_popup_form_title" class="ui-hidden-accessible">Title</label>
-					            <input type="text" id="ubmsuite_swotAnalysis_add_threat_popup_form_title" value="" placeholder="Title..." data-theme="a">
-					            <label for="ubmsuite_swotAnalysis_add_threat_popup_form_title" class="ui-hidden-accessible">Catagory</label>
-					            <input type="text" id="ubmsuite_swotAnalysis_add_threat_popup_form_title" value="" placeholder="Category..." data-theme="a">
-					            <label for="ubmsuite_swotAnalysis_add_threat_popup_form_title" class="ui-hidden-accessible">Description</label>
-					            <textarea type="text" id="ubmsuite_swotAnalysis_add_threat_popup_form_title" value="" placeholder="Description..." data-theme="a"></textarea>
-					            <button type="submit" class="ui-btn ui-corner-all ui-shadow ui-btn-b ui-btn-icon-left ui-icon-check">Add</button>
-					        </div>
-					    </form>
-					</div>
-			</div>
-		</div>
         <!-- Model Settings -->
         <div data-role="page" class="ubm_page" id="ubmsuite_modelSettings"  data-theme="a">
             <!-- No Panel on this page, instead only back button is needed.-->
@@ -3918,11 +5937,11 @@ under the License.
                 </div>
                 <!-- End Open Items Popup -->
                 <!-- Share Model Popup -->
-                <div data-role="popup" id="ubmsuite_modelSettings_shareModel_popup" data-theme="a" data-dismissible="true">
+                <div data-role="popup" id="ubmsuite_modelSettings_shareModel_popup" data-theme="a" data-dismissible="false">
                     <form id="ubmsuite_modelSettings_shareModel_popup_form"> <!-- Form Checklist Created By Aaron Miller -->
                         <ul data-role="listview" data-inset="true" style="min-width:210px;">
                             <li style="text-align: center;" data-role="list-divider">
-                               <h1>Add user to this model.</h1> 
+                                Add user to this model.
                             </li>
                             <li>
                                 <input data-clear-btn="true" type="email" id="ubmsuite_modelSettings_shareModel_inviteEmail" placeholder="Email Address">
@@ -3934,29 +5953,14 @@ under the License.
                                     <option value="Level 3">Level 3</option>
                                 </select>
                             </li>
+                            </li>
                         </ul>
 
-                        <button style="margin-left:10px;" onclick="shareModel()"class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b" data-transition="flow">Share Model</button>
+                        <a style="margin-left:10px;" onclick="shareModel()"class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b" data-transition="flow">Share Model</a>
                         <a type="reset" href="#" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b" data-rel="back" data-transition="flow">Cancel</a>
                     </form>
                 </div>
                 <!-- End Share Model Popup -->
-                <!-- Delete Model Popup -->
-                <div data-role="popup" id="ubmsuite_modelSettings_deleteModel_popup" data-theme="a" data-dismissible="true" class="draggable_popup">
-                    <form id="ubmsuite_modelSettings_shareModel_popup_form"> <!-- Form Checklist Created By Aaron Miller -->
-                        <ul data-role="listview" data-inset="true" style="min-width:210px;">
-                            <li style="text-align: center;" data-role="list-divider">
-                               <h1>DELETE Model</h1> 
-                            </li>
-                        </ul>
-                        <p><strong>Warning!</strong> If you continue, the current model will be removed. </br>Are you sure you want to remove this Model and all items that are attached to it?</p>
-                        <center>
-	                        <button style="margin-left:10px;" onclick="deleteModel()"class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b" data-transition="flow">Confirm Removal of this Model</button></br>
-	                        <a type="reset" href="#" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b" data-rel="back" data-transition="flow">Cancel</a>
-                        </center>
-                    </form>
-                </div>
-                <!-- End Delete Model Popup -->
                 <!-- Modify User Popup -->
                 <div id="ubmsuite_modelSettings_modifyUser_popup" data-role="popup" id="ubmsuite_modelSettings_modifyUser_popup" data-overlay-theme="b" data-theme="a" data-dismissible="false" style="max-width:400px;">
                     <div data-role="header"  data-theme="a">
@@ -3986,13 +5990,13 @@ under the License.
                     </div>
                 </div>
                 <!-- End Remove User Popup -->
-  				<!-- Remove Hierarchy Objects from Models -->
+  <!-- Remove Hierarchy Objects from Models -->
 				<div data-role="popup" id="ubmsuite_modelSettings_confirm_remove_Position_popup"  data-theme="a" data-overlay-theme="b" class="ui-content" style="max-width:340px; padding-bottom:2em;">
 				    <h3>Remove Position?</h3>
 				    <a href="index.html" data-rel="back" class="ui-shadow ui-btn ui-corner-all ui-btn-b ui-icon-check ui-btn-icon-left ui-btn-inline ui-mini" onclick="removePositionFromMyModel()">Confirm Remove Position</a>
 				    <a href="index.html" data-rel="back" class="ui-shadow ui-btn ui-corner-all ui-btn-inline ui-mini">Cancel</a>
 				</div>
-  				<!-- Remove Non Hierarchy Objects from Models -->
+  <!-- Remove Non Hierarchy Objects from Models -->
 				<div data-role="popup" id="ubmsuite_modelSettings_confirm_remove_CoreValue_popup"  data-theme="a" data-overlay-theme="b" class="ui-content" style="max-width:340px; padding-bottom:2em;">
 				    <h3>Remove Core Value?</h3>
 				    <a href="index.html" data-rel="back" class="ui-shadow ui-btn ui-corner-all ui-btn-b ui-icon-check ui-btn-icon-left ui-btn-inline ui-mini" onclick="removeCorevalueFromMyModel()">Confirm Remove Core Value</a>
@@ -4053,7 +6057,7 @@ under the License.
 				    <a href="index.html" data-rel="back" class="ui-shadow ui-btn ui-corner-all ui-btn-inline ui-mini">Cancel</a>
 				</div>
                 <!-- End Confirm Remove Requested Application Popup-->
-  				<!-- Create  Hierarchy Objects and Attach to Models -->
+  <!-- Create  Hierarchy Objects and Attach to Models -->
          		<div data-role="popup" id="ubmsuite_modelSettings_createPosition_popup" data-theme="a">
 					<form id="ubmsuite_modelSettings_createCoreValue_popup_form"> <!-- Did not create because it has the same name as form id below, CoreValue might need to be to Position -->
 					<ul data-role="listview" data-inset="true" style="min-width:210px;">
@@ -4072,7 +6076,7 @@ under the License.
 					</form>
 				</div>
                 <!-- End Create Position -->
-  				<!-- Create Hierarchy Objects and Attach to Models -->
+  <!-- Create Hierarchy Objects and Attach to Models -->
          		<div data-role="popup" id="ubmsuite_modelSettings_createCoreValue_popup" data-theme="a">
 					<form id="ubmsuite_modelSettings_createCoreValue_popup_form"> <!-- Form Checklist Created By Aaron Miller -->
 					<ul data-role="listview" data-inset="true" style="min-width:210px;">
@@ -4239,7 +6243,7 @@ under the License.
 					</form>
 				</div>
                 <!-- End Create Requested Application -->
- 				 <!-- Select Predefined Heirarchy Stuff and Attach it to Models -->
+  <!-- Select Predefined Heirarchy Stuff and Attach it to Models -->
 				<div data-role="popup" id="ubmsuite_modelSettings_positions_popup" data-theme="a">
 					<ul data-role="listview" data-inset="true" style="min-width:210px;">
 						<li data-role="list-divider">
@@ -4250,7 +6254,7 @@ under the License.
 					</ul>
 				</div>
 	            <!-- End Select from pre defined Positions popup/list-->
-  				<!-- Select Predefined Non Heirarchy Stuff and Attach it to Models -->
+  <!-- Select Predefined Non Heirarchy Stuff and Attach it to Models -->
 				<div data-role="popup" id="ubmsuite_modelSettings_coreValues_popup" data-theme="a">				
 					<div role="main" class="ui-content">
 						<ul data-role="listview" data-inset="true" style="min-width:210px;"><li data-role="list-divider"><h1>All UBM Core Values</h1></li></ul>
@@ -4358,14 +6362,13 @@ under the License.
 							<ul data-role="listview" id="ubmsuite_modelSettings_modelusers_ul" data-filter="true" data-filter-placeholder="Users with access to this model..." data-inset="true" data-theme="a" data-scroll="true">
 		
 							</ul>					
-							<a data-rel="popup" data-mini="true" data-transition="slideup" href="#ubmsuite_modelSettings_shareModel_popup" style="whitespace:normal" class="ui-btn ui-shadow">Click to give another user </br>access to this model.</a>
-							<a data-rel="popup" data-mini="true" data-transition="slideup" href="#ubmsuite_modelSettings_deleteModel_popup" style="whitespace:normal" class="ui-btn ui-shadow">Delete this model.</a>
+							<a data-rel="popup" data-mini="true" data-transition="slideup" href="#ubmsuite_modelSettings_shareModel_popup" class="ui-btn ui-shadow">Click to give another user </br>access to this model.</a>
 						</li>
 						<li>
 							<a href="#" class="ui-btn ui-shadow ui-corner-all ui-icon-refresh ui-btn-icon-notext ui-btn-a ui-btn-inline" onclick="getMyModelsStrategicAlliances()">Refresh</a>
 							<p>Phase 3</p>
 							<p>Refer to 01.01.02.14 in the Reference Manual</p>
-							<ul data-role="listview" id="ubmsuite_modelSettings_myStrategicAlliances_ul" style="whitespace:normal" data-filter="true" data-filter-placeholder="My Strategic Alliances..." data-theme="a"   data-inset="true" data-scroll="true">
+							<ul data-role="listview" id="ubmsuite_modelSettings_myStrategicAlliances_ul" data-filter="true" data-filter-placeholder="My Strategic Alliances..." data-theme="a"   data-inset="true" data-scroll="true">
 		
 							</ul>					
 						</li>
@@ -4404,7 +6407,7 @@ under the License.
 						<li>
 							<a href="#" class="ui-btn ui-shadow ui-corner-all ui-icon-refresh ui-btn-icon-notext ui-btn-a ui-btn-inline" onclick="getMyModelsStrategicPositioningQuestions()">Refresh</a>
 							<p>Refer to 01.01.02.07  in the Reference Manual</p>
-							<ul data-role="listview" id="ubmsuite_modelSettings_myStrategicPositioningQuestions_ul" style="whitespace:normal" data-filter="true" data-filter-placeholder="Strategic Positioning..." data-theme="a"   data-inset="true" data-scroll="true">
+							<ul data-role="listview" id="ubmsuite_modelSettings_myStrategicPositioningQuestions_ul" data-filter="true" data-filter-placeholder="Strategic Positioning..." data-theme="a"   data-inset="true" data-scroll="true">
 		
 							</ul>					
 						</li>
@@ -4412,7 +6415,7 @@ under the License.
 							<a href="#" class="ui-btn ui-shadow ui-corner-all ui-icon-refresh ui-btn-icon-notext ui-btn-a ui-btn-inline" onclick="getMyModelsOrganizationalStructures()">Refresh</a>
 							<p>Phase 4 Book 1</p>
 							<p>Refer to 01.01.01.04 in the Reference Manual</p>
-							<ul data-role="listview" id="ubmsuite_modelSettings_myOrganizationalStructure_ul" style="whitespace:normal" data-filter="true" data-filter-placeholder="My Organizational Structure..." data-theme="a"   data-inset="true" data-scroll="true">
+							<ul data-role="listview" id="ubmsuite_modelSettings_myOrganizationalStructure_ul" data-filter="true" data-filter-placeholder="My Organizational Structure..." data-theme="a"   data-inset="true" data-scroll="true">
 		
 							</ul>
 						</li>
@@ -4420,7 +6423,7 @@ under the License.
 							<a href="#" class="ui-btn ui-shadow ui-corner-all ui-icon-refresh ui-btn-icon-notext ui-btn-a ui-btn-inline" onclick="getMyModelsPhysicalFacilities()">Refresh</a>
 							<p>Phase 4 Book 2</p>
 							<p>Refer to 01.01.02.10  in the Reference Manual</p>	
-							<ul data-role="listview" id="ubmsuite_modelSettings_myPhysicalFacilities_ul" style="whitespace:normal" data-filter="true" data-filter-placeholder="My Physical Facilities..." data-theme="a"   data-inset="true" data-scroll="true">
+							<ul data-role="listview" id="ubmsuite_modelSettings_myPhysicalFacilities_ul" data-filter="true" data-filter-placeholder="My Physical Facilities..." data-theme="a"   data-inset="true" data-scroll="true">
 		
 							</ul>					
 						</li>
@@ -4433,7 +6436,7 @@ under the License.
 
 							</ul>	
 						</li>
-						<!-- Positions Attached to my Model -- > 
+<!-- Positions Attached to my Model -->
 						<li>
 							<a href="#" class="ui-btn ui-shadow ui-corner-all ui-icon-refresh ui-btn-icon-notext ui-btn-a ui-btn-inline" onclick="getMyModelsPositions()">Refresh</a>							
 							<p>Phase 4 Book 2</p>
@@ -4443,15 +6446,7 @@ under the License.
 
 							</ul>	
 						</li>
-						<li>
-							<a href="#" class="ui-btn ui-shadow ui-corner-all ui-icon-refresh ui-btn-icon-notext ui-btn-a ui-btn-inline" onclick="getMyModelsPositions()">Refresh</a>							
-							<p>Phase 4 Book 2</p>
-							<p>What Positions are attached to my model? </p>
-							<p>Refer to 01.01.02.XX  in the Reference Manual</p>
-							<ul data-role="listview" id="ubmsuite_modelSettings_myPositions_ul" data-filter="true" data-filter-placeholder="Positions..." data-theme="a"  data-inset="true" data-scroll="true">		
-
-							</ul>	
-						</li>						<!-- End of grid blocks -->
+						<!-- End of grid blocks -->
 					</ul>
 				</div>
 			</div>
@@ -5505,138 +7500,185 @@ under the License.
 		<!-- Return On Investment-->
 		<div data-role="page" id="return_on_investment" data-theme="a">
 			<div data-role="header">
-				<a href="#" class="back_btn" data-icon="arrow-l" data-iconpos="notext">Back</a>
-				<h1>Return On Investment</h1>
-				<a onclick="getListofAlternativesforReturnOnInvestment()" data-icon="refresh" data-iconpos="notext">Refresh</a>
+				 <a href="#" class="back_btn" data-icon="arrow-l" data-iconpos="notext">Back</a>
+					<h1>Return On Investment</h1>
 			</div>
 			<div role="main" class="ui-content">
 				<div id="return_on_investment_input_forms">
 					<center>
-						<div style="max-width:400px;" id="return_on_investment_select_alternative_menu_container">
+					<div style="max-width:400px;" id="return_on_investment_select_alternative_menu_container">
 							<select name="select-custom-1" id="return_on_investment_alternative_select_menu" data-native-menu="false">
-								
+		
 							</select>							
 						</div>
 					</center>
 					<center>
 						<div style="max-width:400px;" id="return_on_investment_select_investment_menu_container">
-							<select name="select-custom-2" id="return_on_investment_alternative_select_investment_menu" data-native-menu="false">
-								
+							<select name="select-custom-1" id="return_on_investment_alternative_select_investment_menu" data-native-menu="false">
+		
 							</select>							
 						</div>
 					</center>
-
+					</center>
 					<style>
-					#return_on_investment_input_forms thead tr td h2 {padding-right:55px;}
+						#return_on_investment_input_forms thead tr td h2 {padding-right:55px;}
 					</style>
 					<div class="ui-grid-a">	
-						<div class="ui-block-a">
-							<div id="return_on_investment_input_cost">
+					    <div class="ui-block-a"><div id="return_on_investment_input_form_cost">
+							<form id="return_on_investment_cost_form">
 								
-							</div>
-							<a href="#return_on_investment_createNewCostDriver_popup" data-rel="popup" data-transition="slideup" data-position-to="window" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a">Add New Cost Driver</a>
+								<table id="return_on_investment_cost_table_form" data-theme="a">
+								  <thead>
+								  	<tr>
+								  		<td>
+								    		<h2>Remove Cost Driver</h2>
+								  		</td>
+								  		<td>
+								    		<h2>Cost Driver Description</h2>
+								  		</td>
+								  		<td>
+								    		<h2>Cost Per Unit</h2>
+								  		</td>
+								  		<td><h2># of Units</h2></td>
+								  		<td><h2>Total Cost</h2></td>
+
+								  	</tr>
+								  </thead>
+								  <tbody id="return_on_investment_input_form_cost_tbody">
+									  
+								  </tbody>
+								  
+								</table>
+								<a href="#return_on_investment_createNewCostDriver_popup" data-rel="popup" data-transition="slideup" data-position-to="window" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a">Add New Cost Driver</a>
+							</form>
+						</div>
 					</div>
-						    <div class="ui-block-b">
-							<div id="return_on_investment_input_income"class="ui-btn-inline">
-								
+					    <div class="ui-block-b">
+							<div id="return_on_investment_input_form_income"class="ui-btn-inline">
+								<form id="return_on_investment_income_form">	
+									<table id="return_on_investment_income_table_form" data-theme="a">
+									  <thead>
+											<tr>
+												<td>
+										    		<h2>Remove Income Driver</h2>
+										  		</td>
+												<td>
+													<h2>Income Driver Description</h2>
+												</td>
+												<td>
+													<h2>Income Per Unit</h2>
+												</td>
+												<td>
+													<h2># of Units</h2>
+												</td>
+								  				<td><h2>Total Income</h2></td>
+
+											</tr>
+										</thead>
+									  <tbody id="return_on_investment_input_form_income_tbody">
+											
+										</tbody>
+									  
+									</table>
+									<a href="#return_on_investment_createNewIncomeDriver_popup" data-rel="popup" data-transition="slideup" data-position-to="window" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a">Add New Income Driver</a>
+								</form>
 							</div>
-							<a href="#return_on_investment_createNewIncomeDriver_popup" data-rel="popup" data-transition="slideup" data-position-to="window" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a">Add New Income Driver</a>
 						</div>
 					</div>
 					
 					
-				</div>
-				<a href="#return_on_investment_createNewInvestment_popup" data-rel="popup" data-transition="slideup" data-position-to="window" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a">Create New Investment</a>
+					</div>
+					<a href="#return_on_investment_createNewInvestment_popup" data-rel="popup" data-transition="slideup" data-position-to="window" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a">Create New Investment</a>
 				
 				<style type="text/css">
-				.tg_return_on_investment  {border-collapse:collapse;border-spacing:0;margin-top:15%;margin-left:auto;margin-right:auto;}
-				.tg_return_on_investment td{font-family:Arial, sans-serif;font-size:14px;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;}
-				.tg_return_on_investment th{font-family:Arial, sans-serif;font-size:14px;font-weight:normal;padding:10px 5px;border-style:solid;border-width:2px;overflow:hidden;word-break:normal;}
-				.tg_return_on_investment .tg-c593{background-color:#f1d1ff}
-				.tg_return_on_investment .tg-qrz3{background-color:#a6d0ed}
-				.tg_return_on_investment .tg-t5df{font-weight:bold;background-color:#c0392b}
-				.tg_return_on_investment .tg-x8jq{font-weight:bold;background-color:#2980b9}
-				.tg_return_on_investment .tg-75a8{font-weight:bold;background-color:#8e44ad}
-				.tg_return_on_investment .tg-nmrz{background-color:#f2c8c4}
+					.tg_return_on_investment  {border-collapse:collapse;border-spacing:0;margin-top:15%;margin-left:auto;margin-right:auto;}
+					.tg_return_on_investment td{font-family:Arial, sans-serif;font-size:14px;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;}
+					.tg_return_on_investment th{font-family:Arial, sans-serif;font-size:14px;font-weight:normal;padding:10px 5px;border-style:solid;border-width:2px;overflow:hidden;word-break:normal;}
+					.tg_return_on_investment .tg-c593{background-color:#f1d1ff}
+					.tg_return_on_investment .tg-qrz3{background-color:#a6d0ed}
+					.tg_return_on_investment .tg-t5df{font-weight:bold;background-color:#c0392b}
+					.tg_return_on_investment .tg-x8jq{font-weight:bold;background-color:#2980b9}
+					.tg_return_on_investment .tg-75a8{font-weight:bold;background-color:#8e44ad}
+					.tg_return_on_investment .tg-nmrz{background-color:#f2c8c4}
 				</style>
-				<table class="tg_return_on_investment">
-					<thead>
-						<tr>
-							<th class="tg-t5df">Cost Drivers</th>
-							<th class="tg-t5df">Cost Per Unit</th>
-							<th class="tg-t5df"># of Units</th>
-							<th class="tg-t5df">Total Cost</th>
-							<th class="tg-x8jq">Income Driver</th>
-							<th class="tg-x8jq">Income Per Unit</th>
-							<th class="tg-x8jq"># of Units</th>
-							<th class="tg-x8jq">Total Income</th>
-							<th class="tg-75a8">Net Income</th>
-							<th class="tg-75a8">Net Income Per Cost</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr>
-							<td class="tg-nmrz">1</td>
-							<td class="tg-nmrz">2</td>
-							<td class="tg-nmrz">3</td>
-							<td class="tg-nmrz">4</td>
-							<td class="tg-qrz3">5</td>
-							<td class="tg-qrz3">6</td>
-							<td class="tg-qrz3">7</td>
-							<td class="tg-qrz3">8</td>
-							<td class="tg-c593">9</td>
-							<td class="tg-c593">10</td>
-						</tr>	
-					</tbody>
-
-
-				</table>
+					<table class="tg_return_on_investment">
+					  <thead>
+					  		<tr>
+						    <th class="tg-t5df">Cost Drivers</th>
+						    <th class="tg-t5df">Cost Per Unit</th>
+						    <th class="tg-t5df"># of Units</th>
+						    <th class="tg-t5df">Total Cost</th>
+						    <th class="tg-x8jq">Income Driver</th>
+						    <th class="tg-x8jq">Income Per Unit</th>
+						    <th class="tg-x8jq"># of Units</th>
+						    <th class="tg-x8jq">Total Income</th>
+						    <th class="tg-75a8">Net Income</th>
+						    <th class="tg-75a8">Net Income Per Cost</th>
+						  </tr>
+					  </thead>
+					  <tbody>
+					  	<tr>
+						    <td class="tg-nmrz">1</td>
+						    <td class="tg-nmrz">2</td>
+						    <td class="tg-nmrz">3</td>
+						    <td class="tg-nmrz">4</td>
+						    <td class="tg-qrz3">5</td>
+						    <td class="tg-qrz3">6</td>
+						    <td class="tg-qrz3">7</td>
+						    <td class="tg-qrz3">8</td>
+						    <td class="tg-c593">9</td>
+						    <td class="tg-c593">10</td>
+						  </tr>	
+					  </tbody>
+					  
+					  
+					</table>
 			</div>
 			<!-- Create New Cost Driver Popup -->
 			<div data-role="popup" id="return_on_investment_createNewCostDriver_popup" data-theme="a" class="ui-corner-all">
 				<form id="return_on_investment_createNewCostDriver_popup_form">
 					<div style="padding:10px 20px;">
-						<h1>Create new Cost Driver</h1>
-						<label for="return_on_investment_createNewCostDriver_popup_form_description" class="ui-hidden-accessible">Cost Driver Description</label>
-						<input type="text" id="return_on_investment_createNewCostDriver_popup_form_description" value="" placeholder="Description..." data-theme="a">
-						<label for="return_on_investment_createNewCostDriver_popup_form_CostperUnit" class="ui-hidden-accessible">Cost Per Unit</label>
-						<input type="text"id="return_on_investment_createNewCostDriver_popup_form_CostperUnit" value="" placeholder="Cost Per Unit..." data-theme="a">
-						<label for="return_on_investment_createNewCostDriver_popup_form_numberOfUnits" class="ui-hidden-accessible"># of units</label>
-						<input type="text" id="return_on_investment_createNewCostDriver_popup_form_numberOfUnits" value="" placeholder="# of Units" data-theme="a">
-						<a href="#" class="ui-btn ui-corner-all ui-shadow ui-btn-b ui-btn-icon-left ui-icon-check" onclick="createNewCostDriver()">Create</a>
-					</div>
+			            <h1>Create new Cost Driver</h2>
+			            	<label for="return_on_investment_createNewCostDriver_popup_form_description" class="ui-hidden-accessible">Cost Driver Description</label>
+					        <input type="text" id="return_on_investment_createNewCostDriver_popup_form_description" value="" placeholder="Description..." data-theme="a">
+					        <label for="return_on_investment_createNewCostDriver_popup_form_CostperUnit" class="ui-hidden-accessible">Cost Per Unit</label>
+					        <input type="text"id="return_on_investment_createNewCostDriver_popup_form_CostperUnit" value="" placeholder="Cost Per Unit..." data-theme="a">
+					        <label for="return_on_investment_createNewCostDriver_popup_form_numberOfUnits" class="ui-hidden-accessible"># of units</label>
+					        <input type="text" id="return_on_investment_createNewCostDriver_popup_form_numberOfUnits" value="" placeholder="# of Units" data-theme="a">
+			            <a href="#" class="ui-btn ui-corner-all ui-shadow ui-btn-b ui-btn-icon-left ui-icon-check" onclick="createNewCostDriver()">Create</a>
+			        </div>
 				</form>
 			</div>
 			<div data-role="popup" id="return_on_investment_createNewIncomeDriver_popup" data-theme="a" class="ui-corner-all">
 				<form id="return_on_investment_createNewIncomeDriver_popup_form">
 					<div style="padding:10px 20px;">
-						<h1>Create new Income Driver</h1>
-						<label for="return_on_investment_createNewIncomeDriver_popup_form_description" class="ui-hidden-accessible">Income Driver Description</label>
-						<input type="text" id="return_on_investment_createNewIncomeDriver_popup_form_description" value="" placeholder="Description..." data-theme="a">
-						<label for="return_on_investment_createNewIncomeDriver_popup_form_IncomePerUnit" class="ui-hidden-accessible">Income Per Unit</label>
-						<input type="text"id="return_on_investment_createNewIncomeDriver_popup_form_IncomePerUnit" value="" placeholder="Income Per Unit..." data-theme="a">
-						<label for="return_on_investment_createNewIncomeDriver_popup_form_numberOfUnits" class="ui-hidden-accessible"># of units</label>
-						<input type="text" id="return_on_investment_createNewIncomeDriver_popup_form_numberOfUnits" value="" placeholder="# of Units" data-theme="a">
-						<a href="#" class="ui-btn ui-corner-all ui-shadow ui-btn-b ui-btn-icon-left ui-icon-check" onclick="createNewIncomeDriver()">Create</a>
-					</div>
+			            <h1>Create new Income Driver</h2>
+			            	<label for="return_on_investment_createNewIncomeDriver_popup_form_description" class="ui-hidden-accessible">Income Driver Description</label>
+					        <input type="text" id="return_on_investment_createNewIncomeDriver_popup_form_description" value="" placeholder="Description..." data-theme="a">
+					        <label for="return_on_investment_createNewIncomeDriver_popup_form_IncomePerUnit" class="ui-hidden-accessible">Income Per Unit</label>
+					        <input type="text"id="return_on_investment_createNewIncomeDriver_popup_form_IncomePerUnit" value="" placeholder="Income Per Unit..." data-theme="a">
+					        <label for="return_on_investment_createNewIncomeDriver_popup_form_numberOfUnits" class="ui-hidden-accessible"># of units</label>
+					        <input type="text" id="return_on_investment_createNewIncomeDriver_popup_form_numberOfUnits" value="" placeholder="# of Units" data-theme="a">
+			            <a href="#" class="ui-btn ui-corner-all ui-shadow ui-btn-b ui-btn-icon-left ui-icon-check" onclick="createNewIncomeDriver()">Create</a>
+			        </div>
 				</form>
 			</div>
 			<div data-role="popup" id="return_on_investment_createNewInvestment_popup" data-theme="a" class="ui-corner-all">
-				<form id="return_on_investment_createNewInvestment_popup_form" >
-					<div style="padding:10px 20px;">
-						<h1>Create new Investment</h1>
-						<label for="return_on_investment_createNewInvestment_popup_form_title" class="ui-hidden-accessible">Title</label>
-						<input type="text" id="return_on_investment_createNewInvestment_popup_form_title" value="" placeholder="Title" data-theme="a">
-						<label for="return_on_investment_createNewInvestment_popup_form_description" class="ui-hidden-accessible">Description</label>
-						<input type="text" id="return_on_investment_createNewInvestment_popup_form_description" value="" placeholder="Description..." data-theme="a">
-						<label for="return_on_investment_createNewInvestment_popup_form_type" class="ui-hidden-accessible">Type</label>
-						<input type="text" id="return_on_investment_createNewInvestment_popup_form_type" value="" placeholder="Type..." data-theme="a">
-						<a href="#" class="ui-btn ui-corner-all ui-shadow ui-btn-b ui-btn-icon-left ui-icon-check" onclick="createNewInvestment()">Create</a>
-					</div>
-				</form>
+			    <form id="return_on_investment_createNewInvestment_popup_form" >
+			        <div style="padding:10px 20px;">
+			            <h1>Create new Investment</h2>
+			            	<label for="return_on_investment_createNewInvestment_popup_form_title" class="ui-hidden-accessible">Title</label>
+					            <input type="text" id="return_on_investment_createNewInvestment_popup_form_title" value="" placeholder="Title" data-theme="a">
+					            <label for="return_on_investment_createNewInvestment_popup_form_description" class="ui-hidden-accessible">Description</label>
+					            <input type="text" id="return_on_investment_createNewInvestment_popup_form_description" value="" placeholder="Description..." data-theme="a">
+					            <label for="return_on_investment_createNewInvestment_popup_form_type" class="ui-hidden-accessible">Type</label>
+					            <input type="text" id="return_on_investment_createNewInvestment_popup_form_type" value="" placeholder="Type..." data-theme="a">
+			            <a href="#" class="ui-btn ui-corner-all ui-shadow ui-btn-b ui-btn-icon-left ui-icon-check" onclick="createNewInvestment()">Create</a>
+			        </div>
+			    </form>
 			</div>
 		</div>
-			<!-- Risk Analysis -->
+		<!-- Risk Analysis -->
 		<div data-role="page" class="ubm_page" id="risk_analysis" data-theme="a">
 			<div data-role="header">
                 <a href="#" class="back_btn" data-icon="arrow-l" data-iconpos="notext">Back</a>
@@ -5723,38 +7765,24 @@ under the License.
 				<h1> Projected Financial Statement </h1>
 			</div>
 			<div data-role="content">
-				<div id="projected_financial_statement_iframe_container">
-					<center><input type="button" value="Click here to Reload the Projected Financial Statement" /></center>
-				</div>	
-			</div>
-
-		</div>
-		<div data-role="page" class="ubm_page" id="ubm_product_creation_suite" data-theme="a">
-			<div data-role="header">
-                <a href="#" class="back_btn" data-icon="arrow-l" data-iconpos="notext">Back</a>
-				<h1> UBM Product Application Creator </h1>
-			</div>
-			<div data-role="content">
-				<center><p>Click the buttons to create and remove a UBM Product Creator instance.</p>
-				<p>
-					<input onclick="createEditor();" type="button" value="Load UBM Product Creator">
-					<input onclick="removeEditor();" type="button" value="Close UBM Product Creator"><br/>
-					<input onclick="saveEditorContentsasaUBMProduct();" type="button" value="Save this UBM Product"><br/>
-
-					<input type="button" value="Select a UBM Product Template.">
-				</p></center>
-				<!-- This div will hold the editor. -->
-				<div id="editor">
-				</div>
-				<div id="editedcontents" style="display: none">
-					<p>
-						Preview Editor Contents:
-					</p>
-					<!-- This div will be used to display the editor contents. -->
-					<div id="editorcontents">
-					</div>
-				</div>				
-				
+				<div id="editableGripwrap">
+					<h1>Editable Financial Statement Demo - With MySQL Database Link</h1> 
+					<h2>Balance Sheet - Debits (Assets 100-199)</h2> 
+						<!-- Feedback message zone -->
+						<div id="message"></div>
+						<!-- Grid contents -->
+						<div id="balancesheetdebits_tablecontent"></div>				<!-- Balace Sheet Debits-->
+						<!-- Paginator control -->
+						<div id="paginator"></div>
+					<h2>Balance Sheet - Credits (Liabilities 200-299 + Owners Equity 300-399)</h2> 
+					<p>Balance Sheet - Credits (Liabilities + Stock + Retained Earnings)</p> 
+						<!-- Grid contents -->
+						<div id="balancesheetcredits_tablecontent"></div>				<!-- Balace Sheet Credits-->
+					<h2>Income Statement - Debits (Expenses 500-799)</h2> 
+						<div id="incomestatementdebits_tablecontent"></div>				<!-- Income Statement Credits-->
+					<h2>Income Statement - Credits (Income 400-499)</h2> 
+						<div id="incomestatementcredits_tablecontent"></div>			<!-- Income Statement Debits-->
+				</div>  
 			</div>
 		</div>
 		<!-- Setup -->
@@ -5821,7 +7849,6 @@ under the License.
 				<div align="center">
 					<a href="#mcs_setup_checklist_setup_searchPopup" data-rel="popup" data-role="button">Model Creation Suite - Setup</a>
 				</div>
-				<a onclick="getModelCreationSuiteChecklistItems()" data-icon="refresh" data-iconpos="notext">Refresh</a>
 			</div><!-- /header -->
 			<div data-role="content">
 				<div data-role="popup" id="mcs_UBMFlowchart" data-overlay-theme="b" data-theme="a" data-corners="false">
@@ -5892,8 +7919,7 @@ under the License.
 						    <a href="index.html" data-rel="back" class="ui-shadow ui-btn ui-corner-all ui-btn-inline ui-mini">Cancel</a>
 						</form>
 					</div>
-				</div>
-				<!-- /Identification Setup popup -->
+				</div><!-- /Identification Setup popup -->
 				<div data-role="popup" id="mcs_setup_1_popUp" data-theme="a" data-position-to="window" data-dismissible="false">
 					<div data-role="header"  data-theme="a">
 						<h1>License Agreement</h1>
@@ -6278,10 +8304,10 @@ under the License.
 					<thead>
 						<tr>
 							<th data-priority="8">MCS Line #</th>
-							<th data-priority="6"><h4>FRB</h4></th>
-							<th data-priority="6"><h4>FRB </br>Date</h4></th>
-							<th data-priority="7"><h4>RB</h4></th>
-							<th data-priority="7"><h4>RB </br>Date</h4></th>
+							<th data-priority="1"><h4>FRB</h4></th>
+							<th data-priority="1"><h4>FRB </br>Date</h4></th>
+							<th data-priority="1"><h4>RB</h4></th>
+							<th data-priority="1"><h4>RB </br>Date</h4></th>
 							<th data-priority="8"><h4>PB</h4></th>
 							<th data-priority="8"><h4>PB </br>Date</h4></th>
 							<th data-priority="1"><h4>MFI </br>Expl Ref</h4></th>
@@ -6380,7 +8406,6 @@ under the License.
 				<div align="center">
 					<a href="#mcs_setup_checklist_CS_searchPopup" data-rel="popup" data-role="button">Model Creation Suite - Control</a>
 				</div>
-				<a onclick="getModelCreationSuiteChecklistItems()" data-icon="refresh" data-iconpos="notext">Refresh</a>
 			</div><!-- /header -->
 			<div role="content" class="ui-content">
 				<div data-role="popup" id="mcs_setup_checklist_CS_userGuide_popup" data-theme="a">
@@ -6390,7 +8415,7 @@ under the License.
 					<div role="main" class="ui-content">
 						<h3 class="ui-title">B.	Control Section: </h3>
 						<p>
-							This section will guide you through the steps necessary to complete your process management information. <strong>This section is not required </strong> and only should be completed <strong>if you have at least half a dozen different people</strong> working to complete your model.
+							This section will guide you through the steps necessary to complete your process management information. This section is not required and only should be completed if you have at least half a dozen different people working to complete your model
 						</p>
 							<a href="#" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b" data-rel="back" data-transition="flow">Dismiss</a>
 					</div>
@@ -6753,7 +8778,6 @@ under the License.
 				<div align="center">
 					<a href="#mcs_setup_checklist_p1_searchPopup" data-rel="popup" data-role="button">Model Creation Suite - Phase 1</a>
 				</div>
-				<a onclick="getModelCreationSuiteChecklistItems()" data-icon="refresh" data-iconpos="notext">Refresh</a>
 			</div><!-- /header -->
 			<div role="content" class="ui-content">
 				<!-- Phase One User Guide Popup-->
@@ -7022,7 +9046,7 @@ under the License.
 						<a href="#" onclick="submitMCSTaskFinalReviewedByRecord()" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b" data-rel="back" data-transition="flow">Give the Final Review for this Step</a>
 					</div>
 				</div><!-- /Final Review popup -->
-				<div data-role="popup" id="mcs_setup_checklist_p1_primaryObjects_setup_popup" data-theme="a" data-position-to="window" data-dismissible="true">
+				<div data-role="popup" id="mcs_setup_checklist_p1_primaryObjects_setup_popup" data-theme="a" data-position-to="window" data-dismissible="false">
 					<div data-role="header"  data-theme="a">
 						<h1>Primary Objects Setup</h1>
 					</div>
@@ -7036,7 +9060,6 @@ under the License.
 							<textarea name="mcs_setup_checklist_p1_primaryObjects_setup_popup_form_visionStatement" id="mcs_setup_checklist_p1_primaryObjects_setup_popup_form_visionStatement" placeholder="Vision Statement: Carefully compose a Vision statement for your model. (Refer to 01.01.02.03  in the Reference Manual)"></textarea>
 
 							<a href="#" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b" data-rel="back" data-transition="flow" onclick="submitMCS_phase1_submitT17(17)" >Submit!</a>
-							<a href="#" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b" data-rel="back" data-transition="flow" >Cancel</a>
 						</form>
 					</div>
 				</div><!-- /Primary Objects Setup popup -->
@@ -7145,7 +9168,6 @@ under the License.
 				<center>
 					<a href="#mcs_setup_checklist_p2_searchPopup" data-rel="popup" data-role="button">Model Creation Suite - Phase 2</a>
 				</center>
-				<a onclick="getModelCreationSuiteChecklistItems()" data-icon="refresh" data-iconpos="notext">Refresh</a>
 			</div><!-- /header -->
 			<div role="content" class="ui-content">
 				<!-- Read Phase Two User Guide Popup -->
@@ -7517,7 +9539,6 @@ under the License.
 				<center>
 					<a href="#mcs_setup_checklist_p3_searchPopup" data-rel="popup" data-role="button">Model Creation Suite - Phase 3</a>
 				</center>
-				<a onclick="getModelCreationSuiteChecklistItems()" data-icon="refresh" data-iconpos="notext">Refresh</a>
 			</div><!-- /header -->
 			<div role="content" class="ui-content">
 				<!-- Read Phase Three User Guide Popup -->
@@ -7889,7 +9910,6 @@ under the License.
 				<center>
 					<a href="#mcs_setup_checklist_p4_b1_searchPopup" data-rel="popup" data-role="button">Model Creation Suite - Phase 4 - B1</a>
 				</center>
-				<a onclick="getModelCreationSuiteChecklistItems()" data-icon="refresh" data-iconpos="notext">Refresh</a>
 			</div><!-- /header -->
 			<div role="content" class="ui-content">
 				<div data-role="popup" id="mcs_setup_checklist_p4_userGuide_popup" data-theme="a">
@@ -8742,8 +10762,6 @@ under the License.
 				<center>
 					<a href="#mcs_setup_checklist_p4_b3_searchPopup" data-rel="popup" data-role="button">Model Creation Suite - Phase 4 - B3</a>
 				</center>
-				<a onclick="getModelCreationSuiteChecklistItems()" data-icon="refresh" data-iconpos="notext">Refresh</a>
-
 			</div><!-- /header -->
 			<div data-role="content">
 				<!-- Read Phase 4 Book 3 User Guide Popup -->
@@ -9115,7 +11133,6 @@ under the License.
 				<center>
 					<a href="#mcs_setup_checklist_p4_b4_searchPopup" data-rel="popup" data-role="button">Model Creation Suite - Phase 4 - B4</a>
 				</center>
-				<a onclick="getModelCreationSuiteChecklistItems()" data-icon="refresh" data-iconpos="notext">Refresh</a>
 			</div><!-- /header -->
 			<div data-role="content">
 				<!-- Read Phase 4 Book 4 User Guide Popup -->
@@ -9487,7 +11504,6 @@ under the License.
 				<center>
 					<a href="#mcs_setup_checklist_p4_b5_searchPopup" data-rel="popup" data-role="button">Model Creation Suite - Phase 4 - B5</a>
 				</center>
-				<a onclick="getModelCreationSuiteChecklistItems()" data-icon="refresh" data-iconpos="notext">Refresh</a>
 			</div><!-- /header -->
 			<div data-role="content">
 				<!-- Read Phase Four Book Five User Guide Popup -->
@@ -9859,7 +11875,6 @@ under the License.
 				<center>
 					<a href="#mcs_setup_checklist_p4_b6_searchPopup" data-rel="popup" data-role="button">Model Creation Suite - Phase 4 - B6</a>
 				</center>
-				<a onclick="getModelCreationSuiteChecklistItems()" data-icon="refresh" data-iconpos="notext">Refresh</a>
 			</div><!-- /header -->
 			<div data-role="content">
 				<!-- Read Phase Four Book Six User Guide Popup -->
@@ -10231,7 +12246,6 @@ under the License.
 				<center>
 					<a href="#mcs_setup_checklist_p4_b7_searchPopup" data-rel="popup" data-role="button">Model Creation Suite - Phase 4 - B7</a>
 				</center>
-				<a onclick="getModelCreationSuiteChecklistItems()" data-icon="refresh" data-iconpos="notext">Refresh</a>
 			</div><!-- /header -->
 			<div data-role="content">
 				<!-- Read Phase Four Book Seven Popup -->
@@ -10603,7 +12617,6 @@ under the License.
 				<center>
 					<a href="#mcs_setup_checklist_p4_b8_searchPopup" data-rel="popup" data-role="button">Model Creation Suite - Phase 4 - B8</a>
 				</center>
-				<a onclick="getModelCreationSuiteChecklistItems()" data-icon="refresh" data-iconpos="notext">Refresh</a>
 			</div><!-- /header -->
 			<div data-role="content">
 				<!-- Read Phase Book Eight Popup -->
@@ -10975,7 +12988,6 @@ under the License.
 				<center>
 					<a href="#mcs_setup_checklist_p4_b9_searchPopup" data-rel="popup" data-role="button">Model Creation Suite - Phase 4 - B9</a>
 				</center>
-				<a onclick="getModelCreationSuiteChecklistItems()" data-icon="refresh" data-iconpos="notext">Refresh</a>
 			</div><!-- /header -->
 			<div data-role="content">
 				<!-- Read Phase Four Book Nine Popup -->
@@ -11347,7 +13359,6 @@ under the License.
 				<center>
 					<a href="#mcs_setup_checklist_p4_b10_searchPopup" data-rel="popup" data-role="button">Model Creation Suite - Phase 4 - B10</a>
 				</center>
-				<a onclick="getModelCreationSuiteChecklistItems()" data-icon="refresh" data-iconpos="notext">Refresh</a>
 			</div><!-- /header -->
 			<div data-role="content">
 				<!-- Read Phase Four Book Ten User Guide Popup -->
@@ -11719,7 +13730,6 @@ under the License.
 				<center>
 					<a href="#mcs_setup_checklist_p4_b11_searchPopup" data-rel="popup" data-role="button">Model Creation Suite - Phase 4 - B11</a>
 				</center>
-				<a onclick="getModelCreationSuiteChecklistItems()" data-icon="refresh" data-iconpos="notext">Refresh</a>
 			</div><!-- /header -->
 			<div data-role="content">
 				<!-- Read Phase Four Book Eleven User Guide Popup -->
@@ -12030,68 +14040,67 @@ under the License.
 		</div>
 		<!-- Phase 4 Book 12-->
 		<div data-role="page" class="ubm_page" id="mcs_setup_checklist_p4_b12" data-theme="a">
-            <div data-role="panel" id="mcs_setup_checklist_p4_b12_lpanel" data-display="overlay" data-position="left">
-                <ul data-role="listview">
-                    <li data-icon="home">
-                        <a href="#ubmsuite_SelectBusinessModel" >My Models</a>
-                    </li>
-                    <li data-icon="home">
-                        <a href="#ubmsuite_modelDashboard" >Edit Model</a>
-                    </li>
+                                <div data-role="panel" id="mcs_setup_checklist_p4_b12_lpanel" data-display="overlay" data-position="left">
+                                <ul data-role="listview">
+                                    <li data-icon="home">
+                                        <a href="#ubmsuite_SelectBusinessModel" >My Models</a>
+                                    </li>
+                                    <li data-icon="home">
+                                        <a href="#ubmsuite_modelDashboard" >Edit Model</a>
+                                    </li>
 
-                    <li>
-                        <a href="#creator_table_of_contents">Model Creator Table of Contents</a>
-                    </li>
-                    <li>
-                        <a href="#mcs_setup_checklist_setup">MCS Setup</a>
-                    </li>
-                    <li>
-                        <a href="#management_reporting">Management Reporting</a>
-                    </li>
-                    <li>
-                        <a href="#mcs_setup_checklist_CS">Control Section</a>
-                    </li>
-                    <li>
-                        <a href="#mcs_setup_checklist_p1">Phase 1</a>
-                    </li>
-                    <li>
-                        <a href="#mcs_setup_checklist_p2">Phase 2</a>
-                    </li>
-                    <li>
-                        <a href="#mcs_setup_checklist_p3">Phase 3</a>
-                    </li>
-                    <li>
-                        <a href="#mcs_setup_checklist_p4">Phase 4</a>
-                    </li>
-                    <li>
-                        <a href="#mcs_setup_checklist_p5">Phase 5</a>
-                    </li>
-                    <li>
-                        <a href="#mcs_setup_checklist_p6">Phase 6</a>
-                    </li>
-                    <li>
-                        <a href="#mcs_setup_checklist_p7">Phase 7</a>
-                    </li>
-                    <li>
-                        <a href="#mcs_setup_checklist_p8">Phase 8</a>
-                    </li>
-                    <li>
-                        <a href="#open_points_action_items">Open Points Action Items</a>
-                    </li>
-                    <li data-icon="delete">
-                        <a href="#" data-rel="close">Close menu</a>
-                    </li>
-                    <li data-icon="delete">
-                        <a href="#sign_in_sign_up">Sign Out</a>
-                    </li>
-                </ul>
-            </div><!-- /panel -->
+                                    <li>
+                                        <a href="#creator_table_of_contents">Model Creator Table of Contents</a>
+                                    </li>
+                                    <li>
+                                        <a href="#mcs_setup_checklist_setup">MCS Setup</a>
+                                    </li>
+                                    <li>
+                                        <a href="#management_reporting">Management Reporting</a>
+                                    </li>
+                                    <li>
+                                        <a href="#mcs_setup_checklist_CS">Control Section</a>
+                                    </li>
+                                    <li>
+                                        <a href="#mcs_setup_checklist_p1">Phase 1</a>
+                                    </li>
+                                    <li>
+                                        <a href="#mcs_setup_checklist_p2">Phase 2</a>
+                                    </li>
+                                    <li>
+                                        <a href="#mcs_setup_checklist_p3">Phase 3</a>
+                                    </li>
+                                    <li>
+                                        <a href="#mcs_setup_checklist_p4">Phase 4</a>
+                                    </li>
+                                    <li>
+                                        <a href="#mcs_setup_checklist_p5">Phase 5</a>
+                                    </li>
+                                    <li>
+                                        <a href="#mcs_setup_checklist_p6">Phase 6</a>
+                                    </li>
+                                    <li>
+                                        <a href="#mcs_setup_checklist_p7">Phase 7</a>
+                                    </li>
+                                    <li>
+                                        <a href="#mcs_setup_checklist_p8">Phase 8</a>
+                                    </li>
+                                    <li>
+                                        <a href="#open_points_action_items">Open Points Action Items</a>
+                                    </li>
+                                    <li data-icon="delete">
+                                        <a href="#" data-rel="close">Close menu</a>
+                                    </li>
+                                    <li data-icon="delete">
+                                        <a href="#sign_in_sign_up">Sign Out</a>
+                                    </li>
+                                </ul>
+                </div><!-- /panel -->
                 <div data-role="header" data-position="fixed">
                     <a href="#mcs_setup_checklist_p4_b12_lpanel" data-icon="arrow-r" data-iconpos="notext">Menu</a>
                     <center>
                         <a href="#mcs_setup_checklist_p4_b12_searchPopup" data-rel="popup" data-role="button">Model Creation Suite - Phase 4 - B12</a>
                     </center>
-					<a onclick="getModelCreationSuiteChecklistItems()" data-icon="refresh" data-iconpos="notext">Refresh</a>
                 </div><!-- /header -->
                 <div data-role="content">
                     <!-- Read Phase Four Book Twelve User Guide Popup -->
@@ -12463,7 +14472,6 @@ under the License.
                     <center>
                         <a href="#mcs_setup_checklist_p5_searchPopup" data-rel="popup" data-role="button">Model Creation Suite - Phase 5</a>
                     </center>
-					<a onclick="getModelCreationSuiteChecklistItems()" data-icon="refresh" data-iconpos="notext">Refresh</a>
                 </div><!-- /header -->
                 <div role="content" class="ui-content">
                     <!-- Read Phase Five User Guide Popup -->
@@ -12832,7 +14840,6 @@ under the License.
                     <center>
                         <a href="#mcs_setup_checklist_p6_searchPopup" data-rel="popup" data-role="button">Model Creation Suite - Phase 6</a>
                     </center>
-					<a onclick="getModelCreationSuiteChecklistItems()" data-icon="refresh" data-iconpos="notext">Refresh</a>
                 </div><!-- /header -->
                 <div role="content" class="ui-content">
                     <!-- Read Phase Six User Guide Popup -->
@@ -13204,7 +15211,6 @@ under the License.
                     <center>
                         <a href="#mcs_setup_checklist_p7_searchPopup" data-rel="popup" data-role="button">Model Creation Suite - Phase 7</a>
                     </center>
-					<a onclick="getModelCreationSuiteChecklistItems()" data-icon="refresh" data-iconpos="notext">Refresh</a>
                 </div><!-- /header -->
                 <div role="content" class="ui-content">
                     <div data-role="popup" id="mcs_setup_checklist_p7_userGuide_popup" data-theme="a">
@@ -13575,7 +15581,6 @@ under the License.
                     <center>
                         <a href="#mcs_setup_checklist_p8_searchPopup" data-rel="popup" data-role="button">Model Creation Suite - Phase 8</a>
                     </center>
-					<a onclick="getModelCreationSuiteChecklistItems()" data-icon="refresh" data-iconpos="notext">Refresh</a>
                 </div><!-- /header -->
                 <div role="content" class="ui-content">
                     <!-- Read Phase Eight User Guide Popup -->
@@ -14104,7 +16109,7 @@ under the License.
                             </center>
                         </div>
                     </div>
-                    <table data-role="table" id="mcs_open_points_action_items_table" class="draggable_popup table-stripe" data-mode="columntoggle" data-filter="false" data-column-btn-text="Select Column..." data-column-btn-theme="a" class="ui-shadow table-stroke">
+                    <table data-role="table" id="mcs_open_points_action_items_table" class="draggable_popup" data-mode="columntoggle" data-filter="false" data-column-btn-text="Select Column..." data-column-btn-theme="a" class="ui-shadow table-stroke">
                         <thead id="mcs_open_points_action_items_table_header">
                             <tr>
                                 <th data-priority="1">Line Number</th>
@@ -14132,6 +16137,301 @@ under the License.
             </div>
             <script type="text/javascript" src="cordova.js"></script>
             <script type="text/javascript" src="js/index.js"></script>
+            <script type="text/javascript">
+				function checkConnection() {
+					var networkState = navigator.connection.type;
+					var states = {};
+					states[Connection.UNKNOWN] = 'Unknown connection';
+					states[Connection.ETHERNET] = 'Ethernet connection';
+					states[Connection.WIFI] = 'WiFi connection';
+					states[Connection.CELL_2G] = 'Cell 2G connection';
+					states[Connection.CELL_3G] = 'Cell 3G connection';
+					states[Connection.CELL_4G] = 'Cell 4G connection';
+					states[Connection.CELL] = 'Cell generic connection';
+					states[Connection.NONE] = 'No network connection';
+			
+					//alert('Connection type: ' + states[networkState]);
+					if (states[networkState] == 'Unknown connection') {
+						//alert("Network status: "+states[networkState]);
+						$(".unknownnetwork").css("visibility", "visible");
+					} else {
+						$(".unknownnetwork").css("visibility", "hidden");
+					}
+					if (states[networkState] == 'No network connection') {
+						alert("Network status: " + states[networkState]);
+						$(".offline").css("visibility", "visible");
+					} else {
+						$(".offline").css("visibility", "hidden");
+					}
+				}
+				$(document).on("pageshow", "#ubmsuite_modelDashboard", function() {
+					setTimeout(function() {
+						getModelCreationSuiteChecklistItems();
+	
+					}, 100);
+					setTimeout(function() {					
+						getMyModelsCoreValues();
+						getMyModelsCustomers();
+						getMyModelsProducts();
+						
+						
+						getListofPossibleCoreValues();
+						getListofPossibleCustomers();
+						getListofPossibleProducts();
+					}, 2000);
+					setTimeout(function() {
+						getMyModelsServices();
+						getMyModelsPhysicalFacilities();
+						getMyModelsStrategicAlliances();
+						getMyModelsStrategicPositioningQuestions();
+						getMyModelsFeatures();
+						getMyModelsOrganizationalStructures();
+						
+						getListofPossibleServices();
+						getListofPossiblePhysicalFacilities();
+						getListofPossibleStrategicAlliances();
+						getListofPossibleStrategicPositioningQuestions();
+						getListofPossibleFeatures();
+						getListofPossibleOrganizationalStructures();
+					}, 2000);
+				});
+				$(document).on("pageshow", "#ubmsuite_sharedModelDashboard", function() {
+					setTimeout(function() {
+						getModelCreationSuiteChecklistItems();
+	
+					}, 100);
+					setTimeout(function() {					
+						getMyModelsCoreValues();
+						getMyModelsCustomers();
+						getMyModelsProducts();
+						
+						
+						getListofPossibleCoreValues();
+						getListofPossibleCustomers();
+						getListofPossibleProducts();
+					}, 2000);
+					setTimeout(function() {
+						getMyModelsServices();
+						getMyModelsPhysicalFacilities();
+						getMyModelsStrategicAlliances();
+						getMyModelsStrategicPositioningQuestions();
+						getMyModelsFeatures();
+						getMyModelsOrganizationalStructures();
+						
+						getListofPossibleServices();
+						getListofPossiblePhysicalFacilities();
+						getListofPossibleStrategicAlliances();
+						getListofPossibleStrategicPositioningQuestions();
+						getListofPossibleFeatures();
+						getListofPossibleOrganizationalStructures();
+					}, 2000);
+				});
+				$(document).on("pageshow", "#ubmsuite_SelectBusinessModel", function() {
+					setTimeout(function() {
+						getMyModels();
+						getSharedModels();
+						while (window.globalCounter == 0) {
+							greetUser();
+							window.globalCounter++;
+						}
+					}, 1000);
+				});
+				$(document).on("pageshow", "#return_on_investment", function() {
+					$("#return_on_investment_alternative_select_menu").bind( "change", function(event, ui) {
+					  window.activeModelAlternativeId = $( "#return_on_investment_alternative_select_menu option:selected" ).val();
+					  setTimeout(function(){
+					  	getAllInvestments();
+					  }, 1000);
+					});
+					$("#return_on_investment_alternative_select_investment_menu").bind( "change", function(event, ui) {risk
+					window.activeModelInvestmentId = $("#return_on_investment_alternative_select_investment_menu option:selected").val();
+					setTimeout(function() {
+						getActiveInvestmentIncomeDrivers();
+						getActiveInvestmentCostDrivers();
+						
+					}, 1000);
+					});
+					setTimeout(function() {
+						getListofAlternativesforReturnOnInvestment();
+						
+					}, 1000);
+					
+				});
+				$(document).on("pageshow", "#ubmsuite_mcs_model_review", function() {
+					setTimeout(function() {
+						getModelSummary();
+					}, 1000);
+				});
+				$(document).on("pageshow", "#ubmsuite_mcs_master_file_index", function() {
+				    getMasterFileIndexItems();
+                    setTimeout(function() {
+                        
+                    }, 1000);
+                });
+                $(document).on("pageshow", "#open_points_action_items", function() {
+                    setTimeout(function() {
+						refreshOpenItemsList();
+                    }, 1000);
+                });
+                $(document).on("pageshow", "#mcs_setup_checklist_p4_b1", function() {
+						fillTodaysDate();
+				});
+                $(document).on("pageshow", "#risk_analysis", function() {
+                	//var value =$( "#risk_analysis_alternative_select_menu option:selected" ).text();							
+					$("#risk_analysis_alternative_select_menu").bind( "change", function(event, ui) {
+					  window.activeModelAlternativeId = $( "#risk_analysis_alternative_select_menu option:selected" ).val();
+					  setTimeout(function(){
+					  	getListofRisksforRiskAnalysisTable();
+					  }, 1000);
+					});       
+					          	
+                	
+                    setTimeout(function() {
+						getListofRisksforSearchBars();
+						getListofAlternativesforRiskAnalysis();
+						getListofRisksforRiskAnalysisTable();
+                    }, 10);
+                });
+                $(document).on("pageshow", "#sign_in_sign_up", function() {
+
+                    setTimeout(function() {
+						getMyModelsListofAvailableApplications();
+                    }, 1000);
+                });
+                $(document).on("pageshow", "#AdminSignIn_dialog", function() {
+                	$('#ok_admin_button').focus();
+                });
+				$(document).on("pageshow", "#ubmsuite_mcs_my_organizational_chart", function() {
+					/*** /$( "#heirarchyObjectTree_container_frame" ).draggable().resizable({
+				      maxHeight: 550,
+				      maxWidth: $( window ).width()*2,
+				      minHeight: 250,
+				      minWidth: 200
+				    });/***/
+	                   $( "#ubmsuite_mcs_my_organizational_chart_content_managePolicyPopUp-popup" ).draggable();
+	                   $( "#ubmsuite_mcs_my_organizational_chart_content_manageProcedurePopUp-popup" ).draggable();
+	                   $( "#ubmsuite_mcs_my_organizational_chart_content_manageJobDescriptionPopUp-popup" ).draggable();
+	                   $( "#ubmsuite_mcs_my_organizational_chart_content_manageStepPopUp-popup" ).draggable();
+	                   $( "#ubmsuite_mcs_my_organizational_chart_content_manageTask-popup" ).draggable();
+					$('#chart').empty();
+			        getMyModelsOrgChart();	
+			        getObjectsforBackboneTable();
+				});
+				$(document).on("pageshow", "#possible_alternatives", function() {
+					getMyModelsListofAlternatives();
+					getActiveAlternativeListofPros();
+					getActiveAlternativeListofCons();
+				});
+				$(document).on("pageshow", "#projected_financial_statement", function() {
+					
+					datagridbsd = new DatabaseGridBalanceSheetDebits();
+					datagridbsc = new DatabaseGridBalanceSheetCredits();
+					datagridisd = new DatabaseGridIncomeStatementDebits();
+					datagridisc = new DatabaseGridIncomeStatementCredits();//*/
+				});
+				$('.currency').keyup(function () {
+					 //alert('test'); 
+					 $('.currency').currency();
+				});
+				$(document).on("pageshow", "#ubmsuite_modelSettings", function() {
+					model_getuserswithaccess();
+					setTimeout(function() {
+						$('#tiles').trigger('refreshWookmark');	//Layout items in Wookmark Grid
+					    $( "#ubmsuite_modelSettings_createProduct_popup" ).draggable({ handle: "h1" });
+					    $( "#ubmsuite_modelSettings_createFeature_popup_form" ).draggable({ handle: "h1" });
+					    $( "#ubmsuite_modelSettings_createStrategicPositioningQuestion_popup" ).draggable({ handle: "h1" });
+					    $( "#ubmsuite_modelSettings_createStrategicAlliance_popup" ).draggable({ handle: "h1" });
+					    $( "#ubmsuite_modelSettings_createPhysicalFacility_popup" ).draggable({ handle: "h1" });
+					    $( "#ubmsuite_modelSettings_createOrganizationalStructure_popup" ).draggable({ handle: "h1" });
+					    $( "#ubmsuite_modelSettings_createCoreValue_popup" ).draggable({ handle: "h1" });
+					    $( "#ubmsuite_modelSettings_createService_popup" ).draggable({ handle: "h1" });
+					    $( "#ubmsuite_modelSettings_createCustomer_popup" ).draggable({ handle: "h1" });											
+						$( "#ubmsuite_modelSettings_coreValues_popup" ).draggable({ handle: "h1" });
+						$( "#ubmsuite_modelSettings_customers_popup" ).draggable({ handle: "h1" });
+						$( "#ubmsuite_modelSettings_products_popup" ).draggable({ handle: "h1" });
+						$( "#ubmsuite_modelSettings_services_popup" ).draggable({ handle: "h1" });
+						$( "#ubmsuite_modelSettings_organizationalstructure_popup" ).draggable({ handle: "h1" });
+						$( "#ubmsuite_modelSettings_physicalfacilities_popup" ).draggable({ handle: "h1" });
+						$( "#ubmsuite_modelSettings_strategicalliances_popup" ).draggable({ handle: "h1" });
+						$( "#ubmsuite_modelSettings_strategicpositioningquestions_popup" ).draggable({ handle: "h1" });
+						$( "#ubmsuite_modelSettings_features_popup" ).draggable({ handle: "h1" });
+						$( "#ubmsuite_modelSettings_requestedapplications_popup" ).draggable({ handle: "h1" });
+					}, 2000);
+				});
+				$(document).on("pageshow", ".ubm_page", function() {
+					PieMenuInit();
+					setTimeout(function() {
+						$( ".draggable_popup" ).draggable({ handle: "h1" });
+	                    $( "#sign_in_sign_up_openItem_popup" ).draggable({ handle: "h1" });
+	                    $( "#mcs_setup_checklist_p2_openItem_popup" ).draggable({ handle: "h1" });
+	                    $( "#ubmsuite_SelectBusinessModel_openItem_popup" ).draggable({ handle: "h1" });
+	                    $( "#ubmsuite_table_of_contents_openItem_popup" ).draggable({ handle: "h1" });
+	                    $( "#ubmsuite_modelDashboard_openItem_popup" ).draggable({ handle: "h1" });
+	                    $( "#ubmsuite_sharedModelDashboard_openItem_popup" ).draggable({ handle: "h1" });
+	                    $( "#gettingStarted_openItem_popup" ).draggable({ handle: "h1" });
+	                    $( "#ubmsuite_modelSettings_openItem_popup" ).draggable({ handle: "h1" });
+	                    $( "#mcs_setup_checklist_setup_openItem_popup" ).draggable({ handle: "h1" });
+	                    $( "#mcs_setup_checklist_CS_openItem_popup" ).draggable({ handle: "h1" });
+	                    $( "#mcs_setup_checklist_p1_userGuide_popup" ).draggable({ handle: "h1" });
+	                    $( "#mcs_setup_checklist_p1_openItem_popup" ).draggable({ handle: "h1" });
+	                    $( "#mcs_setup_checklist_p2_userGuide_popup" ).draggable({ handle: "h1" });
+	                    $( "#mcs_setup_checklist_p3_userGuide_popup" ).draggable({ handle: "h1" });
+	                    $( "#mcs_setup_checklist_p3_openItem_popup" ).draggable({ handle: "h1" });
+	                    $( "#mcs_setup_checklist_p4_b1_userGuide_popup" ).draggable({ handle: "h1" });
+	                    $( "#mcs_setup_checklist_p4_b1_openItem_popup" ).draggable({ handle: "h1" });
+	                    $( "#mcs_setup_checklist_p4_b2_userGuide_popup" ).draggable({ handle: "h1" });
+	                    $( "#mcs_setup_checklist_p4_b2_openItem_popup" ).draggable({ handle: "h1" });
+	                    $( "#mcs_setup_checklist_p4_b3_userGuide_popup" ).draggable({ handle: "h1" });
+	                    $( "#mcs_setup_checklist_p4_b3_openItem_popup" ).draggable({ handle: "h1" });
+	                    $( "#mcs_setup_checklist_p4_b4_userGuide_popup" ).draggable({ handle: "h1" });
+	                    $( "#mcs_setup_checklist_p4_b4_openItem_popup" ).draggable({ handle: "h1" });
+	                    $( "#mcs_setup_checklist_p4_b5_userGuide_popup" ).draggable({ handle: "h1" });
+	                    $( "#mcs_setup_checklist_p4_b5_openItem_popup" ).draggable({ handle: "h1" });
+	                    $( "#mcs_setup_checklist_p4_b6_userGuide_popup" ).draggable({ handle: "h1" });
+	                    $( "#mcs_setup_checklist_p4_b6_openItem_popup" ).draggable({ handle: "h1" });
+	                    $( "#mcs_setup_checklist_p4_b7_userGuide_popup" ).draggable({ handle: "h1" });
+	                    $( "#mcs_setup_checklist_p4_b7_openItem_popup" ).draggable({ handle: "h1" });
+	                    $( "#mcs_setup_checklist_p4_b8_userGuide_popup" ).draggable({ handle: "h1" });
+	                    $( "#mcs_setup_checklist_p4_b8_openItem_popup" ).draggable({ handle: "h1" });
+	                    $( "#mcs_setup_checklist_p4_b9_userGuide_popup" ).draggable({ handle: "h1" });
+	                    $( "#mcs_setup_checklist_p4_b9_openItem_popup" ).draggable({ handle: "h1" });	                    
+	                    $( "#mcs_setup_checklist_p4_b10_userGuide_popup" ).draggable({ handle: "h1" });
+	                    $( "#mcs_setup_checklist_p4_b10_openItem_popup" ).draggable({ handle: "h1" });	                    
+	                    $( "#mcs_setup_checklist_p4_b11_userGuide_popup" ).draggable({ handle: "h1" });
+	                    $( "#mcs_setup_checklist_p4_b11_openItem_popup" ).draggable({ handle: "h1" });	                    	                    	                    
+	                    $( "#mcs_setup_checklist_p4_b12_userGuide_popup" ).draggable({ handle: "h1" });
+	                    $( "#mcs_setup_checklist_p4_b12_openItem_popup" ).draggable({ handle: "h1" });
+	                    $( "#mcs_setup_checklist_p5_userGuide_popup" ).draggable({ handle: "h1" });
+	                    $( "#mcs_setup_checklist_p5_openItem_popup" ).draggable({ handle: "h1" });
+	                    $( "#mcs_setup_checklist_p6_userGuide_popup" ).draggable({ handle: "h1" });
+	                    $( "#mcs_setup_checklist_p6_openItem_popup" ).draggable({ handle: "h1" });
+	                    $( "#mcs_setup_checklist_p7_openItem_popup" ).draggable({ handle: "h1" });
+	                    $( "#mcs_setup_checklist_p7_openItem_popup" ).draggable({ handle: "h1" });
+	                    $( "#mcs_setup_checklist_p8_userGuide_popup" ).draggable({ handle: "h1" });
+	                    $( "#mcs_setup_checklist_p8_openItem_popup" ).draggable({ handle: "h1" });
+	                    $( "#open_points_action_items_openItem_popup" ).draggable({ handle: "h1" });
+
+                    }, 2000);
+					//alert(window.activeubm_page);
+					$.getJSON('http://www.findmydriver.com/ubm_get_page_ref.php?callback=?', {//JSONP Request to Open Items Page setup tables
+						activeubm_page : window.activeubm_page
+					}, function(res, status) {
+						$.each(res, function(i, item) {
+							//alert(item.headerRecord_right_formref);
+							$('#headerRecord_right_formref').empty();
+							$('#headerRecord_right_formref').append(item.headerRecord_right_formref);
+							window.activeUbmPageReference = item.headerRecord_right_formref;
+						})
+						//alert("jsonp request returned: " + status);
+					});
+	                                    
+					setTimeout(function() {
+					    
+						checkConnection();
+					}, 3000);
+				});
+				app.initialize();
+            </script>
 			  <!-- Include the imagesLoaded plug-in -->
 			  <script src="js/libs/jquery.imagesloaded.js"></script>
 			  <!-- Include the plug-in -->
@@ -14173,5 +16473,16 @@ under the License.
 			<script src="js/jquery.currency.js"></script>
 		<!-- Example JavaScript -->
 		<script src="05.js"></script>
+		<!-- Dialogs -->
+	    <div data-role="page" id="AdminSignIn_dialog" data-dialog='true' data-close-btn="none" data-transition="slidedown">
+		    <div data-role="header">
+		        <h1>User Role</h1>
+		    </div>
+		    <div data-role="content">
+		        <p style="text-align:center">You are an Admin!</p>
+		        <p><a id="ok_admin_button" href="#ubmsuite_SelectBusinessModel" data-role="button">OK</a></p>
+		    </div>
+		</div>
+    <!-- End Dialogs -->
     </body>
 </html>
