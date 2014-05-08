@@ -59,7 +59,7 @@ var editor, html = '';
 					document.getElementById( 'editorcontents' ).innerHTML = entityEncodedData;
 					document.getElementById( 'editedcontents' ).style.display = '';
 					alert("JSON REQUEST WILL NOW BE SENT");
-					$.getJSON('http://api.universalbusinessmodel.com/ubms_productreationsuite_saveProduct.php?callback=?', {//JSONP Request to Open Items Page setup tables
+					$.getJSON('http://api.universalbusinessmodel.com/ubms_productreationsuite_saveProduct.php?callback=?', {//JSONP Request
 						key : window.key,
 						username : window.username,
 						activeModelUUID : window.activeModelUUID,
