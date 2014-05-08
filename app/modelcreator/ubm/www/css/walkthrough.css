@@ -1,0 +1,24 @@
+.overlay {
+    position:fixed;
+    top:0;
+    bottom:0;
+    left:0;
+    right:0;
+    background-color:#000000;
+    opacity:0.8;
+    display:block;
+    z-index:1001;
+}
+.overlay-message{
+    position: fixed;
+    top:485px;
+    left:1075px;
+    width:200px;
+    height:0px;
+    background-color:rgba(0,0,0,.1);
+    border:5px solid #000000;
+    opacity:1;
+    z-index:1002;
+    box-sizing:border-box;
+    padding:100px 50px;
+}

@@ -96,6 +96,13 @@
 							window.globalCounter++;
 						}
 					}, 1000);
+					if (window.walkthrough == 0) {
+						    $(".overlay, .overlay-message").show();
+						    
+						    $(".overlay-message").click(function() {
+						        $(".overlay, .overlay-message").hide();
+						    });
+					}
 				});
 				
 				$(document).on("pageshow", "#return_on_investment", function() {

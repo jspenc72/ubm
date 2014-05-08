@@ -32,6 +32,7 @@ function userSignIn() {
 									$().toastmessage('showErrorToast', "Your Account Has Not Been Activated");
 								} else {
 									if (res.validation == 'TRUE') {
+										window.walkthrough = res.walkthrough;
 										$('#result').empty().append('<center><p>' + res.message + res.validation + '</p></center>');
 										$('#result').empty();
 										window.accounttype = res.accounttype;
