@@ -26,6 +26,13 @@
 					}
 				}
 				$(document).on("pageshow", "#ubmsuite_modelDashboard", function() {
+					if (window.walkthrough == 0) {
+						    $(".overlay_message_2").show();
+						    
+						    $(".overlay_message_2").click(function() {
+						        $(".overlay_message_2").hide();
+						    });
+					}
 					setTimeout(function() {
 						getModelCreationSuiteChecklistItems();
 	
@@ -55,6 +62,14 @@
 						getListofPossibleFeatures();
 						getListofPossibleOrganizationalStructures();
 					}, 2000);
+				});
+				$(document).on("pageshow", "#creator_table_of_contents", function() {
+					if (window.walkthrough == 0) {
+						    $(".overlay_message_3").show();
+						    $(".overlay_message_3").click(function() {
+						        $(".overlay_message_3").hide();
+						    });
+					}
 				});
 				$(document).on("pageshow", "#ubmsuite_sharedModelDashboard", function() {
 					setTimeout(function() {
@@ -97,10 +112,10 @@
 						}
 					}, 1000);
 					if (window.walkthrough == 0) {
-						    $(".overlay, .overlay-message").show();
+						    $(".overlay_message").show();
 						    
-						    $(".overlay-message").click(function() {
-						        $(".overlay, .overlay-message").hide();
+						    $(".overlay_message").click(function() {
+						        $(".overlay_message").hide();
 						    });
 					}
 				});
@@ -129,6 +144,9 @@
                     setTimeout(function() {
                         
                     }, 1000);
+                });
+                $(document).on("pageshow", "#mcs_setup_checklist_setup", function() {
+                	gettingStarted();
                 });
                 $(document).on("pageshow", "#open_points_action_items", function() {
                     setTimeout(function() {

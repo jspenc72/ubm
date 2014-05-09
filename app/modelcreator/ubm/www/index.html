@@ -1703,10 +1703,10 @@ under the License.
             </div>
         </div>
         <div data-role="page" class="ubm_page" id="ubmsuite_SelectBusinessModel"  data-theme="a">
-        	<div class="overlay"></div>
-			<div class="overlay-message">
-			    <p>Click Here to Create Model</p>
+        	<div class="overlay_message">
+			    <p>Click Here to Create A New Model</p>
 			</div>
+			
             <!-- Select Business Model -->
             <div data-role="panel" id="ubmsuite_table_of_contents_lpanel" data-display="overlay" data-position="left">
                 <ul data-role="listview">
@@ -1838,6 +1838,9 @@ under the License.
         </div>
         <div data-role="page" class="ubm_page" id="ubmsuite_modelDashboard"  data-theme="a">
             <!-- No Panel on this page, instead only back button is needed.-->
+            <div class="overlay_message_2">
+			    <h1>Click Here to Get Started on your Model</h1>
+			</div>
             <div data-role="header">
                 <a href="#" class="back_btn" data-icon="arrow-l" data-iconpos="notext">Back</a>
                 <div id="ubmsuite_modelDashboard_header_headerRecord_center" style="text-align: center">
@@ -3809,7 +3812,7 @@ under the License.
 
                 </div>
                 <div id="continue_button">
-                    <a href="#ubmsuite_SelectBusinessModel" data-role="button" onclick="gettingStarted()" data-inline="true">Continue to your UBM Control Panel</a>
+                    <a href="#ubmsuite_SelectBusinessModel" data-role="button" data-inline="true">Continue to your UBM Control Panel</a>
                     <a href="#mcs_setup_checklist_CS" data-role="button" data-inline="true">Continue to the Control Phase</a>
                 </div>
 
@@ -4712,6 +4715,9 @@ under the License.
 		</div>
 		<!-- Creator Table of Contents Page-->
 		<div data-role="page" class="ubm_page" id="creator_table_of_contents" data-theme="a">
+			<div class="overlay_message_3">
+				<p>&lt;---- Next, Click Here</p>
+			</div>
 			<div data-role="panel" id="mcs_creator_table_of_contents_lpanel" data-display="overlay" data-position="left">
 				<ul data-role="listview">
 					<li data-icon="home">
