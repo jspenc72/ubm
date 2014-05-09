@@ -128,6 +128,7 @@ function gettingStarted () {
 		key : window.key,
 		username : window.username,
 	}, function(res, status) {
+		window.walkthrough =1;
 		
 	});
 }

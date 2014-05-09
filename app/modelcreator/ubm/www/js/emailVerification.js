@@ -1,4 +1,5 @@
 function checkEmailVerification() {
+function checkEmailVerification() {
 	$.getJSON('http://api.universalbusinessmodel.com/CheckEmailVerification.php?callback=?', {//JSONP Request
 		username : window.username
 	}, function(res, status) {
