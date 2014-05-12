@@ -24,6 +24,7 @@ under the License.
         <meta name="viewport" content="user-scalable=yes, initial-scale=1, maximum-scale=1.0, minimum-scale=1.0, width=device-width, height=device-height, target-densitydpi=device-dpi" />
 		<!-- Font Awesome CSS -->
 	    <link rel="stylesheet" href="lib/font-awesome/css/font-awesome.min.css"/>
+	    
 		<!-- Bootstrap Tree CSS -->
 		<link rel="stylesheet" href="css/bootstrap-combinedtree.min.css">
 		<!-- Pie-Menu CSS -->
@@ -79,9 +80,13 @@ under the License.
 		<!-- Tooltipster -->
 		<link rel="stylesheet" type="text/css" href="css/tooltipster.css" />
 		<script type="text/javascript" src="js/jquery.tooltipster.min.js"></script>
-		<link rel="stylesheet" href="css/walkthrough.css">
 		<!-- Verify.js (with Notify.js included) -->
 		<script src="//raw.github.com/jpillora/verifyjs/gh-pages/dist/verify.notify.min.js"></script>
+		<!-- Joyride JS and CSS (Walkthrough) -->
+		<script src="js/jquery.joyride-2.1.js"></script>
+		<link rel="stylesheet" type="text/css" href="css/joyride-2.1.css"/>
+		<script type="text/javascript" src="js/jquery.cookie.js"></script>
+    	<script type="text/javascript" src="js/modernizr.mq.js"></script>
 
 		<!-- JS -->
 		<script src='lib/jquery-ui.custom.min.js'></script>
@@ -1706,9 +1711,7 @@ under the License.
             </div>
         </div>
         <div data-role="page" class="ubm_page" id="ubmsuite_SelectBusinessModel"  data-theme="a">
-        	<div class="overlay_message">
-			    <p>Click Here to Create A New Model</p>
-			</div>
+        	
 			
             <!-- Select Business Model -->
             <div data-role="panel" id="ubmsuite_table_of_contents_lpanel" data-display="overlay" data-position="left">
@@ -1822,7 +1825,7 @@ under the License.
                     </div>
                 </div>
                 <div align="center">
-                    <a href="#ubmsuite_createModel_popup" data-rel="popup" data-role="button" data-inline="true"  >Create New Model</a>
+                    <a href="#ubmsuite_createModel_popup" id="ubmsuite_SelectBusinessModel_createNewModel_button" data-rel="popup" data-role="button" data-inline="true" >Create New Model</a>
                     <a href="#ubmsuite_createModel_popup" data-rel="popup" data-role="button" data-inline="true" class="ui-disabled">Create New Project</a>
 
                 </div>
@@ -1841,9 +1844,7 @@ under the License.
         </div>
         <div data-role="page" class="ubm_page" id="ubmsuite_modelDashboard"  data-theme="a">
             <!-- No Panel on this page, instead only back button is needed.-->
-            <div class="overlay_message_2">
-			    <h1>Click Here to Get Started on your Model</h1>
-			</div>
+			
             <div data-role="header">
                 <a href="#" class="back_btn" data-icon="arrow-l" data-iconpos="notext">Back</a>
                 <div id="ubmsuite_modelDashboard_header_headerRecord_center" style="text-align: center">
@@ -1948,7 +1949,7 @@ under the License.
 		                        </p></a>
 		                    </li>
 		                    <li>
-		                        <a href="#creator_table_of_contents"> <img src="img/modelcreation.png" class="ui-li-thumb"> <h2>Model Creation Suite</h2>
+		                        <a id="ubmsuite_modelDashboard_tableOfContents" href="#creator_table_of_contents"> <img src="img/modelcreation.png" class="ui-li-thumb"> <h2>Model Creation Suite</h2>
 		                        <p>
 		                            Create your model.
 		                        </p>
@@ -2548,7 +2549,7 @@ under the License.
 							<a href="#ubmsuite_table_of_contents">UBM Suite Table of Contents</a>
 						</li>
 						<li>
-							<a href="#mcs_setup_checklist_setup">MCS Setup</a>
+							<a id="ubmsuite_mcs_master_file_index_mcs_setup_checklist_setup_anchor" href="#mcs_setup_checklist_setup">MCS Setup</a>
 						</li>
 						<li>
 							<a href="#management_reporting">Management Reporting</a>
@@ -4718,9 +4719,7 @@ under the License.
 		</div>
 		<!-- Creator Table of Contents Page-->
 		<div data-role="page" class="ubm_page" id="creator_table_of_contents" data-theme="a">
-			<div class="overlay_message_3">
-				<p>&lt;---- Next, Click Here</p>
-			</div>
+			
 			<div data-role="panel" id="mcs_creator_table_of_contents_lpanel" data-display="overlay" data-position="left">
 				<ul data-role="listview">
 					<li data-icon="home">
@@ -14239,5 +14238,23 @@ under the License.
 			<script src="js/jquery.currency.js"></script>
 		<!-- Example JavaScript -->
 		<script src="05.js"></script>
+		<ol id="creator_table_of_contents_step1">
+		  <li data-id="ubmsuite_mcs_master_file_index_mcs_setup_checklist_setup_anchor" data-text="Next" class="custom">
+	        <h2>Stop #1</h2>
+	        <p>You can control all the details for you tour stop. Any valid HTML will work inside of Joyride.</p>
+	      </li>
+		</ol>
+		<ol id="ubmsuite_modelDashboard_step1">
+		  <li data-id="ubmsuite_modelDashboard_tableOfContents" data-text="Next" class="custom">
+	        <h2>Stop #1</h2>
+	        <p>You can control all the details for you tour stop. Any valid HTML will work inside of Joyride.</p>
+	      </li>
+		</ol>
+		<ol id="ubmsuite_SelectBusinessModel_step1">
+		  <li data-id="ubmsuite_SelectBusinessModel_createNewModel_button" data-text="Next" class="custom">
+	        <h2>Stop #1</h2>
+	        <p>You can control all the details for you tour stop. Any valid HTML will work inside of Joyride.</p>
+	      </li>
+		</ol>
     </body>
 </html>
