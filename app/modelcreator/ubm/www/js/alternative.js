@@ -166,10 +166,10 @@ function getActiveAlternativeListofCons() {
     }, function(res, status) {
         if (status == "success") {
             setTimeout(function() {
-                $('#possible_alternatives_alternativeDescription').val('');
+
                 hideLoader();
             }, 1000);
-            $("#possible_alternatives_alternativeDescription_nextStep_button").removeAttr("disabled", "disabled");
+
         }
         $.each(res, function(i, item) {
             $('#possible_alternitives_cons_table_body').append("<tr><td>" + item.id + "<a href='#' onclick='setActiveAlternativeCon(" + item.id + ")' class='ui-btn ui-icon-tag ui-btn-icon-notext ui-corner-all'>No text</a></td><td>" + item.description + "</td><td><input class='high_col_num' value = '" + item.cost_low + "'/></td><td><input class='low_col_num' value = '" + item.cost_high + "'/></td></tr>");
@@ -190,6 +190,9 @@ function createNewAlternative() {
     }, function(res, status) {
         if (status == "success") {
             setTimeout(function() {
+                $('#possible_alternatives_alternativeDescription').val('');
+                $("#possible_alternatives_alternativeDescription_nextStep_button").removeAttr("disabled");
+                $("#possible_alternatives_alternativeDescription_nextStep_button").removeClass("ui-button-disabled ui-state-disabled")
                 getMyModelsListofAlternatives();
                 hideLoader();
             }, 1000);
