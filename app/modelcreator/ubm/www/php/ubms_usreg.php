@@ -23,8 +23,8 @@ $v7 = "'" . $conn -> real_escape_string($licenseAgreement) . "'";
 $v8 = "'" . $conn -> real_escape_string($termsOfService) . "'";
 $v9 = "'" . $conn -> real_escape_string($hash) . "'";
 
-$sqlins = "INSERT INTO members (username, email, password, agree_to_license_agreement, agree_to_terms_of_service, activation_code, email_activation_status, password_status)
-				VALUES ('$usrname', '$usremail', '$securePassword', '$licenseAgreement', '$termsOfService', '$hash', '0', '1')";
+$sqlins = "INSERT INTO members (username, email, password, agree_to_license_agreement, agree_to_terms_of_service, activation_code, email_activation_status)
+				VALUES ('$usrname', '$usremail', '$securePassword', '$licenseAgreement', '$termsOfService', '$hash', '0')";
 if (!$conn -> query($sqlins)) {
 	$theError = $conn -> error;
 	echo $_GET['callback'] . '(' . "{'message' : 'Unable to Process your request: $theError'}" . ')';
