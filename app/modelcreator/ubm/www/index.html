@@ -82,6 +82,9 @@ under the License.
 		<link rel="stylesheet" href="css/walkthrough.css">
 		<!-- Verify.js (with Notify.js included) -->
 		<script src="//raw.github.com/jpillora/verifyjs/gh-pages/dist/verify.notify.min.js"></script>
+		<!-- Walkthrough -->
+		<link media="all" rel="stylesheet" type="text/css" href="css/introjs.css" />
+        <script src="js/intro.js"></script>
 
 		<!-- JS -->
 		<script src='lib/jquery-ui.custom.min.js'></script>
@@ -1706,9 +1709,6 @@ under the License.
             </div>
         </div>
         <div data-role="page" class="ubm_page" id="ubmsuite_SelectBusinessModel"  data-theme="a">
-        	<div class="overlay_message">
-			    <p>Click Here to Create A New Model</p>
-			</div>
 			
             <!-- Select Business Model -->
             <div data-role="panel" id="ubmsuite_table_of_contents_lpanel" data-display="overlay" data-position="left">
@@ -1822,18 +1822,18 @@ under the License.
                     </div>
                 </div>
                 <div align="center">
-                    <a href="#ubmsuite_createModel_popup" data-rel="popup" data-role="button" data-inline="true"  >Create New Model</a>
+                    <a href="#ubmsuite_createModel_popup" data-rel="popup" data-step='1' data-intro='Click Here to Create a new model.' data-role="button" data-inline="true"  >Create New Model</a>
                     <a href="#ubmsuite_createModel_popup" data-rel="popup" data-role="button" data-inline="true" class="ui-disabled">Create New Project</a>
 
                 </div>
                 </br>
                 <div style="min-width:250px; width:50%; float:left;" >
-	                <ul data-role='listview' data-inset='true' id='ubmsuite_SelectBusinessModel_MyModels_ul' style="max-height: 400px; overflow-y: scroll;">
+	                <ul data-role='listview' data-inset='true' id='ubmsuite_SelectBusinessModel_MyModels_ul' data-step='2' data-intro='Models You Created Appear Here.' style="max-height: 400px; overflow-y: scroll;">
 	                    <!-- <li data-role='list-divider'>creator_id</li><li><a href='index.html'><h2>Model Title</h2><p><strong>Reference: </strong></p><p>Description: </p><p class='ui-li-aside'><strong>Creation Date: </strong></p></a></li>-->
 	                </ul>                	
                 </div>
 				<div style="min-width:250px; width:50%; float:left; ">
-	                <ul data-role='listview' data-inset='true' id='ubmsuite_SelectBusinessModel_SharedModels_ul' data-theme="b" style="max-height: 400px; overflow-y: scroll;">
+	                <ul data-role='listview' data-inset='true' id='ubmsuite_SelectBusinessModel_SharedModels_ul' data-theme="b" data-step='3' data-intro='Models That Have Been Shared With You Appear Here.' style="max-height: 400px; overflow-y: scroll;">
 	
 	                </ul>					
 				</div>
@@ -1841,9 +1841,6 @@ under the License.
         </div>
         <div data-role="page" class="ubm_page" id="ubmsuite_modelDashboard"  data-theme="a">
             <!-- No Panel on this page, instead only back button is needed.-->
-            <div class="overlay_message_2">
-			    <h1>Click Here to Get Started on your Model</h1>
-			</div>
             <div data-role="header">
                 <a href="#" class="back_btn" data-icon="arrow-l" data-iconpos="notext">Back</a>
                 <div id="ubmsuite_modelDashboard_header_headerRecord_center" style="text-align: center">
@@ -1909,9 +1906,9 @@ under the License.
                 </div>
                 <!-- End Open Items Popup -->
 	                <div>
-		                <ul data-role="listview" data-inset="true">
+		                <ul data-role="listview" data-inset="true" >
 		                    <li>
-		                        <a href="#ubmsuite_mcs_model_review"> <img src="img/time-for-review.jpg" class="ui-li-thumb"> <h2>Model Review</h2>
+		                        <a href="#ubmsuite_mcs_model_review" data-position="left" data-step='5' data-intro='Here, you can see an overview of your models completion and see how far you are on each phase.'> <img src="img/time-for-review.jpg" class="ui-li-thumb"> <h2>Model Review</h2>
 			                        <p>
 			                            Review the details of your model.
 			                        </p>
@@ -1921,7 +1918,7 @@ under the License.
 		                        </a>
 		                    </li> 
 		                    <li>
-		                        <a href="#ubmsuite_mcs_master_file_index"> <img src="img/book.jpg" class="ui-li-thumb"> <h2>Master File Index</h2>
+		                        <a href="#ubmsuite_mcs_master_file_index" data-position="left" data-step='2' data-intro='This contains your master file index.'> <img src="img/book.jpg" class="ui-li-thumb"> <h2>Master File Index</h2>
 		                        <p>
 		                            Setting up your model.
 		                        </p>
@@ -1930,7 +1927,7 @@ under the License.
 		                        </p> </a>
 		                    </li>
 		                    <li>
-		                        <a href="#ubmsuite_mcs_management_reporting"> <img src="img/assembly_line.png" class="ui-li-thumb"> <h2>Management Reporting</h2>
+		                        <a href="#ubmsuite_mcs_management_reporting" data-position="left" data-step='3' data-intro='Managment Reporting.'> <img src="img/assembly_line.png" class="ui-li-thumb"> <h2>Management Reporting</h2>
 		                        <p>
 		                            Forms </br> Packets
 		                        </p>
@@ -1939,7 +1936,7 @@ under the License.
 		                        </p></a>
 		                    </li>
 		                    <li>
-		                        <a href="#possible_alternatives"> <img src="img/alternitives.jpg" class="ui-li-thumb"> <h2>Alternatives</h2>
+		                        <a href="#possible_alternatives" data-position="left" data-step='4' data-intro='Go here to create or remove alternatives.'> <img src="img/alternitives.jpg" class="ui-li-thumb"> <h2>Alternatives</h2>
 		                        <p>
 		                            ROI, Risk Analysis, Project Financial Statement
 		                        </p>
@@ -1948,7 +1945,7 @@ under the License.
 		                        </p></a>
 		                    </li>
 		                    <li>
-		                        <a href="#creator_table_of_contents"> <img src="img/modelcreation.png" class="ui-li-thumb"> <h2>Model Creation Suite</h2>
+		                        <a href="#creator_table_of_contents" data-step='1' data-intro='To create a model start here. This contains the model creation suite.'> <img src="img/modelcreation.png" class="ui-li-thumb"> <h2>Model Creation Suite</h2>
 		                        <p>
 		                            Create your model.
 		                        </p>
@@ -1957,7 +1954,7 @@ under the License.
 		                        </p></a>
 		                    </li>
 		                    <li>
-		                        <a href="#"> <img src="img/appcreation.png" class="ui-li-thumb"><h2>App Creation Suite</h2>
+		                        <a href="#" data-step='6' data-intro='To create an app start here. This contains the app creation suite.'> <img src="img/appcreation.png" class="ui-li-thumb"><h2>App Creation Suite</h2>
 		                        <p>
 		                            Create your App.
 		                        </p>
@@ -1966,7 +1963,7 @@ under the License.
 		                        </p></a>
 		                    </li>
 		                    <li>
-		                        <a href="#ubm_product_creation_suite"> <img src="img/lightbulb.jpg" class="ui-li-thumb"><h2>Product Creation Suite</h2>
+		                        <a href="#ubm_product_creation_suite" data-step='7' data-intro='To create a product start here. This contains the product creation suite.'> <img src="img/lightbulb.jpg" class="ui-li-thumb"><h2>Product Creation Suite</h2>
 		                        <p>
 		                            Create your Product.
 		                        </p>
@@ -1975,7 +1972,7 @@ under the License.
 		                        </p></a>
 		                    </li>
 		                    <li>
-		                        <a href="#ubmsuite_mcs_my_organizational_chart"> <img src="img/orgChartIcon.jpg" class="ui-li-thumb"> <h2>Model Organizational Chart</h2>
+		                        <a href="#ubmsuite_mcs_my_organizational_chart" data-step='8' data-intro='From here you can see pretty much anything about your model. Position, job description, policy, procedure, step and task can all be viewed and modified from here.'> <img src="img/orgChartIcon.jpg" class="ui-li-thumb"> <h2>Model Organizational Chart</h2>
 		                        <p>
 		                            The Hiarchical View of Your model.
 		                        </p>
@@ -1984,7 +1981,7 @@ under the License.
 		                        </p></a>
 		                    </li>
 		                    <li>
-		                        <a href="#ubmsuite_mcs_model_visual"> <img src="img/model-visual.jpg" class="ui-li-thumb"> <h2>Model Visual</h2>
+		                        <a href="#ubmsuite_mcs_model_visual" data-step='9' data-intro='From here you can see a visual representation of your model.'> <img src="img/model-visual.jpg" class="ui-li-thumb"> <h2>Model Visual</h2>
 		                        <p>
 		                            The Visual Representation of You Model
 		                        </p>
@@ -1993,7 +1990,7 @@ under the License.
 		                        </p></a>
 		                    </li>
 		                    <li>
-		                        <a href="#ubmsuite_modelSettings"> <img src="img/reference.jpg" class="ui-li-thumb"> <h2>Reference Manual</h2>
+		                        <a href="#ubmsuite_modelSettings" data-step='10' data-intro='This contains the reference manual.'> <img src="img/reference.jpg" class="ui-li-thumb"> <h2>Reference Manual</h2>
 		                        <p>
 		                            Your portal to understanding all things UBM.
 		                        </p>
@@ -2002,7 +1999,7 @@ under the License.
 		                        </p></a>
 		                    </li>
 		                    <li>
-			                        <a href="#ubmsuite_swotAnalysis"> <img src="img/swot.png" class="ui-li-thumb"> <h2>SWOT Analysis</h2>
+			                        <a href="#ubmsuite_swotAnalysis" data-step='11' data-intro='Form here you can modify and view your swot analysis.'> <img src="img/swot.png" class="ui-li-thumb"> <h2>SWOT Analysis</h2>
 			                        <p>
 			                           Strengths, Weaknesses, Opportunities, and Threats.
 			                        </p>
@@ -2011,7 +2008,7 @@ under the License.
 			                        </p></a>
 			                    </li>
 		                    <li>
-		                        <a href="#ubmsuite_modelSettings"> <img src="img/gear.png" class="ui-li-thumb"> <h2>Model Settings</h2>
+		                        <a href="#ubmsuite_modelSettings" data-step='12' data-intro='Change who has access to your model and change other things.'> <img src="img/gear.png" class="ui-li-thumb"> <h2>Model Settings</h2>
 		                        <p>
 		                            Modify user access, Edit Model Properties, etc...
 		                        </p>
@@ -2020,7 +2017,7 @@ under the License.
 		                        </p></a>
 		                    </li>
 		                    <li>
-		                        <a href="#ubmsuite_mcs_position_strategic_command_center"> <img src="img/gear.png" class="ui-li-thumb"> <h2>Position Strategic Command Center</h2>
+		                        <a href="#ubmsuite_mcs_position_strategic_command_center" > <img src="img/gear.png" class="ui-li-thumb"> <h2>Position Strategic Command Center</h2>
 		                        <p>
 		                            Reporting portal, Top 10 and Calendar of Events
 		                        </p>
@@ -2034,7 +2031,7 @@ under the License.
 					<div>
 		                <ul data-role="listview" data-inset="true">
 		                    <li>
-		                        <a href="#ubmsuite_mcs_my_applications"> <img src="img/time-for-review.jpg" class="ui-li-thumb"> <h2>My Applications</h2>
+		                        <a href="#ubmsuite_mcs_my_applications" > <img src="img/time-for-review.jpg" class="ui-li-thumb"> <h2>My Applications</h2>
 			                        <p>
 			                            Manage the interface between your applications and your model.
 			                        </p>
@@ -2542,7 +2539,7 @@ under the License.
 							<a href="#ubmsuite_table_of_contents">UBM Suite Table of Contents</a>
 						</li>
 						<li>
-							<a href="#creator_table_of_contents">Model Creator Table of Contents</a>
+							<a href="#creator_table_of_contents" >Model Creator Table of Contents</a>
 						</li>
 						<li>
 							<a href="#ubmsuite_table_of_contents">UBM Suite Table of Contents</a>
@@ -3816,7 +3813,6 @@ under the License.
                 </div>
                 <div id="continue_button">
                     <a href="#ubmsuite_SelectBusinessModel" data-role="button" data-inline="true">Continue to your UBM Control Panel</a>
-                    <a href="#mcs_setup_checklist_CS" data-role="button" data-inline="true">Continue to the Control Phase</a>
                 </div>
 
 
@@ -4718,9 +4714,6 @@ under the License.
 		</div>
 		<!-- Creator Table of Contents Page-->
 		<div data-role="page" class="ubm_page" id="creator_table_of_contents" data-theme="a">
-			<div class="overlay_message_3">
-				<p>&lt;---- Next, Click Here</p>
-			</div>
 			<div data-role="panel" id="mcs_creator_table_of_contents_lpanel" data-display="overlay" data-position="left">
 				<ul data-role="listview">
 					<li data-icon="home">
@@ -4844,7 +4837,7 @@ under the License.
 				<div id="model_creation">
 					<h1>(A) Model Creation</h1>
 					<p>
-						<a href="#mcs_setup_checklist_setup">Model Creation Suite Phases Checklist</a>
+						<a href="#mcs_setup_checklist_setup" data-position="right" data-intro="This is your checklist. This is the next step.">Model Creation Suite Phases Checklist</a>
 					</p>
 					<p>
 						<a href="#open_points_action_items" onClick="refreshOpenItemsList()">Open Points/Action Items</a>
@@ -5470,7 +5463,7 @@ under the License.
 							    <option value="Not a forseen use">Not a forseen use</option>
 							</select>
 							<a href="#" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-h" onclick="createNewAlternative()" >Create This Alternative!</a>
-							<input data-validate='required' type="button" name="next" class="next action-button" value="Next Step" />
+							<input data-validate='required' type="button" id="possible_alternatives_alternativeDescription_nextStep_button" name="next" disabled="true"  class="next action-button" value="Next Step" />
 						</fieldset>
 						<fieldset>
 							<h2 class="fs-title">Select an alternative below and add all known pros.</h2>
@@ -6348,12 +6341,12 @@ under the License.
 							<th data-priority="6"><h4>FRB </br>Date</h4></th>
 							<th data-priority="7"><h4>RB</h4></th>
 							<th data-priority="7"><h4>RB </br>Date</h4></th>
-							<th data-priority="8"><h4>PB</h4></th>
+							<th data-position='left' data-step='2' data-intro='Click on the red minus when you have completed a step to mark it as completed.' data-priority="8"><h4>PB</h4></th>
 							<th data-priority="8"><h4>PB </br>Date</h4></th>
 							<th data-priority="1"><h4>MFI </br>Expl Ref</h4></th>
 							<th data-priority="1"><h4>MFI Template / Process Ref</h4></th>
 							<th data-priority="1"><h4>Source Model </br>MFI Ref</h4></th>
-							<th data-priority="10"><h4>Instruction Detail</h4></th>
+							<th data-position='left' data-step='1' data-intro='Click on the first step to get started.' data-priority="10"><h4>Instruction Detail</h4></th>
 							<th data-priority="1"><h4>Budget </br>Hours</h4></th>
 							<th data-priority="1"><h4>Actual </br>Hours</h4></th>
 							<th data-priority="1"><h4>Review </br>Time</h4></th>
