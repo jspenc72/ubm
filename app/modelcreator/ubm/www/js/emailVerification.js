@@ -5,9 +5,8 @@
             alert(res.email_activation_status);
             if (res.email_activation_status == "1") {
                 $().toastmessage('showSuccessToast', "Account Successfully Verified");
-                window.location = "#ubmsuite_SelectBusinessModel";
+                window.location = "#gettingStarted";
             } else {
-                window.location = "#account_verification";
                 $().toastmessage('showErrorToast', "Your Account Has Not Been Activated");
             }
         });
