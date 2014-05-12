@@ -24,6 +24,12 @@ under the License.
         <meta name="viewport" content="user-scalable=yes, initial-scale=1, maximum-scale=1.0, minimum-scale=1.0, width=device-width, height=device-height, target-densitydpi=device-dpi" />
 		<!-- Font Awesome CSS -->
 	    <link rel="stylesheet" href="lib/font-awesome/css/font-awesome.min.css"/>
+	    <link media="all" rel="stylesheet" type="text/css" href="crumble/css/crumble.css" />
+		<link media="all" rel="stylesheet" type="text/css" href="crumble/css/grumble.css" />
+        <script src="crumble/jquery.crumble.min.js"></script>
+        <script src="crumble/jquery.grumble.min.js"></script>
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+        
 		<!-- Bootstrap Tree CSS -->
 		<link rel="stylesheet" href="css/bootstrap-combinedtree.min.css">
 		<!-- Pie-Menu CSS -->
@@ -82,6 +88,9 @@ under the License.
 		<link rel="stylesheet" href="css/walkthrough.css">
 		<!-- Verify.js (with Notify.js included) -->
 		<script src="//raw.github.com/jpillora/verifyjs/gh-pages/dist/verify.notify.min.js"></script>
+		<!-- Walkthrough -->
+		
+
 
 		<!-- JS -->
 		<script src='lib/jquery-ui.custom.min.js'></script>
@@ -1706,9 +1715,11 @@ under the License.
             </div>
         </div>
         <div data-role="page" class="ubm_page" id="ubmsuite_SelectBusinessModel"  data-theme="a">
-        	<div class="overlay_message">
-			    <p>Click Here to Create A New Model</p>
-			</div>
+        	<ol id="tour" style="display: none;">
+			  <li data-target="#ubmsuite_SelectBusinessModel_creeateNewModel_anchor" data-angle="130">
+			    The first step in the tour
+			  </li>
+			</ol>
 			
             <!-- Select Business Model -->
             <div data-role="panel" id="ubmsuite_table_of_contents_lpanel" data-display="overlay" data-position="left">
@@ -1822,7 +1833,7 @@ under the License.
                     </div>
                 </div>
                 <div align="center">
-                    <a href="#ubmsuite_createModel_popup" data-rel="popup" data-role="button" data-inline="true"  >Create New Model</a>
+                    <a href="#ubmsuite_createModel_popup" id="ubmsuite_SelectBusinessModel_creeateNewModel_anchor" data-rel="popup" data-role="button" data-inline="true"  >Create New Model</a>
                     <a href="#ubmsuite_createModel_popup" data-rel="popup" data-role="button" data-inline="true" class="ui-disabled">Create New Project</a>
 
                 </div>
