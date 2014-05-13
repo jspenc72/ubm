@@ -1,5 +1,7 @@
 <?php
-require_once ('ubms_db_config.php');
+require_once('globalGetVariables.php');
+require_once('ubms_db_config.php');
+require_once('DBConnect_UBMv1.php');		
 $aname = $_GET['appname'];
 $RQType = $_GET['RQType'];
 $usremail = $_GET['email'];
@@ -14,6 +16,7 @@ $securePassword = md5($usrpasswd);
 	if ($conn->connect_error) {
 	  trigger_error('Database connection failed: '  . $conn->connect_error, E_USER_ERROR);
 	}
+
 $v2 = "'" . $conn -> real_escape_string($aname) . "'";
 $v3 = "'" . $conn -> real_escape_string($RQType) . "'";
 $v4 = "'" . $conn -> real_escape_string($usremail) . "'";
@@ -32,6 +35,21 @@ if (!$conn -> query($sqlins)) {
 	$last_inserted_id = $conn -> insert_id;
 	//$affected_rows = $conn -> affected_rows;
 				echo $_GET['callback'] . '(' . "{'message' : 'Registration successful!'}" . ')';
+}
+$conn2 = new mysqli($DBServer, $DBUser, $DBPass, $DBName);
+// check connection
+if ($conn -> connect_error) {
+	trigger_error('Database connection failed: ' . $conn -> connect_error, E_USER_ERROR);
+}
+$sqlins2 = "INSERT INTO agreements (member_id, terms_of_service, license_agreement_setup)
+				VALUES ('$last_inserted_id', '1', '1')";
+if (!$conn2 -> query($sqlins)) {
+	$theError = $conn -> error;
+	echo $_GET['callback'] . '(' . "{'message' : 'Unable to Process your request: $theError'}" . ')';
+} else {
+	$last_inserted_id = $conn2 -> insert_id;
+	//$affected_rows = $conn -> affected_rows;
+				echo $_GET['callback'] . '(' . "{'message' : 'Agreed!'}" . ')';
 }
 
 $to      = $usremail; // Send email to our user

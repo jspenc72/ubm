@@ -433,3 +433,5 @@ $activePolicyId = $_GET['activePolicyId'];
 $activeProcedureId = $_GET['activeProcedureId'];
 // Change Password
 $newPassword = $_GET['password'];
+$activeInvestment = $_GET['activeInvestment'];
+$activeModelInvestmentId = $_GET['activeModelInvestmentId'];

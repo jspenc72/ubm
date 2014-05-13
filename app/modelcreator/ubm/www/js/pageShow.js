@@ -179,9 +179,9 @@ $(document).on("pageshow", "#ubmsuite_swotAnalysis", function() {
     });
 });
 $(document).on("pageshow", "#risk_analysis", function() {
-    //var value =$( "#risk_analysis_alternative_select_menu option:selected" ).text();							
-    $("#risk_analysis_alternative_select_menu").bind("change", function(event, ui) {
-        window.activeModelAlternativeId = $("#risk_analysis_alternative_select_menu option:selected").val();
+    //var value =$( "#risk_analysis_investment_select_menu option:selected" ).text();							
+    $("#risk_analysis_investment_select_menu").bind("change", function(event, ui) {
+        window.activeModelInvestmentId = $("#risk_analysis_investment_select_menu option:selected").val();
         setTimeout(function() {
             getListofRisksforRiskAnalysisTable();
         }, 1000);
@@ -190,7 +190,7 @@ $(document).on("pageshow", "#risk_analysis", function() {
 
     setTimeout(function() {
         getListofRisksforSearchBars();
-        getListofAlternativesforRiskAnalysis();
+        getListofInvestmentsforRiskAnalysis();
         getListofRisksforRiskAnalysisTable();
     }, 10);
 });

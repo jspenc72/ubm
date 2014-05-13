@@ -63,7 +63,7 @@
 			                $('#ubmsuite_mcs_model_review_ubm_modelSetup_ul').append("<li class='success'>" + item.instruction_detail + "<br>Completed By: " + item.preparer_username + "</li>");
 			                complete++;
 			            } else if (item.line_number >= 1 && item.line_number <= 7) {
-			                $('#ubmsuite_mcs_model_review_ubm_modelSetup_ul').append("<li class='warning'>Warning : <a href='#" + item.href + "'>" + item.instruction_detail + "</a></li>");
+			                $('#ubmsuite_mcs_model_review_ubm_modelSetup_ul').append("<li class='warning'>Warning : <a href='#mcs_setup_checklist_setup'>" + item.instruction_detail + "</a></li>");
 			                incomplete++;
 			            }
 			        });
@@ -102,7 +102,7 @@
 			                $('#ubmsuite_mcs_model_review_ubm_control_ul').append("<li class='success'>" + item.instruction_detail + "<br>Completed By: " + item.preparer_username + "</li>");
 			                complete++;
 			            } else if (item.line_number >= 8 && item.line_number <= 11) {
-			                $('#ubmsuite_mcs_model_review_ubm_control_ul').append("<li class='warning'>Warning : <a href='#" + item.href + "'>" + item.instruction_detail + "</li>");
+			                $('#ubmsuite_mcs_model_review_ubm_control_ul').append("<li class='warning'>Warning : <a href='#mcs_setup_checklist_CS'>" + item.instruction_detail + "</li>");
 			                incomplete++;
 			            }
 			        });
@@ -145,7 +145,7 @@
 			                complete++;
 
 			            } else if (item.line_number >= 15 && item.line_number <= 20) {
-			                $('#ubmsuite_mcs_model_review_ubm_phase1_ul').append("<li class='warning'>Warning : <a href='#" + item.href + "'>" + item.instruction_detail + "</li>");
+			                $('#ubmsuite_mcs_model_review_ubm_phase1_ul').append("<li class='warning'>Warning : <a href='#mcs_setup_checklist_p1'>" + item.instruction_detail + "</li>");
 			                incomplete++;
 
 			            }
@@ -316,7 +316,7 @@
 			                complete++;
 
 			            } else if (item.line_number >= 25 && item.line_number <= 30) {
-			                $('#ubmsuite_mcs_model_review_ubm_phase2_ul').append("<li class='warning'>Warning : <a href='#" + item.href + "'>" + item.instruction_detail + "</li>");
+			                $('#ubmsuite_mcs_model_review_ubm_phase2_ul').append("<li class='warning'>Warning : <a href='#mcs_setup_checklist_p2'>" + item.instruction_detail + "</li>");
 			                incomplete++;
 
 			            }
@@ -359,7 +359,7 @@
 			                complete++;
 
 			            } else if (item.line_number >= 34 && item.line_number <= 40) {
-			                $('#ubmsuite_mcs_model_review_ubm_phase3_ul').append("<li class='warning'>Warning : <a href='#" + item.href + "'>" + item.instruction_detail + "</li>");
+			                $('#ubmsuite_mcs_model_review_ubm_phase3_ul').append("<li class='warning'>Warning : <a href='#mcs_setup_checklist_p3'>" + item.instruction_detail + "</li>");
 			                incomplete++;
 
 			            }
@@ -403,7 +403,7 @@
 			                complete++;
 
 			            } else if (item.line_number >= 44 && item.line_number <= 76) {
-			                $('#ubmsuite_mcs_model_review_ubm_phase4_ul').append("<li class='warning'>Warning : <a href='#" + item.href + "'>" + item.instruction_detail + "</li>");
+			                $('#ubmsuite_mcs_model_review_ubm_phase4_ul').append("<li class='warning'>Warning : <a href='#mcs_setup_checklist_p4_b1'>" + item.instruction_detail + "</li>");
 			                incomplete++;
 			            }
 			        });

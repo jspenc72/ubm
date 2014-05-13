@@ -1551,6 +1551,10 @@ under the License.
                                 <input data-validate='required' type="checkbox" name="register_license_agreement" id="register_license_agreement" v data-theme="a" / >                         
                                 <label for="register_termsOfService">I agree to the Terms of Service</label>
                                 <input data-validate='required' type="checkbox" name="register_termsOfService" id="register_termsOfService"  data-theme="a" />
+                                <center>
+                                <a style="font-size:9px" href="#" id="linkto_licenenseAgreement"> Click Here To Read the licence agreement</a><br>
+                                <a style="font-size:9px" href="#" id="linkto_termsOfService"> Click Here To Read the terms of service</a>
+                                </center>
                             </div>
                             <button data-theme="a" data-icon="check" onclick="userRegister()">
                                 Create Account!
@@ -5739,8 +5743,8 @@ under the License.
 				<table id="risk_analysis_table" class="tg_risk_analysis">
 					<caption>
 						<center><h1>Risk Analysis</h1></center>
-						<div style="max-width:400px;" id="risk_analysis_alternative_select_menu_container">
-						    <select name="select-custom-1" id="risk_analysis_alternative_select_menu" data-native-menu="false">
+						<div style="max-width:500px;max-height:800px;overflow-y:scroll" id="risk_analysis_investment_select_menu_container" class="ui-field-contain">
+						    <select name="select-custom-1" id="risk_analysis_investment_select_menu" data-native-menu="false">
 
 						    </select>							
 						</div>
