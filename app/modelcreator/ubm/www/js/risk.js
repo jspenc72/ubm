@@ -20,7 +20,7 @@ function newCalculatedRisk() { //Calculates the Product of
 }
 
 function getListofInvestmentsforRiskAnalysis() { //Populates the Investment Picker at the top of the risk_analysis page.
-    $.getJSON('http://api.universalbusinessmodel.com/ubms_modelcreationsuite_model_getCurrentModel_Investments.php?callback=?', { //JSONP Request to Open Items Page setup tables
+    $.getJSON('http://api.universalbusinessmodel.com/ubms_modelcreationsuite_model_getCurrentModel_Investments.php?callback=?', { //JSONP Request
         key: window.key,
         activeModelUUID: window.activeModelUUID
     }, function(res, status) {
@@ -177,7 +177,7 @@ function saveRiskAnalysis() {
 
 function removeRiskFromInvestment(activeRiskId) {
     alert("this is a test " + activeRiskId)
-    $.getJSON('http://api.universalbusinessmodel.com/ubms_modelcreationsuite_model_investment_remove_Risk.php?callback=?', { //JSONP Request to Open Items Page setup tables
+    $.getJSON('http://api.universalbusinessmodel.com/ubms_modelcreationsuite_model_investment_remove_Risk.php?callback=?', { //JSONP Request
         key: window.key,
         activeModelInvestmentId: window.activeModelInvestmentId,
         activeRiskId: activeRiskId
@@ -189,7 +189,7 @@ function removeRiskFromInvestment(activeRiskId) {
 
 function createNewRiskaddToActiveInvestment() {
     event.preventDefault();
-    $.getJSON('http://api.universalbusinessmodel.com/ubms_modelcreationsuite_model_investment_create_Risk.php?callback=?', { //JSONP Request to Open Items Page setup tables
+    $.getJSON('http://api.universalbusinessmodel.com/ubms_modelcreationsuite_model_investment_create_Risk.php?callback=?', { //JSONP Request
         key: window.key,
         riskDescription: document.getElementById('risk_analysis_define_new_risk_popup_form_description').value,
         riskCategory: document.getElementById('risk_analysis_define_new_risk_popup_form_category').value,

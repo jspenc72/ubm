@@ -555,7 +555,7 @@ $(document).on("pageshow", ".ubm_page", function() {
 
     }, 2000);
     //alert(window.activeubm_page);
-    $.getJSON('http://api.universalbusinessmodel.com/ubm_get_page_ref.php?callback=?', { //JSONP Request to Open Items Page setup tables
+    $.getJSON('http://api.universalbusinessmodel.com/ubm_get_page_ref.php?callback=?', { //JSONP Request
         activeubm_page: window.activeubm_page
     }, function(res, status) {
         $.each(res, function(i, item) {

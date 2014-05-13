@@ -1,6 +1,6 @@
 function createNewCostDriver() {
     //alert(window.activeModelInvestmentId);
-    $.getJSON('http://api.universalbusinessmodel.com/ubms_modelcreationsuite_model_investment_create_CostDriver.php?callback=?', { //JSONP Request to Open Items Page setup tables
+    $.getJSON('http://api.universalbusinessmodel.com/ubms_modelcreationsuite_model_investment_create_CostDriver.php?callback=?', { //JSONP Request
         key: window.key,
         activeInvestmentId: window.activeModelInvestmentId,
         username: window.username,
@@ -24,7 +24,7 @@ function createNewCostDriver() {
 }
 
 function createNewIncomeDriver() {
-    $.getJSON('http://api.universalbusinessmodel.com/ubms_modelcreationsuite_model_investment_create_IncomeDriver.php?callback=?', { //JSONP Request to Open Items Page setup tables
+    $.getJSON('http://api.universalbusinessmodel.com/ubms_modelcreationsuite_model_investment_create_IncomeDriver.php?callback=?', { //JSONP Request
         key: window.key,
         activeInvestmentId: window.activeModelInvestmentId,
         username: window.username,
@@ -50,7 +50,7 @@ function createNewIncomeDriver() {
 function getActiveInvestmentCostDrivers() {
     showLoader();
     $("#return_on_investment_input_cost").empty();
-    $.getJSON('http://api.universalbusinessmodel.com/ubms_modelcreationsuite_model_investment_get_CostDrivers.php?callback=?', { //JSONP Request to Open Items Page setup tables
+    $.getJSON('http://api.universalbusinessmodel.com/ubms_modelcreationsuite_model_investment_get_CostDrivers.php?callback=?', { //JSONP Request
         key: window.key,
         activeModelInvestmentId: window.activeModelInvestmentId
     }, function(res, status) {
@@ -66,7 +66,7 @@ function getActiveInvestmentCostDrivers() {
 function getActiveInvestmentIncomeDrivers() {
     showLoader();
     $("#return_on_investment_input_income").empty();
-    $.getJSON('http://api.universalbusinessmodel.com/ubms_modelcreationsuite_model_investment_get_IncomeDrivers.php?callback=?', { //JSONP Request to Open Items Page setup tables
+    $.getJSON('http://api.universalbusinessmodel.com/ubms_modelcreationsuite_model_investment_get_IncomeDrivers.php?callback=?', { //JSONP Request
         key: window.key,
         activeModelInvestmentId: window.activeModelInvestmentId
     }, function(res, status) {
@@ -79,7 +79,7 @@ function getActiveInvestmentIncomeDrivers() {
 }
 
 function createNewInvestment() {
-    $.getJSON('http://api.universalbusinessmodel.com/ubms_modelcreationsuite_model_alternative_create_Investment.php?callback=?', { //JSONP Request to Open Items Page setup tables
+    $.getJSON('http://api.universalbusinessmodel.com/ubms_modelcreationsuite_model_alternative_create_Investment.php?callback=?', { //JSONP Request
         key: window.key,
         username: window.username,
         activeModelAlternativeId: window.activeModelAlternativeId,
@@ -128,7 +128,7 @@ function getAlternativesInvestments() { //Populates the Investment Picker at the
 function getListofAlternativesforReturnOnInvestment() { //Populates the Alternative Picker at the top of the risk_analysis page.
     showLoader();
     $('#return_on_investment_alternative_select_menu').empty();
-    $.getJSON('http://api.universalbusinessmodel.com/ubms_modelcreationsuite_model_getCurrentModel_Alternatives.php?callback=?', { //JSONP Request to Open Items Page setup tables
+    $.getJSON('http://api.universalbusinessmodel.com/ubms_modelcreationsuite_model_getCurrentModel_Alternatives.php?callback=?', { //JSONP Request
         key: window.key,
         activeModelUUID: window.activeModelUUID
     }, function(res, status) {
@@ -145,7 +145,7 @@ function getListofAlternativesforReturnOnInvestment() { //Populates the Alternat
 
 function removeCostFromInvestment(activeCostDriverId) {
     //alert("this is a test "+activeCostDriverId)
-    $.getJSON('http://api.universalbusinessmodel.com/ubms_modelcreationsuite_model_investment_remove_CostDriver.php?callback=?', { //JSONP Request to Open Items Page setup tables
+    $.getJSON('http://api.universalbusinessmodel.com/ubms_modelcreationsuite_model_investment_remove_CostDriver.php?callback=?', { //JSONP Request
         key: window.key,
         activeInvestmentId: window.activeModelInvestmentId,
         activeCostDriverId: activeCostDriverId
@@ -160,7 +160,7 @@ function removeCostFromInvestment(activeCostDriverId) {
 
 function removeIncomeFromInvestment(activeIncomeDriveId) {
     //alert("this is a test "+activeIncomeDriveId)
-    $.getJSON('http://api.universalbusinessmodel.com/ubms_modelcreationsuite_model_investment_remove_IncomeDriver.php?callback=?', { //JSONP Request to Open Items Page setup tables
+    $.getJSON('http://api.universalbusinessmodel.com/ubms_modelcreationsuite_model_investment_remove_IncomeDriver.php?callback=?', { //JSONP Request
         key: window.key,
         activeInvestmentId: window.activeModelInvestmentId,
         activeIncomeDriverId: activeIncomeDriveId
