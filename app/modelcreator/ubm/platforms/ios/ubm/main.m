@@ -5,8 +5,8 @@
  regarding copyright ownership.  The ASF licenses this file
  to you under the Apache License, Version 2.0 (the
  "License"); you may not use this file except in compliance
- with the sLicense.  You may obtain a copy of the License at
-c                                                                                                                                                                                                                                                                              
+ with the License.  You may obtain a copy of the License at
+
  http://www.apache.org/licenses/LICENSE-2.0
 
  Unless required by applicable law or agreed to in writing,
@@ -21,7 +21,7 @@ c
 //  ubm
 //
 //  Created by ___FULLUSERNAME___ on ___DATE___.
-//  Copyright ___ORGANIZATIONNAME___ ___YEAR___. All rights reserved.r
+//  Copyright ___ORGANIZATIONNAME___ ___YEAR___. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
