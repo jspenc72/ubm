@@ -1,7 +1,7 @@
 //Model Management
 function createModel() {
     showLoader();
-    $.getJSON('http://api.universalbusinessmodel.com/ubms_modelcreationsuite_createModel.php?callback=?', { //JSONP Request to Create new model
+    $.getJSON('http://api.universalbusinessmodel.com/ubms_modelcreationsuite_createModel.php?callback=?', { //JSONP Request
         key: window.key,
         reference: document.getElementById("ubmsuite_createModel_popup_newModel_form_reference").value,
         modelTitle: document.getElementById("ubmsuite_createModel_popup_newModel_form_title").value,
@@ -25,7 +25,7 @@ function createModel() {
 
 function getMyModels() { //Get all models in database where current user is the creator.
     showLoader();
-    $.getJSON('http://api.universalbusinessmodel.com/ubms_modelcreationsuite_getMyModels.php?callback=?', { //JSONP Request to Create new model
+    $.getJSON('http://api.universalbusinessmodel.com/ubms_modelcreationsuite_getMyModels.php?callback=?', { //JSONP Request
         username: window.username,
         key: window.key
     }, function(res, status) {
@@ -43,7 +43,7 @@ function getMyModels() { //Get all models in database where current user is the 
 
 function getSharedModels() { //Get all models in database where current user is the creator.
     showLoader();
-    $.getJSON('http://api.universalbusinessmodel.com/ubms_modelcreationsuite_getSharedModels.php?callback=?', { //JSONP Request to Create new model
+    $.getJSON('http://api.universalbusinessmodel.com/ubms_modelcreationsuite_getSharedModels.php?callback=?', { //JSONP Request
         username: window.username,
         key: window.key
     }, function(res, status) {
@@ -62,7 +62,7 @@ function getSharedModels() { //Get all models in database where current user is 
 }
 
 function model_getuserswithaccess() {
-    $.getJSON('http://api.universalbusinessmodel.com/ubms_modelcreationsuite_model_getuserswithaccess.php?callback=?', { //JSONP Request to Create new model
+    $.getJSON('http://api.universalbusinessmodel.com/ubms_modelcreationsuite_model_getuserswithaccess.php?callback=?', { //JSONP Request
         key: window.key,
         username: window.username,
         activeModelUUID: window.activeModelUUID,
@@ -84,7 +84,7 @@ function shareModel() {
     event.preventDefault();
     var invite_email = document.getElementById("ubmsuite_modelSettings_shareModel_inviteEmail").value;
     var invite_username = invite_email.split("@", 1).toString();
-    $.getJSON('http://api.universalbusinessmodel.com/ubms_modelcreationsuite_addusertomodel.php?callback=?', { //JSONP Request to Create new model
+    $.getJSON('http://api.universalbusinessmodel.com/ubms_modelcreationsuite_addusertomodel.php?callback=?', { //JSONP Request
         key: window.key,
         username: window.username,
         activeModelUUID: window.activeModelUUID,
