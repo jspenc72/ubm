@@ -44,7 +44,7 @@ echo $_GET['callback'] . '(' . "{'message' : 'The number of affected rows is $af
  */
 //Send Email Message
 $to = "$inviteEmail";
-$subject = "$username added you to model #\"$activeModelId\"!";
+$subject = "$username added you to model #\"$activeModelUUID\"!";
 $message = "You have been invited as a $memberRole user to participate in building a business model! http://www.universalbusinessmodel.com/dev";
 $from = "notify@universalbusinessmodel.com";
 $headers = "From:" . $from;
