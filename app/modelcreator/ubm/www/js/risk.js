@@ -34,20 +34,20 @@ function getListofInvestmentsforRiskAnalysis() { //Populates the Investment Pick
     //$('#risk_analysis_investment_select_menu_container').trigger("refresh");
 }
 
-function addRisktoMyInvestment(activeModelInvestmentRiskId) {
+function addRisktoMyInvestment(activeRiskId) {
     showLoader();
     $().toastmessage('showNoticeToast', window.activeModelInvestmentId);
-    $().toastmessage('showNoticeToast', "Risk # " + activeModelInvestmentRiskId + " will be added to the active investment.");
+    $().toastmessage('showNoticeToast', "Risk # " + activeRiskId + " will be added to the active investment.");
     $.getJSON('http://api.universalbusinessmodel.com/ubms_modelcreationsuite_model_investment_add_Risk.php?callback=?', { //JSONP Request
         key: window.key,
-        activeModelInvestmentRiskId: activeModelInvestmentRiskId,
+        activeInvestmentId: window.activeModelInvestmentId,
+        activeRiskId: activeRiskId,
         username: window.username
     }, function(res, status) {
         $().toastmessage('showNoticeToast', res.message);
+        hideLoader();
         if (status == "success") {
             getListofRisksforRiskAnalysisTable();
-            hideLoader();
-
         }
     });
 }

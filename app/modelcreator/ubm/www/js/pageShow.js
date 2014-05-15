@@ -179,19 +179,20 @@ $(document).on("pageshow", "#ubmsuite_swotAnalysis", function() {
     });
 });
 $(document).on("pageshow", "#risk_analysis", function() {
+    $("#risk_analysis_define_new_risk_popup_defineRisk_button").hide();
     //var value =$( "#risk_analysis_investment_select_menu option:selected" ).text();							
     $("#risk_analysis_investment_select_menu").bind("change", function(event, ui) {
         window.activeModelInvestmentId = $("#risk_analysis_investment_select_menu option:selected").val();
         setTimeout(function() {
             getListofRisksforRiskAnalysisTable();
+            getListofRisksforSearchBars();
+            $("#risk_analysis_define_new_risk_popup_defineRisk_button").show();
         }, 1000);
     });
 
 
     setTimeout(function() {
-        getListofRisksforSearchBars();
         getListofInvestmentsforRiskAnalysis();
-        getListofRisksforRiskAnalysisTable();
     }, 10);
 });
 

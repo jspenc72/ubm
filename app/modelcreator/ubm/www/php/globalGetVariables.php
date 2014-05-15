@@ -435,3 +435,5 @@ $activeProcedureId = $_GET['activeProcedureId'];
 $newPassword = $_GET['password'];
 $activeInvestment = $_GET['activeInvestment'];
 $activeModelInvestmentId = $_GET['activeModelInvestmentId'];
+$activeInvestmentId = $_GET['activeInvestmentId'];
+$activeRiskId = $_GET['activeRiskId'];
