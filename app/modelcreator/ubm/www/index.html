@@ -122,6 +122,7 @@ under the License.
 		<script src='js/draggableCircle.js'></script>
 		<script src='js/checkConnection.js'></script>
 		<script src='js/activation.js'></script>
+		<script src='js/forgotPassword.js'></script>
 		<!--  Org Chart CSS -->
 		<link href='css/orgChart.css' rel='stylesheet' />
         <title>UBM</title>
@@ -1474,6 +1475,18 @@ under the License.
                         <button data-theme="a" data-icon="check"  id="sign_in_button" onclick="userSignIn()">
                             Sign in
                         </button>
+                        <center>
+	                        <a style="font-size:11px;text-decoration:none;padding-top:20px" href="#forgotPassword_popup" data-rel="popup" data-position-to="window" data-transition="pop">Forgot Password?</a>
+	                        <div data-role="popup" id="forgotPassword_popup" data-theme="a" class="ui-corner-all">
+							    <form id="forgotPassword_form">
+							        <div style="padding:10px 20px;">
+							        	<strong><p>Enter the email you signed up with.</p></strong>
+							            <input type="email" id="forgotPassword_popup_email_input" value="" placeholder="Email" data-theme="a">
+							            <button type="submit" id="forgotPassword_popup_submit" onclick="resetPassword()" class="ui-btn ui-corner-all ui-shadow ui-btn-b ui-btn-icon-left ui-icon-check">Submit</button>
+							        </div>
+							    </form>
+							</div>
+                        </center>
                     </div>
                 </form>
 			   <div style="padding:120px 20px;">
