@@ -1,25 +1,38 @@
 //Model Management
 function createModel() {
-    showLoader();
-    $.getJSON('http://api.universalbusinessmodel.com/ubms_modelcreationsuite_createModel.php?callback=?', { //JSONP Request
-        key: window.key,
-        reference: document.getElementById("ubmsuite_createModel_popup_newModel_form_reference").value,
-        modelTitle: document.getElementById("ubmsuite_createModel_popup_newModel_form_title").value,
-        description: document.getElementById("ubmsuite_createModel_popup_newModel_form_description").value,
-        username: window.username
-    }, function(res, status) {
-        if (status == "success") { //Tests whether the json request was successful, if so it will clear the contents of the form submitted.
-            $().toastmessage('showSuccessToast', "" + res.message + "");
-            $('#ubmsuite_createModel_popup_newModel_form').each(function() {
-                this.reset();
-                $("#ubmsuite_createModel_popup").popup('close');
-            });
+    if (!document.getElementById("ubmsuite_createModel_popup_newModel_form_reference").value) {
+        $().toastmessage('showWarningToast', "You need a reference");
+    } else {
+        if (!document.getElementById("ubmsuite_createModel_popup_newModel_form_title").value) {
+            $().toastmessage('showWarningToast', "You need a title");
+        } else {
+            if (!document.getElementById("ubmsuite_createModel_popup_newModel_form_description").value) {
+                $().toastmessage('showWarningToast', "You need a description");
+            } else {
+                showLoader();
+                $.getJSON('http://api.universalbusinessmodel.com/ubms_modelcreationsuite_createModel.php?callback=?', { //JSONP Request
+                    key: window.key,
+                    reference: document.getElementById("ubmsuite_createModel_popup_newModel_form_reference").value,
+                    modelTitle: document.getElementById("ubmsuite_createModel_popup_newModel_form_title").value,
+                    description: document.getElementById("ubmsuite_createModel_popup_newModel_form_description").value,
+                    username: window.username
+                }, function(res, status) {
+                    if (status == "success") { //Tests whether the json request was successful, if so it will clear the contents of the form submitted.
+                        $().toastmessage('showSuccessToast', "" + res.message + "");
+                        $('#ubmsuite_createModel_popup_newModel_form').each(function() {
+                            this.reset();
+                            $("#ubmsuite_createModel_popup").popup('close');
+                        });
+                    }
+                });
+                setTimeout(function() {
+                    getMyModels();
+                    hideLoader();
+                }, 800);
+            }
         }
-    });
-    setTimeout(function() {
-        getMyModels();
-        hideLoader();
-    }, 800);
+    }
+
 
 }
 
