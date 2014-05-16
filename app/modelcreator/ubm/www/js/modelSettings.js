@@ -66,7 +66,7 @@ function getSharedModels() { //Get all models in database where current user is 
         $.each(res, function(i, item) {
             if (window.username !== item.creator_id) {
                 $('#ubmsuite_SelectBusinessModel_SharedModels_ul').append("<li data-role='list-divider'>Model Creator: " + item.model_contact_name + "</li>");
-                $('#ubmsuite_SelectBusinessModel_SharedModels_ul').append("<li><a href='#ubmsuite_sharedModelDashboard' onclick='setActiveModel(" + item.UUID + ")'></br></br></br><h2 style='white-space:normal;'>Title: " + item.title + "</h2><p><strong>Model Reference: " + item.reference + "</strong></p><p style='white-space:normal;'>" + item.description + "</p><p class='ui-li-aside'>Creation Date:</br> <strong>" + item.created_date + "</strong></p></a></li>");
+                $('#ubmsuite_SelectBusinessModel_SharedModels_ul').append("<li><a href='#ubmsuite_modelDashboard' onclick='setActiveModel(" + item.UUID + ")'></br></br></br><h2 style='white-space:normal;'>Title: " + item.title + "</h2><p><strong>Model Reference: " + item.reference + "</strong></p><p style='white-space:normal;'>" + item.description + "</p><p class='ui-li-aside'>Creation Date:</br> <strong>" + item.created_date + "</strong></p></a></li>");
                 $('#ubmsuite_SelectBusinessModel_SharedModels_ul').listview("refresh");
             }
         })
