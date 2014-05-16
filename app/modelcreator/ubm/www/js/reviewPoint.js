@@ -63,143 +63,123 @@ function addField(c, cloned) {
 }
 
 function submitReviewPoint(popupid) {
-    //Show Loader Message
-    var $this = $("#page_loading_message"),
-        theme = $this.jqmData("theme") || $.mobile.loader.prototype.options.theme,
-        msgText = $this.jqmData("msgtext") || $.mobile.loader.prototype.options.text,
-        textVisible = $this.jqmData("textvisible") || $.mobile.loader.prototype.options.textVisible,
-        textonly = !! $this.jqmData("textonly");
-    html = $this.jqmData("html") || "";
-    $.mobile.loading("show", {
-        text: msgText,
-        textVisible: textVisible,
-        theme: theme,
-        textonly: textonly,
-        html: html
-    });
-    if (popupid == "sign_in_sign_up_") {
-        alert("this is the popup: " + popupid);
+    if (document.getElementById(popupid + "submitreviewpoint_priority").value=="Priority...") {
+        $().toastmessage('showNoticeToast', 'You must assign a priority.');
     }
-    if (!document.getElementById(popupid + "submitreviewpoint_actionrequired").value) {
-        $().toastmessage('showNoticeToast', 'You must Put in the action required');
+    else if (!document.getElementById(popupid + "submitreviewpoint_action").value) {
+        $().toastmessage('showNoticeToast', 'You must describe the action required.');
     }
-    if (!document.getElementById(popupid + "submitreviewpoint_assignedto").value) {
-        $().toastmessage('showNoticeToast', 'You must assign a person');
+    else if (document.getElementById(popupid + "submitreviewpoint_assignedto").value=="Assigned To...") {
+        $().toastmessage('showNoticeToast', 'You cannot create an open item without assigning it to a developer. Please assign this open item to a developer by selecting a name from the drop down list.');
     } else {
-
-        //End Show Loader Message
-        //event.preventDefault();
-        //alert(window.username);
-        $.getJSON('http://api.universalbusinessmodel.com/ubmsubmitopenitems.php?callback=?', {
-            appname: "UBMMFICS",
-            RQType: "sumbitReviewPoint",
+        showLoader();
+        $.getJSON('http://api.universalbusinessmodel.com/ubms_submit_applicationOpenItems.php?callback=?', { //JSONP Request
+            key: window.key,
+            activeModelUUID: window.activeModelUUID,
             username: window.username,
-            formref: document.getElementById(popupid + "submitreviewpoint_formref").value,
+            formref: window.activeUbmPageReference,
             priority: document.getElementById(popupid + "submitreviewpoint_priority").value,
-            actionrequired: document.getElementById(popupid + "submitreviewpoint_actionrequired").value,
+            actionrequired: document.getElementById(popupid + "submitreviewpoint_action").value,
             assignedto: document.getElementById(popupid + "submitreviewpoint_assignedto").value,
-            duedate: document.getElementById(popupid + "submitreviewpoint_duedatetime").value,
+            duedate: document.getElementById(popupid + "submitreviewpoint_duedatetime").value
         }, function(res, status) {
-            $().toastmessage('showNoticeToast', "init: " + status + "");
-            $().toastmessage('showNoticeToast', res.message);
-            if (status == "success") {
-                $('#gettingStarted_open_items_form').each(function() {
-                    this.reset();
-                });
-                $('#sign_in_sign_up_open_items_form').each(function() {
-                    this.reset();
-                });
-                $('#ubmsuite_table_of_contents_open_items_form').each(function() {
-                    this.reset();
-                });
-                $('#creator_table_of_contents_open_items_form').each(function() {
-                    this.reset();
-                });
-                $('#identification_setup_open_items_form').each(function() {
-                    this.reset();
-                });
-                $('#primary_objects_setup_table_open_items_form').each(function() {
-                    this.reset();
-                });
-                $('#management_reporting_open_items_form').each(function() {
-                    this.reset();
-                });
-                $('#mcs_setup_checklist_setup_open_items_form').each(function() {
-                    this.reset();
-                });
-                $('#mcs_setup_checklist_CS_open_items_form').each(function() {
-                    this.reset();
-                });
-                $('#mcs_setup_checklist_p1_open_items_form').each(function() {
-                    this.reset();
-                });
-                $('#mcs_setup_checklist_p2_open_items_form').each(function() {
-                    this.reset();
-                });
-                $('#mcs_setup_checklist_p3_open_items_form').each(function() {
-                    this.reset();
-                });
-                $('#mcs_setup_checklist_p4_b1_open_items_form').each(function() {
-                    this.reset();
-                });
-                $('#mcs_setup_checklist_p4_b2_open_items_form').each(function() {
-                    this.reset();
-                });
-                $('#mcs_setup_checklist_p4_b3_open_items_form').each(function() {
-                    this.reset();
-                });
-                $('#mcs_setup_checklist_p4_b4_open_items_form').each(function() {
-                    this.reset();
-                });
-                $('#mcs_setup_checklist_p4_b5_open_items_form').each(function() {
-                    this.reset();
-                });
-                $('#mcs_setup_checklist_p4_b6_open_items_form').each(function() {
-                    this.reset();
-                });
-                $('#mcs_setup_checklist_p4_b7_open_items_form').each(function() {
-                    this.reset();
-                });
-                $('#mcs_setup_checklist_p4_b8_open_items_form').each(function() {
-                    this.reset();
-                });
-                $('#mcs_setup_checklist_p4_b9_open_items_form').each(function() {
-                    this.reset();
-                });
-                $('#mcs_setup_checklist_p4_b10_open_items_form').each(function() {
-                    this.reset();
-                });
-                $('#mcs_setup_checklist_p4_b11_open_items_form').each(function() {
-                    this.reset();
-                });
-                $('#mcs_setup_checklist_p4_b12_open_items_form').each(function() {
-                    this.reset();
-                });
-                $('#mcs_setup_checklist_p5_open_items_form').each(function() {
-                    this.reset();
-                });
-                $('#mcs_setup_checklist_p6_open_items_form').each(function() {
-                    this.reset();
-                });
-                $('#mcs_setup_checklist_p7_open_items_form').each(function() {
-                    this.reset();
-                });
-                $('#mcs_setup_checklist_p8_open_items_form').each(function() {
-                    this.reset();
-                });
-                $('#open_points_action_items_open_items_form').each(function() {
-                    this.reset();
-                });
-                $('#ubmsuite_SelectBusinessModel_open_items_form').each(function() {
-                    this.reset();
-                });
-                $('#ubmsuite_modelSettings_open_items_form').each(function() {
-                    this.reset();
-                });
-            }
-            //Start Show Loading Message
-            $.mobile.loading("hide");
-            //End Hide Loading Message
+            hideLoader();
+                $().toastmessage('showNoticeToast', res.message);
+                if (status == "success") {
+                    $('#gettingStarted_open_items_form').each(function() {
+                        this.reset();
+                    });
+                    $('#sign_in_sign_up_open_items_form').each(function() {
+                        this.reset();
+                    });
+                    $('#ubmsuite_table_of_contents_open_items_form').each(function() {
+                        this.reset();
+                    });
+                    $('#creator_table_of_contents_open_items_form').each(function() {
+                        this.reset();
+                    });
+                    $('#identification_setup_open_items_form').each(function() {
+                        this.reset();
+                    });
+                    $('#primary_objects_setup_table_open_items_form').each(function() {
+                        this.reset();
+                    });
+                    $('#management_reporting_open_items_form').each(function() {
+                        this.reset();
+                    });
+                    $('#mcs_setup_checklist_setup_open_items_form').each(function() {
+                        this.reset();
+                    });
+                    $('#mcs_setup_checklist_CS_open_items_form').each(function() {
+                        this.reset();
+                    });
+                    $('#mcs_setup_checklist_p1_open_items_form').each(function() {
+                        this.reset();
+                    });
+                    $('#mcs_setup_checklist_p2_open_items_form').each(function() {
+                        this.reset();
+                    });
+                    $('#mcs_setup_checklist_p3_open_items_form').each(function() {
+                        this.reset();
+                    });
+                    $('#mcs_setup_checklist_p4_b1_open_items_form').each(function() {
+                        this.reset();
+                    });
+                    $('#mcs_setup_checklist_p4_b2_open_items_form').each(function() {
+                        this.reset();
+                    });
+                    $('#mcs_setup_checklist_p4_b3_open_items_form').each(function() {
+                        this.reset();
+                    });
+                    $('#mcs_setup_checklist_p4_b4_open_items_form').each(function() {
+                        this.reset();
+                    });
+                    $('#mcs_setup_checklist_p4_b5_open_items_form').each(function() {
+                        this.reset();
+                    });
+                    $('#mcs_setup_checklist_p4_b6_open_items_form').each(function() {
+                        this.reset();
+                    });
+                    $('#mcs_setup_checklist_p4_b7_open_items_form').each(function() {
+                        this.reset();
+                    });
+                    $('#mcs_setup_checklist_p4_b8_open_items_form').each(function() {
+                        this.reset();
+                    });
+                    $('#mcs_setup_checklist_p4_b9_open_items_form').each(function() {
+                        this.reset();
+                    });
+                    $('#mcs_setup_checklist_p4_b10_open_items_form').each(function() {
+                        this.reset();
+                    });
+                    $('#mcs_setup_checklist_p4_b11_open_items_form').each(function() {
+                        this.reset();
+                    });
+                    $('#mcs_setup_checklist_p4_b12_open_items_form').each(function() {
+                        this.reset();
+                    });
+                    $('#mcs_setup_checklist_p5_open_items_form').each(function() {
+                        this.reset();
+                    });
+                    $('#mcs_setup_checklist_p6_open_items_form').each(function() {
+                        this.reset();
+                    });
+                    $('#mcs_setup_checklist_p7_open_items_form').each(function() {
+                        this.reset();
+                    });
+                    $('#mcs_setup_checklist_p8_open_items_form').each(function() {
+                        this.reset();
+                    });
+                    $('#open_points_action_items_open_items_form').each(function() {
+                        this.reset();
+                    });
+                    $('#ubmsuite_SelectBusinessModel_open_items_form').each(function() {
+                        this.reset();
+                    });
+                    $('#ubmsuite_modelSettings_open_items_form').each(function() {
+                        this.reset();
+                    });
+                }
         });
     }
 }
