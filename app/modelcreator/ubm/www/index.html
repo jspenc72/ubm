@@ -135,6 +135,8 @@ under the License.
 		<script src='js/activation.js'></script>
 		<!--  Org Chart CSS -->
 		<link href='css/orgChart.css' rel='stylesheet' />
+		<script type="text/javascript" src="js/gapiTest.js"></script>	 <!-- Load Javascript for the example -->
+		<script src="https://apis.google.com/js/client:platform.js" type="text/javascript"></script><!-- Load Google + API -->
         <title>UBM</title>
 		<script>
 			function refreshBackboneTable(){
@@ -1510,7 +1512,7 @@ under the License.
 				                        	</div>
 				                        	<div class="mainColBody">
 						                        <ul class="list-inline intro-social-buttons">
-						                            <li><a href="#" disabled="disabled" class="btn btn-default btn-lg google"><i class="fa fa-google-plus fa-fw"></i> <span class="network-name mobile-hide"> Google</span></a></li>
+						                            <li><a href="#" class="btn btn-default btn-lg google" onclick="startFlow()"><i class="fa fa-google-plus fa-fw"></i><span class="network-name mobile-hide"> Google</span></a></li>
 						                            <li><a href="#" disabled="disabled" class="btn btn-default btn-lg facebook"><i class="fa fa-facebook fa-fw"></i> <span class="network-name mobile-hide"> Facebook</span></a></li>
 						                            <li><a href="#" disabled="disabled" class="btn btn-default btn-lg linkedIn"><i class="fa fa-linkedin fa-fw"></i> <span class="network-name mobile-hide"> Linkedin</span></a></li>
 						                            <li><a href="#" disabled="disabled" class="btn btn-default btn-lg twitter"><i class="fa fa-twitter fa-fw"></i> <span class="network-name mobile-hide"> Twitter</span></a></li>
@@ -1910,7 +1912,20 @@ under the License.
                     </form>
                 </div>
                 <!-- End Create Model Popup -->
-                <!-- End Open Items Popup -->
+  <div id="oauth2-results" class="hide">
+  </div>
+  <div style="font: 12px sans-serif, Arial; margin-left: 0.5em; margin-top: 0.5em">
+  </div>
+  <div id="profile">
+    <div>
+      <span id="pic"></span>
+      <span id="name"></span>
+      <span id="numFriends"></span>
+    </div>
+    <div id="email"></div>
+	<!-- <ul id="friendListview" data-role="listview" data-autodividers="true" data-filter="true" data-inset="true">
+	</ul> -->
+  </div>
                 <div align="center">
                     <a href="#popupParis" data-rel="popup" data-position-to="window" data-transition="fade" ><img data-step='1' data-intro='Click Here to see a visual representation of the creation suite.' src="img/03 UBM Flowchart.png" width="60" style="position:center; width:25%; height:;"></a>
                     <div data-role="popup" id="popupParis" data-overlay-theme="b" data-theme="a" data-corners="false">
@@ -1934,6 +1949,7 @@ under the License.
 	                </ul>					
 				</div>
             </div>
+
         </div>
         <div data-role="page" class="ubm_page" id="ubmsuite_modelDashboard"  data-theme="a">
             <!-- No Panel on this page, instead only back button is needed.-->
