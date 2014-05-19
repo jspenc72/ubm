@@ -1976,7 +1976,6 @@ under the License.
                             <li class="open_point_form_header" data-role="list-divider">
                                 <h1>Write a Review Point</br>or Open Item</h1>
                             </li>
-
                             <li>
                                 <select  id="ubmsuite_modelDashboard_submitreviewpoint_priority" value="Select" data-native-menu="false">
                                     <option>Priority...</option>
@@ -3051,6 +3050,47 @@ under the License.
 				</div>
 			</div>
 			<div data-role="content" id="ubmsuite_mcs_model_visual_content">
+                <div data-role="popup" id="ubmsuite_mcs_model_visual_openItem_popup" data-theme="a" class="draggable_popup">
+                    <form id="ubmsuite_mcs_model_visual_open_items_form" name="open_items_form"> <!-- Form Checklist Created By Aaron Miller -->
+                        <ul data-role="listview" data-inset="true" style="min-width:210px;">
+                            <li class="open_point_form_header" data-role="list-divider">
+                                <h1>Write a Review Point</br>or Open Item</h1>
+                            </li>
+                            <li>
+                                <select  id="ubmsuite_mcs_model_visual_submitreviewpoint_priority" value="Select" data-native-menu="false">
+                                    <option>Priority...</option>
+                                    <option value="A1">A1</option>
+                                    <option value="A2">A2</option>
+                                    <option value="A3">A3</option>
+                                    <option value="B1">B1</option>
+                                    <option value="B2">B2</option>
+                                    <option value="B3">B3</option>
+                                    <option value="C1">C1</option>
+                                    <option value="C2">C2</option>
+                                    <option value="C3">C3</option>
+                                </select>
+                            </li>
+                            <li>
+                                <textarea data-mini="true" cols="40" rows="8" id="ubmsuite_mcs_model_visual_submitreviewpoint_action" placeholder="Action Required..."></textarea>
+                            </li>
+                            <li>
+                                <select  id="ubmsuite_mcs_model_visual_submitreviewpoint_assignedto" value="Select" data-native-menu="false">
+                                    <option>Assigned To...</option>
+                                    <option value="Jesse Spencer">Jesse Spencer</option>
+                                    <option value="Adam Gustafson">Adam Gustafson</option>
+                                </select>
+                            </li>
+                            <li>
+                                <label for="datetime-4">Due Datetime</label>
+                                <input  type="datetime-local" data-clear-btn="true"  id="ubmsuite_mcs_model_visual_submitreviewpoint_duedatetime" value="" placeholder="Due Datetime...">
+                            </li>
+                            <li>
+                                <input  type="button" data-enhanced="true" value="Submit Review Point" onclick="submitReviewPoint('ubmsuite_mcs_model_visual_');">
+                            </li>
+                        </ul>
+                    </form>
+                </div>
+                <!-- End Open Items Popup -->
 				<div id="SlickMapDiv" class="slickmap" style="width:95%; margin-top: 100px; margin-left:auto; margin-right:auto;">
 					<ul id="primaryNavSlickMap" class="col8">
 						<li id="home"><a href="#">Model</a></li>
