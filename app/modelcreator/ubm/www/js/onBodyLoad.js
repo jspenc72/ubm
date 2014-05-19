@@ -134,7 +134,6 @@ function onLoadBody() {
                                                                                             link.setAttribute("href", '#ubmsuite_modelDashboard_openItem_popup');
                                                                                             //Set the Attribute of the open item button to the popup on the current page.																									
                                                                                         } else {
-<<<<<<< HEAD
                                                                                             if (strarray[1] == "ubmsuite_mcs_my_organizational_chart") {
                                                                                                 var link = document.getElementById("openItem_popup_button");
                                                                                                 //Get the popup on the current page.
@@ -142,34 +141,31 @@ function onLoadBody() {
                                                                                                 //Set the Attribute of the open item button to the popup on the current page.
 
                                                                                             } else {
-=======
-                                                                                            if (strarray[1] == "ubmsuite_mcs_model_visual") {
-                                                                                                var link = document.getElementById("openItem_popup_button");
-                                                                                                //Get the popup on the current page.
-                                                                                                link.setAttribute("href", '#ubmsuite_mcs_model_visual_openItem_popup');
-                                                                                                //Set the Attribute of the open item button to the popup on the current page.
-                                                                                            }else{
->>>>>>> FETCH_HEAD
-                                                                                                if (strarray[1] == "ubmsuite_mcs_model_review") {
+                                                                                                if (strarray[1] == "ubmsuite_mcs_model_visual") {
                                                                                                     var link = document.getElementById("openItem_popup_button");
                                                                                                     //Get the popup on the current page.
-                                                                                                    link.setAttribute("href", '#ubmsuite_mcs_model_review_openItem_popup');
+                                                                                                    link.setAttribute("href", '#ubmsuite_mcs_model_visual_openItem_popup');
                                                                                                     //Set the Attribute of the open item button to the popup on the current page.
-<<<<<<< HEAD
                                                                                                 } else {
-                                                                                                    if (strarray[1] == "possible_alternatives") {
+                                                                                                    if (strarray[1] == "ubmsuite_mcs_model_review") {
                                                                                                         var link = document.getElementById("openItem_popup_button");
                                                                                                         //Get the popup on the current page.
-                                                                                                        link.setAttribute("href", '#possible_alternatives_openItem_popup');
+                                                                                                        link.setAttribute("href", '#ubmsuite_mcs_model_review_openItem_popup');
                                                                                                         //Set the Attribute of the open item button to the popup on the current page.
+
+                                                                                                    } else {
+                                                                                                        if (strarray[1] == "possible_alternatives") {
+                                                                                                            var link = document.getElementById("openItem_popup_button");
+                                                                                                            //Get the popup on the current page.
+                                                                                                            link.setAttribute("href", '#possible_alternatives_openItem_popup');
+                                                                                                            //Set the Attribute of the open item button to the popup on the current page.
+                                                                                                        }
                                                                                                     }
-=======
->>>>>>> FETCH_HEAD
                                                                                                 }
                                                                                             }
                                                                                         }
-                                                                                    }
 
+                                                                                    }
                                                                                 }
                                                                             }
                                                                         }
@@ -186,16 +182,16 @@ function onLoadBody() {
                             }
                         }
                     }
-                }
-                //		alert(window.location.hash);									//outputs the original hash
-                //alert(strarray[1]);												//outputs the split string which has the hash removed
-                $.getJSON('http://api.universalbusinessmodel.com/getubmpagereference.php?callback=?', { //JSONP Request to the app_pages table.
-                    key: window.key,
-                    pageid: strarray[1] // sends the current page to the server.
-                }, function(res, status) {
-                    //	alert("json returned successfully! "+ status);
-                    //	alert(res.message); // Alerts the current page which was sent in the call back from the server.
-                });
+                    //		alert(window.location.hash);									//outputs the original hash
+                    //alert(strarray[1]);												//outputs the split string which has the hash removed
+                    $.getJSON('http://api.universalbusinessmodel.com/getubmpagereference.php?callback=?', { //JSONP Request to the app_pages table.
+                        key: window.key,
+                        pageid: strarray[1] // sends the current page to the server.
+                    }, function(res, status) {
+                        //	alert("json returned successfully! "+ status);
+                        //	alert(res.message); // Alerts the current page which was sent in the call back from the server.
+                    });
 
-            }); $("#si_email").focus();
-    }
+                });
+            $("#si_email").focus();
+        }
