@@ -45,7 +45,7 @@
             /* Close introduction when pressing Escape button? */
             exitOnEsc: true,
             /* Close introduction when clicking on overlay layer? */
-            exitOnOverlayClick: true,
+            exitOnOverlayClick: false,
             /* Show step numbers in introduction? */
             showStepNumbers: false,
             /* Let user use keyboard to navigate the tour? */
