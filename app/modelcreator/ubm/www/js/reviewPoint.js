@@ -58,7 +58,7 @@ function addField(c, cloned) {
     //alert("addField was called");
     //$( "p" ).clone().add( "<span>Again</span>" ).appendTo( document.body );
 
-    //		$('#gettingStarted_content').append($( "#gettingStarted_content_textarea" ).clone());
+    //      $('#gettingStarted_content').append($( "#gettingStarted_content_textarea" ).clone());
     //alert("addField was executed");
 }
 

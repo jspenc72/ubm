@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <!--
-Licensed to the Apache Software Foundation (ASF) under one
+Model Creation Suite Version 1.0 (Unstable)
+Licensed to Business Model Consulting and the Apache Software Foundation (ASF) under one
 or more contributor license agreements.  See the NOTICE file
 distributed with this work for additional information
 regarding copyright ownership.  The ASF licenses this file
@@ -84,17 +85,7 @@ under the License.
 		<script src="//raw.github.com/jpillora/verifyjs/gh-pages/dist/verify.notify.min.js"></script>
 		<!-- Walkthrough -->
 		<link media="all" rel="stylesheet" type="text/css" href="css/introjs.css" />
-	<!-- Custom sign_in_sign_up page stuff -->
-	    <!-- Bootstrap core CSS -->
-	    <link href="css/sign_in_sign_up/bootstrap.css" rel="stylesheet">
-	    <!-- Custom Google Web Font -->
-	    <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet">
-	    <link href='http://fonts.googleapis.com/css?family=Lato:100,300,400,700,900,100italic,300italic,400italic,700italic,900italic' rel='stylesheet' type='text/css'>
-	    <!-- Add custom CSS here -->
-	    <link href="css/sign_in_sign_up/landing-page.css" rel="stylesheet">
-	    <link href="css/sign_in_sign_up/custom.css" rel="stylesheet">
-	    <link href="css/sign_in_sign_up/responsiveMobile.css" rel="stylesheet" media="screen and (max-width: 400px)">
-	<!-- End Custom sign_in_sign_up page stuff -->
+	
         <script src="js/intro.js"></script>
 		<!-- JS -->
 		<script src='lib/jquery-ui.custom.min.js'></script>
@@ -134,6 +125,19 @@ under the License.
 		<script src='js/activation.js'></script>
 		<!--  Org Chart CSS -->
 		<link href='css/orgChart.css' rel='stylesheet' />
+		<script type="text/javascript" src="js/gapiTest.js"></script>	 <!-- Load Javascript for the example -->
+		<script src="https://apis.google.com/js/client:platform.js" type="text/javascript"></script><!-- Load Google + API -->
+		<!-- Custom sign_in_sign_up page stuff -->
+	    <!-- Bootstrap core CSS -->
+	    <link href="css/sign_in_sign_up/bootstrap.css" rel="stylesheet">
+	    <!-- Custom Google Web Font -->
+	    <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet">
+	    <link href='http://fonts.googleapis.com/css?family=Lato:100,300,400,700,900,100italic,300italic,400italic,700italic,900italic' rel='stylesheet' type='text/css'>
+	    <!-- Add custom CSS here -->
+	    <link href="css/sign_in_sign_up/landing-page.css" rel="stylesheet">
+	    <link href="css/sign_in_sign_up/custom.css" rel="stylesheet">
+	    <link href="css/sign_in_sign_up/responsiveMobile.css" rel="stylesheet" media="screen and (max-width: 400px)">
+	<!-- End Custom sign_in_sign_up page stuff -->
         <title>UBM</title>
 		<script>
 			function refreshBackboneTable(){
@@ -1435,7 +1439,7 @@ under the License.
     </script> <!-- END This is the Google sign in API -->
     
     <body onload="onLoadBody()">
-        <div id="overlayTest" class="circleBase type1 outer_container" style="z-index: 99999; position:fixed; right:300px; top:500px;">
+    	<div id="overlayTest" class="circleBase type1 outer_container" style="z-index: 99999; position:fixed; right:10%; top:20%;">
 			<a class="menu_button" href="#" title="Toggle"><span>Menu</span></a>
 			<ul class="menu_option">
 			  <li><a href="#sign_in_sign_up_openItem_popup" id="openItem_popup_button" data-rel="popup" data-transition="slideup" class="ui-btn ui-icon-action ui-btn-icon-notext ui-corner-all">No text</a></li>
@@ -1509,7 +1513,7 @@ under the License.
 				                        	</div>
 				                        	<div class="mainColBody">
 						                        <ul class="list-inline intro-social-buttons">
-						                            <li><a href="#" disabled="disabled" class="btn btn-default btn-lg google"><i class="fa fa-google-plus fa-fw"></i> <span class="network-name mobile-hide"> Google</span></a></li>
+						                            <li><a href="#" class="btn btn-default btn-lg google" onclick="startFlow()"><i class="fa fa-google-plus fa-fw"></i><span class="network-name mobile-hide"> Google</span></a></li>
 						                            <li><a href="#" disabled="disabled" class="btn btn-default btn-lg facebook"><i class="fa fa-facebook fa-fw"></i> <span class="network-name mobile-hide"> Facebook</span></a></li>
 						                            <li><a href="#" disabled="disabled" class="btn btn-default btn-lg linkedIn"><i class="fa fa-linkedin fa-fw"></i> <span class="network-name mobile-hide"> Linkedin</span></a></li>
 						                            <li><a href="#" disabled="disabled" class="btn btn-default btn-lg twitter"><i class="fa fa-twitter fa-fw"></i> <span class="network-name mobile-hide"> Twitter</span></a></li>
@@ -1742,9 +1746,12 @@ under the License.
                                 <h1>Write a Review Point</br>or Open Item</h1>
                             </li>
                             <li>
+<<<<<<< HEAD
                                 <input  type="text" id="ubmsuite_UserPreferences_submitreviewpoint_formref" name="submitreviewpoint_formref" value="" placeholder="Form Ref...">
                             </li>
                             <li>
+=======
+>>>>>>> v1.0
                                 <select  id="ubmsuite_UserPreferences_submitreviewpoint_priority" value="Select" data-native-menu="false">
                                     <option>Priority...</option>
                                     <option value="A1">A1</option>
@@ -1759,7 +1766,11 @@ under the License.
                                 </select>
                             </li>
                             <li>
+<<<<<<< HEAD
                                 <textarea data-mini="true" cols="40" rows="8" id="ubmsuite_UserPreferences_submitreviewpoint_action" placeholder="Action ...">
+=======
+                                <textarea data-mini="true" cols="40" rows="8" id="ubmsuite_UserPreferences_submitreviewpoint_action" placeholder="Action Required...">
+>>>>>>> v1.0
                                     
                                 </textarea>
                             </li>
@@ -1863,9 +1874,12 @@ under the License.
                             <li class="open_point_form_header" data-role="list-divider">
                                 <h1>Write a Review Point</br>or Open Item</h1>
                             </li>
+<<<<<<< HEAD
                             <li>
                                 <input  type="text" id="ubmsuite_SelectBusinessModel_submitreviewpoint_formref" name="submitreviewpoint_formref" value="" placeholder="Form Ref...">
                             </li>
+=======
+>>>>>>> v1.0
                             <select  id="ubmsuite_SelectBusinessModel_submitreviewpoint_priority" value="Select" data-native-menu="false">
                                 <option>Priority...</option>
                                 <option value="A1">A1</option>
@@ -1880,9 +1894,13 @@ under the License.
                             </select>
                             </li>
                             <li>
+<<<<<<< HEAD
                                 <textarea data-mini="true" cols="40" rows="8" id="management_reporting_submitreviewpoint_action" placeholder="Action ...">
                                     
                                 </textarea>
+=======
+                                <textarea data-mini="true" cols="40" rows="8" id="ubmsuite_SelectBusinessModel_submitreviewpoint_action" placeholder="Action Required..."></textarea>
+>>>>>>> v1.0
                             </li>
                             <li>
                                 <select  id="ubmsuite_SelectBusinessModel_submitreviewpoint_assignedto" value="Select" data-native-menu="false">
@@ -1917,7 +1935,20 @@ under the License.
                     </form>
                 </div>
                 <!-- End Create Model Popup -->
-                <!-- End Open Items Popup -->
+  <div id="oauth2-results" class="hide">
+  </div>
+  <div style="font: 12px sans-serif, Arial; margin-left: 0.5em; margin-top: 0.5em">
+  </div>
+  <div id="profile">
+    <div>
+      <span id="pic"></span>
+      <span id="name"></span>
+      <span id="numFriends"></span>
+    </div>
+    <div id="email"></div>
+	<!-- <ul id="friendListview" data-role="listview" data-autodividers="true" data-filter="true" data-inset="true">
+	</ul> -->
+  </div>
                 <div align="center">
                     <a href="#popupParis" data-rel="popup" data-position-to="window" data-transition="fade" ><img data-step='1' data-intro='Click Here to see a visual representation of the creation suite.' src="img/03 UBM Flowchart.png" width="60" style="position:center; width:25%; height:;"></a>
                     <div data-role="popup" id="popupParis" data-overlay-theme="b" data-theme="a" data-corners="false">
@@ -1941,6 +1972,7 @@ under the License.
 	                </ul>					
 				</div>
             </div>
+
         </div>
         <div data-role="page" class="ubm_page" id="ubmsuite_modelDashboard"  data-theme="a">
             <!-- No Panel on this page, instead only back button is needed.-->
@@ -1969,9 +2001,12 @@ under the License.
                                 <h1>Write a Review Point</br>or Open Item</h1>
                             </li>
                             <li>
+<<<<<<< HEAD
                                 <input  type="text" id="ubmsuite_modelDashboard_submitreviewpoint_formref" name="submitreviewpoint_formref" value="" placeholder="Form Ref...">
                             </li>
                             <li>
+=======
+>>>>>>> v1.0
                                 <select  id="ubmsuite_modelDashboard_submitreviewpoint_priority" value="Select" data-native-menu="false">
                                     <option>Priority...</option>
                                     <option value="A1">A1</option>
@@ -1986,9 +2021,13 @@ under the License.
                                 </select>
                             </li>
                             <li>
+<<<<<<< HEAD
                                 <textarea data-mini="true" cols="40" rows="8" id="ubmsuite_modelDashboard_submitreviewpoint_action" placeholder="Action ...">
                                     
                                 </textarea>
+=======
+                                <textarea data-mini="true" cols="40" rows="8" id="ubmsuite_modelDashboard_submitreviewpoint_action" placeholder="Action Required..."></textarea>
+>>>>>>> v1.0
                             </li>
                             <li>
                                 <select  id="ubmsuite_modelDashboard_submitreviewpoint_assignedto" value="Select" data-native-menu="false">
@@ -2254,9 +2293,12 @@ under the License.
                                 <h1>Write a Review Point</br>or Open Item</h1>
                             </li>
                             <li>
+<<<<<<< HEAD
                                 <input  type="text" id="ubmsuite_mcs_model_review_submitreviewpoint_formref" name="submitreviewpoint_formref" value="" placeholder="Form Ref...">
                             </li>
                             <li>
+=======
+>>>>>>> v1.0
                                 <select  id="ubmsuite_mcs_model_review_submitreviewpoint_priority" value="Select" data-native-menu="false">
                                     <option>Priority...</option>
                                     <option value="A1">A1</option>
@@ -2271,9 +2313,13 @@ under the License.
                                 </select>
                             </li>
                             <li>
+<<<<<<< HEAD
                                 <textarea data-mini="true" cols="40" rows="8" id="ubmsuite_mcs_model_review_submitreviewpoint_action" placeholder="Action ...">
                                     
                                 </textarea>
+=======
+                                <textarea data-mini="true" cols="40" rows="8" id="ubmsuite_mcs_model_review_submitreviewpoint_action" placeholder="Action Required..."></textarea>
+>>>>>>> v1.0
                             </li>
                             <li>
                                 <select  id="ubmsuite_mcs_model_review_submitreviewpoint_assignedto" value="Select" data-native-menu="false">
@@ -3621,9 +3667,12 @@ under the License.
                             <li class="open_point_form_header" data-role="list-divider">
                                 <h1>Write a Review Point</br>or Open Item</h1>
                             </li>
+<<<<<<< HEAD
                             <li>
                                 <input  type="text" id="gettingStarted_submitreviewpoint_formref" name="submitreviewpoint_formref" value="" placeholder="Form Ref...">
                             </li>
+=======
+>>>>>>> v1.0
                             <select  id="gettingStarted_submitreviewpoint_priority" value="Select" data-native-menu="false">
                                 <option>Priority...</option>
                                 <option value="A1">A1</option>
@@ -3638,9 +3687,13 @@ under the License.
                             </select>
                             </li>
                             <li>
+<<<<<<< HEAD
                                 <textarea data-mini="true" cols="40" rows="8" id="gettingStarted_submitreviewpoint_action" placeholder="Action ...">
                                     
                                 </textarea>
+=======
+                                <textarea data-mini="true" cols="40" rows="8" id="gettingStarted_submitreviewpoint_action" placeholder="Action Required..."></textarea>
+>>>>>>> v1.0
                             </li>
                             <li>
                                 <select  id="gettingStarted_submitreviewpoint_assignedto" value="Select" data-native-menu="false">
@@ -3865,9 +3918,12 @@ under the License.
                                 <h1>Write a Review Point</br>or Open Item</h1>
                             </li>
                             <li>
+<<<<<<< HEAD
                                 <input  type="text" id="ubmsuite_modelSettings_submitreviewpoint_formref" name="submitreviewpoint_formref" value="" placeholder="Form Ref...">
                             </li>
                             <li>
+=======
+>>>>>>> v1.0
                                 <select  id="ubmsuite_modelSettings_submitreviewpoint_priority" value="Select" data-native-menu="false">
                                     <option>Priority...</option>
                                     <option value="A1">A1</option>
@@ -3882,9 +3938,13 @@ under the License.
                                 </select>
                             </li>
                             <li>
+<<<<<<< HEAD
                                 <textarea data-mini="true" cols="40" rows="8" id="ubmsuite_modelSettings_submitreviewpoint_action" placeholder="Action ...">
                                     
                                 </textarea>
+=======
+                                <textarea data-mini="true" cols="40" rows="8" id="ubmsuite_modelSettings_submitreviewpoint_action" placeholder="Action Required..."></textarea>
+>>>>>>> v1.0
                             </li>
                             <li>
                                 <select  id="ubmsuite_modelSettings_submitreviewpoint_assignedto" value="Select" data-native-menu="false">
@@ -4532,9 +4592,12 @@ under the License.
 									<h1>Write a Review Point</br>or Open Item</h1>
 								</li>
 								<li>
+<<<<<<< HEAD
 									<input  type="text" id="ubmsuite_table_of_contents_submitreviewpoint_formref" name="submitreviewpoint_formref" value="" placeholder="Form Ref...">
 								</li>
 								<li>
+=======
+>>>>>>> v1.0
 									<select  id="ubmsuite_table_of_contents_submitreviewpoint_priority" value="Select" data-native-menu="false">
 										<option>Priority...</option>
 										<option value="A1">A1</option>
@@ -4549,7 +4612,11 @@ under the License.
 									</select>
 								</li>
 								<li>
+<<<<<<< HEAD
 									<textarea data-mini="true" cols="40" rows="8" id="ubmsuite_table_of_contents_submitreviewpoint_action" placeholder="Action ..."></textarea>
+=======
+									<textarea data-mini="true" cols="40" rows="8" id="ubmsuite_table_of_contents_submitreviewpoint_action" placeholder="Action Required..."></textarea>
+>>>>>>> v1.0
 								</li>
 								<li>
 									<select  id="ubmsuite_table_of_contents_submitreviewpoint_assignedto" value="Select" data-native-menu="false">
@@ -4724,9 +4791,12 @@ under the License.
 								<h1>Write a Review Point</br>or Open Item</h1>
 							</li>
 							<li>
+<<<<<<< HEAD
 								<input  type="text" id="creator_table_of_contents_submitreviewpoint_formref" name="submitreviewpoint_formref" value="item.headerRecord_right_formref" placeholder="Form Ref...">
 							</li>
 							<li>
+=======
+>>>>>>> v1.0
 								<select  id="creator_table_of_contents_submitreviewpoint_priority" value="Select" data-native-menu="false">
 									<option>Priority...</option>
 									<option value="A1">A1</option>
@@ -4741,8 +4811,12 @@ under the License.
 								</select>
 							</li>
 							<li>
+<<<<<<< HEAD
 								<textarea data-mini="true" cols="40" rows="8" id="creator_table_of_contents_submitreviewpoint_action" placeholder="Action ...">
 								</textarea>
+=======
+								<textarea data-mini="true" cols="40" rows="8" id="creator_table_of_contents_submitreviewpoint_action" placeholder="Action Required..."></textarea>
+>>>>>>> v1.0
 							</li>
 							<li>
 								<select  id="creator_table_of_contents_submitreviewpoint_assignedto" value="Select" data-native-menu="false">
@@ -5123,9 +5197,12 @@ under the License.
 							<li data-role="list-divider">
 								<h1>Write a Review Point</br>or Open Item</h1>
 							</li>
+<<<<<<< HEAD
 							<li>
 								<input  type="text" id="management_reporting_submitreviewpoint_formref" name="submitreviewpoint_formref" value="" placeholder="Form Ref...">
 							</li>
+=======
+>>>>>>> v1.0
 							<select  id="management_reporting_submitreviewpoint_priority" value="Select" data-native-menu="false">
 								<option>Priority...</option>
 								<option value="A1">A1</option>
@@ -5140,9 +5217,13 @@ under the License.
 							</select>
 							</li>
 							<li>
+<<<<<<< HEAD
 								<textarea data-mini="true" cols="40" rows="8" id="management_reporting_submitreviewpoint_action" placeholder="Action ...">
 		
 		</textarea>
+=======
+								<textarea data-mini="true" cols="40" rows="8" id="management_reporting_submitreviewpoint_action" placeholder="Action required..."></textarea>
+>>>>>>> v1.0
 							</li>
 							<li>
 								<select  id="management_reporting_submitreviewpoint_assignedto" value="Select" data-native-menu="false">
@@ -5993,10 +6074,13 @@ under the License.
 						<ul data-role="listview" data-inset="true" style="min-width:210px;">
 							<li data-role="list-divider">
 								<h1>Write a Review Point</br>or Open Item</h1>
+<<<<<<< HEAD
 							</li>
 							<li>
 								<input  type="text" id="mcs_setup_checklist_setup_submitreviewpoint_formref" name="submitreviewpoint_formref" value="" placeholder="Form Ref...">
 							</li>
+=======
+>>>>>>> v1.0
 							<select  id="mcs_setup_checklist_setup_submitreviewpoint_priority" value="Select" data-native-menu="false">
 								<option>Priority...</option>
 								<option value="A1">A1</option>
@@ -6011,9 +6095,13 @@ under the License.
 							</select>
 							</li>
 							<li>
+<<<<<<< HEAD
 								<textarea data-mini="true" cols="40" rows="8" id="mcs_setup_checklist_setup_submitreviewpoint_action" placeholder="Action ...">
 		
 		</textarea>
+=======
+								<textarea data-mini="true" cols="40" rows="8" id="mcs_setup_checklist_setup_submitreviewpoint_action" placeholder="Action Required..."></textarea>
+>>>>>>> v1.0
 							</li>
 							<li>
 								<select  id="mcs_setup_checklist_setup_submitreviewpoint_assignedto" value="Select" data-native-menu="false">
@@ -6390,9 +6478,12 @@ under the License.
 							<li data-role="list-divider">
 								<h1>Write a Review Point</br>or Open Item</h1>
 							</li>
+<<<<<<< HEAD
 							<li>
 								<input  type="text" id="mcs_setup_checklist_CS_submitreviewpoint_formref" name="submitreviewpoint_formref" value="" placeholder="Form Ref...">
 							</li>
+=======
+>>>>>>> v1.0
 							<select  id="mcs_setup_checklist_CS_submitreviewpoint_priority" value="Select" data-native-menu="false">
 								<option>Priority...</option>
 								<option value="A1">A1</option>
@@ -6407,7 +6498,11 @@ under the License.
 							</select>
 							</li>
 							<li>
+<<<<<<< HEAD
 								<textarea data-mini="true" cols="40" rows="8" id="mcs_setup_checklist_CS_submitreviewpoint_action" placeholder="Action ..."></textarea>
+=======
+								<textarea data-mini="true" cols="40" rows="8" id="mcs_setup_checklist_CS_submitreviewpoint_action" placeholder="Action Required..."></textarea>
+>>>>>>> v1.0
 							</li>
 							<li>
 								<select  id="mcs_setup_checklist_CS_submitreviewpoint_assignedto" value="Select" data-native-menu="false">
@@ -6764,9 +6859,12 @@ under the License.
 							<li data-role="list-divider">
 								<h1>Write a Review Point</br>or Open Item</h1>
 							</li>
+<<<<<<< HEAD
 							<li>
 								<input  type="text" id="mcs_setup_checklist_p1_submitreviewpoint_formref" name="submitreviewpoint_formref" value="" placeholder="Form Ref...">
 							</li>
+=======
+>>>>>>> v1.0
 							<select  id="mcs_setup_checklist_p1_submitreviewpoint_priority" value="Select" data-native-menu="false">
 								<option>Priority...</option>
 								<option value="A1">A1</option>
@@ -6781,7 +6879,11 @@ under the License.
 							</select>
 							</li>
 							<li>
+<<<<<<< HEAD
 								<textarea data-mini="true" cols="40" rows="8" id="mcs_setup_checklist_p1_submitreviewpoint_action" placeholder="Action ..."></textarea>
+=======
+								<textarea data-mini="true" cols="40" rows="8" id="mcs_setup_checklist_p1_submitreviewpoint_action" placeholder="Action Required..."></textarea>
+>>>>>>> v1.0
 							</li>
 							<li>
 								<select  id="mcs_setup_checklist_p1_submitreviewpoint_assignedto" value="Select" data-native-menu="false">
@@ -7156,9 +7258,12 @@ under the License.
 							<li data-role="list-divider">
 								<h1>Write a Review Point</br>or Open Item</h1>
 							</li>
+<<<<<<< HEAD
 							<li>
 								<input  type="text" id="mcs_setup_checklist_p2_submitreviewpoint_formref" name="submitreviewpoint_formref" value="" placeholder="Form Ref...">
 							</li>
+=======
+>>>>>>> v1.0
 							<select  id="mcs_setup_checklist_p2_submitreviewpoint_priority" value="Select" data-native-menu="false">
 								<option>Priority...</option>
 								<option value="A1">A1</option>
@@ -7173,7 +7278,11 @@ under the License.
 							</select>
 							</li>
 							<li>
+<<<<<<< HEAD
 								<textarea data-mini="true" cols="40" rows="8" id="mcs_setup_checklist_p2_submitreviewpoint_action" placeholder="Action ..."></textarea>
+=======
+								<textarea data-mini="true" cols="40" rows="8" id="mcs_setup_checklist_p2_submitreviewpoint_action" placeholder="Action Required..."></textarea>
+>>>>>>> v1.0
 							</li>
 							<li>
 								<select  id="mcs_setup_checklist_p2_submitreviewpoint_assignedto" value="Select" data-native-menu="false">
@@ -7528,9 +7637,12 @@ under the License.
 							<li data-role="list-divider">
 								<h1>Write a Review Point</br>or Open Item</h1>
 							</li>
+<<<<<<< HEAD
 							<li>
 								<input  type="text" id="mcs_setup_checklist_p3_submitreviewpoint_formref" name="submitreviewpoint_formref" value="" placeholder="Form Ref...">
 							</li>
+=======
+>>>>>>> v1.0
 							<select  id="mcs_setup_checklist_p3_submitreviewpoint_priority" value="Select" data-native-menu="false">
 								<option>Priority...</option>
 								<option value="A1">A1</option>
@@ -7545,7 +7657,11 @@ under the License.
 							</select>
 							</li>
 							<li>
+<<<<<<< HEAD
 								<textarea data-mini="true" cols="40" rows="8" id="mcs_setup_checklist_p3_submitreviewpoint_action" placeholder="Action ..."></textarea>
+=======
+								<textarea data-mini="true" cols="40" rows="8" id="mcs_setup_checklist_p3_submitreviewpoint_action" placeholder="Action Required..."></textarea>
+>>>>>>> v1.0
 							</li>
 							<li>
 								<select  id="mcs_setup_checklist_p3_submitreviewpoint_assignedto" value="Select" data-native-menu="false">
@@ -8009,9 +8125,12 @@ under the License.
 							<li data-role="list-divider">
 								<h1>Write a Review Point</br>or Open Item</h1>
 							</li>
+<<<<<<< HEAD
 							<li>
 								<input  type="text" id="mcs_setup_checklist_p4_b1_submitreviewpoint_formref" name="submitreviewpoint_formref" value="" placeholder="Form Ref...">
 							</li>
+=======
+>>>>>>> v1.0
 							<select  id="mcs_setup_checklist_p4_b1_submitreviewpoint_priority" value="Select" data-native-menu="false">
 								<option>Priority...</option>
 								<option value="A1">A1</option>
@@ -8026,7 +8145,11 @@ under the License.
 							</select>
 							</li>
 							<li>
+<<<<<<< HEAD
 								<textarea data-mini="true" cols="40" rows="8" id="mcs_setup_checklist_p4_b1_submitreviewpoint_action" placeholder="Action ..."></textarea>
+=======
+								<textarea data-mini="true" cols="40" rows="8" id="mcs_setup_checklist_p4_b1_submitreviewpoint_action" placeholder="Action Required..."></textarea>
+>>>>>>> v1.0
 							</li>
 							<li>
 								<select  id="mcs_setup_checklist_p4_b1_submitreviewpoint_assignedto" value="Select" data-native-menu="false">
@@ -8381,9 +8504,12 @@ under the License.
 							<li data-role="list-divider">
 								<h1>Write a Review Point</br>or Open Item</h1>
 							</li>
+<<<<<<< HEAD
 							<li>
 								<input  type="text" id="mcs_setup_checklist_p4_b2_submitreviewpoint_formref" name="submitreviewpoint_formref" value="" placeholder="Form Ref...">
 							</li>
+=======
+>>>>>>> v1.0
 							<select  id="mcs_setup_checklist_p4_b2_submitreviewpoint_priority" value="Select" data-native-menu="false">
 								<option>Priority...</option>
 								<option value="A1">A1</option>
@@ -8398,7 +8524,11 @@ under the License.
 							</select>
 							</li>
 							<li>
+<<<<<<< HEAD
 								<textarea data-mini="true" cols="40" rows="8" id="mcs_setup_checklist_p4_b2_submitreviewpoint_action" placeholder="Action ..."></textarea>
+=======
+								<textarea data-mini="true" cols="40" rows="8" id="mcs_setup_checklist_p4_b2_submitreviewpoint_action" placeholder="Action Required..."></textarea>
+>>>>>>> v1.0
 							</li>
 							<li>
 								<select  id="mcs_setup_checklist_p4_b2_submitreviewpoint_assignedto" value="Select" data-native-menu="false">
@@ -8754,9 +8884,12 @@ under the License.
 							<li data-role="list-divider">
 								<h1>Write a Review Point</br>or Open Item</h1>
 							</li>
+<<<<<<< HEAD
 							<li>
 								<input  type="text" id="mcs_setup_checklist_p4_b3_submitreviewpoint_formref" name="submitreviewpoint_formref" value="" placeholder="Form Ref...">
 							</li>
+=======
+>>>>>>> v1.0
 							<select  id="mcs_setup_checklist_p4_b3_submitreviewpoint_priority" value="Select" data-native-menu="false">
 								<option>Priority...</option>
 								<option value="A1">A1</option>
@@ -8771,7 +8904,11 @@ under the License.
 							</select>
 							</li>
 							<li>
+<<<<<<< HEAD
 								<textarea data-mini="true" cols="40" rows="8" id="mcs_setup_checklist_p4_b3_submitreviewpoint_action" placeholder="Action ..."></textarea>
+=======
+								<textarea data-mini="true" cols="40" rows="8" id="mcs_setup_checklist_p4_b3_submitreviewpoint_action" placeholder="Action Required..."></textarea>
+>>>>>>> v1.0
 							</li>
 							<li>
 								<select  id="mcs_setup_checklist_p4_b3_submitreviewpoint_assignedto" value="Select" data-native-menu="false">
@@ -9126,9 +9263,12 @@ under the License.
 							<li data-role="list-divider">
 								<h1>Write a Review Point</br>or Open Item</h1>
 							</li>
+<<<<<<< HEAD
 							<li>
 								<input  type="text" id="mcs_setup_checklist_p4_b4_submitreviewpoint_formref" name="submitreviewpoint_formref" value="" placeholder="Form Ref...">
 							</li>
+=======
+>>>>>>> v1.0
 							<select  id="mcs_setup_checklist_p4_b4_submitreviewpoint_priority" value="Select" data-native-menu="false">
 								<option>Priority...</option>
 								<option value="A1">A1</option>
@@ -9143,7 +9283,11 @@ under the License.
 							</select>
 							</li>
 							<li>
+<<<<<<< HEAD
 								<textarea data-mini="true" cols="40" rows="8" id="mcs_setup_checklist_p4_b4_submitreviewpoint_action" placeholder="Action ..."></textarea>
+=======
+								<textarea data-mini="true" cols="40" rows="8" id="mcs_setup_checklist_p4_b4_submitreviewpoint_action" placeholder="Action Required..."></textarea>
+>>>>>>> v1.0
 							</li>
 							<li>
 								<select  id="mcs_setup_checklist_p4_b4_submitreviewpoint_assignedto" value="Select" data-native-menu="false">
@@ -9498,9 +9642,12 @@ under the License.
 							<li data-role="list-divider">
 								<h1>Write a Review Point</br>or Open Item</h1>
 							</li>
+<<<<<<< HEAD
 							<li>
 								<input  type="text" id="mcs_setup_checklist_p4_b5_submitreviewpoint_formref" name="submitreviewpoint_formref" value="" placeholder="Form Ref...">
 							</li>
+=======
+>>>>>>> v1.0
 							<select  id="mcs_setup_checklist_p4_b5_submitreviewpoint_priority" value="Select" data-native-menu="false">
 								<option>Priority...</option>
 								<option value="A1">A1</option>
@@ -9515,7 +9662,11 @@ under the License.
 							</select>
 							</li>
 							<li>
+<<<<<<< HEAD
 								<textarea data-mini="true" cols="40" rows="8" id="mcs_setup_checklist_p4_b5_submitreviewpoint_action" placeholder="Action ..."></textarea>
+=======
+								<textarea data-mini="true" cols="40" rows="8" id="mcs_setup_checklist_p4_b5_submitreviewpoint_action" placeholder="Action Required..."></textarea>
+>>>>>>> v1.0
 							</li>
 							<li>
 								<select  id="mcs_setup_checklist_p4_b5_submitreviewpoint_assignedto" value="Select" data-native-menu="false">
@@ -9870,9 +10021,12 @@ under the License.
 							<li data-role="list-divider">
 								<h1>Write a Review Point</br>or Open Item</h1>
 							</li>
+<<<<<<< HEAD
 							<li>
 								<input  type="text" id="mcs_setup_checklist_p4_b6_submitreviewpoint_formref" name="submitreviewpoint_formref" value="" placeholder="Form Ref...">
 							</li>
+=======
+>>>>>>> v1.0
 							<select  id="mcs_setup_checklist_p4_b6_submitreviewpoint_priority" value="Select" data-native-menu="false">
 								<option>Priority...</option>
 								<option value="A1">A1</option>
@@ -9887,7 +10041,11 @@ under the License.
 							</select>
 							</li>
 							<li>
+<<<<<<< HEAD
 								<textarea data-mini="true" cols="40" rows="8" id="mcs_setup_checklist_p4_b6_submitreviewpoint_action" placeholder="Action ..."></textarea>
+=======
+								<textarea data-mini="true" cols="40" rows="8" id="mcs_setup_checklist_p4_b6_submitreviewpoint_action" placeholder="Action Required..."></textarea>
+>>>>>>> v1.0
 							</li>
 							<li>
 								<select  id="mcs_setup_checklist_p4_b6_submitreviewpoint_assignedto" value="Select" data-native-menu="false">
@@ -10242,9 +10400,12 @@ under the License.
 							<li data-role="list-divider">
 								<h1>Write a Review Point</br>or Open Item</h1>
 							</li>
+<<<<<<< HEAD
 							<li>
 								<input  type="text" id="mcs_setup_checklist_p4_b7_submitreviewpoint_formref" name="submitreviewpoint_formref" value="" placeholder="Form Ref...">
 							</li>
+=======
+>>>>>>> v1.0
 							<select  id="mcs_setup_checklist_p4_b7_submitreviewpoint_priority" value="Select" data-native-menu="false">
 								<option>Priority...</option>
 								<option value="A1">A1</option>
@@ -10259,7 +10420,11 @@ under the License.
 							</select>
 							</li>
 							<li>
+<<<<<<< HEAD
 								<textarea data-mini="true" cols="40" rows="8" id="mcs_setup_checklist_p4_b7_submitreviewpoint_action" placeholder="Action ..."></textarea>
+=======
+								<textarea data-mini="true" cols="40" rows="8" id="mcs_setup_checklist_p4_b7_submitreviewpoint_action" placeholder="Action Required..."></textarea>
+>>>>>>> v1.0
 							</li>
 							<li>
 								<select  id="mcs_setup_checklist_p4_b7_submitreviewpoint_assignedto" value="Select" data-native-menu="false">
@@ -10614,9 +10779,12 @@ under the License.
 							<li data-role="list-divider">
 								<h1>Write a Review Point</br>or Open Item</h1>
 							</li>
+<<<<<<< HEAD
 							<li>
 								<input  type="text" id="mcs_setup_checklist_p4_b8_submitreviewpoint_formref" name="submitreviewpoint_formref" value="" placeholder="Form Ref...">
 							</li>
+=======
+>>>>>>> v1.0
 							<select  id="mcs_setup_checklist_p4_b8_submitreviewpoint_priority" value="Select" data-native-menu="false">
 								<option>Priority...</option>
 								<option value="A1">A1</option>
@@ -10631,7 +10799,11 @@ under the License.
 							</select>
 							</li>
 							<li>
+<<<<<<< HEAD
 								<textarea data-mini="true" cols="40" rows="8" id="mcs_setup_checklist_p4_b8_submitreviewpoint_action" placeholder="Action ..."></textarea>
+=======
+								<textarea data-mini="true" cols="40" rows="8" id="mcs_setup_checklist_p4_b8_submitreviewpoint_action" placeholder="Action Required..."></textarea>
+>>>>>>> v1.0
 							</li>
 							<li>
 								<select  id="mcs_setup_checklist_p4_b8_submitreviewpoint_assignedto" value="Select" data-native-menu="false">
@@ -10986,9 +11158,12 @@ under the License.
 							<li data-role="list-divider">
 								<h1>Write a Review Point</br>or Open Item</h1>
 							</li>
+<<<<<<< HEAD
 							<li>
 								<input  type="text" id="mcs_setup_checklist_p4_b9_submitreviewpoint_formref" name="submitreviewpoint_formref" value="" placeholder="Form Ref...">
 							</li>
+=======
+>>>>>>> v1.0
 							<select  id="mcs_setup_checklist_p4_b9_submitreviewpoint_priority" value="Select" data-native-menu="false">
 								<option>Priority...</option>
 								<option value="A1">A1</option>
@@ -11003,7 +11178,11 @@ under the License.
 							</select>
 							</li>
 							<li>
+<<<<<<< HEAD
 								<textarea data-mini="true" cols="40" rows="8" id="mcs_setup_checklist_p4_b9_submitreviewpoint_action" placeholder="Action ..."></textarea>
+=======
+								<textarea data-mini="true" cols="40" rows="8" id="mcs_setup_checklist_p4_b9_submitreviewpoint_action" placeholder="Action Required..."></textarea>
+>>>>>>> v1.0
 							</li>
 							<li>
 								<select  id="mcs_setup_checklist_p4_b9_submitreviewpoint_assignedto" value="Select" data-native-menu="false">
@@ -11358,9 +11537,12 @@ under the License.
 							<li data-role="list-divider">
 								<h1>Write a Review Point</br>or Open Item</h1>
 							</li>
+<<<<<<< HEAD
 							<li>
 								<input  type="text" id="mcs_setup_checklist_p4_b10_submitreviewpoint_formref" name="submitreviewpoint_formref" value="" placeholder="Form Ref...">
 							</li>
+=======
+>>>>>>> v1.0
 							<select  id="mcs_setup_checklist_p4_b10_submitreviewpoint_priority" value="Select" data-native-menu="false">
 								<option>Priority...</option>
 								<option value="A1">A1</option>
@@ -11375,7 +11557,11 @@ under the License.
 							</select>
 							</li>
 							<li>
+<<<<<<< HEAD
 								<textarea data-mini="true" cols="40" rows="8" id="mcs_setup_checklist_p4_b10_submitreviewpoint_action" placeholder="Action ..."></textarea>
+=======
+								<textarea data-mini="true" cols="40" rows="8" id="mcs_setup_checklist_p4_b10_submitreviewpoint_action" placeholder="Action Required..."></textarea>
+>>>>>>> v1.0
 							</li>
 							<li>
 								<select  id="mcs_setup_checklist_p4_b10_submitreviewpoint_assignedto" value="Select" data-native-menu="false">
@@ -11730,9 +11916,12 @@ under the License.
 							<li data-role="list-divider">
 								<h1>Write a Review Point</br>or Open Item</h1>
 							</li>
+<<<<<<< HEAD
 							<li>
 								<input  type="text" id="mcs_setup_checklist_p4_b11_submitreviewpoint_formref" name="submitreviewpoint_formref" value="" placeholder="Form Ref...">
 							</li>
+=======
+>>>>>>> v1.0
 							<select  id="mcs_setup_checklist_p4_b11_submitreviewpoint_priority" value="Select" data-native-menu="false">
 								<option>Priority...</option>
 								<option value="A1">A1</option>
@@ -11747,7 +11936,11 @@ under the License.
 							</select>
 							</li>
 							<li>
+<<<<<<< HEAD
 								<textarea data-mini="true" cols="40" rows="8" id="mcs_setup_checklist_p4_b11_submitreviewpoint_action" placeholder="Action ..."></textarea>
+=======
+								<textarea data-mini="true" cols="40" rows="8" id="mcs_setup_checklist_p4_b11_submitreviewpoint_action" placeholder="Action Required..."></textarea>
+>>>>>>> v1.0
 							</li>
 							<li>
 								<select  id="mcs_setup_checklist_p4_b11_submitreviewpoint_assignedto" value="Select" data-native-menu="false">
@@ -12102,9 +12295,12 @@ under the License.
                                 <li class="open_point_form_header" data-role="list-divider">
                                     <h1>Write a Review Point</br>or Open Item</h1>
                                 </li>
+<<<<<<< HEAD
                                 <li>
                                     <input  type="text" id="mcs_setup_checklist_p4_b12_submitreviewpoint_formref" name="submitreviewpoint_formref" value="" placeholder="Form Ref...">
                                 </li>
+=======
+>>>>>>> v1.0
                                 <select  id="mcs_setup_checklist_p4_b12_submitreviewpoint_priority" value="Select" data-native-menu="false">
                                     <option>Priority...</option>
                                     <option value="A1">A1</option>
@@ -12119,7 +12315,11 @@ under the License.
                                 </select>
                                 </li>
                                 <li>
+<<<<<<< HEAD
                                     <textarea data-mini="true" cols="40" rows="8" id="mcs_setup_checklist_p4_b12_submitreviewpoint_action" placeholder="Action ..."></textarea>
+=======
+                                    <textarea data-mini="true" cols="40" rows="8" id="mcs_setup_checklist_p4_b12_submitreviewpoint_action" placeholder="Action Required..."></textarea>
+>>>>>>> v1.0
                                 </li>
                                 <li>
                                     <select  id="mcs_setup_checklist_p4_b12_submitreviewpoint_assignedto" value="Select" data-native-menu="false">
@@ -12474,9 +12674,12 @@ under the License.
                                 <li class="open_point_form_header" data-role="list-divider">
                                     <h1>Write a Review Point</br>or Open Item</h1>
                                 </li>
+<<<<<<< HEAD
                                 <li>
                                     <input  type="text" id="mcs_setup_checklist_p5_submitreviewpoint_formref" name="submitreviewpoint_formref" value="" placeholder="Form Ref...">
                                 </li>
+=======
+>>>>>>> v1.0
                                 <select  id="mcs_setup_checklist_p5_submitreviewpoint_priority" value="Select" data-native-menu="false">
                                     <option>Priority...</option>
                                     <option value="A1">A1</option>
@@ -12491,7 +12694,11 @@ under the License.
                                 </select>
                                 </li>
                                 <li>
+<<<<<<< HEAD
                                     <textarea data-mini="true" cols="40" rows="8" id="mcs_setup_checklist_p5_submitreviewpoint_action" placeholder="Action ..."></textarea>
+=======
+                                    <textarea data-mini="true" cols="40" rows="8" id="mcs_setup_checklist_p5_submitreviewpoint_action" placeholder="Action Required..."></textarea>
+>>>>>>> v1.0
                                 </li>
                                 <li>
                                     <select  id="mcs_setup_checklist_p5_submitreviewpoint_assignedto" value="Select" data-native-menu="false">
@@ -12843,9 +13050,12 @@ under the License.
                                 <li class="open_point_form_header" data-role="list-divider">
                                     <h1>Write a Review Point</br>or Open Item</h1>
                                 </li>
+<<<<<<< HEAD
                                 <li>
                                     <input  type="text" id="mcs_setup_checklist_p6_submitreviewpoint_formref" name="submitreviewpoint_formref" value="" placeholder="Form Ref...">
                                 </li>
+=======
+>>>>>>> v1.0
                                 <select  id="mcs_setup_checklist_p6_submitreviewpoint_priority" value="Select" data-native-menu="false">
                                     <option>Priority...</option>
                                     <option value="A1">A1</option>
@@ -12860,7 +13070,11 @@ under the License.
                                 </select>
                                 </li>
                                 <li>
+<<<<<<< HEAD
                                     <textarea data-mini="true" cols="40" rows="8" id="mcs_setup_checklist_p6_submitreviewpoint_action" placeholder="Action ..."></textarea>
+=======
+                                    <textarea data-mini="true" cols="40" rows="8" id="mcs_setup_checklist_p6_submitreviewpoint_action" placeholder="Action Required..."></textarea>
+>>>>>>> v1.0
                                 </li>
                                 <li>
                                     <select  id="mcs_setup_checklist_p6_submitreviewpoint_assignedto" value="Select" data-native-menu="false">
@@ -13214,9 +13428,12 @@ under the License.
                                 <li class="open_point_form_header" data-role="list-divider">
                                     <h1>Write a Review Point</br>or Open Item</h1>
                                 </li>
+<<<<<<< HEAD
                                 <li>
                                     <input  type="text" id="mcs_setup_checklist_p7_submitreviewpoint_formref" name="submitreviewpoint_formref" value="" placeholder="Form Ref...">
                                 </li>
+=======
+>>>>>>> v1.0
                                 <select  id="mcs_setup_checklist_p7_submitreviewpoint_priority" value="Select" data-native-menu="false">
                                     <option>Priority...</option>
                                     <option value="A1">A1</option>
@@ -13231,7 +13448,11 @@ under the License.
                                 </select>
                                 </li>
                                 <li>
+<<<<<<< HEAD
                                     <textarea data-mini="true" cols="40" rows="8" id="mcs_setup_checklist_p7_submitreviewpoint_action" placeholder="Action ..."></textarea>
+=======
+                                    <textarea data-mini="true" cols="40" rows="8" id="mcs_setup_checklist_p7_submitreviewpoint_action" placeholder="Action Required..."></textarea>
+>>>>>>> v1.0
                                 </li>
                                 <li>
                                     <select  id="mcs_setup_checklist_p7_submitreviewpoint_assignedto" value="Select" data-native-menu="false">
@@ -13586,9 +13807,12 @@ under the License.
                                 <li class="open_point_form_header" data-role="list-divider">
                                     <h1>Write a Review Point</br>or Open Item</h1>
                                 </li>
+<<<<<<< HEAD
                                 <li>
                                     <input  type="text" id="mcs_setup_checklist_p8_submitreviewpoint_formref" name="submitreviewpoint_formref" value="" placeholder="Form Ref...">
                                 </li>
+=======
+>>>>>>> v1.0
                                 <select  id="mcs_setup_checklist_p8_submitreviewpoint_priority" value="Select" data-native-menu="false">
                                     <option>Priority...</option>
                                     <option value="A1">A1</option>
@@ -13603,7 +13827,11 @@ under the License.
                                 </select>
                                 </li>
                                 <li>
+<<<<<<< HEAD
                                     <textarea data-mini="true" cols="40" rows="8" id="mcs_setup_checklist_p8_submitreviewpoint_action" placeholder="Action ..."></textarea>
+=======
+                                    <textarea data-mini="true" cols="40" rows="8" id="mcs_setup_checklist_p8_submitreviewpoint_action" placeholder="Action Required..."></textarea>
+>>>>>>> v1.0
                                 </li>
                                 <li>
                                     <select  id="mcs_setup_checklist_p8_submitreviewpoint_assignedto" value="Select" data-native-menu="false">
@@ -13978,9 +14206,12 @@ under the License.
                                 <li class="open_point_form_header" data-role="list-divider">
                                     <h1>Write a Review Point</br>or Open Item</h1>
                                 </li>
+<<<<<<< HEAD
                                 <li>
                                     <input  type="text" id="open_points_action_items_submitreviewpoint_formref" name="submitreviewpoint_formref" value="" placeholder="Form Ref...">
                                 </li>
+=======
+>>>>>>> v1.0
                                 <select  id="open_points_action_items_submitreviewpoint_priority" value="Select" data-native-menu="false">
                                     <option>Priority...</option>
                                     <option value="A1">A1</option>
@@ -13995,7 +14226,11 @@ under the License.
                                 </select>
                                 </li>
                                 <li>
+<<<<<<< HEAD
                                     <textarea data-mini="true" cols="40" rows="8" id="open_points_action_items_submitreviewpoint_action" placeholder="Action ..."></textarea>
+=======
+                                    <textarea data-mini="true" cols="40" rows="8" id="open_points_action_items_submitreviewpoint_action" placeholder="Action Required..."></textarea>
+>>>>>>> v1.0
                                 </li>
                                 <li>
                                     <select  id="open_points_action_items_submitreviewpoint_assignedto" value="Select" data-native-menu="false">

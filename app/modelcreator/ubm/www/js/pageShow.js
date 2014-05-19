@@ -151,6 +151,13 @@ $(document).on("pageshow", "#mcs_setup_checklist_setup", function() {
 
 });
 
+<<<<<<< HEAD
+=======
+$(document).on("pageshow", "#sign_in_sign_up", function() {
+    $("#si_submit").removeClass("ui-btn ui-shadow ui-corner-all")
+});
+
+>>>>>>> v1.0
 
 $(document).on("pageshow", "#open_points_action_items", function() {
     setTimeout(function() {
