@@ -2,6 +2,7 @@
 require_once('globalGetVariables.php');
 require_once('ubms_db_config.php');
 require_once('DBConnect_UBMv1.php');		
+
 $aname = $_GET['appname'];
 $RQType = $_GET['RQType'];
 $usremail = $_GET['email'];
@@ -36,11 +37,12 @@ if (!$conn -> query($sqlins)) {
 	//$affected_rows = $conn -> affected_rows;
 				echo $_GET['callback'] . '(' . "{'message' : 'Registration successful!'}" . ')';
 }
-$conn2 = new mysqli($DBServer, $DBUser, $DBPass, $DBName);
-// check connection
-if ($conn -> connect_error) {
-	trigger_error('Database connection failed: ' . $conn -> connect_error, E_USER_ERROR);
-}
+
+	$conn2 = new mysqli($DBServer, $DBUser, $DBPass, $DBName);
+	// check connection
+	if ($conn -> connect_error) {
+		trigger_error('Database connection failed: ' . $conn -> connect_error, E_USER_ERROR);
+	}
 $sqlins2 = "INSERT INTO agreements (member_id, terms_of_service, license_agreement_setup)
 				VALUES ('$last_inserted_id', '1', '1')";
 if (!$conn2 -> query($sqlins)) {
