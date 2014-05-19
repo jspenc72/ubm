@@ -23,7 +23,7 @@ $sqlins = "INSERT INTO ubm_mcs_app_openitems (form_ref, priority, opened_by, act
  } else {
 	$last_inserted_id = $conn -> insert_id;
 	$affected_rows = $conn -> affected_rows;
-	echo $_GET['callback'] . '(' . "{'message' : 'Your Review Point or Open Item was created successfully and assigned to: $OpenItem_assignedto. Notification was sent to $username and to the assignee phone number on file: 8016086458 '}" . ')';
+	echo $_GET['callback'] . '(' . "{'message' : 'Your Review Point or Open Item was created successfully and assigned to: $OpenItem_assignedto.'}" . ')';
  }
 
 //Send Admin Notification Email Message
