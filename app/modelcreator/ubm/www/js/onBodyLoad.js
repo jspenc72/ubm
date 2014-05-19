@@ -159,12 +159,19 @@ function onLoadBody() {
                                                                                                             //Get the popup on the current page.
                                                                                                             link.setAttribute("href", '#possible_alternatives_openItem_popup');
                                                                                                             //Set the Attribute of the open item button to the popup on the current page.
+                                                                                                        } else {
+                                                                                                            if (strarray[1] == "ubmsuite_modelSettings") {
+                                                                                                                var link = document.getElementById("openItem_popup_button");
+                                                                                                                //Get the popup on the current page.
+                                                                                                                link.setAttribute("href", '#ubmsuite_modelSettings_openItem_popup');
+                                                                                                                //Set the Attribute of the open item button to the popup on the current page.
+                                                                                                            }
                                                                                                         }
                                                                                                     }
                                                                                                 }
                                                                                             }
-                                                                                        }
 
+                                                                                        }
                                                                                     }
                                                                                 }
                                                                             }
@@ -181,17 +188,16 @@ function onLoadBody() {
                                 }
                             }
                         }
-                    }
-                    //		alert(window.location.hash);									//outputs the original hash
-                    //alert(strarray[1]);												//outputs the split string which has the hash removed
-                    $.getJSON('http://api.universalbusinessmodel.com/getubmpagereference.php?callback=?', { //JSONP Request to the app_pages table.
-                        key: window.key,
-                        pageid: strarray[1] // sends the current page to the server.
-                    }, function(res, status) {
-                        //	alert("json returned successfully! "+ status);
-                        //	alert(res.message); // Alerts the current page which was sent in the call back from the server.
-                    });
+                        //		alert(window.location.hash);									//outputs the original hash
+                        //alert(strarray[1]);												//outputs the split string which has the hash removed
+                        $.getJSON('http://api.universalbusinessmodel.com/getubmpagereference.php?callback=?', { //JSONP Request to the app_pages table.
+                            key: window.key,
+                            pageid: strarray[1] // sends the current page to the server.
+                        }, function(res, status) {
+                            //	alert("json returned successfully! "+ status);
+                            //	alert(res.message); // Alerts the current page which was sent in the call back from the server.
+                        });
 
-                });
-            $("#si_email").focus();
-        }
+                    });
+                $("#si_email").focus();
+            }
