@@ -141,12 +141,20 @@ function onLoadBody() {
                                                                                             //Set the Attribute of the open item button to the popup on the current page.
 
                                                                                         } else {
+<<<<<<< HEAD
                                                                                             if (strarray[1] == "ubmsuite_mcs_model_visual") {
                                                                                                 var link = document.getElementById("openItem_popup_button");
                                                                                                 //Get the popup on the current page.
                                                                                                 link.setAttribute("href", '#ubmsuite_mcs_model_visual_openItem_popup');
                                                                                                 //Set the Attribute of the open item button to the popup on the current page.
 
+=======
+                                                                                            if (strarray[1] == "ubmsuite_mcs_model_review") {
+                                                                                                var link = document.getElementById("openItem_popup_button");
+                                                                                                //Get the popup on the current page.
+                                                                                                link.setAttribute("href", '#ubmsuite_mcs_model_review_openItem_popup');
+                                                                                                //Set the Attribute of the open item button to the popup on the current page.
+>>>>>>> FETCH_HEAD
                                                                                             }
                                                                                         }
                                                                                     }
