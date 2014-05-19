@@ -151,6 +151,11 @@ $(document).on("pageshow", "#mcs_setup_checklist_setup", function() {
 
 });
 
+$(document).on("pageshow", "#sign_in_sign_up", function() {
+    $("#si_submit").removeClass("ui-btn ui-shadow ui-corner-all")
+});
+
+
 $(document).on("pageshow", "#open_points_action_items", function() {
     setTimeout(function() {
         refreshOpenItemsList();
@@ -563,7 +568,7 @@ $(document).on("pageshow", ".ubm_page", function() {
             //alert(item.headerRecord_right_formref);
             $('#headerRecord_right_formref').empty();
             $('#headerRecord_right_formref').append(item.headerRecord_right_formref);
-        
+
             window.activeUbmPageReference = item.headerRecord_right_formref;
         })
         //alert("jsonp request returned: " + status);
