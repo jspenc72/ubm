@@ -31,64 +31,68 @@ function userSignIn() {
                         window.location = "#account_verification";
                         $().toastmessage('showErrorToast', "Your Account Has Not Been Activated");
                     } else {
-                        if (res.validation == 'TRUE') {
-                            window.walkthrough = res.walkthrough;
-                            $('#result').empty().append('<center><p>' + res.message + res.validation + '</p></center>');
-                            $('#result').empty();
-                            window.accounttype = res.accounttype;
-                            if (res.accounttype == 'admin') {
-                                //admin only stuff here
-                                $().toastmessage('showNoticeToast', "You are an Admin");
-                                if (res.walkthrough == 0) {
-                                    window.location = "#gettingStarted";
-                                } else {
-                                    window.location = "#ubmsuite_SelectBusinessModel"
-                                }
-                                //$('body').prepend('<div id="overlayTest" class="circleBase type2" style="z-index: 99999; position:fixed;"><a href="#openItem_popup" data-rel="popup" data-transition="slideup" class="ui-btn ui-icon-alert ui-btn-icon-notext ui-corner-all">No text</a><a href="#openItem_popup" data-rel="popup" data-transition="slideup" class="ui-btn ui-icon-action ui-btn-icon-notext ui-corner-all">No text</a><center><a href="#mcs_setup_checklist_setup_searchPopup" data-rel="popup" data-transition="slideup" class="ui-btn ui-icon-search ui-btn-icon-notext ui-corner-all">No text</a></center></div>');
-                                $(".circleBase").draggable();
-                            } else {
-                                if (res.accounttype == 'user') {
-                                    $().toastmessage('showNoticeToast', "you are a user");
+                        if (res.licenseAgreement == 0 || res.termsOfService == 0) {
+                            window.location = "#license_agreement_verification";
+                            $().toastmessage('showErrorToast', "You Must Agree to the terms of service!");
+                        } else {
+                            if (res.validation == 'TRUE') {
+                                window.walkthrough = res.walkthrough;
+                                $('#result').empty().append('<center><p>' + res.message + res.validation + '</p></center>');
+                                $('#result').empty();
+                                window.accounttype = res.accounttype;
+                                if (res.accounttype == 'admin') {
+                                    //admin only stuff here
+                                    $().toastmessage('showNoticeToast', "You are an Admin");
+
                                     if (res.walkthrough == 0) {
                                         window.location = "#gettingStarted";
                                     } else {
-                                        window.location = "#ubmsuite_SelectBusinessModel"
+                                        window.location = "#ubmsuite_SelectBusinessModel";
                                     }
-                                    //Driver only stuff here
+                                    $(".circleBase").draggable();
                                 } else {
-                                    if (res.accounttype == 'dispatch') {
-                                        $().toastmessage('showNoticeToast', "You are a dispatch");
+                                    if (res.accounttype == 'user') {
+                                        $().toastmessage('showNoticeToast', "you are a user");
                                         if (res.walkthrough == 0) {
                                             window.location = "#gettingStarted";
                                         } else {
-                                            window.location = "#ubmsuite_SelectBusinessModel"
+                                            window.location = "#ubmsuite_SelectBusinessModel";
                                         }
-
-                                        //Dispatch only stuff here
+                                        //Driver only stuff here
                                     } else {
-                                        if (res.accounttype == 'driver') {
-                                            $().toastmessage('showNoticeToast', "You are a driver");
+                                        if (res.accounttype == 'dispatch') {
+                                            $().toastmessage('showNoticeToast', "You are a dispatch");
                                             if (res.walkthrough == 0) {
                                                 window.location = "#gettingStarted";
                                             } else {
-                                                window.location = "#ubmsuite_SelectBusinessModel"
+                                                window.location = "#ubmsuite_SelectBusinessModel";
                                             }
+                                            //Dispatch only stuff here
                                         } else {
-                                            $().toastmessage('showNoticeToast', "You do not have an account type!");
-                                            if (res.walkthrough == 0) {
-                                                window.location = "#gettingStarted";
+                                            if (res.accounttype == 'driver') {
+                                                $().toastmessage('showNoticeToast', "You are a driver");
+                                                if (res.walkthrough == 0) {
+                                                    window.location = "#gettingStarted";
+                                                } else {
+                                                    window.location = "#ubmsuite_SelectBusinessModel";
+                                                }
                                             } else {
-                                                window.location = "#ubmsuite_SelectBusinessModel"
+                                                $().toastmessage('showNoticeToast', "You do not have an account type!");
+                                                if (res.walkthrough == 0) {
+                                                    window.location = "#gettingStarted";
+                                                } else {
+                                                    window.location = "#ubmsuite_SelectBusinessModel";
+                                                }
                                             }
+                                            //User has not been assigned an account type!
                                         }
-                                        //User has not been assigned an account type!
                                     }
                                 }
+                            } else {
+                                $('#result').empty().append('<center><p>No account exists with that username or password. Click Register to create your free account</p></center>');
                             }
-                        } else {
-                            $('#result').empty().append('<center><p>No account exists with that username or password. Click Register to create your free account</p></center>');
-                        }
 
+                        }
                     }
                 }
                 //						$('#result').empty().append('<center><p>'+ res.validation + '</p></center>');

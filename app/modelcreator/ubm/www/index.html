@@ -123,6 +123,7 @@ under the License.
 		<script src='js/draggableCircle.js'></script>
 		<script src='js/checkConnection.js'></script>
 		<script src='js/activation.js'></script>
+		<script src='js/forgotPassword.js'></script>
 		<!--  Org Chart CSS -->
 		<link href='css/orgChart.css' rel='stylesheet' />
 		<script type="text/javascript" src="js/gapiTest.js"></script>	 <!-- Load Javascript for the example -->
@@ -1501,7 +1502,19 @@ under the License.
 												  </div>
 												  <button href="#" id="si_submit" class="btn btn-default btn-lg ubm" onclick="userSignIn()"><i class="fa fa-check fa-fw"></i> <span class="network-name">Sign In</span></button>
 												  <a href="#popupRegister" data-rel="popup" data-position-to="window" class="btn btn-default btn-lg ubm" data-transition="pop"><i class="fa fa-check fa-fw"></i> <span class="network-name">Register</span></a>
-												</form>   
+												</form> 
+												<center>
+							                        <a style="font-size:11px;text-decoration:none;padding-top:20px" href="#forgotPassword_popup" data-rel="popup" data-position-to="window" data-transition="pop">Forgot Password?</a>
+							                        <div data-role="popup" id="forgotPassword_popup" data-theme="a" class="ui-corner-all">
+													    <form id="forgotPassword_form">
+													        <div style="padding:10px 20px;">
+													        	<strong><p>Enter the email you signed up with.</p></strong>
+													            <input type="email" id="forgotPassword_popup_email_input" value="" placeholder="Email" data-theme="a">
+													            <button type="submit" id="forgotPassword_popup_submit" onclick="resetPassword()" class="ui-btn ui-corner-all ui-shadow ui-btn-b ui-btn-icon-left ui-icon-check">Submit</button>
+													        </div>
+													    </form>
+													</div>
+						                        </center>  
 												<div id="result" style="background-color: white;"></div>
 				                        	</div>
 				                        </div>
@@ -1658,6 +1671,10 @@ under the License.
                                 <input  type="checkbox" name="register_license_agreement" id="register_license_agreement" v data-theme="a" / >                         
                                 <label for="register_termsOfService">I agree to the Terms of Service</label>
                                 <input  type="checkbox" name="register_termsOfService" id="register_termsOfService"  data-theme="a" />
+                                <center>
+	                                <a style="font-size:9px" href="#" id="linkto_licenenseAgreement"> Click Here To Read the licence agreement</a><br>
+	                                <a style="font-size:9px" href="#" id="linkto_termsOfService"> Click Here To Read the terms of service</a>
+                                </center>
                             </div>
                             <button data-theme="a" data-icon="check" onclick="userRegister()">
                                 Create Account!
@@ -1679,17 +1696,17 @@ under the License.
         <!-- Verify Account Page -->
         <div data-role="page" id="account_verification">
 			<div data-role="header" data-position="fixed" data-fullscreen="true">
-				<div id="ubmsuite_mcs_management_reporting_header_headerRecord_center" style="text-align: center">
-					<div id="ubmsuite_mcs_management_reporting_header_headerRecord_center_legalentity">
+				<div id="account_verification_header_headerRecord_center" style="text-align: center">
+					<div id="account_verification_header_headerRecord_center_legalentity">
 						Legal Entity:
 					</div>
-					<div id="ubmsuite_mcs_management_reporting_header_headerRecord_center_systemtitle">
+					<div id="account_verification_header_headerRecord_center_systemtitle">
 						System Title:
 					</div>
-					<div id="ubmsuite_mcs_management_reporting_header_headerRecord_center_modelapptitle">
+					<div id="account_verification_header_headerRecord_center_modelapptitle">
 						Model / App Title:
 					</div>
-					<div id="ubmsuite_mcs_management_reporting_header_headerRecord_center_pagetitle">
+					<div id="account_verification_header_headerRecord_center_pagetitle">
 						Registeration Verification
 					</div>
 				</div>
@@ -1716,6 +1733,41 @@ under the License.
 			</div>
 		</div>
         <!-- End Verify Account Page -->
+
+        <!-- Agree to License Agreement Page -->
+        <div data-role="page" id="license_agreement_verification">
+			<div data-role="header" data-position="fixed" data-fullscreen="true">
+				<div id="license_agreement_verification_header_headerRecord_center" style="text-align: center">
+					<div id="license_agreement_verification_header_headerRecord_center_legalentity">
+						Legal Entity:
+					</div>
+					<div id="license_agreement_verification_header_headerRecord_center_systemtitle">
+						System Title:
+					</div>
+					<div id="license_agreement_verification_header_headerRecord_center_modelapptitle">
+						Model / App Title:
+					</div>
+					<div id="license_agreement_verification_header_headerRecord_center_pagetitle">
+						Registeration Verification
+					</div>
+				</div>
+			</div>
+			<div role="main" class="ui-content">
+				<div style="padding-top:15%;text-align:center;">
+					<h1>You Must Agree To The License Agreement Before Continuing</h1>
+					<div id="registration_agree_checkboxes" style="max-width:25%;margin-right:auto;margin-left:auto">
+                        <label for="register_license_agreement">I agree to the License Agreement</label>
+                        <input type="checkbox" name="register_license_agreement" id="register_license_agreement" data-theme="a" / >                         
+                        <label for="register_termsOfService">I agree to the Terms of Service</label>
+                        <input  type="checkbox" name="register_termsOfService" id="register_termsOfService"  data-theme="a" />
+                        <a style="font-size:15px" href="#" id="linkto_licenenseAgreement"> Click Here To Read the licence agreement</a><br>
+                        <a style="font-size:15px" href="#" id="linkto_termsOfService"> Click Here To Read the terms of service</a>
+                        <button id="submit terms_of_service" onclick="">Continue</button>
+                    </div>
+				</div>
+			</div>
+		</div>
+        <!-- End Agree to License Agreement Page -->
 
         <!-- User Preferences -->
         <div data-role="page" class="ubm_page" id="ubmsuite_UserPreferences"  data-theme="a">
