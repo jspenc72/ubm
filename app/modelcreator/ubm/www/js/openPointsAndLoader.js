@@ -250,6 +250,7 @@ function submitResolution() {
         if (status = "SUCCESS") { //If request is successful, empty the form.
             $('#open_points_action_items_submitResolution_form').each(function() {
                 this.reset();
+                $("#mcs_open_points_action_items_submitresolution_popup").popup("close");
             });
         }
     });
