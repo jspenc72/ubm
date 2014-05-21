@@ -53,7 +53,7 @@
             /* Show tour control buttons? */
             showButtons: true,
             /* Show tour bullets? */
-            showBullets: false,
+            showBullets: true,
             /* Scroll to highlighted element? */
             scrollToElement: true
         };
