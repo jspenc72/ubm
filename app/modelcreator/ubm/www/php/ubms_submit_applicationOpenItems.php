@@ -37,6 +37,6 @@ if ($OpenItem_assignedto == "Jesse Spencer") {
 mail("8016086458@vtext.com", "", "$username gave your app has a new open item! Action Required: $OpenItem_actionrequired", "From: App <openitem@universalbusinessmodel.com>\r\n");
 }
 if ($OpenItem_assignedto == "Adam Gustafson") {
-mail("4352302281@vtext.com", "", "$username added an open point! Action Required: $OpenItem_actionrequired", "From: App <openitem@universalbusinessmodel.com>\r\n");
+mail("4352302281@vtext.com", "", "$username: $OpenItem_actionrequired", "From: App <openitem@universalbusinessmodel.com>\r\n");
 }
 //echo "SMS was sent!";

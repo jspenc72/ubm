@@ -444,3 +444,4 @@ $activeRiskId = $_GET['activeRiskId'];
  $OpenItem_actionrequired = $_GET['actionrequired'];
  $OpenItem_assignedto = $_GET['assignedto'];
  $OpenItem_duedate = $_GET['duedate'];
+ $username = $_GET['username'];

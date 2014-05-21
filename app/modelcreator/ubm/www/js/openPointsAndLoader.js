@@ -158,7 +158,8 @@ function getOnlyStatusClosedItems() {
 }
 
 function getMyOpenItems() {
-    $.getJSON('http://api.universalbusinessmodel.com/ubmopenitemsonlystatusopenitemscurrentuser.php?callback=?', { //JSONP Request
+    $.getJSON('http://api.universalbusinessmodel.com/ubms_openItems_statusOpen_currentUser.php?callback=?', { //JSONP Request
+        key: window.key,
         username: window.username
     }, function(res, status) {
         //	alert("request for open items was a success!");
