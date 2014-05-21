@@ -820,6 +820,7 @@
      * @param {Object} targetElm
      */
     function _addOverlayLayer(targetElm) {
+        if (document.querySelectorAll('.introjs-overlay').length > 0) return true;
         var overlayLayer = document.createElement('div'),
             styleText = '',
             self = this;
