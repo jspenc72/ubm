@@ -12,7 +12,7 @@ function userSignIn() {
         if (si_passWord.length < 1) {
             $().toastmessage('showErrorToast', "You must enter your password");
         } else {
-            $('#result').empty().append('<center><p>Performing your sign in request...</p></center>');
+            $('#result').empty().append("<center><p style='background-color:black'>Performing your sign in request...</p></center>");
             /* stop form from submitting normally */
             $.getJSON('http://api.universalbusinessmodel.com/ubms_usrsi.php?callback=?', {
                 key: window.key,

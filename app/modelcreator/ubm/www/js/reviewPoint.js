@@ -45,7 +45,7 @@ window.c = 0;
 function addField(c, cloned) {
     var c = window.c;
     //Set c equal to the window variable
-    var cloned //define a variable to serve as the reference for inserting a new element
+    var cloned; //define a variable to serve as the reference for inserting a new element
     event.preventDefault();
     //prevent the default from happening
     cloned = $('#gettingStarted_content_textarea' + c);
@@ -63,13 +63,11 @@ function addField(c, cloned) {
 }
 
 function submitReviewPoint(popupid) {
-    if (document.getElementById(popupid + "submitreviewpoint_priority").value=="Priority...") {
+    if (document.getElementById(popupid + "submitreviewpoint_priority").value == "Priority...") {
         $().toastmessage('showNoticeToast', 'You must assign a priority.');
-    }
-    else if (!document.getElementById(popupid + "submitreviewpoint_action").value) {
+    } else if (!document.getElementById(popupid + "submitreviewpoint_action").value) {
         $().toastmessage('showNoticeToast', 'You must describe the action required.');
-    }
-    else if (document.getElementById(popupid + "submitreviewpoint_assignedto").value=="Assigned To...") {
+    } else if (document.getElementById(popupid + "submitreviewpoint_assignedto").value == "Assigned To...") {
         $().toastmessage('showNoticeToast', 'You cannot create an open item without assigning it to a developer. Please assign this open item to a developer by selecting a name from the drop down list.');
     } else {
         showLoader();
@@ -84,102 +82,102 @@ function submitReviewPoint(popupid) {
             duedate: document.getElementById(popupid + "submitreviewpoint_duedatetime").value
         }, function(res, status) {
             hideLoader();
-                $().toastmessage('showNoticeToast', res.message);
-                if (status == "success") {
-                    $('#gettingStarted_open_items_form').each(function() {
-                        this.reset();
-                    });
-                    $('#sign_in_sign_up_open_items_form').each(function() {
-                        this.reset();
-                    });
-                    $('#ubmsuite_table_of_contents_open_items_form').each(function() {
-                        this.reset();
-                    });
-                    $('#creator_table_of_contents_open_items_form').each(function() {
-                        this.reset();
-                    });
-                    $('#identification_setup_open_items_form').each(function() {
-                        this.reset();
-                    });
-                    $('#primary_objects_setup_table_open_items_form').each(function() {
-                        this.reset();
-                    });
-                    $('#management_reporting_open_items_form').each(function() {
-                        this.reset();
-                    });
-                    $('#mcs_setup_checklist_setup_open_items_form').each(function() {
-                        this.reset();
-                    });
-                    $('#mcs_setup_checklist_CS_open_items_form').each(function() {
-                        this.reset();
-                    });
-                    $('#mcs_setup_checklist_p1_open_items_form').each(function() {
-                        this.reset();
-                    });
-                    $('#mcs_setup_checklist_p2_open_items_form').each(function() {
-                        this.reset();
-                    });
-                    $('#mcs_setup_checklist_p3_open_items_form').each(function() {
-                        this.reset();
-                    });
-                    $('#mcs_setup_checklist_p4_b1_open_items_form').each(function() {
-                        this.reset();
-                    });
-                    $('#mcs_setup_checklist_p4_b2_open_items_form').each(function() {
-                        this.reset();
-                    });
-                    $('#mcs_setup_checklist_p4_b3_open_items_form').each(function() {
-                        this.reset();
-                    });
-                    $('#mcs_setup_checklist_p4_b4_open_items_form').each(function() {
-                        this.reset();
-                    });
-                    $('#mcs_setup_checklist_p4_b5_open_items_form').each(function() {
-                        this.reset();
-                    });
-                    $('#mcs_setup_checklist_p4_b6_open_items_form').each(function() {
-                        this.reset();
-                    });
-                    $('#mcs_setup_checklist_p4_b7_open_items_form').each(function() {
-                        this.reset();
-                    });
-                    $('#mcs_setup_checklist_p4_b8_open_items_form').each(function() {
-                        this.reset();
-                    });
-                    $('#mcs_setup_checklist_p4_b9_open_items_form').each(function() {
-                        this.reset();
-                    });
-                    $('#mcs_setup_checklist_p4_b10_open_items_form').each(function() {
-                        this.reset();
-                    });
-                    $('#mcs_setup_checklist_p4_b11_open_items_form').each(function() {
-                        this.reset();
-                    });
-                    $('#mcs_setup_checklist_p4_b12_open_items_form').each(function() {
-                        this.reset();
-                    });
-                    $('#mcs_setup_checklist_p5_open_items_form').each(function() {
-                        this.reset();
-                    });
-                    $('#mcs_setup_checklist_p6_open_items_form').each(function() {
-                        this.reset();
-                    });
-                    $('#mcs_setup_checklist_p7_open_items_form').each(function() {
-                        this.reset();
-                    });
-                    $('#mcs_setup_checklist_p8_open_items_form').each(function() {
-                        this.reset();
-                    });
-                    $('#open_points_action_items_open_items_form').each(function() {
-                        this.reset();
-                    });
-                    $('#ubmsuite_SelectBusinessModel_open_items_form').each(function() {
-                        this.reset();
-                    });
-                    $('#ubmsuite_modelSettings_open_items_form').each(function() {
-                        this.reset();
-                    });
-                }
+            $().toastmessage('showNoticeToast', res.message);
+            if (status == "success") {
+                $('#gettingStarted_open_items_form').each(function() {
+                    this.reset();
+                });
+                $('#sign_in_sign_up_open_items_form').each(function() {
+                    this.reset();
+                });
+                $('#ubmsuite_table_of_contents_open_items_form').each(function() {
+                    this.reset();
+                });
+                $('#creator_table_of_contents_open_items_form').each(function() {
+                    this.reset();
+                });
+                $('#identification_setup_open_items_form').each(function() {
+                    this.reset();
+                });
+                $('#primary_objects_setup_table_open_items_form').each(function() {
+                    this.reset();
+                });
+                $('#management_reporting_open_items_form').each(function() {
+                    this.reset();
+                });
+                $('#mcs_setup_checklist_setup_open_items_form').each(function() {
+                    this.reset();
+                });
+                $('#mcs_setup_checklist_CS_open_items_form').each(function() {
+                    this.reset();
+                });
+                $('#mcs_setup_checklist_p1_open_items_form').each(function() {
+                    this.reset();
+                });
+                $('#mcs_setup_checklist_p2_open_items_form').each(function() {
+                    this.reset();
+                });
+                $('#mcs_setup_checklist_p3_open_items_form').each(function() {
+                    this.reset();
+                });
+                $('#mcs_setup_checklist_p4_b1_open_items_form').each(function() {
+                    this.reset();
+                });
+                $('#mcs_setup_checklist_p4_b2_open_items_form').each(function() {
+                    this.reset();
+                });
+                $('#mcs_setup_checklist_p4_b3_open_items_form').each(function() {
+                    this.reset();
+                });
+                $('#mcs_setup_checklist_p4_b4_open_items_form').each(function() {
+                    this.reset();
+                });
+                $('#mcs_setup_checklist_p4_b5_open_items_form').each(function() {
+                    this.reset();
+                });
+                $('#mcs_setup_checklist_p4_b6_open_items_form').each(function() {
+                    this.reset();
+                });
+                $('#mcs_setup_checklist_p4_b7_open_items_form').each(function() {
+                    this.reset();
+                });
+                $('#mcs_setup_checklist_p4_b8_open_items_form').each(function() {
+                    this.reset();
+                });
+                $('#mcs_setup_checklist_p4_b9_open_items_form').each(function() {
+                    this.reset();
+                });
+                $('#mcs_setup_checklist_p4_b10_open_items_form').each(function() {
+                    this.reset();
+                });
+                $('#mcs_setup_checklist_p4_b11_open_items_form').each(function() {
+                    this.reset();
+                });
+                $('#mcs_setup_checklist_p4_b12_open_items_form').each(function() {
+                    this.reset();
+                });
+                $('#mcs_setup_checklist_p5_open_items_form').each(function() {
+                    this.reset();
+                });
+                $('#mcs_setup_checklist_p6_open_items_form').each(function() {
+                    this.reset();
+                });
+                $('#mcs_setup_checklist_p7_open_items_form').each(function() {
+                    this.reset();
+                });
+                $('#mcs_setup_checklist_p8_open_items_form').each(function() {
+                    this.reset();
+                });
+                $('#open_points_action_items_open_items_form').each(function() {
+                    this.reset();
+                });
+                $('#ubmsuite_SelectBusinessModel_open_items_form').each(function() {
+                    this.reset();
+                });
+                $('#ubmsuite_modelSettings_open_items_form').each(function() {
+                    this.reset();
+                });
+            }
         });
     }
 }

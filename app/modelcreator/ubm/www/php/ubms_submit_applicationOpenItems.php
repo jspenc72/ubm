@@ -17,7 +17,7 @@ if ($conn -> connect_error) {
  
  // $v5 = "'" . $conn -> real_escape_string($activeModelId) . "'";
 $sqlins = "INSERT INTO ubm_mcs_app_openitems (form_ref, priority, opened_by, action_required, assigned_to, due_date)
-				VALUES ('$OpenItem_formref', '$OpenItem_priority', '$username', '$OpenItem_actionrequired', '$OpenItem_assignedto', '$OpenItem_duedate')"; //Creates a New Feature record.
+				VALUES ('$OpenItem_formref', '$OpenItem_priority', '$username', $v4, '$OpenItem_assignedto', '$OpenItem_duedate')"; //Creates a New Feature record.
  if ($conn -> query($sqlins) === false) {
  	trigger_error('Wrong SQL: ' . $sqlins . ' Error: ' . $conn -> error, E_USER_ERROR);
  } else {
