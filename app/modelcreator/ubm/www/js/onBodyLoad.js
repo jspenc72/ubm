@@ -1,4 +1,5 @@
 function onLoadBody() {
+    $("#datepicker").datepicker();
     window.key = "YDoS20lf7Vrnr22h8Ma6NGUV5DblnVhueTPXS7gPynRvQ6U8optzfnMDs3UD"; //BMCL Application Key.
     //	alert("This is an Alert!");
     $('.back_btn').click(function() {
