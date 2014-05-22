@@ -43,7 +43,7 @@ function userSignIn() {
                                 if (res.accounttype == 'admin') {
                                     //admin only stuff here
                                     $().toastmessage('showNoticeToast', "You are an Admin");
-
+                                    $("#draggable_circle_linkTo_openPointsPage").attr("href", "#open_points_action_items")
                                     if (res.walkthrough == 0) {
                                         window.location = "#gettingStarted";
                                     } else {
@@ -53,6 +53,7 @@ function userSignIn() {
                                 } else {
                                     if (res.accounttype == 'user') {
                                         $().toastmessage('showNoticeToast', "you are a user");
+                                        $("#draggable_circle_linkTo_openPointsPage").attr("href", "#open_points_action_items")
                                         if (res.walkthrough == 0) {
                                             window.location = "#gettingStarted";
                                         } else {
@@ -62,6 +63,7 @@ function userSignIn() {
                                     } else {
                                         if (res.accounttype == 'dispatch') {
                                             $().toastmessage('showNoticeToast', "You are a dispatch");
+                                            $("#draggable_circle_linkTo_openPointsPage").attr("href", "#open_points_action_items")
                                             if (res.walkthrough == 0) {
                                                 window.location = "#gettingStarted";
                                             } else {
@@ -71,6 +73,7 @@ function userSignIn() {
                                         } else {
                                             if (res.accounttype == 'driver') {
                                                 $().toastmessage('showNoticeToast', "You are a driver");
+                                                $("#draggable_circle_linkTo_openPointsPage").attr("href", "#open_points_action_items")
                                                 if (res.walkthrough == 0) {
                                                     window.location = "#gettingStarted";
                                                 } else {
@@ -78,6 +81,7 @@ function userSignIn() {
                                                 }
                                             } else {
                                                 $().toastmessage('showNoticeToast', "You do not have an account type!");
+                                                $("#draggable_circle_linkTo_openPointsPage").attr("href", "#open_points_action_items")
                                                 if (res.walkthrough == 0) {
                                                     window.location = "#gettingStarted";
                                                 } else {
@@ -89,7 +93,7 @@ function userSignIn() {
                                     }
                                 }
                             } else {
-                                $('#result').empty().append('<center><p>No account exists with that username or password. Click Register to create your free account</p></center>');
+                                $('#result').empty().append("<center><p style='background-color:black'>No account exists with that username or password. Click Register to create your free account</p></center>");
                             }
 
                         }
