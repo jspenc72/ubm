@@ -445,3 +445,12 @@ $activeRiskId = $_GET['activeRiskId'];
  $OpenItem_assignedto = $_GET['assignedto'];
  $OpenItem_duedate = $_GET['duedate'];
  $username = $_GET['username'];
+
+
+// agreements
+$licenseAgreementSetup = $_GET['licenseAgreementSetup'];
+$termsOfService = $_GET['termsOfService'];
+$licenseAgreementSignIn = $_GET['licenseAgreementSignIn'];
+
+
+
