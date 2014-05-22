@@ -13,6 +13,9 @@ function userSignIn() {
             $().toastmessage('showErrorToast', "You must enter your password");
         } else {
             $('#result').empty().append("<center><p style='background-color:black'>Performing your sign in request...</p></center>");
+            $('#sign_in_form').each(function() {
+                this.reset();
+            });
             /* stop form from submitting normally */
             $.getJSON('http://api.universalbusinessmodel.com/ubms_usrsi.php?callback=?', {
                 key: window.key,
