@@ -34,6 +34,7 @@ function closeOpenItem() {
     }, function(res, status) {
         $().toastmessage('showSuccessToast', "json request returned: " + status + "");
     });
+    refreshOpenItemsList();
 }
 
 function refreshOpenItemsList() {
