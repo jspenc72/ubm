@@ -10,8 +10,7 @@ if ($conn->connect_error) {
 	trigger_error('Database connection failed: '  . $conn->connect_error, E_USER_ERROR);
 }
 
-$memberId = mysqli_query($conn,"Select id FROM members WHERE username=$username");
-
+$memberId = mysqli_query($conn,"SELECT id FROM 'members' WHERE username='$username'");
 if ($licenseAgreementSetup) {
 	$sqlins = "INSERT INTO agreements (member_id, model_UUID, license_agreement_setup) VALUES ($memberId, $activeModelUUID, $licenseAgreementSetup)";
 	if ($conn2 -> query($sqlins) === false) {
@@ -34,6 +33,7 @@ if ($licenseAgreementSetup) {
 		echo $_GET['callback'] . '(' . "{'message' : 'You have agreed to license agreement sign in $licenseAgreementSignIn'}" . ')';
 	}
 }
+echo "string";
 
 
 
