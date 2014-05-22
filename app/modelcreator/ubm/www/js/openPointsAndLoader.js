@@ -52,7 +52,8 @@ function refreshOpenItemsList() {
         html: html
     });
     //End Show Loader Message
-    $.getJSON('http://api.universalbusinessmodel.com/ubmopenitemsonlystatusopenitems.php?callback=?', { //JSONP Request
+    $.getJSON('http://api.universalbusinessmodel.com/ubms_openItems_statusOpen.php?callback=?', { //JSONP Request
+        key: window.key
     }, function(res, status) {
         //	alert("request for open items was a success!");
         $('#mcs_open_points_action_items_table_body').empty();
