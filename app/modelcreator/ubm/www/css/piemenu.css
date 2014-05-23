@@ -108,13 +108,13 @@ textarea {
 	box-shadow: rgba(0,0,0,.3) 0 3px 8px 0, rgba(0,0,0,.2) 0 0 0 1px, inset rgba(0,0,0,.3) 0 0 0 1px, inset rgba(255,255,255,.3) 0 1px 0 1px;
 	text-indent: -99999px;
 	overflow: hidden;
-	background-color: #e34f3f;
-	background-image: -moz-linear-gradient(top, #3F92D2, #0B61A4);
-	background-image: -ms-linear-gradient(top, #3F92D2, #0B61A4);
-	background-image: -webkit-gradient(linear,0 0,0 100%,from( #3F92D2),to( #0B61A4));
-	background-image: -webkit-linear-gradient(top, #3F92D2, #0B61A4);
-	background-image: -o-linear-gradient(top, #3F92D2, #0B61A4);
-	background-image: linear-gradient(top, #3F92D2, #0B61A4);
+	background-color: #204969;
+	background-image: -moz-linear-gradient(top, #204969, #204969);
+	background-image: -ms-linear-gradient(top, #204969, #204969);
+	background-image: -webkit-gradient(linear,0 0,0 100%,from( #204969),to( #204969));
+	background-image: -webkit-linear-gradient(top, #204969, #204969);
+	background-image: -o-linear-gradient(top, #204969, #204969);
+	background-image: linear-gradient(top, #204969, #204969);
 	background-repeat: repeat-x;
 	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#f76f54', endColorstr='#c61f1f', GradientType=0);
 	z-index: 9999;
@@ -132,7 +132,7 @@ textarea {
 	transition: .4s ease
 }
 .menu_option {
-	bottom: 18px;
+	bottom: 25px;
 	left: 5px;
 	position: absolute
 }
@@ -157,7 +157,7 @@ textarea {
 	box-shadow: rgba(0,0,0,.4) 0 0 5px 0, rgba(0,0,0,.2) 0 0 0 1px, inset rgba(0,0,0,.5) 0 0 2px 0;
 	text-indent: -99999px;
 	overflow: hidden;
-	background: #444
+	background: #FF0066
 }
 .menu_option li a span {
 	background-attachment: scroll;
