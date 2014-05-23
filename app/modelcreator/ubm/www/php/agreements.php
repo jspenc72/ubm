@@ -22,8 +22,8 @@ while ($row = $result->fetch_assoc()) {
 
 if ($licenseAgreementSetup) {
     $sqlsel = "SELECT * FROM 'agreements' WHERE model_UUID='$activeModelUUID'";
-    $rs =$conn2->query($sqlsel);
-    if (!$rs) {
+    $rs = $conn2->query($sqlsel);
+    if ($rs === false) {
         echo "error 2";
     } else {
         $rows_returned = $rs->num_rows;
