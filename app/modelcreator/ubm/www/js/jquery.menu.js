@@ -31,16 +31,16 @@
 	$(settings.menu_button).unbind('click', clickHandler);	//remove event if exist
 	
 	var clickHandler = function() {
-		if($(this).parent().hasClass('active')){
-			setPosition(0);
-			$(this).parent().removeClass('active');
-			$(this).parent().addClass('inactive');
+            if ($(this).parent().hasClass('active')) {
+                setPosition(0);
+                $(this).parent().removeClass('active');
+                $(this).parent().addClass('inactive');
 
-		}else{
-			setPosition(1);
-			$(this).parent().addClass('active');
-			$(this).parent().removeClass('inactive');
-		}	
+            } else {
+                setPosition(1);
+                $(this).parent().addClass('active');
+                $(this).parent().removeClass('inactive');
+            }
 		$(this).toggleClass("btn-rotate");
 	};
 
