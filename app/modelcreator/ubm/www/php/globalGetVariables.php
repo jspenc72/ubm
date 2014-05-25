@@ -437,3 +437,20 @@ $activeInvestment = $_GET['activeInvestment'];
 $activeModelInvestmentId = $_GET['activeModelInvestmentId'];
 $activeInvestmentId = $_GET['activeInvestmentId'];
 $activeRiskId = $_GET['activeRiskId'];
+
+//Submit Open Item
+ $OpenItem_formref = $_GET['formref'];
+ $OpenItem_priority = $_GET['priority'];
+ $OpenItem_actionrequired = $_GET['actionrequired'];
+ $OpenItem_assignedto = $_GET['assignedto'];
+ $OpenItem_duedate = $_GET['duedate'];
+ $username = $_GET['username'];
+
+
+// agreements
+$licenseAgreementSetup = $_GET['licenseAgreementSetup'];
+$termsOfService = $_GET['termsOfService'];
+$licenseAgreementSignIn = $_GET['licenseAgreementSignIn'];
+
+
+
