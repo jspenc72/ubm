@@ -114,7 +114,6 @@ $(document).on("pageshow", "#ubmsuite_SelectBusinessModel", function() {
         }, 500);
     }
 });
-
 $(document).on("pageshow", "#return_on_investment", function() {
     getListofAlternativesforReturnOnInvestment();
     $("#return_on_investment_alternative_select_menu").bind("change", function(event, ui) {
