@@ -164,6 +164,13 @@ function onLoadBody() {
                                                                                                             //Get the popup on the current page.
                                                                                                             link.setAttribute("href", '#ubmsuite_modelSettings_openItem_popup');
                                                                                                             //Set the Attribute of the open item button to the popup on the current page.
+                                                                                                        } else {
+                                                                                                            if (strarray[1] == "risk_analysis") {
+                                                                                                                var link = document.getElementById("openItem_popup_button");
+                                                                                                                //Get the popup on the current page.
+                                                                                                                link.setAttribute("href", '#risk_analysis_openItem_popup');
+                                                                                                                //Set the Attribute of the open item button to the popup on the current page.
+                                                                                                            }
                                                                                                         }
                                                                                                     }
                                                                                                 }

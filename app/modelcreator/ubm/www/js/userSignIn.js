@@ -97,6 +97,7 @@ function userSignIn() {
                                 }
                             } else {
                                 $('#result').empty().append("<center><p style='background-color:black'>No account exists with that username or password. Click Register to create your free account</p></center>");
+                                document.getElementById("si_email").focus();
                             }
 
                         }
