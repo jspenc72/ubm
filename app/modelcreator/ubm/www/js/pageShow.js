@@ -204,14 +204,6 @@ $(document).on("pageshow", "#risk_analysis", function() {
     }, 10);
 });
 
-$(document).on("pageshow", "#sign_in_sign_up", function() {
-    $("#si_submit").removeClass("ui-btn ui-shadow ui-corner-all")
-});
-
-$(document).on("pageshow", "#AdminSignIn_dialog", function() {
-    $('#ok_admin_button').focus();
-});
-
 $(document).on("pageshow", "#ubmsuite_mcs_my_organizational_chart", function() {
     //initializeTooltipsterItem();
     /*** /$( "#heirarchyObjectTree_container_frame" ).draggable().resizable({
