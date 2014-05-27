@@ -95,11 +95,7 @@ th {
 }
 td {
    background-color: #EEEEEE;
-<<<<<<< HEAD
-   border: 1px solid #F5820F;
-=======
    border: 2px solid #F5820F;
->>>>>>> v1.0
    font-size: 12px;
    color: #5511FF;
    padding: 3px 7px 2px;
@@ -121,15 +117,10 @@ if($rs1 === false) {
   trigger_error('Wrong SQL: ' . $sqlsel . ' Error: ' . $conn->error, E_USER_ERROR);
 } else {
 	if(mysqli_num_rows($rs1)>0){
-<<<<<<< HEAD
-		//$numberOfPositions = $rs1->num_rows;
-		while ($row = $rs1->fetch_assoc()) {
-=======
 		$numberOfPositions = mysqli_num_rows($rs1);
 		$tableCounter = 0;
 		while ($row = $rs1->fetch_assoc()) {
 			$tableCounter +=1;
->>>>>>> v1.0
 			// add a page
 			 $tableVar .= '	   
 				<tr>
@@ -141,21 +132,11 @@ if($rs1 === false) {
 			       <td>'.$row['summary'].'</td>
 			       <td>'.$row['object_type_reference'].'</td>
 			   </tr>';
-<<<<<<< HEAD
-$pdf->AddPage();
-$pdf->writeHTML($tbl_header.$tableVar.$tbl_footer);
-			   }
-$pdf->Cell(0, 10, 'Paragraph 1.1', 0, 1, 'L');
-
-
-
-=======
 					$pdf->AddPage();
 				   if($tableCounter==$numberOfPositions){
 						$pdf->writeHTML($tbl_header.$tableVar.$tbl_footer);			   	
 				   }
 			   }
->>>>>>> v1.0
 //				echo $_GET['callback'] . '(' . json_encode($all_items) . ')';				//Output $all_items array in json encoded format.			
 	}else{
 		$tbl .= '
