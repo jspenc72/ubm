@@ -1,6 +1,6 @@
 {
   "name": "wyrm",
-  "version": "0.0.181",
+  "version": "0.0.185",
   "homepage": "https://github.com/snide/wyrm",
   "authors": [
     "Dave Snider <dave.snider@gmail.com>"
@@ -34,11 +34,11 @@
     "bourbon": "~3.1.8",
     "font-awesome": "~4.0.3"
   },
-  "_release": "0.0.181",
+  "_release": "0.0.185",
   "_resolution": {
     "type": "version",
-    "tag": "0.0.181",
-    "commit": "7b6463e2426e9cef2fa674fa16a8084a92bdd3f1"
+    "tag": "0.0.185",
+    "commit": "0035723b261d98dfd70dd081a558690efd9aaa95"
   },
   "_source": "git://github.com/snide/wyrm.git",
   "_target": "~0.0.x",
