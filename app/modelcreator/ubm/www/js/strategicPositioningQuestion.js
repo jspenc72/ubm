@@ -29,7 +29,7 @@ function getMyModelsStrategicPositioningQuestions() { //Populates Customer  List
 }
 
 function getListofPossibleStrategicPositioningQuestions() { //Populates Customer Listview on Possible Customers Popup
-    $.getJSON('http://api.universalbusinessmodel.com/ubm_modelcreationsuite_model_getAll_StrategicPositioning.php?callback=?', { //JSONP Request
+    $.getJSON('http://api.universalbusinessmodel.com/ubms_modelcreationsuite_model_getAll_StrategicPositioning.php?callback=?', { //JSONP Request
         key: window.key,
     }, function(res, status) {
         //						alert(status);

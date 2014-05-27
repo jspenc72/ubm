@@ -30,7 +30,7 @@ function getMyModelsServices() { //Populates Customer  Listview on Model Setting
 }
 
 function getListofPossibleServices() { //Populates Customer Listview on Possible Customers Popup
-    $.getJSON('http://api.universalbusinessmodel.com/ubm_modelcreationsuite_model_getAll_Services.php?callback=?', { //JSONP Request
+    $.getJSON('http://api.universalbusinessmodel.com/ubms_modelcreationsuite_model_getAll_Services.php?callback=?', { //JSONP Request
         key: window.key,
 
     }, function(res, status) {
