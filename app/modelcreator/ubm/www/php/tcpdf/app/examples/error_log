@@ -664,3 +664,13 @@
 [23-May-2014 22:47:29 UTC] PHP Parse error:  syntax error, unexpected 'public' (T_PUBLIC) in /home/jessespe/public_html/tcpdf/app/examples/ubm_PS.php on line 115
 [23-May-2014 22:47:32 UTC] PHP Parse error:  syntax error, unexpected 'public' (T_PUBLIC) in /home/jessespe/public_html/tcpdf/app/examples/ubm_PS.php on line 115
 [23-May-2014 22:47:33 UTC] PHP Parse error:  syntax error, unexpected 'public' (T_PUBLIC) in /home/jessespe/public_html/tcpdf/app/examples/ubm_PS.php on line 115
+<<<<<<< HEAD
+=======
+[23-May-2014 22:50:42 UTC] PHP Parse error:  syntax error, unexpected ')' in /home/jessespe/public_html/tcpdf/app/examples/ubm_PS.php on line 134
+[23-May-2014 22:52:29 UTC] PHP Parse error:  syntax error, unexpected ')' in /home/jessespe/public_html/tcpdf/app/examples/ubm_PS.php on line 134
+[23-May-2014 22:54:30 UTC] PHP Parse error:  syntax error, unexpected '$tableCounter' (T_VARIABLE), expecting ',' or ';' in /home/jessespe/public_html/tcpdf/app/examples/ubm_PS.php on line 124
+[23-May-2014 22:54:31 UTC] PHP Parse error:  syntax error, unexpected '$tableCounter' (T_VARIABLE), expecting ',' or ';' in /home/jessespe/public_html/tcpdf/app/examples/ubm_PS.php on line 124
+[23-May-2014 22:54:32 UTC] PHP Parse error:  syntax error, unexpected '$tableCounter' (T_VARIABLE), expecting ',' or ';' in /home/jessespe/public_html/tcpdf/app/examples/ubm_PS.php on line 124
+[23-May-2014 22:55:27 UTC] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/jessespe/public_html/tcpdf/app/examples/ubm_PS.php:124) in /home/jessespe/public_html/tcpdf/app/tcpdf.php on line 7632
+[23-May-2014 22:55:35 UTC] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/jessespe/public_html/tcpdf/app/examples/ubm_PS.php:124) in /home/jessespe/public_html/tcpdf/app/tcpdf.php on line 7632
+>>>>>>> v1.0

@@ -46,9 +46,25 @@ function getMyModels() { //Get all models in database where current user is the 
         $('#ubmsuite_SelectBusinessModel_MyModels_ul').append("<li data-role='list-divider'><center>Models I Created</center></li>");
         $('#ubmsuite_SelectBusinessModel_MyModels_ul').listview("refresh");
         $.each(res, function(i, item) {
+<<<<<<< HEAD
             $('#ubmsuite_SelectBusinessModel_MyModels_ul').append("<li id='creator_name_list_divider' data-role='list-divider' >Model Contact: " + item.model_contact_name + "</li>");
             $('#ubmsuite_SelectBusinessModel_MyModels_ul').append("<li><a href='#ubmsuite_modelDashboard' onclick='setActiveModel(" + item.UUID + ")'></br></br></br><h2 style='white-space:normal;'>Title: " + item.title + "</h2><p><strong>Model Reference: " + item.reference + "</strong></p><p style='white-space:normal;'>" + item.description + "</p><p class='ui-li-aside'>Creation Date:</br> <strong>" + item.created_date + "</strong></p></a></li>");
+=======
+            $('#ubmsuite_SelectBusinessModel_MyModels_ul').append("<li id='creator_name_list_divider' data-role='list-divider' class='model_listItem'>Model Contact: " + item.model_contact_name + "</li>");
+            $('#ubmsuite_SelectBusinessModel_MyModels_ul').append("<li><a href='#ubmsuite_modelDashboard' onclick='setActiveModel(" + item.UUID + ")' ></br></br></br><h2 style='white-space:normal;' >Title: " + item.title + "</h2><p><strong>Model Reference: " + item.reference + "</strong></p><p style='white-space:normal;'>" + item.description + "</p><p class='ui-li-aside'>Creation Date:</br> <strong>" + item.created_date + "</strong></p></a></li>");
+>>>>>>> v1.0
             $('#ubmsuite_SelectBusinessModel_MyModels_ul').listview("refresh");
+            $(".model_listItem").hover(
+                function() {
+                    //alert("Hover over model.");
+                    //$(this).addClass("hover");
+                    setActiveModel(item.UUID);
+                    //alert(window.activeModelUUID);
+                }, function() {
+                    // alert("Hover over model end");
+                    //$( this ).removeClass( "hover" );
+                }
+            );
         })
     });
     hideLoader();

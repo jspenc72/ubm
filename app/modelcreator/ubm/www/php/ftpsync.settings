@@ -1,6 +1,6 @@
 {
 	// HELP / INFO moved to bottom
-	// Remove "//" to uncomment settings directive
+	// Remove "//" to uncomment settings directive 
 
 	"default": {
 
@@ -16,7 +16,7 @@
 		// "timeout": 30, // [seconds]
 
 		// "passive": true,
-		// "download_on_open": true,
+		// "download_on_open": true,inst
 		// "overwrite_newer_prevention": false,
 		// "default_folder_permissions": "755",
 		// "default_upload_permissions": null, // null = no action taken
