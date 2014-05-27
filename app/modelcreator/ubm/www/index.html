@@ -5634,13 +5634,59 @@ under the License.
 			</div>
 		</div>
 		<!-- Return On Investment-->
-		<div data-role="page" id="return_on_investment" data-theme="a">
+		<div data-role="page" class="ubm_page" id="return_on_investment" data-theme="a">
 			<div data-role="header">
 				<a href="#" class="back_btn" data-icon="arrow-l" data-iconpos="notext">Back</a>
 				<h1>Return On Investment</h1>
 				<a onclick="getListofAlternativesforReturnOnInvestment()" data-icon="refresh" data-iconpos="notext">Refresh</a>
 			</div>
 			<div role="main" class="ui-content">
+			<!-- Open Items Popup -->
+				<div data-role="popup" id="return_on_investment_openItem_popup" data-position-to="window" data-theme="a">
+					<form id="return_on_investment_open_items_form" name="open_items_form">
+						<ul data-role="listview" data-inset="true" style="min-width:210px;">
+							<li data-role="list-divider">
+								<h1>Write a Review Point</br>or Open Item</h1>
+							</li>
+							<li>
+							<div class="ui-field-contain">
+						    	<select  id="return_on_investment_submitreviewpoint_priority" value="Select" data-native-menu="false">
+							        <option>Priority...</option>
+                                    <option value="A1">A1</option>
+                                    <option value="A2">A2</option>
+                                    <option value="A3">A3</option>
+                                    <option value="B1">B1</option>
+                                    <option value="B2">B2</option>
+                                    <option value="B3">B3</option>
+                                    <option value="C1">C1</option>
+                                    <option value="C2">C2</option>
+                                    <option value="C3">C3</option>
+                                    
+                                    
+							    </select>
+							</div>
+							</li>
+							<li>
+								<textarea data-mini="true" cols="40" rows="8" id="return_on_investment_submitreviewpoint_action" placeholder="Action required..."></textarea>
+							</li>
+							<li>
+								<select  id="return_on_investment_submitreviewpoint_assignedto" value="Select" data-native-menu="false">
+									<option>Assigned To...</option>
+									<option value="Jesse Spencer">Jesse Spencer</option><option value="Jared Kingston">Jared Kingston</option><option value="Katherine Hayes">Katherine Hayes</option><option value="Erica Cannon">Erica Cannon</option>
+									<option value="Adam Gustafson">Adam Gustafson</option>
+								</select>
+							</li>
+							<li>
+								<label for="return_on_investment_submitreviewpoint_duedatetime">Other</label>
+								<input  type="date"  id="return_on_investment_submitreviewpoint_duedatetime" value="" placeholder="Date...">
+							</li>
+							<li>
+								<input  type="button" data-enhanced="true" value="Submit Review Point" onclick="submitReviewPoint('return_on_investment_');">
+							</li>
+						</ul>
+					</form>
+				</div>
+				<!-- End Open Items Popup -->
 				<div id="return_on_investment_input_forms">
 					<center>
 						<div style="max-width:400px;" id="return_on_investment_select_alternative_menu_container">
@@ -6068,7 +6114,7 @@ under the License.
 								<input type="checkbox" name="mcs_setup_checklist_setup_identification_setup_popup_form_category_other" id="mcs_setup_checklist_setup_identification_setup_popup_form_category_other" checked="">
 								<label for="mcs_setup_checklist_setup_identification_setup_popup_form_category_other">Other</label>
 							</fieldset>
-							<a href="#" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b" data-rel="back" data-transition="flow" onclick="submitMCS_phaseSetup_submitT4(4)" >Submit!</a>
+							<a href="#" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b" data-rel="back" data-transition="flow" onclick="submitMCS_phaseSetup_submitT4(4)" >Submit</a>
 						    <a href="index.html" data-rel="back" class="ui-shadow ui-btn ui-corner-all ui-btn-inline ui-mini">Cancel</a>
 						</form>
 					</div>
@@ -7170,7 +7216,7 @@ under the License.
 							<textarea name="mcs_setup_checklist_p1_primaryObjects_setup_popup_form_missionStatement" id="mcs_setup_checklist_p1_primaryObjects_setup_popup_form_missionStatement" placeholder="Mission Statement: Carefully compose a mission statement for your model. (Refer to 01.01.02.02  in the Reference Manual)"></textarea>
 							<textarea name="mcs_setup_checklist_p1_primaryObjects_setup_popup_form_visionStatement" id="mcs_setup_checklist_p1_primaryObjects_setup_popup_form_visionStatement" placeholder="Vision Statement: Carefully compose a Vision statement for your model. (Refer to 01.01.02.03  in the Reference Manual)"></textarea>
 
-							<a href="#" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b" data-rel="back" data-transition="flow" onclick="submitMCS_phase1_submitT17(17)" >Submit!</a>
+							<a href="#" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b" data-rel="back" data-transition="flow" onclick="submitMCS_phase1_submitT17(17)" >Submit</a>
 							<a href="#" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b" data-rel="back" data-transition="flow" >Cancel</a>
 						</form>
 					</div>
