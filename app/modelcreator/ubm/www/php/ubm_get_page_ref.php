@@ -35,6 +35,7 @@ $numberofresolutions = 2;
 		  	$all_items[] = $items;
 		  }
 		}	 
+		
 		echo $_GET['callback'] . '(' . json_encode($all_items) . ')';
 
 //UPDATE
