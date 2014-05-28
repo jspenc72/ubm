@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>2D93D904-EDDB-4B21-A5C5-99920D35E6C5</string>
+	<key>IDESourceControlProjectName</key>
+	<string>UBMSuite</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>D7D3D3E2-BB6A-44C3-A8A2-26171AE9C4DB</key>
+		<string>https://github.com/jspenc72/ubm.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>app/cordova/UBMSuite/platforms/ios/UBMSuite.xcodeproj/project.xcworkspace</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>D7D3D3E2-BB6A-44C3-A8A2-26171AE9C4DB</key>
+		<string>../../../../../../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://github.com/jspenc72/ubm.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>110</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>D7D3D3E2-BB6A-44C3-A8A2-26171AE9C4DB</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>D7D3D3E2-BB6A-44C3-A8A2-26171AE9C4DB</string>
+			<key>IDESourceControlWCCName</key>
+			<string>ubm</string>
+		</dict>
+	</array>
+</dict>
+</plist>
