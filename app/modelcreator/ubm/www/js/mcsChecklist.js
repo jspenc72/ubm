@@ -29,8 +29,9 @@ function submitMCSTaskPreparedByRecord() {
             username: window.username
         }, function(res, status) {
             $().toastmessage('showNoticeToast', res.message);
+            getModelCreationSuiteChecklistItems();
         });
-        getModelCreationSuiteChecklistItems();
+        
     } else {
         $().toastmessage('showNoticeToast', "Something went wrong, The Task Id is currently set to 0. Reopen your browser and try again. ");
     }
@@ -46,8 +47,9 @@ function submitMCSTaskReviewedByRecord() {
             username: window.username
         }, function(res, status) {
             $().toastmessage('showNoticeToast', res.message);
+            getModelCreationSuiteChecklistItems();
         });
-        getModelCreationSuiteChecklistItems();
+        
     } else {
         $().toastmessage('showNoticeToast', "Something went wrong, The Task Id is currently set to 0. Reopen your browser and try again. ");
     }
@@ -63,8 +65,9 @@ function submitMCSTaskFinalReviewedByRecord() {
             username: window.username
         }, function(res, status) {
             $().toastmessage('showNoticeToast', res.message);
+            getModelCreationSuiteChecklistItems();
         });
-        getModelCreationSuiteChecklistItems();
+        
     } else {
         $().toastmessage('showNoticeToast', "Something went wrong, The Task Id is currently set to 0. Reopen your browser and try again. ");
     }
