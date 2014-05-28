@@ -49,7 +49,7 @@ if ($rs1 === false) {
            $creatorId = stripslashes($items['creator_id']);
            if($creatorId==$username){
             //5. If the user is not the creator of the model, set model soft deleted.
-                $sql = "UPDATE ubm_model SET Soft_DELETE='TRUE' WHERE creator_id='adamg' AND id=$modelId";
+                $sql = "UPDATE ubm_model SET Soft_DELETE='TRUE' WHERE creator_id='$username' AND id=$modelId";
                 if ($conn->query($sql) === false) {
                     trigger_error('Wrong SQL: ' . $sql . ' Error: ' . $conn->error, E_USER_ERROR);
                 } else {
