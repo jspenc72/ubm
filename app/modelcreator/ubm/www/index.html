@@ -5913,7 +5913,7 @@ under the License.
 				            <p>Before creating a new risk, try searching for it in the list below.</p>		            
 				            <textarea cols="40" rows="8" name="risk_analysis_define_new_risk_popup_form_description" id="risk_analysis_define_new_risk_popup_form_description" placeholder="Risk Description" data-theme="a"></textarea>
 				            <textarea cols="40" rows="8" name="risk_analysis_define_new_risk_popup_form_category" id="risk_analysis_define_new_risk_popup_form_category" placeholder="Risk Category" data-theme="a"></textarea>
-				            <button type="submit" class="ui-btn ui-corner-all ui-shadow ui-btn-b ui-btn-icon-left ui-icon-check" onclick="createNewRiskaddToActiveAlternative()">Submit new risk</button>
+				            <button type="submit" class="ui-btn ui-corner-all ui-shadow ui-btn-b ui-btn-icon-left ui-icon-check" onclick="createNewRiskaddToActiveInvestment()">Submit new risk</button>
 				        </div>
 				    </form>
 				</div>
@@ -5939,7 +5939,7 @@ under the License.
 					   float: left;
 					}
 				</style>
-				<a href="#risk_analysis_define_new_risk_popup" data-rel="popup" data-position-to="window" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-check ui-btn-icon-left ui-btn-a" data-transition="pop">Define a new risk.</a>
+				<a href="#risk_analysis_define_new_risk_popup" id="risk_analysis_define_new_risk_popup_defineRisk_button" data-rel="popup" data-position-to="window" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-check ui-btn-icon-left ui-btn-a" data-transition="pop">Define a new risk.</a>
 				<table id="risk_analysis_table" class="tg_risk_analysis">
 					<caption>
 						<center><h1>Risk Analysis</h1></center>
