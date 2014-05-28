@@ -39,6 +39,7 @@ if ($conn->query($sql2) === false) {
     $affected_rows2 = $conn->affected_rows;
 }
 
+<<<<<<< HEAD
 
 //4. Check that the current user was the creator of the model being removed.
 $sqlsel = "SELECT * FROM ubm_model WHERE id=$modelId";
@@ -63,6 +64,14 @@ if ($rs1 === false) {
            }
         }
     }
+=======
+$sql = "UPDATE ubm_model SET Soft_DELETE='TRUE' WHERE creator_id='$username' AND id=$modelId";
+if ($conn->query($sql) === false) {
+    trigger_error('Wrong SQL: ' . $sql . ' Error: ' . $conn->error, E_USER_ERROR);
+} else {
+    $affected_rows = $conn->affected_rows;
+    echo $_GET['callback'] . '(' . "{'message' : 'The UUID of the model removed was $activeModelUUID, the id of the model was $modelId. The number of affected rows was $affected_rows! $affected_rows2 people were a part of this model and are now removed.'}" . ')';
+>>>>>>> FETCH_HEAD
 }
 
 
