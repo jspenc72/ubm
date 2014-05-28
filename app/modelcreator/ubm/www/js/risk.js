@@ -99,10 +99,10 @@ function getListofRisksforSearchBars() {
         $("#risk_analysis_search_containter1").append("<li><a href='#'>Cant find the risk you are looking for? Click Here to define a new one.</a></li>");
         $("#risk_analysis_search_containter2").append("<li><a href='#'>Cant find the risk you are looking for? Click Here to define a new one.</a></li>");
 
-        $(".risk_analysis_search").listview("refresh");
+        $(".risk_analysis_search").listview().listview("refresh");
         //					$( ".risk_analysis_search" ).filterable({ filterReveal: true, input: "#input-for-filterable" });
 
-        $(".risk_analysis_search").listview("refresh");
+        $(".risk_analysis_search").listview().listview("refresh");
         setTimeout(function() {
             $("#risk_analysis_load_search_progressbar").progressbar({
                 value: 100

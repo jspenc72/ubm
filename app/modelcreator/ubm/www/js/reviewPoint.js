@@ -30,7 +30,7 @@ function getMyModelsListofApplications() {
         $.each(res, function(i, item) {
             //For Each Application attached to the model. Insert an Icon for the Applicaiton on the My Apps Page.
             $('#ubmsuite_mcs_my_applications_myApps_ul').append("<li><a href='#" + item.app_dashboard_href + "'><img src='img/time-for-review.jpg' class='ui-li-thumb'><h2>" + item.title + "</h2><p>" + item.summary + "</p><p class='ui-li-aside'>MA</p></a></li> ");
-            $('#ubmsuite_mcs_my_applications_myApps_ul').listview("refresh");
+            $('#ubmsuite_mcs_my_applications_myApps_ul').listview().listview("refresh");
             //For Each Application Insert the Management Dashboard for the Application.
             $('body').prepend("<div data-role='page' id=" + item.app_dashboard_href + " ><div data-role='header' data-theme='a'><a href='#ubmsuite_SelectBusinessModel' class='back_btn' data-icon='arrow-l' data-iconpos='notext'>Back</a><h1>" + item.title + "</h1></div><div role='main' class='ui-content'></div></div>");
             setTimeout(function() {

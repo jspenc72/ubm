@@ -1,11 +1,6 @@
 $(function() {
     $("#overlayTest").draggable();
 });
-$(function() {
-    $('.bxslider').bxSlider({
-        speed: 100,
-    });
-});
 $(document).on("click", ".show-page-loading-msg", function() {
     var $this = $("#page_loading_message"),
         theme = $this.jqmData("theme") || $.mobile.loader.prototype.options.theme,

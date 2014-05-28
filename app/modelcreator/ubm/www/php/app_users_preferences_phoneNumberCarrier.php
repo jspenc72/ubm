@@ -1,22 +1,12 @@
- <?php
- require_once('globalGetVariables.php');
- //$property_name = $_GET['property_name'];
-   //   if($aname=='FindMyDriver')
-    //  {
-				//$con=mysqli_connect("localhost","jessespe","Xfn73Xm0","jessespe_UBMv1"); 	//Define db Connection
-$DBServer = 'localhost'; // e.g 'localhost' or '192.168.1.100'
-$DBUser   = 'jessespe';
-$DBPass   = 'Xfn73Xm0';
-$DBName   = 'jessespe_FindMyDriver';			
-
-	$conn = new mysqli($DBServer, $DBUser, $DBPass, $DBName);
-	 
-	// check connection
-	if ($conn->connect_error) {
-	  trigger_error('Database connection failed: '  . $conn->connect_error, E_USER_ERROR); 
-	}
-	
-
+<?php
+require_once('globalGetVariables.php');
+//Warning DOES NOT USE UBMS!!!!!!!!!!!!
+require_once('DBConnect_UBMv1.php');		//Provides the variables used for UBMv1 database connection $conn	
+$conn = new mysqli($DBServer, $DBUser, $DBPass, $DBName);
+// check connection
+if ($conn -> connect_error) {
+	trigger_error('Database connection failed: ' . $conn -> connect_error, E_USER_ERROR);
+}
 //UPDATE
  		//$v1="'" . $conn->real_escape_string($disposition) . "'";			 
 		$sql="UPDATE `members` SET phone_number='$phoneNumber', wireless_carrier='$carrier' WHERE username='$username'";

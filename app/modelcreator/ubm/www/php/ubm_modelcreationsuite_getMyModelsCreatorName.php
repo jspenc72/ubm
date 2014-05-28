@@ -1,21 +1,26 @@
- <?php
- require_once('globalGetVariables.php'); 
+<?php
+require_once ('globalGetVariables.php');
+// Warning DOES NOT USE UBMS !!!!!!!!!!!!!
+require_once ('DBConnect_UBMv1.php');
+ //Provides the variables used for UBMv1 database connection $conn
+$conn = new mysqli($DBServer, $DBUser, $DBPass, $DBName);
 
-			$sqllink = mysqli_connect("localhost","jessespe","Xfn73Xm0","jessespe_FindMyDriver"); 	//Define db Connection
-			/* check connection */
-			if (mysqli_connect_errno()) {
-			    printf("Connect failed: %s\n", mysqli_connect_error());
-			    exit();
-			}
-			$query = "SELECT first_name, last_name FROM `members` WHERE `creator_id`='$username'";
-			$result = mysqli_query($sqllink, $query);
-			if (!$result) { //there is a problem with the table
-			}
-			$all_items = array();
-			while ($items = $result->fetch_assoc()) {					
-				$all_items[] = $items;
-			}
-			//echo $_GET['callback'] . '(' . "{'message' : ''}" . ')';							
-			echo $_GET['callback'] . '(' . json_encode($all_items) . ')';
-			mysqli_close($sqllink);
+// check connection
+if ($conn->connect_error) {
+    trigger_error('Database connection failed: ' . $conn->connect_error, E_USER_ERROR);
+}
+$query = "SELECT first_name, last_name FROM `members` WHERE `creator_id`='$username'";
+$result = mysqli_query($sqllink, $query);
+if (!$result) {
+     //there is a problem with the table
+    
+}
+$all_items = array();
+while ($items = $result->fetch_assoc()) {
+    $all_items[] = $items;
+}
+
+//echo $_GET['callback'] . '(' . "{'message' : ''}" . ')';
+echo $_GET['callback'] . '(' . json_encode($all_items) . ')';
+mysqli_close($sqllink);
 ?>

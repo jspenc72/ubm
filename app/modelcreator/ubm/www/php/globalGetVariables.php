@@ -452,5 +452,12 @@ $licenseAgreementSetup = $_GET['licenseAgreementSetup'];
 $termsOfService = $_GET['termsOfService'];
 $licenseAgreementSignIn = $_GET['licenseAgreementSignIn'];
 
-
+//ubms reg
+$aname = $_GET['appname'];
+$RQType = $_GET['RQType'];
+$usremail = $_GET['email'];
+$usrpasswd = $_GET['password']; 
+$usrname = $_GET['username']; 
+$licenseAgreement = $_GET['licenseAgreement']; 
+$termsOfService = $_GET['termsOfService']; 
 

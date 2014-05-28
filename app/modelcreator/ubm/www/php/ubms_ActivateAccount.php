@@ -1,11 +1,14 @@
 <?php
-require_once ('ubms_db_config.php');
+require_once('globalGetVariables.php');
+require_once('ubms_db_config.php');
+require_once('DBConnect_UBMv1.php');		//Provides the variables used for UBMv1 database connection $conn	
+
 $usremail = $_GET['email'];
 $hash = md5( rand(0,1000) );
-$conn = new mysqli("localhost","jessespe","Xfn73Xm0","jessespe_FindMyDriver");
+$conn = new mysqli($DBServer, $DBUser, $DBPass, $DBName);
 // check connection
-if ($conn->connect_error) {
-  trigger_error('Database connection failed: '  . $conn->connect_error, E_USER_ERROR);
+if ($conn -> connect_error) {
+	trigger_error('Database connection failed: ' . $conn -> connect_error, E_USER_ERROR);
 }
 
 $v9 = "'" . $conn -> real_escape_string($hash) . "'";
@@ -34,3 +37,5 @@ http://api.universalbusinessmodel.com/verify.php?callback=?&email='.$usremail.'&
 $headers = 'From:notify@universalbusinessmodel.com' . "\r\n"; // Set from headers
 mail($to, $subject, $message, $headers); // Send our email
 
+$usremail = $_GET['email'];
+$hash = md5( rand(0,1000) );

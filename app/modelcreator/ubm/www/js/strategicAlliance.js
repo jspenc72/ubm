@@ -20,11 +20,11 @@ function getMyModelsStrategicAlliances() { //Populates Customer  Listview on Mod
 
             $('#ubmsuite_modelSettings_myStrategicAlliances_ul').append("<li><a href='#'> <h2 style='white-space:normal;'>" + item.strategicalliance_comment + "</h2><p>" + item.strategicalliance_description + "</p></a><a href='#ubmsuite_modelSettings_confirm_remove_StrategicAlliance_popup' data-rel='popup' data-position-to='window' data-transition='pop' onclick='setActiveStrategicAllianceId(" + item.id + ")'>Remove Strategic Alliance</a></li>");
 
-            $('#ubmsuite_modelSettings_myStrategicAlliances_ul').listview("refresh");
+            $('#ubmsuite_modelSettings_myStrategicAlliances_ul').listview().listview().listview("refresh");
         })
 
-        $('#ubmsuite_modelSettings_myStrategicAlliances_ul').listview("refresh");
-        $('#ubmsuite_mcs_model_visual_content_strategic_alliances_ul').listview("refresh");
+        $('#ubmsuite_modelSettings_myStrategicAlliances_ul').listview().listview().listview("refresh");
+        $('#ubmsuite_mcs_model_visual_content_strategic_alliances_ul').listview().listview().listview("refresh");
     });
     setTimeout(function() {
         $('#tiles').trigger('refreshWookmark'); //Layout items in Wookmark Grid
@@ -39,7 +39,7 @@ function getListofPossibleStrategicAlliances() { //Populates Customer Listview o
         $('#ubmsuite_modelSettings_strategicalliances_popup_listview').empty();
         $.each(res, function(i, item) {
             $('#ubmsuite_modelSettings_strategicalliances_popup_listview').append("<li><a href='#'><p style='white-space:normal;'>" + item.strategicalliance_description + "</p></a><a href='#' onclick='addStrategicAllianceToMyModel(" + item.id + ")'>Add Strategic Alliance</a></li>");
-            $('#ubmsuite_modelSettings_strategicalliances_popup_listview').listview("refresh");
+            $('#ubmsuite_modelSettings_strategicalliances_popup_listview').listview().listview().listview("refresh");
         })
     });
 }

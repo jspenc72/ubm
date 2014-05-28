@@ -1,65 +1,3 @@
-function checkConnection() {
-    var networkState = navigator.connection.type;
-    var states = {};
-    states[Connection.UNKNOWN] = 'Unknown connection';
-    states[Connection.ETHERNET] = 'Ethernet connection';
-    states[Connection.WIFI] = 'WiFi connection';
-    states[Connection.CELL_2G] = 'Cell 2G connection';
-    states[Connection.CELL_3G] = 'Cell 3G connection';
-    states[Connection.CELL_4G] = 'Cell 4G connection';
-    states[Connection.CELL] = 'Cell generic connection';
-    states[Connection.NONE] = 'No network connection';
-
-    //alert('Connection type: ' + states[networkState]);
-    if (states[networkState] == 'Unknown connection') {
-        //alert("Network status: "+states[networkState]);
-        $(".unknownnetwork").css("visibility", "visible");
-    } else {
-        $(".unknownnetwork").css("visibility", "hidden");
-    }
-    if (states[networkState] == 'No network connection') {
-        alert("Network status: " + states[networkState]);
-        $(".offline").css("visibility", "visible");
-    } else {
-        $(".offline").css("visibility", "hidden");
-    }
-}
-$(document).on("pageshow", "#ubmsuite_modelDashboard", function() {
-    if (window.walkthrough == 0) {
-        setTimeout(function() {
-            introJs('#ubmsuite_modelDashboard').start();
-        }, 1000);
-    }
-    setTimeout(function() {
-        getModelCreationSuiteChecklistItems();
-
-    }, 100);
-    setTimeout(function() {
-        getMyModelsCoreValues();
-        getMyModelsCustomers();
-        getMyModelsProducts();
-
-
-        getListofPossibleCoreValues();
-        getListofPossibleCustomers();
-        getListofPossibleProducts();
-    }, 2000);
-    setTimeout(function() {
-        getMyModelsServices();
-        getMyModelsPhysicalFacilities();
-        getMyModelsStrategicAlliances();
-        getMyModelsStrategicPositioningQuestions();
-        getMyModelsFeatures();
-        getMyModelsOrganizationalStructures();
-
-        getListofPossibleServices();
-        getListofPossiblePhysicalFacilities();
-        getListofPossibleStrategicAlliances();
-        getListofPossibleStrategicPositioningQuestions();
-        getListofPossibleFeatures();
-        getListofPossibleOrganizationalStructures();
-    }, 2000);
-});
 $(document).on("pageshow", "#creator_table_of_contents", function() {
     if (window.walkthrough == 0) {
         setTimeout(function() {
@@ -576,7 +514,7 @@ $(document).on("pageshow", ".ubm_page", function() {
 
     setTimeout(function() {
 
-        checkConnection();
+        //checkConnection();
     }, 3000);
 });
 app.initialize();
