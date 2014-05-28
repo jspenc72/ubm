@@ -20,23 +20,23 @@ function getMyModelsStrategicPositioningQuestions() { //Populates Customer  List
 
 
             $('#ubmsuite_modelSettings_myStrategicPositioningQuestions_ul').append("<li><a href='#'> <h2 style='white-space:normal;'>" + item.question + "</h2><p>" + item.id + "</p></a><a href='#ubmsuite_modelSettings_confirm_remove_StrategicPositioningQuestion_popup' data-rel='popup' data-position-to='window' data-transition='pop' onclick='setActiveStrategicPositioningQuestionId(" + item.id + ")'>Remove Strategic Positioning Question</a></li>");
-            $('#ubmsuite_modelSettings_myStrategicPositioningQuestions_ul').listview("refresh");
+            $('#ubmsuite_modelSettings_myStrategicPositioningQuestions_ul').listview().listview().listview("refresh");
         })
-        $('#ubmsuite_mcs_model_visual_content_strategic_positioning_questions_ul').listview("refresh");
-        $('#ubmsuite_modelSettings_myStrategicPositioningQuestions_ul').listview("refresh");
+        $('#ubmsuite_mcs_model_visual_content_strategic_positioning_questions_ul').listview().listview().listview("refresh");
+        $('#ubmsuite_modelSettings_myStrategicPositioningQuestions_ul').listview().listview().listview("refresh");
     });
     $('#tiles').trigger('refreshWookmark'); //Layout items in Wookmark Grid
 }
 
 function getListofPossibleStrategicPositioningQuestions() { //Populates Customer Listview on Possible Customers Popup
-    $.getJSON('http://api.universalbusinessmodel.com/ubm_modelcreationsuite_model_getAll_StrategicPositioning.php?callback=?', { //JSONP Request
+    $.getJSON('http://api.universalbusinessmodel.com/ubms_modelcreationsuite_model_getAll_StrategicPositioning.php?callback=?', { //JSONP Request
         key: window.key,
     }, function(res, status) {
         //						alert(status);
         $('#ubmsuite_modelSettings_strategicpositioningquestions_popup_listview').empty();
         $.each(res, function(i, item) {
             $('#ubmsuite_modelSettings_strategicpositioningquestions_popup_listview').append("<li><a href='#'><p style='white-space:normal;'>" + item.question + "</p></a><a href='#' onclick='addStrategicPositioningQuestionToMyModel(" + item.id + ")'>Add Strategic Positioning Question</a></li>");
-            $('#ubmsuite_modelSettings_strategicpositioningquestions_popup_listview').listview("refresh");
+            $('#ubmsuite_modelSettings_strategicpositioningquestions_popup_listview').listview().listview().listview("refresh");
         })
     });
 }

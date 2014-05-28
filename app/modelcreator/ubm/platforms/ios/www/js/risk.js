@@ -34,20 +34,20 @@ function getListofInvestmentsforRiskAnalysis() { //Populates the Investment Pick
     //$('#risk_analysis_investment_select_menu_container').trigger("refresh");
 }
 
-function addRisktoMyInvestment(activeModelInvestmentRiskId) {
+function addRisktoMyInvestment(activeRiskId) {
     showLoader();
     $().toastmessage('showNoticeToast', window.activeModelInvestmentId);
-    $().toastmessage('showNoticeToast', "Risk # " + activeModelInvestmentRiskId + " will be added to the active investment.");
+    $().toastmessage('showNoticeToast', "Risk # " + activeRiskId + " will be added to the active investment.");
     $.getJSON('http://api.universalbusinessmodel.com/ubms_modelcreationsuite_model_investment_add_Risk.php?callback=?', { //JSONP Request
         key: window.key,
-        activeModelInvestmentRiskId: activeModelInvestmentRiskId,
+        activeInvestmentId: window.activeModelInvestmentId,
+        activeRiskId: activeRiskId,
         username: window.username
     }, function(res, status) {
         $().toastmessage('showNoticeToast', res.message);
+        hideLoader();
         if (status == "success") {
             getListofRisksforRiskAnalysisTable();
-            hideLoader();
-
         }
     });
 }
@@ -99,10 +99,10 @@ function getListofRisksforSearchBars() {
         $("#risk_analysis_search_containter1").append("<li><a href='#'>Cant find the risk you are looking for? Click Here to define a new one.</a></li>");
         $("#risk_analysis_search_containter2").append("<li><a href='#'>Cant find the risk you are looking for? Click Here to define a new one.</a></li>");
 
-        $(".risk_analysis_search").listview("refresh");
+        $(".risk_analysis_search").listview().listview("refresh");
         //					$( ".risk_analysis_search" ).filterable({ filterReveal: true, input: "#input-for-filterable" });
 
-        $(".risk_analysis_search").listview("refresh");
+        $(".risk_analysis_search").listview().listview("refresh");
         setTimeout(function() {
             $("#risk_analysis_load_search_progressbar").progressbar({
                 value: 100

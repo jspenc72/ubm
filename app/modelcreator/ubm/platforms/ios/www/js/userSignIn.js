@@ -4,100 +4,53 @@ function userSignIn() {
     var si_passWord = document.getElementById("si_pw").value;
     var si_userName = si_email.split("@", 1).toString();
     window.username = si_userName;
-    //var si_userName = si_userNameArray.toString();
-    //				alert(si_userName);
-    if (si_userName.length < 1) {
-        $().toastmessage('showErrorToast', "You must enter a username!");
-    } else {
-        if (si_passWord.length < 1) {
-            $().toastmessage('showErrorToast', "You must enter your password");
+    $.getJSON('http://api.universalbusinessmodel.com/ubms_usrsi.php?callback=?', { //JSONP Request
+        key: window.key,
+        username: si_userName,
+        password: si_passWord
+    }, function(res, status) {
+        $('#sign_in_form').each(function() {
+            this.reset();
+        });
+        if (res.validation == 0) {
+            $().toastmessage('showErrorToast', res.message);
+            $('#result').empty().append("<center><p style='background-color:black'>" + res.message + "</p></center>");
+            document.getElementById("si_email").focus();
         } else {
-            $('#result').empty().append('<center><p>Performing your sign in request...</p></center>');
-            /* stop form from submitting normally */
-            $.getJSON('http://api.universalbusinessmodel.com/ubms_usrsi.php?callback=?', {
-                key: window.key,
-                appname: "FindMyDriver",
-                RQType: "userSignIn",
-                email: si_email,
-                username: si_userName,
-                password: si_passWord
-            }, function(res, status) {
-                //				    alert(res.message);
-                if (res.passwordStatus == 0) {
-                    //$("#initialChangePasssword_form").empty();
-                    $("#initialChangePasssword").popup("open");
-                } else {
-                    if (res.activationStatus == 0) {
+            if (res.validation == 1 || res.validation == 2 || res.validation == 3 || res.validation == 4 || res.validation == 5) {
+                $('#result').empty().append("<center><p style='background-color:black'>Performing your sign in request...</p></center>");
+                $("#draggable_circle_linkTo_openPointsPage").attr("href", "#open_points_action_items");
+                switch (res.validation) {
+                    case 1:
+                        $().toastmessage('showSuccessToast', res.message);
+                        $().toastmessage('showNoticeToast', res.message2);
+                        window.location = "#ubmsuite_SelectBusinessModel";
+                        break;
+                    case 2:
+                        $().toastmessage('showNoticeToast', res.message);
+                        window.location = "#license_agreement_verification";
+                        break;
+                    case 3:
+                        $().toastmessage('showNoticeToast', res.message);
+                        $("#initialChangePasssword").popup("open");
+                        break;
+                    case 4:
+                        $().toastmessage('showNoticeToast', res.message);
                         window.location = "#account_verification";
-                        $().toastmessage('showErrorToast', "Your Account Has Not Been Activated");
-                    } else {
-                        if (res.validation == 'TRUE') {
-                            window.walkthrough = res.walkthrough;
-                            $('#result').empty().append('<center><p>' + res.message + res.validation + '</p></center>');
-                            $('#result').empty();
-                            window.accounttype = res.accounttype;
-                            if (res.accounttype == 'admin') {
-                                //admin only stuff here
-                                $().toastmessage('showNoticeToast', "You are an Admin");
-                                if (res.walkthrough == 0) {
-                                    window.location = "#gettingStarted";
-                                } else {
-                                    window.location = "#ubmsuite_SelectBusinessModel"
-                                }
-                                //$('body').prepend('<div id="overlayTest" class="circleBase type2" style="z-index: 99999; position:fixed;"><a href="#openItem_popup" data-rel="popup" data-transition="slideup" class="ui-btn ui-icon-alert ui-btn-icon-notext ui-corner-all">No text</a><a href="#openItem_popup" data-rel="popup" data-transition="slideup" class="ui-btn ui-icon-action ui-btn-icon-notext ui-corner-all">No text</a><center><a href="#mcs_setup_checklist_setup_searchPopup" data-rel="popup" data-transition="slideup" class="ui-btn ui-icon-search ui-btn-icon-notext ui-corner-all">No text</a></center></div>');
-                                $(".circleBase").draggable();
-                            } else {
-                                if (res.accounttype == 'user') {
-                                    $().toastmessage('showNoticeToast', "you are a user");
-                                    if (res.walkthrough == 0) {
-                                        window.location = "#gettingStarted";
-                                    } else {
-                                        window.location = "#ubmsuite_SelectBusinessModel"
-                                    }
-                                    //Driver only stuff here
-                                } else {
-                                    if (res.accounttype == 'dispatch') {
-                                        $().toastmessage('showNoticeToast', "You are a dispatch");
-                                        if (res.walkthrough == 0) {
-                                            window.location = "#gettingStarted";
-                                        } else {
-                                            window.location = "#ubmsuite_SelectBusinessModel"
-                                        }
-
-                                        //Dispatch only stuff here
-                                    } else {
-                                        if (res.accounttype == 'driver') {
-                                            $().toastmessage('showNoticeToast', "You are a driver");
-                                            if (res.walkthrough == 0) {
-                                                window.location = "#gettingStarted";
-                                            } else {
-                                                window.location = "#ubmsuite_SelectBusinessModel"
-                                            }
-                                        } else {
-                                            $().toastmessage('showNoticeToast', "You do not have an account type!");
-                                            if (res.walkthrough == 0) {
-                                                window.location = "#gettingStarted";
-                                            } else {
-                                                window.location = "#ubmsuite_SelectBusinessModel"
-                                            }
-                                        }
-                                        //User has not been assigned an account type!
-                                    }
-                                }
-                            }
-                        } else {
-                            $('#result').empty().append('<center><p>No account exists with that username or password. Click Register to create your free account</p></center>');
-                        }
-
-                    }
+                        break;
+                    case 5:
+                        $().toastmessage('showSuccessToast', res.message);
+                        $().toastmessage('showNoticeToast', res.message2);
+                        window.walkthrough = 0;
+                        window.location = "#gettingStarted";
+                        break;
+                    default:
+                        $().toastmessage('showErrorToast', "Unknown Error");
+                        break;
                 }
-                //						$('#result').empty().append('<center><p>'+ res.validation + '</p></center>');
-                //					    alert(status);
-            });
+            }
         }
-    }
-    //		alert("user Sign in Clicked");
-    //	$.mobile.changePage( "#home", { transition: "fade", changeHash: false, reloadPage: true });
+    });
 }
 
 function submitNewPassword() {

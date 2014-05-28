@@ -16,12 +16,12 @@ function getMyModelsServices() { //Populates Customer  Listview on Model Setting
         $('#ubmsuite_modelSettings_myServices_ul').append("<li><a data-rel='popup' data-transition='slideup' href='#ubmsuite_modelSettings_createService_popup' class='ui-btn ui-shadow'>Create new!</a></li>");
         $.each(res, function(i, item) {
             $('#ubmsuite_mcs_model_visual_content_services_ul').append("<li><a style='padding:0px 0px 0px 0px; width:100%'>" + item.title + "</a></li>");
-            //$('#ubmsuite_mcs_model_visual_content_services_ul').listview("refresh");
+            //$('#ubmsuite_mcs_model_visual_content_services_ul').listview().listview("refresh");
             $('#ubmsuite_modelSettings_myServices_ul').append("<li><a href='#'> <h2 style='white-space:normal;'>" + item.title + "</h2><p>" + item.id + "</p></a><a href='#ubmsuite_modelSettings_confirm_remove_Service_popup' data-rel='popup' data-position-to='window' data-transition='pop' onclick='setActiveServiceId(" + item.id + ")'>Remove Service</a></li>");
-            $('#ubmsuite_modelSettings_myServices_ul').listview("refresh");
+            $('#ubmsuite_modelSettings_myServices_ul').listview().listview().listview("refresh");
         })
-        $('#ubmsuite_mcs_model_visual_content_services_ul').listview("refresh");
-        $('#ubmsuite_modelSettings_myServices_ul').listview("refresh");
+        $('#ubmsuite_mcs_model_visual_content_services_ul').listview().listview().listview("refresh");
+        $('#ubmsuite_modelSettings_myServices_ul').listview().listview().listview("refresh");
 
     });
     setTimeout(function() {
@@ -30,7 +30,7 @@ function getMyModelsServices() { //Populates Customer  Listview on Model Setting
 }
 
 function getListofPossibleServices() { //Populates Customer Listview on Possible Customers Popup
-    $.getJSON('http://api.universalbusinessmodel.com/ubm_modelcreationsuite_model_getAll_Services.php?callback=?', { //JSONP Request
+    $.getJSON('http://api.universalbusinessmodel.com/ubms_modelcreationsuite_model_getAll_Services.php?callback=?', { //JSONP Request
         key: window.key,
 
     }, function(res, status) {
@@ -38,7 +38,7 @@ function getListofPossibleServices() { //Populates Customer Listview on Possible
         $('#ubmsuite_modelSettings_services_popup_listview').empty();
         $.each(res, function(i, item) {
             $('#ubmsuite_modelSettings_services_popup_listview').append("<li><a href='#'><p style='white-space:normal;'>" + item.title + "</p></a><a href='#' onclick='addServiceToMyModel(" + item.id + ")'>Add Service</a></li>");
-            $('#ubmsuite_modelSettings_services_popup_listview').listview("refresh");
+            $('#ubmsuite_modelSettings_services_popup_listview').listview().listview().listview("refresh");
         })
     });
 }

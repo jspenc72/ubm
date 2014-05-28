@@ -435,3 +435,29 @@ $activeProcedureId = $_GET['activeProcedureId'];
 $newPassword = $_GET['password'];
 $activeInvestment = $_GET['activeInvestment'];
 $activeModelInvestmentId = $_GET['activeModelInvestmentId'];
+$activeInvestmentId = $_GET['activeInvestmentId'];
+$activeRiskId = $_GET['activeRiskId'];
+
+//Submit Open Item
+ $OpenItem_formref = $_GET['formref'];
+ $OpenItem_priority = $_GET['priority'];
+ $OpenItem_actionrequired = $_GET['actionrequired'];
+ $OpenItem_assignedto = $_GET['assignedto'];
+ $OpenItem_duedate = $_GET['duedate'];
+ $username = $_GET['username'];
+
+
+// agreements
+$licenseAgreementSetup = $_GET['licenseAgreementSetup'];
+$termsOfService = $_GET['termsOfService'];
+$licenseAgreementSignIn = $_GET['licenseAgreementSignIn'];
+
+//ubms reg
+$aname = $_GET['appname'];
+$RQType = $_GET['RQType'];
+$usremail = $_GET['email'];
+$usrpasswd = $_GET['password']; 
+$usrname = $_GET['username']; 
+$licenseAgreement = $_GET['licenseAgreement']; 
+$termsOfService = $_GET['termsOfService']; 
+

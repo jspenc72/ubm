@@ -1,73 +1,14 @@
-function checkConnection() {
-    var networkState = navigator.connection.type;
-    var states = {};
-    states[Connection.UNKNOWN] = 'Unknown connection';
-    states[Connection.ETHERNET] = 'Ethernet connection';
-    states[Connection.WIFI] = 'WiFi connection';
-    states[Connection.CELL_2G] = 'Cell 2G connection';
-    states[Connection.CELL_3G] = 'Cell 3G connection';
-    states[Connection.CELL_4G] = 'Cell 4G connection';
-    states[Connection.CELL] = 'Cell generic connection';
-    states[Connection.NONE] = 'No network connection';
-
-    //alert('Connection type: ' + states[networkState]);
-    if (states[networkState] == 'Unknown connection') {
-        //alert("Network status: "+states[networkState]);
-        $(".unknownnetwork").css("visibility", "visible");
-    } else {
-        $(".unknownnetwork").css("visibility", "hidden");
+$(document).on("pageshow", "#creator_table_of_contents", function() {
+    if (window.walkthrough == 0) {
+        introJs('#creator_table_of_contents').start();
     }
-    if (states[networkState] == 'No network connection') {
-        alert("Network status: " + states[networkState]);
-        $(".offline").css("visibility", "visible");
-    } else {
-        $(".offline").css("visibility", "hidden");
-    }
-}
+});
 $(document).on("pageshow", "#ubmsuite_modelDashboard", function() {
     if (window.walkthrough == 0) {
         setTimeout(function() {
             introJs('#ubmsuite_modelDashboard').start();
         }, 1000);
     }
-    setTimeout(function() {
-        getModelCreationSuiteChecklistItems();
-
-    }, 100);
-    setTimeout(function() {
-        getMyModelsCoreValues();
-        getMyModelsCustomers();
-        getMyModelsProducts();
-
-
-        getListofPossibleCoreValues();
-        getListofPossibleCustomers();
-        getListofPossibleProducts();
-    }, 2000);
-    setTimeout(function() {
-        getMyModelsServices();
-        getMyModelsPhysicalFacilities();
-        getMyModelsStrategicAlliances();
-        getMyModelsStrategicPositioningQuestions();
-        getMyModelsFeatures();
-        getMyModelsOrganizationalStructures();
-
-        getListofPossibleServices();
-        getListofPossiblePhysicalFacilities();
-        getListofPossibleStrategicAlliances();
-        getListofPossibleStrategicPositioningQuestions();
-        getListofPossibleFeatures();
-        getListofPossibleOrganizationalStructures();
-    }, 2000);
-});
-$(document).on("pageshow", "#creator_table_of_contents", function() {
-    if (window.walkthrough == 0) {
-        setTimeout(function() {
-            introJs('#creator_table_of_contents').start();
-        }, 500);
-    }
-});
-$(document).on("pageshow", "#ubmsuite_sharedModelDashboard", function() {
     setTimeout(function() {
         getModelCreationSuiteChecklistItems();
 
@@ -114,7 +55,6 @@ $(document).on("pageshow", "#ubmsuite_SelectBusinessModel", function() {
         }, 500);
     }
 });
-
 $(document).on("pageshow", "#return_on_investment", function() {
     getListofAlternativesforReturnOnInvestment();
     $("#return_on_investment_alternative_select_menu").bind("change", function(event, ui) {
@@ -151,6 +91,15 @@ $(document).on("pageshow", "#mcs_setup_checklist_setup", function() {
 
 });
 
+$(document).on("pageshow", "#gettingStarted", function() {
+    alert("This page will get you started with the UBM. Please read the whole thing!")
+
+});
+
+$(document).on("pageshow", "#sign_in_sign_up", function() {
+    $("#si_submit").removeClass("ui-btn ui-shadow ui-corner-all")
+});
+
 $(document).on("pageshow", "#open_points_action_items", function() {
     setTimeout(function() {
         refreshOpenItemsList();
@@ -179,25 +128,23 @@ $(document).on("pageshow", "#ubmsuite_swotAnalysis", function() {
     });
 });
 $(document).on("pageshow", "#risk_analysis", function() {
+    $("#risk_analysis_define_new_risk_popup_defineRisk_button").hide();
     //var value =$( "#risk_analysis_investment_select_menu option:selected" ).text();							
     $("#risk_analysis_investment_select_menu").bind("change", function(event, ui) {
         window.activeModelInvestmentId = $("#risk_analysis_investment_select_menu option:selected").val();
         setTimeout(function() {
             getListofRisksforRiskAnalysisTable();
+            getListofRisksforSearchBars();
+            $("#risk_analysis_define_new_risk_popup_defineRisk_button").show();
         }, 1000);
     });
 
 
     setTimeout(function() {
-        getListofRisksforSearchBars();
         getListofInvestmentsforRiskAnalysis();
-        getListofRisksforRiskAnalysisTable();
     }, 10);
 });
 
-$(document).on("pageshow", "#AdminSignIn_dialog", function() {
-    $('#ok_admin_button').focus();
-});
 $(document).on("pageshow", "#ubmsuite_mcs_my_organizational_chart", function() {
     //initializeTooltipsterItem();
     /*** /$( "#heirarchyObjectTree_container_frame" ).draggable().resizable({
@@ -562,6 +509,7 @@ $(document).on("pageshow", ".ubm_page", function() {
             //alert(item.headerRecord_right_formref);
             $('#headerRecord_right_formref').empty();
             $('#headerRecord_right_formref').append(item.headerRecord_right_formref);
+
             window.activeUbmPageReference = item.headerRecord_right_formref;
         })
         //alert("jsonp request returned: " + status);
@@ -569,7 +517,7 @@ $(document).on("pageshow", ".ubm_page", function() {
 
     setTimeout(function() {
 
-        checkConnection();
+        //checkConnection();
     }, 3000);
 });
 app.initialize();

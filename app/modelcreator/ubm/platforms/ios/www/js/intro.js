@@ -45,7 +45,7 @@
             /* Close introduction when pressing Escape button? */
             exitOnEsc: true,
             /* Close introduction when clicking on overlay layer? */
-            exitOnOverlayClick: true,
+            exitOnOverlayClick: false,
             /* Show step numbers in introduction? */
             showStepNumbers: false,
             /* Let user use keyboard to navigate the tour? */
@@ -53,7 +53,7 @@
             /* Show tour control buttons? */
             showButtons: true,
             /* Show tour bullets? */
-            showBullets: false,
+            showBullets: true,
             /* Scroll to highlighted element? */
             scrollToElement: true
         };
@@ -820,6 +820,7 @@
      * @param {Object} targetElm
      */
     function _addOverlayLayer(targetElm) {
+        if (document.querySelectorAll('.introjs-overlay').length > 0) return true;
         var overlayLayer = document.createElement('div'),
             styleText = '',
             self = this;

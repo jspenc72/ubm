@@ -88,8 +88,7 @@
 			.type1 {
 				width: 30px;
 				height: 30px;
-				background-color: rgba(0,0,0,0.5);
-				border: 3px solid blue
+				background-color: rgba(0,0,0,1);
 			}
 			.type2 {
 				width: 40px;

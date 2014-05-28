@@ -16,12 +16,12 @@ function getMyModelsPhysicalFacilities() { //Populates Customer  Listview on Mod
         $('#ubmsuite_modelSettings_myPhysicalFacilities_ul').append("<li><a data-rel='popup' data-transition='slideup' href='#ubmsuite_modelSettings_createPhysicalFacility_popup' class='ui-btn ui-shadow'>Create new!</a></li>");
         $.each(res, function(i, item) {
             $('#ubmsuite_mcs_model_visual_content_physical_facilitiei_ul').append("<li><a>" + item.facility_title + "</a></li>");
-            //$('#ubmsuite_mcs_model_visual_content_physical_facilitiei_ul').listview("refresh");
+            //$('#ubmsuite_mcs_model_visual_content_physical_facilitiei_ul').listview().listview("refresh");
             $('#ubmsuite_modelSettings_myPhysicalFacilities_ul').append("<li><a href='#'> <h2 style='white-space:normal;'>" + item.facility_title + "</h2><p>" + item.id + "</p></a><a href='#ubmsuite_modelSettings_confirm_remove_PhysicalFacility_popup' data-rel='popup' data-position-to='window' data-transition='pop' onclick='setActivePhysicalFacilityId(" + item.id + ")'>Remove Physical Facility</a></li>");
-            $('#ubmsuite_modelSettings_myPhysicalFacilities_ul').listview("refresh");
+            $('#ubmsuite_modelSettings_myPhysicalFacilities_ul').listview().listview().listview("refresh");
         })
-        $('#ubmsuite_mcs_model_visual_content_physical_facilitiei_ul').listview("refresh");
-        $('#ubmsuite_modelSettings_myPhysicalFacilities_ul').listview("refresh");
+        $('#ubmsuite_mcs_model_visual_content_physical_facilitiei_ul').listview().listview().listview("refresh");
+        $('#ubmsuite_modelSettings_myPhysicalFacilities_ul').listview().listview().listview("refresh");
     });
     setTimeout(function() {
         $('#tiles').trigger('refreshWookmark'); //Layout items in Wookmark Grid
@@ -29,14 +29,14 @@ function getMyModelsPhysicalFacilities() { //Populates Customer  Listview on Mod
 }
 
 function getListofPossiblePhysicalFacilities() { //Populates Customer Listview on Possible Customers Popup
-    $.getJSON('http://api.universalbusinessmodel.com/ubm_modelcreationsuite_model_getAll_PhysicalFacilities.php?callback=?', { //JSONP Request
+    $.getJSON('http://api.universalbusinessmodel.com/ubms_modelcreationsuite_model_getAll_PhysicalFacilities.php?callback=?', { //JSONP Request
         key: window.key,
     }, function(res, status) {
         //						alert(status);
         $('#ubmsuite_modelSettings_physicalfacilities_popup_listview').empty();
         $.each(res, function(i, item) {
             $('#ubmsuite_modelSettings_physicalfacilities_popup_listview').append("<li><a href='#'><p style='white-space:normal;'>" + item.facility_title + "</p></a><a href='#' onclick='addPhysicalFacilitiesToMyModel(" + item.id + ")'>Add Physical Facility</a></li>");
-            $('#ubmsuite_modelSettings_physicalfacilities_popup_listview').listview("refresh");
+            $('#ubmsuite_modelSettings_physicalfacilities_popup_listview').listview().listview().listview("refresh");
         })
     });
 }
