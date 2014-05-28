@@ -58,15 +58,6 @@ dfn {
   font-style: italic;
 }
 
-hr {
-  display: block;
-  height: 1px;
-  border: 0;
-  border-top: 1px solid #cccccc;
-  margin: 20px 0;
-  padding: 0;
-}
-
 ins {
   background: #ffff99;
   color: black;
@@ -3236,6 +3227,15 @@ h5 {
 
 h6 {
   font-size: 100%;
+}
+
+hr {
+  display: block;
+  height: 1px;
+  border: 0;
+  border-top: 1px solid #e1e4e5;
+  margin: 24px 0;
+  padding: 0;
 }
 
 code, .rst-content tt {
