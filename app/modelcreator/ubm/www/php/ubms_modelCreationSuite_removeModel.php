@@ -38,11 +38,34 @@ if ($conn->query($sql2) === false) {
 } else {
     $affected_rows2 = $conn->affected_rows;
 }
-
-$sql = "UPDATE ubm_model SET Soft_DELETE='TRUE' WHERE creator_id='$username' AND id=$modelId";
-if ($conn->query($sql) === false) {
-    trigger_error('Wrong SQL: ' . $sql . ' Error: ' . $conn->error, E_USER_ERROR);
+//4. Check that the current user was the creator of the model being removed.
+$sqlsel = "SELECT * FROM ubm_model WHERE id=$modelId";
+$rs1 = $conn->query($sqlsel);
+if ($rs1 === false) {
+    trigger_error('Wrong SQL: ' . $sqlsel . ' Error: ' . $conn->error, E_USER_ERROR);
 } else {
-    $affected_rows = $conn->affected_rows;
-    echo $_GET['callback'] . '(' . "{'message' : 'The UUID of the model removed was $activeModelUUID, the id of the model was $modelId. The number of affected rows was $affected_rows! $affected_rows2 people were a part of this model and are now removed.'}" . ')';
+    if (mysqli_num_rows($rs1) > 0) {
+        while ($items = $rs1->fetch_assoc()) {
+           $creatorId = stripslashes($items['creator_id']);
+           if($creatorId==$username){
+            //5. If the user is not the creator of the model, set model soft deleted.
+                $sql = "UPDATE ubm_model SET Soft_DELETE='TRUE' WHERE creator_id='adamg' AND id=$modelId";
+                if ($conn->query($sql) === false) {
+                    trigger_error('Wrong SQL: ' . $sql . ' Error: ' . $conn->error, E_USER_ERROR);
+                } else {
+                    $affected_rows = $conn->affected_rows;
+                    echo $_GET['callback'] . '(' . "{'message' : 'The UUID of the model removed was $activeModelUUID, the id of the model was $modelId. The number of models that were removed: $affected_rows! $affected_rows2 people were a part of this model and are now removed.'}" . ')';
+                }
+           }else{
+                    echo $_GET['callback'] . '(' . "{'message' : 'Only the creator of a model can perform this action.'}" . ')';
+           }
+        }
+    }
+
 }
+
+
+
+
+
+
