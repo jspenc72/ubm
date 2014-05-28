@@ -1,43 +1,71 @@
  <?php
- $aname = $_GET['appname'];
- $RQType = $_GET['RQType'];
- $username = $_GET['username'];
- $usrpasswd = $_GET['password'];
-  require_once('ubms_db_config.php');
-			$sqllink = mysqli_connect("localhost","jessespe","Xfn73Xm0","jessespe_FindMyDriver"); 	//Define db Connection
-			/* check connection */
-			if (mysqli_connect_errno()) {
-			    printf("Connect failed: %s\n", mysqli_connect_error());
-			    exit();
-			}
-			$query = "SELECT * FROM `members` WHERE `username`='$username'";
-//			$query = "SELECT * FROM `members`";
-			//$result = $mysqli->query($query) or die($mysqli->error.__LINE__);
-			$result = mysqli_query($sqllink, $query);
-			// GOING THROUGH THE DATA
-				if($result->num_rows > 0) {
-					while($row = $result->fetch_assoc()) {
-						$returnuserpassword = stripslashes($row['password']);
-						$returnPasswordStatus = stripslashes($row['password_status']);
-						$returnActivationStatus = stripslashes($row['email_activation_status']);
-						$accounttype = stripslashes($row['account_type']);
-						$walkthrough = stripslashes($row['first_time_login']);
-						$termsOfService = stripslashes($row['agree_to_terms_of_service']);
-						$licenseAgreement = stripslashes($row['agree_to_license_agreement']);
-						if($returnuserpassword==md5($usrpasswd)){
-				         	echo $_GET['callback'] . '(' . "{'message' : 'Login successful for user $username $returnPasswordStatus','validation' : 'TRUE','accounttype' : '$accounttype', 'passwordStatus' : '$returnPasswordStatus', 'activationStatus' : '$returnActivationStatus', 'walkthrough' : '$walkthrough', 'licenseAgreement' : '$licenseAgreement', 'termsOfService' : '$termsOfService'}" . ')';
-//				         	echo $_GET['callback'] . '(' . "{'message' : 'Password Validated'}" . ')';
-						}else{
-				         	echo $_GET['callback'] . '(' . "{'message' : 'Login unsuccessful','validation' : 'FALSE'}" . ')';							
-						}
-//						echo stripslashes($row['username']);
-//						echo "</br>";	
-					}
-				}
-				else {
-				       echo $_GET['callback'] . '(' . "{'message' : 'Login unsuccessful, The Username you entered does not exist:','validation' : 'FALSE'}" . ')';							
-				}
-			/* close connection */
-			mysqli_close($sqllink);
+require_once ('globalGetVariables.php');
+require_once ('ubms_db_config.php');
+require_once ('DBConnect_UBMv1.php');
 
-  
+//Provides the variables used for UBMv1 database connection $conn
+$conn = new mysqli($DBServer, $DBUser, $DBPass, $DBName);
+
+// check connection
+if ($conn->connect_error) {
+    trigger_error('Database connection failed: ' . $conn->connect_error, E_USER_ERROR);
+}
+$v2 = "'" . $conn->real_escape_string($username) . "'";
+
+//Input Validation
+$all_items = array();
+if (!$username) {
+    echo $_GET['callback'] . '(' . "{'message' : 'You must enter a username.', 'validation' : '0'}" . ')';
+} else {
+    if (!$usrpasswd) {
+        echo $_GET['callback'] . '(' . "{'message' : 'You must enter a password.', 'validation' : '0'}" . ')';
+    } else {
+        
+        //SELECT
+        $sqlsel = "SELECT * FROM members WHERE username=$v2";
+        $rs = $conn->query($sqlsel);
+        if ($rs === false) {
+            trigger_error('Wrong SQL: ' . $sqlsel . ' Error: ' . $conn->error, E_USER_ERROR);
+        } else {
+            if (mysqli_num_rows($rs) > 0) {
+                while ($items = $rs->fetch_assoc()) {
+                    $password = stripslashes($items['password']);
+                    $passwordStatus = stripslashes($items['password_status']);
+                    $activationStatus = stripslashes($items['email_activation_status']);
+                    $accounttype = stripslashes($items['account_type']);
+                    $walkthrough = stripslashes($items['first_time_login']);
+                    $termsOfService = stripslashes($items['agree_to_terms_of_service']);
+                    $licenseAgreement = stripslashes($items['agree_to_license_agreement']);
+                }
+                if ($password != md5($usrpasswd)) {
+                    echo $_GET['callback'] . '(' . "{'message' : 'No account exists with that username or password. Click Register to create your free account.', 'validation' : '0'}" . ')';
+                } else {
+                    if ($passwordStatus != 1) {
+                        echo $_GET['callback'] . '(' . "{'message' : 'You must change your password.', 'validation' : 3}" . ')';
+                    } else {
+                        if ($activationStatus != 1) {
+                            echo $_GET['callback'] . '(' . "{'message' : 'You must verify your account.', 'validation' : 4}" . ')';
+                        } else {
+                            if ($termsOfService != 1) {
+                                echo $_GET['callback'] . '(' . "{'message' : 'You must agree to the Terms of Service.', 'validation' : 2}" . ')';
+                            } else {
+                                if ($licenseAgreement != 1) {
+                                    echo $_GET['callback'] . '(' . "{'message' : 'You must agree to the License Agreement.', 'validation' : 2}" . ')';
+                                } else {
+                                    if ($walkthrough != 1) {
+                                        echo $_GET['callback'] . '(' . "{'message' : 'You are a $accounttype.', 'validation' : 5, 'message2' : 'Welcome to a Better Way of Doing Things.'}" . ')';
+                                    } else {
+                                        echo $_GET['callback'] . '(' . "{'message' : 'Log in successful.', 'validation' : 1, 'message2' : 'You are a $accounttype.'}" . ')';
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            } else {
+                echo $_GET['callback'] . '(' . "{'message' : 'No account exists with that username or password. Click Register to create your free account.', 'validation' : '0'}" . ')';
+            }
+        }
+    }
+}
+
