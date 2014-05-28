@@ -1,4 +1,5 @@
 function removeModel() {
+    event.preventDefault();
     $.getJSON('http://api.universalbusinessmodel.com/ubms_modelCreationSuite_removeModel.php?callback=?', { //JSONP Request
         key: window.key,
         username: window.username,
