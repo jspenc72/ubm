@@ -1,11 +1,14 @@
 $(document).on("pageshow", "#creator_table_of_contents", function() {
     if (window.walkthrough == 0) {
-        setTimeout(function() {
-            introJs('#creator_table_of_contents').start();
-        }, 500);
+        introJs('#creator_table_of_contents').start();
     }
 });
-$(document).on("pageshow", "#ubmsuite_sharedModelDashboard", function() {
+$(document).on("pageshow", "#ubmsuite_modelDashboard", function() {
+    if (window.walkthrough == 0) {
+        setTimeout(function() {
+            introJs('#ubmsuite_modelDashboard').start();
+        }, 1000);
+    }
     setTimeout(function() {
         getModelCreationSuiteChecklistItems();
 
