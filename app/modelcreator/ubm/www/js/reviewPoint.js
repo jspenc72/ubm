@@ -84,8 +84,6 @@ function submitReviewPoint(popupid) {
             hideLoader();
             $().toastmessage('showNoticeToast', res.message);
             if (status == "success") {
-                alert("#" + popupid + "open_items_form");
-                alert("#" + popupid + "openItem_popup");
                 $("#" + popupid + "open_items_form").each(function() {
                     this.reset();
                     $("#" + popupid + "openItem_popup").popup("close");

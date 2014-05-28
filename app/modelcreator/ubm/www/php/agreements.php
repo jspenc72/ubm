@@ -1,8 +1,10 @@
 <?php
-require_once ('globalGetVariables.php');
-require_once ('ubms_db_config.php');
-require_once ('DBConnect_UBMv1.php');
 
+require_once ('globalGetVariables.php');
+//require_once ('ubms_db_config.php');
+require_once ('DBConnect_UBMv1.php');
+error_reporting(E_ALL);
+ini_set('display_errors', '1');
 $conn = new mysqli("localhost", "jessespe", "Xfn73Xm0", "jessespe_FindMyDriver");
 $conn2 = new mysqli($DBServer, $DBUser, $DBPass, $DBName);
 
@@ -11,7 +13,7 @@ if ($conn->connect_error) {
     trigger_error('Database connection failed: ' . $conn->connect_error, E_USER_ERROR);
 }
 
-$query = "SELECT * FROM `members` WHERE username='$username'";
+$query = "SELECT * FROM `members` WHERE username='$username'"; 
 $result = mysqli_query($conn, $query);
 if (!$result) {
     echo "error 1";
