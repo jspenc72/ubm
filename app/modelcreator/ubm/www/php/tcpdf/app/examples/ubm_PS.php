@@ -115,11 +115,7 @@ td {
 }
 </style>';
 $tbl_header = '
-<<<<<<< HEAD
-<table id="gallerytab" width="100%" cellspacing="0" cellpadding="2" border="0">
-=======
 <table id="gallerytab" width="100fixed merge conflict%" cellspacing="0" cellpadding="2" border="0">
->>>>>>> FETCH_HEAD
     <tr>
       <th colspan="2">Position Attributes</th>
     </tr>';
