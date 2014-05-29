@@ -3023,6 +3023,8 @@ select[disabled], textarea[disabled], input[readonly], select[readonly], textare
 
 .wy-table td p, .rst-content table.docutils td p, .rst-content table.field-list td p {
   line-height: 18px;
+}
+.wy-table td p:last-child, .rst-content table.docutils td p:last-child, .rst-content table.field-list td p:last-child {
   margin-bottom: 0;
 }
 
