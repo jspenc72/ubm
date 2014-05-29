@@ -20,6 +20,7 @@ function userSignIn() {
             if (res.validation == 1 || res.validation == 2 || res.validation == 3 || res.validation == 4 || res.validation == 5) {
                 $('#result').empty().append("<center><p style='background-color:black'>Performing your sign in request...</p></center>");
                 $("#draggable_circle_linkTo_openPointsPage").attr("href", "#open_points_action_items");
+                window.accounttype = res.accountType;
                 switch (res.validation) {
                     case 1:
                         $().toastmessage('showSuccessToast', res.message);

@@ -1,6 +1,6 @@
  <?php
 require_once ('globalGetVariables.php');
-require_once ('ubms_db_config.php');
+//require_once ('ubms_db_config.php');
 require_once ('DBConnect_UBMv1.php');
 
 //Provides the variables used for UBMv1 database connection $conn
@@ -38,24 +38,24 @@ if (!$username) {
                     $licenseAgreement = stripslashes($items['agree_to_license_agreement']);
                 }
                 if ($password != md5($usrpasswd)) {
-                    echo $_GET['callback'] . '(' . "{'message' : 'No account exists with that username or password. Click Register to create your free account.', 'validation' : '0'}" . ')';
+                    echo $_GET['callback'] . '(' . "{'message' : 'No account exists with that username or password. Click Register to create your free account.', 'validation' : '0', 'Account Type' : '$accounttype'}" . ')';
                 } else {
                     if ($passwordStatus != 1) {
-                        echo $_GET['callback'] . '(' . "{'message' : 'You must change your password.', 'validation' : 3}" . ')';
+                        echo $_GET['callback'] . '(' . "{'message' : 'You must change your password.', 'validation' : 3, 'Account Type' : '$accounttype'}" . ')';
                     } else {
                         if ($activationStatus != 1) {
-                            echo $_GET['callback'] . '(' . "{'message' : 'You must verify your account.', 'validation' : 4}" . ')';
+                            echo $_GET['callback'] . '(' . "{'message' : 'You must verify your account.', 'validation' : 4, 'Account Type' : '$accounttype'}" . ')';
                         } else {
                             if ($termsOfService != 1) {
-                                echo $_GET['callback'] . '(' . "{'message' : 'You must agree to the Terms of Service.', 'validation' : 2}" . ')';
+                                echo $_GET['callback'] . '(' . "{'message' : 'You must agree to the Terms of Service.', 'validation' : 2, 'Account Type' : '$accounttype'}" . ')';
                             } else {
                                 if ($licenseAgreement != 1) {
-                                    echo $_GET['callback'] . '(' . "{'message' : 'You must agree to the License Agreement.', 'validation' : 2}" . ')';
+                                    echo $_GET['callback'] . '(' . "{'message' : 'You must agree to the License Agreement.', 'validation' : 2, 'Account Type' : '$accounttype'}" . ')';
                                 } else {
                                     if ($walkthrough != 1) {
-                                        echo $_GET['callback'] . '(' . "{'message' : 'You are a $accounttype.', 'validation' : 5, 'message2' : 'Welcome to a Better Way of Doing Things.'}" . ')';
+                                        echo $_GET['callback'] . '(' . "{'message' : 'You are a $accounttype.', 'validation' : 5, 'message2' : 'Welcome to a Better Way of Doing Things.', 'Account Type' : '$accounttype'}" . ')';
                                     } else {
-                                        echo $_GET['callback'] . '(' . "{'message' : 'Log in successful.', 'validation' : 1, 'message2' : 'You are a $accounttype.'}" . ')';
+                                        echo $_GET['callback'] . '(' . "{'message' : 'Log in successful.', 'validation' : 1, 'message2' : 'You are a $accounttype.', 'Account Type' : '$accounttype'}" . ')';
                                     }
                                 }
                             }
