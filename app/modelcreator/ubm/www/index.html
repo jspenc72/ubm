@@ -1302,7 +1302,7 @@ under the License.
 						        });
 						});
 					});	
-				}, 2000);	
+				}, 1000);	
 	        }
         </script>
 		<!-- End Org Chart Functions -->
@@ -1868,7 +1868,7 @@ under the License.
                         My UBM Control Panel
                     </div>
                 </div>
-                <a href="#" data-icon="refresh" data-iconpos="notext" onclick="getMyModels();getSharedModels()">Refresh</a>
+                <a href="#" data-position="left" data-step='6' data-intro="The refresh button is found in this location on most pages of this app. Please use this refresh button instead of the browsers while this app is in development." data-icon="refresh" data-iconpos="notext" onclick="getMyModels();getSharedModels()">Refresh</a>
             </div>
             <div data-role="content">
                 <!-- Open Items Popup -->
@@ -2192,17 +2192,17 @@ under the License.
             <!-- No Panel on this page, instead only back button is needed.-->
             <div data-role="header" data-position="fixed" data-fullscreen="true">
                 <a href="#" class="back_btn" data-icon="arrow-l" data-iconpos="notext">Back</a>
-                <div id"ubmsuite_mcs_model_review_header_headerRecord_center" style="text-align: center">
-                    <div id="ubmsuite_mcs_model_review_header_headerRecord_center_legalentity">
+                <div id"ubmsuite_mcs_my_applications_header_headerRecord_center" style="text-align: center">
+                    <div id="ubmsuite_mcs_my_applications_header_headerRecord_center_legalentity">
                         Legal Entity: Business Model Consulting, LLC
                     </div>
-                    <div id="ubmsuite_mcs_model_review_header_headerRecord_center_systemtitle">
+                    <div id="ubmsuite_mcs_my_applications_header_headerRecord_center_systemtitle">
                         System Title: UBM Suite v 1.0
                     </div>
-                    <div id="ubmsuite_mcs_model_review_header_headerRecord_center_modelapptitle">
+                    <div id="ubmsuite_mcs_my_applications_header_headerRecord_center_modelapptitle">
                         Model / App Title: UBM Automator v3.3.1
                     </div>
-                    <div id="ubmsuite_mcs_model_review_header_headerRecord_center_pagetitle">
+                    <div id="ubmsuite_mcs_my_applications_header_headerRecord_center_pagetitle">
                         My Applications
                     </div>
                 </div>
@@ -2357,7 +2357,7 @@ under the License.
 									<!--<a href="#" class="btn-on">On</a><!-- Sign Out Button -- >
 								</div>-->
 							</div>
-							<div class="tabs">
+							<div class="tabs" data-step='1' data-intro="Clicking these tabs will show your progress for the current model.">
 								<div id="tab-1" class="tab">
 									<article>
 										<div class="text-section">
@@ -2421,11 +2421,11 @@ under the License.
 					<aside id="sidebar">
 						<ul class="tabset buttons">
 							<li class="active">
-								<a href="#tab-1" class="ico4" onclick="overview()"><span>Overview</span><em></em></a>
+								<a href="#tab-1" data-step='2' data-intro="This button used with the tabs will show you a progress overview of your current model" class="ico4" onclick="overview()"><span>Overview</span><em></em></a>
 								<span class="tooltip"><span>Checklist Completion Overview</span></span>
 							</li>
 							<li class="active">
-								<a href="#tab-1" class="ico6" onclick="summary()"><span>Model Summary</span><em></em></a>
+								<a href="#tab-1" class="ico6" data-step='3' data-intro='This button will give you a detailed list of what has and what has not been completed in each phase' onclick="summary()"><span>Model Summary</span><em></em></a>
 								<span class="tooltip"><span>Model Summary</span></span>
 							</li>
 						</ul>

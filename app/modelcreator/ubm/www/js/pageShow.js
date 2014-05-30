@@ -194,13 +194,15 @@ $(document).on("pageshow", "#ubmsuite_mcs_my_organizational_chart", function() {
     $('#chart').empty();
     getMyModelsOrgChart();
     getObjectsforBackboneTable();
-    walkthrough('ubmsuite_mcs_my_organizational_chart', function(status) {
-        if (status == 0) {
-            introJs('#ubmsuite_mcs_my_organizational_chart').start().oncomplete(function() {
-                setWalkthroughAsComplete('ubmsuite_mcs_my_organizational_chart');
-            });
-        }
-    });
+    setTimeout(function() {
+        walkthrough('ubmsuite_mcs_my_organizational_chart', function(status) {
+            if (status == 0) {
+                introJs('#ubmsuite_mcs_my_organizational_chart').start().oncomplete(function() {
+                    setWalkthroughAsComplete('ubmsuite_mcs_my_organizational_chart');
+                });
+            }
+        });
+    }, 500);
 });
 $(document).on("pageshow", "#possible_alternatives", function() {
     getMyModelsListofAlternatives();
