@@ -461,3 +461,6 @@ $usrname = $_GET['username'];
 $licenseAgreement = $_GET['licenseAgreement']; 
 $termsOfService = $_GET['termsOfService']; 
 
+
+//getwalkthroughstatus
+$pageName = $_GET['pageName']; 

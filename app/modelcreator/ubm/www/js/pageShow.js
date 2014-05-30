@@ -1,14 +1,13 @@
 $(document).on("pageshow", "#creator_table_of_contents", function() {
-    if (window.walkthrough == 0) {
-        introJs('#creator_table_of_contents').start();
-    }
+    walkthrough('creator_table_of_contents', function(status) {
+        if (status == 0) {
+            introJs('#creator_table_of_contents').start().oncomplete(function() {
+                setWalkthroughAsComplete('creator_table_of_contents');
+            });
+        }
+    });
 });
 $(document).on("pageshow", "#ubmsuite_modelDashboard", function() {
-    if (window.walkthrough == 0) {
-        setTimeout(function() {
-            introJs('#ubmsuite_modelDashboard').start();
-        }, 1000);
-    }
     setTimeout(function() {
         getModelCreationSuiteChecklistItems();
 
@@ -38,8 +37,22 @@ $(document).on("pageshow", "#ubmsuite_modelDashboard", function() {
         getListofPossibleFeatures();
         getListofPossibleOrganizationalStructures();
     }, 2000);
+    walkthrough('ubmsuite_modelDashboard', function(status) {
+        if (status == 0) {
+            introJs('#ubmsuite_modelDashboard').start().oncomplete(function() {
+                setWalkthroughAsComplete('ubmsuite_modelDashboard');
+            });
+        }
+    });
 });
 $(document).on("pageshow", "#ubmsuite_SelectBusinessModel", function() {
+    walkthrough('ubmsuite_SelectBusinessModel', function(status) {
+        if (status == 0) {
+            introJs('#ubmsuite_SelectBusinessModel').start().oncomplete(function() {
+                setWalkthroughAsComplete('ubmsuite_SelectBusinessModel');
+            });
+        }
+    });
     setTimeout(function() {
         getMyModels();
         getSharedModels();
@@ -48,12 +61,6 @@ $(document).on("pageshow", "#ubmsuite_SelectBusinessModel", function() {
             window.globalCounter++;
         }
     }, 1000);
-    if (window.walkthrough == 0) {
-
-        setTimeout(function() {
-            introJs('#ubmsuite_SelectBusinessModel').start();
-        }, 500);
-    }
 });
 $(document).on("pageshow", "#return_on_investment", function() {
     getListofAlternativesforReturnOnInvestment();
@@ -70,9 +77,23 @@ $(document).on("pageshow", "#return_on_investment", function() {
             getActiveInvestmentCostDrivers();
         }, 500);
     });
+    walkthrough('return_on_investment', function(status) {
+        if (status == 0) {
+            introJs('#return_on_investment').start().oncomplete(function() {
+                setWalkthroughAsComplete('return_on_investment');
+            });
+        }
+    });
 });
 $(document).on("pageshow", "#ubmsuite_mcs_model_review", function() {
     getModelSetupSummary(2);
+    walkthrough('ubmsuite_mcs_model_review', function(status) {
+        if (status == 0) {
+            introJs('#ubmsuite_mcs_model_review').start().oncomplete(function() {
+                setWalkthroughAsComplete('ubmsuite_mcs_model_review');
+            });
+        }
+    });
 });
 $(document).on("pageshow", "#ubmsuite_mcs_master_file_index", function() {
     getMasterFileIndexItems();
@@ -81,14 +102,13 @@ $(document).on("pageshow", "#ubmsuite_mcs_master_file_index", function() {
     }, 500);
 });
 $(document).on("pageshow", "#mcs_setup_checklist_setup", function() {
-    if (window.walkthrough == 0) {
-        setTimeout(function() {
+    walkthrough('mcs_setup_checklist_setup', function(status) {
+        if (status == 0) {
             introJs('#mcs_setup_checklist_setup').start().oncomplete(function() {
-                gettingStarted();
+                setWalkthroughAsComplete('mcs_setup_checklist_setup');
             });
-        }, 1000);
-    }
-
+        }
+    });
 });
 
 $(document).on("pageshow", "#gettingStarted", function() {
@@ -104,6 +124,13 @@ $(document).on("pageshow", "#open_points_action_items", function() {
     setTimeout(function() {
         refreshOpenItemsList();
     }, 1000);
+    walkthrough('open_points_action_items', function(status) {
+        if (status == 0) {
+            introJs('#open_points_action_items').start().oncomplete(function() {
+                setWalkthroughAsComplete('open_points_action_items');
+            });
+        }
+    });
 });
 $(document).on("pageshow", "#mcs_setup_checklist_p4_b1", function() {
     fillTodaysDate();
@@ -139,10 +166,16 @@ $(document).on("pageshow", "#risk_analysis", function() {
         }, 1000);
     });
 
-
     setTimeout(function() {
         getListofInvestmentsforRiskAnalysis();
     }, 10);
+    walkthrough('risk_analysis', function(status) {
+        if (status == 0) {
+            introJs('#risk_analysis').start().oncomplete(function() {
+                setWalkthroughAsComplete('risk_analysis');
+            });
+        }
+    });
 });
 
 $(document).on("pageshow", "#ubmsuite_mcs_my_organizational_chart", function() {
@@ -161,11 +194,25 @@ $(document).on("pageshow", "#ubmsuite_mcs_my_organizational_chart", function() {
     $('#chart').empty();
     getMyModelsOrgChart();
     getObjectsforBackboneTable();
+    walkthrough('ubmsuite_mcs_my_organizational_chart', function(status) {
+        if (status == 0) {
+            introJs('#ubmsuite_mcs_my_organizational_chart').start().oncomplete(function() {
+                setWalkthroughAsComplete('ubmsuite_mcs_my_organizational_chart');
+            });
+        }
+    });
 });
 $(document).on("pageshow", "#possible_alternatives", function() {
     getMyModelsListofAlternatives();
     getActiveAlternativeListofPros();
     getActiveAlternativeListofCons();
+    walkthrough('possible_alternatives', function(status) {
+        if (status == 0) {
+            introJs('#possible_alternatives').start().oncomplete(function() {
+                setWalkthroughAsComplete('possible_alternatives');
+            });
+        }
+    });
 });
 $(document).on("pageshow", "#ubmsuite_mcs_position_strategic_command_center", function() {
 
@@ -245,6 +292,13 @@ $(document).on("pageshow", "#projected_financial_statement", function() {
         setTimeout(function() {
             hideLoader();
         }, 2000);
+    });
+    walkthrough('projected_financial_statement', function(status) {
+        if (status == 0) {
+            introJs('#projected_financial_statement').start().oncomplete(function() {
+                setWalkthroughAsComplete('projected_financial_statement');
+            });
+        }
     });
 });
 $('.currency').keyup(function() {
@@ -338,6 +392,13 @@ $(document).on("pageshow", "#ubmsuite_modelSettings", function() {
         getListofPossibleFeatures();
         getListofPossibleOrganizationalStructures();
     }, 2000);
+    walkthrough('ubmsuite_modelSettings', function(status) {
+        if (status == 0) {
+            introJs('#ubmsuite_modelSettings').start().oncomplete(function() {
+                setWalkthroughAsComplete('ubmsuite_modelSettings');
+            });
+        }
+    });
 });
 $(document).on("pageshow", ".ubm_page", function() {
     PieMenuInit();

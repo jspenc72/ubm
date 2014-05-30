@@ -17,11 +17,13 @@ figure[data-type=video]
     margin: 0
 
   &.wy-figure-full
-    p
+    &:before
       position: relative
       padding-bottom: 51%
       width: 100%
       height: 0
+      content: ""
+      display: block
     iframe
       width: 100%
       height: 100%
@@ -186,5 +188,3 @@ figure:hover .wy-figure-controls
   figure[data-type=video] iframe
     width: 100% !important
     height: auto !important
-
-

@@ -1,5 +1,6 @@
  <?php
 require_once ('globalGetVariables.php');
+
 //require_once ('ubms_db_config.php');
 require_once ('DBConnect_UBMv1.php');
 
@@ -33,7 +34,6 @@ if (!$username) {
                     $passwordStatus = stripslashes($items['password_status']);
                     $activationStatus = stripslashes($items['email_activation_status']);
                     $accounttype = stripslashes($items['account_type']);
-                    $walkthrough = stripslashes($items['first_time_login']);
                     $termsOfService = stripslashes($items['agree_to_terms_of_service']);
                     $licenseAgreement = stripslashes($items['agree_to_license_agreement']);
                 }
@@ -52,11 +52,7 @@ if (!$username) {
                                 if ($licenseAgreement != 1) {
                                     echo $_GET['callback'] . '(' . "{'message' : 'You must agree to the License Agreement.', 'validation' : 2, 'Account Type' : '$accounttype'}" . ')';
                                 } else {
-                                    if ($walkthrough != 1) {
-                                        echo $_GET['callback'] . '(' . "{'message' : 'You are a $accounttype.', 'validation' : 5, 'message2' : 'Welcome to a Better Way of Doing Things.', 'Account Type' : '$accounttype'}" . ')';
-                                    } else {
-                                        echo $_GET['callback'] . '(' . "{'message' : 'Log in successful.', 'validation' : 1, 'message2' : 'You are a $accounttype.', 'Account Type' : '$accounttype'}" . ')';
-                                    }
+                                    echo $_GET['callback'] . '(' . "{'message' : 'Log in successful.', 'validation' : 1, 'message2' : 'You are a $accounttype.', 'Account Type' : '$accounttype'}" . ')';
                                 }
                             }
                         }

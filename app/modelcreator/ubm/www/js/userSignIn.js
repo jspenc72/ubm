@@ -17,38 +17,41 @@ function userSignIn() {
             $('#result').empty().append("<center><p style='background-color:black'>" + res.message + "</p></center>");
             document.getElementById("si_email").focus();
         } else {
-            if (res.validation == 1 || res.validation == 2 || res.validation == 3 || res.validation == 4 || res.validation == 5) {
+            if (res.validation != 0) {
                 $('#result').empty().append("<center><p style='background-color:black'>Performing your sign in request...</p></center>");
-                $("#draggable_circle_linkTo_openPointsPage").attr("href", "#open_points_action_items");
-                window.accounttype = res.accountType;
-                switch (res.validation) {
-                    case 1:
-                        $().toastmessage('showSuccessToast', res.message);
-                        $().toastmessage('showNoticeToast', res.message2);
-                        window.location = "#ubmsuite_SelectBusinessModel";
-                        break;
-                    case 2:
-                        $().toastmessage('showNoticeToast', res.message);
-                        window.location = "#license_agreement_verification";
-                        break;
-                    case 3:
-                        $().toastmessage('showNoticeToast', res.message);
-                        $("#initialChangePasssword").popup("open");
-                        break;
-                    case 4:
-                        $().toastmessage('showNoticeToast', res.message);
-                        window.location = "#account_verification";
-                        break;
-                    case 5:
-                        $().toastmessage('showSuccessToast', res.message);
-                        $().toastmessage('showNoticeToast', res.message2);
-                        window.walkthrough = 0;
-                        window.location = "#gettingStarted";
-                        break;
-                    default:
-                        $().toastmessage('showErrorToast', "Unknown Error");
-                        break;
-                }
+                walkthrough('ubmsuite_SelectBusinessModel', function(status) {
+                    var walkthroughStatus = status;
+                    $("#draggable_circle_linkTo_openPointsPage").attr("href", "#open_points_action_items");
+                    window.accounttype = res.accountType;
+                    switch (res.validation) {
+                        case 1:
+                            console.log(walkthroughStatus);
+                            $().toastmessage('showSuccessToast', res.message);
+                            $().toastmessage('showNoticeToast', res.message2);
+                            if (walkthroughStatus == 1) {
+                                window.location = "#ubmsuite_SelectBusinessModel";
+                            } else {
+                                window.location = "#gettingStarted";
+                            }
+                            break;
+                        case 2:
+                            $().toastmessage('showNoticeToast', res.message);
+                            window.location = "#license_agreement_verification";
+                            break;
+                        case 3:
+                            $().toastmessage('showNoticeToast', res.message);
+                            $("#initialChangePasssword").popup("open");
+                            break;
+                        case 4:
+                            $().toastmessage('showNoticeToast', res.message);
+                            window.location = "#account_verification";
+                            break;
+                        default:
+                            $().toastmessage('showErrorToast', "Unknown Error");
+                            break;
+                    }
+                });
+
             }
         }
     });
@@ -77,12 +80,24 @@ function submitNewPassword() {
     }
 }
 
-function gettingStarted() {
-    $.getJSON('http://api.universalbusinessmodel.com/ubms_GettingStarted.php?callback=?', {
+function walkthrough(pageName, cb) {
+    $.getJSON('http://api.universalbusinessmodel.com/getWalkthroughStatus.php?callback=?', {
         key: window.key,
         username: window.username,
+        pageName: pageName
     }, function(res, status) {
-        window.walkthrough = 1;
+        var walkthrough = res.status;
+        cb(walkthrough);
+    });
+
+}
+
+function setWalkthroughAsComplete(pageName) {
+    $.getJSON('http://api.universalbusinessmodel.com/setWalkthroughStatus.php?callback=?', {
+        key: window.key,
+        username: window.username,
+        pageName: pageName
+    }, function(res, status) {
 
     });
 }

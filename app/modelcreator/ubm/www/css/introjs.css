@@ -150,11 +150,12 @@
   white-space: nowrap;
   cursor: pointer;
   outline: none;
-  background-color: #ececec;
-  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#f4f4f4), to(#ececec));
-  background-image: -moz-linear-gradient(#f4f4f4, #ececec);
-  background-image: -o-linear-gradient(#f4f4f4, #ececec);
-  background-image: linear-gradient(#f4f4f4, #ececec);
+  background: -moz-linear-gradient(top, #ffffff 0%, #f1f1f1 37%, #e1e1e1 56%, #f6f6f6 100%); /* FF3.6+ */
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ffffff), color-stop(37%,#f1f1f1), color-stop(56%,#e1e1e1), color-stop(100%,#f6f6f6)); /* Chrome,Safari4+ */
+  background: -webkit-linear-gradient(top, #ffffff 0%,#f1f1f1 37%,#e1e1e1 56%,#f6f6f6 100%); /* Chrome10+,Safari5.1+ */
+  background: -o-linear-gradient(top, #ffffff 0%,#f1f1f1 37%,#e1e1e1 56%,#f6f6f6 100%); /* Opera 11.10+ */
+  background: -ms-linear-gradient(top, #ffffff 0%,#f1f1f1 37%,#e1e1e1 56%,#f6f6f6 100%); /* IE10+ */
+  background: linear-gradient(to bottom, #ffffff 0%,#f1f1f1 37%,#e1e1e1 56%,#f6f6f6 100%); /* W3C */
   -webkit-background-clip: padding;
   -moz-background-clip: padding;
   -o-background-clip: padding-box;
@@ -180,6 +181,7 @@
   background-image: -moz-linear-gradient(#ececec, #f4f4f4);
   background-image: -o-linear-gradient(#ececec, #f4f4f4);
   background-image: linear-gradient(#ececec, #f4f4f4);
+  text-decoration: none;
 }
 
 /* overrides extra padding on button elements in Firefox */
@@ -197,7 +199,6 @@
   -webkit-border-radius: 0.2em 0 0 0.2em;
   -moz-border-radius: 0.2em 0 0 0.2em;
   border-radius: 0.2em 0 0 0.2em;
-  border-right: none;
 }
 
 .introjs-nextbutton {
@@ -207,13 +208,7 @@
 }
 
 .introjs-disabled, .introjs-disabled:hover, .introjs-disabled:focus {
-  color: #9a9a9a;
-  border-color: #d4d4d4;
-  box-shadow: none;
-  cursor: default;
-  background-color: #f4f4f4;
-  background-image: none;
-  text-decoration: none;
+  display:none;
 }
 
 .introjs-bullets {

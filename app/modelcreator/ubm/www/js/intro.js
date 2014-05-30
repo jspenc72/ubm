@@ -35,7 +35,7 @@
             /* Previous button label in tooltip box */
             prevLabel: '&larr; Back',
             /* Skip button label in tooltip box */
-            skipLabel: 'Done',
+            skipLabel: 'Skip',
             /* Done button label in tooltip box */
             doneLabel: 'Done',
             /* Default tooltip box position */
@@ -656,14 +656,9 @@
             skipTooltipButton.innerHTML = this._options.skipLabel;
 
             skipTooltipButton.onclick = function() {
-                if (self._introItems.length - 1 == self._currentStep && typeof(self._introCompleteCallback) === 'function') {
+                if (typeof(self._introCompleteCallback) === 'function') {
                     self._introCompleteCallback.call(self);
                 }
-
-                if (self._introItems.length - 1 != self._currentStep && typeof(self._introExitCallback) === 'function') {
-                    self._introExitCallback.call(self);
-                }
-
                 _exitIntro.call(self, self._targetElement);
             };
 

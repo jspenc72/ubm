@@ -53,39 +53,3 @@ function checkConnection() {
         $(".offline").css("visibility", "hidden");
     }
 }
-$(document).on("pageshow", "#ubmsuite_modelDashboard", function() {
-    if (window.walkthrough == 0) {
-        setTimeout(function() {
-            introJs('#ubmsuite_modelDashboard').start();
-        }, 1000);
-    }
-    setTimeout(function() {
-        getModelCreationSuiteChecklistItems();
-
-    }, 100);
-    setTimeout(function() {
-        getMyModelsCoreValues();
-        getMyModelsCustomers();
-        getMyModelsProducts();
-
-
-        getListofPossibleCoreValues();
-        getListofPossibleCustomers();
-        getListofPossibleProducts();
-    }, 2000);
-    setTimeout(function() {
-        getMyModelsServices();
-        getMyModelsPhysicalFacilities();
-        getMyModelsStrategicAlliances();
-        getMyModelsStrategicPositioningQuestions();
-        getMyModelsFeatures();
-        getMyModelsOrganizationalStructures();
-
-        getListofPossibleServices();
-        getListofPossiblePhysicalFacilities();
-        getListofPossibleStrategicAlliances();
-        getListofPossibleStrategicPositioningQuestions();
-        getListofPossibleFeatures();
-        getListofPossibleOrganizationalStructures();
-    }, 2000);
-});
