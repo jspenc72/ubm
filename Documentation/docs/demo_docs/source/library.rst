@@ -7,16 +7,31 @@ Library
 =======
 
 .. meta::
-   :keywords: reStructuredText, demonstration, demo, parser
-   :description lang=en: A demonstration of the reStructuredText 
-       markup language, containing examples of all basic
-       constructs and many advanced constructs.
+   :keywords: javascript, css, library, functions
+   :description lang=en: A Library that contains all of the JavaScript and CSS
+   for the UBM app.
 
 .. contents:: Table of Contents
 .. section-numbering::
 
 JavaScript
 ==========
+
+activation.js
+--------------
+
+sendActivationEmail()
+~~~~~~~~~~~~~~~~~~~~~
+
+	Sends the activation email to the email address specified. This script is used in the verify account page.
+
+agreement.js
+--------------
+
+agreeToLicenseAgreement()
+~~~~~~~~~~~~~~~~~~~~~~~~~
+
+	Submits a 1 when the user agrees to the license agreement on the setup phase. Sets the prepared by button to prepared.
 
 alternative.js
 --------------

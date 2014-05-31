@@ -20,6 +20,7 @@ TABLE OF CONTENTS:
     ubmDataModel
     checklist_services
     library
+    pages
 
 Maaaaath!
 =========
