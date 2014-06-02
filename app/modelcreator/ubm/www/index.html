@@ -102,6 +102,7 @@ under the License.
 	    <link href="css/sign_in_sign_up/landing-page.css" rel="stylesheet">
 	    <link href="css/sign_in_sign_up/custom.css" rel="stylesheet">
 	    <link href="css/sign_in_sign_up/responsiveMobile.css" rel="stylesheet" media="screen and (max-width: 400px)">
+	    <link rel="stylesheet" href="css/form_progress_bar.css">
 	<!-- End Custom sign_in_sign_up page stuff -->
         <title>UBM</title>
 		<script>
@@ -1797,31 +1798,26 @@ under the License.
                     </form>
                 </div>
                 <!-- End Open Items Popup -->
-                <div class="ui-grid-a">
-                    <div class="ui-block-a" style="margin-top:5%;max-width:25%;padding-left:1%">
+                <div style="margin-top:5%;max-width:25%;padding-left:1%;margin-right:auto;margin-left:auto;">
 
-                        <select  id="ubmsuite_UserPreferences_selectCarrier" value="Select" data-native-menu="false" >
-                            <option>Choose Your Carrier</option>
-                            <option value="Verizon">Verizon</option>
-                            <option value="Sprint">Sprint</option>
-                            <option value="T-Mobile">T-Mobile</option>
-                            <option value="AT&T">AT&amp; T</option>
-                        </select>
-                        
-                        <input type="tel" data-clear-btn="false" name="tel-1" placeholder="10 Digit cell phone number" id="ubmsuite_UserPreferences_cell" value="">
-                        <h3 style="text-align:center">What is your name?</h1>
-                        <input type="text" placeholder="First Name" value=""> </input>
-                        <input type="text" placeholder="Last Name" value=""> </input>
-                        <button class="ui-btn ui-shadow ui-corner-all ui-btn-icon-left ui-icon-forward" onclick="updateUserPreferences()">
-                            Update
-                        </button>
-                    </div>
-                    <div class="ui-block-b">
-                        <div class="ui-block-a" style="margin-top:10%;float:right">
-                            <a href="#gettingStarted" class="ui-btn ui-icon-info ui-btn-icon-left ui-shadow-icon">Getting Started</a>
-                        </div>
-                    </div>
-                </div><!-- /grid-a -->
+                    <select  id="ubmsuite_UserPreferences_selectCarrier" value="Select" data-native-menu="false" >
+                        <option>Choose Your Carrier</option>
+                        <option value="Verizon">Verizon</option>
+                        <option value="Sprint">Sprint</option>
+                        <option value="T-Mobile">T-Mobile</option>
+                        <option value="AT&T">AT&amp; T</option>
+                    </select>
+                    
+                    <input type="tel" data-clear-btn="false" name="tel-1" placeholder="10 Digit cell phone number" id="ubmsuite_UserPreferences_cell" value="">
+                    <input type="text" placeholder="First Name" value=""> </input>
+                    <input type="text" placeholder="Last Name" value=""> </input>
+                    <button class="ui-btn ui-shadow ui-corner-all ui-btn-icon-left ui-icon-forward" onclick="updateUserPreferences()">
+                        Update
+                    </button>
+                </div>
+                <div style="margin-top:10%;float:right">
+                    <a href="#gettingStarted" class="ui-btn ui-icon-info ui-btn-icon-left ui-shadow-icon">Getting Started</a>
+                </div>
             </div>
             <div data-role="footer" data-position="fixed" data-fullscreen="true">
 
@@ -1868,7 +1864,7 @@ under the License.
                         My UBM Control Panel
                     </div>
                 </div>
-                <a href="#" data-position="left" data-step='6' data-intro="The refresh button is found in this location on most pages of this app. Please use this refresh button instead of the browsers while this app is in development." data-icon="refresh" data-iconpos="notext" onclick="getMyModels();getSharedModels()">Refresh</a>
+                <a href="#" data-position="left" data-step='2' data-intro="The refresh button is found in this location on most pages. Please use this refresh button instead of the browsers while this app is in development." data-icon="refresh" data-iconpos="notext" onclick="getMyModels();getSharedModels()">Refresh</a>
             </div>
             <div data-role="content">
                 <!-- Open Items Popup -->
@@ -1947,13 +1943,13 @@ under the License.
 	</ul> -->
   </div>
                 <div align="center">
-                    <a href="#popupParis" data-rel="popup" data-position-to="window" data-transition="fade" ><img data-step='1' data-position="left" data-intro='You will click here to see a visual representation of the creation suite.' src="img/03 UBM Flowchart.png" width="60" style="position:center; width:25%; height:;"></a>
+                    <a href="#popupParis" data-rel="popup" data-position-to="window" data-transition="fade" ><img data-step='1' data-position="left" data-intro='This is the visual representation of the creation suite.' src="img/03 UBM Flowchart.png" width="60" style="position:center; width:25%; height:;"></a>
                     <div data-role="popup" id="popupParis" data-overlay-theme="b" data-theme="a" data-corners="false">
                         <a href="#" data-rel="back" class="ui-btn ui-corner-all ui-shadow ui-btn-a ui-icon-delete ui-btn-icon-notext ui-btn-right">Close</a><img class="popphoto" src="img/03 UBM Flowchart.png" style="max-height:700px;" alt="UBM Flow Chart">
                     </div>
                 </div>
                 <div align="center">
-                    <a href="#ubmsuite_createModel_popup" data-rel="popup" data-step='2' data-intro='You will click here to create a new model.' data-role="button" data-inline="true"  >Create New Business Model</a>
+                    <a href="#ubmsuite_createModel_popup" data-rel="popup" data-step='5' data-intro='After clicking &quot;Done&quot; you will be able to get started on your model.' data-role="button" data-inline="true"  >Create New Business Model</a>
                     <a href="#ubmsuite_createModel_popup" data-rel="popup" data-role="button" data-inline="true" class="ui-disabled">Create New Project</a>
 
                 </div>
@@ -2067,7 +2063,7 @@ under the License.
 		                        </p></a>
 		                    </li>
 		                    <li>
-		                        <a href="#possible_alternatives" data-position="right" data-step='4' data-intro='You can create, modify and remove alternatives here.'> <img src="img/alternitives.jpg" class="ui-li-thumb"> <h2>Alternatives</h2>
+		                        <a href="#possible_alternatives" data-position="right"> <img src="img/alternitives.jpg" class="ui-li-thumb"> <h2>Alternatives</h2>
 		                        <p>
 		                            ROI, Risk Analysis, Project Financial Statement
 		                        </p>
@@ -2076,7 +2072,7 @@ under the License.
 		                        </p></a>
 		                    </li>
 		                    <li>
-		                        <a href="#creator_table_of_contents" data-position="left" data-step='2' data-intro='Click here to begin the creation of your model.'> <img src="img/modelcreation.png" class="ui-li-thumb"> <h2>Model Creation Suite</h2>
+		                        <a href="#creator_table_of_contents" data-position="left" data-step='6' data-intro='After clicking &quot;Done&quot; click here to begin the creation of your model.'> <img src="img/modelcreation.png" class="ui-li-thumb"> <h2>Model Creation Suite</h2>
 		                        <p>
 		                            Create your model.
 		                        </p>
@@ -2103,7 +2099,7 @@ under the License.
 		                        </p></a>
 		                    </li>
 		                    <li>
-		                        <a href="#ubmsuite_mcs_my_organizational_chart" data-position="right" data-step='3' data-intro='Positions, job descriptions, policies, procedures, steps and tasks that you have created can be viewed and modified here.'> <img src="img/orgChartIcon.jpg" class="ui-li-thumb"> <h2>Model Organizational Chart</h2>
+		                        <a href="#ubmsuite_mcs_my_organizational_chart" data-position="right" data-step='2' data-intro='Positions, job descriptions, policies, procedures, steps and tasks that you have created can be viewed and modified here.'> <img src="img/orgChartIcon.jpg" class="ui-li-thumb"> <h2>Model Organizational Chart</h2>
 		                        <p>
 		                            The Hiarchical View of Your model.
 		                        </p>
@@ -2112,7 +2108,7 @@ under the License.
 		                        </p></a>
 		                    </li>
 		                    <li>
-		                        <a href="#ubmsuite_mcs_model_visual" data-position="left" data-step='9' data-intro='Here you can view the visual representation of your model.'> <img src="img/model-visual.jpg" class="ui-li-thumb"> <h2>Model Visual</h2>
+		                        <a href="#ubmsuite_mcs_model_visual" data-position="left"> <img src="img/model-visual.jpg" class="ui-li-thumb"> <h2>Model Visual</h2>
 		                        <p>
 		                            The Visual Representation of Your Model
 		                        </p>
@@ -2139,7 +2135,7 @@ under the License.
 		                        </p></a>
 			                    </li>
 		                    <li>
-		                        <a href="#ubmsuite_modelSettings" data-position="right"data-step='12' data-intro='Change who has access to your model an other general settings here.'> <img src="img/gear.png" class="ui-li-thumb"> <h2>Model Settings</h2>
+		                        <a href="#ubmsuite_modelSettings" data-position="right" data-step='3' data-intro='Change who has access to your model and other general settings here.'> <img src="img/gear.png" class="ui-li-thumb"> <h2>Model Settings</h2>
 		                        <p>
 		                            Modify user access, Edit Model Properties, etc...
 		                        </p>
@@ -3693,8 +3689,8 @@ under the License.
                     <li>
                         <div class="GS">
                             Each item on every Table of Contents has two links, the reference link and the item link. </br>The <strong>Reference Link</strong> will take you to that section of the UBM Reference Manual</br>The <strong>Item Link</strong> will take you to that section of the UBM Suite.
-                            </br>In your <a href="#ubmsuite_table_of_contents">Universal Business Model Creation Suite</a> package you will see folders for the four major sections.</br></br>(I) Setup, </br>(II) Model Creator, </br>(III) App Store </br>(IV) External Developers Section. </br>(V) Internal Developers Section. </br></br>You will also see a table of contents after the folders.
-                            Open the <a href="#ubmsuite_table_of_contents">UBM Suite Table of Contents</a> and review. You will notice the four major sections are listed again on the table of contents.
+                            </br>In your Universal Business Model Creation Suite package you will see folders for the four major sections.</br></br>(I) Setup, </br>(II) Model Creator, </br>(III) App Store </br>(IV) External Developers Section. </br>(V) Internal Developers Section. </br></br>You will also see a table of contents after the folders.
+                            Open the <a href="#">UBM Suite Table of Contents</a> and review. You will notice the four major sections are listed again on the table of contents.
 
                             </p>
                         </div>
@@ -3703,7 +3699,7 @@ under the License.
                         <div class="GS">
                             The easiest way to begin is to start on the company (do not print yet). All of the table of contents and checklists have been linked to all the forms you need to complete.
                             </br>In your Universal Business Model Creation Suite package you will see folders for the four major sections.</br></br>(A) Model Creation, </br>(B) Source Model, </br>(C) Executable Model, and </br>(D) Operating Model. </br></br>You will also see a table of contents after the folders.
-                            <a href="#creator_table_of_contents">Open the Table of Contents</a> and review. You will notice the four major sections are listed again on the table of contents.
+                            Open the Table of Contents and review. You will notice the four major sections are listed again on the table of contents.
                             Under the (A) Model Creation section you will see a line referenced AMC. This is the checklist you will need to complete to have a functioning model.
                             Click the AMC Model Creation Suite Phases Checklist. Each step on the checklist has been linked to the correct document you need to complete to check off the step.
                             When you complete a step you need to initial and date the prepared by columns (located to the left of the steps).
@@ -4901,7 +4897,7 @@ under the License.
 				<div id="model_creation">
 					<h1>(A) Model Creation</h1>
 					<p>
-						<a href="#mcs_setup_checklist_setup" data-position="right" data-intro="This is your checklist. This is the next step.">Model Creation Suite Phases Checklist</a>
+						<a href="#mcs_setup_checklist_setup" data-position="right" data-intro="This is the Model Creation Suite checklist and the next step.">Model Creation Suite Phases Checklist</a>
 					</p>
 					<p>
 						<a href="#open_points_action_items" onClick="refreshOpenItemsList()">Open Points/Action Items</a>
@@ -5573,11 +5569,10 @@ under the License.
 							    <option value="Not a forseen use">Not a forseen use</option>
 							</select>
 							<a href="#" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-h" onclick="createNewAlternative()" >Create This Alternative!</a>
-							<input type="button" id="possible_alternatives_alternativeDescription_nextStep_button" name="next" disabled="true"  class="next action-button" value="Next Step" />
+							<input type="button" id="possible_alternatives_alternativeDescription_nextStep_button" name="next" class="ui-button-disabled ui-state-disabled next action-button" value="Next Step" />
 						</fieldset>
 						<fieldset>
 							<h2 class="fs-title">Select an alternative below and add all known pros.</h2>
-							<h3 class="fs-subtitle">...</h3>
 							<textarea name="possible_alternatives_alternativeProsDescription" id="possible_alternatives_alternativeProDescription" placeholder="Pro Description"></textarea>
 								  <label for="possible_alternatives_pro_monetary_gain_input">Est Monitary Benefit: </label>
 								  <input type="text" id="possible_alternatives_pro_monetary_gain_input" style="border:0; color:#190773; font-weight:bold;">
@@ -5593,7 +5588,6 @@ under the License.
 						</fieldset>
 						<fieldset>
 							<h2 class="fs-title">Select an alternative below and add all known cons.</h2>
-							<h3 class="fs-subtitle">...</h3>
 							<textarea name="possible_alternatives_alternativeConsDescription" id="possible_alternatives_alternativeConDescription" placeholder="Con Description"></textarea>
 							<label for="possible_alternatives_con_monetary_cost_input">Est Monitary Cost: </label>
 							<input type="text" id="possible_alternatives_con_monetary_cost_input" style="border:0; color:#190773; font-weight:bold;">
@@ -5662,9 +5656,9 @@ under the License.
 						</table>
 				    </div>
 				</fieldset>	
-				<link rel="stylesheet" href="css/form_progress_bar.css">
+				
 
-				<script src="js/form_progress_bar.js"
+				<script src="js/form_progress_bar.js"</script>
 				<!-- jQuery easing plugin -->
 				<script src="js/jquery.easing.min.js" type="text/javascript"></script>
 
@@ -6540,12 +6534,12 @@ under the License.
 							<th data-priority="6"><h4>FRB </br>Date</h4></th>
 							<th data-priority="7"><h4>RB</h4></th>
 							<th data-priority="7"><h4>RB </br>Date</h4></th>
-							<th data-position='left' data-step='2' data-intro='Click on the red minus when you have completed a step to mark it as completed.' data-priority="8"><h4>PB</h4></th>
+							<th data-position='left' data-step='2' data-intro='After completing each step click the red minus to mark it as complete.' data-priority="8"><h4>PB</h4></th>
 							<th data-priority="8"><h4>PB </br>Date</h4></th>
 							<th data-priority="1"><h4>MFI </br>Expl Ref</h4></th>
 							<th data-priority="1"><h4>MFI Template / Process Ref</h4></th>
 							<th data-priority="1"><h4>Source Model </br>MFI Ref</h4></th>
-							<th data-position='left' data-step='1' data-intro='Click on the first step to get started.' data-priority="10"><h4>Instruction Detail</h4></th>
+							<th data-position='left' data-step='3' data-intro='Completing these steps will help you build your business model. Click &quot;Done&quot; and click the first step to get started.' data-priority="10"><h4>Instruction Detail</h4></th>
 							<th data-priority="1"><h4>Budget </br>Hours</h4></th>
 							<th data-priority="1"><h4>Actual </br>Hours</h4></th>
 							<th data-priority="1"><h4>Review </br>Time</h4></th>
@@ -6560,7 +6554,7 @@ under the License.
 			</div><!-- /content -->
 			<div data-role="footer" data-fullscreen="true" data-position="fixed">
 				<div align="center">
-					<div data-role="controlgroup" data-type="horizontal" data-mini="true">
+					<div data-role="controlgroup" data-type="horizontal" data-mini="true" data-step='1' data-intro="You can navigate between different phases using these buttons.">
 						<a href="#mcs_setup_checklist_setup" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-grid ui-btn-b ui-btn-active">Setup</a>
 						<a href="#mcs_setup_checklist_CS" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-grid ui-btn-b">Control </a>
 						<a href="#mcs_setup_checklist_p1" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-grid ui-btn-b">Phase 1</a>
@@ -14177,7 +14171,6 @@ under the License.
                             </tr>
                         </thead>
                         <tbody id="mcs_setup_checklist_p8_mfi_table_body">
-                            <!-- <tr ><th class="label">Photo</th><td>a</td><td>b</td><td>c</td><td>d</td><td>e</td><td>f</td><td>g</td><td>h</td><td>i</td><td>j</td><td>k</td><td>l</td><td>m</td><td>n</td></tr> -->
                         </tbody>
                     </table>
                 </div>
