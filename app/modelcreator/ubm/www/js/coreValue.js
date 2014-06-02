@@ -3,6 +3,7 @@ function setActiveCoreValueId(activeCoreValueId) {
 }
 //Model Core Values
 function getMyModelsCoreValues() {
+    showLoader();
     $.getJSON('http://api.universalbusinessmodel.com/ubms_modelcreationsuite_model_getCurrentModel_CoreValues.php?callback=?', { //JSONP Request
         username: window.username,
         key: window.key,
@@ -19,14 +20,13 @@ function getMyModelsCoreValues() {
             //$('#ubmsuite_mcs_model_visual_content_core_values_ul').listview().listview("refresh");
             $('#ubmsuite_modelSettings_myCoreValues_ul').append("<li><a data-mini='true' href='#'><h2 style='white-space:normal;'>" + item.value_title + "</h2><p style='white-space:normal;'>" + item.value_summary + "</p></a><a href='#ubmsuite_modelSettings_confirm_remove_CoreValue_popup' data-mini='true' data-rel='popup' data-position-to='window' data-transition='pop' onclick='setActiveCoreValueId(" + item.id + ")'>Remove Core Value</a></li>");
             $('#ubmsuite_modelSettings_myCoreValues_ul').listview().listview().listview("refresh");
-        })
+        });
         $('#ubmsuite_modelSettings_myCoreValues_ul').listview().listview().listview("refresh");
         $('#ubmsuite_mcs_model_visual_content_core_values_ul').listview().listview().listview("refresh");
-    });
-    setTimeout(function() {
+        getMyModelsCustomers();
         $('#tiles').trigger('refreshWookmark'); //Layout items in Wookmark Grid
-    }, 1000);
-
+    });
+    getListofPossibleCoreValues();
 }
 
 function getListofPossibleCoreValues() { //Populates Core Value Listview on Possible CoreValue Popup

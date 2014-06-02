@@ -18,11 +18,12 @@ function getMyModelsFeatures() { //Populates Customer  Listview on Model Setting
             //$('#ubmsuite_mcs_model_visual_content_features_ul').listview().listview("refresh");
             $('#ubmsuite_modelSettings_myFeatures_ul').append("<li><a href='#'> <h2 style='white-space:normal;'>" + item.feature_title + "</h2><p>" + item.feature_description + "</p></a><a href='#ubmsuite_modelSettings_confirm_remove_Feature_popup' data-rel='popup' data-position-to='window' data-transition='pop' onclick='setActiveFeatureId(" + item.id + ")'>Remove Feature</a></li>");
             $('#ubmsuite_modelSettings_myFeatures_ul').listview().listview().listview("refresh");
-        })
+        });
         $('#ubmsuite_mcs_model_visual_content_features_ul').listview().listview().listview("refresh");
         $('#ubmsuite_modelSettings_myFeatures_ul').listview().listview().listview("refresh");
+        getMyModelsOrganizationalStructures();
     });
-    $('#tiles').trigger('refreshWookmark'); //Layout items in Wookmark Grid
+    getListofPossibleFeatures();
 }
 
 function getListofPossibleFeatures() { //Populates Customer Listview on Possible Customers Popup

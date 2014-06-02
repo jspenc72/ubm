@@ -20,14 +20,12 @@ function getMyModelsProducts() { //Populates Customer  Listview on Model Setting
             $('#ubmsuite_modelSettings_myProducts_ul').append("<li><a href='#'> <h2 style='white-space:normal;'>" + item.title + "</h2><p>" + item.id + "</p></a><a href='#ubmsuite_modelSettings_confirm_remove_Product_popup' data-rel='popup' data-position-to='window' data-transition='pop' onclick='setActiveProductId(" + item.id + ")'>Remove Product</a></li>");
             $('#ubmsuite_modelSettings_myProducts_ul').listview().listview().listview("refresh");
 
-        })
+        });
         $('#ubmsuite_mcs_model_visual_content_products_ul').listview().listview().listview("refresh");
         $('#ubmsuite_modelSettings_myProducts_ul').listview().listview().listview("refresh");
+        getMyModelsServices();
     });
-
-    setTimeout(function() {
-        $('#tiles').trigger('refreshWookmark'); //Layout items in Wookmark Grid
-    }, 1000);
+    getListofPossibleProducts();
 }
 
 function getListofPossibleProducts() { //Populates Customer Listview on Possible Customers Popup

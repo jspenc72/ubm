@@ -8,35 +8,8 @@ $(document).on("pageshow", "#creator_table_of_contents", function() {
     });
 });
 $(document).on("pageshow", "#ubmsuite_modelDashboard", function() {
-    setTimeout(function() {
-        getModelCreationSuiteChecklistItems();
+    getModelCreationSuiteChecklistItems();
 
-    }, 100);
-    setTimeout(function() {
-        getMyModelsCoreValues();
-        getMyModelsCustomers();
-        getMyModelsProducts();
-
-
-        getListofPossibleCoreValues();
-        getListofPossibleCustomers();
-        getListofPossibleProducts();
-    }, 2000);
-    setTimeout(function() {
-        getMyModelsServices();
-        getMyModelsPhysicalFacilities();
-        getMyModelsStrategicAlliances();
-        getMyModelsStrategicPositioningQuestions();
-        getMyModelsFeatures();
-        getMyModelsOrganizationalStructures();
-
-        getListofPossibleServices();
-        getListofPossiblePhysicalFacilities();
-        getListofPossibleStrategicAlliances();
-        getListofPossibleStrategicPositioningQuestions();
-        getListofPossibleFeatures();
-        getListofPossibleOrganizationalStructures();
-    }, 2000);
     walkthrough('ubmsuite_modelDashboard', function(status) {
         if (status == 0) {
             introJs('#ubmsuite_modelDashboard').start().oncomplete(function() {
@@ -55,7 +28,6 @@ $(document).on("pageshow", "#ubmsuite_SelectBusinessModel", function() {
     });
     setTimeout(function() {
         getMyModels();
-        getSharedModels();
         while (window.globalCounter == 0) {
             greetUser();
             window.globalCounter++;
@@ -369,31 +341,7 @@ $(document).on("pageshow", "#ubmsuite_modelSettings", function() {
             handle: "h1"
         });
     }, 2000);
-    setTimeout(function() {
-        getMyModelsCoreValues();
-        getMyModelsCustomers();
-        getMyModelsProducts();
-
-
-        getListofPossibleCoreValues();
-        getListofPossibleCustomers();
-        getListofPossibleProducts();
-    }, 2000);
-    setTimeout(function() {
-        getMyModelsServices();
-        getMyModelsPhysicalFacilities();
-        getMyModelsStrategicAlliances();
-        getMyModelsStrategicPositioningQuestions();
-        getMyModelsFeatures();
-        getMyModelsOrganizationalStructures();
-
-        getListofPossibleServices();
-        getListofPossiblePhysicalFacilities();
-        getListofPossibleStrategicAlliances();
-        getListofPossibleStrategicPositioningQuestions();
-        getListofPossibleFeatures();
-        getListofPossibleOrganizationalStructures();
-    }, 2000);
+    getMyModelsCoreValues();
     walkthrough('ubmsuite_modelSettings', function(status) {
         if (status == 0) {
             introJs('#ubmsuite_modelSettings').start().oncomplete(function() {

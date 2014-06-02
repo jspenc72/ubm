@@ -21,10 +21,10 @@ function getMyModelsOrganizationalStructures() { //Populates Customer  Listview 
         })
         $('#ubmsuite_mcs_model_visual_content_contact_ul').listview().listview("refresh");
         $('#ubmsuite_modelSettings_myOrganizationalStructure_ul').listview().listview("refresh");
+        hideLoader();
     });
-    setTimeout(function() {
-        $('#tiles').trigger('refreshWookmark'); //Layout items in Wookmark Grid
-    }, 1000);
+
+    getListofPossibleOrganizationalStructures();
 }
 
 function getListofPossibleOrganizationalStructures() { //Populates Customer Listview on Possible Customers Popup
