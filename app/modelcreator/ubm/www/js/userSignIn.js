@@ -26,8 +26,6 @@ function userSignIn() {
                     switch (res.validation) {
                         case 1:
                             console.log(walkthroughStatus);
-                            $().toastmessage('showSuccessToast', res.message);
-                            $().toastmessage('showNoticeToast', res.message2);
                             if (walkthroughStatus == 1) {
                                 window.location = "#ubmsuite_SelectBusinessModel";
                             } else {

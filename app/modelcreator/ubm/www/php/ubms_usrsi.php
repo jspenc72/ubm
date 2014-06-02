@@ -52,7 +52,7 @@ if (!$username) {
                                 if ($licenseAgreement != 1) {
                                     echo $_GET['callback'] . '(' . "{'message' : 'You must agree to the License Agreement.', 'validation' : 2, 'Account Type' : '$accounttype'}" . ')';
                                 } else {
-                                    echo $_GET['callback'] . '(' . "{'message' : 'Log in successful.', 'validation' : 1, 'message2' : 'You are a $accounttype.', 'Account Type' : '$accounttype'}" . ')';
+                                    echo $_GET['callback'] . '(' . "{'validation' : 1, 'Account Type' : '$accounttype'}" . ')';
                                 }
                             }
                         }
