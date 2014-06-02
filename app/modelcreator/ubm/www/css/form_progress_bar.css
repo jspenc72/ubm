@@ -78,7 +78,7 @@
 }
 #progressbar li {
 	list-style-type: none;
-	color: white;
+	color: #0000;
 	text-transform: uppercase;
 	font-size: 9px;
 	width: 33.33%;

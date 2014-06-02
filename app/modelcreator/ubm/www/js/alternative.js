@@ -154,6 +154,8 @@ function getActiveAlternativeListofPros() {
             $('#possible_alternitives_pros_table_body').append("<tr><td>" + item.id + "<a href='#' onclick='setActiveAlternativePro(" + item.id + ")' class='ui-btn ui-icon-tag ui-btn-icon-notext ui-corner-all'>No text</a></td><td>" + item.description + "</td><td><input class='high_col_num' value = '" + item.benefit_high + "'/></td><td><input class='low_col_num' value = '" + item.benefit_low + "'/></td></tr>");
             $("#possible_alternitives_pros_table").table("refresh");
         });
+        $('#possible_alternitives_pros_table_body').append("<tr><td><a href='#' class='ui-btn ui-icon-plus ui-btn-icon-notext ui-corner-all'></a></td><td colspan='3'><p>Add a new Pro</p></td></tr>");
+        $("#possible_alternitives_pros_table").table("refresh");
     });
 }
 
@@ -175,7 +177,8 @@ function getActiveAlternativeListofCons() {
             $('#possible_alternitives_cons_table_body').append("<tr><td>" + item.id + "<a href='#' onclick='setActiveAlternativeCon(" + item.id + ")' class='ui-btn ui-icon-tag ui-btn-icon-notext ui-corner-all'>No text</a></td><td>" + item.description + "</td><td><input class='high_col_num' value = '" + item.cost_low + "'/></td><td><input class='low_col_num' value = '" + item.cost_high + "'/></td></tr>");
             $("#possible_alternitives_cons_table").table("refresh");
         });
-
+        $('#possible_alternitives_cons_table_body').append("<tr><td><a href='#' class='ui-btn ui-icon-plus ui-btn-icon-notext ui-corner-all'></a></td><td colspan='3'><p>Add a new Con</p></td></tr>");
+        $("#possible_alternitives_cons_table").table("refresh");
     });
 }
 
@@ -191,7 +194,6 @@ function createNewAlternative() {
         if (status == "success") {
             setTimeout(function() {
                 $('#possible_alternatives_alternativeDescription').val('');
-                $("#possible_alternatives_alternativeDescription_nextStep_button").removeAttr("disabled");
                 $("#possible_alternatives_alternativeDescription_nextStep_button").removeClass("ui-button-disabled ui-state-disabled")
                 getMyModelsListofAlternatives();
                 hideLoader();
@@ -259,4 +261,13 @@ function removeAlternativefromModel(activeAlternativeId) {
 
 function saveAlternativeAnalysis() {
     $().toastmessage('showNoticeToast', 'alternative analysis will be save to this model.');
+}
+
+function goToAddPro() {
+    window.scrollTo(0, 0);
+
+}
+
+function goToAddCon() {
+    window.scrollTo(0, 0);
 }
