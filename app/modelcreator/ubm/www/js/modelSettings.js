@@ -49,24 +49,15 @@ function getMyModels() { //Get all models in database where current user is the 
             $('#ubmsuite_SelectBusinessModel_MyModels_ul').append("<li id='creator_name_list_divider' data-role='list-divider' >Model Contact: " + item.model_contact_name + "</li>");
             $('#ubmsuite_SelectBusinessModel_MyModels_ul').append("<li><a href='#ubmsuite_modelDashboard' onclick='setActiveModel(" + item.UUID + ")'></br></br></br><h2 style='white-space:normal;'>Title: " + item.title + "</h2><p><strong>Model Reference: " + item.reference + "</strong></p><p style='white-space:normal;'>" + item.description + "</p><p class='ui-li-aside'>Creation Date:</br> <strong>" + item.created_date + "</strong></p></a></li>");
             $('#ubmsuite_SelectBusinessModel_MyModels_ul').listview().listview().listview("refresh");
-            $(".model_listItem").hover(
-                function() {
-                    //alert("Hover over model.");
-                    //$(this).addClass("hover");
-                    setActiveModel(item.UUID);
-                    //alert(window.activeModelUUID);
-                }, function() {
-                    // alert("Hover over model end");
-                    //$( this ).removeClass( "hover" );
-                }
-            );
-        })
+            $(".model_listItem").hover();
+        });
+        getSharedModels();
     });
-    hideLoader();
+
+
 }
 
 function getSharedModels() { //Get all models in database where current user is the creator.
-    showLoader();
     $.getJSON('http://api.universalbusinessmodel.com/ubms_modelcreationsuite_getSharedModels.php?callback=?', { //JSONP Request
         username: window.username,
         key: window.key
@@ -80,9 +71,9 @@ function getSharedModels() { //Get all models in database where current user is 
                 $('#ubmsuite_SelectBusinessModel_SharedModels_ul').append("<li><a href='#ubmsuite_modelDashboard' onclick='setActiveModel(" + item.UUID + ")'></br></br></br><h2 style='white-space:normal;'>Title: " + item.title + "</h2><p><strong>Model Reference: " + item.reference + "</strong></p><p style='white-space:normal;'>" + item.description + "</p><p class='ui-li-aside'>Creation Date:</br> <strong>" + item.created_date + "</strong></p></a></li>");
                 $('#ubmsuite_SelectBusinessModel_SharedModels_ul').listview().listview().listview("refresh");
             }
-        })
+        });
+        hideLoader();
     });
-    hideLoader();
 }
 
 function model_getuserswithaccess() {
