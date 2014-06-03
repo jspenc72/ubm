@@ -14,9 +14,7 @@ $rs1=$conn->query($sqlsel);
 // Extend the TCPDF class to create custom Header and Footer
 class MYPDF extends TCPDF {
     //Page header
-
     public function Header() {
-        $myDocWidth = $this->getPageWidth(1);
         // Logo
         $image_file = K_PATH_IMAGES.'logo_example.jpg';
         $this->Image($image_file, 10, 10, 15, '', 'JPG', '', 'T', false, 300, '', false, false, 0, false, false, false);
@@ -24,72 +22,22 @@ class MYPDF extends TCPDF {
         $this->SetFont('helvetica', 'B', 20);
         // Title
         $this->SetXY(15, 5);
-        //$this->Cell(0, 10, 'Legal Entity :', 0, false, 'C', 0, '', 0, false, 'M', 'M');
-        //$this->SetXY(15, 15);
-        //$this->Cell(0, 10, 'System Title :', 0, false, 'C', 0, '', 0, false, 'M', 'M');
-        //$this->SetXY(15, 25);
-        //$this->Cell(0, 10, 'App Title :', 0, false, 'C', 0, '', 0, false, 'M', 'M');
-        //$this->SetXY(15, 35);
-        //$this->Cell(0, 10, 'Position Title :', 0, false, 'C', 0, '', 0, false, 'M', 'M');
-            $this->writeHTMLCell(40, 5, 85, '', "<style>p{   
-             font-size: 12px;
-             color: #000000;
-             padding: 3px 7px 2px;
-             text-align: center;
-           }</style><p>Legal Entity: </p></br><p>System Title: </p></br><p>App Title: </p><p>Position Title: </p>", 0, 0, false, false, C, true);
-            $this->SetFontSize(12,false);
-            $myDocPage = $this->getAliasNumPage();
-            $myDocPages = $this->getAliasNbPages();
-            $this->writeHTMLCell(40, 5, 155, '', "<style>
-           p{    
-             font-size: 12px;
-             color: #000000;
-             padding: 3px 7px 2px;
-             text-align: right;
-           }
-           h5{
-             color: #FF0000;
-             text-align: right;
-           }
-           </style>
-           <p>Packet Ref #: </p></br><p>MFI #: </p></br><h5>$myDocPage of $myDocPages</h5>", 1, 0, false, false, R, true);
-
+        $this->Cell(0, 10, 'Legal Entity :', 0, false, 'C', 0, '', 0, false, 'M', 'M');
+        $this->SetXY(15, 15);
+        $this->Cell(0, 10, 'System Title :', 0, false, 'C', 0, '', 0, false, 'M', 'M');
+        $this->SetXY(15, 25);
+        $this->Cell(0, 10, 'App Title :', 0, false, 'C', 0, '', 0, false, 'M', 'M');
+        $this->SetXY(15, 35);
+        $this->Cell(0, 10, 'Position Title :', 0, false, 'C', 0, '', 0, false, 'M', 'M');
     }
     // Page footer
     public function Footer() {
         // Position at 15 mm from bottom
-        $this->SetXY(15, -50);
+        $this->SetY(-15);
         // Set font
-        $this->SetFont('dejavusans', 'B', 10);
-
-        $this->SetXY(15, -15);
-        $this->Cell(0, 10, 'Destination Model Object String Ref #:_____', 0, false, 'L', 0, '', 0, false, 'M', 'M');
-        $this->SetXY(15, -20);
-        $this->Cell(0, 10, 'BM Ref Manual #_____', 0, false, 'L', 0, '', 0, false, 'M', 'M');
-        $this->SetXY(15, -25);
-        $this->Cell(0, 10, 'BM Revision Date:_____', 0, false, 'L', 0, '', 0, false, 'M', 'M');
-        $this->SetXY(15, -30);
-        $this->Cell(0, 10, 'UBM Ref Manual # ', 0, false, 'L', 0, '', 0, false, 'M', 'M');
-        $this->SetXY(55, -30);
-        $this->Cell(0, 10, '01.02.01.05', 0, false, 'L', 0, '', 0, false, 'M', 'M');
-        $this->SetXY(15, -35);
-        $this->Cell(0, 10, 'UBM Revision Date: 4/25/2014', 0, false, 'L', 0, '', 0, false, 'M', 'M');
-        $this->SetXY(15, -10);
-        $this->SetFont('times', 'I', 10);
-        $this->Cell(0, 10, 'Business Model Consulting LLC © 2014', 0, false, 'L', 0, '', 0, false, 'M', 'M');
-        $this->SetFont('dejavusans', 'B', 10);
-        $this->SetXY(155, -25);
-        $this->Cell(0, 10, 'App ID____ App User License #____', 0, false, 'R', 0, '', 0, false, 'M', 'M');
-        $this->SetXY(155, -20);
-        $this->Cell(0, 10, 'CC:____', 0, false, 'R', 0, '', 0, false, 'M', 'M');
-        $this->SetXY(155, -15);
-        $this->Cell(0, 10, 'UBM V # 1.6', 0, false, 'R', 0, '', 0, false, 'M', 'M');
-        $this->SetXY(155, -10);
-        $this->Cell(0, 10, 'BM V #____', 0, false, 'R', 0, '', 0, false, 'M', 'M');
-
-
+        $this->SetFont('dejavusans', 'I', 10);
         // Page number
-        //$this->Cell(0, 10, 'Page '.$this->getAliasNumPage().'/'.$this->getAliasNbPages(), 0, false, 'C', 0, '', 0, false, 'T', 'M');
+        $this->Cell(0, 10, 'Page '.$this->getAliasNumPage().'/'.$this->getAliasNbPages(), 0, false, 'C', 0, '', 0, false, 'T', 'M');
     }
 }
 
@@ -98,10 +46,10 @@ $pdf = new MYPDF('p', PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
 
 // set document information
 $pdf->SetCreator(PDF_CREATOR);
-$pdf->SetAuthor('Jesse Spencer');
-$pdf->SetTitle('Position Product Template');
+$pdf->SetAuthor('Adam Gustafson');
+$pdf->SetTitle('Hierarchical Objects');
 $pdf->SetSubject('Subject');
-$pdf->SetKeywords('PS, Position, UBM');
+$pdf->SetKeywords('PS, Position, UBM, Hierarchical, Objects');
 
 // set default header data
 $pdf->SetHeaderData(PDF_HEADER_LOGO, PDF_HEADER_LOGO_WIDTH, PDF_HEADER_TITLE, PDF_HEADER_STRING);
@@ -167,14 +115,13 @@ td {
 }
 </style>';
 $tbl_header = '
-<table id="gallerytab" width="100%" cellspacing="0" cellpadding="2" border="0">
+<table id="gallerytab" width="100fixed merge conflict%" cellspacing="0" cellpadding="2" border="0">
     <tr>
       <th colspan="2">Position Attributes</th>
     </tr>';
 $tbl_footer = '</table>';
 $tableVar = ''; 
 $myDocWidth = $pdf->getPageWidth(1);
-
 if($rs1 === false) {
   trigger_error('Wrong SQL: ' . $sqlsel . ' Error: ' . $conn->error, E_USER_ERROR);
 } else {
@@ -290,5 +237,5 @@ if($rs1 === false) {
 // ---------------------------------------------------------
 
 //Close and output PDF document
-$pdf->Output('ubm_PS_report.pdf', 'I');
+$pdf->Output('ubm_hierarchicalObjects.pdf', 'I');
 ?>
