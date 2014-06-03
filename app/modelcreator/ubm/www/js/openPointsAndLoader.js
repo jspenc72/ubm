@@ -1,16 +1,16 @@
 function showLoader() {
     //Show Loader Message
-    var $this = $("#page_loading_message"),
+    var $this = $(this),
         theme = $this.jqmData("theme") || $.mobile.loader.prototype.options.theme,
-        msgText = $this.jqmData("msgtext") || $.mobile.loader.prototype.options.text,
-        textVisible = $this.jqmData("textvisible") || $.mobile.loader.prototype.options.textVisible,
-        textonly = !! $this.jqmData("textonly");
+        msgText = '' || $.mobile.loader.prototype.options.text,
+        textVisible = false || $.mobile.loader.prototype.options.textVisible,
+        textonly = false;
     html = $this.jqmData("html") || "";
     $.mobile.loading("show", {
-        text: msgText,
-        textVisible: textVisible,
+        text: '',
+        textVisible: false,
         theme: theme,
-        textonly: textonly,
+        textonly: false,
         html: html
     });
     //End Show Loader Message				
