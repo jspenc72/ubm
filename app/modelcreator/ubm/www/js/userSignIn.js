@@ -20,22 +20,17 @@ function userSignIn() {
             if (res.validation != 0) {
                 $('#result').empty().append("<center><p style='background-color:black'>Performing your sign in request...</p></center>");
                 $("#draggable_circle_linkTo_openPointsPage").attr("href", "#open_points_action_items");
-                walkthrough('ubmsuite_SelectBusinessModel', function(status) {
-                    if (status == 0) {
-                        walkthroughStatus = 0;
-                    } else {
-                        walkthroughStatus = 1;
-                    }
-                });
+
                 window.accounttype = res.accountType;
                 switch (res.validation) {
                     case 1:
-                        console.log(walkthroughStatus);
-                        if (walkthroughStatus == 1) {
-                            window.location = "#ubmsuite_SelectBusinessModel";
-                        } else {
-                            window.location = "#gettingStarted";
-                        }
+                        walkthrough('ubmsuite_SelectBusinessModel', function(status) {
+                            if (status == 0) {
+                                window.location = "#gettingStarted";
+                            } else {
+                                window.location = "#ubmsuite_SelectBusinessModel";
+                            }
+                        });
                         break;
                     case 2:
                         $().toastmessage('showNoticeToast', res.message);
