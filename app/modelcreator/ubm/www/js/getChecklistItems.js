@@ -29,7 +29,7 @@ function getModelCreationSuiteChecklistItems() {
             if (item.phase_id == "MFIS") {
                 //	$( "#mcs_setup_checklist_setup_mfi_table" ).table( "refresh" );
                 if (item.event_type == "POPUP") {
-                    if (item.preparer_username == null) { //Check whether item has been prepared
+                    if (item.preparer_username == null || item.status == "FALSE") { //Check whether item has been prepared
                         $('#mcs_setup_checklist_setup_mfi_table_body').append("<tr ><th class='label'>" + item.line_number + "</th><td>.</td><td>.</td><td>.</td><td>.</td><td><a data-position-to='window' href='#" + item.preparedBy_href + "' onclick='setActiveMCSTaskId(" + item.line_number + ")'  data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/redMinus.png' alt='PreparedBy' style='width:60%'></a></td><td></td><td>" + item.mfi_explanation_ref + "</td><td>" + item.mfi_template_process_ref + "</td><td>" + item.source_model_mfi_ref + "</td><td><div data-role='controlgroup' data-type='horizontal' ><a data-position-to='window' href='#" + item.href + "'onclick='setActiveMCSTaskId(" + item.line_number + ")'  data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a'><div style='white-space:normal'>" + item.instruction_detail + "</div></a></div></td><td>" + item.budgeted_hours + "</td><td>l</td><td>m</td><td>n</td></tr>");
                     } else {
                         if (item.reviewer_username == null) { //Check whether item has been reviewed
@@ -44,7 +44,7 @@ function getModelCreationSuiteChecklistItems() {
                     }
                 } else {
                     if (item.event_type == "LINKTOPAGE") {
-                        if (item.preparer_username == null) { //Check whether item has been prepared
+                        if (item.preparer_username == null || item.status == "FALSE") { //Check whether item has been prepared
                             $('#mcs_setup_checklist_setup_mfi_table_body').append("<tr ><th class='label'>" + item.line_number + "</th><td>.</td><td>.</td><td>.</td><td>.</td><td><a data-position-to='window' href='#" + item.preparedBy_href + "' onclick='setActiveMCSTaskId(" + item.line_number + ")'  data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/redMinus.png' alt='PreparedBy' style='width:60%'></a></td><td></td><td>" + item.mfi_explanation_ref + "</td><td>" + item.mfi_template_process_ref + "</td><td>" + item.source_model_mfi_ref + "</td><td><div data-role='controlgroup' data-type='horizontal' ><a data-position-to='window' href='#" + item.href + "'onclick='setActiveMCSTaskId(" + item.line_number + ")' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a'><div style='white-space:normal'>" + item.instruction_detail + "</div></a></div></td><td>" + item.budgeted_hours + "</td><td>l</td><td>m</td><td>n</td></tr>");
                         } else {
                             if (item.reviewer_username == null) { //Check whether item has been reviewed
@@ -63,7 +63,7 @@ function getModelCreationSuiteChecklistItems() {
             } else {
                 if (item.phase_id == "CS") {
                     if (item.event_type == "POPUP") {
-                        if (item.preparer_username == null) { //Check whether item has been prepared
+                        if (item.preparer_username == null || item.status == "FALSE") { //Check whether item has been prepared
                             $('#mcs_setup_checklist_CS_mfi_table_body').append("<tr ><th class='label'>" + item.line_number + "</th><td>.</td><td>.</td><td>.</td><td>.</td><td><a data-position-to='window' href='#" + item.preparedBy_href + "' onclick='setActiveMCSTaskId(" + item.line_number + ")'  data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/redMinus.png' alt='PreparedBy' style='width:60%'></a></td><td></td><td>" + item.mfi_explanation_ref + "</td><td>" + item.mfi_template_process_ref + "</td><td>" + item.source_model_mfi_ref + "</td><td><div data-role='controlgroup' data-type='horizontal' ><a data-position-to='window' href='#" + item.href + "'onclick='setActiveMCSTaskId(" + item.line_number + ")'  data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a'><div style='white-space:normal'>" + item.instruction_detail + "</div></a></div></td><td>" + item.budgeted_hours + "</td><td>l</td><td>m</td><td>n</td></tr>");
                         } else {
                             if (item.reviewer_username == null) { //Check whether item has been reviewed
@@ -78,7 +78,7 @@ function getModelCreationSuiteChecklistItems() {
                         }
                     } else {
                         if (item.event_type == "LINKTOPAGE") {
-                            if (item.preparer_username == null) { //Check whether item has been prepared
+                            if (item.preparer_username == null || item.status == "FALSE") { //Check whether item has been prepared
                                 $('#mcs_setup_checklist_CS_mfi_table_body').append("<tr ><th class='label'>" + item.line_number + "</th><td>.</td><td>.</td><td>.</td><td>.</td><td><a data-position-to='window' href='#" + item.preparedBy_href + "' onclick='setActiveMCSTaskId(" + item.line_number + ")'  data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/redMinus.png' alt='PreparedBy' style='width:60%'></a></td><td></td><td>" + item.mfi_explanation_ref + "</td><td>" + item.mfi_template_process_ref + "</td><td>" + item.source_model_mfi_ref + "</td><td><div data-role='controlgroup' data-type='horizontal' ><a data-position-to='window' href='#" + item.href + "'onclick='setActiveMCSTaskId(" + item.line_number + ")' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a'><div style='white-space:normal'>" + item.instruction_detail + "</div></a></div></td><td>" + item.budgeted_hours + "</td><td>l</td><td>m</td><td>n</td></tr>");
                             } else {
                                 if (item.reviewer_username == null) { //Check whether item has been reviewed
@@ -97,7 +97,7 @@ function getModelCreationSuiteChecklistItems() {
                 } else {
                     if (item.phase_id == "P1") {
                         if (item.event_type == "POPUP") {
-                            if (item.preparer_username == null) { //Check whether item has been prepared
+                            if (item.preparer_username == null || item.status == "FALSE") { //Check whether item has been prepared
                                 $('#mcs_setup_checklist_p1_mfi_table_body').append("<tr ><th class='label'>" + item.line_number + "</th><td>.</td><td>.</td><td>.</td><td>.</td><td><a data-position-to='window' href='#" + item.preparedBy_href + "' onclick='setActiveMCSTaskId(" + item.line_number + ")'  data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/redMinus.png' alt='PreparedBy' style='width:60%'></a></td><td></td><td>" + item.mfi_explanation_ref + "</td><td>" + item.mfi_template_process_ref + "</td><td>" + item.source_model_mfi_ref + "</td><td><div data-role='controlgroup' data-type='horizontal' ><a data-position-to='window' href='#" + item.href + "'onclick='setActiveMCSTaskId(" + item.line_number + ")'  data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a'><div style='white-space:normal'>" + item.instruction_detail + "</div></a></div></td><td>" + item.budgeted_hours + "</td><td>l</td><td>m</td><td>n</td></tr>");
                             } else {
                                 if (item.reviewer_username == null) { //Check whether item has been reviewed
@@ -113,7 +113,7 @@ function getModelCreationSuiteChecklistItems() {
                             }
                         } else {
                             if (item.event_type == "LINKTOPAGE") {
-                                if (item.preparer_username == null) { //Check whether item has been prepared
+                                if (item.preparer_username == null || item.status == "FALSE") { //Check whether item has been prepared
                                     $('#mcs_setup_checklist_p1_mfi_table_body').append("<tr ><th class='label'>" + item.line_number + "</th><td>.</td><td>.</td><td>.</td><td>.</td><td><a data-position-to='window' href='#" + item.preparedBy_href + "' onclick='setActiveMCSTaskId(" + item.line_number + ")'  data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/redMinus.png' alt='PreparedBy' style='width:60%'></a></td><td></td><td>" + item.mfi_explanation_ref + "</td><td>" + item.mfi_template_process_ref + "</td><td>" + item.source_model_mfi_ref + "</td><td><div data-role='controlgroup' data-type='horizontal' ><a data-position-to='window' href='#" + item.href + "'onclick='setActiveMCSTaskId(" + item.line_number + ")' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a'><div style='white-space:normal'>" + item.instruction_detail + "</div></a></div></td><td>" + item.budgeted_hours + "</td><td>l</td><td>m</td><td>n</td></tr>");
                                 } else {
                                     if (item.reviewer_username == null) { //Check whether item has been reviewed
@@ -132,7 +132,7 @@ function getModelCreationSuiteChecklistItems() {
                     } else {
                         if (item.phase_id == "P2") {
                             if (item.event_type == "POPUP") {
-                                if (item.preparer_username == null) { //Check whether item has been prepared
+                                if (item.preparer_username == null || item.status == "FALSE") { //Check whether item has been prepared
                                     $('#mcs_setup_checklist_p2_mfi_table_body').append("<tr ><th class='label'>" + item.line_number + "</th><td>.</td><td>.</td><td>.</td><td>.</td><td><a data-position-to='window' href='#" + item.preparedBy_href + "' onclick='setActiveMCSTaskId(" + item.line_number + ")'  data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/redMinus.png' alt='PreparedBy' style='width:60%'></a></td><td></td><td>" + item.mfi_explanation_ref + "</td><td>" + item.mfi_template_process_ref + "</td><td>" + item.source_model_mfi_ref + "</td><td><div data-role='controlgroup' data-type='horizontal' ><a data-position-to='window' href='#" + item.href + "'onclick='setActiveMCSTaskId(" + item.line_number + ")'  data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a'><div style='white-space:normal'>" + item.instruction_detail + "</div></a></div></td><td>" + item.budgeted_hours + "</td><td>l</td><td>m</td><td>n</td></tr>");
                                 } else {
                                     if (item.reviewer_username == null) { //Check whether item has been reviewed
@@ -147,7 +147,7 @@ function getModelCreationSuiteChecklistItems() {
                                 }
                             } else {
                                 if (item.event_type == "LINKTOPAGE") {
-                                    if (item.preparer_username == null) { //Check whether item has been prepared
+                                    if (item.preparer_username == null || item.status == "FALSE") { //Check whether item has been prepared
                                         $('#mcs_setup_checklist_p2_mfi_table_body').append("<tr ><th class='label'>" + item.line_number + "</th><td>.</td><td>.</td><td>.</td><td>.</td><td><a data-position-to='window' href='#" + item.preparedBy_href + "' onclick='setActiveMCSTaskId(" + item.line_number + ")'  data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/redMinus.png' alt='PreparedBy' style='width:60%'></a></td><td></td><td>" + item.mfi_explanation_ref + "</td><td>" + item.mfi_template_process_ref + "</td><td>" + item.source_model_mfi_ref + "</td><td><div data-role='controlgroup' data-type='horizontal' ><a data-position-to='window' href='#" + item.href + "'onclick='setActiveMCSTaskId(" + item.line_number + ")' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a'><div style='white-space:normal'>" + item.instruction_detail + "</div></a></div></td><td>" + item.budgeted_hours + "</td><td>l</td><td>m</td><td>n</td></tr>");
                                     } else {
                                         if (item.reviewer_username == null) { //Check whether item has been reviewed
@@ -165,7 +165,7 @@ function getModelCreationSuiteChecklistItems() {
                         } else {
                             if (item.phase_id == "P3") {
                                 if (item.event_type == "POPUP") {
-                                    if (item.preparer_username == null) { //Check whether item has been prepared
+                                    if (item.preparer_username == null || item.status == "FALSE") { //Check whether item has been prepared
                                         $('#mcs_setup_checklist_p3_mfi_table_body').append("<tr ><th class='label'>" + item.line_number + "</th><td>.</td><td>.</td><td>.</td><td>.</td><td><a data-position-to='window' href='#" + item.preparedBy_href + "' onclick='setActiveMCSTaskId(" + item.line_number + ")'  data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/redMinus.png' alt='PreparedBy' style='width:60%'></a></td><td></td><td>" + item.mfi_explanation_ref + "</td><td>" + item.mfi_template_process_ref + "</td><td>" + item.source_model_mfi_ref + "</td><td><div data-role='controlgroup' data-type='horizontal' ><a data-position-to='window' href='#" + item.href + "'onclick='setActiveMCSTaskId(" + item.line_number + ")'  data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a'><div style='white-space:normal'>" + item.instruction_detail + "</div></a></div></td><td>" + item.budgeted_hours + "</td><td>l</td><td>m</td><td>n</td></tr>");
                                     } else {
                                         if (item.reviewer_username == null) { //Check whether item has been reviewed
@@ -181,7 +181,7 @@ function getModelCreationSuiteChecklistItems() {
                                     }
                                 } else {
                                     if (item.event_type == "LINKTOPAGE") {
-                                        if (item.preparer_username == null) { //Check whether item has been prepared
+                                        if (item.preparer_username == null || item.status == "FALSE") { //Check whether item has been prepared
                                             $('#mcs_setup_checklist_p3_mfi_table_body').append("<tr ><th class='label'>" + item.line_number + "</th><td>.</td><td>.</td><td>.</td><td>.</td><td><a data-position-to='window' href='#" + item.preparedBy_href + "' onclick='setActiveMCSTaskId(" + item.line_number + ")'  data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/redMinus.png' alt='PreparedBy' style='width:60%'></a></td><td></td><td>" + item.mfi_explanation_ref + "</td><td>" + item.mfi_template_process_ref + "</td><td>" + item.source_model_mfi_ref + "</td><td><div data-role='controlgroup' data-type='horizontal' ><a data-position-to='window' href='#" + item.href + "'onclick='setActiveMCSTaskId(" + item.line_number + ")' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a'><div style='white-space:normal'>" + item.instruction_detail + "</div></a></div></td><td>" + item.budgeted_hours + "</td><td>l</td><td>m</td><td>n</td></tr>");
                                         } else {
                                             if (item.reviewer_username == null) { //Check whether item has been reviewed
@@ -200,7 +200,7 @@ function getModelCreationSuiteChecklistItems() {
                             } else {
                                 if (item.phase_id == "P4B1") {
                                     if (item.event_type == "POPUP") {
-                                        if (item.preparer_username == null) { //Check whether item has been prepared
+                                        if (item.preparer_username == null || item.status == "FALSE") { //Check whether item has been prepared
                                             $('#mcs_setup_checklist_p4_b1_mfi_table_body').append("<tr ><th class='label'>" + item.line_number + "</th><td>.</td><td>.</td><td>.</td><td>.</td><td><a data-position-to='window' href='#" + item.preparedBy_href + "' onclick='setActiveMCSTaskId(" + item.line_number + ")'  data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/redMinus.png' alt='PreparedBy' style='width:60%'></a></td><td></td><td>" + item.mfi_explanation_ref + "</td><td>" + item.mfi_template_process_ref + "</td><td>" + item.source_model_mfi_ref + "</td><td><div data-role='controlgroup' data-type='horizontal' ><a data-position-to='window' href='#" + item.href + "'onclick='setActiveMCSTaskId(" + item.line_number + ")'  data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a'><div style='white-space:normal'>" + item.instruction_detail + "</div></a></div></td><td>" + item.budgeted_hours + "</td><td>l</td><td>m</td><td>n</td></tr>");
                                         } else {
                                             if (item.reviewer_username == null) { //Check whether item has been reviewed
@@ -216,7 +216,7 @@ function getModelCreationSuiteChecklistItems() {
                                         }
                                     } else {
                                         if (item.event_type == "LINKTOPAGE") {
-                                            if (item.preparer_username == null) { //Check whether item has been prepared
+                                            if (item.preparer_username == null || item.status == "FALSE") { //Check whether item has been prepared
                                                 $('#mcs_setup_checklist_p4_b1_mfi_table_body').append("<tr ><th class='label'>" + item.line_number + "</th><td>.</td><td>.</td><td>.</td><td>.</td><td><a data-position-to='window' href='#" + item.preparedBy_href + "' onclick='setActiveMCSTaskId(" + item.line_number + ")'  data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/redMinus.png' alt='PreparedBy' style='width:60%'></a></td><td></td><td>" + item.mfi_explanation_ref + "</td><td>" + item.mfi_template_process_ref + "</td><td>" + item.source_model_mfi_ref + "</td><td><div data-role='controlgroup' data-type='horizontal' ><a data-position-to='window' href='#" + item.href + "'onclick='setActiveMCSTaskId(" + item.line_number + ")' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a'><div style='white-space:normal'>" + item.instruction_detail + "</div></a></div></td><td>" + item.budgeted_hours + "</td><td>l</td><td>m</td><td>n</td></tr>");
                                             } else {
                                                 if (item.reviewer_username == null) { //Check whether item has been reviewed
@@ -234,7 +234,7 @@ function getModelCreationSuiteChecklistItems() {
                                     }
                                 } else {
                                     if (item.phase_id == "P4B2") {
-                                        if (item.preparer_username == null) { //Check whether item has been prepared
+                                        if (item.preparer_username == null || item.status == "FALSE") { //Check whether item has been prepared
                                             $('#mcs_setup_checklist_p4_b2_mfi_table_body').append("<tr ><th class='label'>" + item.line_number + "</th><td>.</td><td>.</td><td>.</td><td>.</td><td><a href='#" + item.preparedBy_href + "' onclick='setActiveMCSTaskId(" + item.line_number + ")'  data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/redMinus.png' alt='PreparedBy' style='width:60%'></a></td><td></td><td>" + item.mfi_explanation_ref + "</td><td>" + item.mfi_template_process_ref + "</td><td>" + item.source_model_mfi_ref + "</td><td><div data-role='controlgroup' data-type='horizontal' ><a href='#" + item.href + "'onclick='setActiveMCSTaskId(" + item.line_number + ")'  data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a'><div style='white-space:normal'>" + item.instruction_detail + "</div></a></div></td><td>" + item.budgeted_hours + "</td><td>l</td><td>m</td><td>n</td></tr>");
                                         } else {
                                             if (item.reviewer_username == null) { //Check whether item has been reviewed
@@ -250,7 +250,7 @@ function getModelCreationSuiteChecklistItems() {
                                         }
                                     } else {
                                         if (item.phase_id == "P4B3") {
-                                            if (item.preparer_username == null) { //Check whether item has been prepared
+                                            if (item.preparer_username == null || item.status == "FALSE") { //Check whether item has been prepared
                                                 $('#mcs_setup_checklist_p4_b3_mfi_table_body').append("<tr ><th class='label'>" + item.line_number + "</th><td>.</td><td>.</td><td>.</td><td>.</td><td><a href='#" + item.preparedBy_href + "' onclick='setActiveMCSTaskId(" + item.line_number + ")'  data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/redMinus.png' alt='PreparedBy' style='width:60%'></a></td><td></td><td>" + item.mfi_explanation_ref + "</td><td>" + item.mfi_template_process_ref + "</td><td>" + item.source_model_mfi_ref + "</td><td><div data-role='controlgroup' data-type='horizontal' ><a href='#" + item.href + "'onclick='setActiveMCSTaskId(" + item.line_number + ")'  data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a'><div style='white-space:normal'>" + item.instruction_detail + "</div></a></div></td><td>" + item.budgeted_hours + "</td><td>l</td><td>m</td><td>n</td></tr>");
                                             } else {
                                                 if (item.reviewer_username == null) { //Check whether item has been reviewed
@@ -266,7 +266,7 @@ function getModelCreationSuiteChecklistItems() {
                                             }
                                         } else {
                                             if (item.phase_id == "P4B4") {
-                                                if (item.preparer_username == null) { //Check whether item has been prepared
+                                                if (item.preparer_username == null || item.status == "FALSE") { //Check whether item has been prepared
                                                     $('#mcs_setup_checklist_p4_b4_mfi_table_body').append("<tr ><th class='label'>" + item.line_number + "</th><td>.</td><td>.</td><td>.</td><td>.</td><td><a href='#" + item.preparedBy_href + "' onclick='setActiveMCSTaskId(" + item.line_number + ")'  data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/redMinus.png' alt='PreparedBy' style='width:60%'></a></td><td></td><td>" + item.mfi_explanation_ref + "</td><td>" + item.mfi_template_process_ref + "</td><td>" + item.source_model_mfi_ref + "</td><td><div data-role='controlgroup' data-type='horizontal' ><a href='#" + item.href + "'onclick='setActiveMCSTaskId(" + item.line_number + ")'  data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a'><div style='white-space:normal'>" + item.instruction_detail + "</div></a></div></td><td>" + item.budgeted_hours + "</td><td>l</td><td>m</td><td>n</td></tr>");
                                                 } else {
                                                     if (item.reviewer_username == null) { //Check whether item has been reviewed
@@ -282,7 +282,7 @@ function getModelCreationSuiteChecklistItems() {
                                                 }
                                             } else {
                                                 if (item.phase_id == "P4B5") {
-                                                    if (item.preparer_username == null) { //Check whether item has been prepared
+                                                    if (item.preparer_username == null || item.status == "FALSE") { //Check whether item has been prepared
                                                         $('#mcs_setup_checklist_p4_b5_mfi_table_body').append("<tr ><th class='label'>" + item.line_number + "</th><td>.</td><td>.</td><td>.</td><td>.</td><td><a href='#" + item.preparedBy_href + "' onclick='setActiveMCSTaskId(" + item.line_number + ")'  data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/redMinus.png' alt='PreparedBy' style='width:60%'></a></td><td></td><td>" + item.mfi_explanation_ref + "</td><td>" + item.mfi_template_process_ref + "</td><td>" + item.source_model_mfi_ref + "</td><td><div data-role='controlgroup' data-type='horizontal' ><a href='#" + item.href + "'onclick='setActiveMCSTaskId(" + item.line_number + ")'  data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a'><div style='white-space:normal'>" + item.instruction_detail + "</div></a></div></td><td>" + item.budgeted_hours + "</td><td>l</td><td>m</td><td>n</td></tr>");
                                                     } else {
                                                         if (item.reviewer_username == null) { //Check whether item has been reviewed
@@ -297,7 +297,7 @@ function getModelCreationSuiteChecklistItems() {
                                                     }
                                                 } else {
                                                     if (item.phase_id == "P4B6") {
-                                                        if (item.preparer_username == null) { //Check whether item has been prepared
+                                                        if (item.preparer_username == null || item.status == "FALSE") { //Check whether item has been prepared
                                                             $('#mcs_setup_checklist_p4_b6_mfi_table_body').append("<tr ><th class='label'>" + item.line_number + "</th><td>.</td><td>.</td><td>.</td><td>.</td><td><a href='#" + item.preparedBy_href + "' onclick='setActiveMCSTaskId(" + item.line_number + ")'  data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/redMinus.png' alt='PreparedBy' style='width:60%'></a></td><td></td><td>" + item.mfi_explanation_ref + "</td><td>" + item.mfi_template_process_ref + "</td><td>" + item.source_model_mfi_ref + "</td><td><div data-role='controlgroup' data-type='horizontal' ><a href='#" + item.href + "'onclick='setActiveMCSTaskId(" + item.line_number + ")'  data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a'><div style='white-space:normal'>" + item.instruction_detail + "</div></a></div></td><td>" + item.budgeted_hours + "</td><td>l</td><td>m</td><td>n</td></tr>");
                                                         } else {
                                                             if (item.reviewer_username == null) { //Check whether item has been reviewed
@@ -312,7 +312,7 @@ function getModelCreationSuiteChecklistItems() {
                                                         }
                                                     } else {
                                                         if (item.phase_id == "P4B7") {
-                                                            if (item.preparer_username == null) { //Check whether item has been prepared
+                                                            if (item.preparer_username == null || item.status == "FALSE") { //Check whether item has been prepared
                                                                 $('#mcs_setup_checklist_p4_b7_mfi_table_body').append("<tr ><th class='label'>" + item.line_number + "</th><td>.</td><td>.</td><td>.</td><td>.</td><td><a href='#" + item.preparedBy_href + "' onclick='setActiveMCSTaskId(" + item.line_number + ")'  data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/redMinus.png' alt='PreparedBy' style='width:60%'></a></td><td></td><td>" + item.mfi_explanation_ref + "</td><td>" + item.mfi_template_process_ref + "</td><td>" + item.source_model_mfi_ref + "</td><td><div data-role='controlgroup' data-type='horizontal' ><a href='#" + item.href + "'onclick='setActiveMCSTaskId(" + item.line_number + ")'  data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a'><div style='white-space:normal'>" + item.instruction_detail + "</div></a></div></td><td>" + item.budgeted_hours + "</td><td>l</td><td>m</td><td>n</td></tr>");
                                                             } else {
                                                                 if (item.reviewer_username == null) { //Check whether item has been reviewed
@@ -327,7 +327,7 @@ function getModelCreationSuiteChecklistItems() {
                                                             }
                                                         } else {
                                                             if (item.phase_id == "P4B8") {
-                                                                if (item.preparer_username == null) { //Check whether item has been prepared
+                                                                if (item.preparer_username == null || item.status == "FALSE") { //Check whether item has been prepared
                                                                     $('#mcs_setup_checklist_p4_b8_mfi_table_body').append("<tr ><th class='label'>" + item.line_number + "</th><td>.</td><td>.</td><td>.</td><td>.</td><td><a href='#" + item.preparedBy_href + "' onclick='setActiveMCSTaskId(" + item.line_number + ")'  data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/redMinus.png' alt='PreparedBy' style='width:60%'></a></td><td></td><td>" + item.mfi_explanation_ref + "</td><td>" + item.mfi_template_process_ref + "</td><td>" + item.source_model_mfi_ref + "</td><td><div data-role='controlgroup' data-type='horizontal' ><a href='#" + item.href + "'onclick='setActiveMCSTaskId(" + item.line_number + ")'  data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a'><div style='white-space:normal'>" + item.instruction_detail + "</div></a></div></td><td>" + item.budgeted_hours + "</td><td>l</td><td>m</td><td>n</td></tr>");
                                                                 } else {
                                                                     if (item.reviewer_username == null) { //Check whether item has been reviewed
@@ -342,7 +342,7 @@ function getModelCreationSuiteChecklistItems() {
                                                                 }
                                                             } else {
                                                                 if (item.phase_id == "P4B9") {
-                                                                    if (item.preparer_username == null) { //Check whether item has been prepared
+                                                                    if (item.preparer_username == null || item.status == "FALSE") { //Check whether item has been prepared
                                                                         $('#mcs_setup_checklist_p4_b9_mfi_table_body').append("<tr ><th class='label'>" + item.line_number + "</th><td>.</td><td>.</td><td>.</td><td>.</td><td><a href='#" + item.preparedBy_href + "' onclick='setActiveMCSTaskId(" + item.line_number + ")'  data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/redMinus.png' alt='PreparedBy' style='width:60%'></a></td><td></td><td>" + item.mfi_explanation_ref + "</td><td>" + item.mfi_template_process_ref + "</td><td>" + item.source_model_mfi_ref + "</td><td><div data-role='controlgroup' data-type='horizontal' ><a href='#" + item.href + "'onclick='setActiveMCSTaskId(" + item.line_number + ")'  data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a'><div style='white-space:normal'>" + item.instruction_detail + "</div></a></div></td><td>" + item.budgeted_hours + "</td><td>l</td><td>m</td><td>n</td></tr>");
                                                                     } else {
                                                                         if (item.reviewer_username == null) { //Check whether item has been reviewed
@@ -357,7 +357,7 @@ function getModelCreationSuiteChecklistItems() {
                                                                     }
                                                                 } else {
                                                                     if (item.phase_id == "P4B10") {
-                                                                        if (item.preparer_username == null) { //Check whether item has been prepared
+                                                                        if (item.preparer_username == null || item.status == "FALSE") { //Check whether item has been prepared
                                                                             $('#mcs_setup_checklist_p4_b10_mfi_table_body').append("<tr ><th class='label'>" + item.line_number + "</th><td>.</td><td>.</td><td>.</td><td>.</td><td><a href='#" + item.preparedBy_href + "' onclick='setActiveMCSTaskId(" + item.line_number + ")'  data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/redMinus.png' alt='PreparedBy' style='width:60%'></a></td><td></td><td>" + item.mfi_explanation_ref + "</td><td>" + item.mfi_template_process_ref + "</td><td>" + item.source_model_mfi_ref + "</td><td><div data-role='controlgroup' data-type='horizontal' ><a href='#" + item.href + "'onclick='setActiveMCSTaskId(" + item.line_number + ")'  data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a'><div style='white-space:normal'>" + item.instruction_detail + "</div></a></div></td><td>" + item.budgeted_hours + "</td><td>l</td><td>m</td><td>n</td></tr>");
                                                                         } else {
                                                                             if (item.reviewer_username == null) { //Check whether item has been reviewed
@@ -372,7 +372,7 @@ function getModelCreationSuiteChecklistItems() {
                                                                         }
                                                                     } else {
                                                                         if (item.phase_id == "P4B11") {
-                                                                            if (item.preparer_username == null) { //Check whether item has been prepared
+                                                                            if (item.preparer_username == null || item.status == "FALSE") { //Check whether item has been prepared
                                                                                 $('#mcs_setup_checklist_p4_b11_mfi_table_body').append("<tr ><th class='label'>" + item.line_number + "</th><td>.</td><td>.</td><td>.</td><td>.</td><td><a href='#" + item.preparedBy_href + "' onclick='setActiveMCSTaskId(" + item.line_number + ")'  data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/redMinus.png' alt='PreparedBy' style='width:60%'></a></td><td></td><td>" + item.mfi_explanation_ref + "</td><td>" + item.mfi_template_process_ref + "</td><td>" + item.source_model_mfi_ref + "</td><td><div data-role='controlgroup' data-type='horizontal' ><a href='#" + item.href + "'onclick='setActiveMCSTaskId(" + item.line_number + ")'  data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a'><div style='white-space:normal'>" + item.instruction_detail + "</div></a></div></td><td>" + item.budgeted_hours + "</td><td>l</td><td>m</td><td>n</td></tr>");
                                                                             } else {
                                                                                 if (item.reviewer_username == null) { //Check whether item has been reviewed
@@ -387,7 +387,7 @@ function getModelCreationSuiteChecklistItems() {
                                                                             }
                                                                         } else {
                                                                             if (item.phase_id == "P4B12") {
-                                                                                if (item.preparer_username == null) { //Check whether item has been prepared
+                                                                                if (item.preparer_username == null || item.status == "FALSE") { //Check whether item has been prepared
                                                                                     $('#mcs_setup_checklist_p4_b12_mfi_table_body').append("<tr ><th class='label'>" + item.line_number + "</th><td>.</td><td>.</td><td>.</td><td>.</td><td><a href='#" + item.preparedBy_href + "' onclick='setActiveMCSTaskId(" + item.line_number + ")'  data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/redMinus.png' alt='PreparedBy' style='width:60%'></a></td><td></td><td>" + item.mfi_explanation_ref + "</td><td>" + item.mfi_template_process_ref + "</td><td>" + item.source_model_mfi_ref + "</td><td><div data-role='controlgroup' data-type='horizontal' ><a href='#" + item.href + "'onclick='setActiveMCSTaskId(" + item.line_number + ")'  data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a'><div style='white-space:normal'>" + item.instruction_detail + "</div></a></div></td><td>" + item.budgeted_hours + "</td><td>l</td><td>m</td><td>n</td></tr>");
                                                                                 } else {
                                                                                     if (item.reviewer_username == null) { //Check whether item has been reviewed
@@ -402,7 +402,7 @@ function getModelCreationSuiteChecklistItems() {
                                                                                 }
                                                                             } else {
                                                                                 if (item.phase_id == "P5") {
-                                                                                    if (item.preparer_username == null) { //Check whether item has been prepared
+                                                                                    if (item.preparer_username == null || item.status == "FALSE") { //Check whether item has been prepared
                                                                                         $('#mcs_setup_checklist_p5_mfi_table_body').append("<tr ><th class='label'>" + item.line_number + "</th><td>.</td><td>.</td><td>.</td><td>.</td><td><a href='#" + item.preparedBy_href + "' onclick='setActiveMCSTaskId(" + item.line_number + ")'  data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/redMinus.png' alt='PreparedBy' style='width:60%'></a></td><td></td><td>" + item.mfi_explanation_ref + "</td><td>" + item.mfi_template_process_ref + "</td><td>" + item.source_model_mfi_ref + "</td><td><div data-role='controlgroup' data-type='horizontal' ><a href='#" + item.href + "'onclick='setActiveMCSTaskId(" + item.line_number + ")'  data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a'><div style='white-space:normal'>" + item.instruction_detail + "</div></a></div></td><td>" + item.budgeted_hours + "</td><td>l</td><td>m</td><td>n</td></tr>");
                                                                                     } else {
                                                                                         if (item.reviewer_username == null) { //Check whether item has been reviewed
@@ -417,7 +417,7 @@ function getModelCreationSuiteChecklistItems() {
                                                                                     }
                                                                                 } else {
                                                                                     if (item.phase_id == "P6") {
-                                                                                        if (item.preparer_username == null) { //Check whether item has been prepared
+                                                                                        if (item.preparer_username == null || item.status == "FALSE") { //Check whether item has been prepared
                                                                                             $('#mcs_setup_checklist_p6_mfi_table_body').append("<tr ><th class='label'>" + item.line_number + "</th><td>.</td><td>.</td><td>.</td><td>.</td><td><a href='#" + item.preparedBy_href + "' onclick='setActiveMCSTaskId(" + item.line_number + ")'  data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/redMinus.png' alt='PreparedBy' style='width:60%'></a></td><td></td><td>" + item.mfi_explanation_ref + "</td><td>" + item.mfi_template_process_ref + "</td><td>" + item.source_model_mfi_ref + "</td><td><div data-role='controlgroup' data-type='horizontal' ><a href='#" + item.href + "'onclick='setActiveMCSTaskId(" + item.line_number + ")'  data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a'><div style='white-space:normal'>" + item.instruction_detail + "</div></a></div></td><td>" + item.budgeted_hours + "</td><td>l</td><td>m</td><td>n</td></tr>");
                                                                                         } else {
                                                                                             if (item.reviewer_username == null) { //Check whether item has been reviewed
@@ -432,7 +432,7 @@ function getModelCreationSuiteChecklistItems() {
                                                                                         }
                                                                                     } else {
                                                                                         if (item.phase_id == "P7") {
-                                                                                            if (item.preparer_username == null) { //Check whether item has been prepared
+                                                                                            if (item.preparer_username == null || item.status == "FALSE") { //Check whether item has been prepared
                                                                                                 $('#mcs_setup_checklist_p7_mfi_table_body').append("<tr ><th class='label'>" + item.line_number + "</th><td>.</td><td>.</td><td>.</td><td>.</td><td><a href='#" + item.preparedBy_href + "' onclick='setActiveMCSTaskId(" + item.line_number + ")'  data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/redMinus.png' alt='PreparedBy' style='width:60%'></a></td><td></td><td>" + item.mfi_explanation_ref + "</td><td>" + item.mfi_template_process_ref + "</td><td>" + item.source_model_mfi_ref + "</td><td><div data-role='controlgroup' data-type='horizontal' ><a href='#" + item.href + "'onclick='setActiveMCSTaskId(" + item.line_number + ")'  data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a'><div style='white-space:normal'>" + item.instruction_detail + "</div></a></div></td><td>" + item.budgeted_hours + "</td><td>l</td><td>m</td><td>n</td></tr>");
                                                                                             } else {
                                                                                                 if (item.reviewer_username == null) { //Check whether item has been reviewed
@@ -447,7 +447,7 @@ function getModelCreationSuiteChecklistItems() {
                                                                                             }
                                                                                         } else {
                                                                                             if (item.phase_id == "P8") {
-                                                                                                if (item.preparer_username == null) { //Check whether item has been prepared
+                                                                                                if (item.preparer_username == null || item.status == "FALSE") { //Check whether item has been prepared
                                                                                                     $('#mcs_setup_checklist_p8_mfi_table_body').append("<tr ><th class='label'>" + item.line_number + "</th><td>.</td><td>.</td><td>.</td><td>.</td><td><a href='#" + item.preparedBy_href + "' onclick='setActiveMCSTaskId(" + item.line_number + ")'  data-rel='popup' data-position-to='window' data-transition='fade'><img class='popphoto' src='img/redMinus.png' alt='PreparedBy' style='width:60%'></a></td><td></td><td>" + item.mfi_explanation_ref + "</td><td>" + item.mfi_template_process_ref + "</td><td>" + item.source_model_mfi_ref + "</td><td><div data-role='controlgroup' data-type='horizontal' ><a href='#" + item.href + "'onclick='setActiveMCSTaskId(" + item.line_number + ")'  data-rel='popup' data-transition='slideup' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a'><div style='white-space:normal'>" + item.instruction_detail + "</div></a></div></td><td>" + item.budgeted_hours + "</td><td>l</td><td>m</td><td>n</td></tr>");
                                                                                                 } else {
                                                                                                     if (item.reviewer_username == null) { //Check whether item has been reviewed

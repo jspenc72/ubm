@@ -4,6 +4,18 @@ function submitGettingStartedPreparedBy() {
     submitMCSTaskPreparedByRecord();
 }
 
+function setActiveTaskIncomplete() {
+    $.getJSON('http://api.universalbusinessmodel.com/ubms_modelcreationsuite_changePreparedByToIncomplete.php?callback=?', { //JSONP Request
+        key: window.key,
+        activeModelUUID: window.activeModelUUID,
+        taskId: window.MCSTaskId,
+    }, function(res, status) {
+        $().toastmessage('showNoticeToast', res.message);
+        getModelCreationSuiteChecklistItems();
+    });
+
+}
+
 function setActiveMCSTaskId(MCSTaskId) {
     if (MCSTaskId == 5) {
         $("#gettingStarted_continueToNextPhase_button").remove();
@@ -31,9 +43,10 @@ function submitMCSTaskPreparedByRecord() {
             $().toastmessage('showNoticeToast', res.message);
             getModelCreationSuiteChecklistItems();
         });
-        
+
     } else {
         $().toastmessage('showNoticeToast', "Something went wrong, The Task Id is currently set to 0. Reopen your browser and try again. ");
+
     }
 }
 
@@ -49,7 +62,7 @@ function submitMCSTaskReviewedByRecord() {
             $().toastmessage('showNoticeToast', res.message);
             getModelCreationSuiteChecklistItems();
         });
-        
+
     } else {
         $().toastmessage('showNoticeToast', "Something went wrong, The Task Id is currently set to 0. Reopen your browser and try again. ");
     }
@@ -67,9 +80,10 @@ function submitMCSTaskFinalReviewedByRecord() {
             $().toastmessage('showNoticeToast', res.message);
             getModelCreationSuiteChecklistItems();
         });
-        
+
     } else {
         $().toastmessage('showNoticeToast', "Something went wrong, The Task Id is currently set to 0. Reopen your browser and try again. ");
+        return false;
     }
 }
 
