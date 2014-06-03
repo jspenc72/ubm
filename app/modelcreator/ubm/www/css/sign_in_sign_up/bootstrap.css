@@ -247,6 +247,7 @@ th {
   }
   .label {
     border: 1px solid #000;
+    color:black;
   }
   .table {
     border-collapse: collapse !important;
@@ -4268,7 +4269,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
   font-size: 75%;
   font-weight: bold;
   line-height: 1;
-  color: #fff;
+  color: #000;
   text-align: center;
   white-space: nowrap;
   vertical-align: baseline;
