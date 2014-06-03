@@ -19,36 +19,40 @@ function userSignIn() {
         } else {
             if (res.validation != 0) {
                 $('#result').empty().append("<center><p style='background-color:black'>Performing your sign in request...</p></center>");
+                $("#draggable_circle_linkTo_openPointsPage").attr("href", "#open_points_action_items");
                 walkthrough('ubmsuite_SelectBusinessModel', function(status) {
-                    var walkthroughStatus = status;
-                    $("#draggable_circle_linkTo_openPointsPage").attr("href", "#open_points_action_items");
-                    window.accounttype = res.accountType;
-                    switch (res.validation) {
-                        case 1:
-                            console.log(walkthroughStatus);
-                            if (walkthroughStatus == 1) {
-                                window.location = "#ubmsuite_SelectBusinessModel";
-                            } else {
-                                window.location = "#gettingStarted";
-                            }
-                            break;
-                        case 2:
-                            $().toastmessage('showNoticeToast', res.message);
-                            window.location = "#license_agreement_verification";
-                            break;
-                        case 3:
-                            $().toastmessage('showNoticeToast', res.message);
-                            $("#initialChangePasssword").popup("open");
-                            break;
-                        case 4:
-                            $().toastmessage('showNoticeToast', res.message);
-                            window.location = "#account_verification";
-                            break;
-                        default:
-                            $().toastmessage('showErrorToast', "Unknown Error");
-                            break;
+                    if (status == 0) {
+                        walkthroughStatus = 0;
+                    } else {
+                        walkthroughStatus = 1;
                     }
                 });
+                window.accounttype = res.accountType;
+                switch (res.validation) {
+                    case 1:
+                        console.log(walkthroughStatus);
+                        if (walkthroughStatus == 1) {
+                            window.location = "#ubmsuite_SelectBusinessModel";
+                        } else {
+                            window.location = "#gettingStarted";
+                        }
+                        break;
+                    case 2:
+                        $().toastmessage('showNoticeToast', res.message);
+                        window.location = "#license_agreement_verification";
+                        break;
+                    case 3:
+                        $().toastmessage('showNoticeToast', res.message);
+                        $("#initialChangePasssword").popup("open");
+                        break;
+                    case 4:
+                        $().toastmessage('showNoticeToast', res.message);
+                        window.location = "#account_verification";
+                        break;
+                    default:
+                        $().toastmessage('showErrorToast', "Unknown Error");
+                        break;
+                }
 
             }
         }
