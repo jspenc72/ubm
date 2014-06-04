@@ -1,25 +1,86 @@
 <?php
-require_once('../config/tcpdf_config.php');
-require_once('../tcpdf.php');
-include('../../../DBConnect_UBMv1.php');
+require_once ('../config/tcpdf_config.php');
+require_once ('../tcpdf.php');
+include ('../../../DBConnect_UBMv1.php');
 $conn = new mysqli($DBServer, $DBUser, $DBPass, $DBName);
+
 // check connection
-	if ($conn->connect_error) {
-	  trigger_error('Database connection failed: '  . $conn->connect_error, E_USER_ERROR);
-	}
-$sqlsel = "SELECT * FROM ubm_model_positions ORDER BY title ASC";
-//Select all 
-$rs1=$conn->query($sqlsel);
+if ($conn->connect_error) {
+    trigger_error('Database connection failed: ' . $conn->connect_error, E_USER_ERROR);
+}
+$v2 = "'" . $conn->real_escape_string($activeObjectUUID) . "'";
+
+//SELECT
+$all_items = array();
+
+//1. Select all records for checklist items stored in model_creation_suite, Count the number of items in the checklist.
+$sqlsel1 = "SELECT c.* FROM ubm_modelcreationsuite_heirarchy_object_antiSolipsism_UUID u
+            JOIN ubm_modelcreationsuite_heirarchy_object_closureTable c
+            ON (u.UUID=c.descendant_id)
+            WHERE c.ancestor_id=$v2
+            ORDER BY u.UUID";
+
+//$sqlsel1="SELECT * FROM ubm_modelcreationsuite_heirarchy_object_antiSolipsism_UUID WHERE UUID=1";   //Select all
+$rs1 = $conn->query($sqlsel1);
+if ($rs1 === false) {
+    trigger_error('Wrong SQL: ' . $sqlsel1 . ' Error: ' . $conn->error, E_USER_ERROR);
+} else {
+    while ($items1 = $rs1->fetch_assoc()) {
+        $returnedDescendant = stripslashes($items1['descendant_id']);
+        $returnedAncestor = stripslashes($items1['ancestor_id']);
+        
+        //2. select the record with path_length=1 so that you get the immediate parent.
+        $sqlsel2 = "SELECT * FROM ubm_modelcreationsuite_heirarchy_object_antiSolipsism_UUID u
+                JOIN ubm_modelcreationsuite_heirarchy_object_closureTable c
+                ON (u.UUID=c.descendant_id)
+                WHERE c.descendant_id=$returnedDescendant
+                AND c.path_length=1";
+        $rs2 = $conn->query($sqlsel2);
+        if ($rs1 === false) {
+            trigger_error('Wrong SQL: ' . $sqlsel2 . ' Error: ' . $conn->error, E_USER_ERROR);
+        } else {
+            while ($items2 = $rs2->fetch_assoc()) {
+                $all_items[] = $items2;
+            }
+        }
+    }
+}
+foreach ($all_items as $value) {
+  echo $value;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 // Extend the TCPDF class to create custom Header and Footer
-class MYPDF extends TCPDF {
+class MYPDF extends TCPDF
+{
+    
     //Page header
     public function Header() {
+        
         // Logo
-        $image_file = K_PATH_IMAGES.'logo_example.jpg';
+        $image_file = K_PATH_IMAGES . 'logo_example.jpg';
         $this->Image($image_file, 10, 10, 15, '', 'JPG', '', 'T', false, 300, '', false, false, 0, false, false, false);
+        
         // Set font
         $this->SetFont('helvetica', 'B', 20);
+        
         // Title
         $this->SetXY(15, 5);
         $this->Cell(0, 10, 'Legal Entity :', 0, false, 'C', 0, '', 0, false, 'M', 'M');
@@ -30,14 +91,18 @@ class MYPDF extends TCPDF {
         $this->SetXY(15, 35);
         $this->Cell(0, 10, 'Position Title :', 0, false, 'C', 0, '', 0, false, 'M', 'M');
     }
+    
     // Page footer
     public function Footer() {
+        
         // Position at 15 mm from bottom
         $this->SetY(-15);
+        
         // Set font
         $this->SetFont('dejavusans', 'I', 10);
+        
         // Page number
-        $this->Cell(0, 10, 'Page '.$this->getAliasNumPage().'/'.$this->getAliasNbPages(), 0, false, 'C', 0, '', 0, false, 'T', 'M');
+        $this->Cell(0, 10, 'Page ' . $this->getAliasNumPage() . '/' . $this->getAliasNbPages(), 0, false, 'C', 0, '', 0, false, 'T', 'M');
     }
 }
 
@@ -75,10 +140,11 @@ $pdf->SetAutoPageBreak(TRUE, PDF_MARGIN_BOTTOM);
 $pdf->setImageScale(PDF_IMAGE_SCALE_RATIO);
 
 //set some language-dependent strings
-if (@file_exists(dirname(__FILE__).'/lang/eng.php')) {
-	require_once(dirname(__FILE__).'/lang/eng.php');
-	$pdf->setLanguageArray($l);
+if (@file_exists(dirname(__FILE__) . '/lang/eng.php')) {
+    require_once (dirname(__FILE__) . '/lang/eng.php');
+    $pdf->setLanguageArray($l);
 }
+
 // ---------------------------------------------------------
 
 // set font
@@ -120,115 +186,120 @@ $tbl_header = '
       <th colspan="2">Position Attributes</th>
     </tr>';
 $tbl_footer = '</table>';
-$tableVar = ''; 
+$tableVar = '';
 $myDocWidth = $pdf->getPageWidth(1);
-if($rs1 === false) {
-  trigger_error('Wrong SQL: ' . $sqlsel . ' Error: ' . $conn->error, E_USER_ERROR);
+if ($rs1 === false) {
+    trigger_error('Wrong SQL: ' . $sqlsel . ' Error: ' . $conn->error, E_USER_ERROR);
 } else {
-	if(mysqli_num_rows($rs1)>0){
-		$numberOfPositions = mysqli_num_rows($rs1);
-		$tableCounter = 0;
-		while ($row = $rs1->fetch_assoc()) {
-			$tableCounter +=1;
-			// add a page
-			 $tableVar = '	   
+    if (mysqli_num_rows($rs1) > 0) {
+        $numberOfPositions = mysqli_num_rows($rs1);
+        $tableCounter = 0;
+        while ($row = $rs1->fetch_assoc()) {
+            $tableCounter+= 1;
+            
+            // add a page
+            $tableVar = '    
          <tr>
              <td><font face="Arial, Helvetica, sans-serif">PS-ID: </font></td>
-			       <td>'.$row['id'].'</td> 
+             <td>' . $row['id'] . '</td> 
          </tr>
          <tr>
              <td><font face="Arial, Helvetica, sans-serif">Title: </font></td>
-			       <td>'.$row['title'].'</td>
+             <td>' . $row['title'] . '</td>
          </tr>
          <tr>
              <td><font face="Arial, Helvetica, sans-serif">Org Chart Level: </font></td>
-             <td>'.$row['position_has_org_chart_level'].'</td>
+             <td>' . $row['position_has_org_chart_level'] . '</td>
          </tr>
          <tr>
              <td><font face="Arial, Helvetica, sans-serif">Full or Part Time: </font></td>
-             <td>'.$row['full_or_part_time'].'</td>
+             <td>' . $row['full_or_part_time'] . '</td>
          </tr>
          <tr>
              <td><font face="Arial, Helvetica, sans-serif">Pay Type: </font></td>
-             <td>'.$row['pay_type'].'</td>
+             <td>' . $row['pay_type'] . '</td>
          </tr>         
          <tr>
              <td><font face="Arial, Helvetica, sans-serif">Pay Range (Low-High): </font></td>
-             <td>'.$row['pay_range_low'].'-'.$row['pay_range_high'].'</td>
+             <td>' . $row['pay_range_low'] . '-' . $row['pay_range_high'] . '</td>
          </tr>
          <tr>
              <td><font face="Arial, Helvetica, sans-serif">Object Type: </font></td>
-			       <td>'.$row['object_type_reference'].'</td>
-			   </tr>
+             <td>' . $row['object_type_reference'] . '</td>
+         </tr>
          <tr>
              <td><font face="Arial, Helvetica, sans-serif">Age Requirements: </font></td>
-             <td>'.$row['age_requirements'].'</td>
+             <td>' . $row['age_requirements'] . '</td>
          </tr>
          <tr>
              <td><font face="Arial, Helvetica, sans-serif">Education Requirements: </font></td>
-             <td>'.$row['education_requirements'].'</td>
+             <td>' . $row['education_requirements'] . '</td>
          </tr>
          <tr>
              <td><font face="Arial, Helvetica, sans-serif">Qualifications: </font></td>
-             <td>'.$row['qualifications'].'</td>
+             <td>' . $row['qualifications'] . '</td>
          </tr>
          <tr>
              <td><font face="Arial, Helvetica, sans-serif">Creator Username: </font></td>
-             <td>'.$row['creator_username'].'</td>
+             <td>' . $row['creator_username'] . '</td>
          </tr>
          <tr>
              <td><font face="Arial, Helvetica, sans-serif">Creation Date: </font></td>
-             <td>'.$row['creation_date'].'</td>
+             <td>' . $row['creation_date'] . '</td>
          </tr>';
-
-  					$pdf->AddPage();
-
+            
+            $pdf->AddPage();
+            
             // set cell padding
             $pdf->setCellPaddings(1, 1, 1, 1);
+            
             // set cell margins
             $pdf->setCellMargins(1, 1, 1, 1);
+            
             // set color for background
-            $pdf->SetFillColor(220, 255, 220);          
+            $pdf->SetFillColor(220, 255, 220);
+            
             // Multicell test
             // writeHTMLCell ($w, $h, $x, $y, $html='', $border=0, $ln=0, $fill=false, $reseth=true, $align='', $autopadding=true)
-            $pdf->writeHTMLCell(90, 5, 15, 45, $tbl_style.$tbl_header.$tableVar.$tbl_footer, 1, 0, '', '', true);
-           // $pdf->Ln('',true);
+            $pdf->writeHTMLCell(90, 5, 15, 45, $tbl_style . $tbl_header . $tableVar . $tbl_footer, 1, 0, '', '', true);
+            
+            // $pdf->Ln('',true);
             // print a blox of text using multicell()
-            $pdf->SetXY(105,45);
-            $pdf->writeHTMLCell(0.33*$myDocWidth, 5, '', '', "<style>p{   
+            $pdf->SetXY(105, 45);
+            $pdf->writeHTMLCell(0.33 * $myDocWidth, 5, '', '', "<style>p{   
              font-size: 12px;
              color: #5511FF;
              padding: 3px 7px 2px;
              text-align: left;
-           }</style><p class='one'>[Physical Demands] ".$row['physical_demands']."</p>", 1, 0, '', '', true);
-            $pdf->Ln('',true);
+           }</style><p class='one'>[Physical Demands] " . $row['physical_demands'] . "</p>", 1, 0, '', '', true);
+            $pdf->Ln('', true);
             $pdf->SetX(105);
-            $pdf->writeHTMLCell(0.33*$myDocWidth, 5, '', '', "<style>p{   
+            $pdf->writeHTMLCell(0.33 * $myDocWidth, 5, '', '', "<style>p{   
              font-size: 12px;
              color: #66CCFF;
              padding: 3px 7px 2px;
              text-align: left;
-           }</style><p class='two'>[Work Environment] ".$row['work_environment']."</p>", 1, 0, '', '', true);
-            $pdf->Ln('',true);
+           }</style><p class='two'>[Work Environment] " . $row['work_environment'] . "</p>", 1, 0, '', '', true);
+            $pdf->Ln('', true);
             $pdf->SetX(105);
-            $pdf->writeHTMLCell(0.33*$myDocWidth, 5, '', '', "<style>p{   
+            $pdf->writeHTMLCell(0.33 * $myDocWidth, 5, '', '', "<style>p{   
              font-size: 12px;
              color: #9999FF;
              padding: 3px 7px 2px;
              text-align: left;
-           }</style><p class='three'>[Conclusion] ".$row['conclusion']."</p>", 1, 0, '', '', true);
-  			
-         }
-//				echo $_GET['callback'] . '(' . json_encode($all_items) . ')';				//Output $all_items array in json encoded format.			
-	}else{
-		$tbl .= '
-		   <tr>
-		       <td>Query Returned no results</td>
-		   </tr>
-		';		
-	}								
+           }</style><p class='three'>[Conclusion] " . $row['conclusion'] . "</p>", 1, 0, '', '', true);
+        }
+        
+        //        echo $_GET['callback'] . '(' . json_encode($all_items) . ')';       //Output $all_items array in json encoded format.
+        
+    } else {
+        $tbl.= '
+       <tr>
+           <td>Query Returned no results</td>
+       </tr>
+    ';
+    }
 }
-
 
 // output the HTML content
 //$pdf->writeHTML($tbl , true, false, false, false, '');
