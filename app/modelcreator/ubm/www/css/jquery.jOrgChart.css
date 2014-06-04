@@ -1,5 +1,16 @@
 /* Basic styling */
 /* Draw the lines */
+/*.jOrgChart {
+    border: 1px solid blue;
+    text-align: center;
+}
+}
+.jOrgChart > table {
+  margin-right: auto;
+  margin-left: auto;
+      border: 1px solid blue;
+*/
+}
 .jOrgChart .line {
   height                : 20px;
   width                 : 4px;
@@ -33,9 +44,9 @@
 .jOrgChart .node {
   background-color 		: #35363B;
   display               : inline-block;
-  width                 : 105px;
+  width                 : 150px;
   height                : auto;
-  z-index 				: 10;
+  z-index 				      : 10;
   margin               : 0 2px;
 }
 

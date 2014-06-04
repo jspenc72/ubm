@@ -1268,7 +1268,7 @@ under the License.
 								window.activeModelOwnersUUID = item.UUID;
 						//1. Set currentActiveOrgChartLevel 
 						//2. Append the name of the highest reports to position on the top of the org chart.
-								$('#ubmsuite_mcs_my_organizational_chart_L0_ul').prepend("<a ondblclick='setActivePosition(" + item.UUID + ", &quot;" + item.title + "&quot;)' onclick='buildHierarchicalTree(" + item.UUID + ");setActivePositionUUID(" + item.UUID + ")'><img class='org_img' style='width:25px; height:25px;' src='img/apple.png' /></a></br>" + item.title + "</br><h3>PS-" + item.UUID + "</h3>"); 
+								$('#ubmsuite_mcs_my_organizational_chart_L0_ul').prepend("<a ondblclick='setActivePosition(" + item.UUID + ", &quot;" + item.title + "&quot;)' onclick='buildHierarchicalTree(" + item.UUID + ");setActivePositionUUID(" + item.UUID + ")'><img id='org_img_" + item.UUID + "' title='Double-click this icon to manage this position, or add another position your models org chart.' class='org_img click_pointer' style='width:50px; height:50px;' src='img/employee-opinion-surveys.png'/></a></br>" + item.title + "</br><h3>PS-" + item.UUID + "</h3>"); 
 						//3. New Append an Empty UL with the highest positions UUID in the id, so that additional positions may be added later.
 								$('#ubmsuite_mcs_my_organizational_chart_L0_ul').append("<ul id='ubmsuite_mcs_my_organizational_chart_P" + item.UUID + "_ul'></ul>");
 						//4. Empty chart Div
@@ -1292,7 +1292,7 @@ under the License.
 
 					//3. Append all other children to their respective "reports_to" ul
 					//$('#ubmsuite_mcs_my_organizational_chart_P' + item.reports_to_id + '_ul').append("<li id='orgChartPosition" + item.UUID + "'><div id='demo_box_" + item.UUID + "' class='demo_box' onclick='setActivePosition(" + item.UUID + ")'><div class='pop_ctrl'><i class='fa fa-bars'></i></div><ul id='demo_ul_2'><li class='demo_li'><a href='#' onclick='addChildPositiontoActivePosition()'><div><i class='fa fa-plus-circle'></i></div><p>Add</p></a></li><li class='demo_li'><a href='#' onclick='removeActivePosition()'><div><i class='fa fa-minus-circle'></i></div><p>Remove</p></a></li></ul></div></br>" + item.title + "<ul id='ubmsuite_mcs_my_organizational_chart_P" + item.UUID + "_ul'></ul></li>");	
-								$('#ubmsuite_mcs_my_organizational_chart_P' + item.ancestor_UUID + '_ul').append("<li id='orgChartPosition" + item.UUID + "'><a ondblclick='setActivePosition(" + item.UUID + ", &quot;" + item.title + "&quot;)' onclick='buildHierarchicalTree(" + item.UUID + ");setActivePositionUUID(" + item.UUID + ")'><img id='org_img_" + item.UUID + "' style='width:25px; height:25px;' src='img/apple.png' /></a></br>" + item.title + "</br><h3>PS-" + item.UUID + "</h3><ul id='ubmsuite_mcs_my_organizational_chart_P" + item.UUID + "_ul'></ul></li>");	
+								$('#ubmsuite_mcs_my_organizational_chart_P' + item.ancestor_UUID + '_ul').append("<li id='orgChartPosition" + item.UUID + "'><a ondblclick='setActivePosition(" + item.UUID + ", &quot;" + item.title + "&quot;)' onclick='buildHierarchicalTree(" + item.UUID + ");setActivePositionUUID(" + item.UUID + ")'><img id='org_img_" + item.UUID + "'  title='Double-click this icon to manage this position, or add another position your models org chart.' style='width:50px; height:50px;' src='img/employee-opinion-surveys.png' class='click_pointer' /></a></br><h3>" + item.title + "</h3></br><p>PS-" + item.UUID + "</p><ul id='ubmsuite_mcs_my_organizational_chart_P" + item.UUID + "_ul'></ul></li>");	
 					//4. Empty chart Div
 						        $('#chart').empty();
 						        
@@ -1949,7 +1949,7 @@ under the License.
                     </div>
                 </div>
                 <div align="center">
-                    <a href="#ubmsuite_createModel_popup" data-rel="popup" data-step='5' data-intro='After clicking &quot;Done&quot; you will be able to get started on your model.' data-role="button" data-inline="true"  >Create New Business Model</a>
+                    <a href="#ubmsuite_createModel_popup" data-rel="popup" data-step='5' data-intro='After clicking &quot;Done&quot; you will be able to get started on your model. You can activate this walkthrough from your account preferences.' data-role="button" data-inline="true"  >Create New Business Model</a>
                     <a href="#ubmsuite_createModel_popup" data-rel="popup" data-role="button" data-inline="true" class="ui-disabled">Create New Project</a>
 
                 </div>
@@ -2072,7 +2072,7 @@ under the License.
 		                        </p></a>
 		                    </li>
 		                    <li>
-		                        <a href="#creator_table_of_contents" data-position="left" data-step='6' data-intro='After clicking &quot;Done&quot; click here to begin the creation of your model.'> <img src="img/modelcreation.png" class="ui-li-thumb"> <h2>Model Creation Suite</h2>
+		                        <a href="#creator_table_of_contents" data-position="left" data-step='6' data-intro='After clicking &quot;Done&quot; click here to begin the creation of your model. You can activate this walkthrough from your account preferences.'> <img src="img/modelcreation.png" class="ui-li-thumb"> <h2>Model Creation Suite</h2>
 		                        <p>
 		                            Create your model.
 		                        </p>
