@@ -2,6 +2,7 @@
 require_once ('../config/tcpdf_config.php');
 require_once ('../tcpdf.php');
 include ('../../../DBConnect_UBMv1.php');
+require_once ('../../../globalGetVariables.php');
 $conn = new mysqli($DBServer, $DBUser, $DBPass, $DBName);
 
 // check connection
@@ -15,12 +16,12 @@ $all_items = array();
 
 //1. Select all records for checklist items stored in model_creation_suite, Count the number of items in the checklist.
 $sqlsel1 = "SELECT c.* FROM ubm_modelcreationsuite_heirarchy_object_antiSolipsism_UUID u
-            JOIN ubm_modelcreationsuite_heirarchy_object_closureTable c
-            ON (u.UUID=c.descendant_id)
-            WHERE c.ancestor_id=$v2
-            ORDER BY u.UUID";
+                        JOIN ubm_modelcreationsuite_heirarchy_object_closureTable c
+                        ON (u.UUID=c.descendant_id)
+                        WHERE c.ancestor_id=$v2
+                        ORDER BY u.UUID";
 
-//$sqlsel1="SELECT * FROM ubm_modelcreationsuite_heirarchy_object_antiSolipsism_UUID WHERE UUID=1";   //Select all
+//$sqlsel1="SELECT * FROM ubm_modelcreationsuite_heirarchy_object_antiSolipsism_UUID WHERE UUID=1";     //Select all
 $rs1 = $conn->query($sqlsel1);
 if ($rs1 === false) {
     trigger_error('Wrong SQL: ' . $sqlsel1 . ' Error: ' . $conn->error, E_USER_ERROR);
@@ -31,41 +32,84 @@ if ($rs1 === false) {
         
         //2. select the record with path_length=1 so that you get the immediate parent.
         $sqlsel2 = "SELECT * FROM ubm_modelcreationsuite_heirarchy_object_antiSolipsism_UUID u
-                JOIN ubm_modelcreationsuite_heirarchy_object_closureTable c
-                ON (u.UUID=c.descendant_id)
-                WHERE c.descendant_id=$returnedDescendant
-                AND c.path_length=1";
+                                JOIN ubm_modelcreationsuite_heirarchy_object_closureTable c
+                                ON (u.UUID=c.descendant_id)
+                                WHERE c.descendant_id=$returnedDescendant
+                                AND c.path_length=1";
         $rs2 = $conn->query($sqlsel2);
-        if ($rs1 === false) {
+        if ($rs2 === false) {
             trigger_error('Wrong SQL: ' . $sqlsel2 . ' Error: ' . $conn->error, E_USER_ERROR);
         } else {
             while ($items2 = $rs2->fetch_assoc()) {
-                $all_items[] = $items2;
+                $returnUUID = stripslashes($items2['UUID']);
+                
+                //1. Select all records for checklist items stored in model_creation_suite, Count the number of items in the checklist.
+                $sqlsel3 = "SELECT * FROM ubm_modelcreationsuite_heirarchy_object_antiSolipsism_UUID WHERE UUID='$returnUUID'";
+                $rs3 = $conn->query($sqlsel3);
+                if ($rs3 === false) {
+                    trigger_error('Wrong SQL: ' . $sqlsel3 . ' Error: ' . $conn->error, E_USER_ERROR);
+                } else {
+                    if (mysqli_num_rows($rs3) > 0) {
+                        
+                        //2. Add the result set to the $all_items [] array
+                        while ($items = $rs3->fetch_assoc()) {
+                            $positionId = stripslashes($items['position_id']);
+                            $jobDescriptionId = stripslashes($items['jobDescription_id']);
+                            $policyId = stripslashes($items['policy_id']);
+                            $procedureId = stripslashes($items['procedure_id']);
+                            $stepId = stripslashes($items['step_id']);
+                            $taskId = stripslashes($items['task_id']);
+                            
+                            if ($positionId >= 1) {
+                                $objectType = "PS";
+                                $sqlsel4 = "SELECT * FROM ubm_model_positions WHERE id=$positionId";
+                                $rs4 = $conn->query($sqlsel4);
+                            } elseif ($jobDescriptionId >= 1) {
+                                $objectType = "JD";
+                                $sqlsel4 = "SELECT * FROM ubm_model_jobDescriptions WHERE id=$jobDescriptionId";
+                                $rs4 = $conn->query($sqlsel4);
+                            } elseif ($policyId >= 1) {
+                                $objectType = "PL";
+                                $sqlsel4 = "SELECT * FROM ubm_model_policies WHERE id=$policyId";
+                                $rs4 = $conn->query($sqlsel4);
+                            } elseif ($procedureId >= 1) {
+                                $objectType = "PR";
+                                $sqlsel4 = "SELECT * FROM ubm_model_procedures WHERE id=$procedureId";
+                                $rs4 = $conn->query($sqlsel4);
+                            } elseif ($stepId >= 1) {
+                                $objectType = "ST";
+                                $sqlsel4 = "SELECT * FROM ubm_model_steps WHERE id=$stepId";
+                                $rs4 = $conn->query($sqlsel4);
+                            } elseif ($taskId >= 1) {
+                                $objectType = "TK";
+                                $sqlsel4 = "SELECT * FROM ubm_model_tasks WHERE id=$taskId";
+                                $rs4 = $conn->query($sqlsel4);
+                            } else {
+                                echo "ERROR";
+                            }
+                            if ($rs4 === false) {
+                                trigger_error('Wrong SQL: ' . $sqlsel4 . ' Error: ' . $conn->error, E_USER_ERROR);
+                            } else {
+                                while ($items2 = $rs4->fetch_assoc()) {
+                                    $items2['object_type'] = $objectType;
+                                    $all_items[] = $items2;
+                                }
+                            }
+                        }
+                        
+                        //6. JSONP packaged $all_items array
+                        echo $_GET['callback'] . '(' . json_encode($all_items) . ')';
+                        
+                        //Output $all_items array in json encoded format.
+                        
+                        
+                    } else {
+                    }
+                }
             }
         }
     }
 }
-foreach ($all_items as $value) {
-  echo $value;
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 // Extend the TCPDF class to create custom Header and Footer
 class MYPDF extends TCPDF
@@ -291,6 +335,7 @@ if ($rs1 === false) {
         }
         
         //        echo $_GET['callback'] . '(' . json_encode($all_items) . ')';       //Output $all_items array in json encoded format.
+        
         
     } else {
         $tbl.= '
