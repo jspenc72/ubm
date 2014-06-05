@@ -16,7 +16,9 @@ Pages
 sign_in_sign_up
 ===============
 
-	This page is used to securely sign into your account or to create a new account. You can sign in using google or your own account hosted by BMCL.
+	This page is used to securely sign into your account or to create a new account. You can sign in using google or your own account hosted by BMCL. 
+
+	After you register for an account you will be taken to a verification page and a verification email will be sent to the email you signed up with. After the account is verified you can push the continue button to go into the app.
 
 ubmsuite_SelectBusinessModel
 ============================

@@ -530,6 +530,17 @@ viewResolutions()
 
 	Gets all of the resolutions and puts them with the appropriate open items.
 
+userSignIn.js
+----------------------
+
+userSignIn()
+~~~~~~~~~~~~
+
+	Verification types:
+	* 1 means all verification was successful.
+	* 2 means the terms of service has not been agreed to.
+	* 3 means the password needs changed.
+	* 4 means the license agreement needs to be agreed to.
 
 
 
