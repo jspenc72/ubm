@@ -9,13 +9,11 @@ function userSignIn() {
         username: si_userName,
         password: si_passWord
     }, function(res, status) {
-        $('#sign_in_form').each(function() {
-            this.reset();
-        });
+        $('#si_pw').val("");
         if (res.validation == 0) {
             $().toastmessage('showErrorToast', res.message);
             $('#result').empty().append("<center><p style='background-color:black'>" + res.message + "</p></center>");
-            document.getElementById("si_email").focus();
+            document.getElementById("si_pw").focus();
         } else {
             if (res.validation != 0) {
                 $('#result').empty().append("<center><p style='background-color:black'>Performing your sign in request...</p></center>");
