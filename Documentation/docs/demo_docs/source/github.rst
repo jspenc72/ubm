@@ -2,9 +2,9 @@
    transforms to after the document title, subtitle, and docinfo.
 
 
-=====
-Pages
-=====
+======
+Github
+======
 
 .. meta::
    :keywords: github, pull, merge, commit, sync
@@ -16,20 +16,20 @@ Pages
 Creating a new repository
 =========================
 
-	Go to git shell and navigate to where you want to put the repository. (cd c:\your\path\here\)
+	Go to git shell and navigate to where you want to put the repository. (cd c:\\your\\path\\here\\)
 	Type: git init
 
 Download repository from github
 ===============================
 
-	Go to git shell and navigate to the parent directory of where you want to download the repository to. (cd c:\your\path\here\)
+	Go to git shell and navigate to the parent directory of where you want to download the repository to. (cd c:\\your\\path\here\\)
 	Go to the parent directory of where you want to download the repository to.
 	Type: git clone http://your/github/url/here
 
 Sync local repository to remote
 ===============================
 
-	Go to git shell and navigate to your local repository. (cd c:\your\path\here\)
+	Go to git shell and navigate to your local repository. (cd c:\\your\\path\\here\\)
 	Type: git commit -a
 	You will be prompted to type a summary for your change.
 	After typing the summary save the file and close it.
@@ -38,7 +38,7 @@ Sync local repository to remote
 Sync remote repository with local
 =================================
 
-	Go to git shell and navigate to your local repository. (cd c:\your\path\here\)
+	Go to git shell and navigate to your local repository. (cd c:\\your\\path\\here\\)
 	Type: git pull
 
 When to use

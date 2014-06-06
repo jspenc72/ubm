@@ -2199,7 +2199,7 @@ a .fa, a .rst-content .admonition-title, .rst-content a .admonition-title, a .rs
   min-width: 20%;
   opacity: 0;
   height: 0;
-  line-height: 60px;
+  line-height: 56px;
   overflow: hidden;
   -webkit-transition: all 0.3s ease-in;
   -moz-transition: all 0.3s ease-in;
@@ -2219,7 +2219,7 @@ a .fa, a .rst-content .admonition-title, .rst-content a .admonition-title, a .rs
 }
 .wy-tray-container li.on {
   opacity: 1;
-  height: 60px;
+  height: 56px;
 }
 
 @media screen and (max-width: 768px) {
@@ -3264,6 +3264,9 @@ code.code-large, .rst-content tt.code-large {
   list-style: disc;
   margin-left: 24px;
 }
+.wy-plain-list-disc li p:last-child, .rst-content .section ul li p:last-child, .rst-content .toctree-wrapper ul li p:last-child, article ul li p:last-child {
+  margin-bottom: 0;
+}
 .wy-plain-list-disc li ul, .rst-content .section ul li ul, .rst-content .toctree-wrapper ul li ul, article ul li ul {
   margin-bottom: 0;
 }
@@ -3285,6 +3288,9 @@ code.code-large, .rst-content tt.code-large {
 .wy-plain-list-decimal li, .rst-content .section ol li, .rst-content ol.arabic li, article ol li {
   list-style: decimal;
   margin-left: 24px;
+}
+.wy-plain-list-decimal li p:last-child, .rst-content .section ol li p:last-child, .rst-content ol.arabic li p:last-child, article ol li p:last-child {
+  margin-bottom: 0;
 }
 .wy-plain-list-decimal li ul, .rst-content .section ol li ul, .rst-content ol.arabic li ul, article ol li ul {
   margin-bottom: 0;

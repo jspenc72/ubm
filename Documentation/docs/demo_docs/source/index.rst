@@ -21,6 +21,7 @@ TABLE OF CONTENTS:
     checklist_services
     library
     pages
+    github
 
 Maaaaath!
 =========
