@@ -1,2 +1,0 @@
-INSERT INTO ubm_model_jobDescriptions (title, objective, ads_jd_ref, ads_ubm_h_jd_id, object_type_reference, ads_ubm_order_no)
-SELECT jd_title, jd_objective, jd_ref, ubm_h_jd_id, ubm_ref, ubm_order_no FROM ads_ubmdev_ubm_h_jd;

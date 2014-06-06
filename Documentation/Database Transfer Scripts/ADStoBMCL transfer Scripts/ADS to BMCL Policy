@@ -1,2 +1,0 @@
-INSERT INTO ubm_model_policies (title, description, purpose, object_type_reference, ads_ubm_order_no, ads_ubm_h_pl_id)
-SELECT pl_title, pl_desc, pl_purpose, ubm_ref, ubm_order_no, ubm_h_pl_id FROM ads_ubmdev_ubm_h_pl;
