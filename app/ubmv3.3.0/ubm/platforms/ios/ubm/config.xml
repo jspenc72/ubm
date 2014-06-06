@@ -1,0 +1,37 @@
+<?xml version='1.0' encoding='utf-8'?>
+<widget id="com.universalbusinessmodel.app" version="1.0.0" versionCode="10" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0" xmlns:gap="http://phonegap.com/ns/1.0">
+    <name>Hello Cordova</name>
+    <description>
+        A sample Apache Cordova application that responds to the deviceready event.
+    </description>
+    <content src="index.html" />
+    <feature name="LocalStorage">
+        <param name="ios-package" value="CDVLocalStorage" />
+    </feature>
+    <preference name="KeyboardDisplayRequiresUserAction" value="true" />
+    <preference name="SuppressesIncrementalRendering" value="false" />
+    <preference name="UIWebViewBounce" value="true" />
+    <preference name="TopActivityIndicator" value="gray" />
+    <preference name="EnableLocation" value="false" />
+    <preference name="EnableViewportScale" value="false" />
+    <preference name="AutoHideSplashScreen" value="true" />
+    <preference name="ShowSplashScreenSpinner" value="true" />
+    <preference name="MediaPlaybackRequiresUserAction" value="false" />
+    <preference name="AllowInlineMediaPlayback" value="false" />
+    <preference name="OpenAllWhitelistURLsInWebView" value="false" />
+    <preference name="BackupWebStorage" value="cloud" />
+    <preference name="phonegap-version" value="3.1.0" />
+    <name>ubm</name>
+    <description>
+        A profound application for everyone and everything.
+    </description>
+    <author email="support@findmydriver.com" href="http://www.findmydriver.com">
+        Jesse Spencer
+    </author>
+    <access origin="*" />
+    <gap:plugin name="org.apache.cordova.geolocation" version="0.3.2" />
+    <gap:plugin name="org.apache.cordova.camera" version="0.2.3" />
+    <gap:plugin name="org.apache.cordova.device" version="0.2.3" />
+    <gap:plugin name="org.apache.cordova.file" version="0.2.3" />
+    <gap:plugin name="org.apache.cordova.media" version="0.2.3" />
+</widget>

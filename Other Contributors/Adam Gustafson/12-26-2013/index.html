@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<meta name="format-detection" content="telephone=no" />
+		<!-- WARNING: for iOS 7, remove the width=device-width and height=device-height attributes. See https://issues.apache.org/jira/browse/CB-4323 -->
+		<meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
+		<link rel="stylesheet" type="text/css" href="css/index.css" />
+		<link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.0/jquery.mobile-1.4.0.min.css" />
+		<script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+		<script src="http://code.jquery.com/mobile/1.4.0/jquery.mobile-1.4.0.min.js"></script>
+		<script src="js/jquery.bxslider.js"></script>
+		<link href="css/jquery.bxslider.css" rel="stylesheet" />
+
+		<script>
+			$(document).ready(function() {
+				$('.bxslider').bxSlider({
+					speed : 200,
+				});
+			});
+		</script>
+
+	</head>
+
+	<body>
+		<!-- Getting Started Page -->
+		<div data-role="page" id="getting_started">
+			<div data-role="header">
+				<div id="header">
+					<h1> Getting Started </h1>
+					<div class="reference">
+						<p>
+							00.01</>
+					</div>
+				</div>
+			</div>
+			<div data-role="content">
+				<ul class="bxslider">
+					<li>
+						<div class="GS">
+							The easiest way to begin is to start on the company (do not print yet). All of the table of contents and checklists have been linked to all the forms you need to complete. In your UBM Creation Suite package you will see folders for the 4 major sections. (A) Model Creation, (B) Source Model, (C) Executable Model, and (D) Operating Model. You will also see a table of contents after the folders. Open the Table of contents and review. You will notice the 4 major sections are listed again on the table of contents. Under the (A) Model Creation section you will see a line referenced AMC. This is the checklist you will need to complete to have a functioning model. Click the AMC Model Creation Suite Phases Checklist. Each step on the checklist has been linked to the correct document you need to complete to check off the step. When you complete a step you need to initial and date the prepared by columns (located to the left of the steps).
+							</p>
+						</div>
+					</li>
+					<li>
+						<div class="GS">
+							<p>
+								Keep Track of your time for each step when creating your model (use the columns to the right of each step on the checklist
+							</p>
+						</div>
+					</li>
+					<li>
+						<div class="GS">
+							<p>
+								If you choose to start out by keeping hard copies of each form you can print off the pre-defined binder tabs located under the Table of contents file and create a binder using those. You do not have to create a binder at the first because the checklist will walk you through the steps eventually to do this. The only reason you would create the binder before the checklist says to, is if your manager needs a manual copy and needs to review each form individually.
+							</p>
+						</div>
+					</li>
+					<li>
+						<div class="GS">
+							<p>
+								All creation forms have already been referenced correctly you are not supposed to change any reference on any pre-defined form. All you need to do is add your company name in the center header of all forms.
+							</p>
+						</div>
+					</li>
+					<li>
+						<div class="GS">
+							<p>
+								Finally the UBM Creation Suite has a reference manual included in every version. The Reference Manual includes the explanation, templates, and samples you can refer to too assist you in completing your model forms.
+							</p>
+						</div>
+					</li>
+					<li>
+						<div class="GS">
+							<p>
+								If needed review the referencing Protocol and Referencing guide located in the Reference Manual in the following folder trail (B) Model Source >
+								01 Reference Manual > 00 Gen > 03 Ref Pro
+							</p>
+						</div>
+					</li>
+					<li>
+						<div class="GS">
+							<p>
+								PLEASE FEEL FREE TO CONTACT OUR OFFICES WITH ANY QUESTIONS 801-484-6988 (Michael Miller, Matthew Kingston, Katherine Hayes, or Erica Cannon)
+							</p>
+						</div>
+					</li>
+					<li>
+						<img src="img/03 UBM Flowchart.png">
+					</li>
+					<li>
+						<div class="GS">
+							<p>
+								GOOD LUCK!
+							</p>
+						</div>
+					</li>
+				</ul>
+				<div class="continue_button">
+					<a href="#identification_setup" data-role="button" data-inline="true">Continue to My Model Creation</a>
+				</div>
+			</div>
+			<div data-role="footer"></div>
+
+		</div>
+		<!-- Identification setup page -->
+		<div data-role="page" id="identification_setup">
+			<div data-role="header">
+				<div id="header">
+					<h1> Identification Setup </h1>
+					<div class="reference">
+						<p>
+							00.02
+						</p>
+					</div>
+				</div>
+			</div>
+			<div data-role="content">
+				<label for="text-6">Model Owner Legal Entity:</label>
+				<input type="text" name="text-6" id="text-6" value="" placeholder="Legal Entity">
+				<label for="text-6">CCODE:</label>
+				<input type="text" name="text-6" id="text-6" value="" placeholder="CCODE">
+				<label for="text-6">Contact Name:</label>
+				<input type="text" name="text-6" id="text-6" value="" placeholder="Contact Name">
+				<label for="text-6">Client Phone:</label>
+				<input type="text" name="text-6" id="text-6" value="" placeholder="Client Phone">
+				<label for="text-6">Model Title:</label>
+				<input type="text" name="text-6" id="text-6" value="" placeholder="Model Title">
+				<label for="text-6">Category:</label>
+				<input type="text" name="text-6" id="text-6" value="" placeholder="Business, Education, Family, Health, Medical, Productivity, Utilities, Church, Coop, Other">
+				<label for="text-6">Model(s) Compatible with:</label>
+				<input type="text" name="text-6" id="text-6" value="" placeholder="UBM, UFM, UCM, UEM, Other">
+				<label for="text-6">Model(s) Sub Type:</label>
+				<input type="text" name="text-6" id="text-6" value="" placeholder="Retail, Professional Services, Propery Owner, Other">
+				<label for="text-6">Hardware Requirements:</label>
+				<input type="text" name="text-6" id="text-6" value="" placeholder="PC, Mac, Smartphone, Tablet, None, Other">
+				<label for="text-6">Operating Systems Supported:</label>
+				<input type="text" name="text-6" id="text-6" value="" placeholder="Windows, IOS, Android, OSX, None, Other">
+				<label for="text-6">UBM Services Required:</label>
+				<input type="text" name="text-6" id="text-6" value="" placeholder="App Store, None, Other">
+				<label for="text-6">Description:</label>
+				<input type="text" name="text-6" id="text-6" value="" placeholder="Description">
+				<label for="text-6">Purpose/Goal:</label>
+				<input type="text" name="text-6" id="text-6" value="" placeholder="Purpose/Goal">
+				<label for="text-6">Scope:</label>
+				<input type="text" name="text-6" id="text-6" value="" placeholder="Scope">
+				<label for="text-6">What Features Must This Model Create, Do, Process, etc.:</label>
+				<input type="text" name="text-6" id="text-6" value="" placeholder="What Features Must This Model Create, Do, Process, etc.">
+				<label for="text-6">What Products Must This Model Create or Generate:</label>
+				<input type="text" name="text-6" id="text-6" value="" placeholder="What Products Must This Model Create or Generate">
+				<!--submit button-->
+				<div id="submit_button">
+					<a href="#" data-role="button" data-inline="true">Submit</a>
+				</div>
+				<!--continue button-->
+				<div class="continue_button">
+					<a href="#table_of_contents" data-role="button" data-inline="true">Continue</a>
+				</div>
+				<div data-role="footer">
+
+				</div>
+			</div>
+		</div>
+		<!-- Table of Contents Page-->
+		<div data-role="page" id="table_of_contents">
+			<div data-role="header">
+				<div id="header">
+					<h1> Table of Contents </h1>
+					<div class="reference">
+						<p>
+							ATOC
+						</p>
+					</div>
+				</div>
+			</div>
+			<div data-role="content">
+				<div id="model_creation">
+					<h1>(A) Model Creation</h1>
+					<p>
+						Model Creation Suite Phases Checklist
+					</p>
+					<p>
+						Open Points/Action Items
+					</p>
+					<p>
+						Notes to Reviewer
+					</p>
+					<p>
+						Time Sheet
+					</p>
+				</div>
+				<div id="model">
+					<h1>(B) Model</h1>
+					<p>
+						Model Creation Suite Master File Index Summary Table of Contents
+					</p>
+					<p>
+						Model Creation Suite Master File Index
+					</p>
+				</div>
+				<div id="executable">
+					<h1>(C) Executable</h1>
+					<p>
+						Manual Harvested Model Table of Contents
+					</p>
+				</div>
+				<!--continue button TAKE OUT IN FULL VERSION -->
+				<div class="continue_button">
+					<a href="#primary_objects_setup_table" data-role="button" data-inline="true">Continue</a>
+				</div>
+			</div>
+			<div data-role="footer">
+
+			</div>
+		</div>
+		<!-- Primary Objects Setup Table-->
+		<div data-role="page" id="primary_objects_setup_table">
+			<div data-role="header">
+				<div id="header">
+					<h1> Primary Objects Setup Table</h1>
+					<div class="reference">
+						<p>
+							00.02
+						</p>
+					</div>
+				</div>
+			</div>
+			<div data-role="content">
+				<label for="text-6">Conceptual Definitions</label>
+				<input type="text" name="text-6" id="text-6" value="" placeholder="Conceptual Definitions (Refer to 01.01.02.01 in the Reference Manual)">
+				<label for="text-6">Entity/Model Description</label>
+				<input type="text" name="text-6" id="text-6" value="" placeholder="Entity/Model Description (Refer to 01.01.02.13  in the Reference Manual)">
+				<label for="text-6">Mission Statement</label>
+				<input type="text" name="text-6" id="text-6" value="" placeholder="Mission Statement (Refer to 01.01.02.02  in the Reference Manual)">
+				<label for="text-6">Vision Statement</label>
+				<input type="text" name="text-6" id="text-6" value="" placeholder="Vision Statement (Refer to 01.01.02.03  in the Reference Manual)">
+				<label for="text-6">Core Values</label>
+				<input type="text" name="text-6" id="text-6" value="" placeholder="Core Values (Refer to 01.01.02.04  in the Reference Manual)">
+				<label for="text-6">My Customer</label>
+				<input type="text" name="text-6" id="text-6" value="" placeholder="My Customer (Refer to 01.01.02.05  in the Reference Manual)">
+				<label for="text-6">Products and Service</label>
+				<input type="text" name="text-6" id="text-6" value="" placeholder="Product & Service (Refer to 01.01.02.06  in the Reference Manual)">
+				<label for="text-6">Organizational Structure</label>
+				<input type="text" name="text-6" id="text-6" value="" placeholder="Organizational Structure (Refer to 01.01.01.04 in the Reference Manual)">
+				<label for="text-6">Physical Facilities</label>
+				<input type="text" name="text-6" id="text-6" value="" placeholder="Physical Facilities (Refer to 01.01.02.10  in the Reference Manual)">
+				<label for="text-6">Physical Facilites By Position</label>
+				<input type="text" name="text-6" id="text-6" value="" placeholder="Physical Facilities By Position (Refer to 01.01.02.10  in the Reference Manual)">
+				<label for="text-6">Strategic Positioning Questions</label>
+				<input type="text" name="text-6" id="text-6" value="" placeholder="Strategic Positioning Questions (Refer to 01.01.02.07  in the Reference Manual)">
+				<label for="text-6">Strategic Alliances</label>
+				<input type="text" name="text-6" id="text-6" value="" placeholder="Strategic Alliances (Refer to 01.01.02.14 in the Reference Manual)">
+				<!--submit button-->
+				<div id="submit_button">
+					<a href="#" data-role="button" data-inline="true">Submit</a>
+				</div>
+				<!--continue button-->
+				<div class="continue_button">
+					<a href="#table_of_contents" data-role="button" data-inline="true">Continue</a>
+				</div>
+
+			</div>
+			<div data-role="footer">
+
+			</div>
+		</div>
+		<!-- List of Possible Alternitives -->
+		<div data-role="page" id="possible_alternitives">
+			<div data-role="header">
+				<div id="header">
+					<h1> List of Possible Alternitives</h1>
+					<div class="reference">
+						<p>
+							00.07
+						</p>
+					</div>
+				</div>
+			</div>
+			<div data-role="content">
+				...
+			</div>
+			<div data-role="footer">
+				...
+			</div>
+		</div>
+		<script type="text/javascript" src="cordova.js"></script>
+		<script type="text/javascript" src="js/index.js"></script>
+		<script type="text/javascript">
+			app.initialize();
+		</script>
+	</body>
+</html>

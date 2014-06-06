@@ -1,0 +1,85 @@
+[18-Mar-2014 07:31:05 UTC] PHP Parse error:  syntax error, unexpected ''content); ?>' (T_ENCAPSED_AND_WHITESPACE), expecting ')' in /home/univetr3/public_html/laravel/app/storage/views/4c0758598cb9eaf7355cf6acb9b5df60 on line 8
+[18-Mar-2014 07:31:07 UTC] PHP Parse error:  syntax error, unexpected ''content); ?>' (T_ENCAPSED_AND_WHITESPACE), expecting ')' in /home/univetr3/public_html/laravel/app/storage/views/4c0758598cb9eaf7355cf6acb9b5df60 on line 8
+[18-Mar-2014 07:31:10 UTC] PHP Parse error:  syntax error, unexpected ''content); ?>' (T_ENCAPSED_AND_WHITESPACE), expecting ')' in /home/univetr3/public_html/laravel/app/storage/views/4c0758598cb9eaf7355cf6acb9b5df60 on line 8
+[18-Mar-2014 08:11:11 UTC] PHP Parse error:  syntax error, unexpected '{' in /home/univetr3/public_html/laravel/app/routes.php on line 43
+[18-Mar-2014 08:11:12 UTC] PHP Parse error:  syntax error, unexpected '{' in /home/univetr3/public_html/laravel/app/routes.php on line 43
+[18-Mar-2014 08:11:14 UTC] PHP Parse error:  syntax error, unexpected '{' in /home/univetr3/public_html/laravel/app/routes.php on line 43
+[18-Mar-2014 08:11:56 UTC] PHP Parse error:  syntax error, unexpected '{' in /home/univetr3/public_html/laravel/app/routes.php on line 43
+[18-Mar-2014 08:11:57 UTC] PHP Parse error:  syntax error, unexpected '{' in /home/univetr3/public_html/laravel/app/routes.php on line 43
+[18-Mar-2014 08:11:59 UTC] PHP Parse error:  syntax error, unexpected '{' in /home/univetr3/public_html/laravel/app/routes.php on line 43
+[18-Mar-2014 08:12:10 UTC] PHP Parse error:  syntax error, unexpected '{' in /home/univetr3/public_html/laravel/app/routes.php on line 43
+[18-Mar-2014 08:12:42 UTC] PHP Parse error:  syntax error, unexpected '{' in /home/univetr3/public_html/laravel/app/routes.php on line 43
+[18-Mar-2014 08:13:03 UTC] PHP Parse error:  syntax error, unexpected '{' in /home/univetr3/public_html/laravel/app/routes.php on line 43
+[18-Mar-2014 08:19:48 UTC] PHP Parse error:  syntax error, unexpected ''content); ?>' (T_ENCAPSED_AND_WHITESPACE), expecting ')' in /home/univetr3/public_html/laravel/app/storage/views/4c0758598cb9eaf7355cf6acb9b5df60 on line 8
+[18-Mar-2014 14:08:53 UTC] PHP Parse error:  syntax error, unexpected '<' in /home/univetr3/public_html/laravel/app/storage/views/4c0758598cb9eaf7355cf6acb9b5df60 on line 7
+[18-Mar-2014 16:49:19 UTC] PHP Parse error:  syntax error, unexpected '<' in /home/univetr3/public_html/laravel/app/storage/views/4c0758598cb9eaf7355cf6acb9b5df60 on line 7
+[18-Mar-2014 16:52:32 UTC] PHP Parse error:  syntax error, unexpected '<' in /home/univetr3/public_html/laravel/app/storage/views/4c0758598cb9eaf7355cf6acb9b5df60 on line 7
+[18-Mar-2014 16:53:07 UTC] PHP Parse error:  syntax error, unexpected '<' in /home/univetr3/public_html/laravel/app/storage/views/4c0758598cb9eaf7355cf6acb9b5df60 on line 7
+[18-Mar-2014 16:58:53 UTC] PHP Parse error:  syntax error, unexpected '<' in /home/univetr3/public_html/laravel/app/storage/views/4c0758598cb9eaf7355cf6acb9b5df60 on line 7
+[18-Mar-2014 17:02:06 UTC] PHP Parse error:  syntax error, unexpected '<' in /home/univetr3/public_html/laravel/app/storage/views/4c0758598cb9eaf7355cf6acb9b5df60 on line 7
+[18-Mar-2014 17:02:36 UTC] PHP Parse error:  syntax error, unexpected '<' in /home/univetr3/public_html/laravel/app/storage/views/4c0758598cb9eaf7355cf6acb9b5df60 on line 7
+[18-Mar-2014 17:02:50 UTC] PHP Parse error:  syntax error, unexpected 'endif' (T_ENDIF) in /home/univetr3/public_html/laravel/app/storage/views/4c0758598cb9eaf7355cf6acb9b5df60 on line 8
+[18-Mar-2014 17:32:33 UTC] PHP Parse error:  syntax error, unexpected '$user' (T_VARIABLE), expecting '(' in /home/univetr3/public_html/laravel/app/controllers/AccountController.php on line 37
+[18-Mar-2014 17:49:37 UTC] PHP Parse error:  syntax error, unexpected '}' in /home/univetr3/public_html/laravel/app/controllers/AccountController.php on line 58
+[18-Mar-2014 18:12:10 UTC] PHP Parse error:  syntax error, unexpected '}' in /home/univetr3/public_html/laravel/app/controllers/AccountController.php on line 58
+[18-Mar-2014 18:12:14 UTC] PHP Parse error:  syntax error, unexpected '}' in /home/univetr3/public_html/laravel/app/controllers/AccountController.php on line 58
+[18-Mar-2014 18:12:23 UTC] PHP Parse error:  syntax error, unexpected '}' in /home/univetr3/public_html/laravel/app/controllers/AccountController.php on line 58
+[18-Mar-2014 18:15:20 UTC] PHP Parse error:  syntax error, unexpected '}' in /home/univetr3/public_html/laravel/app/controllers/AccountController.php on line 57
+[18-Mar-2014 18:15:46 UTC] PHP Parse error:  syntax error, unexpected '}' in /home/univetr3/public_html/laravel/app/controllers/AccountController.php on line 57
+[18-Mar-2014 18:20:13 UTC] PHP Parse error:  syntax error, unexpected '}' in /home/univetr3/public_html/laravel/app/controllers/AccountController.php on line 57
+[18-Mar-2014 18:23:30 UTC] PHP Parse error:  syntax error, unexpected '}' in /home/univetr3/public_html/laravel/app/controllers/AccountController.php on line 57
+[18-Mar-2014 18:49:09 UTC] PHP Parse error:  syntax error, unexpected 'layout' (T_STRING) in /home/univetr3/public_html/laravel/app/storage/views/06aca86ad70cb3eb9a5525c97a648132 on line 12
+[18-Mar-2014 18:50:42 UTC] PHP Parse error:  syntax error, unexpected 'layout' (T_STRING) in /home/univetr3/public_html/laravel/app/storage/views/06aca86ad70cb3eb9a5525c97a648132 on line 11
+[18-Mar-2014 18:50:43 UTC] PHP Parse error:  syntax error, unexpected 'layout' (T_STRING) in /home/univetr3/public_html/laravel/app/storage/views/06aca86ad70cb3eb9a5525c97a648132 on line 11
+[18-Mar-2014 18:51:10 UTC] PHP Parse error:  syntax error, unexpected 'layout' (T_STRING) in /home/univetr3/public_html/laravel/app/storage/views/06aca86ad70cb3eb9a5525c97a648132 on line 10
+[18-Mar-2014 18:59:43 UTC] PHP Parse error:  syntax error, unexpected 'email' (T_STRING) in /home/univetr3/public_html/laravel/app/storage/views/06aca86ad70cb3eb9a5525c97a648132 on line 6
+[18-Mar-2014 19:01:58 UTC] PHP Parse error:  syntax error, unexpected ';' in /home/univetr3/public_html/laravel/app/storage/views/06aca86ad70cb3eb9a5525c97a648132 on line 4
+[18-Mar-2014 19:01:59 UTC] PHP Parse error:  syntax error, unexpected ';' in /home/univetr3/public_html/laravel/app/storage/views/06aca86ad70cb3eb9a5525c97a648132 on line 4
+[18-Mar-2014 19:04:06 UTC] PHP Parse error:  syntax error, unexpected ';' in /home/univetr3/public_html/laravel/app/storage/views/06aca86ad70cb3eb9a5525c97a648132 on line 4
+[18-Mar-2014 19:04:08 UTC] PHP Parse error:  syntax error, unexpected ';' in /home/univetr3/public_html/laravel/app/storage/views/06aca86ad70cb3eb9a5525c97a648132 on line 4
+[18-Mar-2014 19:11:10 UTC] PHP Parse error:  syntax error, unexpected '}' in /home/univetr3/public_html/laravel/app/controllers/AccountController.php on line 30
+[18-Mar-2014 19:11:12 UTC] PHP Parse error:  syntax error, unexpected '}' in /home/univetr3/public_html/laravel/app/controllers/AccountController.php on line 30
+[18-Mar-2014 20:45:24 UTC] PHP Parse error:  syntax error, unexpected '$auth' (T_VARIABLE) in /home/univetr3/public_html/laravel/app/controllers/AccountController.php on line 22
+[18-Mar-2014 21:08:25 UTC] PHP Parse error:  syntax error, unexpected '}' in /home/univetr3/public_html/laravel/app/controllers/AccountController.php on line 107
+[18-Mar-2014 21:08:27 UTC] PHP Parse error:  syntax error, unexpected '}' in /home/univetr3/public_html/laravel/app/controllers/AccountController.php on line 107
+[18-Mar-2014 21:31:16 UTC] PHP Parse error:  syntax error, unexpected '}' in /home/univetr3/public_html/laravel/app/controllers/AccountController.php on line 129
+[18-Mar-2014 22:38:44 UTC] PHP Parse error:  syntax error, unexpected '->' (T_OBJECT_OPERATOR) in /home/univetr3/public_html/laravel/app/controllers/ProfileController.php on line 8
+[18-Mar-2014 22:38:46 UTC] PHP Parse error:  syntax error, unexpected '->' (T_OBJECT_OPERATOR) in /home/univetr3/public_html/laravel/app/controllers/ProfileController.php on line 8
+[18-Mar-2014 23:03:45 UTC] PHP Parse error:  syntax error, unexpected '__data' (T_STRING) in /home/univetr3/public_html/laravel/app/storage/views/e19f873d7f8b1548166053aa7dc60276 on line 5
+[18-Mar-2014 23:04:04 UTC] PHP Parse error:  syntax error, unexpected '__data' (T_STRING) in /home/univetr3/public_html/laravel/app/storage/views/e19f873d7f8b1548166053aa7dc60276 on line 5
+[18-Mar-2014 23:04:12 UTC] PHP Parse error:  syntax error, unexpected '__data' (T_STRING) in /home/univetr3/public_html/laravel/app/storage/views/e19f873d7f8b1548166053aa7dc60276 on line 5
+[18-Mar-2014 23:58:41 UTC] PHP Parse error:  syntax error, unexpected ';' in /home/univetr3/public_html/laravel/app/controllers/AccountController.php on line 172
+[18-Mar-2014 23:58:44 UTC] PHP Parse error:  syntax error, unexpected ';' in /home/univetr3/public_html/laravel/app/controllers/AccountController.php on line 172
+[18-Mar-2014 23:59:07 UTC] PHP Parse error:  syntax error, unexpected ';' in /home/univetr3/public_html/laravel/app/controllers/AccountController.php on line 172
+[18-Mar-2014 23:59:17 UTC] PHP Parse error:  syntax error, unexpected '}' in /home/univetr3/public_html/laravel/app/controllers/AccountController.php on line 172
+[18-Mar-2014 23:59:19 UTC] PHP Parse error:  syntax error, unexpected '}' in /home/univetr3/public_html/laravel/app/controllers/AccountController.php on line 172
+[18-Mar-2014 23:59:48 UTC] PHP Parse error:  syntax error, unexpected ';' in /home/univetr3/public_html/laravel/app/controllers/AccountController.php on line 172
+[18-Mar-2014 23:59:50 UTC] PHP Parse error:  syntax error, unexpected ';' in /home/univetr3/public_html/laravel/app/controllers/AccountController.php on line 172
+[18-Mar-2014 23:59:58 UTC] PHP Parse error:  syntax error, unexpected ';' in /home/univetr3/public_html/laravel/app/controllers/AccountController.php on line 172
+[19-Mar-2014 00:00:22 UTC] PHP Parse error:  syntax error, unexpected ';' in /home/univetr3/public_html/laravel/app/controllers/AccountController.php on line 172
+[19-Mar-2014 00:00:36 UTC] PHP Parse error:  syntax error, unexpected ';' in /home/univetr3/public_html/laravel/app/controllers/AccountController.php on line 172
+[19-Mar-2014 00:03:47 UTC] PHP Parse error:  syntax error, unexpected ''username'' (T_CONSTANT_ENCAPSED_STRING), expecting identifier (T_STRING) or variable (T_VARIABLE) or '{' or '$' in /home/univetr3/public_html/laravel/app/controllers/AccountController.php on line 171
+[19-Mar-2014 00:08:06 UTC] PHP Parse error:  syntax error, unexpected ')' in /home/univetr3/public_html/laravel/app/controllers/AccountController.php on line 172
+[19-Mar-2014 00:23:57 UTC] PHP Parse error:  syntax error, unexpected '$user' (T_VARIABLE) in /home/univetr3/public_html/laravel/app/controllers/AccountController.php on line 187
+[21-Mar-2014 06:33:08 UTC] PHP Parse error:  syntax error, unexpected 'global' (T_GLOBAL) in /home/univetr3/public_html/laravel/app/storage/views/4c0758598cb9eaf7355cf6acb9b5df60 on line 8
+[21-Mar-2014 06:33:17 UTC] PHP Parse error:  syntax error, unexpected 'global' (T_GLOBAL) in /home/univetr3/public_html/laravel/app/storage/views/4c0758598cb9eaf7355cf6acb9b5df60 on line 8
+[21-Mar-2014 06:33:46 UTC] PHP Parse error:  syntax error, unexpected 'global' (T_GLOBAL) in /home/univetr3/public_html/laravel/app/storage/views/4c0758598cb9eaf7355cf6acb9b5df60 on line 8
+[21-Mar-2014 06:33:48 UTC] PHP Parse error:  syntax error, unexpected 'global' (T_GLOBAL) in /home/univetr3/public_html/laravel/app/storage/views/4c0758598cb9eaf7355cf6acb9b5df60 on line 8
+[21-Mar-2014 06:34:08 UTC] PHP Parse error:  syntax error, unexpected 'global' (T_GLOBAL) in /home/univetr3/public_html/laravel/app/storage/views/4c0758598cb9eaf7355cf6acb9b5df60 on line 8
+[21-Mar-2014 06:34:10 UTC] PHP Parse error:  syntax error, unexpected 'global' (T_GLOBAL) in /home/univetr3/public_html/laravel/app/storage/views/4c0758598cb9eaf7355cf6acb9b5df60 on line 8
+[22-Mar-2014 05:14:37 UTC] PHP Parse error:  syntax error, unexpected ';' in /home/univetr3/public_html/laravel/app/storage/views/cdc7e595dedc28a8f33a8f5ac9606d82 on line 50
+[22-Mar-2014 05:14:38 UTC] PHP Parse error:  syntax error, unexpected ';' in /home/univetr3/public_html/laravel/app/storage/views/cdc7e595dedc28a8f33a8f5ac9606d82 on line 50
+[22-Mar-2014 05:14:39 UTC] PHP Parse error:  syntax error, unexpected ';' in /home/univetr3/public_html/laravel/app/storage/views/cdc7e595dedc28a8f33a8f5ac9606d82 on line 50
+[22-Mar-2014 05:14:49 UTC] PHP Parse error:  syntax error, unexpected ';' in /home/univetr3/public_html/laravel/app/storage/views/cdc7e595dedc28a8f33a8f5ac9606d82 on line 50
+[22-Mar-2014 05:15:24 UTC] PHP Parse error:  syntax error, unexpected ';' in /home/univetr3/public_html/laravel/app/storage/views/cdc7e595dedc28a8f33a8f5ac9606d82 on line 50
+[25-Mar-2014 01:50:02 UTC] PHP Fatal error:  Class 'EditableGrid' not found in /home/univetr3/public_html/laravel/app/views/modelcreationsuite/P3/loadbalancesheetcreditsdata.php on line 54
+[25-Mar-2014 01:51:39 UTC] PHP Warning:  Unterminated comment starting line 85 in /home/univetr3/public_html/laravel/app/views/modelcreationsuite/P3/loadbalancesheetcreditsdata.php on line 85
+[25-Mar-2014 01:52:23 UTC] PHP Warning:  Unterminated comment starting line 85 in /home/univetr3/public_html/laravel/app/views/modelcreationsuite/P3/loadbalancesheetcreditsdata.php on line 85
+[25-Mar-2014 01:52:32 UTC] PHP Warning:  Unterminated comment starting line 85 in /home/univetr3/public_html/laravel/app/views/modelcreationsuite/P3/loadbalancesheetcreditsdata.php on line 85
+[25-Mar-2014 01:52:57 UTC] PHP Warning:  Unterminated comment starting line 85 in /home/univetr3/public_html/laravel/app/views/modelcreationsuite/P3/loadbalancesheetcreditsdata.php on line 85
+[25-Mar-2014 01:52:58 UTC] PHP Warning:  Unterminated comment starting line 85 in /home/univetr3/public_html/laravel/app/views/modelcreationsuite/P3/loadbalancesheetcreditsdata.php on line 85
+[25-Mar-2014 01:53:09 UTC] PHP Warning:  Unterminated comment starting line 83 in /home/univetr3/public_html/laravel/app/views/modelcreationsuite/P3/loadbalancesheetcreditsdata.php on line 83
+[25-Mar-2014 01:53:21 UTC] PHP Warning:  Unterminated comment starting line 83 in /home/univetr3/public_html/laravel/app/views/modelcreationsuite/P3/loadbalancesheetcreditsdata.php on line 83
+[25-Mar-2014 01:53:23 UTC] PHP Warning:  Unterminated comment starting line 83 in /home/univetr3/public_html/laravel/app/views/modelcreationsuite/P3/loadbalancesheetcreditsdata.php on line 83
+[25-Mar-2014 01:53:23 UTC] PHP Warning:  Unterminated comment starting line 83 in /home/univetr3/public_html/laravel/app/views/modelcreationsuite/P3/loadbalancesheetcreditsdata.php on line 83
+[25-Mar-2014 01:53:43 UTC] PHP Warning:  Unterminated comment starting line 83 in /home/univetr3/public_html/laravel/app/views/modelcreationsuite/P3/loadbalancesheetcreditsdata.php on line 83

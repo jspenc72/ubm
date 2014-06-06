@@ -1,0 +1,4 @@
+INSERT INTO ubm_model_positions (title, summary, full_or_part_time, ads_ubm_h_ps_id, object_type_reference, ads_ubm_order_no, reports_to_id)
+SELECT ps_title, ps_summary, full_or_part_time, ubm_h_ps_id, ubm_ref, ubm_order_no, ubm_order_no FROM ads_ubmdev_ubm_h_ps;
+
+/* The reports_to_id in the BMCL database is a foreign key constraint with the primary key in the ubm_model_positions table. so each position that is created must be assigned to an existing position in the UBM reference manual before it is created. I used the ubm_order_no as the reports_to_id but this is only a temporary fix to get the insert statement to work and should not be used in the long run. */
