@@ -3,7 +3,6 @@ function userSignIn() {
     var si_email = document.getElementById("si_email").value;
     var si_passWord = document.getElementById("si_pw").value;
     var si_userName = si_email.split("@", 1).toString();
-    window.username = si_userName;
     $.getJSON('http://api.universalbusinessmodel.com/ubms_usrsi.php?callback=?', { //JSONP Request
         key: window.key,
         username: si_userName,
@@ -18,6 +17,7 @@ function userSignIn() {
             if (res.validation != 0) {
                 $('#result').empty().append("<center><p style='background-color:black'>Performing your sign in request...</p></center>");
                 $("#draggable_circle_linkTo_openPointsPage").attr("href", "#open_points_action_items");
+                window.username = si_userName;
 
                 window.accounttype = res.accountType;
                 switch (res.validation) {

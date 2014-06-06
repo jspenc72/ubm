@@ -60,6 +60,7 @@ foreach ($all_UUID as $position => $value) {
         trigger_error('Wrong SQL: ' . $sqlsel1 . ' Error: ' . $conn->error, E_USER_ERROR);
     } else {
         if (mysqli_num_rows($rs1) > 0) {
+            
             //2. Add the result set to the $all_items [] array
             while ($items = $rs1->fetch_assoc()) {
                 $jobDescriptionId = stripslashes($items['jobDescription_id']);
@@ -77,9 +78,12 @@ foreach ($all_UUID as $position => $value) {
                     }
                 }
             }
+            
             //6. JSONP packaged $all_items array
             echo $_GET['callback'] . '(' . json_encode($all_items) . ')';
+            
             //Output $all_items array in json encoded format.
+            
         } else {
         }
     }
