@@ -41,6 +41,8 @@ if ($rs1 === false) {
         if ($rs1 === false) {
             trigger_error('Wrong SQL: ' . $sqlsel2 . ' Error: ' . $conn->error, E_USER_ERROR);
         } else {
+            
+            //3. Get all the UUID's from the returned array
             while ($items2 = $rs2->fetch_assoc()) {
                 $all_UUID[] = stripslashes($items2['UUID']);
             }
@@ -48,12 +50,13 @@ if ($rs1 === false) {
     }
 }
 
+//4. Go through each UUID
 foreach ($all_UUID as $position => $value) {
     
     //SELECT
     $all_items = array();
     
-    //1. Select all records for checklist items stored in model_creation_suite, Count the number of items in the checklist.
+    //5.Get the id of the JD, PL, PR, ST, TA and return it
     $sqlsel1 = "SELECT * FROM ubm_modelcreationsuite_heirarchy_object_antiSolipsism_UUID WHERE UUID=$value";
     $rs1 = $conn->query($sqlsel1);
     if ($rs1 === false) {
@@ -61,7 +64,7 @@ foreach ($all_UUID as $position => $value) {
     } else {
         if (mysqli_num_rows($rs1) > 0) {
             
-            //2. Add the result set to the $all_items [] array
+            //6. Select all of the information from the appropriate job description
             while ($items = $rs1->fetch_assoc()) {
                 $jobDescriptionId = stripslashes($items['jobDescription_id']);
                 if ($jobDescriptionId >= 1) {
@@ -79,12 +82,17 @@ foreach ($all_UUID as $position => $value) {
                 }
             }
             
-            //6. JSONP packaged $all_items array
+            // 7. Print out every job description that is a part of this position
             echo $_GET['callback'] . '(' . json_encode($all_items) . ')';
             
+            // tcpd stuff
+            
             //Output $all_items array in json encoded format.
+            
             
         } else {
         }
     }
 }
+
+//8. Do the same for PL, PR, ST, TA
