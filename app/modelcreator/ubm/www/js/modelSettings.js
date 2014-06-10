@@ -86,13 +86,19 @@ function model_getuserswithaccess() {
         $.each(res, function(i, item) {
             $('#ubmsuite_modelSettings_modelusers_ul').append("<li><a href='#' onclick='setSelectedModelUser(" + item.id + ")'>" + item.member_id + "</a></li>");
             $('#ubmsuite_modelSettings_modelusers_ul').listview().listview().listview("refresh");
-        })
+        });
     });
 }
 
 function setActiveModel(activeModelUUID) {
-    //window.activeModelUUID = activeModelUUID;
+    $('.modelApp_title_header').empty();
     window.activeModelUUID = activeModelUUID;
+    $.getJSON('http://api.universalbusinessmodel.com/ubms_modelCreationSuite_getModelName.php?callback=?', { //JSONP Request
+        key: window.key,
+        activeModelUUID: window.activeModelUUID,
+    }, function(res, status) {
+        $(".modelApp_title_header").append("Model / App Title: " + res + "");
+    });
 }
 
 function shareModel() {

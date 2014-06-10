@@ -33,6 +33,8 @@ $(document).on("pageshow", "#ubmsuite_SelectBusinessModel", function() {
             window.globalCounter++;
         }
     }, 1000);
+    $('.modelApp_title_header').empty();
+    $(".modelApp_title_header").append("Model / App Title: Automated Model Creation Suite");
 });
 $(document).on("pageshow", "#return_on_investment", function() {
     getListofAlternativesforReturnOnInvestment();
