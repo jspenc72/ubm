@@ -10,22 +10,25 @@ if ($conn -> connect_error) {
 $v2 = "'" . $conn -> real_escape_string($activeObjectUUID) . "'";
 //SELECT
 $all_items = array();
-//1. Select all records for checklist items stored in model_creation_suite, Count the number of items in the checklist.
-			$sqlsel1="SELECT c.* FROM ubm_modelcreationsuite_heirarchy_object_antiSolipsism_UUID u
+//1. Select all records with ancestor equal to the activeObjectUUID
+			$sqlsel1="SELECT c.descendant_id, c.ancestor_id, c.path_length FROM ubm_modelcreationsuite_heirarchy_object_antiSolipsism_UUID u
 						JOIN ubm_modelcreationsuite_heirarchy_object_closureTable c
 						ON (u.UUID=c.descendant_id)
 						WHERE c.ancestor_id=$v2
 						ORDER BY u.UUID";
-			//$sqlsel1="SELECT * FROM ubm_modelcreationsuite_heirarchy_object_antiSolipsism_UUID WHERE UUID=1";		//Select all 
 			$rs1=$conn->query($sqlsel1);
+//2. Set rs1 equal to the list of objects that is returned in the result set.
 			if($rs1 === false) {
 			  trigger_error('Wrong SQL: ' . $sqlsel1 . ' Error: ' . $conn->error, E_USER_ERROR);
 			} else{
 				while ($items1 = $rs1->fetch_assoc()) {
+//3. Loop through the result set and get the descendant_id and the ancestor_id
 					$returnedDescendant = stripslashes($items1['descendant_id']);
-					$returnedAncestor = stripslashes($items1['ancestor_id']);						
-//2. select the record with path_length=1 so that you get the immediate parent.						
-					$sqlsel2="SELECT * FROM ubm_modelcreationsuite_heirarchy_object_antiSolipsism_UUID u
+					$returnedAncestor = stripslashes($items1['ancestor_id']);	
+										
+//4. select the record with path_length=1 so that you get the immediate parent.
+
+					$sqlsel2="SELECT c.*, u.* FROM ubm_modelcreationsuite_heirarchy_object_antiSolipsism_UUID u
 								JOIN ubm_modelcreationsuite_heirarchy_object_closureTable c
 								ON (u.UUID=c.descendant_id)
 								WHERE c.descendant_id=$returnedDescendant

@@ -464,3 +464,4 @@ $termsOfService = $_GET['termsOfService'];
 
 //getwalkthroughstatus
 $pageName = $_GET['pageName']; 
+$actionRequired = $_GET['actionRequired']; 

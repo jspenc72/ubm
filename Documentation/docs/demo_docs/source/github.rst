@@ -39,7 +39,8 @@ Sync remote repository with local
 =================================
 
 	Go to git shell and navigate to your local repository. (cd c:\\your\\path\\here\\)
-	Type: git pull
+	Type: git add c:\\your\\path\\here 
+	Then type: git pull
 
 When to use
 ===========

@@ -105,6 +105,18 @@ under the License.
 	    <link rel="stylesheet" href="css/form_progress_bar.css">
 	<!-- End Custom sign_in_sign_up page stuff -->
         <title>UBM</title>
+        <script>
+        if (navigator.userAgent.indexOf('Firefox') != -1 && parseFloat(navigator.userAgent.substring(navigator.userAgent.indexOf('Firefox') + 8)) >= 3.6) { //Firefox
+		        //Allow
+		    } else if (navigator.userAgent.indexOf('Chrome') != -1 && parseFloat(navigator.userAgent.substring(navigator.userAgent.indexOf('Chrome') + 7).split(' ')[0]) >= 15) { //Chrome
+		        //Allow
+		    } else if (navigator.userAgent.indexOf('Safari') != -1 && navigator.userAgent.indexOf('Version') != -1 && parseFloat(navigator.userAgent.substring(navigator.userAgent.indexOf('Version') + 8).split(' ')[0]) >= 5) { //Safari
+		        //Allow
+		    } else {
+		        // Block
+		    }
+        </script>
+
 		<script>
 			function refreshBackboneTable(){
 				getJobDescriptionsforBackBoneTable();
@@ -428,7 +440,7 @@ under the License.
 				if(ElementsArray){
 					//1. Start by prepending the position to the tree.
 							$('#heirarchyObjectTree_ul').prepend("<li><a data-thisUUID='" + window.activePositionUUID + "' class='hierarchyObjectTreeItem ajax_tooltip' onclick='setActivePositionUUID(" + window.activePositionUUID + ")' ondblclick='openNewJDPopup(" + window.activePositionUUID + ")'>PS-" + window.activePositionUUID + "</a><ul id='ubmsuite_mcs_my_organizational_chart_heirarchyObjectTree_ul_" + window.activePositionUUID + "'></ul></li>"); 	 					
-					$.each(ElementsArray, function(i, item) {			
+					$.each(ElementsArray, function(i, item) {
 						if(item.jobDescription_id>="1"){
 						//2. jobDescription_id for Object hierarchy suggests the item is a JD
 							$("#ubmsuite_mcs_my_organizational_chart_heirarchyObjectTree_ul_" + item.ancestor_id + "").append("<li><a data-thisUUID='" + item.descendant_id + "' class='hierarchyObjectTreeItem ajax_tooltip' onclick='setActiveJobDescriptionUUID(" + item.descendant_id + ")' ondblclick='openNewPLPopup(" + item.descendant_id + ")'>JD-" + item.descendant_id + "</a><ul id='ubmsuite_mcs_my_organizational_chart_heirarchyObjectTree_ul_" + item.descendant_id + "'></ul></li>")

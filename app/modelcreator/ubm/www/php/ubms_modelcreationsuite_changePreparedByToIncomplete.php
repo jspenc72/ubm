@@ -11,8 +11,9 @@ if ($conn -> connect_error) {
 // INSERT
 $v2 = "'" . $conn -> real_escape_string($activeModelUUID) . "'";
 $v4 = "'" . $conn -> real_escape_string($taskId) . "'";
+$v5 = "'" . $conn -> real_escape_string($actionRequired) . "'";
 		
-$sql="UPDATE `model_creation_suite_has_prepared_by_records` SET status='FALSE' WHERE model_UUID=$v2 AND task_id=$v4";
+$sql="UPDATE `model_creation_suite_has_prepared_by_records` SET status='FALSE', action_required=$v5 WHERE model_UUID=$v2 AND task_id=$v4";
   		
 if($conn->query($sql) === false) {
 	trigger_error('Wrong SQL: ' . $sql . ' Error: ' . $conn->error, E_USER_ERROR);
