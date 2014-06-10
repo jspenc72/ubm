@@ -5,17 +5,21 @@ function submitGettingStartedPreparedBy() {
 }
 
 function setActiveTaskIncomplete() {
-    if (document.getElementByClassName("reviewedBy_actionRequired_input").value == null) {
-        $().toastmessage('showWarningToast', "You must enter a required action!");
-    } else {
+    var actionRequired = $(".reviewedBy_actionRequired_input:visible").val();
+    if (actionRequired.length > 2) {
         $.getJSON('http://api.universalbusinessmodel.com/ubms_modelcreationsuite_changePreparedByToIncomplete.php?callback=?', { //JSONP Request
             key: window.key,
             activeModelUUID: window.activeModelUUID,
-            taskId: window.MCSTaskId
+            taskId: window.MCSTaskId,
+            actionRequired: actionRequired
         }, function(res, status) {
             $().toastmessage('showNoticeToast', res.message);
             getModelCreationSuiteChecklistItems();
         });
+        $('.reviewedBy_actionRequired_input').val("");
+        $('.ui-popup').popup('close');
+    } else {
+        $().toastmessage('showNoticeToast', "You must enter an action required!");
     }
 }
 
