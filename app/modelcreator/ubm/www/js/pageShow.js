@@ -137,7 +137,7 @@ $(document).on("pageshow", "#risk_analysis", function() {
             getListofRisksforRiskAnalysisTable();
             getListofRisksforSearchBars();
             $("#risk_analysis_define_new_risk_popup_defineRisk_button").show();
-        }, 1000);
+        }, 500);
     });
 
     setTimeout(function() {

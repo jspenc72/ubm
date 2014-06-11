@@ -52,6 +52,14 @@ function addRisktoMyInvestment(activeRiskId) {
     });
 }
 
+function refreshRiskAnalysisPage() {
+    if (window.activeModelInvestmentId) {
+        getListofRisksforRiskAnalysisTable();
+        getListofRisksforSearchBars();
+        $("#risk_analysis_define_new_risk_popup_defineRisk_button").hide();
+    }
+}
+
 function getListofRisksforSearchBars() {
     $("#risk_analysis_load_search_progressbar").show();
 
