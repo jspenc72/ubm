@@ -3159,7 +3159,8 @@ html .ui-popup .ui-field-contain > label + .ui-flipswitch {
 @media ( min-width: 35em ) {
 	/* Fixes table rendering when switching between breakpoints in Safari <= 5. See https://github.com/jquery/jquery-mobile/issues/5380 */
 	.ui-table-reflow.ui-responsive {
-		display: table-row-group;
+		/*Commented out to fix problem with list of alternatives page*/
+		/*display: table-row-group;*/
 	}
 	/* Show the table header rows */ 
 	.ui-table-reflow.ui-responsive td,

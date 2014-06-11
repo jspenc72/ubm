@@ -3,7 +3,7 @@ $(function() {
     $("#possible_alternatives_pro_monetary_gain_slider").slider({
         range: true,
         min: 0,
-        max: 500,
+        max: 1000,
         values: [75, 300],
         slide: function(event, ui) {
             $("#possible_alternatives_pro_monetary_gain_input").val("$" + ui.values[0] + " - $" + ui.values[1]); //Populate the text input with the Low and High values from the slider.
@@ -88,7 +88,13 @@ function setActiveAlternative(activeModelAlternativeId) {
         getActiveAlternativeListofPros();
         getActiveAlternativeListofCons();
         getActiveAlternativeListofRisks();
-    }, 1000);
+    }, 250);
+    $('html, body').animate({
+            scrollTop: $(document).height() - $(window).height()
+        },
+        500,
+        "easeOutBack"
+    );
 }
 
 function getMyModelsListofAlternatives() {
@@ -101,18 +107,12 @@ function getMyModelsListofAlternatives() {
         $.each(res, function(i, item) {
             if (item.decision == "Use Now") {
                 $('#possible_alternitives_table_body').append("<tr><td><a href='#' onclick='removeAlternativefromModel(" + item.id + ")'><span class='trashico'></span></a></td><td>" + item.id + "<a href='#' onclick='setActiveAlternative(" + item.id + ")' class='ui-btn ui-icon-tag ui-btn-icon-notext ui-corner-all'>No text</a></td><td>" + item.description + "</td><td><fieldset class='alternative_decision_controlgroup' data-role='controlgroup' data-type='horizontal'><button data-icon='refresh' onclick='setActiveAlternative(" + item.id + ")'>Show Pros and Cons</button><label for='select-more-1a' class='ui-hidden-accessible'>More</label><select name='select-more-1a' id='select-more-1a' data-theme='d'><option value='#' selected='selected'>Use Now</option><option value='#'>Consider for the future</option><option value='#'>Not a forseen use</option></select></fieldset></td><td><input class='high_col_num' value = '" + item.annual_cost_high + "'/></td><td><input class='low_col_num' value = '" + item.annual_cost_low + "'/></td><td><input class='high_col_num' value = '" + item.annual_benefit_high + "'/></td><td><input class='low_col_num' value = '" + item.annual_benefit_low + "'/></td><td class='high_total'>High ROI</td><td class='low_total'>Low ROI</td><td><a href='#' class='ui-btn risk_analysis_table' onclick='saveAlternativeAnalysis(" + item.id + ")'>Save Alternative </br> Analysis</a></td></tr>");
-                $("#possible_alternitives_table").table("refresh");
-                $(".alternative_decision_controlgroup").trigger("create");
             } else {
                 if (item.decision == "Consider for the future") {
                     $('#possible_alternitives_table_body').append("<tr><td><a href='#' onclick='removeAlternativefromModel(" + item.id + ")'><span class='trashico'></span></a></td><td>" + item.id + "<a href='#' onclick='setActiveAlternative(" + item.id + ")' class='ui-btn ui-icon-tag ui-btn-icon-notext ui-corner-all'>No text</a></td><td>" + item.description + "</td><td><fieldset class='alternative_decision_controlgroup' data-role='controlgroup' data-type='horizontal'><button data-icon='refresh' onclick='setActiveAlternative(" + item.id + ")'>Show Pros and Cons</button><label for='select-more-1a' class='ui-hidden-accessible'>More</label><select name='select-more-1a' id='select-more-1a' data-theme='b'><option value='#'>Use Now</option><option value='#' selected='selected'>Consider for the future</option><option value='#'>Not a forseen use</option></select></fieldset></td><td><input class='high_col_num' value = '" + item.annual_cost_high + "'/></td><td><input class='low_col_num' value = '" + item.annual_cost_low + "'/></td><td><input class='high_col_num' value = '" + item.annual_benefit_high + "'/></td><td><input class='low_col_num' value = '" + item.annual_benefit_low + "'/></td><td class='high_total'>High ROI</td><td class='low_total'>Low ROI</td><td><a href='#' class='ui-btn risk_analysis_table' onclick='saveAlternativeAnalysis(" + item.id + ")'>Save Alternative </br> Analysis</a></td></tr>");
-                    $("#possible_alternitives_table").table("refresh");
-                    $(".alternative_decision_controlgroup").trigger("create");
                 } else {
                     if (item.decision == "Not a forseen use") {
                         $('#possible_alternitives_table_body').append("<tr><td><a href='#' onclick='removeAlternativefromModel(" + item.id + ")'><span class='trashico'></span></a></td><td>" + item.id + "<a href='#' onclick='setActiveAlternative(" + item.id + ")' class='ui-btn ui-icon-tag ui-btn-icon-notext ui-corner-all'>No text</a></td><td>" + item.description + "</td><td><fieldset class='alternative_decision_controlgroup' data-role='controlgroup' data-type='horizontal'><button data-icon='refresh' onclick='setActiveAlternative(" + item.id + ")'>Show Pros and Cons</button><label for='select-more-1a' class='ui-hidden-accessible'>More</label><select name='select-more-1a' id='select-more-1a' data-theme='c'><option value='#'>Use Now</option><option value='#'>Consider for the future</option><option value='#' selected='selected'>Not a forseen use</option></select></fieldset></td><td><input class='high_col_num' value = '" + item.annual_cost_high + "'/></td><td><input class='low_col_num' value = '" + item.annual_cost_low + "'/></td><td><input class='high_col_num' value = '" + item.annual_benefit_high + "'/></td><td><input class='low_col_num' value = '" + item.annual_benefit_low + "'/></td><td class='high_total'>High ROI</td><td class='low_total'>Low ROI</td><td><a href='#' class='ui-btn risk_analysis_table' onclick='saveAlternativeAnalysis(" + item.id + ")'>Save Alternative </br> Analysis</a></td></tr>");
-                        $("#possible_alternitives_table").table("refresh");
-                        $(".alternative_decision_controlgroup").trigger("create");
                     } else {
 
                     }
@@ -120,6 +120,9 @@ function getMyModelsListofAlternatives() {
             }
 
         });
+        $('#possible_alternitives_table_body').append("<tr><td><a href='#possible_alternatives_createNewAlternative_popup' data-rel='popup' class='ui-btn ui-icon-plus ui-btn-icon-notext ui-corner-all'></a></td><td colspan='10'><h5>Add a New Alternative</h5></td></tr>");
+        $("#possible_alternitives_table").table("refresh");
+        $(".alternative_decision_controlgroup").trigger("create");
     });
     setTimeout(function() {
         $(".low_col_num").each(function() {
@@ -154,7 +157,7 @@ function getActiveAlternativeListofPros() {
             $('#possible_alternitives_pros_table_body').append("<tr><td>" + item.id + "<a href='#' onclick='setActiveAlternativePro(" + item.id + ")' class='ui-btn ui-icon-tag ui-btn-icon-notext ui-corner-all'>No text</a></td><td>" + item.description + "</td><td><input class='high_col_num' value = '" + item.benefit_high + "'/></td><td><input class='low_col_num' value = '" + item.benefit_low + "'/></td></tr>");
             $("#possible_alternitives_pros_table").table("refresh");
         });
-        $('#possible_alternitives_pros_table_body').append("<tr><td><a href='#' class='ui-btn ui-icon-plus ui-btn-icon-notext ui-corner-all'></a></td><td colspan='3'><p>Add a new Pro</p></td></tr>");
+        $('#possible_alternitives_pros_table_body').append("<tr><td><a href='#possible_alternatives_createNewPro_popup' data-rel='popup' class='ui-btn ui-icon-plus ui-btn-icon-notext ui-corner-all'></a></td><td colspan='3'><h5>Add a new Pro</h5></td></tr>");
         $("#possible_alternitives_pros_table").table("refresh");
     });
 }
@@ -177,7 +180,7 @@ function getActiveAlternativeListofCons() {
             $('#possible_alternitives_cons_table_body').append("<tr><td>" + item.id + "<a href='#' onclick='setActiveAlternativeCon(" + item.id + ")' class='ui-btn ui-icon-tag ui-btn-icon-notext ui-corner-all'>No text</a></td><td>" + item.description + "</td><td><input class='high_col_num' value = '" + item.cost_low + "'/></td><td><input class='low_col_num' value = '" + item.cost_high + "'/></td></tr>");
             $("#possible_alternitives_cons_table").table("refresh");
         });
-        $('#possible_alternitives_cons_table_body').append("<tr><td><a href='#' class='ui-btn ui-icon-plus ui-btn-icon-notext ui-corner-all'></a></td><td colspan='3'><p>Add a new Con</p></td></tr>");
+        $('#possible_alternitives_cons_table_body').append("<tr><td><a href='#possible_alternatives_createNewCon_popup' data-rel='popup' class='ui-btn ui-icon-plus ui-btn-icon-notext ui-corner-all'></a></td><td colspan='3'><h5>Add a new Con</h5></td></tr>");
         $("#possible_alternitives_cons_table").table("refresh");
     });
 }
@@ -187,8 +190,8 @@ function createNewAlternative() {
     $.getJSON('http://api.universalbusinessmodel.com/ubms_modelcreationsuite_model_create_Alternative.php?callback=?', { //JSONP Request
         key: window.key,
         activeModelUUID: window.activeModelUUID,
-        alternativeDescription: document.getElementById("possible_alternatives_alternativeDescription").value,
-        alternativeDecision: document.getElementById("possible_alternatives_alternativeDecision").value,
+        alternativeDescription: document.getElementById("possible_alternatives_createNewAlternative_popup_form_description_textArea").value,
+        alternativeDecision: document.getElementById("possible_alternatives_createNewAlternative_popup_form_alternativeDecision").value,
         username: window.username
     }, function(res, status) {
         if (status == "success") {
@@ -197,7 +200,11 @@ function createNewAlternative() {
                 $("#possible_alternatives_alternativeDescription_nextStep_button").removeClass("ui-button-disabled ui-state-disabled")
                 getMyModelsListofAlternatives();
                 hideLoader();
-            }, 1000);
+                $('#possible_alternatives_createNewAlternative_popup_form').each(function() {
+                    this.reset();
+                    $('.ui-popup').popup('close');
+                });
+            }, 500);
         }
     });
 }
@@ -208,8 +215,8 @@ function createNewProforactiveModelAlternative() {
         key: window.key,
         activeModelUUID: window.activeModelUUID,
         activeModelAlternativeId: window.activeModelAlternativeId,
-        alternativeProDescription: document.getElementById("possible_alternatives_alternativeProDescription").value,
-        alternativeProROIRef: document.getElementById("possible_alternatives_alternativeProROIRef").value,
+        alternativeProDescription: document.getElementById("possible_alternatives_createNewPro_popup_form_description_textArea").value,
+        alternativeProROIRef: document.getElementById("possible_alternatives_createNewAPro_popup_form_ROI_input").value,
         alternativeProHighBenefit: document.getElementById("possible_alternatives_pro_monetary_gain_input_high").value,
         alternativeProLowBenefit: document.getElementById("possible_alternatives_pro_monetary_gain_input_low").value,
         username: window.username
@@ -219,7 +226,11 @@ function createNewProforactiveModelAlternative() {
                 getMyModelsListofAlternatives();
                 getActiveAlternativeListofPros();
                 hideLoader();
-            }, 1000);
+                $('#possible_alternatives_createNewPro_popup_form').each(function() {
+                    this.reset();
+                    $('.ui-popup').popup('close');
+                });
+            }, 500);
         }
     });
 }
@@ -230,8 +241,8 @@ function createNewConforactiveModelAlternative() {
         key: window.key,
         activeModelUUID: window.activeModelUUID,
         activeModelAlternativeId: window.activeModelAlternativeId,
-        alternativeConDescription: document.getElementById("possible_alternatives_alternativeConDescription").value,
-        alternativeConROIRef: document.getElementById("possible_alternatives_alternativeConROIRef").value,
+        alternativeConDescription: document.getElementById("possible_alternatives_createNewACon_popup_form_description_textArea").value,
+        alternativeConROIRef: document.getElementById("possible_alternatives_createNewACon_popup_form_ROI_input").value,
         alternativeConHighCost: document.getElementById("possible_alternatives_con_monetary_cost_input_low").value,
         alternativeConLowCost: document.getElementById("possible_alternatives_con_monetary_cost_input_high").value,
         username: window.username
@@ -242,7 +253,11 @@ function createNewConforactiveModelAlternative() {
                 getMyModelsListofAlternatives();
                 getActiveAlternativeListofCons();
                 hideLoader();
-            }, 1000);
+                $('#possible_alternatives_createNewCon_popup_form').each(function() {
+                    this.reset();
+                    $('.ui-popup').popup('close');
+                });
+            }, 500);
         }
     });
 }
@@ -261,13 +276,4 @@ function removeAlternativefromModel(activeAlternativeId) {
 
 function saveAlternativeAnalysis() {
     $().toastmessage('showNoticeToast', 'alternative analysis will be save to this model.');
-}
-
-function goToAddPro() {
-    window.scrollTo(0, 0);
-
-}
-
-function goToAddCon() {
-    window.scrollTo(0, 0);
 }
