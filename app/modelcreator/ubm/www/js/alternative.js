@@ -89,12 +89,6 @@ function setActiveAlternative(activeModelAlternativeId) {
         getActiveAlternativeListofCons();
         getActiveAlternativeListofRisks();
     }, 250);
-    $('html, body').animate({
-            scrollTop: $(document).height() - $(window).height()
-        },
-        500,
-        "easeOutBack"
-    );
 }
 
 function getMyModelsListofAlternatives() {
@@ -182,6 +176,12 @@ function getActiveAlternativeListofCons() {
         });
         $('#possible_alternitives_cons_table_body').append("<tr><td><a href='#possible_alternatives_createNewCon_popup' data-rel='popup' class='ui-btn ui-icon-plus ui-btn-icon-notext ui-corner-all'></a></td><td colspan='3'><h5>Add a new Con</h5></td></tr>");
         $("#possible_alternitives_cons_table").table("refresh");
+        $('html, body').animate({
+                scrollTop: $(document).height() - $(window).height()
+            },
+            500,
+            "easeOutBack"
+        );
     });
 }
 
