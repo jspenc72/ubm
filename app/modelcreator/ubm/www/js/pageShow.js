@@ -98,9 +98,10 @@ $(document).on("pageshow", "#sign_in_sign_up", function() {
 });
 
 $(document).on("pageshow", "#open_points_action_items", function() {
-    setTimeout(function() {
-        refreshOpenItemsList();
-    }, 1000);
+    new Tablesort(document.getElementById('mcs_open_points_action_items_table'), {
+        descending: true
+    });
+    refreshOpenItemsList();
     walkthrough('open_points_action_items', function(status) {
         if (status == 0) {
             introJs('#open_points_action_items').start().oncomplete(function() {

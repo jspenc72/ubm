@@ -104,6 +104,7 @@ function refreshOpenItemsList() {
             //End Hide Loading Message
         })
         $("#mcs_open_points_action_items_table").trigger("create");
+        sort.refresh();
     });
 }
 
