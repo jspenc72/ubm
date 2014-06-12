@@ -106,6 +106,11 @@ under the License.
 	<!-- End Custom sign_in_sign_up page stuff -->
         <title>UBM</title>
         <script>
+        	$( function() {
+			    $("#mcs_preparedBy_popup").enhanceWithin().popup();
+			});
+		</script>
+        <script>
         if (navigator.userAgent.indexOf('Firefox') != -1 && parseFloat(navigator.userAgent.substring(navigator.userAgent.indexOf('Firefox') + 8)) >= 3.6) { //Firefox
 		        //Allow
 		    } else if (navigator.userAgent.indexOf('Chrome') != -1 && parseFloat(navigator.userAgent.substring(navigator.userAgent.indexOf('Chrome') + 7).split(' ')[0]) >= 15) { //Chrome
@@ -118,6 +123,7 @@ under the License.
         </script>
 
 		<script>
+			
 			function refreshBackboneTable(){
 				getJobDescriptionsforBackBoneTable();
 				//getPoliciesforBackBoneTable();
@@ -1425,6 +1431,18 @@ under the License.
 			  <li><a href="#" id="draggable_circle_linkTo_openPointsPage" class="ui-btn ui-icon-info ui-btn-icon-notext ui-corner-all"></a></li>
 			</ul>
         </div>
+        <div id="mcs_preparedBy_popup" data-theme="a" data-position-to="window">
+			<div data-role="header"  data-theme="a">
+				<h1>Ready to complete this task?</h1>
+			</div>
+			<div role="main" class="ui-content">
+				<h3 class="ui-title">As the preparer, its your responsibility to complete this task for review.</h3>
+				<p>
+					Click the button below to complete this step.
+				</p>
+				<a href="#" onclick="submitMCSTaskPreparedByRecord()" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b" data-rel="back" data-transition="flow">Continue to Next Step</a>
+			</div>
+		</div><!-- /popup -->
 		<!-- Start of first page -->
         <div data-role="page" class="ubm_page" id="sign_in_sign_up" data-theme="a">
             <div data-role="header"  data-theme="a">
@@ -6564,18 +6582,6 @@ under the License.
 						</li>
 					</ul>
 				</div><!-- /Phase 4 Popup-->
-				<div data-role="popup" id="mcs_setup_checklist_setup_prepareTaskPopup" data-theme="a" data-position-to="window" data-dismissible="true">
-					<div data-role="header"  data-theme="a">
-						<h1>Ready to complete this task?</h1>
-					</div>
-					<div role="main" class="ui-content">
-						<h3 class="ui-title">As the preparer, its your responsibility to complete this task for review.</h3>
-						<p>
-							Click the button below to complete this step.
-						</p>
-						<a href="#" onclick="submitMCSTaskPreparedByRecord()" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b" data-rel="back" data-transition="flow">Continue to Next Step</a>
-					</div>
-				</div><!-- /popup -->
 				<div data-role="popup" id="mcs_setup_checklist_setup_reviewTaskPopup" data-theme="a" data-position-to="window" data-dismissible="true">
 					<div data-role="header"  data-theme="a">
 						<h1>Ready to Review this task?</h1>
@@ -6943,18 +6949,6 @@ under the License.
 						</li>
 					</ul>
 				</div><!-- /Phase 4 Popup-->
-				<div data-role="popup" id="mcs_setup_checklist_CS_prepareTaskPopup" data-theme="a" data-position-to="window" data-dismissible="true">
-					<div data-role="header"  data-theme="a">
-						<h1>Ready to complete this task?</h1>
-					</div>
-					<div role="main" class="ui-content">
-						<h3 class="ui-title">As the preparer, its your responsibility to complete this task for review.</h3>
-						<p>
-							Click the button below to complete this step.
-						</p>
-						<a href="#" onclick="submitMCSTaskPreparedByRecord()" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b" data-rel="back" data-transition="flow">Continue to Next Step</a>
-					</div>
-				</div><!-- /popup -->
 				<div data-role="popup" id="mcs_setup_checklist_CS_reviewTaskPopup" data-theme="a" data-position-to="window" data-dismissible="true">
 					<div data-role="header"  data-theme="a">
 						<h1>Ready to Review this task?</h1>
@@ -7322,18 +7316,6 @@ under the License.
 						</li>
 					</ul>
 				</div><!-- /Phase 4 Popup-->
-				<div data-role="popup" id="mcs_setup_checklist_p1_prepareTaskPopup" data-theme="a" data-position-to="window" data-dismissible="true">
-					<div data-role="header"  data-theme="a">
-						<h1>Ready to complete this task?</h1>
-					</div>
-					<div role="main" class="ui-content">
-						<h3 class="ui-title">As the preparer, its your responsibility to complete this task for review.</h3>
-						<p>
-							Click the button below to complete this step.
-						</p>
-						<a href="#" onclick="submitMCSTaskPreparedByRecord()" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b" data-rel="back" data-transition="flow">Continue to Next Step</a>
-					</div>
-				</div><!-- /popup -->
 				<div data-role="popup" id="mcs_setup_checklist_p1_reviewTaskPopup" data-theme="a" data-position-to="window" data-dismissible="true">
 					<div data-role="header"  data-theme="a">
 						<h1>Ready to Review this task?</h1>
@@ -7547,18 +7529,6 @@ under the License.
 					</form>
 				</div>
 				<!-- End Open Items Popup -->
-				<div data-role="popup" id="mcs_setup_checklist_p2_prepareTaskPopup" data-theme="a" data-position-to="window" data-dismissible="true">
-					<div data-role="header"  data-theme="a">
-						<h1>Ready to complete this task?</h1>
-					</div>
-					<div role="main" class="ui-content">
-						<h3 class="ui-title">As the preparer, its your responsibility to complete this task for review.</h3>
-						<p>
-							Click the button below to complete this step.
-						</p>
-						<a href="#" onclick="submitMCSTaskPreparedByRecord()" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b" data-rel="back" data-transition="flow">Continue to Next Step</a>
-					</div>
-				</div><!-- /popup -->
 				<div data-role="popup" id="mcs_setup_checklist_p2_reviewTaskPopup" data-theme="a" data-position-to="window" data-dismissible="true">
 					<div data-role="header"  data-theme="a">
 						<h1>Ready to Review this task?</h1>
@@ -7924,18 +7894,6 @@ under the License.
 					</form>
 				</div>
 				<!-- End Open Items Popup -->
-				<div data-role="popup" id="mcs_setup_checklist_p3_prepareTaskPopup" data-theme="a" data-position-to="window" data-dismissible="true">
-					<div data-role="header"  data-theme="a">
-						<h1>Ready to complete this task?</h1>
-					</div>
-					<div role="main" class="ui-content">
-						<h3 class="ui-title">As the preparer, its your responsibility to complete this task for review.</h3>
-						<p>
-							Click the button below to complete this step.
-						</p>
-						<a href="#" onclick="submitMCSTaskPreparedByRecord()" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b" data-rel="back" data-transition="flow">Continue to Next Step</a>
-					</div>
-				</div><!-- /popup -->
 				<div data-role="popup" id="mcs_setup_checklist_p3_reviewTaskPopup" data-theme="a" data-position-to="window" data-dismissible="true">
 					<div data-role="header"  data-theme="a">
 						<h1>Ready to Review this task?</h1>
@@ -8411,18 +8369,6 @@ under the License.
 					</form>
 				</div>
 				<!-- End Open Items Popup -->
-				<div data-role="popup" id="mcs_setup_checklist_p4_b1_prepareTaskPopup" data-theme="a" data-position-to="window" data-dismissible="true">
-					<div data-role="header"  data-theme="a">
-						<h1>Ready to complete this task?</h1>
-					</div>
-					<div role="main" class="ui-content">
-						<h3 class="ui-title">As the preparer, its your responsibility to complete this task for review.</h3>
-						<p>
-							Click the button below to complete this step.
-						</p>
-						<a href="#" onclick="submitMCSTaskPreparedByRecord()" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b" data-rel="back" data-transition="flow">Continue to Next Step</a>
-					</div>
-				</div><!-- /popup -->
 				<div data-role="popup" id="mcs_setup_checklist_p4_b1_reviewTaskPopup" data-theme="a" data-position-to="window" data-dismissible="true">
 					<div data-role="header"  data-theme="a">
 						<h1>Ready to Review this task?</h1>
@@ -8789,18 +8735,6 @@ under the License.
 					</form>
 				</div>
 				<!-- End Open Items Popup -->
-				<div data-role="popup" id="mcs_setup_checklist_p4_b2_prepareTaskPopup" data-theme="a" data-position-to="window" data-dismissible="true">
-					<div data-role="header"  data-theme="a">
-						<h1>Ready to complete this task?</h1>
-					</div>
-					<div role="main" class="ui-content">
-						<h3 class="ui-title">As the preparer, its your responsibility to complete this task for review.</h3>
-						<p>
-							Click the button below to complete this step.
-						</p>
-						<a href="#" onclick="submitMCSTaskPreparedByRecord()" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b" data-rel="back" data-transition="flow">Continue to Next Step</a>
-					</div>
-				</div><!-- /popup -->
 				<div data-role="popup" id="mcs_setup_checklist_p4_b2_reviewTaskPopup" data-theme="a" data-position-to="window" data-dismissible="true">
 					<div data-role="header"  data-theme="a">
 						<h1>Ready to Review this task?</h1>
@@ -9169,18 +9103,6 @@ under the License.
 					</form>
 				</div>
 				<!-- End Open Items Popup -->
-				<div data-role="popup" id="mcs_setup_checklist_p4_b3_prepareTaskPopup" data-theme="a" data-position-to="window" data-dismissible="true">
-					<div data-role="header"  data-theme="a">
-						<h1>Ready to complete this task?</h1>
-					</div>
-					<div role="main" class="ui-content">
-						<h3 class="ui-title">As the preparer, its your responsibility to complete this task for review.</h3>
-						<p>
-							Click the button below to complete this step.
-						</p>
-						<a href="#" onclick="submitMCSTaskPreparedByRecord()" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b" data-rel="back" data-transition="flow">Continue to Next Step</a>
-					</div>
-				</div><!-- /popup -->
 				<div data-role="popup" id="mcs_setup_checklist_p4_b3_reviewTaskPopup" data-theme="a" data-position-to="window" data-dismissible="true">
 					<div data-role="header"  data-theme="a">
 						<h1>Ready to Review this task?</h1>
@@ -9547,18 +9469,6 @@ under the License.
 					</form>
 				</div>
 				<!-- End Open Items Popup -->
-				<div data-role="popup" id="mcs_setup_checklist_p4_b4_prepareTaskPopup" data-theme="a" data-position-to="window" data-dismissible="true">
-					<div data-role="header"  data-theme="a">
-						<h1>Ready to complete this task?</h1>
-					</div>
-					<div role="main" class="ui-content">
-						<h3 class="ui-title">As the preparer, its your responsibility to complete this task for review.</h3>
-						<p>
-							Click the button below to complete this step.
-						</p>
-						<a href="#" onclick="submitMCSTaskPreparedByRecord()" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b" data-rel="back" data-transition="flow">Continue to Next Step</a>
-					</div>
-				</div><!-- /popup -->
 				<div data-role="popup" id="mcs_setup_checklist_p4_b4_reviewTaskPopup" data-theme="a" data-position-to="window" data-dismissible="true">
 					<div data-role="header"  data-theme="a">
 						<h1>Ready to Review this task?</h1>
@@ -9925,18 +9835,6 @@ under the License.
 					</form>
 				</div>
 				<!-- End Open Items Popup -->
-				<div data-role="popup" id="mcs_setup_checklist_p4_b5_prepareTaskPopup" data-theme="a" data-position-to="window" data-dismissible="true">
-					<div data-role="header"  data-theme="a">
-						<h1>Ready to complete this task?</h1>
-					</div>
-					<div role="main" class="ui-content">
-						<h3 class="ui-title">As the preparer, its your responsibility to complete this task for review.</h3>
-						<p>
-							Click the button below to complete this step.
-						</p>
-						<a href="#" onclick="submitMCSTaskPreparedByRecord()" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b" data-rel="back" data-transition="flow">Continue to Next Step</a>
-					</div>
-				</div><!-- /popup -->
 				<div data-role="popup" id="mcs_setup_checklist_p4_b5_reviewTaskPopup" data-theme="a" data-position-to="window" data-dismissible="true">
 					<div data-role="header"  data-theme="a">
 						<h1>Ready to Review this task?</h1>
@@ -10303,18 +10201,6 @@ under the License.
 					</form>
 				</div>
 				<!-- End Open Items Popup -->
-				<div data-role="popup" id="mcs_setup_checklist_p4_b6_prepareTaskPopup" data-theme="a" data-position-to="window" data-dismissible="true">
-					<div data-role="header"  data-theme="a">
-						<h1>Ready to complete this task?</h1>
-					</div>
-					<div role="main" class="ui-content">
-						<h3 class="ui-title">As the preparer, its your responsibility to complete this task for review.</h3>
-						<p>
-							Click the button below to complete this step.
-						</p>
-						<a href="#" onclick="submitMCSTaskPreparedByRecord()" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b" data-rel="back" data-transition="flow">Continue to Next Step</a>
-					</div>
-				</div><!-- /popup -->
 				<div data-role="popup" id="mcs_setup_checklist_p4_b6_reviewTaskPopup" data-theme="a" data-position-to="window" data-dismissible="true">
 					<div data-role="header"  data-theme="a">
 						<h1>Ready to Review this task?</h1>
@@ -10680,18 +10566,6 @@ under the License.
 					</form>
 				</div>
 				<!-- End Open Items Popup -->
-				<div data-role="popup" id="mcs_setup_checklist_p4_b7_prepareTaskPopup" data-theme="a" data-position-to="window" data-dismissible="true">
-					<div data-role="header"  data-theme="a">
-						<h1>Ready to complete this task?</h1>
-					</div>
-					<div role="main" class="ui-content">
-						<h3 class="ui-title">As the preparer, its your responsibility to complete this task for review.</h3>
-						<p>
-							Click the button below to complete this step.
-						</p>
-						<a href="#" onclick="submitMCSTaskPreparedByRecord()" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b" data-rel="back" data-transition="flow">Continue to Next Step</a>
-					</div>
-				</div><!-- /popup -->
 				<div data-role="popup" id="mcs_setup_checklist_p4_b7_reviewTaskPopup" data-theme="a" data-position-to="window" data-dismissible="true">
 					<div data-role="header"  data-theme="a">
 						<h1>Ready to Review this task?</h1>
@@ -11058,18 +10932,6 @@ under the License.
 					</form>
 				</div>
 				<!-- End Open Items Popup -->
-				<div data-role="popup" id="mcs_setup_checklist_p4_b8_prepareTaskPopup" data-theme="a" data-position-to="window" data-dismissible="true">
-					<div data-role="header"  data-theme="a">
-						<h1>Ready to complete this task?</h1>
-					</div>
-					<div role="main" class="ui-content">
-						<h3 class="ui-title">As the preparer, its your responsibility to complete this task for review.</h3>
-						<p>
-							Click the button below to complete this step.
-						</p>
-						<a href="#" onclick="submitMCSTaskPreparedByRecord()" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b" data-rel="back" data-transition="flow">Continue to Next Step</a>
-					</div>
-				</div><!-- /popup -->
 				<div data-role="popup" id="mcs_setup_checklist_p4_b8_reviewTaskPopup" data-theme="a" data-position-to="window" data-dismissible="true">
 					<div data-role="header"  data-theme="a">
 						<h1>Ready to Review this task?</h1>
@@ -11436,18 +11298,6 @@ under the License.
 					</form>
 				</div>
 				<!-- End Open Items Popup -->
-				<div data-role="popup" id="mcs_setup_checklist_p4_b9_prepareTaskPopup" data-theme="a" data-position-to="window" data-dismissible="true">
-					<div data-role="header"  data-theme="a">
-						<h1>Ready to complete this task?</h1>
-					</div>
-					<div role="main" class="ui-content">
-						<h3 class="ui-title">As the preparer, its your responsibility to complete this task for review.</h3>
-						<p>
-							Click the button below to complete this step.
-						</p>
-						<a href="#" onclick="submitMCSTaskPreparedByRecord()" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b" data-rel="back" data-transition="flow">Continue to Next Step</a>
-					</div>
-				</div><!-- /popup -->
 				<div data-role="popup" id="mcs_setup_checklist_p4_b9_reviewTaskPopup" data-theme="a" data-position-to="window" data-dismissible="true">
 					<div data-role="header"  data-theme="a">
 						<h1>Ready to Review this task?</h1>
@@ -11813,18 +11663,6 @@ under the License.
 					</form>
 				</div>
 				<!-- End Open Items Popup -->
-				<div data-role="popup" id="mcs_setup_checklist_p4_b10_prepareTaskPopup" data-theme="a" data-position-to="window" data-dismissible="true">
-					<div data-role="header"  data-theme="a">
-						<h1>Ready to complete this task?</h1>
-					</div>
-					<div role="main" class="ui-content">
-						<h3 class="ui-title">As the preparer, its your responsibility to complete this task for review.</h3>
-						<p>
-							Click the button below to complete this step.
-						</p>
-						<a href="#" onclick="submitMCSTaskPreparedByRecord()" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b" data-rel="back" data-transition="flow">Continue to Next Step</a>
-					</div>
-				</div><!-- /popup -->
 				<div data-role="popup" id="mcs_setup_checklist_p4_b10_reviewTaskPopup" data-theme="a" data-position-to="window" data-dismissible="true">
 					<div data-role="header"  data-theme="a">
 						<h1>Ready to Review this task?</h1>
@@ -12190,18 +12028,6 @@ under the License.
 					</form>
 				</div>
 				<!-- End Open Items Popup -->
-				<div data-role="popup" id="mcs_setup_checklist_p4_b11_prepareTaskPopup" data-theme="a" data-position-to="window" data-dismissible="true">
-					<div data-role="header"  data-theme="a">
-						<h1>Ready to complete this task?</h1>
-					</div>
-					<div role="main" class="ui-content">
-						<h3 class="ui-title">As the preparer, its your responsibility to complete this task for review.</h3>
-						<p>
-							Click the button below to complete this step.
-						</p>
-						<a href="#" onclick="submitMCSTaskPreparedByRecord()" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b" data-rel="back" data-transition="flow">Continue to Next Step</a>
-					</div>
-				</div><!-- /popup -->
 				<div data-role="popup" id="mcs_setup_checklist_p4_b11_reviewTaskPopup" data-theme="a" data-position-to="window" data-dismissible="true">
 					<div data-role="header"  data-theme="a">
 						<h1>Ready to Review this task?</h1>
@@ -12565,18 +12391,6 @@ under the License.
                         </form>
                     </div>
                     <!-- End Open Items Popup -->
-                    <div data-role="popup" id="mcs_setup_checklist_p4_b12_prepareTaskPopup" data-theme="a" data-position-to="window" data-dismissible="true">
-                        <div data-role="header"  data-theme="a">
-                            <h1>Ready to complete this task?</h1>
-                        </div>
-                        <div role="main" class="ui-content">
-                            <h3 class="ui-title">As the preparer, its your responsibility to complete this task for review.</h3>
-                            <p>
-                                Click the button below to complete this step.
-                            </p>
-                            <a href="#" onclick="submitMCSTaskPreparedByRecord()" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b" data-rel="back" data-transition="flow">Continue to Next Step</a>
-                        </div>
-                    </div><!-- /popup -->
                     <div data-role="popup" id="mcs_setup_checklist_p4_b12_reviewTaskPopup" data-theme="a" data-position-to="window" data-dismissible="true">
                         <div data-role="header"  data-theme="a">
                             <h1>Ready to Review this task?</h1>
@@ -12940,18 +12754,6 @@ under the License.
                         </form>
                     </div>
                     <!-- End Open Items Popup -->
-                    <div data-role="popup" id="mcs_setup_checklist_p5_prepareTaskPopup" data-theme="a" data-position-to="window" data-dismissible="true">
-                        <div data-role="header"  data-theme="a">
-                            <h1>Ready to complete this task?</h1>
-                        </div>
-                        <div role="main" class="ui-content">
-                            <h3 class="ui-title">As the preparer, its your responsibility to complete this task for review.</h3>
-                            <p>
-                                Click the button below to complete this step.
-                            </p>
-                            <a href="#" onclick="submitMCSTaskPreparedByRecord()" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b" data-rel="back" data-transition="flow">Continue to Next Step</a>
-                        </div>
-                    </div><!-- /popup -->
                     <div data-role="popup" id="mcs_setup_checklist_p5_reviewTaskPopup" data-theme="a" data-position-to="window" data-dismissible="true">
                         <div data-role="header"  data-theme="a">
                             <h1>Ready to Review this task?</h1>
@@ -13313,18 +13115,6 @@ under the License.
                         </form>
                     </div>
                     <!-- End Open Items Popup -->
-                    <div data-role="popup" id="mcs_setup_checklist_p6_prepareTaskPopup" data-theme="a" data-position-to="window" data-dismissible="true">
-                        <div data-role="header"  data-theme="a">
-                            <h1>Ready to complete this task?</h1>
-                        </div>
-                        <div role="main" class="ui-content">
-                            <h3 class="ui-title">As the preparer, its your responsibility to complete this task for review.</h3>
-                            <p>
-                                Click the button below to complete this step.
-                            </p>
-                            <a href="#" onclick="submitMCSTaskPreparedByRecord()" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b" data-rel="back" data-transition="flow">Continue to Next Step</a>
-                        </div>
-                    </div><!-- /popup -->
                     <div data-role="popup" id="mcs_setup_checklist_p6_reviewTaskPopup" data-theme="a" data-position-to="window" data-dismissible="true">
                         <div data-role="header"  data-theme="a">
                             <h1>Ready to Review this task?</h1>
@@ -13687,18 +13477,6 @@ under the License.
                         </form>
                     </div>
                     <!-- End Open Items Popup -->
-                    <div data-role="popup" id="mcs_setup_checklist_p7_prepareTaskPopup" data-theme="a" data-position-to="window" data-dismissible="true">
-                        <div data-role="header"  data-theme="a">
-                            <h1>Ready to complete this task?</h1>
-                        </div>
-                        <div role="main" class="ui-content">
-                            <h3 class="ui-title">As the preparer, its your responsibility to complete this task for review.</h3>
-                            <p>
-                                Click the button below to complete this step.
-                            </p>
-                            <a href="#" onclick="submitMCSTaskPreparedByRecord()" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b" data-rel="back" data-transition="flow">Continue to Next Step</a>
-                        </div>
-                    </div><!-- /popup -->
                     <div data-role="popup" id="mcs_setup_checklist_p7_reviewTaskPopup" data-theme="a" data-position-to="window" data-dismissible="true">
                         <div data-role="header"  data-theme="a">
                             <h1>Ready to Review this task?</h1>
@@ -14062,18 +13840,6 @@ under the License.
                         </form>
                     </div>
                     <!-- End Open Items Popup -->
-                    <div data-role="popup" id="mcs_setup_checklist_p8_prepareTaskPopup" data-theme="a" data-position-to="window" data-dismissible="true">
-                        <div data-role="header"  data-theme="a">
-                            <h1>Ready to complete this task?</h1>
-                        </div>
-                        <div role="main" class="ui-content">
-                            <h3 class="ui-title">As the preparer, its your responsibility to complete this task for review.</h3>
-                            <p>
-                                Click the button below to complete this step.
-                            </p>
-                            <a href="#" onclick="submitMCSTaskPreparedByRecord()" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b" data-rel="back" data-transition="flow">Continue to Next Step</a>
-                        </div>
-                    </div><!-- /popup -->
                     <div data-role="popup" id="mcs_setup_checklist_p8_searchPopup">
                         <ul data-role="listview" data-split-icon="gear" data-split-theme="d" data-filter="true" data-inline="true" data-inset="true" data-filter-reveal="true" data-filter-placeholder="Search the UBM">
                             <li>

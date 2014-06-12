@@ -24,7 +24,7 @@ if ($rs === false) {
     trigger_error('Wrong SQL: ' . $sqlsel . ' Error: ' . $conn->error, E_USER_ERROR);
 } else {
     if (mysqli_num_rows($rs) > 0) {
-        $sql = "UPDATE `model_creation_suite_has_prepared_by_records` SET status='TRUE' WHERE model_UUID=$v2 AND task_id=$v4";
+        $sql = "UPDATE `model_creation_suite_has_prepared_by_records` SET status='TRUE', preparer_username=$v3 WHERE model_UUID=$v2 AND task_id=$v4";
         if ($conn->query($sql) === false) {
             trigger_error('Wrong SQL: ' . $sql . ' Error: ' . $conn->error, E_USER_ERROR);
         } else {

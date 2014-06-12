@@ -4,6 +4,25 @@ function submitGettingStartedPreparedBy() {
     submitMCSTaskPreparedByRecord();
 }
 
+function actionRequired() {
+    showLoader();
+    $("#mcs_preparedBy_popup p").empty();
+    $.getJSON('http://api.universalbusinessmodel.com/ubms_modelCreationSuite_getActionRequired.php?callback=?', { //JSONP Request
+        key: window.key,
+        activeModelUUID: window.activeModelUUID,
+        taskId: window.MCSTaskId,
+    }, function(res, status) {
+        if (res.actionRequired) {
+            $("#mcs_preparedBy_popup p").append(res.actionRequired);
+        } else {
+            $("#mcs_preparedBy_popup p").append("Click the button below to complete this step.");
+        }
+        $("#mcs_preparedBy_popup").popup("open");
+        hideLoader();
+    });
+
+}
+
 function setActiveTaskIncomplete() {
     var actionRequired = $(".reviewedBy_actionRequired_input:visible").val();
     if (actionRequired.length > 2) {
@@ -36,6 +55,7 @@ function setActiveMCSTaskId(MCSTaskId) {
     var currentPage;
     window.activeubm_page = currentPage;
     //$("#" + currentPage + "_prepareTaskPopup").popup('open');
+    actionRequired();
 }
 
 function submitMCSTaskPreparedByRecord() {
