@@ -4094,6 +4094,29 @@ under the License.
                     </form>
                 </div>
                 <!-- End Delete Model Popup -->
+                <!-- Edit Model Popup -->
+                <div data-role="popup" id="ubmsuite_modelSettings_editModel_popup" data-theme="a" data-dismissible="true" class="draggable_popup" data-position-to="window">
+                    <form id="ubmsuite_modelSettings_editModel_popup_form">
+                        <ul data-role="listview" data-inset="true" style="min-width:210px;">
+                            <li style="text-align: center;" data-role="list-divider">
+                               <h1>Edit Model</h1> 
+                            </li>
+                            <li>
+                            	Title:<input id="ubmsuite_modelSettings_editModel_popup_form_title_input" value=""/>
+                            </li>
+                            <li>
+                            	Model Reference:<input id="ubmsuite_modelSettings_editModel_popup_form_reference_input" value=""/>
+                            </li>
+                            <li>
+                            	Description:<textarea style="overflow-y:scroll;height:6em" id="ubmsuite_modelSettings_editModel_popup_form_description_textarea" value=""></textarea>
+                            </li>
+                            <li>
+                            	<button onclick="editModel()" class="ui-btn ui-corner-all ui-shadow" data-transition="flow">Submit</button></br>
+                            </li>
+                        </ul>
+                    </form>
+                </div>
+                <!-- End Edit Model Popup -->
                 <!-- Modify User Popup -->
                 <div id="ubmsuite_modelSettings_modifyUser_popup" data-role="popup" id="ubmsuite_modelSettings_modifyUser_popup" data-overlay-theme="b" data-theme="a" data-dismissible="false" style="max-width:400px;">
                     <div data-role="header"  data-theme="a">
@@ -4498,6 +4521,7 @@ under the License.
 							</ul>					
 							<a data-rel="popup" data-mini="true" data-transition="slideup" href="#ubmsuite_modelSettings_shareModel_popup" style="whitespace:normal" class="ui-btn ui-shadow">Click to give another user </br>access to this model.</a>
 							<a data-rel="popup" data-mini="true" data-transition="slideup" href="#ubmsuite_modelSettings_deleteModel_popup" style="whitespace:normal" class="ui-btn ui-shadow">Delete this model.</a>
+							<a data-rel="popup" data-mini="true" data-transition="slideup" href="#ubmsuite_modelSettings_editModel_popup" style="whitespace:normal" class="ui-btn ui-shadow">Edit this model.</a>
 						</li>
 						<li>
 							<a href="#" class="ui-btn ui-shadow ui-corner-all ui-icon-refresh ui-btn-icon-notext ui-btn-a ui-btn-inline" onclick="getMyModelsStrategicAlliances()">Refresh</a>
@@ -6588,7 +6612,7 @@ under the License.
 							<th data-priority="6"><h4>FRB </br>Date</h4></th>
 							<th data-priority="7"><h4>RB</h4></th>
 							<th data-priority="7"><h4>RB </br>Date</h4></th>
-							<th data-position='left' data-step='2' data-intro='After completing each step click the red minus to mark it as complete.' data-priority="8"><h4>PB</h4></th>
+							<th data-position='left' data-step='2' data-intro='After completing each step click the red minus to mark it as complete. If a reviewer has decided the task is not complete it will turn red and clicking on it will reveal the action required to complete the step.' data-priority="8"><h4>PB</h4></th>
 							<th><h4>PB </br>Date</h4></th>
 							<th data-priority="1"><h4>MFI </br>Expl Ref</h4></th>
 							<th data-priority="1"><h4>MFI Template / Process Ref</h4></th>

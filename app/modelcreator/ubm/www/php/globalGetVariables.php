@@ -465,3 +465,8 @@ $termsOfService = $_GET['termsOfService'];
 //getwalkthroughstatus
 $pageName = $_GET['pageName']; 
 $actionRequired = $_GET['actionRequired']; 
+
+//edit model information
+$modelTitle = $_GET['modelTitle']; 
+$modelReference = $_GET['modelReference']; 
+$modelDescription = $_GET['modelDescription']; 

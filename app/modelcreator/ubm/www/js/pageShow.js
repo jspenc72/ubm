@@ -8,6 +8,9 @@ $(document).on("pageshow", "#creator_table_of_contents", function() {
     });
 });
 $(document).on("pageshow", "#ubmsuite_modelDashboard", function() {
+    $('#ubmsuite_modelSettings_editModel_popup_form').each(function() {
+        this.reset();
+    });
     getModelCreationSuiteChecklistItems();
 
     walkthrough('ubmsuite_modelDashboard', function(status) {
@@ -282,6 +285,7 @@ $('.currency').keyup(function() {
     $('.currency').currency();
 });
 $(document).on("pageshow", "#ubmsuite_modelSettings", function() {
+    getModelInformation();
     model_getuserswithaccess();
     setTimeout(function() {
         $('#tiles').trigger('refreshWookmark'); //Layout items in Wookmark Grid
