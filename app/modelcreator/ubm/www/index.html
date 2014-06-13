@@ -102,6 +102,7 @@ under the License.
 	    <link href="css/sign_in_sign_up/landing-page.css" rel="stylesheet">
 	    <link href="css/sign_in_sign_up/custom.css" rel="stylesheet">
 	    <link href="css/sign_in_sign_up/responsiveMobile.css" rel="stylesheet" media="screen and (max-width: 400px)">
+	    <link rel="stylesheet" href="css/form_progress_bar.css">
 	<!-- End Custom sign_in_sign_up page stuff -->
         <title>UBM</title>
         <script>
@@ -1480,10 +1481,10 @@ under the License.
 									<div class="form-container">
 				                        <div class="col-lg-5 col-lg-offset-1 col-sm-6 mainCol">
 				                        	<div class="mainColHead">
-												<h2>Sign up now</br>it's free!</h2>	                        		
+												<h4>Sign up <strong>now</strong></br>it's free!</h4>	                        		
 				                        	</div>
 				                        	<div class="mainColBody">
-												<form id="sign_in_form" >
+												<form id="sign_in_form" role="form" onsubmit="userSignIn()">
 												  <div class="form-group">
 												    <input type="text" class="form-control" id="si_email" placeholder="Enter Username">
 												  </div>

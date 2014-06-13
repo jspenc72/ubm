@@ -1,4 +1,35 @@
-
+header, footer, article, section, hgroup, nav, figure, aside {display: block;}
+figure {
+	margin:0;
+	padding:0;
+}
+html {height:100%;}
+body {
+	margin:0;
+	font:12px/15px "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+	color:#8a8a8a;
+	min-width:1000px;
+	background:#fff;
+	height:100%;
+}
+img {border-style:none;}
+a {
+	color:#8a8a8a;
+	text-decoration:underline;
+}
+a:hover {text-decoration:none;}
+input,
+textarea,
+select {
+	font:100% arial,sans-serif;
+	vertical-align:middle;
+	color:#8a8a8a;
+}
+form,fieldset{
+	margin:0;
+	padding:0;
+	border:none;
+}
 #wrapper {
 	position:relative;
 	min-height:100%;
@@ -18,9 +49,7 @@
 }
 .links {float:left;}
 .links ul {
-	list-style:none;
-	margin:0;
-	padding:0;
+	list-style:none;	margin:0;	padding:0;
 	float:left;
 }
 .links li {
@@ -133,9 +162,7 @@
 }
 .tabs p {margin:0 0 10px;}
 .states {
-	list-style:none;
-	margin:0;
-	padding:0;
+	list-style:none;	margin:0;	padding:0;
 }
 .states li {
 	vertical-align:top;
@@ -186,9 +213,7 @@
 	height:100%;
 }
 .buttons {
-	list-style:none;
-	margin:0;
-	padding:0;
+	list-style:none;	margin:0;	padding:0;
 	position:relative;
 	z-index:2;
 	font:bold 11px/13px Arial, Helvetica, sans-serif;
