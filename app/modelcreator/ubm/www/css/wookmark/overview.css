@@ -2,18 +2,6 @@
   overflow: hidden;
 }
 
-header p {
-max-width: 600px;
-margin: 0 auto;
-line-height: 22px;
-}
-
-header p a,
-header p a:visited {
-text-decoration: none;
-color: #4281f5;
-}
-
 #main li {
 height: 200px;
 background-color: #ffffff;
