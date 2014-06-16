@@ -23,11 +23,3 @@
       {
          echo $_GET['callback'] . '(' . "{'message' : 'You are using an invalid key, or the Server connection is not working!'}" . ')';
       }
-
-
-
-
-
-
-      
- ?>
