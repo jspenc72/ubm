@@ -21,9 +21,10 @@ $v6 = "'" . $conn->real_escape_string($usrname) . "'";
 $v7 = "'" . $conn->real_escape_string($licenseAgreement) . "'";
 $v8 = "'" . $conn->real_escape_string($termsOfService) . "'";
 $v9 = "'" . $conn->real_escape_string($hash) . "'";
+$v10 = "'" . $conn->real_escape_string($securePassword) . "'";
 
 $sqlins = "INSERT INTO members (username, email, password, agree_to_license_agreement, agree_to_terms_of_service, activation_code, email_activation_status)
-                VALUES ($v6, $v4, $securePassword, $v7, $v8, $v9, '0')";
+                VALUES ($v6, $v4, $v10, $v7, $v8, $v9, '0')";
 if (!$conn->query($sqlins)) {
     $theError = $conn->error;
     echo $_GET['callback'] . '(' . "{'message' : 'Unable to Process your request: $theError'}" . ')';
@@ -31,38 +32,32 @@ if (!$conn->query($sqlins)) {
     $last_inserted_id = $conn->insert_id;
     
     //$affected_rows = $conn -> affected_rows;
-    echo $_GET['callback'] . '(' . "{'message' : 'Registration successful!'}" . ')';
-}
-
-$sqlins2 = "INSERT INTO agreements (member_id, terms_of_service, license_agreement_setup)
+    
+    $sqlins2 = "INSERT INTO agreements (member_id, terms_of_service, license_agreement_sign_in)
                 VALUES ($last_inserted_id, '1', '1')";
-if (!$conn->query($sqlins2)) {
-    $theError = $conn->error;
-    echo $_GET['callback'] . '(' . "{'message' : 'Unable to Process your request: $theError'}" . ')';
-} else {
-    $last_inserted_id = $conn->insert_id;
+    if (!$conn->query($sqlins2)) {
+        $theError = $conn->error;
+        echo $_GET['callback'] . '(' . "{'message' : 'Unable to Process your request: $theError'}" . ')';
+    } else {
+        $last_inserted_id = $conn->insert_id;
+    }
     
-    //$affected_rows = $conn -> affected_rows;
-    echo $_GET['callback'] . '(' . "{'message' : 'Agreed!'}" . ')';
-}
-
-$sqlins3 = "INSERT INTO walkthrough (username)
+    $sqlins3 = "INSERT INTO walkthrough (username)
                 VALUES ($v6)";
-if (!$conn->query($sqlins3)) {
-    $theError = $conn->error;
-    echo $_GET['callback'] . '(' . "{'message' : 'Unable to Process your request: $theError'}" . ')';
-} else {
+    if (!$conn->query($sqlins3)) {
+        $theError = $conn->error;
+        echo $_GET['callback'] . '(' . "{'message' : 'Unable to Process your request: $theError'}" . ')';
+    } else {
+        
+        echo $_GET['callback'] . '(' . "{'message' : 'Registration successful!'}" . ')';
+    }
+    $to = $usremail;
     
-    echo $_GET['callback'] . '(' . "{'message' : 'walkthrough!'}" . ')';
-}
-
-$to = $usremail;
-
-// Send email to our user
-$subject = 'Please Verify Your Account';
-
-// Give the email a subject
-$message = '
+    // Send email to our user
+    $subject = 'Please Verify Your Account';
+    
+    // Give the email a subject
+    $message = '
  
 Your account has been created, you can login with the following credentials after you have activated your account by clicking on the url below.
  
@@ -75,11 +70,14 @@ Please click this link to activate your account:
 http://api.universalbusinessmodel.com/verify.php?callback=?&email=' . $usremail . '&activationCode=' . $hash . '
  
 ';
-
-$headers = 'From:notify@universalbusinessmodel.com' . "\r\n";
-
-// Set from headers
-mail($to, $subject, $message, $headers);
-
-// Send our email
+    
+    $headers = 'From:notify@universalbusinessmodel.com' . "\r\n";
+    
+    // Set from headers
+    mail($to, $subject, $message, $headers);
+    
+    // Send our email
+    
+    
+}
 
