@@ -55,7 +55,6 @@ function setActiveMCSTaskId(MCSTaskId) {
     var currentPage;
     window.activeubm_page = currentPage;
     //$("#" + currentPage + "_prepareTaskPopup").popup('open');
-    actionRequired();
 }
 
 function submitMCSTaskPreparedByRecord() {

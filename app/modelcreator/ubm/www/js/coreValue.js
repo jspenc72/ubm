@@ -19,10 +19,10 @@ function getMyModelsCoreValues() {
             $('#ubmsuite_mcs_model_visual_content_core_values_ul').append("<li><a>" + item.value_title + "</a></li>");
             //$('#ubmsuite_mcs_model_visual_content_core_values_ul').listview().listview("refresh");
             $('#ubmsuite_modelSettings_myCoreValues_ul').append("<li><a data-mini='true' href='#'><h2 style='white-space:normal;'>" + item.value_title + "</h2><p style='white-space:normal;'>" + item.value_summary + "</p></a><a href='#ubmsuite_modelSettings_confirm_remove_CoreValue_popup' data-mini='true' data-rel='popup' data-position-to='window' data-transition='pop' onclick='setActiveCoreValueId(" + item.id + ")'>Remove Core Value</a></li>");
-            $('#ubmsuite_modelSettings_myCoreValues_ul').listview().listview().listview("refresh");
+            $('#ubmsuite_modelSettings_myCoreValues_ul').listview().listview("refresh");
         });
-        $('#ubmsuite_modelSettings_myCoreValues_ul').listview().listview().listview("refresh");
-        $('#ubmsuite_mcs_model_visual_content_core_values_ul').listview().listview().listview("refresh");
+        $('#ubmsuite_modelSettings_myCoreValues_ul').listview().listview("refresh");
+        $('#ubmsuite_mcs_model_visual_content_core_values_ul').listview().listview("refresh");
         getMyModelsCustomers();
         $('#tiles').trigger('refreshWookmark'); //Layout items in Wookmark Grid
     });
@@ -38,7 +38,7 @@ function getListofPossibleCoreValues() { //Populates Core Value Listview on Poss
         $('#ubmsuite_modelSettings_coreValues_popup_listview').empty();
         $.each(res, function(i, item) {
             $('#ubmsuite_modelSettings_coreValues_popup_listview').append("<li><a href='#'><p style='white-space:normal;'>" + item.value_title + "</p></a><a href='#' onclick='addCoreValueToMyModel(" + item.id + ")'>Add Core Value</a></li>");
-            $('#ubmsuite_modelSettings_coreValues_popup_listview').listview().listview().listview("refresh");
+            $('#ubmsuite_modelSettings_coreValues_popup_listview').listview().listview("refresh");
         })
     });
 }

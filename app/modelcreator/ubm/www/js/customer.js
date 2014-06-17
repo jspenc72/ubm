@@ -18,10 +18,10 @@ function getMyModelsCustomers() { //Populates Customer  Listview on Model Settin
             $('#ubmsuite_mcs_model_visual_content_customers_ul').append("<li><a>" + item.name + "</a></li>");
             //$('#ubmsuite_mcs_model_visual_content_customers_ul').listview().listview("refresh");
             $('#ubmsuite_modelSettings_myCustomers_ul').append("<li><a href='#'> <h2 style='white-space:normal;'>" + item.name + "</h2><p>" + item.id + "</p></a><a href='#ubmsuite_modelSettings_confirm_remove_Customer_popup' data-rel='popup' data-position-to='window' data-transition='pop' onclick='setActiveCustomerId(" + item.id + ")'>Remove Customer</a></li>");
-            $('#ubmsuite_modelSettings_myCustomers_ul').listview().listview().listview("refresh");
+            $('#ubmsuite_modelSettings_myCustomers_ul').listview().listview("refresh");
         });
-        $('#ubmsuite_mcs_model_visual_content_customers_ul').listview().listview().listview("refresh");
-        $('#ubmsuite_modelSettings_myCustomers_ul').listview().listview().listview("refresh");
+        $('#ubmsuite_mcs_model_visual_content_customers_ul').listview().listview("refresh");
+        $('#ubmsuite_modelSettings_myCustomers_ul').listview().listview("refresh");
         getMyModelsProducts();
     });
     getListofPossibleCustomers();
@@ -36,7 +36,7 @@ function getListofPossibleCustomers() { //Populates Customer Listview on Possibl
         $('#ubmsuite_modelSettings_customers_popup_listview').empty();
         $.each(res, function(i, item) {
             $('#ubmsuite_modelSettings_customers_popup_listview').append("<li><a href='#'><p>" + item.name + "</p></a><a href='#' onclick='addCustomerToMyModel(" + item.id + ")'>Add Customer</a></li>");
-            $('#ubmsuite_modelSettings_customers_popup_listview').listview().listview().listview("refresh");
+            $('#ubmsuite_modelSettings_customers_popup_listview').listview().listview("refresh");
         })
     });
 }

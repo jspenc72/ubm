@@ -18,10 +18,10 @@ function getMyModelsPhysicalFacilities() { //Populates Customer  Listview on Mod
             $('#ubmsuite_mcs_model_visual_content_physical_facilitiei_ul').append("<li><a>" + item.facility_title + "</a></li>");
             //$('#ubmsuite_mcs_model_visual_content_physical_facilitiei_ul').listview().listview("refresh");
             $('#ubmsuite_modelSettings_myPhysicalFacilities_ul').append("<li><a href='#'> <h2 style='white-space:normal;'>" + item.facility_title + "</h2><p>" + item.id + "</p></a><a href='#ubmsuite_modelSettings_confirm_remove_PhysicalFacility_popup' data-rel='popup' data-position-to='window' data-transition='pop' onclick='setActivePhysicalFacilityId(" + item.id + ")'>Remove Physical Facility</a></li>");
-            $('#ubmsuite_modelSettings_myPhysicalFacilities_ul').listview().listview().listview("refresh");
+            $('#ubmsuite_modelSettings_myPhysicalFacilities_ul').listview().listview("refresh");
         });
-        $('#ubmsuite_mcs_model_visual_content_physical_facilitiei_ul').listview().listview().listview("refresh");
-        $('#ubmsuite_modelSettings_myPhysicalFacilities_ul').listview().listview().listview("refresh");
+        $('#ubmsuite_mcs_model_visual_content_physical_facilitiei_ul').listview().listview("refresh");
+        $('#ubmsuite_modelSettings_myPhysicalFacilities_ul').listview().listview("refresh");
         getMyModelsStrategicAlliances();
     });
     getListofPossiblePhysicalFacilities();
@@ -35,7 +35,7 @@ function getListofPossiblePhysicalFacilities() { //Populates Customer Listview o
         $('#ubmsuite_modelSettings_physicalfacilities_popup_listview').empty();
         $.each(res, function(i, item) {
             $('#ubmsuite_modelSettings_physicalfacilities_popup_listview').append("<li><a href='#'><p style='white-space:normal;'>" + item.facility_title + "</p></a><a href='#' onclick='addPhysicalFacilitiesToMyModel(" + item.id + ")'>Add Physical Facility</a></li>");
-            $('#ubmsuite_modelSettings_physicalfacilities_popup_listview').listview().listview().listview("refresh");
+            $('#ubmsuite_modelSettings_physicalfacilities_popup_listview').listview().listview("refresh");
         })
     });
 }

@@ -102,7 +102,7 @@ function getPersonsVisibleCircle() {
             document.getElementById('numFriends').innerHTML = "Friends: " + resp.totalItems;
             $.each(resp.items, function(i, item) {
                 $("#friendListview").append("<li><a href='" + item.url + "'><img src='" + item.image.url + "' alt='France' class='ui-li-icon ui-corner-none'>" + item.displayName + "</a></li>");
-                $('#friendListview').listview().listview().listview("refresh");
+                $('#friendListview').listview().listview("refresh");
                 // alert(item.displayName);
             });
         });

@@ -12,7 +12,7 @@ if ($conn->connect_error) {
 }
 
 //UPDATE
-$sql = "UPDATE members SET password=$securePassword, password_status='1' WHERE username='$username'";
+$sql = "UPDATE members SET password='$securePassword', password_status='1' WHERE username='$username'";
 if ($conn->query($sql) === false) {
     trigger_error('Wrong SQL: ' . $sql . ' Error: ' . $conn->error, E_USER_ERROR);
 } else {

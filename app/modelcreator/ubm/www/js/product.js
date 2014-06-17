@@ -18,11 +18,11 @@ function getMyModelsProducts() { //Populates Customer  Listview on Model Setting
             $('#ubmsuite_mcs_model_visual_content_products_ul').append("<li><a>" + item.title + "</a></li>");
             //$('#ubmsuite_mcs_model_visual_content_products_ul').listview().listview("refresh");
             $('#ubmsuite_modelSettings_myProducts_ul').append("<li><a href='#'> <h2 style='white-space:normal;'>" + item.title + "</h2><p>" + item.id + "</p></a><a href='#ubmsuite_modelSettings_confirm_remove_Product_popup' data-rel='popup' data-position-to='window' data-transition='pop' onclick='setActiveProductId(" + item.id + ")'>Remove Product</a></li>");
-            $('#ubmsuite_modelSettings_myProducts_ul').listview().listview().listview("refresh");
+            $('#ubmsuite_modelSettings_myProducts_ul').listview().listview("refresh");
 
         });
-        $('#ubmsuite_mcs_model_visual_content_products_ul').listview().listview().listview("refresh");
-        $('#ubmsuite_modelSettings_myProducts_ul').listview().listview().listview("refresh");
+        $('#ubmsuite_mcs_model_visual_content_products_ul').listview().listview("refresh");
+        $('#ubmsuite_modelSettings_myProducts_ul').listview().listview("refresh");
         getMyModelsServices();
     });
     getListofPossibleProducts();
@@ -37,7 +37,7 @@ function getListofPossibleProducts() { //Populates Customer Listview on Possible
         $('#ubmsuite_modelSettings_products_popup_listview').empty();
         $.each(res, function(i, item) {
             $('#ubmsuite_modelSettings_products_popup_listview').append("<li><a href='#'><pstyle='white-space:normal;'>" + item.title + "</p></a><a href='#' onclick='addProductToMyModel(" + item.id + ")'>Add Product</a></li>");
-            $('#ubmsuite_modelSettings_products_popup_listview').listview().listview().listview("refresh");
+            $('#ubmsuite_modelSettings_products_popup_listview').listview().listview("refresh");
         })
     });
 }

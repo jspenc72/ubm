@@ -17,10 +17,10 @@ function getMyModelsFeatures() { //Populates Customer  Listview on Model Setting
             $('#ubmsuite_mcs_model_visual_content_features_ul').append("<li><a>" + item.feature_title + "</a></li>");
             //$('#ubmsuite_mcs_model_visual_content_features_ul').listview().listview("refresh");
             $('#ubmsuite_modelSettings_myFeatures_ul').append("<li><a href='#'> <h2 style='white-space:normal;'>" + item.feature_title + "</h2><p>" + item.feature_description + "</p></a><a href='#ubmsuite_modelSettings_confirm_remove_Feature_popup' data-rel='popup' data-position-to='window' data-transition='pop' onclick='setActiveFeatureId(" + item.id + ")'>Remove Feature</a></li>");
-            $('#ubmsuite_modelSettings_myFeatures_ul').listview().listview().listview("refresh");
+            $('#ubmsuite_modelSettings_myFeatures_ul').listview().listview("refresh");
         });
-        $('#ubmsuite_mcs_model_visual_content_features_ul').listview().listview().listview("refresh");
-        $('#ubmsuite_modelSettings_myFeatures_ul').listview().listview().listview("refresh");
+        $('#ubmsuite_mcs_model_visual_content_features_ul').listview().listview("refresh");
+        $('#ubmsuite_modelSettings_myFeatures_ul').listview().listview("refresh");
         getMyModelsOrganizationalStructures();
     });
     getListofPossibleFeatures();
@@ -34,7 +34,7 @@ function getListofPossibleFeatures() { //Populates Customer Listview on Possible
         $('#ubmsuite_modelSettings_features_popup_listview').empty();
         $.each(res, function(i, item) {
             $('#ubmsuite_modelSettings_features_popup_listview').append("<li><a href='#'><p>" + item.feature_title + "</p></a><a href='#' onclick='addFeatureToMyModel(" + item.id + ")'>Add Feature</a></li>");
-            $('#ubmsuite_modelSettings_features_popup_listview').listview().listview().listview("refresh");
+            $('#ubmsuite_modelSettings_features_popup_listview').listview().listview("refresh");
         })
     });
 }

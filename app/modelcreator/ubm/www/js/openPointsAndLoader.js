@@ -268,7 +268,7 @@ function viewResolutions(id) {
             $('#mcs_open_points_action_items_resolution_popup_ul').append("<li><a href='#' data-rel='popup' data-position-to='window' data-transition='pop'><h1>" + item.closed_by + "</h1><p style='white-space:normal;'>" + item.disposition + "</p><p class='ui-li-aside'>Resolution Date:</br> <strong>" + item.resolution_date + "</strong></p></a></li>");
             $('#mcs_open_points_action_items_resolution_popup_ul').append("<li data-role='list-divider' >" + item.githuburl + "</p></li>");
             //$('#mcs_open_points_action_items_resolution_popup_ul').append("<div style='height:200px; width:200px; text-wrap: normal;'>New Resolution: " + item.disposition + "</div>");
-            $('#mcs_open_points_action_items_resolution_popup_ul').listview().listview().listview("refresh");
+            $('#mcs_open_points_action_items_resolution_popup_ul').listview().listview("refresh");
         })
     });
     $.getJSON('http://api.universalbusinessmodel.com/ubm_select_allActiveOpenItemComments.php?callback=?', { //JSONP Request
@@ -282,12 +282,12 @@ function viewResolutions(id) {
             //alert(item.disposition);
             $('#mcs_open_points_action_items_comment_popup_ul').append("<li><a href='#' data-rel='popup' data-position-to='window' data-transition='pop'><h1>" + item.author + "</h1><p style='white-space:normal;'>" + item.comment + "</p><p class='ui-li-aside'>Comment Date:</br> <strong>" + item.date_added + "</strong></p></a></li>");
             //$('#mcs_open_points_action_items_resolution_popup_ul').append("<div style='height:200px; width:200px; text-wrap: normal;'>New Resolution: " + item.disposition + "</div>");
-            $('#mcs_open_points_action_items_comment_popup_ul').listview().listview().listview("refresh");
+            $('#mcs_open_points_action_items_comment_popup_ul').listview().listview("refresh");
         })
     });
 
 
-    $('#mcs_open_points_action_items_resolution_popup_ul').listview().listview().listview("refresh");
+    $('#mcs_open_points_action_items_resolution_popup_ul').listview().listview("refresh");
     setTimeout(function() {
         $("#mcs_open_points_action_items_resolution_popup").popup('open');
         hideLoader();
