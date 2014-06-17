@@ -38,7 +38,7 @@ function setActiveTaskIncomplete() {
         $('.reviewedBy_actionRequired_input').val("");
         $('.ui-popup').popup('close');
     } else {
-        $().toastmessage('showNoticeToast', "You must enter an action required!");
+        $().toastmessage('showWarningToast', "You must enter an action required!");
     }
 }
 

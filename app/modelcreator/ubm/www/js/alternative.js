@@ -25,6 +25,8 @@ $(function() {
         values: [-500, -10],
         slide: function(event, ui) {
             $("#possible_alternatives_con_monetary_cost_input").val("$" + ui.values[0] + " - $" + ui.values[1]); //Populate the text input with the Low and High values from the slider.
+            $("#possible_alternatives_con_monetary_cost_input_low").val(ui.values[0]);
+            $("#possible_alternatives_con_monetary_cost_input_high").val(ui.values[1]);
         }
     });
     $("#possible_alternatives_con_monetary_cost_input").val("$" + $("#possible_alternatives_con_monetary_cost_slider").slider("values", 0) +
