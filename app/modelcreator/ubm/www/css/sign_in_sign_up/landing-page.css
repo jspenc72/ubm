@@ -19,6 +19,10 @@ body, html {
 	text-align: center;
 }
 
+#result {
+	color:#990000;
+	text-shadow:none;
+}
 .intro-message {
 	position: relative;
 	padding-top: 20%;

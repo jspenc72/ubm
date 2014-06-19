@@ -11,11 +11,11 @@ function userSignIn() {
         $('#si_pw').val("");
         if (res.validation == 0) {
             $().toastmessage('showErrorToast', res.message);
-            $('#result').empty().append("<center><p style='background-color:black'>" + res.message + "</p></center>");
+            $('#result').empty().append("<p>" + res.message + "</p>");
             document.getElementById("si_pw").focus();
         } else {
             if (res.validation != 0) {
-                $('#result').empty().append("<center><p style='background-color:black'>Performing your sign in request...</p></center>");
+                $('#result').empty().append("<p>Performing your sign in request...</p>");
                 $("#draggable_circle_linkTo_openPointsPage").attr("href", "#open_points_action_items");
                 window.username = si_userName;
 
