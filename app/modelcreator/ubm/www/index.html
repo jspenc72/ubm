@@ -131,7 +131,11 @@ under the License.
 				//getStepsforBackBoneTable();
 				//getTasksforBackBoneTable();
 			}
+
+			// These are to open the manage XXXXX popup
 			function setActivePosition(activeReportsToPosition, positionTitle){
+				$("#managePosition_change_anchor").text("Add New Position to Model")
+				$("#managePosition_change_anchor").attr("onclick","openAddNewPositionPopup();getListofPossiblePositions()");
 				window.activeReportsToPosition = activeReportsToPosition;
 				if(positionTitle == "Owners") {
 					$("#genericManagePosition").remove();
@@ -142,12 +146,62 @@ under the License.
 					$("#manageOwnersListItem").remove();
 					$("#ubmsuite_mcs_my_organizational_chart_content_mangePositionPopUp").append("<li id='genericManagePosition' <a href='#' onclick='managePosition();getListOfPositionNames()' class='ui-btn'>Manage Position</a></li>");
 				}
+				if(!positionTitle) {
+					$("#managePosition_change_anchor").text("Add New Job Description to Position")
+					$("#managePosition_change_anchor").attr("onclick","openNewJDPopup(" + window.activePositionUUID + ")");
+				}
 				setTimeout(function() {
 					$("#ubmsuite_mcs_my_organizational_chart_content_mangePositionPopUp").popup('open');
 					//buildHierarchicalTree(activeReportsToPosition);					
 					getJobDescriptionsforBackBoneTable();	
 				}, 10);
 			}
+
+			function setActiveJobDescription(activeReportsToJobDescription){
+				$("#manageJobDescription_change_anchor").attr("onclick","openNewPLPopup(" + window.activeJobDescriptionUUID + ")");
+				window.activeReportsToJobDescription = activeReportsToJobDescription;
+				setTimeout(function() {
+					$("#ubmsuite_mcs_my_organizational_chart_content_mangeJobDescriptionPopUp").popup('open');
+					//buildHierarchicalTree(activeReportsToPosition);					
+				}, 10);
+			}
+
+			function setActivePolicy(activeReportsToPolicy){
+				$("#managePolicy_change_anchor").attr("onclick","openNewPRPopup(" + window.activePolicyUUID + ")");
+				window.activeReportsToPolicy = activeReportsToPolicy;
+				setTimeout(function() {
+					$("#ubmsuite_mcs_my_organizational_chart_content_mangePolicyPopUp").popup('open');
+					//buildHierarchicalTree(activeReportsToPosition);					
+				}, 10);
+			}
+
+			function setActiveProcedure(activeReportsToProcedure){
+				$("#manageProcedure_change_anchor").attr("onclick","openNewSTPopup(" + window.activeProcedureUUID + ")");
+				window.activeReportsToProcedure = activeReportsToProcedure;
+				setTimeout(function() {
+					$("#ubmsuite_mcs_my_organizational_chart_content_mangeProcedurePopUp").popup('open');
+					//buildHierarchicalTree(activeReportsToPosition);					
+				}, 10);
+			}
+
+			function setActiveStep(activeReportsToStep){
+				$("#manageStep_change_anchor").attr("onclick","openNewTKPopup(" + window.activeStepUUID + ")");
+				window.activeReportsToStep = activeReportsToStep;
+				setTimeout(function() {
+					$("#ubmsuite_mcs_my_organizational_chart_content_mangeStepPopUp").popup('open');
+					//buildHierarchicalTree(activeReportsToPosition);					
+				}, 10);
+			}
+
+			function setActiveTask(activeReportsToTask){
+				window.activeReportsToTask = activeReportsToTask;
+				setTimeout(function() {
+					$("#ubmsuite_mcs_my_organizational_chart_content_mangeTaskPopUp").popup('open');
+					//buildHierarchicalTree(activeReportsToPosition);					
+				}, 10);
+			}
+			// End manage XXXXX popups 
+
 			// This function is the second of two functions that show popups this one is for the hierarchical
 			function setActivePosition2(activeReportsToPosition){
 				window.activeReportsToPosition = activeReportsToPosition;
@@ -175,6 +229,7 @@ under the License.
 			}
 			
 			function openAddNewPositionPopup(){
+				getListofPossiblePositions();
 				$("#ubmsuite_mcs_my_organizational_chart_content_mangePositionPopUp").popup('close');
 				setTimeout(function() {
 					$("#ubmsuite_mcs_my_organizational_chart_content_createNewPositionPopUp").popup('open');
@@ -408,12 +463,33 @@ under the License.
 				});
 					getMyModelsOrgChart();
 			}
+
+			function removeActiveJobDescriptionfromMyModel(){
+				$.getJSON('http://api.universalbusinessmodel.com/ubms_modelcreationsuite_model_remove_JobDescription.php?callback=?', {//JSONP Request
+					key : window.key,
+					username: window.username,
+					activeModelUUID : window.activeModelUUID,
+					activeJobDescriptionId: window.activeReportsToJobDescription
+				}, function(res, status) {
+					$().toastmessage('showSuccessToast', res.message);
+				});
+					getMyModelsOrgChart();
+			}
+
 			function confirmRemoveActivePosition(){
 				$("#ubmsuite_mcs_my_organizational_chart_content_mangePositionPopUp").popup('close');
 				setTimeout(function() {
 					$("#ubmsuite_mcs_my_organizational_chart_confirm_remove_Position_popup").popup('open');
 				}, 1000);
 			}
+
+			function confirmRemoveActiveJobDescription(){
+				$("#ubmsuite_mcs_my_organizational_chart_content_mangeJobDescriptionPopUp").popup('close');
+				setTimeout(function() {
+					$("#ubmsuite_mcs_my_organizational_chart_confirm_remove_JobDescription_popup").popup('open');
+				}, 1000);
+			}
+
 			function modifyActivePosition(){
 				$().toastmessage('showNoticeToast', window.activeReportsToPosition);
 				//1. Checks to see if the currently active user is the creator of the active position.
@@ -443,25 +519,26 @@ under the License.
 
 
 			function displayHierarchicalTree(ElementsArray){				//Callback function for when getChildElementsforHierarchicalTree() is complete 
+				event.preventDefault();
 				if(ElementsArray){
 					//1. Start by prepending the position to the tree.
-							$('#heirarchyObjectTree_ul').prepend("<li><a data-thisUUID='" + window.activePositionUUID + "' class='hierarchyObjectTreeItem ajax_tooltip' onclick='setActivePositionUUID(" + window.activePositionUUID + ")' ondblclick='openNewJDPopup(" + window.activePositionUUID + ")'>PS-" + window.activePositionUUID + "</a><ul id='ubmsuite_mcs_my_organizational_chart_heirarchyObjectTree_ul_" + window.activePositionUUID + "'></ul></li>"); 	 					
+							$('#heirarchyObjectTree_ul').prepend("<li><a data-thisUUID='" + window.activePositionUUID + "' class='hierarchyObjectTreeItem ajax_tooltip' onclick='setActivePositionUUID(" + window.activePositionUUID + ")' ondblclick='setActivePosition(" + window.activePositionUUID + ")'>PS-" + window.activePositionUUID + "</a><ul id='ubmsuite_mcs_my_organizational_chart_heirarchyObjectTree_ul_" + window.activePositionUUID + "'></ul></li>"); 	 					
 					$.each(ElementsArray, function(i, item) {
 						if(item.jobDescription_id>="1"){
 						//2. jobDescription_id for Object hierarchy suggests the item is a JD
-							$("#ubmsuite_mcs_my_organizational_chart_heirarchyObjectTree_ul_" + item.ancestor_id + "").append("<li><a data-thisUUID='" + item.descendant_id + "' class='hierarchyObjectTreeItem ajax_tooltip' onclick='setActiveJobDescriptionUUID(" + item.descendant_id + ")' ondblclick='openNewPLPopup(" + item.descendant_id + ")'>JD-" + item.descendant_id + "</a><ul id='ubmsuite_mcs_my_organizational_chart_heirarchyObjectTree_ul_" + item.descendant_id + "'></ul></li>")
+							$("#ubmsuite_mcs_my_organizational_chart_heirarchyObjectTree_ul_" + item.ancestor_id + "").append("<li><a data-thisUUID='" + item.descendant_id + "' class='hierarchyObjectTreeItem ajax_tooltip' onclick='setActiveJobDescriptionUUID(" + item.descendant_id + ")' ondblclick='setActiveJobDescription(" + item.descendant_id + ")'>JD-" + item.descendant_id + "</a><ul id='ubmsuite_mcs_my_organizational_chart_heirarchyObjectTree_ul_" + item.descendant_id + "'></ul></li>")
 						}else if(item.policy_id>="1"){
 						//3. policy_id for Object hierarchy suggests the item is a PL
-							$("#ubmsuite_mcs_my_organizational_chart_heirarchyObjectTree_ul_" + item.ancestor_id + "").append("<li><a data-thisUUID='" + item.descendant_id + "' class='hierarchyObjectTreeItem ajax_tooltip' onclick='setActivePolicyUUID(" + item.descendant_id + ")' ondblclick='openNewPRPopup(" + item.descendant_id + ")'>PL-" + item.descendant_id + "</a><ul id='ubmsuite_mcs_my_organizational_chart_heirarchyObjectTree_ul_" + item.descendant_id + "'></ul></li>")
+							$("#ubmsuite_mcs_my_organizational_chart_heirarchyObjectTree_ul_" + item.ancestor_id + "").append("<li><a data-thisUUID='" + item.descendant_id + "' class='hierarchyObjectTreeItem ajax_tooltip' onclick='setActivePolicyUUID(" + item.descendant_id + ")' ondblclick='setActivePolicy(" + item.descendant_id + ")'>PL-" + item.descendant_id + "</a><ul id='ubmsuite_mcs_my_organizational_chart_heirarchyObjectTree_ul_" + item.descendant_id + "'></ul></li>")
 						}else if(item.procedure_id>="1"){
 						//4. procedure_id for Object hierarchy suggests the item is a PR
-							$("#ubmsuite_mcs_my_organizational_chart_heirarchyObjectTree_ul_" + item.ancestor_id + "").append("<li><a data-thisUUID='" + item.descendant_id + "' class='hierarchyObjectTreeItem ajax_tooltip' onclick='setActiveProcedureUUID(" + item.descendant_id + ")' ondblclick='openNewSTPopup(" + item.descendant_id + ")'>PR-" + item.descendant_id + "</a><ul id='ubmsuite_mcs_my_organizational_chart_heirarchyObjectTree_ul_" + item.descendant_id + "'></ul></li>")
+							$("#ubmsuite_mcs_my_organizational_chart_heirarchyObjectTree_ul_" + item.ancestor_id + "").append("<li><a data-thisUUID='" + item.descendant_id + "' class='hierarchyObjectTreeItem ajax_tooltip' onclick='setActiveProcedureUUID(" + item.descendant_id + ")' ondblclick='setActiveProcedure(" + item.descendant_id + ")'>PR-" + item.descendant_id + "</a><ul id='ubmsuite_mcs_my_organizational_chart_heirarchyObjectTree_ul_" + item.descendant_id + "'></ul></li>")
 						}else if(item.step_id>="1"){
 						//5. step_id for Object hierarchy suggests the item is a ST
-							$("#ubmsuite_mcs_my_organizational_chart_heirarchyObjectTree_ul_" + item.ancestor_id + "").append("<li><a data-thisUUID='" + item.descendant_id + "' class='hierarchyObjectTreeItem ajax_tooltip' onclick='setActiveStepUUID(" + item.descendant_id + ")' ondblclick='openNewTKPopup(" + item.descendant_id + ")'>ST-" + item.descendant_id + "</a><ul id='ubmsuite_mcs_my_organizational_chart_heirarchyObjectTree_ul_" + item.descendant_id + "'></ul></li>")
+							$("#ubmsuite_mcs_my_organizational_chart_heirarchyObjectTree_ul_" + item.ancestor_id + "").append("<li><a data-thisUUID='" + item.descendant_id + "' class='hierarchyObjectTreeItem ajax_tooltip' onclick='setActiveStepUUID(" + item.descendant_id + ")' ondblclick='setActiveStep(" + item.descendant_id + ")'>ST-" + item.descendant_id + "</a><ul id='ubmsuite_mcs_my_organizational_chart_heirarchyObjectTree_ul_" + item.descendant_id + "'></ul></li>")
 						}else if(item.task_id>="1"){
 						//6. task_id for Object hierarchy suggests the item is a TK
-							$("#ubmsuite_mcs_my_organizational_chart_heirarchyObjectTree_ul_" + item.ancestor_id + "").append("<li><a data-thisUUID='" + item.descendant_id + "' class='hierarchyObjectTreeItem ajax_tooltip' onclick='setActiveTaskUUID(" + item.descendant_id + ")' ondblclick='openNewTKPopup(" + item.descendant_id + ")'>TK-" + item.descendant_id + "</a></li>")
+							$("#ubmsuite_mcs_my_organizational_chart_heirarchyObjectTree_ul_" + item.ancestor_id + "").append("<li><a data-thisUUID='" + item.descendant_id + "' class='hierarchyObjectTreeItem ajax_tooltip' onclick='setActiveTaskUUID(" + item.descendant_id + ")' ondblclick='setActiveTask(" + item.descendant_id + ")'>TK-" + item.descendant_id + "</a></li>")
 						}
 					});
 				}	
@@ -618,7 +695,11 @@ under the License.
 				//2. Populate the list of predefined job descriptions with those from the reference manual.
 				getListofPossibleJobDescriptions();
 				//3. Display the popup.
-				$("#ubmsuite_mcs_my_organizational_chart_content_createNewJobDescriptionPopUp").popup("open");
+				$(".ui-popup").popup("close");
+				setTimeout(function() {
+			        $("#ubmsuite_mcs_my_organizational_chart_content_createNewJobDescriptionPopUp").popup("open");
+			    }, 500);
+				
 			}
 			function openNewPLPopup(activeJobDescriptionUUID){						//Double Click Function
 				//1 Set the active Job Description UUID to the JD element on which the user double clicks.
@@ -626,7 +707,11 @@ under the License.
 				//2. Populate the list of predefined Policies with those from the reference manual.				
 				getListofPossiblePolicies();
 				//3. Display the popup.
-				$("#ubmsuite_mcs_my_organizational_chart_content_createNewPolicyPopUp").popup("open");
+				$(".ui-popup").popup("close");
+				setTimeout(function() {
+			        $("#ubmsuite_mcs_my_organizational_chart_content_createNewPolicyPopUp").popup("open");
+			    }, 500);
+				
 			}
 			function openNewPRPopup(activePolicyUUID){								//Double Click Function
 				//1 Set the active Policy UUID to the PL element on which the user double clicks.
@@ -634,7 +719,11 @@ under the License.
 				//2. Populate the list of predefined Procedures with those from the reference manual.				
 				getListofPossibleProcedures();
 				//3. Display the popup.
-				$("#ubmsuite_mcs_my_organizational_chart_content_createNewProcedurePopUp").popup("open");
+				$(".ui-popup").popup("close");
+				setTimeout(function() {
+			        $("#ubmsuite_mcs_my_organizational_chart_content_createNewProcedurePopUp").popup("open");
+			    }, 500);
+				
 			}
 			function openNewSTPopup(activeProcedureUUID){							//Double Click Function
 				//1 Set the active Procedure UUID to the PR element on which the user double clicks.
@@ -642,7 +731,11 @@ under the License.
 				//2. Populate the list of predefined Steps with those from the reference manual.				
 				getListofPossibleSteps();
 				//3. Display the popup.
-				$("#ubmsuite_mcs_my_organizational_chart_content_createNewStepPopUp").popup("open");
+				$(".ui-popup").popup("close");
+				setTimeout(function() {
+			        $("#ubmsuite_mcs_my_organizational_chart_content_createNewStepPopUp").popup("open");
+			    }, 500);
+				
 			}
 			function openNewTKPopup(activeStepUUID){								//Double Click Function
 				//1 Set the active Step UUID to the ST element on which the user double clicks.
@@ -650,7 +743,11 @@ under the License.
 				//2. Populate the list of predefined Tasks with those from the reference manual.				
 				getListofPossibleTasks();
 				//3. Display the popup.
-				$("#ubmsuite_mcs_my_organizational_chart_content_createNewTaskPopUp").popup("open");
+				$(".ui-popup").popup("close");
+				setTimeout(function() {
+			        $("#ubmsuite_mcs_my_organizational_chart_content_createNewTaskPopUp").popup("open");
+			    }, 500);
+				
 			}
 
 			function createNewJobDescriptionAddtoMyModel() {
@@ -1277,6 +1374,7 @@ under the License.
 			<!-- End Task-->
         <script>
 	        function getMyModelsOrgChart(){
+	        	event.preventDefault();
 						$('#ubmsuite_mcs_my_organizational_chart_L0_ul').empty();
 					$.getJSON('http://api.universalbusinessmodel.com/ubms_modelcreationsuite_getActiveModelOwnerforOrgChart.php?callback=?', {//JSONP Request 
 						key: window.key,
@@ -2450,11 +2548,11 @@ under the License.
 					<aside id="sidebar">
 						<ul class="tabset buttons">
 							<li class="active">
-								<a href="#tab-1" data-step='2' data-intro="This button used with the tabs will show you a progress overview of your current model" class="ico4" onclick="overview()"><span>Overview</span><em></em></a>
+								<a href="#tab-1" data-step='2' data-position='right' data-intro="This button used with the tabs will show you a progress overview of your current model" class="ico4" onclick="overview()"><span>Overview</span><em></em></a>
 								<span class="tooltip"><span>Checklist Completion Overview</span></span>
 							</li>
 							<li class="active">
-								<a href="#tab-1" class="ico6" data-step='3' data-intro='This button will give you a detailed list of what has and what has not been completed in each phase' onclick="summary()"><span>Model Summary</span><em></em></a>
+								<a href="#tab-1" class="ico6" data-position='right' data-step='3' data-intro='This button will give you a detailed list of what has and what has not been completed in each phase' onclick="summary()"><span>Model Summary</span><em></em></a>
 								<span class="tooltip"><span>Model Summary</span></span>
 							</li>
 						</ul>
@@ -2636,6 +2734,12 @@ under the License.
 				    <p>Removing this position will remove all child positions!</p>
 				    <a href="index.html" data-rel="back" class="ui-shadow ui-btn ui-corner-all ui-btn-b ui-icon-check ui-btn-icon-left ui-btn-inline ui-mini" onclick="removeActivePositionfromMyModel()">Confirm Remove Position</a>
 				    <a href="index.html" data-rel="back" class="ui-shadow ui-btn ui-corner-all ui-btn-inline ui-mini">Cancel</a>
+				</div>	
+				<div data-role="popup" id="ubmsuite_mcs_my_organizational_chart_confirm_remove_JobDescription_popup"  data-theme="a" data-overlay-theme="b" class="ui-content" style="max-width:340px; padding-bottom:2em;">
+				    <h3>Remove Job Description?</h3>
+				    <p>Removing this Job Description will remove all child objects!</p>
+				    <a href="#" data-rel="back" class="ui-shadow ui-btn ui-corner-all ui-btn-b ui-icon-check ui-btn-icon-left ui-btn-inline ui-mini" onclick="removeActiveJobDescriptionfromMyModel()">Confirm Remove Job Description</a>
+				    <a href="" data-rel="back" class="ui-shadow ui-btn ui-corner-all ui-btn-inline ui-mini">Cancel</a>
 				</div>				
 				<div data-role="popup" id="ubmsuite_mcs_my_organizational_chart_content_createNewPositionPopUp"  data-theme="a" class="ui-corner-all draggable_popup">
 					<div data-role="header">
@@ -2666,21 +2770,90 @@ under the License.
 				<style>
 				#ubmsuite_mcs_my_organizational_chart_content_mangePositionPopUp li {margin:15px 5px 15px 5px;}
 				</style>
-
+				<!-- Manage Position Popup -->
 				<div data-role="popup" id="ubmsuite_mcs_my_organizational_chart_content_mangePositionPopUp" data-overlay-theme="b" data-theme="a" data-dismissible="true" style="max-width:400px; min-width: 350px;">
 				    <div id="ubmsuite_mcs_my_organizational_chart_content_mangePositionPopUp_header" data-role="header" data-theme="a">
 						<h1 style="white-space:normal;">Manage Position</h1>
 				    </div>
 				    <div data-role='content' data-theme='a' >
-							<ul data-role="listview">
-								<li <a href="#" onclick='openPositionHierarchicalPdf()' class="ui-btn">Print Position Hierarchy</a></li>
-								<li <a href="#" onclick='openAddNewPositionPopup();getListofPossiblePositions()' class="ui-btn">Add New Position to Model</a></li>
-								<li <a href="#" onclick='confirmRemoveActivePosition()' class="ui-btn">Remove</a></li>
-								<li <a href="#" onclick='modifyActivePosition()' class="ui-btn">Modify</a></li>
-								<li <a href="#" onclick='viewActivePositionHierachyObjects()' class="ui-btn">View Hierarchical Objects</a></li>
-							</ul>
+						<ul data-role="listview">
+							<li <a href="#" onclick='openPositionHierarchicalPdf()' class="ui-btn">Print Position Hierarchy</a></li>
+							<li id="managePosition_change_anchor" <a href="#" onclick='openAddNewPositionPopup()' class="ui-btn">Add New Position to Model</a></li>
+							<li <a href="#" onclick='confirmRemoveActivePosition()' class="ui-btn">Remove</a></li>
+							<li <a href="#" onclick='modifyActivePosition()' class="ui-btn">Modify</a></li>
+						</ul>
 				    </div>	
 				</div>	
+				<!-- End Manage Position Popup -->
+				<!-- Manage Job Description Popup -->
+				<div data-role="popup" id="ubmsuite_mcs_my_organizational_chart_content_mangeJobDescriptionPopUp" data-overlay-theme="b" data-theme="a" data-dismissible="true" style="max-width:400px; min-width: 350px;">
+				    <div id="ubmsuite_mcs_my_organizational_chart_content_mangeJobDescriptionPopUp_header" data-role="header" data-theme="a">
+						<h1 style="white-space:normal;">Manage Job Description</h1>
+				    </div>
+				    <div data-role='content' data-theme='a' >
+						<ul data-role="listview">
+							<li id="manageJobDescription_change_anchor" <a href="#" onclick='openNewPLPopup()' class="ui-btn">Add New Policy to Job Description</a></li>
+							<li <a href="#" onclick='confirmRemoveActiveJobDescription()' class="ui-btn">Remove</a></li>
+							<li <a href="#" onclick='modifyActiveJobDescription()' class="ui-btn">Modify</a></li>
+						</ul>
+				    </div>	
+				</div>	
+				<!-- End Manage Job Description Popup -->
+				<!-- Manage Policy Popup -->
+				<div data-role="popup" id="ubmsuite_mcs_my_organizational_chart_content_mangePolicyPopUp" data-overlay-theme="b" data-theme="a" data-dismissible="true" style="max-width:400px; min-width: 350px;">
+				    <div id="ubmsuite_mcs_my_organizational_chart_content_mangePolicyPopUp_header" data-role="header" data-theme="a">
+						<h1 style="white-space:normal;">Manage Policy</h1>
+				    </div>
+				    <div data-role='content' data-theme='a' >
+						<ul data-role="listview">
+							<li id="managePolicy_change_anchor" <a href="#" onclick='openNewPRPopup()' class="ui-btn">Add New Procedure to Policy</a></li>
+							<li <a href="#" onclick='confirmRemovectivePosition()' class="ui-btn">Remove</a></li>
+							<li <a href="#" onclick='modifyActivePoition()' class="ui-btn">Modify</a></li>
+						</ul>
+				    </div>	
+				</div>	
+				<!-- End Manage Policy Popup -->
+				<!-- Manage Procedure Popup -->
+				<div data-role="popup" id="ubmsuite_mcs_my_organizational_chart_content_mangeProcedurePopUp" data-overlay-theme="b" data-theme="a" data-dismissible="true" style="max-width:400px; min-width: 350px;">
+				    <div id="ubmsuite_mcs_my_organizational_chart_content_mangeProcedurePopUp_header" data-role="header" data-theme="a">
+						<h1 style="white-space:normal;">Manage Procedure</h1>
+				    </div>
+				    <div data-role='content' data-theme='a' >
+						<ul data-role="listview">
+							<li id="manageProcedure_change_anchor" <a href="#" onclick='openNewSTPopup()' class="ui-btn">Add New Step to Procedure</a></li>
+							<li <a href="#" onclick='confirmRemovActivePosition()' class="ui-btn">Remove</a></li>
+							<li <a href="#" onclick='modifyAcivePosition()' class="ui-btn">Modify</a></li>
+						</ul>
+				    </div>	
+				</div>	
+				<!-- End Manage Procedure Popup -->
+				<!-- Manage Step Popup -->
+				<div data-role="popup" id="ubmsuite_mcs_my_organizational_chart_content_mangeStepPopUp" data-overlay-theme="b" data-theme="a" data-dismissible="true" style="max-width:400px; min-width: 350px;">
+				    <div id="ubmsuite_mcs_my_organizational_chart_content_mangeStepPopUp_header" data-role="header" data-theme="a">
+						<h1 style="white-space:normal;">Manage Step</h1>
+				    </div>
+				    <div data-role='content' data-theme='a' >
+						<ul data-role="listview">
+							<li id="manageStep_change_anchor" <a href="#" onclick='openNewTKPopup()' class="ui-btn">Add New Task to Step</a></li>
+							<li <a href="#" onclick='confirmReoveActivePosition()' class="ui-btn">Remove</a></li>
+							<li <a href="#" onclick='modifyActvePosition()' class="ui-btn">Modify</a></li>
+						</ul>
+				    </div>	
+				</div>	
+				<!-- End Manage Step Popup -->
+				<!-- Manage Task Popup -->
+				<div data-role="popup" id="ubmsuite_mcs_my_organizational_chart_content_mangeTaskPopUp" data-overlay-theme="b" data-theme="a" data-dismissible="true" style="max-width:400px; min-width: 350px;">
+				    <div id="ubmsuite_mcs_my_organizational_chart_content_mangeTaskPopUp_header" data-role="header" data-theme="a">
+						<h1 style="white-space:normal;">Manage Task</h1>
+				    </div>
+				    <div data-role='content' data-theme='a' >
+						<ul data-role="listview">
+							<li <a href="#" onclick='confirmRemoveActivePosition()' class="ui-btn">Remove</a></li>
+							<li <a href="#" onclick='modifyActivePosition()' class="ui-btn">Modify</a></li>
+						</ul>
+				    </div>	
+				</div>	
+				<!-- End Manage Task Popup -->
 				<div data-role="popup" id="ubmsuite_mcs_my_organizational_chart_content_manageJobDescriptionPopUp">
 					<a href="#" onclick="createNewJobDescription();getListofPossibleJobDescriptions()" data-rel="popup" data-transition="pop" class="my-tooltip-btn ui-btn ui-alt-icon ui-nodisc-icon ui-btn-inline ui-icon-plus ui-btn-icon-notext" title="Add a New Job Description">Add a New Job Description</a>
 				</div>
@@ -4360,10 +4533,10 @@ under the License.
 								<h1>Create Strategic Alliance</h1>
 							</li>
 							<li>
-								<input data-clear-btn="true" type="text" id="ubmsuite_modelSettings_createStrategicAlliance_popup_StrategicAlliance_description" placeholder="Description">
+								<input data-clear-btn="true" type="text" id="ubmsuite_modelSettings_createStrategicAlliance_popup_StrategicAlliance_description" placeholder="Title">
 							</li>
 							<li>
-								<input data-clear-btn="true" type="text" id="ubmsuite_modelSettings_createStrategicAlliance_popup_StrategicAlliance_comment" placeholder="Comment">
+								<input data-clear-btn="true" type="text" id="ubmsuite_modelSettings_createStrategicAlliance_popup_StrategicAlliance_comment" placeholder="Description">
 							</li>
 						</ul>
 						<a style="margin-left:10px;" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b" data-transition="flow" onclick="createNewStrategicAllianceAddtoMyModel()">Submit</a>
@@ -6255,8 +6428,8 @@ under the License.
 							<input type="text" name="mcs_setup_checklist_setup_identification_setup_popup_form_legalentity" id="mcs_setup_checklist_setup_identification_setup_popup_form_legalentity" placeholder="Enter the Model Owner Legal Entity.." value="" data-mini="true">
 							<input type="text" name="mcs_setup_checklist_setup_identification_setup_popup_form_ccode" id="mcs_setup_checklist_setup_identification_setup_popup_form_ccode" placeholder="Enter the Model Owner CCODE" value="" data-mini="true">
 							<input type="text" name="mcs_setup_checklist_setup_identification_setup_popup_form_model_contactname" id="mcs_setup_checklist_setup_identification_setup_popup_form_model_contactname" placeholder="Add a Contact Name for this Model" value="" data-mini="true">
-							<input type="number" data-clear-btn="true" name="mcs_setup_checklist_setup_identification_setup_popup_form_modelcontactphone" id="mcs_setup_checklist_setup_identification_setup_popup_form_modelcontactphone" placeholder="Add the Model Contact/Client phone number" value="">
-							<input type="text" data-clear-btn="true" name="mcs_setup_checklist_setup_identification_setup_popup_form_modelcontactemail" id="mcs_setup_checklist_setup_identification_setup_popup_form_modelcontactemail" placeholder="Add the Model Contact/Client email address" value="">
+							<input type="text" name="mcs_setup_checklist_setup_identification_setup_popup_form_modelcontactphone" id="mcs_setup_checklist_setup_identification_setup_popup_form_modelcontactphone" placeholder="Add the Model Contact/Client phone number" value="">
+							<input type="text" name="mcs_setup_checklist_setup_identification_setup_popup_form_modelcontactemail" id="mcs_setup_checklist_setup_identification_setup_popup_form_modelcontactemail" placeholder="Add the Model Contact/Client email address" value="">
 							<textarea name="mcs_setup_checklist_setup_identification_setup_popup_form_purpose" id="mcs_setup_checklist_setup_identification_setup_popup_form_purpose" placeholder="What is the primary purpose/goal of this model?"></textarea>
 							<textarea name="mcs_setup_checklist_setup_identification_setup_popup_form_scope" id="mcs_setup_checklist_setup_identification_setup_popup_form_scope" placeholder="Please define a scope for this model."></textarea>
 							<fieldset data-role="controlgroup">

@@ -17,7 +17,7 @@ function actionRequired() {
         } else {
             $("#mcs_preparedBy_popup p").append("Click the button below to complete this step.");
         }
-        $("#mcs_preparedBy_popup").popup("open");
+        $("#mcs_preparedBy_popup").show().popup("open");
         hideLoader();
     });
 
