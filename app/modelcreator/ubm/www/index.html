@@ -463,12 +463,33 @@ under the License.
 				});
 					getMyModelsOrgChart();
 			}
+
+			function removeActiveJobDescriptionfromMyModel(){
+				$.getJSON('http://api.universalbusinessmodel.com/ubms_modelcreationsuite_model_remove_JobDescription.php?callback=?', {//JSONP Request
+					key : window.key,
+					username: window.username,
+					activeModelUUID : window.activeModelUUID,
+					activeJobDescriptionId: window.activeReportsToJobDescription
+				}, function(res, status) {
+					$().toastmessage('showSuccessToast', res.message);
+				});
+					getMyModelsOrgChart();
+			}
+
 			function confirmRemoveActivePosition(){
 				$("#ubmsuite_mcs_my_organizational_chart_content_mangePositionPopUp").popup('close');
 				setTimeout(function() {
 					$("#ubmsuite_mcs_my_organizational_chart_confirm_remove_Position_popup").popup('open');
 				}, 1000);
 			}
+
+			function confirmRemoveActiveJobDescription(){
+				$("#ubmsuite_mcs_my_organizational_chart_content_mangeJobDescriptionPopUp").popup('close');
+				setTimeout(function() {
+					$("#ubmsuite_mcs_my_organizational_chart_confirm_remove_JobDescription_popup").popup('open');
+				}, 1000);
+			}
+
 			function modifyActivePosition(){
 				$().toastmessage('showNoticeToast', window.activeReportsToPosition);
 				//1. Checks to see if the currently active user is the creator of the active position.
@@ -2713,6 +2734,12 @@ under the License.
 				    <p>Removing this position will remove all child positions!</p>
 				    <a href="index.html" data-rel="back" class="ui-shadow ui-btn ui-corner-all ui-btn-b ui-icon-check ui-btn-icon-left ui-btn-inline ui-mini" onclick="removeActivePositionfromMyModel()">Confirm Remove Position</a>
 				    <a href="index.html" data-rel="back" class="ui-shadow ui-btn ui-corner-all ui-btn-inline ui-mini">Cancel</a>
+				</div>	
+				<div data-role="popup" id="ubmsuite_mcs_my_organizational_chart_confirm_remove_JobDescription_popup"  data-theme="a" data-overlay-theme="b" class="ui-content" style="max-width:340px; padding-bottom:2em;">
+				    <h3>Remove Job Description?</h3>
+				    <p>Removing this Job Description will remove all child objects!</p>
+				    <a href="#" data-rel="back" class="ui-shadow ui-btn ui-corner-all ui-btn-b ui-icon-check ui-btn-icon-left ui-btn-inline ui-mini" onclick="removeActiveJobDescriptionfromMyModel()">Confirm Remove Job Description</a>
+				    <a href="" data-rel="back" class="ui-shadow ui-btn ui-corner-all ui-btn-inline ui-mini">Cancel</a>
 				</div>				
 				<div data-role="popup" id="ubmsuite_mcs_my_organizational_chart_content_createNewPositionPopUp"  data-theme="a" class="ui-corner-all draggable_popup">
 					<div data-role="header">
@@ -2766,8 +2793,8 @@ under the License.
 				    <div data-role='content' data-theme='a' >
 						<ul data-role="listview">
 							<li id="manageJobDescription_change_anchor" <a href="#" onclick='openNewPLPopup()' class="ui-btn">Add New Policy to Job Description</a></li>
-							<li <a href="#" onclick='confirmRemoveAtivePosition()' class="ui-btn">Remove</a></li>
-							<li <a href="#" onclick='modifyActivePoition()' class="ui-btn">Modify</a></li>
+							<li <a href="#" onclick='confirmRemoveActiveJobDescription()' class="ui-btn">Remove</a></li>
+							<li <a href="#" onclick='modifyActiveJobDescription()' class="ui-btn">Modify</a></li>
 						</ul>
 				    </div>	
 				</div>	

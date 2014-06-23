@@ -2,7 +2,10 @@
 require_once ('globalGetVariables.php');
 require_once ('ubms_db_config.php');
 require_once ('DBConnect_UBMv1.php');
- //Provides the variables used for UBMv1 database connection $conn
+error_reporting(E_ALL);
+ini_set('display_errors', '1');
+
+//Provides the variables used for UBMv1 database connection $conn
 $hash = md5(rand(0, 1000));
 function rand_string($length) {
     $chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
@@ -24,6 +27,7 @@ $v2 = "'" . $conn->real_escape_string($activePositionUUID) . "'";
 $v3 = "'" . $conn->real_escape_string($positionName) . "'";
 $v4 = "'" . $conn->real_escape_string($username) . "'";
 $v5 = "'" . $conn->real_escape_string($email) . "'";
+$v6 = "'" . $conn->real_escape_string($newUsername) . "'";
 
 $sqlins = "INSERT INTO ubm_modelCreationSuite_orgChart_positionName (position_UUID, name, created_by, email) VALUES ( $v2, $v3, $v4, $v5)";
 if ($conn->query($sqlins) === false) {
@@ -48,13 +52,13 @@ if ($rs1 === false) {
         }
     }
 }
-$sqlsel3 = "SELECT username from members where username='$newUsername'";
+$sqlsel3 = "SELECT email from members where email=$v5";
 $rs3 = $conn->query($sqlsel3);
 if ($rs3 === false) {
     trigger_error('Wrong SQL: ' . $sqlsel3 . ' Error: ' . $conn->error, E_USER_ERROR);
 } else {
     if (mysqli_num_rows($rs3) < 1) {
-        $sqlins2 = "INSERT INTO members (username, password, email, activation_code) VALUES ('$newUsername', '$securePassword', '$email', '$hash')";
+        $sqlins2 = "INSERT INTO members (username, password, email, activation_code) VALUES ($v6, '$securePassword', $email, '$hash')";
         if ($conn->query($sqlins2) === false) {
             trigger_error('Wrong SQL: ' . $sqlins2 . ' Error: ' . $conn->error, E_USER_ERROR);
         } else {
@@ -62,16 +66,16 @@ if ($rs3 === false) {
         $to = "$email";
         $subject = "$username has added you to the $title position.";
         $message = 'You have been added to the ' . $title . ' position by ' . $username . '.
-		
-		
-		-------------------	-----
-		Username: ' . $newUsername . '
-		Password: ' . $tempPass . '
-		------------------------
-		
-		
-		Please click this link to activate your account:
-		http://api.universalbusinessmodel.com/verify.php?callback=?&email=' . $email . '&activationCode=' . $hash . '';
+        
+        
+        ------------------- -----
+        Username: ' . $v6 . '
+        Password: ' . $tempPass . '
+        ------------------------
+        
+        
+        Please click this link to activate your account:
+        http://api.universalbusinessmodel.com/verify.php?callback=?&email=' . $email . '&activationCode=' . $hash . '';
         
         $from = "notify@universalbusinessmodel.com";
         $headers = "From:" . $from;
