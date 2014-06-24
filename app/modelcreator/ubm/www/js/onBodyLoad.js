@@ -1,6 +1,6 @@
 function onLoadBody() {
     window.key = "YDoS20lf7Vrnr22h8Ma6NGUV5DblnVhueTPXS7gPynRvQ6U8optzfnMDs3UD"; //BMCL Application Key.
-    //	alert("This is an Alert!");
+    //  alert("This is an Alert!");
     $('.back_btn').click(function() {
         parent.history.back();
         return false;
@@ -132,7 +132,7 @@ function onLoadBody() {
                                                                                         var link = document.getElementById("openItem_popup_button");
                                                                                         //Get the popup on the current page.
                                                                                         link.setAttribute("href", '#ubmsuite_modelDashboard_openItem_popup');
-                                                                                        //Set the Attribute of the open item button to the popup on the current page.																									
+                                                                                        //Set the Attribute of the open item button to the popup on the current page.                                                                                                   
                                                                                     } else {
                                                                                         if (strarray[1] == "ubmsuite_mcs_my_organizational_chart") {
                                                                                             var link = document.getElementById("openItem_popup_button");
@@ -181,6 +181,13 @@ function onLoadBody() {
                                                                                                                         //Get the popup on the current page.
                                                                                                                         link.setAttribute("href", '#projected_financial_statement_openItem_popup');
                                                                                                                         //Set the Attribute of the open item button to the popup on the current page.
+                                                                                                                    } else {
+                                                                                                                        if (strarray[1] == "license_agreement_verification") {
+                                                                                                                            var link = document.getElementById("openItem_popup_button");
+                                                                                                                            //Get the popup on the current page.
+                                                                                                                            link.setAttribute("href", '#license_agreement_verification_openItem_popup');
+                                                                                                                            //Set the Attribute of the open item button to the popup on the current page.
+                                                                                                                        }
                                                                                                                     }
                                                                                                                 }
                                                                                                             }
@@ -209,16 +216,15 @@ function onLoadBody() {
                 }
             }
         }
-        //		alert(window.location.hash);									//outputs the original hash
-        //alert(strarray[1]);												//outputs the split string which has the hash removed
+        //      alert(window.location.hash);                                    //outputs the original hash
+        //alert(strarray[1]);                                               //outputs the split string which has the hash removed
         $.getJSON('http://api.universalbusinessmodel.com/getubmpagereference.php?callback=?', { //JSONP Request to the app_pages table.
             key: window.key,
             pageid: strarray[1] // sends the current page to the server.
         }, function(res, status) {
-            //	alert("json returned successfully! "+ status);
-            //	alert(res.message); // Alerts the current page which was sent in the call back from the server.
+            //  alert("json returned successfully! "+ status);
+            //  alert(res.message); // Alerts the current page which was sent in the call back from the server.
         });
-
     });
     $("#si_email").focus();
 }

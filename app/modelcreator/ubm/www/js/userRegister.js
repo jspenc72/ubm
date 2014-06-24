@@ -37,8 +37,8 @@ function userRegister() {
                         email: reg_email,
                         password: reg_passwd1,
                         username: reg_username,
-                        licenseAgreement: "Signed",
-                        termsOfService: "Signed"
+                        licenseAgreement: "1",
+                        termsOfService: "1"
                     }, function(res, status) {
 
                         //alert(res.message);
