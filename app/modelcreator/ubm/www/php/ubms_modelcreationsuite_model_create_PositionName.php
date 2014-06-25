@@ -29,7 +29,7 @@ $v4 = "'" . $conn->real_escape_string($username) . "'";
 $v5 = "'" . $conn->real_escape_string($email) . "'";
 $v6 = "'" . $conn->real_escape_string($newUsername) . "'";
 
-$sqlins = "INSERT INTO ubm_modelCreationSuite_orgChart_positionName (position_UUID, name, created_by, email) VALUES ( $v2, $v3, $v4, $v5)";
+$sqlins = "INSERT INTO ubm_modelCreationSuite_position_has_members (position_UUID, name, created_by, email) VALUES ( $v2, $v3, $v4, $v5)";
 if ($conn->query($sqlins) === false) {
     trigger_error('Wrong SQL: ' . $sqlins . ' Error: ' . $conn->error, E_USER_ERROR);
 } else {

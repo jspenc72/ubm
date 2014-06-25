@@ -38,7 +38,7 @@ if (!$username) {
                     $licenseAgreement = stripslashes($items['agree_to_license_agreement']);
                 }
                 if ($password != md5($usrpasswd)) {
-                    echo $_GET['callback'] . '(' . "{'message' : 'No account exists with that username or password. Click Register to create your free account.', 'validation' : '0', 'Account Type' : '$accounttype'}" . ')';
+                    echo $_GET['callback'] . '(' . "{'message' : 'Username or password is incorrect.', 'validation' : '0', 'Account Type' : '$accounttype'}" . ')';
                 } else {
                     if ($passwordStatus != 1) {
                         echo $_GET['callback'] . '(' . "{'message' : 'You must change your password.', 'validation' : 3, 'Account Type' : '$accounttype'}" . ')';

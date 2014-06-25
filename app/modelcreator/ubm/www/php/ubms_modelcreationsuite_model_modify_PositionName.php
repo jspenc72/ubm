@@ -13,7 +13,7 @@ $v2 = "'" . $conn -> real_escape_string($email) . "'";
 $v3 = "'" . $conn -> real_escape_string($name) . "'";
 $v4 = "'" . $conn -> real_escape_string($positionNameId) . "'";
 		
-$sql="UPDATE `ubm_modelCreationSuite_orgChart_positionName` SET email=$v2, name=$v3 WHERE id=4";
+$sql="UPDATE `ubm_modelCreationSuite_position_has_members` SET email=$v2, name=$v3 WHERE id=4";
   		
 if($conn->query($sql) === false) {
 	trigger_error('Wrong SQL: ' . $sql . ' Error: ' . $conn->error, E_USER_ERROR);

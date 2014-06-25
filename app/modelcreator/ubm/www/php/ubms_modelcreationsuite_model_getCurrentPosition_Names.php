@@ -8,7 +8,7 @@ $conn = new mysqli($DBServer, $DBUser, $DBPass, $DBName);
 	if ($conn->connect_error) {
 	  trigger_error('Database connection failed: '  . $conn->connect_error, E_USER_ERROR);
 	}
-			$query = "SELECT * FROM ubm_modelCreationSuite_orgChart_positionName WHERE position_UUID=$activePositionUUID";
+			$query = "SELECT * FROM ubm_modelCreationSuite_position_has_members WHERE position_UUID=$activePositionUUID";
 			$result = mysqli_query($conn, $query);
 			if (!$result) { //there is a problem with the table
 			}

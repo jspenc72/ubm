@@ -10,7 +10,7 @@ if ($conn -> connect_error) {
 //INSERT
 $v3 = "'" . $conn -> real_escape_string($positionNameId) . "'";
 
- $sql="DELETE FROM ubm_modelCreationSuite_orgChart_positionName 
+ $sql="DELETE FROM ubm_modelCreationSuite_position_has_members 
  		WHERE id=$v3 ";
 			
  if($conn->query($sql) === false) {
