@@ -108,22 +108,21 @@ under the License.
         <!-- Forces user to use chrome or safari -->
         <script>
 			if( navigator.userAgent.indexOf("Chrome") != -1 ) {
-			  var browser = "Chrome";
+			  window.browser = "Chrome";
 			} else if( navigator.userAgent.indexOf("Opera") != -1 ) {
-			  var browser = "Opera";
+			  window.browser = "Opera";
 			} else if( navigator.userAgent.indexOf("MSIE") != -1 ) {
-			  var browser = "IE";
+			  window.browser = "IE";
 			} else if( navigator.userAgent.indexOf("Firefox") != -1 ) {
-			  var browser = "Firefox";
+			  window.browser = "Firefox";
 			} else if (navigator.userAgent.indexOf("Safari") != -1 ){
-			  var browser = "Safari";
+			  window.browser = "Safari";
 			} else {
-				var browser ="Unkown"
+				window.browser ="Unkown"
 			}
-			if (browser != "Chrome" && browser != "Safari") {
+			if (window.browser != "Chrome" && window.browser != "Safari") {
 				$("html").css("display", "none");
 				alert("Please use Chrome or Safari while this app is in development");
-				return;
 			}
 
         </script>
