@@ -18,6 +18,27 @@ under the License.
 -->
 <html>
     <head>
+    <!-- Forces user to use chrome or safari -->
+        <script>
+			if( navigator.userAgent.indexOf("Chrome") != -1 ) {
+			  window.browser = "Chrome";
+			} else if( navigator.userAgent.indexOf("Opera") != -1 ) {
+			  window.browser = "Opera";
+			} else if( navigator.userAgent.indexOf("MSIE") != -1 ) {
+			  window.browser = "IE";
+			} else if( navigator.userAgent.indexOf("Firefox") != -1 ) {
+			  window.browser = "Firefox";
+			} else if (navigator.userAgent.indexOf("Safari") != -1 ){
+			  window.browser = "Safari";
+			} else {
+				window.browser ="Unkown"
+			}
+			if (window.browser != "Chrome" && window.browser != "Safari") {
+				$("html").css("display", "none");
+				alert("Please use Chrome or Safari while this app is in development");
+			}
+
+        </script>
         <meta charset="utf-8" />
         <meta name="format-detection" content="telephone=no" />
         <!-- <meta http-equiv="refresh" content="0; URL=./index.html"> -->
@@ -105,27 +126,7 @@ under the License.
 	    <link rel="stylesheet" href="css/form_progress_bar.css">
 	<!-- End Custom sign_in_sign_up page stuff -->
         <title>UBM</title>
-        <!-- Forces user to use chrome or safari -->
-        <script>
-			if( navigator.userAgent.indexOf("Chrome") != -1 ) {
-			  window.browser = "Chrome";
-			} else if( navigator.userAgent.indexOf("Opera") != -1 ) {
-			  window.browser = "Opera";
-			} else if( navigator.userAgent.indexOf("MSIE") != -1 ) {
-			  window.browser = "IE";
-			} else if( navigator.userAgent.indexOf("Firefox") != -1 ) {
-			  window.browser = "Firefox";
-			} else if (navigator.userAgent.indexOf("Safari") != -1 ){
-			  window.browser = "Safari";
-			} else {
-				window.browser ="Unkown"
-			}
-			if (window.browser != "Chrome" && window.browser != "Safari") {
-				$("html").css("display", "none");
-				alert("Please use Chrome or Safari while this app is in development");
-			}
-
-        </script>
+        
         <script>
         	$( function() {
 			    $("#mcs_preparedBy_popup").enhanceWithin().popup();
