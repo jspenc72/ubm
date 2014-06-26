@@ -2,7 +2,9 @@
 require_once ('globalGetVariables.php');
 require_once ('ubms_db_config.php');
 require_once ('DBConnect_UBMv1.php');
- //Provides the variables used for UBMv1 database connection $conn
+error_reporting(E_ALL);
+ini_set('display_errors', '1');
+//Provides the variables used for UBMv1 database connection $conn
 
 $conn = new mysqli($DBServer, $DBUser, $DBPass, $DBName);
 
@@ -17,24 +19,18 @@ $all_items = array();
 //1. Get the longest path_length for the activeModelOwnersUUID position
 
 //2. Begin a for loop to gather each of the positions that
+$sqlsel1 = "SELECT * 
+                FROM ubm_modelcreationsuite_heirarchy_object_antiSolipsism_UUID
+                JOIN ubm_model_position_closure
+                ON (ubm_modelcreationsuite_heirarchy_object_antiSolipsism_UUID.UUID=ubm_model_position_closure.descendant_UUID)
+                JOIN ubm_model_positions
+                ON ubm_modelcreationsuite_heirarchy_object_antiSolipsism_UUID.position_id=ubm_model_positions.id  
+                LEFT JOIN ubm_modelCreationSuite_position_has_members
+                ON ubm_modelCreationSuite_position_has_members.position_UUID=ubm_modelcreationsuite_heirarchy_object_antiSolipsism_UUID.UUID                   
+                WHERE ubm_model_position_closure.ancestor_UUID=$activeModelOwnersUUID
+                GROUP BY ubm_modelcreationsuite_heirarchy_object_antiSolipsism_UUID.UUID";
 
-$sqlsel1 = "SELECT * 					
-			FROM ubm_model_position_closure
-			JOIN ubm_modelcreationsuite_heirarchy_object_antiSolipsism_UUID
-			ON ubm_model_position_closure.descendant_UUID=ubm_modelcreationsuite_heirarchy_object_antiSolipsism_UUID.UUID
-			JOIN ubm_model_positions
-			ON ubm_modelcreationsuite_heirarchy_object_antiSolipsism_UUID.position_id=ubm_model_positions.id
-			WHERE ubm_model_position_closure.ancestor_UUID=$activeModelOwnersUUID
-			AND ubm_model_position_closure.path_length>0";
- //Long version of what is shown below.
-$sqlsel1 = "SELECT * FROM ubm_modelcreationsuite_heirarchy_object_antiSolipsism_UUID c 
-						JOIN ubm_model_position_closure t 
-							ON	(c.UUID=t.descendant_UUID)
-						JOIN ubm_model_positions
-						ON c.position_id=ubm_model_positions.id							
-						WHERE t.ancestor_UUID=$activeModelOwnersUUID
-						ORDER BY t.path_length";
- //NEED to add if statment that retrieves the record where the current
+//NEED to add if statment that retrieves the record where the current
 //descendant has a relationship with path length of 1 if the returned
 //path_length is greater than 1.
 //Select all
@@ -51,13 +47,16 @@ if ($rs1 === false) {
             if ($path_length < 2 && $path_length > 0) {
                 $all_items[] = $items;
             } else {
-                $sqlsel2 = "SELECT * FROM ubm_model_position_closure c
-										JOIN ubm_modelcreationsuite_heirarchy_object_antiSolipsism_UUID s 
-											ON	(s.UUID=c.descendant_UUID)
-										JOIN ubm_model_positions
-											ON s.position_id=ubm_model_positions.id	
-										WHERE c.descendant_UUID=$descendant_UUID
-										AND c.path_length=1";
+                $sqlsel2 = "SELECT * FROM ubm_model_position_closure
+                                JOIN ubm_modelcreationsuite_heirarchy_object_antiSolipsism_UUID
+                                ON (ubm_modelcreationsuite_heirarchy_object_antiSolipsism_UUID.UUID=ubm_model_position_closure.descendant_UUID)
+                                JOIN ubm_model_positions
+                                ON ubm_modelcreationsuite_heirarchy_object_antiSolipsism_UUID.position_id=ubm_model_positions.id
+                                LEFT JOIN ubm_modelCreationSuite_position_has_members
+                                ON ubm_modelCreationSuite_position_has_members.position_UUID=ubm_modelcreationsuite_heirarchy_object_antiSolipsism_UUID.UUID
+                                WHERE ubm_model_position_closure.descendant_UUID=$descendant_UUID
+                                AND ubm_model_position_closure.path_length=1
+                                GROUP BY ubm_modelcreationsuite_heirarchy_object_antiSolipsism_UUID.UUID";
                 
                 //Select all
                 $rs2 = $conn->query($sqlsel2);
@@ -70,35 +69,18 @@ if ($rs1 === false) {
                         while ($items2 = $rs2->fetch_assoc()) {
                             $all_items[] = $items2;
                         }
-                        
-                        //echo mysqli_num_rows($rs2);
-                        
                     } else {
-                        
-                        //									echo "this is a test 1";
-                        
                     }
                     $num_rows2 = mysqli_num_rows($rs2);
-                    
-                    //echo "the total number of rows: $num_rows </br>";
-                    
                 }
             }
         }
-        
-        //echo mysqli_num_rows($rs2);
-        
     } else {
-        
-        //				echo "this is a test 2";
-        
     }
     $num_rows = mysqli_num_rows($rs1);
-    
-    //echo "the total number of rows: $num_rows </br>";
-    
 }
 
 //6. JSONP packaged $all_items array
 echo $_GET['callback'] . '(' . json_encode($all_items) . ')';
- //Output $all_items array in json encoded format.
+
+//Output $all_items array in json encoded format.

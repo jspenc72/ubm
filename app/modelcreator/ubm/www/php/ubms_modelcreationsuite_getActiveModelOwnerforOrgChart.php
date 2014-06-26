@@ -22,8 +22,11 @@ $sqlsel1 = "SELECT *
 			ON ubm_modelcreationsuite_heirarchy_object_closureTable.descendant_id=ubm_modelcreationsuite_heirarchy_object_antiSolipsism_UUID.UUID
 			JOIN ubm_model_positions
 			ON ubm_modelcreationsuite_heirarchy_object_antiSolipsism_UUID.position_id=ubm_model_positions.id
+            LEFT JOIN ubm_modelCreationSuite_orgChart_ownerName
+            ON ubm_modelCreationSuite_orgChart_ownerName.owner_id=ubm_modelcreationsuite_heirarchy_object_antiSolipsism_UUID.UUID
 			WHERE ubm_modelcreationsuite_heirarchy_object_closureTable.ancestor_id=$activeModelUUID
-			AND ubm_modelcreationsuite_heirarchy_object_antiSolipsism_UUID.position_id>0";
+			AND ubm_modelcreationsuite_heirarchy_object_antiSolipsism_UUID.position_id>0
+            GROUP BY ubm_modelcreationsuite_heirarchy_object_antiSolipsism_UUID.UUID";
 
 //Select all
 $rs1 = $conn->query($sqlsel1);
@@ -47,9 +50,7 @@ if ($rs1 === false) {
     } else {
     }
     $num_rows = mysqli_num_rows($rs1);
-    
-    //echo "the total number of rows: $num_rows </br>";
-    
+        
     
 }
 
