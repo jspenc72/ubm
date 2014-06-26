@@ -73,3 +73,6 @@
     display:block;
 }
 .click_pointer { cursor: pointer; cursor: hand; }
+::-webkit-scrollbar { 
+    display: none; 
+}
