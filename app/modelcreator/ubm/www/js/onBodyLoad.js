@@ -1,4 +1,10 @@
 function onLoadBody() {
+    window.setInterval(function() {
+        if (!window.username && window.location.hash != "") {
+            window.location.hash = "";
+            alert("You have been logged out. Please do not use the browsers refresh button while this app is in development.")
+        }
+    }, 5000);
     window.key = "YDoS20lf7Vrnr22h8Ma6NGUV5DblnVhueTPXS7gPynRvQ6U8optzfnMDs3UD"; //BMCL Application Key.
     //  alert("This is an Alert!");
     $('.back_btn').click(function() {

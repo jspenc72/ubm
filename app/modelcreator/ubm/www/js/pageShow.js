@@ -88,12 +88,9 @@ $(document).on("pageshow", "#mcs_setup_checklist_setup", function() {
     });
 });
 
-$(document).on("pageshow", "#gettingStarted", function() {
-    alert("This page will get you started with the UBM. Please read the whole thing!")
-
-});
 
 $(document).on("pageshow", "#sign_in_sign_up", function() {
+    window.username = null;
     $("#si_submit").removeClass("ui-btn ui-shadow ui-corner-all")
 });
 
