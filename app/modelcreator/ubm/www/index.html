@@ -105,6 +105,13 @@ under the License.
 	    <link rel="stylesheet" href="css/form_progress_bar.css">
 	<!-- End Custom sign_in_sign_up page stuff -->
         <title>UBM</title>
+        <!-- Forces user to use chrome or safari -->
+        <script>
+        	if (!$.browser.webkit) {
+        		$("html").css("display", "none");
+        		alert("You must use Safari or Chrome while this app is in development");
+        	}
+        </script>
         <script>
         	$( function() {
 			    $("#mcs_preparedBy_popup").enhanceWithin().popup();
