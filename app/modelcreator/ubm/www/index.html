@@ -107,11 +107,19 @@ under the License.
         <title>UBM</title>
         <!-- Forces user to use chrome or safari -->
         <script>
-        	alert(navigator.appVersion);
-        	if (!$.browser.webkit) {
-        		$("html").css("display", "none");
-        		alert("You must use Safari or Chrome while this app is in development");
-        	}
+        	function getBrowser() {
+				if( navigator.userAgent.indexOf("Chrome") != -1 ) {
+				  return "Chrome";
+				} else if( navigator.userAgent.indexOf("Opera") != -1 ) {
+				  return "Opera";
+				} else if( navigator.userAgent.indexOf("MSIE") != -1 ) {
+				  return "IE";
+				} else if( navigator.userAgent.indexOf("Firefox") != -1 ) {
+				  return "Firefox";
+				} else {
+				  return "unknown";
+				}
+			}
         </script>
         <script>
         	$( function() {
