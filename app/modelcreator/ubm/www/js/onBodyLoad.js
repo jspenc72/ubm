@@ -193,6 +193,13 @@ function onLoadBody() {
                                                                                                                             //Get the popup on the current page.
                                                                                                                             link.setAttribute("href", '#license_agreement_verification_openItem_popup');
                                                                                                                             //Set the Attribute of the open item button to the popup on the current page.
+                                                                                                                        } else {
+                                                                                                                            if (strarray[1] == "account_verification") {
+                                                                                                                                var link = document.getElementById("openItem_popup_button");
+                                                                                                                                //Get the popup on the current page.
+                                                                                                                                link.setAttribute("href", '#account_verification_openItem_popup');
+                                                                                                                                //Set the Attribute of the open item button to the popup on the current page.
+                                                                                                                            }
                                                                                                                         }
                                                                                                                     }
                                                                                                                 }
