@@ -661,10 +661,12 @@ under the License.
 					if ($('#heirarchyObjectTree_ul').is(':empty')){
 						displayHierarchicalTree(ElementsArray);
 					}
+					hideLoader();
 					
 				});
 			}
 			function buildHierarchicalTree(uuid){
+				showLoader();
 				$('#heirarchyObjectTree_ul').empty();
 				//Called when user clicks on a position displayed on the org chart.
 				// 1. Gets the child elements of uuid
@@ -1446,6 +1448,25 @@ under the License.
 					});	
 				}, 1000);	
 	        }
+        </script>
+        <script>
+        	function submitNewBusinessForm () {
+        		$.getJSON('http://api.universalbusinessmodel.com/ubms_model.php?callback=?', {//JSONP Request
+					key : window.key,
+					username: window.username,
+					activeOwnerUUID : window.activeReportsToPosition,
+					percentOwned : document.getElementById("ubmsuite_mcs_my_organizational_chart_content_manageOwners_content_addNewOwner_percentageOwned").value,
+					ownerName : document.getElementById("ubmsuite_mcs_my_organizational_chart_content_manageOwners_content_addNewOwner_addOwner").value
+				}, function(res, status) {
+					$().toastmessage('showSuccessToast', res.message);
+				});
+					$('#ubmsuite_mcs_my_organizational_chart_content_manageOwners_content_addNewOwner_form').each(function() {
+						this.reset();
+					});
+					setTimeout(function() {
+						getListOfOwnerNames();	
+					}, 2000);
+        	}
         </script>
 		<!-- End Org Chart Functions -->
 		<script>
@@ -8608,7 +8629,7 @@ under the License.
 								
 							</div>
 						</form>
-						<a href="#" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b" data-rel="submit" data-transition="flow" onclick="">Submit</a>
+						<a href="#" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b" data-rel="back" data-transition="flow" onclick="">Submit</a>
 					</div>
 				</div>	
 				
