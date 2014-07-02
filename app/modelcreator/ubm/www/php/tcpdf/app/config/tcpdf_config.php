@@ -30,10 +30,10 @@
 
 /**
  * Configuration file for TCPDF.
- * @author Nicola Asuni
- * @package com.tecnick.tcpdf
+ * @author Adam Gustafson
+ * @package www.universalbusinessmodel.com
  * @version 4.9.005
- * @since 2004-10-27
+ * @since 6/30/2013
  */
 
 // IMPORTANT:
@@ -99,22 +99,22 @@ define ('PDF_PAGE_ORIENTATION', 'P');
 /**
  * Document creator.
  */
-define ('PDF_CREATOR', 'TCPDF');
+define ('PDF_CREATOR', 'Adam Gustafson');
 
 /**
  * Document author.
  */
-define ('PDF_AUTHOR', 'TCPDF');
+define ('PDF_AUTHOR', 'Adam Gustafson');
 
 /**
  * Header title.
  */
-define ('PDF_HEADER_TITLE', 'TCPDF Example');
+define ('PDF_HEADER_TITLE', 'UBM Objects');
 
 /**
  * Header description string.
  */
-define ('PDF_HEADER_STRING', "by Nicola Asuni - Tecnick.com\nwww.tcpdf.org");
+define ('PDF_HEADER_STRING', "by Adam Gustafson - UBM\nwww.universalbusinessmodel.com");
 
 /**
  * Document unit of measure [pt=point, mm=millimeter, cm=centimeter, in=inch].

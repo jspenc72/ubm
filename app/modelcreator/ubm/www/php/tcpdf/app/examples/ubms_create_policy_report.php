@@ -14,16 +14,10 @@ $html = '<html>
     </style>
     </head>
     <body>
-        <p class="body">Grade Level: </p>
-        <p class="body">Organizational Chart Level: <span></span></p>
-        <p class="body">Branch: <span></span></p>
-        <p class="body">Shift: <span></span></p>
-        <p class="body">Full or Part Time: <span>'.$psFullOrPartTime.'</span></p>
-        <p class="body">Pay Range Low: <span>'.$psPayRangeLow.'</span></p>
-        <p class="body">Pay Range High: <span>'.$psPayRangeHigh.'</span></p>
-        <p class="body">HR Contact: <span></span></p>
-        <p class="body">HR Phone Number: <span></span></p>
-        <p class="body">Position Summary: <span>'.$psSummary.'</span></p>
+        <p class="body">Description: <span>'.$plDescription.'</span></p>
+        <p class="body">Purpose: <span>'.$plPurpose.'</span></p>
+        <p class="body">Scope: <span>'.$plScope.'</span></p>
+        <p class="body">Policy Type: <span>'.$plPolicyType.'</span></p>
         
     </body>
 </html>';
@@ -36,9 +30,9 @@ $header = '
 }
 </style>
 <p class="header" >Legal Entity</p>
-<p class="header" >Position</p>
+<p class="header" >Policy</p>
 <p class="header" >App Title</p>
-<p class="header" >'.$psTitle.'</p>
+<p class="header" >'.$plTitle.'</p>
 ';
 
 $footerRight = '
