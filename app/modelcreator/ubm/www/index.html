@@ -1407,7 +1407,7 @@ under the License.
 								window.activeModelOwnersUUID = item.UUID;
 						//1. Set currentActiveOrgChartLevel 
 						//2. Append the name of the highest reports to position on the top of the org chart.
-								$('#ubmsuite_mcs_my_organizational_chart_L0_ul').prepend("<a onclick='if(event.ctrlKey || event.metaKey) {setActivePosition(" + item.UUID + ", &quot;" + item.title + "&quot;)} else {buildHierarchicalTree(" + item.UUID + ");setActivePositionUUID(" + item.UUID + ")}'><img id='org_img_" + item.UUID + "' title='Double-click this icon to manage this position, or add another position your models org chart.' class='org_img click_pointer' style='width:50px; height:50px;' src='img/employee-opinion-surveys.png'/></a></br>" + item.title + "</br><p>" + item.name + "</p>"); 
+								$('#ubmsuite_mcs_my_organizational_chart_L0_ul').prepend("<a onclick='if(event.ctrlKey || event.metaKey) {setActivePosition(" + item.UUID + ", &quot;" + item.title + "&quot;);setActivePositionUUID(" + item.UUID + ")} else {buildHierarchicalTree(" + item.UUID + ");setActivePositionUUID(" + item.UUID + ")}'><img id='org_img_" + item.UUID + "' title='Double-click this icon to manage this position, or add another position your models org chart.' class='org_img click_pointer' style='width:50px; height:50px;' src='img/employee-opinion-surveys.png'/></a></br>" + item.title + "</br><p>" + item.name + "</p>"); 
 						//3. New Append an Empty UL with the highest positions UUID in the id, so that additional positions may be added later.
 								$('#ubmsuite_mcs_my_organizational_chart_L0_ul').append("<ul id='ubmsuite_mcs_my_organizational_chart_P" + item.UUID + "_ul'></ul>");
 						//4. Empty chart Div
@@ -3286,6 +3286,9 @@ under the License.
 	
 						</li>
 				   </ul>            
+			    </div>
+			    <div id="printModel" style="float:right;padding-right:15px">
+			    	<a class="ui-btn" id="printModel" onclick="printModel()">Print Model</a>
 			    </div>
 			    <div id="chart" class="orgChart org_chart">
 			    	

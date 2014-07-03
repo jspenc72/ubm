@@ -17,7 +17,10 @@ $html = '<html>
         <p class="body">Purpose: <span>'.$prPurpose.'</span></p>
         <p class="body">Scope: <span>'.$prScope.'</span></p>
         <p class="body">Minimum Security Requirements Type: <span></span></p>
-        
+
+        <table>
+
+        </table>
     </body>
 </html>';
 
@@ -60,6 +63,9 @@ $footerLeft = '
 <p class="footer">BM Revision Date: </p>
 <p class="footer">BM Ref Manual #: </p>
 <p class="footer">Destination Model Source Object String Ref # :</p>
+';
+$stepHeader = '
+    <h1>Steps</h1>
 ';
 $pdf->AddPage();
 // output the HTML content
