@@ -1,4 +1,6 @@
 <?php
+$myDocPage = $pdf->getAliasNumPage();
+$myDocPages = $pdf->getAliasNbPages();
 $html = '<html>
     <head>
     <style>

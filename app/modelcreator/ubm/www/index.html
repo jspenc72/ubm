@@ -768,9 +768,10 @@ under the License.
 			}
 
 			function createNewJobDescriptionAddtoMyModel() {
-				$.getJSON('http://api.universalbusinessmodel.com/ubm_modelcreationsuite_model_create_JobDescription.php?callback=?', {//JSONP Request
+				$.getJSON('http://api.universalbusinessmodel.com/ubms_modelcreationsuite_model_create_JobDescription.php?callback=?', {//JSONP Request
 					username: window.username,
 					activeModelUUID : window.activeModelUUID,
+					key: window.key,
 					title: document.getElementById("ubmsuite_mcs_my_organizational_chart_content_createNewJobDescriptionPopUp_form_JobDescriptionTitle").value,
 					objective: document.getElementById("ubmsuite_mcs_my_organizational_chart_content_createNewJobDescriptionPopUp_form_JobDescriptionObjective").value,
 					qualifications: document.getElementById("ubmsuite_mcs_my_organizational_chart_content_createNewJobDescriptionPopUp_form_JobDescriptionQualificaions").value,

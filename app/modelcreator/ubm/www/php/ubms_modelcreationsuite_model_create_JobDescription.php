@@ -9,7 +9,6 @@ $conn = new mysqli($DBServer, $DBUser, $DBPass, $DBName);
 if ($conn->connect_error) {
     trigger_error('Database connection failed: ' . $conn->connect_error, E_USER_ERROR);
 }
-
 //INSERT
 $v2 = "'" . $conn->real_escape_string($activeModelUUID) . "'";
 $v3 = "'" . $conn->real_escape_string($objective) . "'";
