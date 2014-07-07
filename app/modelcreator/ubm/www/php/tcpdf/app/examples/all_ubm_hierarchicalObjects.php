@@ -102,7 +102,11 @@ if ($rs1 === false) {
                         
                         //2. Add the result set to the $all_items [] array
                         while ($items2 = $rs2->fetch_assoc()) {
+<<<<<<< HEAD
                            $positionUUID[] = stripslashes($items2['UUID']);
+=======
+                            $positionUUID[] = stripslashes($items2['UUID']);
+>>>>>>> FETCH_HEAD
 
                         }
                     } else {
@@ -143,7 +147,7 @@ foreach ($positionUUID as $key => $position) {
                             WHERE c.descendant_id=$returnedDescendant
                             AND c.path_length=1";
             $rs2 = $conn->query($sqlsel2);
-            if ($rs1 === false) {
+            if ($rs2 === false) {
                 trigger_error('Wrong SQL: ' . $sqlsel2 . ' Error: ' . $conn->error, E_USER_ERROR);
             } else {
                 
@@ -155,6 +159,8 @@ foreach ($positionUUID as $key => $position) {
         }
     }
 }
+//echo $_GET['callback'] . '(' . json_encode($positionUUID) . ')';
+//echo $_GET['callback'] . '(' . json_encode($all_UUID) . ')';
 // $all_UUID array is a list of all the UUID's that were attatched to the given activeObjectUUID.
 //4. Go through each UUID
 foreach ($all_UUID as $object => $value) {
