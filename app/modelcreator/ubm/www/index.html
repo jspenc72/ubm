@@ -2820,7 +2820,10 @@ under the License.
 						MCS Model Structure Dashboard
 					</div>
 				</div>
-					<a href="#" class="ui-btn ui-shadow ui-corner-all ui-icon-refresh ui-btn-icon-notext" onclick="getMyModelsOrgChart()">Refresh</a>				
+					<a href="#" class="ui-btn ui-shadow ui-corner-all ui-icon-refresh ui-btn-icon-notext" onclick="getMyModelsOrgChart()">Refresh</a>
+			    <div id="printModel" style="float:right;padding-right:15px">
+			    	<a class="ui-btn" id="printModel" onclick="printModel()">Print Model</a>
+			    </div>									
 			</div>
 			<div data-role="content" id="ubmsuite_mcs_my_organizational_chart_content" style="padding-top:100px;">
 				 <!-- Open Items Popup -->
@@ -3287,9 +3290,7 @@ under the License.
 						</li>
 				   </ul>            
 			    </div>
-			    <div id="printModel" style="float:right;padding-right:15px">
-			    	<a class="ui-btn" id="printModel" onclick="printModel()">Print Model</a>
-			    </div>
+
 			    <div id="chart" class="orgChart org_chart">
 			    	
 			    </div>	
