@@ -63,15 +63,17 @@ $footerLeft = '
 <p class="footer">BM Revision Date: </p>
 <p class="footer">BM Ref Manual #: </p>
 <p class="footer">Destination Model Source Object String Ref # :</p>
+<a href="#*2" style="color:blue;">TOC</a>
 ';
 $stepHeader = '
     <h1>Steps</h1>
 ';
 $pdf->AddPage();
+$pdf->Bookmark("PR: $prTitle", 3, 0, '', 'B', array(128,0,64));
 // output the HTML content
 $pdf->writeHTMLCELL(0, 0, 96, 6, $header, 0, 1, 0, true, 'L');
 $pdf->writeHTML($html, true, false, true, true, '');
-$pdf->writeHTMLCELL(0, 0, 15, 230, $footerLeft, 0, 1, 0, true, 'L');
+$pdf->writeHTMLCELL(0, 0, 15, 220, $footerLeft, 0, 1, 0, true, 'L');
 $pdf->writeHTMLCELL(0, 0, 150, 246, $footerRight, 0, 1, 0, true, 'L');
 
 

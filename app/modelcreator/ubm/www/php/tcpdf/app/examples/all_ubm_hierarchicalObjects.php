@@ -25,11 +25,27 @@ $pdf->SetPrintFooter(false);
 // set font
 $pdf->SetFont('times', '', 10);
 
-require_once('ubms_create_model_cover.php');
 
 if ($conn->connect_error) {
     trigger_error('Database connection failed: ' . $conn->connect_error, E_USER_ERROR);
 }
+
+$sqlsel1 = "SELECT * FROM ubm_modelcreationsuite_heirarchy_object_antiSolipsism_UUID
+                    JOIN ubm_model
+                    ON (ubm_model.id=ubm_modelcreationsuite_heirarchy_object_antiSolipsism_UUID.model_id)
+                    WHERE ubm_modelcreationsuite_heirarchy_object_antiSolipsism_UUID.UUID=$activeModelUUID";
+    $rs1 = $conn->query($sqlsel1);
+
+    //2. Set rs1 equal to the list of objects that is returned in the result set.
+    if ($rs1 === false) {
+        trigger_error('Wrong SQL: ' . $sqlsel1 . ' Error: ' . $conn->error, E_USER_ERROR);
+    } else {
+        while ($items1 = $rs1->fetch_assoc()) {
+            $modelTitle = stripslashes($items1['title']);
+        }
+    }
+require_once('ubms_create_model_cover.php');
+
 
 //SELECT
 $positionUUID = array();
@@ -278,4 +294,23 @@ foreach ($all_UUID as $object => $value) {
         }
     }
 }
+
+// add a new page for TOC
+$pdf->addTOCPage();
+
+// write the TOC title
+//$pdf->SetFont('times', 'B', 16);
+$pdf->MultiCell(0, 0, 'Model Title: ' . $modelTitle, 0, 'C', 0, 1, '', '', true, 0);
+$pdf->Ln();
+$pdf->MultiCell(0, 0, 'Table Of Contents', 0, 'C', 0, 1, '', '', true, 0);
+$pdf->Ln();
+
+// add a simple Table Of Content at first page
+// (check the example n. 59 for the HTML version)
+$pdf->addTOC(2, 'courier', '.', 'INDEX', 'B', array(128,0,0));
+
+// end of TOC page
+$pdf->endTOCPage();
+
+
 $pdf->Output('jd.pdf', 'I');
