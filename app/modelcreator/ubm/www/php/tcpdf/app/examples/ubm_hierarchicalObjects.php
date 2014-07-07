@@ -147,51 +147,77 @@ foreach ($all_UUID as $object => $value) {
                         }
                     }
                 }
-                if ($procedureId >= 1 || $stepId >=1 || $taskId >= 1) {
-                    if ($procedureId >= 1) {
-                        $sqlsel2 = "SELECT * FROM ubm_model_procedures WHERE id=$procedureId";
-                        $rs2 = $conn->query($sqlsel2);
-                        if ($rs2 === false) {
-                            trigger_error('Wrong SQL: ' . $sqlsel2 . ' Error: ' . $conn->error, E_USER_ERROR);
-                        } else {
-                            while ($items2 = $rs2->fetch_assoc()) {
-                                 $prTitle = $items2['title'];
-                                 $prPurpose = $items2['purpose'];
-                                 $prScope = $items2['scope'];
-                                 //$prMinimumSecurityRequirements = $items2['minimum_security_requiements'];
-                                 
+                if ($procedureId >= 1) {
+                    $sqlsel2 = "SELECT * FROM ubm_model_procedures WHERE id=$procedureId";
+                    $rs2 = $conn->query($sqlsel2);
+                    if ($rs2 === false) {
+                        trigger_error('Wrong SQL: ' . $sqlsel2 . ' Error: ' . $conn->error, E_USER_ERROR);
+                    } else {
+                        while ($items2 = $rs2->fetch_assoc()) {
+                            $prTitle = $items2['title'];
+                            $prPurpose = $items2['purpose'];
+                            $prScope = $items2['scope'];
+
+                            $sqlsel3 = "SELECT * FROM ubm_modelcreationsuite_heirarchy_object_closureTable WHERE ancestor_id=$value AND path_length=1";
+                            $rs3 = $conn->query($sqlsel3);
+
+                            if ($rs3 === false) {
+                                trigger_error('Wrong SQL: ' . $sqlsel3 . ' Error: ' . $conn->error, E_USER_ERROR);
+                            } else {
+                                while ($items3 = $rs3->fetch_assoc()) {
+                                    $returnedDescendantId = stripslashes($items3['descendant_id']);
+
+                                    $sqlsel4 = "SELECT * FROM ubm_modelcreationsuite_heirarchy_object_antiSolipsism_UUID
+                                    JOIN ubm_model_steps
+                                    ON ubm_modelcreationsuite_heirarchy_object_antiSolipsism_UUID.step_id=ubm_model_steps.id
+                                    WHERE ubm_modelcreationsuite_heirarchy_object_antiSolipsism_UUID.UUID=$returnedDescendantId";
+                                    $rs4 = $conn->query($sqlsel4);
+                                    if ($rs4 === false) {
+                                        trigger_error('Wrong SQL: ' . $sqlsel4 . ' Error: ' . $conn->error, E_USER_ERROR);
+                                    } else {
+                                        //3. Get all the UUID's from the returned array
+                                        while ($items4 = $rs4->fetch_assoc()) {
+                                            $stTitle = $items4['title'];
+                                            $stInstruction = $items4['instruction'];
+
+                                            $sqlsel5 = "SELECT * FROM ubm_modelcreationsuite_heirarchy_object_closureTable WHERE ancestor_id=$value AND path_length=2";
+                                            $rs5 = $conn->query($sqlsel5);
+
+                                            if ($rs5 === false) {
+                                                trigger_error('Wrong SQL: ' . $sqlsel3 . ' Error: ' . $conn->error, E_USER_ERROR);
+                                            } else {
+                                                while ($items5 = $rs5->fetch_assoc()) {
+                                                    $returnedDescendantId = stripslashes($items5['descendant_id']);
+
+                                                    $sqlsel6 = "SELECT * FROM ubm_modelcreationsuite_heirarchy_object_antiSolipsism_UUID
+                                                    JOIN ubm_model_tasks
+                                                    ON ubm_modelcreationsuite_heirarchy_object_antiSolipsism_UUID.task_id=ubm_model_tasks.id
+                                                    WHERE ubm_modelcreationsuite_heirarchy_object_antiSolipsism_UUID.UUID=$returnedDescendantId";
+                                                    $rs6 = $conn->query($sqlsel6);
+                                                    if ($rs6 === false) {
+                                                        trigger_error('Wrong SQL: ' . $sqlsel6 . ' Error: ' . $conn->error, E_USER_ERROR);
+                                                    } else {
+                                                        
+                                                        while ($items6 = $rs6->fetch_assoc()) {
+                                                            $tkTitle = $items6['title'];
+                                                            $tkInstruction = $items6['instruction'];
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
                             }
+                            require('ubms_create_procedure_report.php');
                         }
                     }
-                    
-                    if ($stepId >= 1) {
-                        $sqlsel2 = "SELECT * FROM ubm_model_steps WHERE id=$stepId";
-                        $rs2 = $conn->query($sqlsel2);
-                        if ($rs2 === false) {
-                            trigger_error('Wrong SQL: ' . $sqlsel2 . ' Error: ' . $conn->error, E_USER_ERROR);
-                        } else {
-                            while ($items2 = $rs2->fetch_assoc()) {
-                                 $stInstruction = $items2['instruction'];
-                            }
-                        }
-                    }
-                    
-                    if ($taskId >= 1) {
-                        $sqlsel2 = "SELECT * FROM ubm_model_tasks WHERE id=$taskId";
-                        $rs2 = $conn->query($sqlsel2);
-                        if ($rs2 === false) {
-                            trigger_error('Wrong SQL: ' . $sqlsel2 . ' Error: ' . $conn->error, E_USER_ERROR);
-                        } else {
-                            while ($items2 = $rs2->fetch_assoc()) {
-                                 $tkInstruction = $items2['instruction'];
-                            }
-                        }
-                    }
-                    require('ubms_create_procedure_report.php');
                 }
+                
             }
                     
         } else {
+
         }
     }
 }

@@ -17,10 +17,6 @@ $html = '<html>
         <p class="body">Purpose: <span>'.$prPurpose.'</span></p>
         <p class="body">Scope: <span>'.$prScope.'</span></p>
         <p class="body">Minimum Security Requirements Type: <span></span></p>
-
-        <table>
-
-        </table>
     </body>
 </html>';
 
@@ -65,13 +61,24 @@ $footerLeft = '
 <p class="footer">Destination Model Source Object String Ref # :</p>
 ';
 $stepHeader = '
-    <h1>Steps</h1>
+    <style>
+    h1 {
+        color:#282b34;
+    }
+    </style>
+    <h1>Steps:</h1>
+';
+$stepTable = '
+    <table>
+
+    <table>
 ';
 $pdf->AddPage();
 // output the HTML content
 $pdf->writeHTMLCELL(0, 0, 96, 6, $header, 0, 1, 0, true, 'L');
 $pdf->writeHTML($html, true, false, true, true, '');
+$pdf->writeHTML($stepHeader, true, false, true, true, '');
+$pdf->writeHTML($stepTable, true, false, true, true, '');
 $pdf->writeHTMLCELL(0, 0, 15, 230, $footerLeft, 0, 1, 0, true, 'L');
 $pdf->writeHTMLCELL(0, 0, 150, 246, $footerRight, 0, 1, 0, true, 'L');
-
 
