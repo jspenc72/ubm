@@ -25,18 +25,19 @@ $html = '<html>
         
     </body>
 </html>';
-
-$header = '
+$headerRight = "
+<h5>$myDocPage of $myDocPages</h5>
+";
+$headerCenter = '
 <style>
 .header {
     font-size:1em;
     color:#595959;
 }
 </style>
-<p class="header" >Legal Entity</p>
-<p class="header" >Job Description</p>
-<p class="header" >App Title</p>
-<p class="header" >'.$jdTitle.'</p>
+<p class="header" >Legal Entity: '.$legalEntity.'</p>
+<p class="header" >Model Title: '.$modelTitle.'</p>
+<p class="header" >JD-'.$jdTitle.'</p>
 ';
 
 $footerRight = '
@@ -59,7 +60,6 @@ $footerLeft = '
         color:#595959;
     }
 </style>
-
 <p class="footer">UBM Revision Date: </p>
 <p class="footer">UBM Ref Manual #: </p>
 <p class="footer">BM Revision Date: </p>
@@ -70,9 +70,10 @@ $footerLeft = '
 $pdf->AddPage();
 $pdf->Bookmark("JD: $jdTitle", 1, 0, '', 'B', array(128,64,0));
 // output the HTML content
-$pdf->writeHTMLCELL(0, 0, 96, 6, $header, 0, 1, 0, true, 'L');
+$pdf->writeHTMLCELL(0, 0, 100, 6, $headerRight, 0, 1, 0, true, 'R');
+$pdf->writeHTMLCELL(0, 0, 15, 6, $headerCenter, 0, 1, 0, true, 'C');
 $pdf->writeHTML($html, true, false, true, true, '');
-$pdf->writeHTMLCELL(0, 0, 15, 220, $footerLeft, 0, 1, 0, true, 'L');
+$pdf->writeHTMLCELL(0, 0, 15, 230, $footerLeft, 0, 1, 0, true, 'L');
 $pdf->writeHTMLCELL(0, 0, 150, 246, $footerRight, 0, 1, 0, true, 'L');
 
 

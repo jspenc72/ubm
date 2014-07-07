@@ -21,8 +21,10 @@ $html = '<html>
         
     </body>
 </html>';
-
-$header = '
+$headerRight = "
+<h5>$myDocPage of $myDocPages</h5>
+";
+$headerCenter = '
 <style>
 .header {
     font-size:1em;
@@ -66,9 +68,10 @@ $footerLeft = '
 $pdf->AddPage();
 $pdf->Bookmark("PL: $plTitle", 2, 0, '', 'B', array(64,128,0));
 // output the HTML content
-$pdf->writeHTMLCELL(0, 0, 96, 6, $header, 0, 1, 0, true, 'L');
+$pdf->writeHTMLCELL(0, 0, 100, 6, $headerRight, 0, 1, 0, true, 'R');
+$pdf->writeHTMLCELL(0, 0, 15, 6, $headerCenter, 0, 1, 0, true, 'C');
 $pdf->writeHTML($html, true, false, true, true, '');
-$pdf->writeHTMLCELL(0, 0, 15, 220, $footerLeft, 0, 1, 0, true, 'L');
+$pdf->writeHTMLCELL(0, 0, 15, 230, $footerLeft, 0, 1, 0, true, 'L');
 $pdf->writeHTMLCELL(0, 0, 150, 246, $footerRight, 0, 1, 0, true, 'L');
 
 
