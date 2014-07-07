@@ -1,4 +1,6 @@
 <?php
+$myDocPage = $pdf->getAliasNumPage();
+$myDocPages = $pdf->getAliasNbPages();
 $html = '<html>
     <head>
     <style>
@@ -29,10 +31,9 @@ $headerCenter = '
     color:#595959;
 }
 </style>
-<p class="header" >Legal Entity</p>
-<p class="header" >Procedure</p>
-<p class="header" >App Title</p>
-<p class="header" >'.$prTitle.'</p>
+<p class="header" >Legal Entity: '.$legalEntity.'</p>
+<p class="header" >Model Title: '.$modelTitle.'</p>
+<p class="header" >PR Title: '.$prTitle.'</p>
 ';
 $footerRight = '
 <style>
@@ -74,13 +75,13 @@ $stepTable = '
 
     <table>
 ';
+
 $pdf->AddPage();
 $pdf->Bookmark("PR: $prTitle", 3, 0, '', 'B', array(128,0,64));
 // output the HTML content
+$pdf->writeHTMLCELL(0, 0, 100, 6, $headerRight, 0, 1, 0, true, 'R');
 $pdf->writeHTMLCELL(0, 0, 15, 6, $headerCenter, 0, 1, 0, true, 'C');
 $pdf->writeHTML($html, true, false, true, true, '');
-$pdf->writeHTMLCELL(0, 0, 100, 6, $headerRight, 0, 1, 0, true, 'R');
-
 $pdf->writeHTML($stepHeader, true, false, true, true, '');
 $pdf->writeHTML($stepTable, true, false, true, true, '');
 $pdf->writeHTMLCELL(0, 0, 15, 230, $footerLeft, 0, 1, 0, true, 'L');

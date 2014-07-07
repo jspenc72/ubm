@@ -101,7 +101,8 @@ if ($rs1 === false) {
                         
                         //2. Add the result set to the $all_items [] array
                         while ($items2 = $rs2->fetch_assoc()) {
-                            $positionUUID[] = stripslashes($items2['UUID']);
+                           $positionUUID[] = stripslashes($items2['UUID']);
+
 
                         }
                     } else {
@@ -301,6 +302,7 @@ $pdf->addTOCPage();
 
 // write the TOC title
 //$pdf->SetFont('times', 'B', 16);
+$pdf->MultiCell(0, 0, 'Legal Entity: ' . $modelTitle, 0, 'C', 0, 1, '', '', true, 0);
 $pdf->MultiCell(0, 0, 'Model Title: ' . $modelTitle, 0, 'C', 0, 1, '', '', true, 0);
 $pdf->Ln();
 $pdf->MultiCell(0, 0, 'Table Of Contents', 0, 'C', 0, 1, '', '', true, 0);
