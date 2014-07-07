@@ -28,18 +28,16 @@ $html = '<html>
     </body>
 </html>';
 
-$header = '
+$header = "
 <style>
 .header {
     font-size:1em;
     color:#595959;
 }
 </style>
-<p class="header" >Legal Entity</p>
-<p class="header" >Position</p>
-<p class="header" >App Title</p>
-<p class="header" >'.$psTitle.'</p>
-';
+<p class='header' >Model Title: $modelTitle</p>
+<p class='header' >Position Title: $psTitle</p>
+";
 
 $footerRight = '
 <style>
@@ -67,12 +65,14 @@ $footerLeft = '
 <p class="footer">BM Revision Date: </p>
 <p class="footer">BM Ref Manual #: </p>
 <p class="footer">Destination Model Source Object String Ref # :</p>
+<a href="#*2" style="color:blue;">TOC</a>
 ';
 $pdf->AddPage();
+$pdf->Bookmark("Position: $psTitle", 0, 0, '', 'B', array(0,64,128));
 // output the HTML content
-$pdf->writeHTMLCELL(0, 0, 96, 6, $header, 0, 1, 0, true, 'L');
+$pdf->writeHTMLCELL(0, 0, 15, 6, $header, 0, 1, 0, true, 'C');
 $pdf->writeHTML($html, true, false, true, true, '');
-$pdf->writeHTMLCELL(0, 0, 15, 230, $footerLeft, 0, 1, 0, true, 'L');
+$pdf->writeHTMLCELL(0, 0, 15, 220, $footerLeft, 0, 1, 0, true, 'L');
 $pdf->writeHTMLCELL(0, 0, 150, 246, $footerRight, 0, 1, 0, true, 'L');
 
 

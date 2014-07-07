@@ -10,6 +10,7 @@ $html = '<html>
         span {
             color:#000;
             font-weight:normal;
+            
         }
     </style>
     </head>
@@ -64,12 +65,14 @@ $footerLeft = '
 <p class="footer">BM Revision Date: </p>
 <p class="footer">BM Ref Manual #: </p>
 <p class="footer">Destination Model Source Object String Ref # :</p>
+<a href="#*2" style="color:blue;">TOC</a>
 ';
 $pdf->AddPage();
+$pdf->Bookmark("JD: $jdTitle", 1, 0, '', 'B', array(128,64,0));
 // output the HTML content
 $pdf->writeHTMLCELL(0, 0, 96, 6, $header, 0, 1, 0, true, 'L');
 $pdf->writeHTML($html, true, false, true, true, '');
-$pdf->writeHTMLCELL(0, 0, 15, 230, $footerLeft, 0, 1, 0, true, 'L');
+$pdf->writeHTMLCELL(0, 0, 15, 220, $footerLeft, 0, 1, 0, true, 'L');
 $pdf->writeHTMLCELL(0, 0, 150, 246, $footerRight, 0, 1, 0, true, 'L');
 
 
