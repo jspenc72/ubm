@@ -1,4 +1,6 @@
 <?php
+$myDocPage = $pdf->getAliasNumPage();
+$myDocPages = $pdf->getAliasNbPages();
 $html = '<html>
     <head>
     <style>
@@ -28,7 +30,7 @@ $html = '<html>
     </body>
 </html>';
 
-$header = "
+$headerCenter = "
 <style>
 .header {
     font-size:1em;
@@ -38,7 +40,9 @@ $header = "
 <p class='header' >Model Title: $modelTitle</p>
 <p class='header' >Position Title: $psTitle</p>
 ";
-
+$headerRight = "
+<h5>$myDocPage of $myDocPages</h5>
+";
 $footerRight = '
 <style>
     .footer {
@@ -51,7 +55,6 @@ $footerRight = '
 <p class="footer">CC: </p>
 <p class="footer">BM V #: </p>
 ';
-
 $footerLeft = '
 <style>
     .footer {
@@ -70,9 +73,10 @@ $footerLeft = '
 $pdf->AddPage();
 $pdf->Bookmark("Position: $psTitle", 0, 0, '', 'B', array(0,64,128));
 // output the HTML content
-$pdf->writeHTMLCELL(0, 0, 15, 6, $header, 0, 1, 0, true, 'C');
+$pdf->writeHTMLCELL(0, 0, 100, 6, $headerRight, 0, 1, 0, true, 'R');
+$pdf->writeHTMLCELL(0, 0, 15, 6, $headerCenter, 0, 1, 0, true, 'C');
 $pdf->writeHTML($html, true, false, true, true, '');
-$pdf->writeHTMLCELL(0, 0, 15, 220, $footerLeft, 0, 1, 0, true, 'L');
+$pdf->writeHTMLCELL(0, 0, 15, 230, $footerLeft, 0, 1, 0, true, 'L');
 $pdf->writeHTMLCELL(0, 0, 150, 246, $footerRight, 0, 1, 0, true, 'L');
 
 

@@ -18,8 +18,8 @@ $pdf->SetTitle('Job Description Template');
 $pdf->SetSubject('JD');
 $pdf->SetKeywords('TCPDF, PDF, example, test, guide');
 // set auto page breaks
-$pdf->SetMargins(PDF_MARGIN_LEFT, 15, PDF_MARGIN_RIGHT);
-$pdf->SetAutoPageBreak(TRUE, PDF_MARGIN_BOTTOM);
+$pdf->SetMargins(PDF_MARGIN_LEFT, 15, 15);
+$pdf->SetAutoPageBreak(TRUE, 0);
 $pdf->SetPrintHeader(false);
 $pdf->SetPrintFooter(false);
 // set font
@@ -42,11 +42,10 @@ $sqlsel1 = "SELECT * FROM ubm_modelcreationsuite_heirarchy_object_antiSolipsism_
     } else {
         while ($items1 = $rs1->fetch_assoc()) {
             $modelTitle = stripslashes($items1['title']);
+            $legalEntity = stripslashes($items1['owner_legal_entity']);
         }
     }
 require_once('ubms_create_model_cover.php');
-
-
 //SELECT
 $positionUUID = array();
 $all_UUID = array();
