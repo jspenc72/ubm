@@ -102,11 +102,8 @@ if ($rs1 === false) {
                         
                         //2. Add the result set to the $all_items [] array
                         while ($items2 = $rs2->fetch_assoc()) {
-<<<<<<< HEAD
                            $positionUUID[] = stripslashes($items2['UUID']);
-=======
-                            $positionUUID[] = stripslashes($items2['UUID']);
->>>>>>> FETCH_HEAD
+
 
                         }
                     } else {

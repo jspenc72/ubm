@@ -37,7 +37,7 @@ $headerCenter = '
 </style>
 <p class="header" >Legal Entity: '.$legalEntity.'</p>
 <p class="header" >Model Title: '.$modelTitle.'</p>
-<p class="header" >JD-'.$jdTitle.'</p>
+<p class="header" >JD Title: '.$jdTitle.'</p>
 ';
 
 $footerRight = '
@@ -68,7 +68,7 @@ $footerLeft = '
 <a href="#*2" style="color:blue;">TOC</a>
 ';
 $pdf->AddPage();
-$pdf->Bookmark("JD: $jdTitle", 1, 0, '', 'B', array(128,64,0));
+$pdf->Bookmark("JD - $jdTitle", 1, 0, '', 'B', array(128,64,0));
 // output the HTML content
 $pdf->writeHTMLCELL(0, 0, 100, 6, $headerRight, 0, 1, 0, true, 'R');
 $pdf->writeHTMLCELL(0, 0, 15, 6, $headerCenter, 0, 1, 0, true, 'C');

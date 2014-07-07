@@ -29,10 +29,9 @@ $headerCenter = '
     color:#595959;
 }
 </style>
-<p class="header" >Legal Entity</p>
-<p class="header" >Procedure</p>
-<p class="header" >App Title</p>
-<p class="header" >'.$prTitle.'</p>
+<p class="header" >Legal Entity: '.$legalEntity.'</p>
+<p class="header" >Model Title: '.$modelTitle.'</p>
+<p class="header" >PR Title: '.$prTitle.'</p>
 ';
 $footerRight = '
 <style>
@@ -74,6 +73,7 @@ $stepTable = '
 
     <table>
 ';
+
 $pdf->AddPage();
 $pdf->Bookmark("PR: $prTitle", 3, 0, '', 'B', array(128,0,64));
 // output the HTML content
