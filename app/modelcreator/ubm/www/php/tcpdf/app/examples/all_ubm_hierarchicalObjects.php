@@ -160,9 +160,9 @@ foreach ($positionUUID as $key => $position) {
 //echo $_GET['callback'] . '(' . json_encode($all_UUID) . ')';
 // $all_UUID array is a list of all the UUID's that were attatched to the given activeObjectUUID.
 //4. Go through each UUID
+    $psCounter = 1;
 foreach ($all_UUID as $object => $value) {
     //SELECT
-    
     //5.Get the id of the JD, PL, PR, ST, TA and return it
     $sqlsel1 = "SELECT * FROM ubm_modelcreationsuite_heirarchy_object_antiSolipsism_UUID WHERE UUID=$value";
     $rs1 = $conn->query($sqlsel1);
@@ -195,6 +195,8 @@ foreach ($all_UUID as $object => $value) {
                              $psPayRangeHigh = $items2['pay_range_high'];
                              $psSummary = $items2['summary'];
                              require('ubms_create_position_report.php');
+                        $psCounter = $psCounter + 1;                             
+
                        }
                     }
                 $jdCounter = 1;

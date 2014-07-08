@@ -53,7 +53,8 @@ DELETE FROM ubm_modelcreationsuite_heirarchy_object_closureTable
 WHERE descendant_id=$v10
 AND ancestor_id=$v9
 AND path_length!=0";
-//This removes an entire subtree under the ancestor.
+
+//This removes an entire subtree under the ancestor. NOTE THE "OR"
 $sql = "
 DELETE link 
 FROM  ubm_modelcreationsuite_heirarchy_object_closureTable a, 
@@ -68,7 +69,6 @@ WHERE a.ancestor_id=link.ancestor_id
  AND (to_delete.ancestor_id=$v9 
      OR to_delete.descendant_id=$v10)
      ";
-
 // Third Attempt at deletion - This will remove everything but the self links.
 
 $sql = "
