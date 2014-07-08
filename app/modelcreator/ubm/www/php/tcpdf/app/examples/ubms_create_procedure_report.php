@@ -62,17 +62,17 @@ $footerLeft = '
 <p class="footer">Destination Model Source Object String Ref # :</p>
 <a href="#*2" style="color:blue;">TOC</a>
 ';
-$stepHeader = '
+
+$stepTable = '
     <style>
     h1 {
         color:#282b34;
     }
     </style>
     <h1>Steps:</h1>
-';
-$stepTable = '
-    <table>
+    <table cellspacing="0" cellpadding="1" border="1">
 
+        '.$tableRow.'
     <table>
 ';
 
@@ -82,8 +82,7 @@ $pdf->Bookmark("PR: $prTitle", 3, 0, '', 'B', array(128,0,64));
 $pdf->writeHTMLCELL(0, 0, 100, 6, $headerRight, 0, 1, 0, true, 'R');
 $pdf->writeHTMLCELL(0, 0, 15, 6, $headerCenter, 0, 1, 0, true, 'C');
 $pdf->writeHTML($html, true, false, true, true, '');
-$pdf->writeHTML($stepHeader, true, false, true, true, '');
-$pdf->writeHTML($stepTable, true, false, true, true, '');
+    $pdf->writeHTML($stepTable, true, false, true, true, '');
 $pdf->writeHTMLCELL(0, 0, 15, 230, $footerLeft, 0, 1, 0, true, 'L');
 $pdf->writeHTMLCELL(0, 0, 150, 246, $footerRight, 0, 1, 0, true, 'L');
 

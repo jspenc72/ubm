@@ -15,14 +15,14 @@ $pdf->SetSubject('');
 $pdf->SetKeywords('TCPDF, PDF, example, test, guide');
 // set auto page breaks
 $pdf->SetMargins(PDF_MARGIN_LEFT, 15, PDF_MARGIN_RIGHT);
-$pdf->SetAutoPageBreak(TRUE, PDF_MARGIN_BOTTOM);
+$pdf->SetAutoPageBreak(TRUE, 0);
 $pdf->SetPrintHeader(false);
 $pdf->SetPrintFooter(false);
 // set font
 $pdf->SetFont('times', '', 10);
-foreach ($positionUUID as $key => $UUID) {
-    # code...
-}
+$legalEntity = 'test';
+$all_UUID = array();
+
     if ($conn->connect_error) {
         trigger_error('Database connection failed: ' . $conn->connect_error, E_USER_ERROR);
     }
@@ -177,8 +177,10 @@ foreach ($all_UUID as $object => $value) {
                                     } else {
                                         //3. Get all the UUID's from the returned array
                                         while ($items4 = $rs4->fetch_assoc()) {
+                                            $stepNumber = $items4['step_number'];
                                             $stTitle = $items4['title'];
                                             $stInstruction = $items4['instruction'];
+                                            $tableRow = '<tr><td>'.$stepNumber.'</td><td>'.$stTitle.'</td><td>'.$stInstruction.'</td></tr>';
 
                                             $sqlsel5 = "SELECT * FROM ubm_modelcreationsuite_heirarchy_object_closureTable WHERE ancestor_id=$value AND path_length=2";
                                             $rs5 = $conn->query($sqlsel5);
@@ -199,6 +201,7 @@ foreach ($all_UUID as $object => $value) {
                                                     } else {
                                                         
                                                         while ($items6 = $rs6->fetch_assoc()) {
+                                                            $taskNubmer = $items6['task_number'];
                                                             $tkTitle = $items6['title'];
                                                             $tkInstruction = $items6['instruction'];
                                                         }

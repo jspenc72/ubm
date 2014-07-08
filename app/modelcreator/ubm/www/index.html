@@ -167,44 +167,40 @@ under the License.
 				}, 10);
 			}
 
-			function setActiveJobDescription(activeReportsToJobDescription){
-				$("#manageJobDescription_change_anchor").attr("onclick","openNewPLPopup(" + window.activeJobDescriptionUUID + ")");
-				window.activeReportsToJobDescription = activeReportsToJobDescription;
+			function setActiveJobDescription(){
+				window.activeReportsToJobDescription = window.activeJobDescriptionUUID;
 				setTimeout(function() {
 					$("#ubmsuite_mcs_my_organizational_chart_content_mangeJobDescriptionPopUp").popup('open');
 					//buildHierarchicalTree(activeReportsToPosition);					
 				}, 10);
 			}
 
-			function setActivePolicy(activeReportsToPolicy){
-				$("#managePolicy_change_anchor").attr("onclick","openNewPRPopup(" + window.activePolicyUUID + ")");
-				window.activeReportsToPolicy = activeReportsToPolicy;
+			function setActivePolicy(){
+				window.activeReportsToPolicy = window.activePolicyUUID;
 				setTimeout(function() {
 					$("#ubmsuite_mcs_my_organizational_chart_content_mangePolicyPopUp").popup('open');
 					//buildHierarchicalTree(activeReportsToPosition);					
 				}, 10);
 			}
 
-			function setActiveProcedure(activeReportsToProcedure){
-				$("#manageProcedure_change_anchor").attr("onclick","openNewSTPopup(" + window.activeProcedureUUID + ")");
-				window.activeReportsToProcedure = activeReportsToProcedure;
+			function setActiveProcedure(){
+				window.activeReportsToProcedure = window.activeProcedureUUID;
 				setTimeout(function() {
 					$("#ubmsuite_mcs_my_organizational_chart_content_mangeProcedurePopUp").popup('open');
 					//buildHierarchicalTree(activeReportsToPosition);					
 				}, 10);
 			}
 
-			function setActiveStep(activeReportsToStep){
-				$("#manageStep_change_anchor").attr("onclick","openNewTKPopup(" + window.activeStepUUID + ")");
-				window.activeReportsToStep = activeReportsToStep;
+			function setActiveStep(){
+				window.activeReportsToStep = window.activeModelStepUUID;
 				setTimeout(function() {
 					$("#ubmsuite_mcs_my_organizational_chart_content_mangeStepPopUp").popup('open');
 					//buildHierarchicalTree(activeReportsToPosition);					
 				}, 10);
 			}
 
-			function setActiveTask(activeReportsToTask){
-				window.activeReportsToTask = activeReportsToTask;
+			function setActiveTask(){
+				window.activeReportsToTask = window.activeTaskUUID;
 				setTimeout(function() {
 					$("#ubmsuite_mcs_my_organizational_chart_content_mangeTaskPopUp").popup('open');
 					//buildHierarchicalTree(activeReportsToPosition);					
@@ -536,19 +532,19 @@ under the License.
 					$.each(ElementsArray, function(i, item) {
 						if(item.jobDescription_id>="1"){
 						//2. jobDescription_id for Object hierarchy suggests the item is a JD
-							$("#ubmsuite_mcs_my_organizational_chart_heirarchyObjectTree_ul_" + item.ancestor_id + "").append("<li><a data-thisUUID='" + item.descendant_id + "' class='hierarchyObjectTreeItem ajax_tooltip' onclick='if(event.ctrlKey || event.metaKey) { setActiveJobDescription(" + item.descendant_id + ")} else {setActiveJobDescriptionUUID(" + item.descendant_id + ")}'>JD-" + item.descendant_id + "</a><ul id='ubmsuite_mcs_my_organizational_chart_heirarchyObjectTree_ul_" + item.descendant_id + "'></ul></li>")
+							$("#ubmsuite_mcs_my_organizational_chart_heirarchyObjectTree_ul_" + item.ancestor_id + "").append("<li><a data-thisUUID='" + item.descendant_id + "' class='hierarchyObjectTreeItem ajax_tooltip' onclick='if(event.ctrlKey || event.metaKey) { setActiveJobDescription(" + item.descendant_id + ");setActiveJobDescriptionUUID(" + item.descendant_id + ")} else {setActiveJobDescriptionUUID(" + item.descendant_id + ")}'>JD-" + item.descendant_id + "</a><ul id='ubmsuite_mcs_my_organizational_chart_heirarchyObjectTree_ul_" + item.descendant_id + "'></ul></li>")
 						}else if(item.policy_id>="1"){
 						//3. policy_id for Object hierarchy suggests the item is a PL
-							$("#ubmsuite_mcs_my_organizational_chart_heirarchyObjectTree_ul_" + item.ancestor_id + "").append("<li><a data-thisUUID='" + item.descendant_id + "' class='hierarchyObjectTreeItem ajax_tooltip' onclick='if(event.ctrlKey || event.metaKey) {setActivePolicy(" + item.descendant_id + ")} else {setActivePolicyUUID(" + item.descendant_id + ")}'>PL-" + item.descendant_id + "</a><ul id='ubmsuite_mcs_my_organizational_chart_heirarchyObjectTree_ul_" + item.descendant_id + "'></ul></li>")
+							$("#ubmsuite_mcs_my_organizational_chart_heirarchyObjectTree_ul_" + item.ancestor_id + "").append("<li><a data-thisUUID='" + item.descendant_id + "' class='hierarchyObjectTreeItem ajax_tooltip' onclick='if(event.ctrlKey || event.metaKey) {setActivePolicy(" + item.descendant_id + ");setActivePolicyUUID(" + item.descendant_id + ")} else {setActivePolicyUUID(" + item.descendant_id + ")}'>PL-" + item.descendant_id + "</a><ul id='ubmsuite_mcs_my_organizational_chart_heirarchyObjectTree_ul_" + item.descendant_id + "'></ul></li>")
 						}else if(item.procedure_id>="1"){
 						//4. procedure_id for Object hierarchy suggests the item is a PR
-							$("#ubmsuite_mcs_my_organizational_chart_heirarchyObjectTree_ul_" + item.ancestor_id + "").append("<li><a data-thisUUID='" + item.descendant_id + "' class='hierarchyObjectTreeItem ajax_tooltip' onclick='if(event.ctrlKey || event.metaKey) {setActiveProcedure(" + item.descendant_id + ")} else {setActiveProcedureUUID(" + item.descendant_id + ")}'>PR-" + item.descendant_id + "</a><ul id='ubmsuite_mcs_my_organizational_chart_heirarchyObjectTree_ul_" + item.descendant_id + "'></ul></li>")
+							$("#ubmsuite_mcs_my_organizational_chart_heirarchyObjectTree_ul_" + item.ancestor_id + "").append("<li><a data-thisUUID='" + item.descendant_id + "' class='hierarchyObjectTreeItem ajax_tooltip' onclick='if(event.ctrlKey || event.metaKey) {setActiveProcedure(" + item.descendant_id + ");setActiveProcedureUUID(" + item.descendant_id + ")} else {setActiveProcedureUUID(" + item.descendant_id + ")}'>PR-" + item.descendant_id + "</a><ul id='ubmsuite_mcs_my_organizational_chart_heirarchyObjectTree_ul_" + item.descendant_id + "'></ul></li>")
 						}else if(item.step_id>="1"){
 						//5. step_id for Object hierarchy suggests the item is a ST
-							$("#ubmsuite_mcs_my_organizational_chart_heirarchyObjectTree_ul_" + item.ancestor_id + "").append("<li><a data-thisUUID='" + item.descendant_id + "' class='hierarchyObjectTreeItem ajax_tooltip' onclick='if(event.ctrlKey || event.metaKey) {setActiveStep(" + item.descendant_id + ")} else {setActiveStepUUID(" + item.descendant_id + ")}'>ST-" + item.descendant_id + "</a><ul id='ubmsuite_mcs_my_organizational_chart_heirarchyObjectTree_ul_" + item.descendant_id + "'></ul></li>")
+							$("#ubmsuite_mcs_my_organizational_chart_heirarchyObjectTree_ul_" + item.ancestor_id + "").append("<li><a data-thisUUID='" + item.descendant_id + "' class='hierarchyObjectTreeItem ajax_tooltip' onclick='if(event.ctrlKey || event.metaKey) {setActiveStep(" + item.descendant_id + ");setActiveStepUUID(" + item.descendant_id + ")} else {setActiveStepUUID(" + item.descendant_id + ")}'>ST-" + item.descendant_id + "</a><ul id='ubmsuite_mcs_my_organizational_chart_heirarchyObjectTree_ul_" + item.descendant_id + "'></ul></li>")
 						}else if(item.task_id>="1"){
 						//6. task_id for Object hierarchy suggests the item is a TK
-							$("#ubmsuite_mcs_my_organizational_chart_heirarchyObjectTree_ul_" + item.ancestor_id + "").append("<li><a data-thisUUID='" + item.descendant_id + "' class='hierarchyObjectTreeItem ajax_tooltip' onclick='if(event.ctrlKey || event.metaKey) {setActiveTask(" + item.descendant_id + ")} else {setActiveTaskUUID(" + item.descendant_id + ")}'>TK-" + item.descendant_id + "</a></li>")
+							$("#ubmsuite_mcs_my_organizational_chart_heirarchyObjectTree_ul_" + item.ancestor_id + "").append("<li><a data-thisUUID='" + item.descendant_id + "' class='hierarchyObjectTreeItem ajax_tooltip' onclick='if(event.ctrlKey || event.metaKey) {setActiveTask(" + item.descendant_id + ");setActiveTaskUUID(" + item.descendant_id + ")} else {setActiveTaskUUID(" + item.descendant_id + ")}'>TK-" + item.descendant_id + "</a></li>")
 						}
 					});
 				}	
@@ -696,7 +692,7 @@ under the License.
 			}
 			function setActiveProcedureUUID(activeProcedureUUID){				//Single Click Function
 				//1. Set window variable: window.activeProcedureUUID equal to activeProcedureUUID.
-				window.activeProcedureUUID = activeProcedureUUID;				
+				window.activeProcedureUUID = activeProcedureUUID;		
 			}
 			function setActiveStepUUID(activeStepUUID){							//Single Click Function
 				//1. Set window variable: window.activePolicyUUID equal to activePolicyUUID.
@@ -718,9 +714,7 @@ under the License.
 			    }, 500);
 				
 			}
-			function openNewPLPopup(activeJobDescriptionUUID){						//Double Click Function
-				//1 Set the active Job Description UUID to the JD element on which the user double clicks.
-				setActiveJobDescriptionUUID(activeJobDescriptionUUID);
+			function openNewPLPopup(){						//Double Click Function
 				//2. Populate the list of predefined Policies with those from the reference manual.				
 				getListofPossiblePolicies();
 				//3. Display the popup.
@@ -730,9 +724,7 @@ under the License.
 			    }, 500);
 				
 			}
-			function openNewPRPopup(activePolicyUUID){								//Double Click Function
-				//1 Set the active Policy UUID to the PL element on which the user double clicks.
-				setActivePolicyUUID(activePolicyUUID);
+			function openNewPRPopup(){								//Double Click Function
 				//2. Populate the list of predefined Procedures with those from the reference manual.				
 				getListofPossibleProcedures();
 				//3. Display the popup.
@@ -742,9 +734,7 @@ under the License.
 			    }, 500);
 				
 			}
-			function openNewSTPopup(activeProcedureUUID){							//Double Click Function
-				//1 Set the active Procedure UUID to the PR element on which the user double clicks.
-				setActiveProcedureUUID(activeProcedureUUID);
+			function openNewSTPopup(){							//Double Click Function
 				//2. Populate the list of predefined Steps with those from the reference manual.				
 				getListofPossibleSteps();
 				//3. Display the popup.
@@ -754,9 +744,7 @@ under the License.
 			    }, 500);
 				
 			}
-			function openNewTKPopup(activeStepUUID){								//Double Click Function
-				//1 Set the active Step UUID to the ST element on which the user double clicks.
-				setActiveStepUUID(activeStepUUID);
+			function openNewTKPopup(){								//Double Click Function
 				//2. Populate the list of predefined Tasks with those from the reference manual.				
 				getListofPossibleTasks();
 				//3. Display the popup.

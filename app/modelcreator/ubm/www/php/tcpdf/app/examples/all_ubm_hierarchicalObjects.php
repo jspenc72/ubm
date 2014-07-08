@@ -82,6 +82,7 @@ if ($rs1 === false) {
             if ($path_length < 2 && $path_length > 0) {
                 $positionUUID[] = stripslashes($items['UUID']);
             } else {
+                //Selects all information from the specified descendant_idZ
                 $sqlsel2 = "SELECT * FROM ubm_model_position_closure
                                 JOIN ubm_modelcreationsuite_heirarchy_object_antiSolipsism_UUID
                                 ON (ubm_modelcreationsuite_heirarchy_object_antiSolipsism_UUID.UUID=ubm_model_position_closure.descendant_UUID)
@@ -92,7 +93,6 @@ if ($rs1 === false) {
                                 WHERE ubm_model_position_closure.descendant_UUID=$descendant_UUID
                                 AND ubm_model_position_closure.path_length=1
                                 GROUP BY ubm_modelcreationsuite_heirarchy_object_antiSolipsism_UUID.UUID";
-                //Select all
                 $rs2 = $conn->query($sqlsel2);
                 if ($rs2 === false) {
                     trigger_error('Wrong SQL: ' . $sqlsel2 . ' Error: ' . $conn->error, E_USER_ERROR);
