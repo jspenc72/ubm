@@ -66,7 +66,7 @@ $footerLeft = '
 <a href="#*2" style="color:blue;">TOC</a>
 ';
 $pdf->AddPage();
-$pdf->Bookmark("PL - $plTitle", 2, 0, '', 'B', array(64,128,0));
+$pdf->Bookmark("PL-$plCounter - $plTitle", 2, 0, '', 'B', array(64,128,0));
 // output the HTML content
 $pdf->writeHTMLCELL(0, 0, 100, 6, $headerRight, 0, 1, 0, true, 'R');
 $pdf->writeHTMLCELL(0, 0, 15, 6, $headerCenter, 0, 1, 0, true, 'C');

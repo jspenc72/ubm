@@ -338,6 +338,11 @@ $activeProcedureUUID = $_GET['activeProcedureUUID'];
 $activeStepUUID = $_GET['activeStepUUID'];
 $activePositionUUID = $_GET['activePositionUUID'];
 
+
+// ubms remove
+$activeAncestorUUID = $_GET['activeAncestorUUID'];
+$activeDescendantUUID = $_GET['activeDescendantUUID'];
+
 //object detail
 $activeUUID = $_GET['activeUUID'];
 

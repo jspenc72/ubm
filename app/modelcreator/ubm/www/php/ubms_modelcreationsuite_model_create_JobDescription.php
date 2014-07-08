@@ -30,18 +30,15 @@ VALUES ( $v3, $v4, $v5, $v6, $v8, $v9, $v10, $v11, $v12)";
  //Creates a New Job Description record.
 if ($conn->query($sqlins) === false) {
     trigger_error('Wrong SQL: ' . $sqlins . ' Error: ' . $conn->error, E_USER_ERROR);
-} else {
-    
+} else {    
     //2. Create a UUID for the jobDescription that was created.
     $last_inserted_JD_id = $conn->insert_id;
-    
     //$affected_rows = $conn -> affected_rows;
     $sqlins2 = "INSERT INTO ubm_modelcreationsuite_heirarchy_object_antiSolipsism_UUID (legal_entity_id, model_id, position_id, jobDescription_id, policy_id, procedure_id, step_id	, task_id, created_by) 
 				VALUES ( '0','0','0',$last_inserted_JD_id,'0','0','0','0',$v5 )";
     if ($conn->query($sqlins2) === false) {
         trigger_error('Wrong SQL: ' . $sqlins2 . ' Error: ' . $conn->error, E_USER_ERROR);
     } else {
-        
         //3. Now INSERT the JD_UUID into the Closure table so it reports to itself.
         $last_inserted_JD_UUID = $conn->insert_id;
         $sqlins3 = "INSERT INTO ubm_modelcreationsuite_heirarchy_object_closureTable(ancestor_id, descendant_id, path_length, created_by)
@@ -50,7 +47,6 @@ if ($conn->query($sqlins) === false) {
             trigger_error('Wrong SQL: ' . $sqlins3 . ' Error: ' . $conn->error, E_USER_ERROR);
             echo "there was a problem";
         } else {
-            
             //4. Now INSERT the links to all the ancestors of the JD_UUID into the Closure table so has a tie to all ojects above it.
             $sqlins3 = "INSERT INTO ubm_modelcreationsuite_heirarchy_object_closureTable(ancestor_id, descendant_id, path_length)
 						 SELECT a.ancestor_id, d.descendant_id, a.path_length+d.path_length+1

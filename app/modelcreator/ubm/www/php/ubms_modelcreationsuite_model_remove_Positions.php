@@ -26,7 +26,7 @@ $v8 = "'" . $conn->real_escape_string($activeTaskId) . "'";
 
 $sql = "
  DELETE link
- FROM 	ubm_modelcreationsuite_heirarchy_object_closureTable a, 
+ FROM ubm_modelcreationsuite_heirarchy_object_closureTable a, 
   		ubm_modelcreationsuite_heirarchy_object_closureTable link, 
   		ubm_modelcreationsuite_heirarchy_object_closureTable d, 
   		ubm_modelcreationsuite_heirarchy_object_closureTable to_delete
