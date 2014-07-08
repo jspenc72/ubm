@@ -756,30 +756,51 @@ under the License.
 			}
 
 			function createNewJobDescriptionAddtoMyModel() {
-				$.getJSON('http://api.universalbusinessmodel.com/ubms_modelcreationsuite_model_create_JobDescription.php?callback=?', {//JSONP Request
-					username: window.username,
-					activeModelUUID : window.activeModelUUID,
-					key: window.key,
-					title: document.getElementById("ubmsuite_mcs_my_organizational_chart_content_createNewJobDescriptionPopUp_form_JobDescriptionTitle").value,
-					objective: document.getElementById("ubmsuite_mcs_my_organizational_chart_content_createNewJobDescriptionPopUp_form_JobDescriptionObjective").value,
-					qualifications: document.getElementById("ubmsuite_mcs_my_organizational_chart_content_createNewJobDescriptionPopUp_form_JobDescriptionQualificaions").value,
-					ageRequirement: document.getElementById("ubmsuite_mcs_my_organizational_chart_content_createNewJobDescriptionPopUp_form_JobDescriptionAgeRequirement").value,
-					educationRequirement: document.getElementById("ubmsuite_mcs_my_organizational_chart_content_createNewJobDescriptionPopUp_form_JobDescriptionEducationRequirements").value,
-					physicalDemand: document.getElementById("ubmsuite_mcs_my_organizational_chart_content_createNewJobDescriptionPopUp_form_JobDescriptionPhysicalDemands").value,
-					workEnviroment: document.getElementById("ubmsuite_mcs_my_organizational_chart_content_createNewJobDescriptionPopUp_form_JobDescriptionWorkEnvironment").value,
-					dutiesAndResponsibilities: document.getElementById("ubmsuite_mcs_my_organizational_chart_content_createNewJobDescriptionPopUp_form_JobDescriptionDutiesAndResponsibilities").value,
-					positionId : window.activeReportsToPosition
-				}, function(res, status) {
-					$().toastmessage('showNoticeToast', res.message);
+				var counter=1;
+				//1. Declare counter variable to keep track of the number of inputs in a given form.
+				var errors = [];
+				//2. Declare errors[] array to keep track of inputs that dont pass validation.
+				$('#ubmsuite_mcs_my_organizational_chart_content_createNewJobDescriptionPopUp_form_createJobDescription_form :input').each(function() {
+					if(this.value.length>=1){
+						//3. Check to see if value has been entered into the input.
+
+						//4. alert("Input: " + $(this).attr('placeholder') + " has value: " + this.value);
+					}else{
+						alert("Input: " + $(this).attr('placeholder') + " is required but has no value.");
+						//5. Alert the user if the length of the inputs value is less than 1.
+						errors.push($(this).attr('id'));
+						//6. Add the input id to the errors array.
+					}
+					counter = counter+1;
+						//7. iterate the counter.
 				});
-					
-					$("#ubmsuite_mcs_my_organizational_chart_content_createNewJobDescriptionPopUp").popup('close');
-					$('#ubmsuite_mcs_my_organizational_chart_content_createNewJobDescriptionPopUp_form_createJobDescription_form').each(function() {
-							this.reset();
+				alert("# of empty fields: " + errors.length);
+				if(errors.length==0){
+				//8. If there are now errors, continue with the jsonp request.
+					$.getJSON('http://api.universalbusinessmodel.com/ubmss_modelcreationsuite_model_create_JobDescription.php?callback=?', {//JSONP Request
+						username: window.username,
+						activeModelUUID : window.activeModelUUID,
+						key: window.key,
+						title: document.getElementById("ubmsuite_mcs_my_organizational_chart_content_createNewJobDescriptionPopUp_form_JobDescriptionTitle").value,
+						objective: document.getElementById("ubmsuite_mcs_my_organizational_chart_content_createNewJobDescriptionPopUp_form_JobDescriptionObjective").value,
+						qualifications: document.getElementById("ubmsuite_mcs_my_organizational_chart_content_createNewJobDescriptionPopUp_form_JobDescriptionQualificaions").value,
+						ageRequirement: document.getElementById("ubmsuite_mcs_my_organizational_chart_content_createNewJobDescriptionPopUp_form_JobDescriptionAgeRequirement").value,
+						educationRequirement: document.getElementById("ubmsuite_mcs_my_organizational_chart_content_createNewJobDescriptionPopUp_form_JobDescriptionEducationRequirements").value,
+						physicalDemand: document.getElementById("ubmsuite_mcs_my_organizational_chart_content_createNewJobDescriptionPopUp_form_JobDescriptionPhysicalDemands").value,
+						workEnviroment: document.getElementById("ubmsuite_mcs_my_organizational_chart_content_createNewJobDescriptionPopUp_form_JobDescriptionWorkEnvironment").value,
+						dutiesAndResponsibilities: document.getElementById("ubmsuite_mcs_my_organizational_chart_content_createNewJobDescriptionPopUp_form_JobDescriptionDutiesAndResponsibilities").value,
+						positionId : window.activeReportsToPosition
+					}, function(res, status) {
+						$().toastmessage('showNoticeToast', res.message);
 					});
-					getMyModelsOrgChart();
-					buildHierarchicalTree(window.activePositionUUID);
-										// getChildElements(activeObjectUUID);					
+						$("#ubmsuite_mcs_my_organizational_chart_content_createNewJobDescriptionPopUp").popup('close');
+						$('#ubmsuite_mcs_my_organizational_chart_content_createNewJobDescriptionPopUp_form_createJobDescription_form').each(function() {
+								this.reset();
+						});
+						getMyModelsOrgChart();
+						buildHierarchicalTree(window.activePositionUUID);
+						// getChildElements(activeObjectUUID);	
+				}				
 			}
 			function getListofPossibleJobDescriptions() {//Populates Core Value Listview on Possible CoreValue Popup
 				$.getJSON('http://api.universalbusinessmodel.com/ubm_modelcreationsuite_model_getAll_JobDescriptions.php?callback=?', {//JSONP Request
