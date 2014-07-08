@@ -1,7 +1,7 @@
 <?php
 require_once ('globalGetVariables.php');
 
-//require_once('ubms_db_config.php');
+require_once('ubms_db_config.php');
 require_once ('DBConnect_UBMv1.php');
 
 //Provides the variables used for UBMv1 database connection $conn

@@ -20,8 +20,13 @@ $pdf->SetPrintHeader(false);
 $pdf->SetPrintFooter(false);
 // set font
 $pdf->SetFont('times', '', 10);
+$psCounter  = 'test';
+$plCounter ='test';
 $legalEntity = 'test';
+$jdCounter ='test';
 $all_UUID = array();
+$all_items = array();
+$tableRow = array();
 
     if ($conn->connect_error) {
         trigger_error('Database connection failed: ' . $conn->connect_error, E_USER_ERROR);
@@ -73,7 +78,7 @@ $all_UUID = array();
 //4. Go through each UUID
 foreach ($all_UUID as $object => $value) {
     //SELECT
-    $all_items = array();
+    
     
     //5.Get the id of the JD, PL, PR, ST, TA and return it
     $sqlsel1 = "SELECT * FROM ubm_modelcreationsuite_heirarchy_object_antiSolipsism_UUID WHERE UUID=$value";
@@ -177,36 +182,40 @@ foreach ($all_UUID as $object => $value) {
                                     } else {
                                         //3. Get all the UUID's from the returned array
                                         while ($items4 = $rs4->fetch_assoc()) {
+                                            $stepUUID = $items4['UUID'];
                                             $stepNumber = $items4['step_number'];
-                                            $stTitle = $items4['title'];
                                             $stInstruction = $items4['instruction'];
-                                            $tableRow = '<tr><td>'.$stepNumber.'</td><td>'.$stTitle.'</td><td>'.$stInstruction.'</td></tr>';
-
-                                            $sqlsel5 = "SELECT * FROM ubm_modelcreationsuite_heirarchy_object_closureTable WHERE ancestor_id=$value AND path_length=2";
+                                            $tableRow[] = '<tr><td width="35" align="center">'.$stepNumber.'</td><td width="350">'.$stInstruction.'</td></tr>';
+                                            $sqlsel5 = "SELECT * FROM ubm_modelcreationsuite_heirarchy_object_closureTable WHERE ancestor_id=$stepUUID AND path_length=1";
                                             $rs5 = $conn->query($sqlsel5);
-
                                             if ($rs5 === false) {
                                                 trigger_error('Wrong SQL: ' . $sqlsel3 . ' Error: ' . $conn->error, E_USER_ERROR);
                                             } else {
-                                                while ($items5 = $rs5->fetch_assoc()) {
-                                                    $returnedDescendantId = stripslashes($items5['descendant_id']);
+                                                if ($rs5->num_rows > 0)  {
+                                                    while ($items5 = $rs5->fetch_assoc()) {
+                                                    
 
-                                                    $sqlsel6 = "SELECT * FROM ubm_modelcreationsuite_heirarchy_object_antiSolipsism_UUID
-                                                    JOIN ubm_model_tasks
-                                                    ON ubm_modelcreationsuite_heirarchy_object_antiSolipsism_UUID.task_id=ubm_model_tasks.id
-                                                    WHERE ubm_modelcreationsuite_heirarchy_object_antiSolipsism_UUID.UUID=$returnedDescendantId";
-                                                    $rs6 = $conn->query($sqlsel6);
-                                                    if ($rs6 === false) {
-                                                        trigger_error('Wrong SQL: ' . $sqlsel6 . ' Error: ' . $conn->error, E_USER_ERROR);
-                                                    } else {
-                                                        
-                                                        while ($items6 = $rs6->fetch_assoc()) {
-                                                            $taskNubmer = $items6['task_number'];
-                                                            $tkTitle = $items6['title'];
-                                                            $tkInstruction = $items6['instruction'];
+                                                        $returnedDescendantId = stripslashes($items5['descendant_id']);
+
+                                                        $sqlsel6 = "SELECT * FROM ubm_modelcreationsuite_heirarchy_object_antiSolipsism_UUID
+                                                        JOIN ubm_model_tasks
+                                                        ON ubm_modelcreationsuite_heirarchy_object_antiSolipsism_UUID.task_id=ubm_model_tasks.id
+                                                        WHERE ubm_modelcreationsuite_heirarchy_object_antiSolipsism_UUID.UUID=$returnedDescendantId";
+                                                        $rs6 = $conn->query($sqlsel6);
+                                                        if ($rs6 === false) {
+                                                            trigger_error('Wrong SQL: ' . $sqlsel6 . ' Error: ' . $conn->error, E_USER_ERROR);
+                                                        } else {
+                                                            
+                                                            while ($items6 = $rs6->fetch_assoc()) {
+                                                                $taskNubmer = $items6['task_number'];
+                                                                $tkInstruction = $items6['instruction'];
+                                                                $tableRow[] = '<tr><td width="50"></td><td width="20">'.$taskNubmer.'.</td><td>'.$tkInstruction.'</td></tr>';
+                                                            }
                                                         }
                                                     }
-                                                }
+                                                } else {
+                                                        $tableRow[] = '<tr><td width="50"></td><td width="20">0.</td><td>No Task</td></tr>';
+                                                    }
                                             }
                                         }
                                     }

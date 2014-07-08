@@ -1,6 +1,7 @@
 <?php
 require_once ('../config/tcpdf_config.php');
 require_once ('../tcpdf.php');
+require_once('../../../ubms_db_config.php');
 include ('../../../DBConnect_UBMv1.php');
 //Provides the variables used for UBMv1 database connection $conn
 require_once ('../../../globalGetVariables.php');
@@ -135,13 +136,14 @@ foreach ($positionUUID as $key => $position) {
             $returnedDescendant = stripslashes($items1['descendant_id']);
             $returnedAncestor = stripslashes($items1['ancestor_id']);
             
-            //4. select the record with path_length=1 so that you get the immediate parent.
+            //4. select the single record with path_length=1 so that you get only the immediate parent.
             
             $sqlsel2 = "SELECT c.*, u.* FROM ubm_modelcreationsuite_heirarchy_object_antiSolipsism_UUID u
                             JOIN ubm_modelcreationsuite_heirarchy_object_closureTable c
                             ON (u.UUID=c.descendant_id)
                             WHERE c.descendant_id=$returnedDescendant
-                            AND c.path_length=1";
+                            AND c.path_length=1
+                            ORDER BY c.descendant_id";
             $rs2 = $conn->query($sqlsel2);
             if ($rs2 === false) {
                 trigger_error('Wrong SQL: ' . $sqlsel2 . ' Error: ' . $conn->error, E_USER_ERROR);
@@ -159,9 +161,9 @@ foreach ($positionUUID as $key => $position) {
 //echo $_GET['callback'] . '(' . json_encode($all_UUID) . ')';
 // $all_UUID array is a list of all the UUID's that were attatched to the given activeObjectUUID.
 //4. Go through each UUID
+    $psCounter = 1;
 foreach ($all_UUID as $object => $value) {
     //SELECT
-    
     //5.Get the id of the JD, PL, PR, ST, TA and return it
     $sqlsel1 = "SELECT * FROM ubm_modelcreationsuite_heirarchy_object_antiSolipsism_UUID WHERE UUID=$value";
     $rs1 = $conn->query($sqlsel1);
@@ -194,10 +196,14 @@ foreach ($all_UUID as $object => $value) {
                              $psPayRangeHigh = $items2['pay_range_high'];
                              $psSummary = $items2['summary'];
                              require('ubms_create_position_report.php');
+                        $psCounter = $psCounter + 1;                             
+
                        }
                     }
-                }
                 $jdCounter = 1;
+                $plCounter = 1;
+
+                }
                 if ($jobDescriptionId >= 1) {
                     $sqlsel2 = "SELECT * FROM ubm_model_jobDescriptions WHERE id=$jobDescriptionId";
                     $rs2 = $conn->query($sqlsel2);
@@ -232,6 +238,7 @@ foreach ($all_UUID as $object => $value) {
                              $plScope = $items2['scope'];
                              $plPolicyType = $items2['policy_type'];
                              require('ubms_create_policy_report.php');
+                            $plCounter = $plCounter + 1;                             
                         }
                     }
                 }

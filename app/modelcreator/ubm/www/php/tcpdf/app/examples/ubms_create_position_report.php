@@ -71,7 +71,7 @@ $footerLeft = '
 <a href="#*2" style="color:blue;">TOC</a>
 ';
 $pdf->AddPage();
-$pdf->Bookmark("Position: $psTitle", 0, 0, '', 'B', array(0,64,128));
+$pdf->Bookmark("PS-$psCounter: $psTitle", 0, 0, '', 'B', array(0,64,128));
 // output the HTML content
 $pdf->writeHTMLCELL(0, 0, 100, 6, $headerRight, 0, 1, 0, true, 'R');
 $pdf->writeHTMLCELL(0, 0, 15, 6, $headerCenter, 0, 1, 0, true, 'C');

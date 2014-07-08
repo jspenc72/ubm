@@ -62,19 +62,22 @@ $footerLeft = '
 <p class="footer">Destination Model Source Object String Ref # :</p>
 <a href="#*2" style="color:blue;">TOC</a>
 ';
-
-$stepTable = '
-    <style>
-    h1 {
-        color:#282b34;
-    }
-    </style>
-    <h1>Steps:</h1>
-    <table cellspacing="0" cellpadding="1" border="1">
-
-        '.$tableRow.'
-    <table>
-';
+$rows = null;
+foreach ($tableRow as $key => $row) {
+    $rows = $rows.$row;
+}
+$stepTable = <<<EOD
+<table cellpadding="0" cellspacing="0">
+    <thead>
+    <tr>
+        <td width="35" align="center"><b>Step #</b></td>
+        <td width="350" align="center"><b>Instruction</b></td>
+        <td></td>
+    </tr>
+    </thead>
+    $rows
+</table>
+EOD;
 
 $pdf->AddPage();
 $pdf->Bookmark("PR: $prTitle", 3, 0, '', 'B', array(128,0,64));
@@ -82,7 +85,7 @@ $pdf->Bookmark("PR: $prTitle", 3, 0, '', 'B', array(128,0,64));
 $pdf->writeHTMLCELL(0, 0, 100, 6, $headerRight, 0, 1, 0, true, 'R');
 $pdf->writeHTMLCELL(0, 0, 15, 6, $headerCenter, 0, 1, 0, true, 'C');
 $pdf->writeHTML($html, true, false, true, true, '');
-    $pdf->writeHTML($stepTable, true, false, true, true, '');
+$pdf->writeHTML($stepTable, true, false, true, true, '');
 $pdf->writeHTMLCELL(0, 0, 15, 230, $footerLeft, 0, 1, 0, true, 'L');
 $pdf->writeHTMLCELL(0, 0, 150, 246, $footerRight, 0, 1, 0, true, 'L');
 
