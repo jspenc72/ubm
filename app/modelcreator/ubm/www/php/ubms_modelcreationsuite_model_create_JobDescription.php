@@ -3,6 +3,8 @@ require_once ('globalGetVariables.php');
 require_once ('ubms_db_config.php');
 require_once ('DBConnect_UBMv1.php');
  //Provides the variables used for UBMv1 database connection $conn
+    error_reporting(E_ALL);
+    ini_set('display_errors', '1');
 $conn = new mysqli($DBServer, $DBUser, $DBPass, $DBName);
 
 // check connection
@@ -23,7 +25,8 @@ $v11 = "'" . $conn->real_escape_string($physicalDemand) . "'";
 $v12 = "'" . $conn->real_escape_string($workEnvironment) . "'";
 
 //1. Insert the jobDescription into the jobDescriptions table.
-$sqlins = "INSERT INTO ubm_model_jobDescriptions (objective, title, created_by, essential_duties_and_responsibilities, qualifications, age_requirement, education_requirements, physical_demand, work_environment ) VALUES ( $v3, $v4, $v5, $v6, $v8, $v9, $v10, $v11, $v12)";
+$sqlins = "INSERT INTO ubm_model_jobDescriptions (objective, title, created_by, essential_duties_and_responsibilities, qualifications, age_requirement, education_requirements, physical_demand, work_environment ) 
+VALUES ( $v3, $v4, $v5, $v6, $v8, $v9, $v10, $v11, $v12)";
  //Creates a New Job Description record.
 if ($conn->query($sqlins) === false) {
     trigger_error('Wrong SQL: ' . $sqlins . ' Error: ' . $conn->error, E_USER_ERROR);
@@ -42,7 +45,7 @@ if ($conn->query($sqlins) === false) {
         //3. Now INSERT the JD_UUID into the Closure table so it reports to itself.
         $last_inserted_JD_UUID = $conn->insert_id;
         $sqlins3 = "INSERT INTO ubm_modelcreationsuite_heirarchy_object_closureTable(ancestor_id, descendant_id, path_length, created_by)
-					 VALUES ( $last_inserted_JD_UUID, $last_inserted_JD_UUID,'0', $username)";
+					 VALUES ( $last_inserted_JD_UUID, $last_inserted_JD_UUID,'0', $v5)";
         if ($conn->query($sqlins3) === false) {
             trigger_error('Wrong SQL: ' . $sqlins3 . ' Error: ' . $conn->error, E_USER_ERROR);
             echo "there was a problem";

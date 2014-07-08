@@ -197,7 +197,7 @@ foreach ($all_UUID as $object => $value) {
                        }
                     }
                 }
-
+                $jdCounter = 1;
                 if ($jobDescriptionId >= 1) {
                     $sqlsel2 = "SELECT * FROM ubm_model_jobDescriptions WHERE id=$jobDescriptionId";
                     $rs2 = $conn->query($sqlsel2);
@@ -214,6 +214,7 @@ foreach ($all_UUID as $object => $value) {
                              $jdPhysicalDemand = $items2['physical_demand'];
                              $jdWorkEnvironment = $items2['work_environment'];
                              require('ubms_create_jobDescription_report.php');
+                        $jdCounter = $jdCounter + 1;                             
                        }
                     }
                 }

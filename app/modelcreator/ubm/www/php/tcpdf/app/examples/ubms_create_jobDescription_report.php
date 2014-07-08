@@ -18,6 +18,7 @@ $html = '<html>
     </head>
     <body>
         <p class="body">Grade Level: </p>
+        <p class="body">Objective: <span>'.$jdObjective.'</span></p>
         <p class="body">Essential Duties and Responsibilities: <span>'.$jdEssentialDutiesAndResponsibilities.'</span></p>
         <p class="body">Age Requirements: <span>'.$jdAgeRequirement.'</span></p>
         <p class="body">Education Requirements: <span>'.$jdEducationRequirements.'</span></p>
@@ -70,7 +71,7 @@ $footerLeft = '
 <a href="#*2" style="color:blue;">TOC</a>
 ';
 $pdf->AddPage();
-$pdf->Bookmark("JD - $jdTitle", 1, 0, '', 'B', array(128,64,0));
+$pdf->Bookmark("JD-$jdCounter - $jdTitle", 1, 0, '', 'B', array(128,64,0));
 // output the HTML content
 $pdf->writeHTMLCELL(0, 0, 100, 6, $headerRight, 0, 1, 0, true, 'R');
 $pdf->writeHTMLCELL(0, 0, 15, 6, $headerCenter, 0, 1, 0, true, 'C');
