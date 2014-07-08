@@ -135,13 +135,14 @@ foreach ($positionUUID as $key => $position) {
             $returnedDescendant = stripslashes($items1['descendant_id']);
             $returnedAncestor = stripslashes($items1['ancestor_id']);
             
-            //4. select the record with path_length=1 so that you get the immediate parent.
+            //4. select the single record with path_length=1 so that you get only the immediate parent.
             
             $sqlsel2 = "SELECT c.*, u.* FROM ubm_modelcreationsuite_heirarchy_object_antiSolipsism_UUID u
                             JOIN ubm_modelcreationsuite_heirarchy_object_closureTable c
                             ON (u.UUID=c.descendant_id)
                             WHERE c.descendant_id=$returnedDescendant
-                            AND c.path_length=1";
+                            AND c.path_length=1
+                            ORDER BY c.descendant_id";
             $rs2 = $conn->query($sqlsel2);
             if ($rs2 === false) {
                 trigger_error('Wrong SQL: ' . $sqlsel2 . ' Error: ' . $conn->error, E_USER_ERROR);
@@ -196,8 +197,10 @@ foreach ($all_UUID as $object => $value) {
                              require('ubms_create_position_report.php');
                        }
                     }
-                }
                 $jdCounter = 1;
+                $plCounter = 1;
+
+                }
                 if ($jobDescriptionId >= 1) {
                     $sqlsel2 = "SELECT * FROM ubm_model_jobDescriptions WHERE id=$jobDescriptionId";
                     $rs2 = $conn->query($sqlsel2);
@@ -232,6 +235,7 @@ foreach ($all_UUID as $object => $value) {
                              $plScope = $items2['scope'];
                              $plPolicyType = $items2['policy_type'];
                              require('ubms_create_policy_report.php');
+                            $plCounter = $plCounter + 1;                             
                         }
                     }
                 }

@@ -475,11 +475,13 @@ under the License.
 					key : window.key,
 					username: window.username,
 					activeModelUUID : window.activeModelUUID,
-					activeJobDescriptionId: window.activeReportsToJobDescription
+					activeAncestorUUID: window.activePositionUUID,
+					activeDescendantUUID: window.activeJobDescriptionUUID
 				}, function(res, status) {
 					$().toastmessage('showSuccessToast', res.message);
 				});
 					getMyModelsOrgChart();
+					getChildElementsforHierarchicalTree(window.activePositionUUID);
 			}
 
 			function confirmRemoveActivePosition(){
