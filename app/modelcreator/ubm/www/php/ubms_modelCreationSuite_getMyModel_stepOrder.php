@@ -20,9 +20,9 @@ $all_items = array();
 			ON ubm_modelcreationsuite_heirarchy_object_antiSolipsism_UUID.UUID=ubm_model_stepUUID_has_stepnumber.step_UUID
 			JOIN ubm_model_steps
 			ON ubm_model_steps.id=ubm_modelcreationsuite_heirarchy_object_antiSolipsism_UUID.step_id
-			WHERE ubm_modelcreationsuite_heirarchy_object_closureTable.ancestor_id= $activeModelUUID
+			WHERE ubm_modelcreationsuite_heirarchy_object_closureTable.ancestor_id= $activeProcedureUUID
 			AND ubm_modelcreationsuite_heirarchy_object_antiSolipsism_UUID.step_id>0
-			ORDER By step_number";
+			ORDER BY step_number";
 			$rs1=$conn->query($sqlsel1);
 			if($rs1 === false) {
 			  trigger_error('Wrong SQL: ' . $sqlsel1 . ' Error: ' . $conn->error, E_USER_ERROR);
@@ -33,10 +33,12 @@ $all_items = array();
 						$all_items [] = $items;		
 					}				
 //6. JSONP packaged $all_items array
-							echo $_GET['callback'] . '(' . json_encode($all_items) . ')';				//Output $all_items array in json encoded format.		
+											//Output $all_items array in json encoded format.		
 				}else{
-				
-				}								
+					$message = array("instruction" => "No Steps Yet!");
+					$all_items[] = $message;
+				}	
+				echo $_GET['callback'] . '(' . json_encode($all_items) . ')';							
 			}
 
 			

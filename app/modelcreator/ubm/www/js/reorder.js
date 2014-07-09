@@ -3,10 +3,10 @@ $(function() {
 });
 
 function reorderTasks() {
+	$("#ubmsuite_mcs_my_organizational_chart_content_mangeStepPopUp").popup('close');
     showLoader();
-    $("#ubmsuite_mcs_my_organizational_chart_content_mangeStepPopUp").popup('close');
     $.getJSON('http://api.universalbusinessmodel.com/ubms_modelCreationSuite_getMyModel_taskOrder.php?callback=?', { //JSONP Request
-        activeModelUUID: window.activeModelUUID,
+        activeStepUUID: window.activeStepUUID,
         key: window.key
     }, function(res, status) {
         $('#sortableTasks').empty();
@@ -22,7 +22,7 @@ function reorderSteps() {
     showLoader();
     $("#ubmsuite_mcs_my_organizational_chart_content_mangeProcedurePopUp").popup('close');
     $.getJSON('http://api.universalbusinessmodel.com/ubms_modelCreationSuite_getMyModel_stepOrder.php?callback=?', { //JSONP Request
-        activeModelUUID: window.activeModelUUID,
+        activeProcedureUUID: window.activeProcedureUUID,
         key: window.key
     }, function(res, status) {
         $('#sortableSteps').empty();

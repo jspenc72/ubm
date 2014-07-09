@@ -3,7 +3,8 @@ require_once ('globalGetVariables.php');
 require_once ('ubms_db_config.php');
 require_once ('DBConnect_UBMv1.php');
  //Provides the variables used for UBMv1 database connection $conn
-
+error_reporting(E_ALL);
+ini_set('display_errors', '1');
 $conn = new mysqli($DBServer, $DBUser, $DBPass, $DBName);
 
 // check connection
@@ -46,7 +47,31 @@ if ($conn->query($sqlins) === false) {
             trigger_error('Wrong SQL: ' . $sqlins3 . ' Error: ' . $conn->error, E_USER_ERROR);
             echo "there was a problem";
         } else {
-            echo $_GET['callback'] . '(' . "{'message' : 'Requested Task $v8 was created successfully and added to StepId $v7 !'}" . ')';
+            $sqlsel1="SELECT *                  
+            FROM ubm_modelcreationsuite_heirarchy_object_closureTable
+            JOIN ubm_modelcreationsuite_heirarchy_object_antiSolipsism_UUID
+            ON ubm_modelcreationsuite_heirarchy_object_closureTable.descendant_id=ubm_modelcreationsuite_heirarchy_object_antiSolipsism_UUID.UUID
+            JOIN ubm_model_taskUUID_has_tasknumber
+            ON ubm_modelcreationsuite_heirarchy_object_antiSolipsism_UUID.UUID=ubm_model_taskUUID_has_tasknumber.task_UUID
+            JOIN ubm_model_tasks
+            ON ubm_model_tasks.id=ubm_modelcreationsuite_heirarchy_object_antiSolipsism_UUID.task_id
+            WHERE ubm_modelcreationsuite_heirarchy_object_closureTable.ancestor_id= $activeStepUUID
+            AND ubm_modelcreationsuite_heirarchy_object_antiSolipsism_UUID.task_id>0
+            ORDER BY task_number";
+            $rs1=$conn->query($sqlsel1);
+            if($rs1 === false) {
+              trigger_error('Wrong SQL: ' . $sqlsel1 . ' Error: ' . $conn->error, E_USER_ERROR);
+            } else {
+                $rows_returned = $rs1->num_rows +1;
+            }
+            $sqlins4 = "INSERT INTO ubm_model_taskUUID_has_tasknumber (task_UUID, task_number, created_by) 
+                        VALUES ( $last_inserted_task_uuid, $rows_returned, '$username')";
+            if ($conn->query($sqlins4) === false) {
+            trigger_error('Wrong SQL: ' . $sqlins4 . ' Error: ' . $conn->error, E_USER_ERROR);
+            echo "there was a problem";
+            } else {
+                echo $_GET['callback'] . '(' . "{'message' : 'Requested Task $v8 was created successfully and added to StepId $v7 !'}" . ')';
+            }
         }
     }
 }

@@ -1,5 +1,5 @@
 <?php
-require_once ('../config/tcpdf_config.php');
+//require_once ('../config/tcpdf_config.php');
 require_once ('../tcpdf.php');
 include ('../../../DBConnect_UBMv1.php');
 //Provides the variables used for UBMv1 database connection $conn

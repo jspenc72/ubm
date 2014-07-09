@@ -20,7 +20,7 @@ $all_items = array();
 			ON ubm_modelcreationsuite_heirarchy_object_antiSolipsism_UUID.UUID=ubm_model_taskUUID_has_tasknumber.task_UUID
 			JOIN ubm_model_tasks
 			ON ubm_model_tasks.id=ubm_modelcreationsuite_heirarchy_object_antiSolipsism_UUID.task_id
-			WHERE ubm_modelcreationsuite_heirarchy_object_closureTable.ancestor_id= $activeModelUUID
+			WHERE ubm_modelcreationsuite_heirarchy_object_closureTable.ancestor_id= $activeStepUUID
 			AND ubm_modelcreationsuite_heirarchy_object_antiSolipsism_UUID.task_id>0
 			ORDER BY task_number";
 			$rs1=$conn->query($sqlsel1);
@@ -33,10 +33,11 @@ $all_items = array();
 						$all_items [] = $items;		
 					}				
 //6. JSONP packaged $all_items array
-							echo $_GET['callback'] . '(' . json_encode($all_items) . ')';				//Output $all_items array in json encoded format.		
 				}else{
-				
-				}								
+				$message = array("instruction" => "No Tasks Yet!");
+				$all_items[] = $message;
+				}	
+				echo $_GET['callback'] . '(' . json_encode($all_items) . ')';									
 			}
 
 			
