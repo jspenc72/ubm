@@ -13,7 +13,6 @@ if ($conn->connect_error) {
 }
 
 //INSERT
-
 $v2 = "'" . $conn->real_escape_string($activeModelUUID) . "'";
 $v3 = "'" . $conn->real_escape_string($activePositionId) . "'";
 $v4 = "'" . $conn->real_escape_string($activeJobDescriptionId) . "'";
@@ -21,9 +20,7 @@ $v5 = "'" . $conn->real_escape_string($activePolicyId) . "'";
 $v6 = "'" . $conn->real_escape_string($activeProcedureId) . "'";
 $v7 = "'" . $conn->real_escape_string($activeStepId) . "'";
 $v8 = "'" . $conn->real_escape_string($activeTaskId) . "'";
-		
    //1. Delete all links that connect the Position to a model. */
-
 $sql = "
  DELETE link
  FROM ubm_modelcreationsuite_heirarchy_object_closureTable a, 
