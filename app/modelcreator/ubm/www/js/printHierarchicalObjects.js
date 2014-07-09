@@ -1,5 +1,5 @@
 function openPositionHierarchicalPdf() {
-    var link = "http://api.universalbusinessmodel.com/tcpdf/app/examples/ubm_hierarchicalObjects.php?callback=?&activeObjectUUID=" + window.activePositionUUID + "";
+    var link = "http://api.universalbusinessmodel.com/tcpdf/app/examples/ubm_hierarchicalObjects.php?callback=?&activeObjectUUID=" + window.activePositionUUID + "&activeModelUUID=" + window.activeModelUUID + "&key=" + window.key + "";
     window.open(link, '_blank');
 }
 

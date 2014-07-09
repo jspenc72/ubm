@@ -2,6 +2,7 @@
 require_once ('../config/tcpdf_config.php');
 require_once ('../tcpdf.php');
 include ('../../../DBConnect_UBMv1.php');
+require_once ('../../../ubms_db_config.php');
 //Provides the variables used for UBMv1 database connection $conn
 require_once ('../../../globalGetVariables.php');
 $conn = new mysqli($DBServer, $DBUser, $DBPass, $DBName);
@@ -20,10 +21,7 @@ $pdf->SetPrintHeader(false);
 $pdf->SetPrintFooter(false);
 // set font
 $pdf->SetFont('times', '', 10);
-$psCounter  = 'test';
-$plCounter ='test';
-$legalEntity = 'test';
-$jdCounter ='test';
+$psCounter  = null;
 $all_UUID = array();
 $all_items = array();
 $tableRow = array();
@@ -35,6 +33,21 @@ $tableRow = array();
     error_reporting(E_ALL);
     ini_set('display_errors', '1');
 
+$sqlsel1 = "SELECT * FROM ubm_modelcreationsuite_heirarchy_object_antiSolipsism_UUID
+                JOIN ubm_model
+                ON (ubm_model.id=ubm_modelcreationsuite_heirarchy_object_antiSolipsism_UUID.model_id)
+                WHERE ubm_modelcreationsuite_heirarchy_object_antiSolipsism_UUID.UUID=$activeModelUUID";
+$rs1 = $conn->query($sqlsel1);
+
+//2. Set rs1 equal to the list of objects that is returned in the result set.
+if ($rs1 === false) {
+    trigger_error('Wrong SQL: ' . $sqlsel1 . ' Error: ' . $conn->error, E_USER_ERROR);
+} else {
+    while ($items1 = $rs1->fetch_assoc()) {
+        $modelTitle = stripslashes($items1['title']);
+        $legalEntity = stripslashes($items1['owner_legal_entity']);
+    }
+}
     //SELECT
     //1. Select all records with ancestor equal to the activeObjectUUID
     $sqlsel1 = "SELECT c.descendant_id, c.ancestor_id, c.path_length FROM ubm_modelcreationsuite_heirarchy_object_antiSolipsism_UUID u
@@ -114,6 +127,8 @@ foreach ($all_UUID as $object => $value) {
                              require('ubms_create_position_report.php');
                        }
                     }
+                    $jdCounter = 1;
+                    $plCounter = 1;
                 }
 
                 if ($jobDescriptionId >= 1) {
@@ -132,6 +147,7 @@ foreach ($all_UUID as $object => $value) {
                              $jdPhysicalDemand = $items2['physical_demand'];
                              $jdWorkEnvironment = $items2['work_environment'];
                              require('ubms_create_jobDescription_report.php');
+                             $jdCounter += 1; 
                        }
                     }
                 }
@@ -149,6 +165,7 @@ foreach ($all_UUID as $object => $value) {
                              $plScope = $items2['scope'];
                              $plPolicyType = $items2['policy_type'];
                              require('ubms_create_policy_report.php');
+                             $plCounter += 1;
                         }
                     }
                 }
@@ -163,65 +180,53 @@ foreach ($all_UUID as $object => $value) {
                             $prPurpose = $items2['purpose'];
                             $prScope = $items2['scope'];
 
-                            $sqlsel3 = "SELECT * FROM ubm_modelcreationsuite_heirarchy_object_closureTable WHERE ancestor_id=$value AND path_length=1";
+                            $sqlsel3 = "SELECT * FROM ubm_modelcreationsuite_heirarchy_object_closureTable
+                                        JOIN ubm_modelcreationsuite_heirarchy_object_antiSolipsism_UUID
+                                        ON ubm_modelcreationsuite_heirarchy_object_closureTable.descendant_id=ubm_modelcreationsuite_heirarchy_object_antiSolipsism_UUID.UUID
+                                        JOIN ubm_model_stepUUID_has_stepnumber
+                                        ON ubm_model_stepUUID_has_stepnumber.step_UUID=ubm_modelcreationsuite_heirarchy_object_antiSolipsism_UUID.UUID
+                                        JOIN ubm_model_steps
+                                        ON ubm_model_steps.id=ubm_modelcreationsuite_heirarchy_object_antiSolipsism_UUID.step_id
+                                        WHERE ancestor_id=$value AND path_length=1
+                                        ORDER BY ubm_model_stepUUID_has_stepnumber.step_number";
                             $rs3 = $conn->query($sqlsel3);
 
                             if ($rs3 === false) {
                                 trigger_error('Wrong SQL: ' . $sqlsel3 . ' Error: ' . $conn->error, E_USER_ERROR);
                             } else {
                                 while ($items3 = $rs3->fetch_assoc()) {
-                                    $returnedDescendantId = stripslashes($items3['descendant_id']);
-
-                                    $sqlsel4 = "SELECT * FROM ubm_modelcreationsuite_heirarchy_object_antiSolipsism_UUID
-                                    JOIN ubm_model_steps
-                                    ON ubm_modelcreationsuite_heirarchy_object_antiSolipsism_UUID.step_id=ubm_model_steps.id
-                                    WHERE ubm_modelcreationsuite_heirarchy_object_antiSolipsism_UUID.UUID=$returnedDescendantId";
-                                    $rs4 = $conn->query($sqlsel4);
-                                    if ($rs4 === false) {
-                                        trigger_error('Wrong SQL: ' . $sqlsel4 . ' Error: ' . $conn->error, E_USER_ERROR);
+                                    $stepUUID = $items3['UUID'];
+                                    $stepNumber = $items3['step_number'];
+                                    $stInstruction = $items3['instruction'];
+                                    $tableRow[] = '<tr><td width="35" align="center">'.$stepNumber.'</td><td width="350">'.$stInstruction.'</td></tr>';
+                                    
+                                    $sqlsel5 = "SELECT * FROM ubm_modelcreationsuite_heirarchy_object_closureTable 
+                                                JOIN ubm_modelcreationsuite_heirarchy_object_antiSolipsism_UUID
+                                                ON ubm_modelcreationsuite_heirarchy_object_closureTable.descendant_id=ubm_modelcreationsuite_heirarchy_object_antiSolipsism_UUID.UUID
+                                                JOIN ubm_model_taskUUID_has_tasknumber
+                                                ON ubm_model_taskUUID_has_tasknumber.task_UUID=ubm_modelcreationsuite_heirarchy_object_antiSolipsism_UUID.UUID
+                                                JOIN ubm_model_tasks
+                                                ON ubm_model_tasks.id=ubm_modelcreationsuite_heirarchy_object_antiSolipsism_UUID.task_id
+                                                WHERE ubm_modelcreationsuite_heirarchy_object_closureTable.ancestor_id=$stepUUID AND ubm_modelcreationsuite_heirarchy_object_closureTable.path_length=1
+                                                ORDER BY ubm_model_taskUUID_has_tasknumber.task_number";
+                                    $rs5 = $conn->query($sqlsel5);
+                                    if ($rs5 === false) {
+                                        trigger_error('Wrong SQL: ' . $sqlsel3 . ' Error: ' . $conn->error, E_USER_ERROR);
                                     } else {
-                                        //3. Get all the UUID's from the returned array
-                                        while ($items4 = $rs4->fetch_assoc()) {
-                                            $stepUUID = $items4['UUID'];
-                                            $stepNumber = $items4['step_number'];
-                                            $stInstruction = $items4['instruction'];
-                                            $tableRow[] = '<tr><td width="35" align="center">'.$stepNumber.'</td><td width="350">'.$stInstruction.'</td></tr>';
-                                            $sqlsel5 = "SELECT * FROM ubm_modelcreationsuite_heirarchy_object_closureTable WHERE ancestor_id=$stepUUID AND path_length=1";
-                                            $rs5 = $conn->query($sqlsel5);
-                                            if ($rs5 === false) {
-                                                trigger_error('Wrong SQL: ' . $sqlsel3 . ' Error: ' . $conn->error, E_USER_ERROR);
-                                            } else {
-                                                if ($rs5->num_rows > 0)  {
-                                                    while ($items5 = $rs5->fetch_assoc()) {
-                                                    
-
-                                                        $returnedDescendantId = stripslashes($items5['descendant_id']);
-
-                                                        $sqlsel6 = "SELECT * FROM ubm_modelcreationsuite_heirarchy_object_antiSolipsism_UUID
-                                                        JOIN ubm_model_tasks
-                                                        ON ubm_modelcreationsuite_heirarchy_object_antiSolipsism_UUID.task_id=ubm_model_tasks.id
-                                                        WHERE ubm_modelcreationsuite_heirarchy_object_antiSolipsism_UUID.UUID=$returnedDescendantId";
-                                                        $rs6 = $conn->query($sqlsel6);
-                                                        if ($rs6 === false) {
-                                                            trigger_error('Wrong SQL: ' . $sqlsel6 . ' Error: ' . $conn->error, E_USER_ERROR);
-                                                        } else {
-                                                            
-                                                            while ($items6 = $rs6->fetch_assoc()) {
-                                                                $taskNubmer = $items6['task_number'];
-                                                                $tkInstruction = $items6['instruction'];
-                                                                $tableRow[] = '<tr><td width="50"></td><td width="20">'.$taskNubmer.'.</td><td>'.$tkInstruction.'</td></tr>';
-                                                            }
-                                                        }
-                                                    }
-                                                } else {
-                                                        $tableRow[] = '<tr><td width="50"></td><td width="20">0.</td><td>No Task</td></tr>';
-                                                    }
+                                        if ($rs5->num_rows > 0)  {
+                                            while ($items5 = $rs5->fetch_assoc()) {
+                                                $taskNubmer = $items5['task_number'];
+                                                $tkInstruction = $items5['instruction'];
+                                                $tableRow[] = '<tr><td width="50"></td><td width="20">'.$taskNubmer.'.</td><td>'.$tkInstruction.'</td></tr>';
+                                                }
+                                        } else {
+                                                $tableRow[] = '<tr><td width="50"></td><td width="20">0.</td><td>No Task</td></tr>';
                                             }
-                                        }
                                     }
                                 }
+                                require('ubms_create_procedure_report.php');
+                                $tableRow = array();
                             }
-                            require('ubms_create_procedure_report.php');
                         }
                     }
                 }
@@ -233,4 +238,19 @@ foreach ($all_UUID as $object => $value) {
         }
     }
 }
+$pdf->addTOCPage();
+// write the TOC title
+//$pdf->SetFont('times', 'B', 16);
+$pdf->MultiCell(0, 0, 'Legal Entity: ' . $modelTitle, 0, 'C', 0, 1, '', '', true, 0);
+$pdf->MultiCell(0, 0, 'Model Title: ' . $modelTitle, 0, 'C', 0, 1, '', '', true, 0);
+$pdf->Ln();
+$pdf->MultiCell(0, 0, 'Table Of Contents', 0, 'C', 0, 1, '', '', true, 0);
+$pdf->Ln();
+
+// add a simple Table Of Content at first page
+// (check the example n. 59 for the HTML version)
+$pdf->addTOC(1, 'courier', '.', 'INDEX', 'B', array(128,0,0));
+
+// end of TOC page
+$pdf->endTOCPage();
 $pdf->Output('PositionHierarchy.pdf', 'I');

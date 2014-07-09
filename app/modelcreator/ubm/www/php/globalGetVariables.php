@@ -475,4 +475,5 @@ $actionRequired = $_GET['actionRequired'];
 $modelTitle = $_GET['modelTitle']; 
 $modelReference = $_GET['modelReference']; 
 $modelDescription = $_GET['modelDescription']; 
-
+$stepOrder = $_GET['stepOrder']; 
+$taskOrder = $_GET['taskOrder']; 

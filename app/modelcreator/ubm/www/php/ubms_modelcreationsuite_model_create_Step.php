@@ -12,7 +12,7 @@ if ($conn -> connect_error) {
 }
 
 //INSERT
-$v2 = "'" . $conn -> real_escape_string($activeModelId) . "'";
+$v2 = "'" . $conn -> real_escape_string($activeModelUUID) . "'";
 $v3 = "'" . $conn -> real_escape_string($title) . "'";
 $v4 = "'" . $conn -> real_escape_string($description) . "'";
 $v6 = "'" . $conn -> real_escape_string($instruction) . "'";
@@ -55,104 +55,33 @@ if ($conn -> query($sqlins) === false) {
 				trigger_error('Wrong SQL: ' . $sqlins3 . ' Error: ' . $conn -> error, E_USER_ERROR);
 				echo "there was a problem";
 			} else {
-				echo $_GET['callback'] . '(' . "{'message' : 'Requested Step $title was created successfully and added to model id: $v2 !'}" . ')';
+				$sqlsel1="SELECT *                  
+	            FROM ubm_modelcreationsuite_heirarchy_object_closureTable
+	            JOIN ubm_modelcreationsuite_heirarchy_object_antiSolipsism_UUID
+	            ON ubm_modelcreationsuite_heirarchy_object_closureTable.descendant_id=ubm_modelcreationsuite_heirarchy_object_antiSolipsism_UUID.UUID
+	            JOIN ubm_model_stepUUID_has_stepnumber
+	            ON ubm_modelcreationsuite_heirarchy_object_antiSolipsism_UUID.UUID=ubm_model_stepUUID_has_stepnumber.step_UUID
+	            JOIN ubm_model_steps
+	            ON ubm_model_steps.id=ubm_modelcreationsuite_heirarchy_object_antiSolipsism_UUID.step_id
+	            WHERE ubm_modelcreationsuite_heirarchy_object_closureTable.ancestor_id= $activeProcedureUUID
+	            AND ubm_modelcreationsuite_heirarchy_object_antiSolipsism_UUID.step_id>0
+	            ORDER BY step_number";
+	            $rs1=$conn->query($sqlsel1);
+	            if($rs1 === false) {
+	              trigger_error('Wrong SQL: ' . $sqlsel1 . ' Error: ' . $conn->error, E_USER_ERROR);
+	            } else {
+	                $rows_returned = $rs1->num_rows +1;
+	            }
+	            $sqlins4 = "INSERT INTO ubm_model_stepUUID_has_stepnumber (step_UUID, step_number, created_by) 
+	                        VALUES ( $last_inserted_ST_UUID, $rows_returned, '$username')";
+	            if ($conn->query($sqlins4) === false) {
+	            trigger_error('Wrong SQL: ' . $sqlins4 . ' Error: ' . $conn->error, E_USER_ERROR);
+	            echo "there was a problem";
+	            } else {
+	                echo $_GET['callback'] . '(' . "{'message' : 'Requested Step $title was created successfully and added to model id: $v2 !'}" . ')';
+	            }
+				
 			}			
 		}
 	}
 }
-
-/*SELECT
- $sqlsel="SELECT * FROM ubm_mcs_app_resolutions WHERE openitemid=$openitemid";
-
- $rs=$conn->query($sqlsel);
-
- if($rs === false) {
- trigger_error('Wrong SQL: ' . $sqlsel . ' Error: ' . $conn->error, E_USER_ERROR);
- } else {
- $rows_returned = $rs->num_rows;
- }
- //UPDATE
- //$v1="'" . $conn->real_escape_string($disposition) . "'";
- $sql="UPDATE `ubm_mcs_app_openitems` SET number_resolutions=$rows_returned WHERE id=$openitemid";
- if($conn->query($sql) === false) {
- trigger_error('Wrong SQL: ' . $sql . ' Error: ' . $conn->error, E_USER_ERROR);
- } else {
- $affected_rows = $conn->affected_rows;
- echo $_GET['callback'] . '(' . "{'message' : 'The number of affected rows is $affected_rows, the number of resolutions is: $rows_returned the openitemid modified was $openitemid!'}" . ')';
- }
- 
-//Send Email Message
-$to = "jspenc72@gmail.com";
-$subject = "New feedback has bee submitted for request# $ubmchangerequestid!";
-$message = "$usrname submitted feedback using the UBMChangeRequest app. Current latitude is $lat Current longitude is $lng";
-$from = "notify@universalbusinessmodel.com";
-$headers = "From:" . $from;
-mail($to, $subject, $message, $headers);
-//echo "Mail Sent.";
-/*http://www.pontikis.net/blog/how-to-use-php-improved-mysqli-extension-and-why-you-should
- * SELECT
- $sql='SELECT col1, col2, col3 FROM table1 WHERE condition';
-
- $rs=$conn->query($sql);
-
- if($rs === false) {
- trigger_error('Wrong SQL: ' . $sql . ' Error: ' . $conn->error, E_USER_ERROR);
- } else {
- $rows_returned = $rs->num_rows;
- }
- * Iterate over Recordset
- $rs->data_seek(0);
- while($row = $rs->fetch_assoc()){
- echo $row['col1'] . '<br>';
- }
- * 	Store all values to array
- $rs=$conn->query($sql);
-
- if($rs === false) {
- trigger_error('Wrong SQL: ' . $sql . ' Error: ' . $conn->error, E_USER_ERROR);
- } else {
- $arr = $rs->fetch_all(MYSQLI_ASSOC);
- }
- foreach($arr as $row) {
- echo $row['co1'];
- }
- * 		Record count
- $rows_returned = $rs->num_rows;
- * Move inside recordset
- $rs->data_seek(10);
- *	Free memory
-
- $rs->free();
- *
- * INSERT
- $v1="'" . $conn->real_escape_string('col1_value') . "'";
-
- $sql="INSERT INTO tbl (col1_varchar, col2_number) VALUES ($v1,10)";
-
- if($conn->query($sql) === false) {
- trigger_error('Wrong SQL: ' . $sql . ' Error: ' . $conn->error, E_USER_ERROR);
- } else {
- $last_inserted_id = $conn->insert_id;
- $affected_rows = $conn->affected_rows;
- }
- * UPDATE
- $v1="'" . $conn->real_escape_string('col1_value') . "'";
-
- $sql="UPDATE tbl SET col1_varchar=$v1, col2_number=1 WHERE id>10";
-
- if($conn->query($sql) === false) {
- trigger_error('Wrong SQL: ' . $sql . ' Error: ' . $conn->error, E_USER_ERROR);
- } else {
- $affected_rows = $conn->affected_rows;
- }
- * DELETE
- $sql="DELETE FROM tbl WHERE id>10";
-
- if($conn->query($sql) === false) {
- trigger_error('Wrong SQL: ' . $sql . ' Error: ' . $conn->error, E_USER_ERROR);
- } else {
- $affected_rows = $conn->affected_rows;
- }
-
- * */
-?>
