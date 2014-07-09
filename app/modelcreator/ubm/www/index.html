@@ -569,49 +569,49 @@ under the License.
 				//8. We define a variable to hold the appropriate content for the tooltip.
 													if (item.object_type == "MD") {
 				//9. Check that the object_type is equal to Model.
-														updated_content = "<span><img src='images/puppy.jpg' style='width:100px; height:auto; cursor: pointer;' title='Click here to edit this item.'/> <table class='docutils field-list' frame='void' rules='none'><col class='tooltipster field-name' /><col class='field-body' /><tbody valign='top'><tr class='field-odd field'><th class='tooltipster field-name'>" + item.reference_prefix + "</th><td class='field-body'>" + item.reference + "</td></tr><tr class='field-even field'><th class='tooltipster field-name'>Model " + item.title_prefix + "</th><td class='field-body'>" + item.title + "</td></tr><tr class='field-even field'><th class='tooltipster field-name'>" + item.description_prefix + "</th><td class='field-body'>" + item.description + "</td></tr><tr class='field-even field'><th class='tooltipster field-name'>" + item.scope_prefix + "</th><td class='field-body'>" + item.scope + "</td></tr><tr class='field-even field'><th class='tooltipster field-name'>" + item.purpose_prefix + "</th><td class='field-body'>" + item.purpose + "</td></tr><tr class='field-even field'><th class='tooltipster field-name'>" + item.creator_id_prefix + "</th><td class='field-body'>" + item.creator_id + "</td></tr><tr class='field-even field'><th class='tooltipster field-name'>" + item.created_date_prefix + "</th><td class='field-body'>" + item.created_date + "</td></tr></tbody></table></span>"
+														updated_content = "<span><img src='images/puppy.jpg' style='width:100px; height:auto; cursor: pointer;' title='Click here to edit this item.' onClick='editObject(" + window.activeUUID + ")'/></br><table class='docutils field-list' frame='void' rules='none'><col class='tooltipster field-name' /><col class='field-body' /><tbody valign='top'><tr class='field-odd field'><th class='tooltipster field-name'>" + item.reference_prefix + "</th><td class='field-body'>" + item.reference + "</td></tr><tr class='field-even field'><th class='tooltipster field-name'>Model " + item.title_prefix + "</th><td class='field-body'>" + item.title + "</td></tr><tr class='field-even field'><th class='tooltipster field-name'>" + item.description_prefix + "</th><td class='field-body'>" + item.description + "</td></tr><tr class='field-even field'><th class='tooltipster field-name'>" + item.scope_prefix + "</th><td class='field-body'>" + item.scope + "</td></tr><tr class='field-even field'><th class='tooltipster field-name'>" + item.purpose_prefix + "</th><td class='field-body'>" + item.purpose + "</td></tr><tr class='field-even field'><th class='tooltipster field-name'>" + item.creator_id_prefix + "</th><td class='field-body'>" + item.creator_id + "</td></tr><tr class='field-even field'><th class='tooltipster field-name'>" + item.created_date_prefix + "</th><td class='field-body'>" + item.created_date + "</td></tr></tbody></table></span>"
 				//10. Set the updated_content variable equal to a string of HTML format with the parameters from the api concatenated into the string.
 														//origin.tooltipster('content', updated_content).data('ajax', 'cached');
 														origin.tooltipster('content', updated_content);
 				//11. Update the content of the tooltip.										
 													} else if (item.object_type == "PS") {
 				//12. Check that the object_type is equal to Position.
-														updated_content = "<span><img src='images/puppy.jpg' style='width:100px; height:auto; cursor: pointer;' title='Click here to edit this item.'/> <table class='docutils field-list' frame='void' rules='none'><col class='tooltipster field-name' /><col class='field-body' /><tbody valign='top'><tr class='field-odd field'><th class='tooltipster field-name'>Position Title: </th><td class='field-body'>" + item.title + "</td></tr><tr class='field-even field'><th class='tooltipster field-name'>Position Description: </th><td class='field-body'>" + item.description + "</td></tr><tr class='field-even field'><th class='tooltipster field-name'>Position Summary: </th><td class='field-body'>" + item.summary + "</td></tr><tr class='field-even field'><th class='tooltipster field-name'>Security Level: </th><td class='field-body'>" + item.security_level + "</td></tr><tr class='field-even field'><th class='tooltipster field-name'>Age Requirement: </th><td class='field-body'>" + item.age_requirements + "</td></tr><tr class='field-even field'><th class='tooltipster field-name'>Education Requirement: </th><td class='field-body'>" + item.education_requirements + "</td></tr><tr class='field-even field'><th class='tooltipster field-name'>Physical Demands: </th><td class='field-body'>" + item.physical_demands + "</td></tr></tbody></table></span>"
+														updated_content = "<span><img src='images/puppy.jpg' style='width:100px; height:auto; cursor: pointer;' title='Click here to edit this item.' onClick='editObject(" + window.activeUUID + ")/></br><table class='docutils field-list' frame='void' rules='none'><col class='tooltipster field-name' /><col class='field-body' /><tbody valign='top'><tr class='field-odd field'><th class='tooltipster field-name'>Position Title: </th><td class='field-body'>" + item.title + "</td></tr><tr class='field-even field'><th class='tooltipster field-name'>Position Description: </th><td class='field-body'>" + item.description + "</td></tr><tr class='field-even field'><th class='tooltipster field-name'>Position Summary: </th><td class='field-body'>" + item.summary + "</td></tr><tr class='field-even field'><th class='tooltipster field-name'>Security Level: </th><td class='field-body'>" + item.security_level + "</td></tr><tr class='field-even field'><th class='tooltipster field-name'>Age Requirement: </th><td class='field-body'>" + item.age_requirements + "</td></tr><tr class='field-even field'><th class='tooltipster field-name'>Education Requirement: </th><td class='field-body'>" + item.education_requirements + "</td></tr><tr class='field-even field'><th class='tooltipster field-name'>Physical Demands: </th><td class='field-body'>" + item.physical_demands + "</td></tr></tbody></table></span>"
 				//13. Set the updated_content variable equal to a string of HTML format with the parameters from the api concatenated into the string.
 														//origin.tooltipster('content', updated_content).data('ajax', 'cached');
 														origin.tooltipster('content', updated_content);
 				//14. Update the content of the tooltip.
 													} else if (item.object_type == "JD") {
 				//15. Check that the object_type is equal to Job Description.
-														updated_content = "<span><img src='images/puppy.jpg' style='width:100px; height:auto; cursor: pointer;' title='Click here to edit this item.'/> <table class='docutils field-list' frame='void' rules='none'><col class='tooltipster field-name' /><col class='field-body' /><tbody valign='top'><tr class='field-odd field'><th class='tooltipster field-name'>Job Description Title: </th><td class='field-body'>" + item.title + "</td></tr><tr class='field-even field'><th class='tooltipster field-name'>Objective: </th><td class='field-body'>" + item.objective + "</td></tr><tr class='field-even field'><th class='tooltipster field-name'>Essential Duties and Responsibilities: </th><td class='field-body'>" + item.essential_duties_and_responsibilities + "</td></tr><tr class='field-even field'><th class='tooltipster field-name'>Age Requirement: </th><td class='field-body'>" + item.age_requirement + "</td></tr><tr class='field-even field'><th class='tooltipster field-name'>Education Requirements: </th><td class='field-body'>" + item.education_requirements + "</td></tr><tr class='field-even field'><th class='tooltipster field-name'>Qualifications: </th><td class='field-body'>" + item.qualifications + "</td></tr><tr class='field-even field'><th class='tooltipster field-name'>Physical Demand: </th><td class='field-body'>" + item.physical_demand + "</td></tr><tr class='field-even field'><th class='tooltipster field-name'>Work Environment: </th><td class='field-body'>" + item.work_environment + "</td></tr><tr class='field-even field'><th class='tooltipster field-name'>Creator Id: </th><td class='field-body'>" + item.created_by + "</td></tr><tr class='field-even field'><th class='tooltipster field-name'>Creation Date: </th><td class='field-body'>" + item.created_date + "</td></tr></tbody></table></span>"
+														updated_content = "<span><img src='images/puppy.jpg' style='width:100px; height:auto; cursor: pointer;' title='Click here to edit this item.' )/> <table class='docutils field-list' frame='void' rules='none'><col class='tooltipster field-name' /><col class='field-body' /><tbody valign='top'><tr class='field-odd field'><th class='tooltipster field-name'>Job Description Title: </th><td class='field-body'>" + item.title + "</td></tr><tr class='field-even field'><th class='tooltipster field-name'>Objective: </th><td class='field-body'>" + item.objective + "</td></tr><tr class='field-even field'><th class='tooltipster field-name'>Essential Duties and Responsibilities: </th><td class='field-body'>" + item.essential_duties_and_responsibilities + "</td></tr><tr class='field-even field'><th class='tooltipster field-name'>Age Requirement: </th><td class='field-body'>" + item.age_requirement + "</td></tr><tr class='field-even field'><th class='tooltipster field-name'>Education Requirements: </th><td class='field-body'>" + item.education_requirements + "</td></tr><tr class='field-even field'><th class='tooltipster field-name'>Qualifications: </th><td class='field-body'>" + item.qualifications + "</td></tr><tr class='field-even field'><th class='tooltipster field-name'>Physical Demand: </th><td class='field-body'>" + item.physical_demand + "</td></tr><tr class='field-even field'><th class='tooltipster field-name'>Work Environment: </th><td class='field-body'>" + item.work_environment + "</td></tr><tr class='field-even field'><th class='tooltipster field-name'>Creator Id: </th><td class='field-body'>" + item.created_by + "</td></tr><tr class='field-even field'><th class='tooltipster field-name'>Creation Date: </th><td class='field-body'>" + item.created_date + "</td></tr></tbody></table></span>"
 				//16. Set the updated_content variable equal to a string of HTML format with the parameters from the api concatenated into the string.
 														//origin.tooltipster('content', updated_content).data('ajax', 'cached');
 														origin.tooltipster('content', updated_content);
 				//17. Update the content of the tooltip.	
 													} else if (item.object_type == "PL") {
 				//18. Check that the object_type is equal to Policy.
-														updated_content = "<span><img src='images/puppy.jpg' style='width:100px; height:auto; cursor: pointer;' title='Click here to edit this item.'/><table class='docutils field-list' frame='void' rules='none'><col class='tooltipster field-name' /><col class='field-body' /><tbody valign='top'><tr class='field-odd field'><th class='tooltipster field-name'>Policy Title: </th><td class='field-body'>" + item.title + "</td></tr><tr class='field-even field'><th class='tooltipster field-name'>Description: </th><td class='field-body'>" + item.description + "</td></tr><tr class='field-even field'><th class='tooltipster field-name'>Purpose: </th><td class='field-body'>" + item.purpose + "</td></tr><tr class='field-even field'><th class='tooltipster field-name'>Scope: </th><td class='field-body'>" + item.scope + "</td></tr><tr class='field-even field'><th class='tooltipster field-name'>Creator Id: </th><td class='field-body'>" + item.created_by + "</td></tr><tr class='field-even field'><th class='tooltipster field-name'>Creation Date: </th><td class='field-body'>" + item.created_date + "</td></tr></tbody></table></span>"
+														updated_content = "<span><img src='images/puppy.jpg' style='width:100px; height:auto; cursor: pointer;' title='Click here to edit this item.' )/><table class='docutils field-list' frame='void' rules='none'><col class='tooltipster field-name' /><col class='field-body' /><tbody valign='top'><tr class='field-odd field'><th class='tooltipster field-name'>Policy Title: </th><td class='field-body'>" + item.title + "</td></tr><tr class='field-even field'><th class='tooltipster field-name'>Description: </th><td class='field-body'>" + item.description + "</td></tr><tr class='field-even field'><th class='tooltipster field-name'>Purpose: </th><td class='field-body'>" + item.purpose + "</td></tr><tr class='field-even field'><th class='tooltipster field-name'>Scope: </th><td class='field-body'>" + item.scope + "</td></tr><tr class='field-even field'><th class='tooltipster field-name'>Creator Id: </th><td class='field-body'>" + item.created_by + "</td></tr><tr class='field-even field'><th class='tooltipster field-name'>Creation Date: </th><td class='field-body'>" + item.created_date + "</td></tr></tbody></table></span>"
 				//19. Set the updated_content variable equal to a string of HTML format with the parameters from the api concatenated into the string.
 														//origin.tooltipster('content', updated_content).data('ajax', 'cached');
 														origin.tooltipster('content', updated_content);
 				//20. Update the content of the tooltip.
 													} else if (item.object_type == "PR") {
 				//21. Check that the object_type is equal to Procedure.
-														updated_content = "<span><img src='images/puppy.jpg' style='width:100px; height:auto; cursor: pointer;' title='Click here to edit this item.'/> <table class='docutils field-list' frame='void' rules='none'><col class='tooltipster field-name' /><col class='field-body' /><tbody valign='top'><tr class='field-odd field'><th class='tooltipster field-name'>Procedure Title: </th><td class='field-body'>" + item.title + "</td></tr><tr class='field-even field'><th class='tooltipster field-name'>Description: </th><td class='field-body'>" + item.description + "</td></tr><tr class='field-even field'><th class='tooltipster field-name'>Purpose: </th><td class='field-body'>" + item.purpose + "</td></tr><tr class='field-even field'><th class='tooltipster field-name'>Scope: </th><td class='field-body'>" + item.scope + "</td></tr><tr class='field-even field'><th class='tooltipster field-name'>Creator Id: </th><td class='field-body'>" + item.created_by + "</td></tr><tr class='field-even field'><th class='tooltipster field-name'>Creation Date: </th><td class='field-body'>" + item.created_date + "</td></tr></tbody></table></span>"
+														updated_content = "<span><img src='images/puppy.jpg' style='width:100px; height:auto; cursor: pointer;' title='Click here to edit this item.' )/> <table class='docutils field-list' frame='void' rules='none'><col class='tooltipster field-name' /><col class='field-body' /><tbody valign='top'><tr class='field-odd field'><th class='tooltipster field-name'>Procedure Title: </th><td class='field-body'>" + item.title + "</td></tr><tr class='field-even field'><th class='tooltipster field-name'>Description: </th><td class='field-body'>" + item.description + "</td></tr><tr class='field-even field'><th class='tooltipster field-name'>Purpose: </th><td class='field-body'>" + item.purpose + "</td></tr><tr class='field-even field'><th class='tooltipster field-name'>Scope: </th><td class='field-body'>" + item.scope + "</td></tr><tr class='field-even field'><th class='tooltipster field-name'>Creator Id: </th><td class='field-body'>" + item.created_by + "</td></tr><tr class='field-even field'><th class='tooltipster field-name'>Creation Date: </th><td class='field-body'>" + item.created_date + "</td></tr></tbody></table></span>"
 				//22. Set the updated_content variable equal to a string of HTML format with the parameters from the api concatenated into the string.
 														//origin.tooltipster('content', updated_content).data('ajax', 'cached');
 														origin.tooltipster('content', updated_content);
 				//23. Update the content of the tooltip.
 													} else if (item.object_type == "ST") {
 				//24. Check that the object_type is equal to Step.
-														updated_content = "<span><img src='images/puppy.jpg' style='width:100px; height:auto; cursor: pointer;' title='Click here to edit this item.'/> <table class='docutils field-list' frame='void' rules='none'><col class='tooltipster field-name' /><col class='field-body' /><tbody valign='top'><tr class='field-odd field'><th class='tooltipster field-name'>Step Title: </th><td class='field-body'>" + item.title + "</td></tr><tr class='field-even field'><th class='tooltipster field-name'>Description: </th><td class='field-body'>" + item.description + "</td></tr><tr class='field-even field'><th class='tooltipster field-name'>Purpose: </th><td class='field-body'>" + item.purpose + "</td></tr><tr class='field-even field'><th class='tooltipster field-name'>Instruction: </th><td class='field-body'>" + item.instruction + "</td></tr><tr class='field-even field'><th class='tooltipster field-name'>Creator Id: </th><td class='field-body'>" + item.created_by + "</td></tr><tr class='field-even field'><th class='tooltipster field-name'>Creation Date: </th><td class='field-body'>" + item.creation_date + "</td></tr></tbody></table></span>"
+														updated_content = "<span><img src='images/puppy.jpg' style='width:100px; height:auto; cursor: pointer;' title='Click here to edit this item.' )/> <table class='docutils field-list' frame='void' rules='none'><col class='tooltipster field-name' /><col class='field-body' /><tbody valign='top'><tr class='field-odd field'><th class='tooltipster field-name'>Step Title: </th><td class='field-body'>" + item.title + "</td></tr><tr class='field-even field'><th class='tooltipster field-name'>Description: </th><td class='field-body'>" + item.description + "</td></tr><tr class='field-even field'><th class='tooltipster field-name'>Purpose: </th><td class='field-body'>" + item.purpose + "</td></tr><tr class='field-even field'><th class='tooltipster field-name'>Instruction: </th><td class='field-body'>" + item.instruction + "</td></tr><tr class='field-even field'><th class='tooltipster field-name'>Creator Id: </th><td class='field-body'>" + item.created_by + "</td></tr><tr class='field-even field'><th class='tooltipster field-name'>Creation Date: </th><td class='field-body'>" + item.creation_date + "</td></tr></tbody></table></span>"
 				//25. Set the updated_content variable equal to a string of HTML format with the parameters from the api concatenated into the string.
 														//origin.tooltipster('content', updated_content).data('ajax', 'cached');
 														origin.tooltipster('content', updated_content);
 				//26. Update the content of the tooltip.	
 													} else if (item.object_type == "TK") {
 				//27. Check that the object_type is equal to Task.
-														updated_content = "<span><img src='images/puppy.jpg' style='width:100px; height:auto; cursor: pointer;' title='Click here to edit this item.'/><table class='docutils field-list' frame='void' rules='none'><col class='tooltipster field-name' /><col class='field-body' /><tbody valign='top'><tr class='field-odd field'><th class='tooltipster field-name'>Task Title: </th><td class='field-body'>" + item.title + "</td></tr><tr class='field-even field'><th class='tooltipster field-name'>Task Number: </th><td class='field-body'>" + item.task_number + "</td></tr><tr class='field-even field'><th class='tooltipster field-name'>Instruction: </th><td class='field-body'>" + item.instruction + "</td></tr><tr class='field-even field'><th class='tooltipster field-name'>Creator Id: </th><td class='field-body'>" + item.created_by + "</td></tr><tr class='field-even field'><th class='tooltipster field-name'>Creation Date: </th><td class='field-body'>" + item.creation_date + "</td></tr></tbody></table></span>"
+														updated_content = "<span><img src='images/puppy.jpg' style='width:100px; height:auto; cursor: pointer;' title='Click here to edit this item.' )/><table class='docutils field-list' frame='void' rules='none'><col class='tooltipster field-name' /><col class='field-body' /><tbody valign='top'><tr class='field-odd field'><th class='tooltipster field-name'>Task Title: </th><td class='field-body'>" + item.title + "</td></tr><tr class='field-even field'><th class='tooltipster field-name'>Task Number: </th><td class='field-body'>" + item.task_number + "</td></tr><tr class='field-even field'><th class='tooltipster field-name'>Instruction: </th><td class='field-body'>" + item.instruction + "</td></tr><tr class='field-even field'><th class='tooltipster field-name'>Creator Id: </th><td class='field-body'>" + item.created_by + "</td></tr><tr class='field-even field'><th class='tooltipster field-name'>Creation Date: </th><td class='field-body'>" + item.creation_date + "</td></tr></tbody></table></span>"
 				//28. Set the updated_content variable equal to a string of HTML format with the parameters from the api concatenated into the string.
 														//origin.tooltipster('content', updated_content).data('ajax', 'cached');
 														origin.tooltipster('content', updated_content);
@@ -630,6 +630,9 @@ under the License.
 					//alert( $(this).attr("data-thisUUID") );
 				  $(this).css("background-color","pink");
 				});	
+			}
+			function editObject(activeUUID){
+				alert("this is a test");
 			}
 			function getChildElementsforHierarchicalTree(activeObjectUUID) {
 				var ElementsArray = new Array();
@@ -1196,16 +1199,23 @@ under the License.
 				});				
 			}
 			function getListofPossibleSteps() {//Populates Core Value Listview on Possible CoreValue Popup
-				$.getJSON('http://api.universalbusinessmodel.com/ubm_modelcreationsuite_model_getAll_Steps.php?callback=?', {//JSONP Request to Open Items Page setup 
-					key : window.key,
+				if(window.ListofStepsRetrieved==true){
 
-				}, function(res, status) {
-						$('#ubmsuite_mcs_my_organizational_chart_content_createNewStepPopUp_form_UBMRepository').empty();
-					$.each(res, function(i, item) {
-						$('#ubmsuite_mcs_my_organizational_chart_content_createNewStepPopUp_form_UBMRepository').append("<li><a href='#'><p style='white-space:normal;'>" + item.title + "</p></a><a href='#' onclick='addSteptoMyModel(" + item.id + ")'>Add Step</a></li>");
-						$('#ubmsuite_mcs_my_organizational_chart_content_createNewStepPopUp_form_UBMRepository').listview().listview("refresh");
-					})
-				});	
+				}else{
+					showLoader();
+					$.getJSON('http://api.universalbusinessmodel.com/ubm_modelcreationsuite_model_getAll_Steps.php?callback=?', {//JSONP Request to Open Items Page setup 
+						key : window.key,
+					}, function(res, status) {
+							$('#ubmsuite_mcs_my_organizational_chart_content_createNewStepPopUp_form_UBMRepository').empty();
+						$.each(res, function(i, item) {
+							$('#ubmsuite_mcs_my_organizational_chart_content_createNewStepPopUp_form_UBMRepository').append("<li><a href='#'><p style='white-space:normal;'>" + item.title + "</p></a><a href='#' onclick='addSteptoMyModel(" + item.id + ")'>Add Step</a></li>");
+							$('#ubmsuite_mcs_my_organizational_chart_content_createNewStepPopUp_form_UBMRepository').listview().listview("refresh");
+						})
+						window.ListofStepsRetrieved=true;
+						hideLoader();
+					});						
+				}
+
 			}
 			function addSteptoMyModel(activeStepId){
 				$.getJSON('http://api.universalbusinessmodel.com/ubms_modelcreationsuite_model_add_Step.php?callback=?', {//JSONP Request
@@ -1236,20 +1246,20 @@ under the License.
 				}, 1000);
 			}
 			function createNewStepAddtoMyModel() {
-				$.getJSON('http://api.universalbusinessmodel.com/ubm_modelcreationsuite_model_create_Step.php?callback=?', {//JSONP Request
+				$.getJSON('http://api.universalbusinessmodel.com/ubms_modelcreationsuite_model_create_Step.php?callback=?', {//JSONP Request
+					key: window.key,
 					username: window.username,
 					activeModelUUID : window.activeModelUUID,
 					title: document.getElementById("ubmsuite_mcs_my_organizational_chart_content_createNewStepPopUp_form_StepTitle").value,
 					instruction: document.getElementById("ubmsuite_mcs_my_organizational_chart_content_createNewStepPopUp_form_StepInstruction").value,
-					stepNumber: document.getElementById("ubmsuite_mcs_my_organizational_chart_content_createNewStepPopUp_form_StepNumber").value,
-					procedureId : window.activeProcedureId
+					activeProcedureUUID: window.activeProcedureUUID
 				}, function(res, status) {
 					$().toastmessage('showNoticeToast', res.message);
 				});
 					$("#ubmsuite_mcs_my_organizational_chart_content_createNewStepPopUp").popup('close');
 					$('#ubmsuite_mcs_my_organizational_chart_content_createNewStepPopUp_form_createStep_form').each(function() {
 							this.reset();
-						});
+					});
 					getMyModelsOrgChart();	
 					buildHierarchicalTree(window.activePositionUUID);
 					//getChildElements(activeObjectUUID);
@@ -1296,6 +1306,23 @@ under the License.
 				});				
 			}
 			function getListofPossibleTasks() {//Populates Core Value Listview on Possible CoreValue Popup
+				if(window.ListofStepsRetrieved==true){
+
+				}else{
+					showLoader();
+					$.getJSON('http://api.universalbusinessmodel.com/ubm_modelcreationsuite_model_getAll_Tasks.php?callback=?', {//JSONP Request
+						key : window.key
+					}, function(res, status) {
+							$('#ubmsuite_mcs_my_organizational_chart_content_createNewTaskPopUp_form_UBMRepository').empty();
+						$.each(res, function(i, item) {
+							$('#ubmsuite_mcs_my_organizational_chart_content_createNewTaskPopUp_form_UBMRepository').append("<li><a href='#'><p style='white-space:normal;'>" + item.title + "</p></a><a href='#' onclick='addTasktoMyModel(" + item.id + ")'>Add Task</a></li>");
+							$('#ubmsuite_mcs_my_organizational_chart_content_createNewTaskPopUp_form_UBMRepository').listview().listview("refresh");
+						})
+						window.ListofTasksRetrieved=true;
+						hideLoader();
+					});	
+				}
+
 				$.getJSON('http://api.universalbusinessmodel.com/ubm_modelcreationsuite_model_getAll_Tasks.php?callback=?', {//JSONP Request
 					key : window.key
 				}, function(res, status) {
@@ -3204,7 +3231,6 @@ under the License.
 						        <div style="padding:10px 20px;">
 						            <center><h1>Create New Step</h1></center>
 						            <input type="text" name="ubmsuite_mcs_my_organizational_chart_content_createNewStepPopUp_form_StepTitle" id="ubmsuite_mcs_my_organizational_chart_content_createNewStepPopUp_form_StepTitle" value="" placeholder="Step Title"  data-theme="a">
-						            <input type="text" name="ubmsuite_mcs_my_organizational_chart_content_createNewStepPopUp_form_StepNumber" id="ubmsuite_mcs_my_organizational_chart_content_createNewStepPopUp_form_StepNumber" value="" placeholder="Step #"  data-theme="a">
 									<textarea data-mini="true"  cols="40" rows="8" id="ubmsuite_mcs_my_organizational_chart_content_createNewStepPopUp_form_StepInstruction" placeholder="Step Instruction..."></textarea>
 						            <a href="#" class="ui-btn" onclick="createNewStepAddtoMyModel()">Create Step</a>
 						        </div>
