@@ -1,7 +1,6 @@
 <?php
 require_once ('../config/tcpdf_config.php');
 require_once ('../tcpdf.php');
-require_once('../../../ubms_db_config.php');
 include ('../../../DBConnect_UBMv1.php');
 //Provides the variables used for UBMv1 database connection $conn
 require_once ('../../../globalGetVariables.php');
@@ -196,12 +195,12 @@ foreach ($all_UUID as $object => $value) {
                              $psPayRangeHigh = $items2['pay_range_high'];
                              $psSummary = $items2['summary'];
                              require('ubms_create_position_report.php');
-                        $psCounter = $psCounter + 1;                             
+                        $psCounter += 1;                             
 
                        }
                     }
-                $jdCounter = 1;
-                $plCounter = 1;
+                    $jdCounter = 1;
+                    $plCounter = 1;
 
                 }
                 if ($jobDescriptionId >= 1) {
@@ -220,7 +219,7 @@ foreach ($all_UUID as $object => $value) {
                              $jdPhysicalDemand = $items2['physical_demand'];
                              $jdWorkEnvironment = $items2['work_environment'];
                              require('ubms_create_jobDescription_report.php');
-                        $jdCounter = $jdCounter + 1;                             
+                            $jdCounter += 1;                             
                        }
                     }
                 }
@@ -238,7 +237,7 @@ foreach ($all_UUID as $object => $value) {
                              $plScope = $items2['scope'];
                              $plPolicyType = $items2['policy_type'];
                              require('ubms_create_policy_report.php');
-                            $plCounter = $plCounter + 1;                             
+                            $plCounter += 1;                             
                         }
                     }
                 }

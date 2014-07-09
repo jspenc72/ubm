@@ -2991,17 +2991,42 @@ under the License.
 							<li id="manageStep_change_anchor" <a href="#" onclick='openNewTKPopup()' class="ui-btn">Add New Task to Step</a></li>
 							<li <a href="#" onclick='confirmReoveActivePosition()' class="ui-btn">Remove</a></li>
 							<li <a href="#" onclick='modifyActvePosition()' class="ui-btn">Modify</a></li>
-							<li <a href="#" onclick='reorderTasks()' class="ui-btn">Reorder Tasks</a></li>
+							<li <a href="#" onclick="reorderTasks()" datal-rel="popup" class="ui-btn">Reorder Tasks</a></li>
 						</ul>
 				    </div>	
 				</div>	
 				<!-- End Manage Step Popup -->
+				<!-- Reorder Task Popup -->
+
+				<div data-role="popup" id="reorderTasksPopup" data-overlay-theme="b" data-theme="a" data-dismissible="true">
+				    <div id="reorderTasksPopup_header" data-role="header" data-theme="a">
+						<h1 style="white-space:normal;">Reorder Task</h1>
+				    </div>
+				    <div data-role='content' data-theme='a'>
+						<ul style="list-style-type: none;cursor:pointer" class="sortable" id="sortableTasks"  title='Drag and drop to reorder'>
+						</ul>
+				    </div>	
+				    <a href="#" onclick="submitTaskOrder" class="ui-btn">Submit</a>
+				</div>	
+				<!-- End Reorder Task Popup -->
+				<!-- Reorder Step Popup -->
+				<div data-role="popup" id="reorderStepsPopup" data-overlay-theme="b" data-theme="a" data-dismissible="true">
+				    <div id="reorderStepsPopup_header" data-role="header" data-theme="a">
+						<h1 style="white-space:normal;">Reorder Step</h1>
+				    </div>
+				    <div data-role='content' data-theme='a'>
+						<ul style="list-style-type: none;cursor:pointer" class="sortable" id="sortableSteps"  title='Drag and drop to reorder'>
+						</ul>
+				    </div>	
+				    <a href="#" onclick="submitStepOrder" class="ui-btn">Submit</a>
+				</div>	
+				<!-- End Reorder Step Popup -->
 				<!-- Manage Task Popup -->
 				<div data-role="popup" id="ubmsuite_mcs_my_organizational_chart_content_mangeTaskPopUp" data-overlay-theme="b" data-theme="a" data-dismissible="true" style="max-width:400px; min-width: 350px;">
 				    <div id="ubmsuite_mcs_my_organizational_chart_content_mangeTaskPopUp_header" data-role="header" data-theme="a">
 						<h1 style="white-space:normal;">Manage Task</h1>
 				    </div>
-				    <div data-role='content' data-theme='a' >
+				    <div data-role='content' data-theme='a'>
 						<ul data-role="listview">
 							<li <a href="#" onclick='confirmRemoveActivePosition()' class="ui-btn">Remove</a></li>
 							<li <a href="#" onclick='modifyActivePosition()' class="ui-btn">Modify</a></li>
@@ -14676,6 +14701,7 @@ under the License.
 		<script src='js/pieMenu.js'></script>
 		<script src='js/onBodyLoad.js'></script>
 		<script src='js/pageShow.js'></script>
+		<script src='js/reorder.js'></script>
 		<script src='js/reviewPoint.js'></script>
 		<script src='js/mcsChecklist.js'></script>
 		<script src='js/checkEmail.js'></script>
