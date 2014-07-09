@@ -220,7 +220,7 @@ foreach ($all_UUID as $object => $value) {
                                                 $tableRow[] = '<tr><td width="50"></td><td width="20">'.$taskNubmer.'.</td><td>'.$tkInstruction.'</td></tr>';
                                                 }
                                         } else {
-                                                $tableRow[] = '<tr><td width="50"></td><td width="20">0.</td><td>No Task</td></tr>';
+                                                $tableRow[] = '<tr><td width="50"></td><td width="20"></td><td>No Task</td></tr>';
                                             }
                                     }
                                 }
