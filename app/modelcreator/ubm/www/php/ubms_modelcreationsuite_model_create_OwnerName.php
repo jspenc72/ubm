@@ -34,7 +34,7 @@ foreach ($returnedPercentOwned as $key => $value) {
 
 $totalPercentOwned += $percentOwned;
 
-if ($totalPercentOwned < 100) {
+if ($totalPercentOwned <= 100) {
 	$sqlins = "INSERT INTO ubm_modelCreationSuite_orgChart_ownerName (name, owner_id, percent_owned, created_by) VALUES ( $v4, $v2, $v3, $v5 )";
 	if ($conn->query($sqlins) === false) {
 	    trigger_error('Wrong SQL: ' . $sqlins . ' Error: ' . $conn->error, E_USER_ERROR);
