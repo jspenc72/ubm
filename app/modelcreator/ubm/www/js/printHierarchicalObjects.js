@@ -4,6 +4,6 @@ function openPositionHierarchicalPdf() {
 }
 
 function printModel() {
-    var link = "http://api.universalbusinessmodel.com/tcpdf/app/examples/all_ubm_hierarchicalObjects.php?callback=?&activeModelOwnersUUID=" + window.activeModelOwnersUUID + "&activeModelUUID=" + window.activeModelUUID + "";
+    var link = "http://api.universalbusinessmodel.com/tcpdf/app/examples/all_ubm_hierarchicalObjects.php?callback=?&activeModelOwnersUUID=" + window.activeModelOwnersUUID + "&activeModelUUID=" + window.activeModelUUID + "&key=" + window.key + "";
     window.open(link, '_blank');
 }
