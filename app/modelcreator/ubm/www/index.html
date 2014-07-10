@@ -456,14 +456,13 @@ under the License.
 				$.getJSON('http://api.universalbusinessmodel.com/ubms_modelcreationsuite_model_remove_Positions.php?callback=?', {//JSONP Request
 					key : window.key,
 					username: window.username,
-					activeAncestor: window.activeModelUUID,
-					activeDescendant: window.activePositionUUID
+					activeAncestorUUID: window.activeModelUUID,
+					activeDescendantUUID: window.activePositionUUID
 				}, function(res, status) {
 					$().toastmessage('showSuccessToast', res.message);
 				});
 					getMyModelsOrgChart();
 			}
-
 			function removeActiveJobDescriptionfromMyModel(){
 				$.getJSON('http://api.universalbusinessmodel.com/ubms_modelcreationsuite_model_remove_JobDescription.php?callback=?', {//JSONP Request
 					key : window.key,
