@@ -171,7 +171,7 @@ under the License.
 			function setActiveJobDescription(){
 				window.activeReportsToJobDescription = window.activeJobDescriptionUUID;
 				setTimeout(function() {
-					$("#ubmsuite_mcs_my_organizational_chart_content_mangeJobDescriptionPopUp").popup('open');
+					$("#ubmsuite_mcs_my_organizational_chart_content_manageJobDescriptionPopUp").popup('open');
 					//buildHierarchicalTree(activeReportsToPosition);					
 				}, 10);
 			}
@@ -179,7 +179,7 @@ under the License.
 			function setActivePolicy(){
 				window.activeReportsToPolicy = window.activePolicyUUID;
 				setTimeout(function() {
-					$("#ubmsuite_mcs_my_organizational_chart_content_mangePolicyPopUp").popup('open');
+					$("#ubmsuite_mcs_my_organizational_chart_content_managePolicyPopUp").popup('open');
 					//buildHierarchicalTree(activeReportsToPosition);					
 				}, 10);
 			}
@@ -187,7 +187,7 @@ under the License.
 			function setActiveProcedure(){
 				window.activeReportsToProcedure = window.activeProcedureUUID;
 				setTimeout(function() {
-					$("#ubmsuite_mcs_my_organizational_chart_content_mangeProcedurePopUp").popup('open');
+					$("#ubmsuite_mcs_my_organizational_chart_content_manageProcedurePopUp").popup('open');
 					//buildHierarchicalTree(activeReportsToPosition);					
 				}, 10);
 			}
@@ -195,7 +195,7 @@ under the License.
 			function setActiveStep(){
 				window.activeReportsToStep = window.activeModelStepUUID;
 				setTimeout(function() {
-					$("#ubmsuite_mcs_my_organizational_chart_content_mangeStepPopUp").popup('open');
+					$("#ubmsuite_mcs_my_organizational_chart_content_manageStepPopUp").popup('open');
 					//buildHierarchicalTree(activeReportsToPosition);					
 				}, 10);
 			}
@@ -203,7 +203,7 @@ under the License.
 			function setActiveTask(){
 				window.activeReportsToTask = window.activeTaskUUID;
 				setTimeout(function() {
-					$("#ubmsuite_mcs_my_organizational_chart_content_mangeTaskPopUp").popup('open');
+					$("#ubmsuite_mcs_my_organizational_chart_content_manageTaskPopUp").popup('open');
 					//buildHierarchicalTree(activeReportsToPosition);					
 				}, 10);
 			}
@@ -483,9 +483,33 @@ under the License.
 				}, 1000);
 			}
 			function confirmRemoveActiveJobDescription(){
-				$("#ubmsuite_mcs_my_organizational_chart_content_mangeJobDescriptionPopUp").popup('close');
+				$("#ubmsuite_mcs_my_organizational_chart_content_manageJobDescriptionPopUp").popup('close');
 				setTimeout(function() {
 					$("#ubmsuite_mcs_my_organizational_chart_confirm_remove_JobDescription_popup").popup('open');
+				}, 1000);
+			}
+			function confirmRemoveActivePolicy(){
+				$("#ubmsuite_mcs_my_organizational_chart_content_managePolicyPopUp").popup('close');
+				setTimeout(function() {
+					$("#ubmsuite_mcs_my_organizational_chart_confirm_remove_Policy_popup").popup('open');
+				}, 1000);
+			}
+			function confirmRemoveActiveProcedure(){
+				$("#ubmsuite_mcs_my_organizational_chart_content_manageProcedurePopUp").popup('close');
+				setTimeout(function() {
+					$("#ubmsuite_mcs_my_organizational_chart_confirm_remove_Procedure_popup").popup('open');
+				}, 1000);
+			}
+			function confirmRemoveActiveStep(){
+				$("#ubmsuite_mcs_my_organizational_chart_content_manageStepPopUp").popup('close');
+				setTimeout(function() {
+					$("#ubmsuite_mcs_my_organizational_chart_confirm_remove_Step_popup").popup('open');
+				}, 1000);
+			}
+			function confirmRemoveActiveTask(){
+				$("#ubmsuite_mcs_my_organizational_chart_content_manageTaskPopUp").popup('close');
+				setTimeout(function() {
+					$("#ubmsuite_mcs_my_organizational_chart_confirm_remove_Task_popup").popup('open');
 				}, 1000);
 			}
 			function modifyActivePosition(){
@@ -3010,7 +3034,31 @@ under the License.
 				    <p>Removing this Job Description will remove all child objects!</p>
 				    <a href="#" data-rel="back" class="ui-shadow ui-btn ui-corner-all ui-btn-b ui-icon-check ui-btn-icon-left ui-btn-inline ui-mini" onclick="removeActiveJobDescriptionfromMyModel()">Confirm Remove Job Description</a>
 				    <a href="" data-rel="back" class="ui-shadow ui-btn ui-corner-all ui-btn-inline ui-mini">Cancel</a>
-				</div>				
+				</div>		
+				<div data-role="popup" id="ubmsuite_mcs_my_organizational_chart_confirm_remove_Policy_popup"  data-theme="a" data-overlay-theme="b" class="ui-content" style="max-width:340px; padding-bottom:2em;">
+				    <h3>Remove Policy?</h3>
+				    <p>Removing this Policy will remove all child objects!</p>
+				    <a href="#" data-rel="back" class="ui-shadow ui-btn ui-corner-all ui-btn-b ui-icon-check ui-btn-icon-left ui-btn-inline ui-mini" onclick="removeActivePolicyfromMyModel()">Confirm Remove Policy</a>
+				    <a href="" data-rel="back" class="ui-shadow ui-btn ui-corner-all ui-btn-inline ui-mini">Cancel</a>
+				</div>		
+				<div data-role="popup" id="ubmsuite_mcs_my_organizational_chart_confirm_remove_Procedure_popup"  data-theme="a" data-overlay-theme="b" class="ui-content" style="max-width:340px; padding-bottom:2em;">
+				    <h3>Remove Procedure?</h3>
+				    <p>Removing this Procedure will remove all child objects!</p>
+				    <a href="#" data-rel="back" class="ui-shadow ui-btn ui-corner-all ui-btn-b ui-icon-check ui-btn-icon-left ui-btn-inline ui-mini" onclick="removeActivePolicyfromMyModel()">Confirm Remove Policy</a>
+				    <a href="" data-rel="back" class="ui-shadow ui-btn ui-corner-all ui-btn-inline ui-mini">Cancel</a>
+				</div>					
+				<div data-role="popup" id="ubmsuite_mcs_my_organizational_chart_confirm_remove_Step_popup"  data-theme="a" data-overlay-theme="b" class="ui-content" style="max-width:340px; padding-bottom:2em;">
+				    <h3>Remove Step?</h3>
+				    <p>Removing this Step will remove all child objects!</p>
+				    <a href="#" data-rel="back" class="ui-shadow ui-btn ui-corner-all ui-btn-b ui-icon-check ui-btn-icon-left ui-btn-inline ui-mini" onclick="removeActivePolicyfromMyModel()">Confirm Remove Policy</a>
+				    <a href="" data-rel="back" class="ui-shadow ui-btn ui-corner-all ui-btn-inline ui-mini">Cancel</a>
+				</div>	
+				<div data-role="popup" id="ubmsuite_mcs_my_organizational_chart_confirm_remove_Task_popup"  data-theme="a" data-overlay-theme="b" class="ui-content" style="max-width:340px; padding-bottom:2em;">
+				    <h3>Remove Task?</h3>
+				    <p>Removing this Task will remove all child objects!</p>
+				    <a href="#" data-rel="back" class="ui-shadow ui-btn ui-corner-all ui-btn-b ui-icon-check ui-btn-icon-left ui-btn-inline ui-mini" onclick="removeActivePolicyfromMyModel()">Confirm Remove Policy</a>
+				    <a href="" data-rel="back" class="ui-shadow ui-btn ui-corner-all ui-btn-inline ui-mini">Cancel</a>
+				</div>	
 				<div data-role="popup" id="ubmsuite_mcs_my_organizational_chart_content_createNewPositionPopUp"  data-theme="a" class="ui-corner-all draggable_popup">
 					<div data-role="header">
 						<h1>Add Position</h1>
@@ -3059,8 +3107,8 @@ under the License.
 				</div>	
 				<!-- End Manage Position Popup -->
 				<!-- Manage Job Description Popup -->
-				<div data-role="popup" id="ubmsuite_mcs_my_organizational_chart_content_mangeJobDescriptionPopUp" data-overlay-theme="b" data-theme="a" data-dismissible="true" style="max-width:400px; min-width: 350px;">
-				    <div id="ubmsuite_mcs_my_organizational_chart_content_mangeJobDescriptionPopUp_header" data-role="header" data-theme="a">
+				<div data-role="popup" id="ubmsuite_mcs_my_organizational_chart_content_manageJobDescriptionPopUp" data-overlay-theme="b" data-theme="a" data-dismissible="true" style="max-width:400px; min-width: 350px;">
+				    <div id="ubmsuite_mcs_my_organizational_chart_content_manageJobDescriptionPopUp_header" data-role="header" data-theme="a">
 						<h1 style="white-space:normal;">Manage Job Description</h1>
 				    </div>
 				    <div data-role='content' data-theme='a' >
@@ -3073,49 +3121,62 @@ under the License.
 				</div>	
 				<!-- End Manage Job Description Popup -->
 				<!-- Manage Policy Popup -->
-				<div data-role="popup" id="ubmsuite_mcs_my_organizational_chart_content_mangePolicyPopUp" data-overlay-theme="b" data-theme="a" data-dismissible="true" style="max-width:400px; min-width: 350px;">
-				    <div id="ubmsuite_mcs_my_organizational_chart_content_mangePolicyPopUp_header" data-role="header" data-theme="a">
+				<div data-role="popup" id="ubmsuite_mcs_my_organizational_chart_content_managePolicyPopUp" data-overlay-theme="b" data-theme="a" data-dismissible="true" style="max-width:400px; min-width: 350px;">
+				    <div id="ubmsuite_mcs_my_organizational_chart_content_managePolicyPopUp_header" data-role="header" data-theme="a">
 						<h1 style="white-space:normal;">Manage Policy</h1>
 				    </div>
 				    <div data-role='content' data-theme='a' >
 						<ul data-role="listview">
 							<li id="managePolicy_change_anchor" <a href="#" onclick='openNewPRPopup()' class="ui-btn">Add New Procedure to Policy</a></li>
-							<li <a href="#" onclick='confirmRemovectivePolicy()' class="ui-btn">Remove</a></li>
+							<li <a href="#" onclick='confirmRemoveActivePolicy()' class="ui-btn">Remove</a></li>
 							<li <a href="#" onclick='modifyActivePoition()' class="ui-btn">Modify</a></li>
 						</ul>
 				    </div>	
 				</div>	
 				<!-- End Manage Policy Popup -->
 				<!-- Manage Procedure Popup -->
-				<div data-role="popup" id="ubmsuite_mcs_my_organizational_chart_content_mangeProcedurePopUp" data-overlay-theme="b" data-theme="a" data-dismissible="true" style="max-width:400px; min-width: 350px;">
-				    <div id="ubmsuite_mcs_my_organizational_chart_content_mangeProcedurePopUp_header" data-role="header" data-theme="a">
+				<div data-role="popup" id="ubmsuite_mcs_my_organizational_chart_content_manageProcedurePopUp" data-overlay-theme="b" data-theme="a" data-dismissible="true" style="max-width:400px; min-width: 350px;">
+				    <div id="ubmsuite_mcs_my_organizational_chart_content_manageProcedurePopUp_header" data-role="header" data-theme="a">
 						<h1 style="white-space:normal;">Manage Procedure</h1>
 				    </div>
 				    <div data-role='content' data-theme='a' >
 						<ul data-role="listview">
 							<li id="manageProcedure_change_anchor" <a href="#" onclick='openNewSTPopup()' class="ui-btn">Add New Step to Procedure</a></li>
-							<li <a href="#" onclick='confirmRemovActivePosition()' class="ui-btn">Remove</a></li>
-							<li <a href="#" onclick='modifyAcivePosition()' class="ui-btn">Modify</a></li>
+							<li <a href="#" onclick='confirmRemoveActiveProcedure()' class="ui-btn">Remove</a></li>
+							<li <a href="#" onclick='modifyAciveProcedure()' class="ui-btn">Modify</a></li>
 							<li <a href="#" onclick='reorderSteps()' class="ui-btn">Reorder Steps</a></li>
 						</ul>
 				    </div>	
 				</div>	
 				<!-- End Manage Procedure Popup -->
 				<!-- Manage Step Popup -->
-				<div data-role="popup" id="ubmsuite_mcs_my_organizational_chart_content_mangeStepPopUp" data-overlay-theme="b" data-theme="a" data-dismissible="true" style="max-width:400px; min-width: 350px;">
-				    <div id="ubmsuite_mcs_my_organizational_chart_content_mangeStepPopUp_header" data-role="header" data-theme="a">
+				<div data-role="popup" id="ubmsuite_mcs_my_organizational_chart_content_manageStepPopUp" data-overlay-theme="b" data-theme="a" data-dismissible="true" style="max-width:400px; min-width: 350px;">
+				    <div id="ubmsuite_mcs_my_organizational_chart_content_manageStepPopUp_header" data-role="header" data-theme="a">
 						<h1 style="white-space:normal;">Manage Step</h1>
 				    </div>
 				    <div data-role='content' data-theme='a' >
 						<ul data-role="listview">
 							<li id="manageStep_change_anchor" <a href="#" onclick='openNewTKPopup()' class="ui-btn">Add New Task to Step</a></li>
-							<li <a href="#" onclick='confirmReoveActivePosition()' class="ui-btn">Remove</a></li>
-							<li <a href="#" onclick='modifyActvePosition()' class="ui-btn">Modify</a></li>
+							<li <a href="#" onclick='confirmRemoveActiveStep()' class="ui-btn">Remove</a></li>
+							<li <a href="#" onclick='modifyActiveStep()' class="ui-btn">Modify</a></li>
 							<li <a href="#" onclick="reorderTasks()" datal-rel="popup" class="ui-btn">Reorder Tasks</a></li>
 						</ul>
 				    </div>	
 				</div>	
 				<!-- End Manage Step Popup -->
+				<!-- Manage Task Popup -->
+				<div data-role="popup" id="ubmsuite_mcs_my_organizational_chart_content_manageTaskPopUp" data-overlay-theme="b" data-theme="a" data-dismissible="true" style="max-width:400px; min-width: 350px;">
+				    <div id="ubmsuite_mcs_my_organizational_chart_content_manageTaskPopUp_header" data-role="header" data-theme="a">
+						<h1 style="white-space:normal;">Manage Task</h1>
+				    </div>
+				    <div data-role='content' data-theme='a'>
+						<ul data-role="listview">
+							<li <a href="#" onclick='confirmRemoveActiveTask()' class="ui-btn">Remove</a></li>
+							<li <a href="#" onclick='modifyActivePosition()' class="ui-btn">Modify</a></li>
+						</ul>
+				    </div>	
+				</div>	
+				<!-- End Manage Task Popup -->
 				<!-- Reorder Task Popup -->
 
 				<div data-role="popup" id="reorderTasksPopup" data-overlay-theme="b" data-theme="a" data-dismissible="true">
@@ -3141,19 +3202,6 @@ under the License.
 				    <a href="#" onclick="submitStepsOrder()" class="ui-btn">Submit</a>
 				</div>	
 				<!-- End Reorder Step Popup -->
-				<!-- Manage Task Popup -->
-				<div data-role="popup" id="ubmsuite_mcs_my_organizational_chart_content_mangeTaskPopUp" data-overlay-theme="b" data-theme="a" data-dismissible="true" style="max-width:400px; min-width: 350px;">
-				    <div id="ubmsuite_mcs_my_organizational_chart_content_mangeTaskPopUp_header" data-role="header" data-theme="a">
-						<h1 style="white-space:normal;">Manage Task</h1>
-				    </div>
-				    <div data-role='content' data-theme='a'>
-						<ul data-role="listview">
-							<li <a href="#" onclick='confirmRemoveActivePosition()' class="ui-btn">Remove</a></li>
-							<li <a href="#" onclick='modifyActivePosition()' class="ui-btn">Modify</a></li>
-						</ul>
-				    </div>	
-				</div>	
-				<!-- End Manage Task Popup -->
 				<div data-role="popup" id="ubmsuite_mcs_my_organizational_chart_content_manageJobDescriptionPopUp">
 					<a href="#" onclick="createNewJobDescription();getListofPossibleJobDescriptions()" data-rel="popup" data-transition="pop" class="my-tooltip-btn ui-btn ui-alt-icon ui-nodisc-icon ui-btn-inline ui-icon-plus ui-btn-icon-notext" title="Add a New Job Description">Add a New Job Description</a>
 				</div>
