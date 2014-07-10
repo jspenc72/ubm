@@ -445,6 +445,7 @@ under the License.
 				//4. If user selects "no, add this position without any positions that report to it." 
 			}
 			function removeActivePositionfromMyModel(){
+				showLoader();
 				$.getJSON('http://api.universalbusinessmodel.com/ubms_modelcreationsuite_model_remove_Positions.php?callback=?', {//JSONP Request
 					key : window.key,
 					username: window.username,
@@ -452,6 +453,7 @@ under the License.
 					activePositionId: window.activeReportsToPosition
 				}, function(res, status) {
 					$().toastmessage('showSuccessToast', res.message);
+					hideLoader();
 				});
 					getMyModelsOrgChart();
 			}

@@ -78,7 +78,8 @@ $stepTable = <<<EOD
     $rows
 </table>
 EOD;
-
+//$url ='';
+//$pdf->write2DBarcode($url, 'QRCODE,H', 20, 210, 50, 50, '', 'N');
 $pdf->AddPage();
 $pdf->Bookmark("PR: $prTitle", 3, 0, '', 'B', array(128,0,64));
 // output the HTML content
