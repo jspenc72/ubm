@@ -99,6 +99,9 @@ $activeTaskId = $_GET['activeTaskId'];
 	//UBM MCS Model Create Position
 $activeModelId = $_GET['activeModelId'];
 $positionDescription = $_GET['positionDescription'];
+$positionSummary = $_GET['positionSummary'];
+$positionPayRangeLow = $_GET['positionPayRangeLow'];
+$positionPayRangeHigh = $_GET['positionPayRangeHigh'];
 $positionTitle = $_GET['positionTitle'];
 $positionReportsTo = $_GET['positionReportsTo'];
 $positionParent = $_GET['positionParent'];

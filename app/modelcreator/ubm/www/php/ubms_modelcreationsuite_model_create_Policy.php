@@ -9,12 +9,12 @@ if ($conn -> connect_error) {
 	trigger_error('Database connection failed: ' . $conn -> connect_error, E_USER_ERROR);
 }
 //INSERT
-$v2 = "'" . $conn -> real_escape_string($activeModelId) . "'";
+$v2 = "'" . $conn -> real_escape_string($activeModelUUID) . "'";
 $v3 = "'" . $conn -> real_escape_string($description) . "'";
 $v4 = "'" . $conn -> real_escape_string($title) . "'";
 $v5 = "'" . $conn -> real_escape_string($username) . "'";
 $v6 = "'" . $conn -> real_escape_string($purpose) . "'";
-$v7 = "'" . $conn -> real_escape_string($jobDescriptionId) . "'";
+$v7 = "'" . $conn -> real_escape_string($activeJobDescriptionUUID) . "'";
 $v8 = "'" . $conn -> real_escape_string($scope) . "'";
 $v9 = "'" . $conn -> real_escape_string($type) . "'";
 
@@ -48,7 +48,8 @@ if ($conn -> query($sqlins) === false) {
 				trigger_error('Wrong SQL: ' . $sqlins3 . ' Error: ' . $conn -> error, E_USER_ERROR);
 				echo "there was a problem";
 			} else {
-				echo $_GET['callback'] . '(' . "{'message' : 'Requested Policy $title was created successfully and added to model id: $activeModelId !'}" . ')';
+				$affected_rows = $conn -> affected_rows;
+				echo $_GET['callback'] . '(' . "{'message' : 'Requested Policy $title was created successfully, and attached to the following job description: $v7 policy: $last_inserted_PL_UUID the number of affected rows is: $affected_rows and added to model id: $v2 !'}" . ')';
 			}			
 		}
 	}
