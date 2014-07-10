@@ -465,15 +465,16 @@ under the License.
 				});
 					getMyModelsOrgChart();
 			}
-			function removeActiveJobDescriptionfromMyModel(){
-				$.getJSON('http://api.universalbusinessmodel.com/ubms_modelcreationsuite_model_remove_JobDescription.php?callback=?', {//JSONP Request
+			function removeActiveObjectfromMyModel(){
+				$.getJSON('http://api.universalbusinessmodel.com/ubms_modelcreationsuite_model_remove_HierarchyObject.php?callback=?', {//JSONP Request
 					key : window.key,
 					username: window.username,
 					activeModelUUID : window.activeModelUUID,
-					activeAncestorUUID: window.activePositionUUID,
-					activeDescendantUUID: window.activeJobDescriptionUUID
+					activePositionUUID: window.activePositionUUID,
+					activeDescendantUUID: window.activeObjectUUID
 				}, function(res, status) {
 					$().toastmessage('showSuccessToast', res.message);
+					$('.ui-popup').popup('close');
 				});
 					getMyModelsOrgChart();
 					getChildElementsforHierarchicalTree(window.activePositionUUID);
@@ -805,23 +806,30 @@ under the License.
 			function setActiveJobDescriptionUUID(activeJobDescriptionUUID){		//Single Click Function
 				//1. Set window variable: window.activeJobDescriptionUUID equal to activeJobDescriptionUUID.
 				window.activeJobDescriptionUUID = activeJobDescriptionUUID;
+				window.activeObjectUUID = activeJobDescriptionUUID;
 				//alert("active JD is called" + window.activeJobDescriptionUUID);
 			}
 			function setActivePolicyUUID(activePolicyUUID){						//Single Click Function
 				//1. Set window variable: window.activePolicyUUID equal to activePolicyUUID.
-				window.activePolicyUUID = activePolicyUUID;				
+				window.activePolicyUUID = activePolicyUUID;		
+				window.activeObjectUUID = activePolicyUUID;
+
 			}
 			function setActiveProcedureUUID(activeProcedureUUID){				//Single Click Function
 				//1. Set window variable: window.activeProcedureUUID equal to activeProcedureUUID.
-				window.activeProcedureUUID = activeProcedureUUID;		
+				window.activeProcedureUUID = activeProcedureUUID;	
+				window.activeObjectUUID = activeProcedureUUID;	
 			}
 			function setActiveStepUUID(activeStepUUID){							//Single Click Function
 				//1. Set window variable: window.activePolicyUUID equal to activePolicyUUID.
-				window.activeStepUUID = activeStepUUID;				
+				window.activeStepUUID = activeStepUUID;	
+				window.activeObjectUUID = activeStepUUID;	
 			}
 			function setActiveTaskUUID(activeTaskUUID){							//Single Click Function
 				//1. Set window variable: window.activeStepUUID equal to activeStepUUID.
-				window.activeTaskUUID = activeTaskUUID;				
+				window.activeTaskUUID = activeTaskUUID;
+				window.activeObjectUUID = activeTaskUUID;	
+
 			}
 			function openNewJDPopup(activePositionUUID){							//Double Click Function
 				//1. Set window variable: window.activePositionUUID equal to activePositionUUID.
@@ -3034,31 +3042,31 @@ under the License.
 				<div data-role="popup" id="ubmsuite_mcs_my_organizational_chart_confirm_remove_JobDescription_popup"  data-theme="a" data-overlay-theme="b" class="ui-content" style="max-width:340px; padding-bottom:2em;">
 				    <h3>Remove Job Description?</h3>
 				    <p>Removing this Job Description will remove all child objects!</p>
-				    <a href="#" data-rel="back" class="ui-shadow ui-btn ui-corner-all ui-btn-b ui-icon-check ui-btn-icon-left ui-btn-inline ui-mini" onclick="removeActiveJobDescriptionfromMyModel()">Confirm Remove Job Description</a>
+				    <a href="#" data-rel="back" class="ui-shadow ui-btn ui-corner-all ui-btn-b ui-icon-check ui-btn-icon-left ui-btn-inline ui-mini" onclick="removeActiveObjectfromMyModel()">Confirm Remove Job Description</a>
 				    <a href="" data-rel="back" class="ui-shadow ui-btn ui-corner-all ui-btn-inline ui-mini">Cancel</a>
 				</div>		
 				<div data-role="popup" id="ubmsuite_mcs_my_organizational_chart_confirm_remove_Policy_popup"  data-theme="a" data-overlay-theme="b" class="ui-content" style="max-width:340px; padding-bottom:2em;">
 				    <h3>Remove Policy?</h3>
 				    <p>Removing this Policy will remove all child objects!</p>
-				    <a href="#" data-rel="back" class="ui-shadow ui-btn ui-corner-all ui-btn-b ui-icon-check ui-btn-icon-left ui-btn-inline ui-mini" onclick="removeActivePolicyfromMyModel()">Confirm Remove Policy</a>
+				    <a href="#" data-rel="back" class="ui-shadow ui-btn ui-corner-all ui-btn-b ui-icon-check ui-btn-icon-left ui-btn-inline ui-mini" onclick="removeActiveObjectfromMyModel()">Confirm Remove Policy</a>
 				    <a href="" data-rel="back" class="ui-shadow ui-btn ui-corner-all ui-btn-inline ui-mini">Cancel</a>
 				</div>		
 				<div data-role="popup" id="ubmsuite_mcs_my_organizational_chart_confirm_remove_Procedure_popup"  data-theme="a" data-overlay-theme="b" class="ui-content" style="max-width:340px; padding-bottom:2em;">
 				    <h3>Remove Procedure?</h3>
 				    <p>Removing this Procedure will remove all child objects!</p>
-				    <a href="#" data-rel="back" class="ui-shadow ui-btn ui-corner-all ui-btn-b ui-icon-check ui-btn-icon-left ui-btn-inline ui-mini" onclick="removeActiveProcedurefromMyModel()">Confirm Remove Procedure</a>
+				    <a href="#" data-rel="back" class="ui-shadow ui-btn ui-corner-all ui-btn-b ui-icon-check ui-btn-icon-left ui-btn-inline ui-mini" onclick="removeActiveObjectfromMyModel()">Confirm Remove Procedure</a>
 				    <a href="" data-rel="back" class="ui-shadow ui-btn ui-corner-all ui-btn-inline ui-mini">Cancel</a>
 				</div>					
 				<div data-role="popup" id="ubmsuite_mcs_my_organizational_chart_confirm_remove_Step_popup"  data-theme="a" data-overlay-theme="b" class="ui-content" style="max-width:340px; padding-bottom:2em;">
 				    <h3>Remove Step?</h3>
 				    <p>Removing this Step will remove all child objects!</p>
-				    <a href="#" data-rel="back" class="ui-shadow ui-btn ui-corner-all ui-btn-b ui-icon-check ui-btn-icon-left ui-btn-inline ui-mini" onclick="removeActiveStepfromMyModel()">Confirm Remove Step</a>
+				    <a href="#" data-rel="back" class="ui-shadow ui-btn ui-corner-all ui-btn-b ui-icon-check ui-btn-icon-left ui-btn-inline ui-mini" onclick="removeActiveObjectfromMyModel()">Confirm Remove Step</a>
 				    <a href="" data-rel="back" class="ui-shadow ui-btn ui-corner-all ui-btn-inline ui-mini">Cancel</a>
 				</div>	
 				<div data-role="popup" id="ubmsuite_mcs_my_organizational_chart_confirm_remove_Task_popup"  data-theme="a" data-overlay-theme="b" class="ui-content" style="max-width:340px; padding-bottom:2em;">
 				    <h3>Remove Task?</h3>
 				    <p>Removing this Task will remove all child objects!</p>
-				    <a href="#" data-rel="back" class="ui-shadow ui-btn ui-corner-all ui-btn-b ui-icon-check ui-btn-icon-left ui-btn-inline ui-mini" onclick="removeActiveTaskfromMyModel()">Confirm Remove Task</a>
+				    <a href="#" data-rel="back" class="ui-shadow ui-btn ui-corner-all ui-btn-b ui-icon-check ui-btn-icon-left ui-btn-inline ui-mini" onclick="removeActiveObjectfromMyModel()">Confirm Remove Task</a>
 				    <a href="" data-rel="back" class="ui-shadow ui-btn ui-corner-all ui-btn-inline ui-mini">Cancel</a>
 				</div>	
 				<div data-role="popup" id="ubmsuite_mcs_my_organizational_chart_content_createNewPositionPopUp"  data-theme="a" class="ui-corner-all draggable_popup">

@@ -44,6 +44,7 @@ $activeModelUUID = $_GET['activeModelUUID'];
 //UBM API Variables
  $RQType = $_GET['RQType'];				//Request type INSERT, UPDATE, DELETE, CREATE This may no longer be necessary because the name of the php script that is accessed is stored in the log.
 
+
 //UBM MCS Model Variables
 $activeModelId = $_GET['activeModelId'];
 

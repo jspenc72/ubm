@@ -200,7 +200,7 @@ foreach ($all_UUID as $object => $value) {
                     }
                     $jdCounter = 1;
                     $plCounter = 1;
-
+                    $prCounter = 1;
                 }
                 if ($jobDescriptionId >= 1) {
                     $sqlsel2 = "SELECT * FROM ubm_model_jobDescriptions WHERE id=$jobDescriptionId";
@@ -236,7 +236,9 @@ foreach ($all_UUID as $object => $value) {
                              $plScope = $items2['scope'];
                              $plPolicyType = $items2['policy_type'];
                              require('ubms_create_policy_report.php');
-                            $plCounter += 1;                             
+                            $plCounter += 1;   
+                            $prCounter = 1;                             
+                          
                         }
                     }
                 }
@@ -297,6 +299,7 @@ foreach ($all_UUID as $object => $value) {
                                     }
                                 }
                                 require('ubms_create_procedure_report.php');
+                                $prCounter += 1;                             
                                 $tableRow = array();
                             }
                         }

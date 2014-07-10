@@ -81,7 +81,7 @@ EOD;
 //$url ='';
 //$pdf->write2DBarcode($url, 'QRCODE,H', 20, 210, 50, 50, '', 'N');
 $pdf->AddPage();
-$pdf->Bookmark("PR: $prTitle", 3, 0, '', 'B', array(128,0,64));
+$pdf->Bookmark("PR-$prCounter: $prTitle", 3, 0, '', 'B', array(128,0,64));
 // output the HTML content
 $pdf->writeHTMLCELL(0, 0, 100, 6, $headerRight, 0, 1, 0, true, 'R');
 $pdf->writeHTMLCELL(0, 0, 15, 6, $headerCenter, 0, 1, 0, true, 'C');
