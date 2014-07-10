@@ -476,21 +476,18 @@ under the License.
 					getMyModelsOrgChart();
 					getChildElementsforHierarchicalTree(window.activePositionUUID);
 			}
-
 			function confirmRemoveActivePosition(){
 				$("#ubmsuite_mcs_my_organizational_chart_content_mangePositionPopUp").popup('close');
 				setTimeout(function() {
 					$("#ubmsuite_mcs_my_organizational_chart_confirm_remove_Position_popup").popup('open');
 				}, 1000);
 			}
-
 			function confirmRemoveActiveJobDescription(){
 				$("#ubmsuite_mcs_my_organizational_chart_content_mangeJobDescriptionPopUp").popup('close');
 				setTimeout(function() {
 					$("#ubmsuite_mcs_my_organizational_chart_confirm_remove_JobDescription_popup").popup('open');
 				}, 1000);
 			}
-
 			function modifyActivePosition(){
 				$().toastmessage('showNoticeToast', window.activeReportsToPosition);
 				//1. Checks to see if the currently active user is the creator of the active position.
@@ -502,7 +499,6 @@ under the License.
 			}
 			function getObjectsforBackboneTable(){
 				//This basic function will allow us to build the table dynamically based on the position or the object selected.
-
 				var table = document.getElementById("heirarchyObjectBackbone_table");
 				/*** /var row = table.insertRow(2);
 				var cell1 = row.insertCell(0);
@@ -1164,7 +1160,6 @@ under the License.
 				if(window.policyType=="other"){
 					window.policyType = document.getElementById("ubmsuite_mcs_my_organizational_chart_content_createNewPolicyPopUp_form_Other").value;
 				}
-
 				$.getJSON('http://api.universalbusinessmodel.com/ubms_modelcreationsuite_model_create_Policy.php?callback=?', {//JSONP Request
 					key: window.key,
 					username : window.username,
@@ -3085,7 +3080,7 @@ under the License.
 				    <div data-role='content' data-theme='a' >
 						<ul data-role="listview">
 							<li id="managePolicy_change_anchor" <a href="#" onclick='openNewPRPopup()' class="ui-btn">Add New Procedure to Policy</a></li>
-							<li <a href="#" onclick='confirmRemovectivePosition()' class="ui-btn">Remove</a></li>
+							<li <a href="#" onclick='confirmRemovectivePolicy()' class="ui-btn">Remove</a></li>
 							<li <a href="#" onclick='modifyActivePoition()' class="ui-btn">Modify</a></li>
 						</ul>
 				    </div>	
