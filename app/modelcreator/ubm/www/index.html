@@ -143,10 +143,11 @@ under the License.
 			}
 
 			// These are to open the manage XXXXX popup
-			function setActivePosition(activeReportsToPosition, positionTitle){
+			function setActivePosition(activePositionUUID, positionTitle){
 				$("#managePosition_change_anchor").text("Add New Position to Model")
 				$("#managePosition_change_anchor").attr("onclick","openAddNewPositionPopup();getListofPossiblePositions()");
-				window.activeReportsToPosition = activeReportsToPosition;
+				window.activeReportsToPosition = activePositionUUID;
+				window.activePositionUUID = activePositionUUID;
 				if(positionTitle == "Owners") {
 					$("#genericManagePosition").remove();
 					$("#manageOwnersListItem").remove();
@@ -407,11 +408,17 @@ under the License.
 					activeModelUUID : window.activeModelUUID,
 					positionTitle: document.getElementById("ubmsuite_mcs_my_organizational_chart_content_createNewPositionPopUp_form_positionTitle").value,
 					positionDescription: document.getElementById("ubmsuite_mcs_my_organizational_chart_content_createNewPositionPopUp_form_positionDescription").value,
+					positionSummary: document.getElementById("ubmsuite_mcs_my_organizational_chart_content_createNewPositionPopUp_form_positionSummary").value,
+					positionPayRangeLow: document.getElementById("ubmsuite_mcs_my_organizational_chart_content_createNewPositionPopUp_form_positionPayRangeLow").value,
+					positionPayRangeHigh: document.getElementById("ubmsuite_mcs_my_organizational_chart_content_createNewPositionPopUp_form_positionPayRangeHigh").value,
 					positionReportsTo: window.activeReportsToPosition
 				}, function(res, status) {
 					$().toastmessage('showSuccessToast', res.message);
 				});
 					$("#ubmsuite_mcs_my_organizational_chart_content_createNewPositionPopUp").popup('close');
+					$('#ubmsuite_mcs_my_organizational_chart_content_createNewPositionPopUp_form').each(function() {
+							this.reset();
+					});
 					getMyModelsOrgChart();
 			}
 			function addChildPositiontoActivePosition(){
@@ -445,11 +452,12 @@ under the License.
 				//4. If user selects "no, add this position without any positions that report to it." 
 			}
 			function removeActivePositionfromMyModel(){
+				alert(window.activePositionUUID);
 				$.getJSON('http://api.universalbusinessmodel.com/ubms_modelcreationsuite_model_remove_Positions.php?callback=?', {//JSONP Request
 					key : window.key,
 					username: window.username,
-					activeModelUUID : window.activeModelUUID,
-					activePositionId: window.activeReportsToPosition
+					activeAncestor: window.activeModelUUID,
+					activeDescendant: window.activePositionUUID
 				}, function(res, status) {
 					$().toastmessage('showSuccessToast', res.message);
 				});
@@ -509,14 +517,11 @@ under the License.
 				//1. Add position popup should have a listview filled with positions that report to the active position.
 				//2. This function will retrieve all model_positions that report to the active position and will populate the listview with those positions. 
 			}
-		
-
-
 			function displayHierarchicalTree(ElementsArray){				//Callback function for when getChildElementsforHierarchicalTree() is complete 
 				event.preventDefault();
 				if(ElementsArray){
 					//1. Start by prepending the position to the tree.
-					$('#heirarchyObjectTree_ul').prepend("<li><a data-thisUUID='" + window.activePositionUUID + "' class='hierarchyObjectTreeItem ajax_tooltip' onclick='if(event.ctrlKey || event.metaKey) { setActivePosition(" + window.activePositionUUID + ")} else {setActivePositionUUID(" + window.activePositionUUID + ")}'>PS-" + window.activePositionUUID + "</a><ul id='ubmsuite_mcs_my_organizational_chart_heirarchyObjectTree_ul_" + window.activePositionUUID + "'></ul></li>"); 	 					
+					$('#heirarchyObjectTree_ul').prepend("<li><a data-thisUUID='" + window.activePositionUUID + "' class='hierarchyObjectTreeItem ajax_tooltip' onclick='if(event.ctrlKey || event.metaKey) { setActivePosition(" + window.activePositionUUID + "); setActivePositionUUID(" + window.activePositionUUID + ")} else {setActivePositionUUID(" + window.activePositionUUID + ")}'>PS-" + window.activePositionUUID + "</a><ul id='ubmsuite_mcs_my_organizational_chart_heirarchyObjectTree_ul_" + window.activePositionUUID + "'></ul></li>"); 	 					
 					$.each(ElementsArray, function(i, item) {
 						if(item.jobDescription_id>="1"){
 						//2. jobDescription_id for Object hierarchy suggests the item is a JD
@@ -3010,10 +3015,13 @@ under the License.
 					</div>
 					<div class="ui-grid-a">
 					    <div class="ui-block-a">
-							  <form id="ubmsuite_mcs_my_organizational_chart_content_createNewPositionPopUp_form_positionTitle_form"> <!-- Form Checklist Created By Aaron Miller -->
+							  <form id="ubmsuite_mcs_my_organizational_chart_content_createNewPositionPopUp_form"> <!-- Form Checklist Created By Aaron Miller -->
 						        <div style="padding:10px 20px;">
 						            <h3>Create New Position</h3>
 						            <input type="text" name="ubmsuite_mcs_my_organizational_chart_content_createNewPositionPopUp_form_positionTitle" id="ubmsuite_mcs_my_organizational_chart_content_createNewPositionPopUp_form_positionTitle" value="" placeholder="Position Title"  data-theme="a">
+						            <input type="text" name="ubmsuite_mcs_my_organizational_chart_content_createNewPositionPopUp_form_positionPayRangeLow" id="ubmsuite_mcs_my_organizational_chart_content_createNewPositionPopUp_form_positionPayRangeLow" value="" placeholder="Pay Range Low"  data-theme="a">
+						            <input type="text" name="ubmsuite_mcs_my_organizational_chart_content_createNewPositionPopUp_form_positionPayRangeHigh" id="ubmsuite_mcs_my_organizational_chart_content_createNewPositionPopUp_form_positionPayRangeHigh" value="" placeholder="Pay Range High"  data-theme="a">
+									<textarea data-mini="true" cols="40" rows="8" id="ubmsuite_mcs_my_organizational_chart_content_createNewPositionPopUp_form_positionSummary" placeholder="Position Summary..."></textarea>
 									<textarea data-mini="true" cols="40" rows="8" id="ubmsuite_mcs_my_organizational_chart_content_createNewPositionPopUp_form_positionDescription" placeholder="Position Description..."></textarea>
 						           <a href="#" class="ui-btn" onclick="createNewPositionAddtoMyModel()">Create Position</a>
 						        </div>
