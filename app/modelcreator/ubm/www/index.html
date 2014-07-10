@@ -1160,11 +1160,11 @@ under the License.
 				});	
 			}
 			function createNewPolicyAddtoMyModel() {
+				alert(window.activeJobDescriptionUUID);
 				if(window.policyType=="other"){
 					window.policyType = document.getElementById("ubmsuite_mcs_my_organizational_chart_content_createNewPolicyPopUp_form_Other").value;
 				}
-				//alert("got past the if");
-				//alert(window.policyType);
+
 				$.getJSON('http://api.universalbusinessmodel.com/ubms_modelcreationsuite_model_create_Policy.php?callback=?', {//JSONP Request
 					key: window.key,
 					username : window.username,
@@ -1174,7 +1174,7 @@ under the License.
 					scope: document.getElementById("ubmsuite_mcs_my_organizational_chart_content_createNewPolicyPopUp_form_PolicyScope").value,
 					type : window.policyType,
 					description : document.getElementById("ubmsuite_mcs_my_organizational_chart_content_createNewPolicyPopUp_form_PolicyDescription").value,
-					activeJobDescriptionUUID : window.activeJobdescriptionUUID
+					activeJobDescriptionUUID: window.activeJobDescriptionUUID
 				}, function(res, status) {
 					$().toastmessage('showNoticeToast', res.message);
 				});

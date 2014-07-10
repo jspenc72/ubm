@@ -48,7 +48,8 @@ if ($conn -> query($sqlins) === false) {
 				trigger_error('Wrong SQL: ' . $sqlins3 . ' Error: ' . $conn -> error, E_USER_ERROR);
 				echo "there was a problem";
 			} else {
-				echo $_GET['callback'] . '(' . "{'message' : 'Requested Policy $title was created successfully and added to model id: $v2 !'}" . ')';
+				$affected_rows = $conn -> affected_rows;
+				echo $_GET['callback'] . '(' . "{'message' : 'Requested Policy $title was created successfully, and attached to the following job description: $v7 policy: $last_inserted_PL_UUID the number of affected rows is: $affected_rows and added to model id: $v2 !'}" . ')';
 			}			
 		}
 	}
