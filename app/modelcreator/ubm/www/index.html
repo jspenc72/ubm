@@ -817,13 +817,19 @@ under the License.
 					ElementsArray = res;
 					if ($('#heirarchyObjectTree_ul').is(':empty')){
 						displayHierarchicalTree(ElementsArray);
+					}else if (window.setPositionClicked==true){
+						displayHierarchicalTree(ElementsArray);
 					}
 					hideLoader();
 				});
 			}
 			function buildHierarchicalTree(uuid){
 				showLoader();
-				$('#heirarchyObjectTree_ul').empty();
+				if(window.setPositionClicked==true){
+
+				}else{
+					$('#heirarchyObjectTree_ul').empty();
+				}
 				//Called when user clicks on a position displayed on the org chart.
 				// 1. Gets the child elements of uuid
 				getChildElementsforHierarchicalTree(uuid);
@@ -1647,6 +1653,7 @@ under the License.
 							        $( ".orgChartItem").find("img").click(function() {
 							        	$(this).parentsUntil( "tr" ).find( ".orgChartItem" ).addClass( "clicked" );
 										$(this).parentsUntil( "tr" ).find( ".orgChartItem" ).css("background-color","#80CCFF");
+										window.setPositionClicked=true;
 									});							        
 							        $( ".orgChartItem" ).click(function() {
 							        	$( this ).addClass( "clicked" );
@@ -1657,6 +1664,8 @@ under the License.
 									  function() {
 									  	if($( this ).hasClass( "clicked" )){
 							        		$( this ).removeClass( "clicked" );
+							        		window.setPositionClicked=false;
+							        		$('#heirarchyObjectTree_ul').empty();
 									  	}else{
 											$(this).parentsUntil( ".node-container" ).find( ".orgChartItem" ).css( "background-color", "green" );
 											//Finds the first parent in the dom tree that has the class .node.container then is searches within that parent to find items with class .orgChartItem and modifies their css
@@ -1702,11 +1711,6 @@ under the License.
         	}
         </script>
 		<!-- End Org Chart Functions -->
-		<script>
-			function getHeirarchicalObjectTree(){
-				//use this function to call all other functions in sequence.	
-			}
-		</script>
 		<script>
 			function addOwnerNameToOwner() {
 				$.getJSON('http://api.universalbusinessmodel.com/ubms_modelcreationsuite_model_create_OwnerName.php?callback=?', {//JSONP Request
