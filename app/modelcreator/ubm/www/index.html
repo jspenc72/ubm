@@ -563,11 +563,46 @@ under the License.
 						}
 					});
 				}	
+				$(".hierarchyObjectTreeItem").draggable({ 
+						revert: "valid", 
+						drag: function(){
+				            // as you drag, add your "dragging" class, like so:
+				            $(this).addClass("inmotion");
+				            window.disableSetActiveIdentifiers=true;
+				        }
+				});
+				$(".hierarchyObjectTreeItem").droppable({
+			      activeClass: "ui-state-default",
+			      hoverClass: "ui-state-hover",
+			      drop: function( event, ui ) {
+			        //$( this )
+			         //UUID of the Element that drop occured on
+			         alert("Dropped Element UUID: " + $(event.target).attr('data-thisUUID'));
+			         //UUID of the Element that was hovered on 
+			         alert("activeUUID: " + window.activeUUID);
+			         window.disableSetActiveIdentifiers=false;
+			      }
+			    });
+				$(".heirarchyObjectTree").droppable({
+			      activeClass: "ui-state-default",
+			      hoverClass: "ui-state-hover",
+			      drop: function( event, ui ) {
+			        //$( this )
+			         // alert($(event.target).attr('id')); 
+			         // alert("activeObjectUUID: " + window.activeObjectUUID);
+			         // window.disableSetActiveIdentifiers==false;
+
+			      }
+			    });
 				//7. Add hover event listener to all items on the tree.
 				$(".hierarchyObjectTreeItem").hover(function(){
 				//	alert("This is a test. IN");
 						  $(this).css("background-color","yellow");
-						  	window.activeUUID = $(this).attr("data-thisUUID");
+						  if(window.disableSetActiveIdentifiers==true){
+						  		window.activeUUID = window.activeUUID;
+						  }else{
+						  		window.activeUUID = $(this).attr("data-thisUUID");
+						  }
 							$(this).tooltipster({
 								content: 'Loading...',
 								position: 'right',
@@ -657,7 +692,10 @@ under the License.
 
 					//alert( $(this).attr("data-thisUUID") );
 				  $(this).css("background-color","pink");
+				  $(this).animate({backgroundColor: '#65A6D1'}, 500);
+				  //Original Background Color #65A6D1
 				});	
+	
 			}
 			function updateObject(){
 				//alert("This is a test: "+ window.activeUUID);
@@ -3568,8 +3606,9 @@ under the License.
 								-->
 								<div id="heirarchyObjectTree_container_header">
 									<center>Hierarchical Objects</center>
+
 									<div id="heirarchyObjectTree_container_header_currentObject">
-										
+
 									</div>
 								</div>
 								<div id="heirarchyObjectTree" class="heirarchyObjectTree" >
