@@ -1596,15 +1596,48 @@ under the License.
 								}
 						//3. Append all other children to their respective "reports_to" ul
 						//$('#ubmsuite_mcs_my_organizational_chart_P' + item.reports_to_id + '_ul').append("<li id='orgChartPosition" + item.UUID + "'><div id='demo_box_" + item.UUID + "' class='demo_box' onclick='setActivePosition(" + item.UUID + ")'><div class='pop_ctrl'><i class='fa fa-bars'></i></div><ul id='demo_ul_2'><li class='demo_li'><a href='#' onclick='addChildPositiontoActivePosition()'><div><i class='fa fa-plus-circle'></i></div><p>Add</p></a></li><li class='demo_li'><a href='#' onclick='removeActivePosition()'><div><i class='fa fa-minus-circle'></i></div><p>Remove</p></a></li></ul></div></br>" + item.title + "<ul id='ubmsuite_mcs_my_organizational_chart_P" + item.UUID + "_ul'></ul></li>");	
-									$('#ubmsuite_mcs_my_organizational_chart_P' + item.ancestor_UUID + '_ul').append("<li id='orgChartPosition" + item.UUID + "'><a onclick='if(event.ctrlKey || event.metaKey) {setActivePosition(" + item.UUID + ", &quot;" + item.title + "&quot;)} else {buildHierarchicalTree(" + item.UUID + ");setActivePositionUUID(" + item.UUID + ")}'><img id='org_img_" + item.UUID + "'  title='cmd-click(mac) or ctl-click(win) icon to manage this position, or add another position your models org chart.' style='width:50px; height:50px;' src='img/employee-opinion-surveys.png' class='click_pointer' /></a></br><p>" + item.title + "</p></br><p>" + item.name + "</p><ul id='ubmsuite_mcs_my_organizational_chart_P" + item.UUID + "_ul'></ul></li>");	
+									$('#ubmsuite_mcs_my_organizational_chart_P' + item.ancestor_UUID + '_ul').append("<li class='orgChartItem' id='orgChartPosition" + item.UUID + "'><a this-UUID='" + item.UUID + "' onclick='if(event.ctrlKey || event.metaKey) {setActivePosition(" + item.UUID + ", &quot;" + item.title + "&quot;)} else {buildHierarchicalTree(" + item.UUID + ");setActivePositionUUID(" + item.UUID + ")}'><img id='org_img_" + item.UUID + "'  title='cmd-click(mac) or ctl-click(win) icon to manage this position, or add another position your models org chart.' style='width:50px; height:50px;' src='img/employee-opinion-surveys.png' class='click_pointer' /></a></br><p>" + item.title + "</p></br><p>" + item.name + "</p><ul id='ubmsuite_mcs_my_organizational_chart_P" + item.UUID + "_ul'></ul></li>");	
 						//4. Empty chart Div
 							        $('#chart').empty();
-							        
+							    
 						//5. Call jOrgChart plugin, append new org chart to chart div, set jorgdraganddrop to false to avoid conflicting compatibility issue with other jquery packages.
 							        $("#modelOrgChart").jOrgChart({
 							            chartElement : '#chart',
 							            dragAndDrop  : false
 							        });
+							        //Click Function for interactive Org Chart
+							        $( ".orgChartItem").find("img").click(function() {
+							        	$(this).parentsUntil( "tr" ).find( ".orgChartItem" ).addClass( "clicked" );
+										$(this).parentsUntil( "tr" ).find( ".orgChartItem" ).css("background-color","#80CCFF");
+									});							        
+							        $( ".orgChartItem" ).click(function() {
+							        	$( this ).addClass( "clicked" );
+										$(this).css("background-color","#80CCFF");
+									});
+							        //Hover Function for interactive Org Chart
+									$( ".orgChartItem" ).hover(
+									  function() {
+									  	if($( this ).hasClass( "clicked" )){
+							        		$( this ).removeClass( "clicked" );
+									  	}else{
+											$(this).parentsUntil( ".node-container" ).find( ".orgChartItem" ).css( "background-color", "green" );
+											//Finds the first parent in the dom tree that has the class .node.container then is searches within that parent to find items with class .orgChartItem and modifies their css
+											$(this).css("background-color","#80CCFF");
+									  	}
+
+
+
+									  }, function() {
+									  	if($(this).hasClass("clicked")){
+											$(this).css("background-color","#80CCFF");
+									  	}else{
+										  	$(this).css("background-color","grey");
+											$(this).parentsUntil( ".node-container" ).find( ".orgChartItem" ).animate({backgroundColor: '#35363B'}, 1000);
+											//Finds the first parent in the dom tree that has the class .node.container then is searches within that parent to find items with class .orgChartItem and modifies their css
+									  	}
+																			  }
+									);		
+									// Original Background Color: #35363B							
 							});
 						});	
 					}, 1500);	
@@ -3518,15 +3551,16 @@ under the License.
 
 				<div id="ubmsuite_mcs_my_organizational_chart_container" >
 				    <ul id="modelOrgChart" style="display:none;">
-						<li id="ubmsuite_mcs_my_organizational_chart_L0_ul" ><!-- Owner Name Injected Here-->
+						<li class="orgChartItem" id="ubmsuite_mcs_my_organizational_chart_L0_ul" ><!-- Owner Name Injected Here-->
 	
 						</li>
 				   </ul>            
 			    </div>
-
-			    <div id="chart" class="orgChart org_chart" style="overflow-y:scroll; max-height:700px;">
-			    	
-			    </div>	
+			    <div id="chart_Container" style="overflow-y:scroll; max-height:400px; margin-right:35px; ">
+				    <div id="chart" class="orgChart org_chart" style="overflow-y:scroll;">
+				    	
+				    </div>				    	
+			    </div>
 			    	<fieldset>	
 							<div id="heirarchyObjectTree_container">
 								<!--
@@ -3546,6 +3580,7 @@ under the License.
 								</div>					
 							</div>	
 							<div id="heirarchyObjectBackbone_container" style="width:100%; float:left; overflow-x:scroll; overflow-y:	scroll;">
+								<!--
 								<style type="text/css">
 									.tg  {border-collapse:collapse;border-spacing:0;}
 									.tg td{font-family:Arial, sans-serif;font-size:14px;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;}
@@ -3631,7 +3666,7 @@ under the License.
 
 								</table>
 
-
+-->
 							</div>					
 					</fieldset>
 			</div>
