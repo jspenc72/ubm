@@ -1643,7 +1643,6 @@ under the License.
 									$('#ubmsuite_mcs_my_organizational_chart_P' + item.ancestor_UUID + '_ul').append("<li class='orgChartItem' id='orgChartPosition" + item.UUID + "'><a this-UUID='" + item.UUID + "' onclick='if(event.ctrlKey || event.metaKey) {setActivePosition(" + item.UUID + ", &quot;" + item.title + "&quot;)} else {buildHierarchicalTree(" + item.UUID + ");setActivePositionUUID(" + item.UUID + ")}'><img id='org_img_" + item.UUID + "'  title='cmd-click(mac) or ctl-click(win) icon to manage this position, or add another position your models org chart.' style='width:50px; height:50px;' src='img/employee-opinion-surveys.png' class='click_pointer' /></a></br><p>" + item.title + "</p></br><p>" + item.name + "</p><ul id='ubmsuite_mcs_my_organizational_chart_P" + item.UUID + "_ul'></ul></li>");	
 						//4. Empty chart Div
 							        $('#chart').empty();
-							    
 						//5. Call jOrgChart plugin, append new org chart to chart div, set jorgdraganddrop to false to avoid conflicting compatibility issue with other jquery packages.
 							        $("#modelOrgChart").jOrgChart({
 							            chartElement : '#chart',

@@ -54,6 +54,7 @@ $footerRight = '
 <p class="footer">App ID  App User License #: </p>
 <p class="footer">CC: </p>
 <p class="footer">BM V #: </p>
+<a href="#*2" style="color:blue;">TOC</a>
 ';
 $footerLeft = "
 <style>
@@ -68,7 +69,6 @@ $footerLeft = "
 <p class='footer'>BM Revision Date: $bm_date_time</p>
 <p class='footer'>BM Ref Manual #: </p>
 <p class='footer'>Destination Model Source Object String Ref # :</p>
-<a href='#*2' style='color:blue;'>TOC</a>
 ";
 $pdf->AddPage();
 

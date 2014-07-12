@@ -54,6 +54,7 @@ $footerRight = '
 <p class="footer">App ID  App User License #: </p>
 <p class="footer">CC: </p>
 <p class="footer">BM V #: </p>
+<a href="#*2" style="color:blue;">TOC</a>
 ';
 
 $footerLeft = '
@@ -68,7 +69,7 @@ $footerLeft = '
 <p class="footer">BM Revision Date: </p>
 <p class="footer">BM Ref Manual #: </p>
 <p class="footer">Destination Model Source Object String Ref # :</p>
-<a href="#*2" style="color:blue;">TOC</a>
+
 ';
 $pdf->AddPage();
 $pdf->Bookmark("JD-$jdCounter - $jdTitle", 1, 0, '', 'B', array(128,64,0));
