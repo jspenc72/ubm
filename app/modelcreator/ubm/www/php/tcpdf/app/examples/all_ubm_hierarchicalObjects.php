@@ -6,6 +6,12 @@ include ('../../../DBConnect_UBMv1.php');
 //Provides the variables used for UBMv1 database connection $conn
 require_once ('../../../globalGetVariables.php');
 $conn = new mysqli($DBServer, $DBUser, $DBPass, $DBName);
+date_default_timezone_set('America/Denver');
+$round_numerator = 60 * 5; // 60 seconds per minute * 5 minutes equals 300 seconds
+//Calculate time to previous 5 minute increment.
+$rounded_time = ( floor ( time() / $round_numerator ) * $round_numerator );
+$ubm_date_time = date('m-d-Y h:i:s A', $rounded_time);
+$bm_date_time = date('m-d-Y h:i:s A', time());
 
 error_reporting(E_ALL);
 ini_set('display_errors', '1');

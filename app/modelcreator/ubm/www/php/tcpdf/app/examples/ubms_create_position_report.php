@@ -55,7 +55,7 @@ $footerRight = '
 <p class="footer">CC: </p>
 <p class="footer">BM V #: </p>
 ';
-$footerLeft = '
+$footerLeft = "
 <style>
     .footer {
         font-size:1em;
@@ -63,14 +63,15 @@ $footerLeft = '
     }
 </style>
 
-<p class="footer">UBM Revision Date: </p>
-<p class="footer">UBM Ref Manual #: </p>
-<p class="footer">BM Revision Date: </p>
-<p class="footer">BM Ref Manual #: </p>
-<p class="footer">Destination Model Source Object String Ref # :</p>
-<a href="#*2" style="color:blue;">TOC</a>
-';
+<p class='footer'>UBM Revision Date: $ubm_date_time</p>
+<p class='footer'>UBM Ref Manual #: </p>
+<p class='footer'>BM Revision Date: $bm_date_time</p>
+<p class='footer'>BM Ref Manual #: </p>
+<p class='footer'>Destination Model Source Object String Ref # :</p>
+<a href='#*2' style='color:blue;'>TOC</a>
+";
 $pdf->AddPage();
+
 $pdf->Bookmark("PS-$psCounter: $psTitle", 0, 0, '', 'B', array(0,64,128));
 // output the HTML content
 $pdf->writeHTMLCELL(0, 0, 100, 6, $headerRight, 0, 1, 0, true, 'R');
@@ -79,4 +80,18 @@ $pdf->writeHTML($html, true, false, true, true, '');
 $pdf->writeHTMLCELL(0, 0, 15, 230, $footerLeft, 0, 1, 0, true, 'L');
 $pdf->writeHTMLCELL(0, 0, 150, 246, $footerRight, 0, 1, 0, true, 'L');
 
+
+
+$actual_link = "http://api.universalbusinessmodel.com/tcpdf/app/examples/ubm_hierarchicalObjects.php?callback=?&activeObjectUUID=$value&activeModelUUID=$activeModelUUID&key=YDoS20lf7Vrnr22h8Ma6NGUV5DblnVhueTPXS7gPynRvQ6U8optzfnMDs3UD";
+// set style for barcode
+$style = array(
+    'border' => 2,
+    'vpadding' => 'auto',
+    'hpadding' => 'auto',
+    'fgcolor' => array(0,0,0),
+    'bgcolor' => false, //array(255,255,255)
+    'module_width' => 1, // width of a single module in points
+    'module_height' => 1 // height of a single module in points
+);
+$pdf->write2DBarcode($actual_link, 'QRCODE,H', 85, 245, 35, 35, $style, 'N');
 

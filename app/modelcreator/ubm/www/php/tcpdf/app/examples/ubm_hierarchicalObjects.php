@@ -6,6 +6,13 @@ require_once ('../../../ubms_db_config.php');
 //Provides the variables used for UBMv1 database connection $conn
 require_once ('../../../globalGetVariables.php');
 $conn = new mysqli($DBServer, $DBUser, $DBPass, $DBName);
+date_default_timezone_set('America/Denver');
+$round_numerator = 60 * 5; // 60 seconds per minute * 5 minutes equals 300 seconds
+//Calculate time to previous 5 minute increment.
+$rounded_time = ( floor ( time() / $round_numerator ) * $round_numerator );
+$ubm_date_time = date('m-d-Y h:i:s A', $rounded_time);
+$bm_date_time = date('m-d-Y h:i:s A', time());
+
 
 $pdf = new TCPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
 // set document information
@@ -89,9 +96,9 @@ if ($rs1 === false) {
 
 // $all_UUID array is a list of all the UUID's that were attatched to the given activeObjectUUID.
 //4. Go through each UUID
+    $psCounter = 1;    
 foreach ($all_UUID as $object => $value) {
     //SELECT
-    
     
     //5.Get the id of the JD, PL, PR, ST, TA and return it
     $sqlsel1 = "SELECT * FROM ubm_modelcreationsuite_heirarchy_object_antiSolipsism_UUID WHERE UUID=$value";
@@ -125,10 +132,13 @@ foreach ($all_UUID as $object => $value) {
                              $psPayRangeHigh = $items2['pay_range_high'];
                              $psSummary = $items2['summary'];
                              require('ubms_create_position_report.php');
+                        $psCounter += 1;                             
+
                        }
                     }
                     $jdCounter = 1;
                     $plCounter = 1;
+                    $prCounter = 1;
                 }
 
                 if ($jobDescriptionId >= 1) {
