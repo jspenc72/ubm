@@ -568,6 +568,7 @@ under the License.
 						drag: function(){
 				            // as you drag, add your "dragging" class, like so:
 				            $(this).addClass("inmotion");
+				            $(this).zIndex( 999 );
 				            window.disableSetActiveIdentifiers=true;
 				        }
 				});
@@ -577,10 +578,12 @@ under the License.
 			      drop: function( event, ui ) {
 			        //$( this )
 			         //UUID of the Element that drop occured on
-			         alert("Dropped Element UUID: " + $(event.target).attr('data-thisUUID'));
+			         alert("Element to attach to: " + $(event.target).attr('data-thisUUID'));
+
 			         //UUID of the Element that was hovered on 
-			         alert("activeUUID: " + window.activeUUID);
+			         alert("Element to attach from: " + window.activeUUID);
 			         window.disableSetActiveIdentifiers=false;
+			         $("#ubmsuite_mcs_my_organizational_chart_confirm_move_copy_add_popup").popup("open");
 			      }
 			    });
 				$(".heirarchyObjectTree").droppable({
@@ -696,6 +699,23 @@ under the License.
 				  //Original Background Color #65A6D1
 				});	
 	
+			}
+			function editSubtree(editType){
+				alert(editType);
+				
+				switch (editType)
+				{
+				   case "move":
+				   case "attach":
+				   case "duplicate": 
+				       alert('Hey');
+				       break;
+
+				   default: 
+				       alert('Default: this option is not valid.');
+				       break;
+				}
+
 			}
 			function updateObject(){
 				//alert("This is a test: "+ window.activeUUID);
@@ -3141,6 +3161,16 @@ under the License.
 				    <a href="#" data-rel="back" class="ui-shadow ui-btn ui-corner-all ui-btn-b ui-icon-check ui-btn-icon-left ui-btn-inline ui-mini" onclick="removeActiveObjectfromMyModel()">Confirm Remove Task</a>
 				    <a href="" data-rel="back" class="ui-shadow ui-btn ui-corner-all ui-btn-inline ui-mini">Cancel</a>
 				</div>	
+				<!-- Move, Copy or Add attachment -->
+				<div data-role="popup" id="ubmsuite_mcs_my_organizational_chart_confirm_move_copy_add_popup"  data-theme="a" data-overlay-theme="b" class="ui-content" style="max-width:340px; padding-bottom:2em;">
+				    <h3>What would you like to do?</h3>
+				    <p>You can move, attach, or attach duplicate this object with its children.</p>
+				    <a href="index.html" data-rel="back" title="Moving this object will remove it along with its children, from its current parent and attach them to the new object." class="ui-shadow ui-btn ui-corner-all ui-btn-b ui-icon-check ui-btn-icon-left ui-btn-inline ui-mini" onclick="editSubtree('move')">Move </a>
+				    <a href="index.html" data-rel="back" title="Attaching this object will create a link from this object and its children to the new object, while keeping the current links in tact" class="ui-shadow ui-btn ui-corner-all ui-btn-b ui-icon-check ui-btn-icon-left ui-btn-inline ui-mini" onclick="editSubtree('attach')">Attach </a>
+				    <a href="index.html" data-rel="back" title="Attach Duplicate of this object will attach a copy of this object and all of its children to the new object, while the current links remain in tact" class="ui-shadow ui-btn ui-corner-all ui-btn-b ui-icon-check ui-btn-icon-left ui-btn-inline ui-mini" onclick="editSubtree('duplicate')">Attach Duplicate </a>
+				    <a href="index.html" data-rel="back" class="ui-shadow ui-btn ui-corner-all ui-btn-inline ui-mini">Cancel</a>
+				</div>	
+				
 				<div data-role="popup" id="ubmsuite_mcs_my_organizational_chart_content_createNewPositionPopUp"  data-theme="a" class="ui-corner-all draggable_popup">
 					<div data-role="header">
 						<h1>Add Position</h1>
