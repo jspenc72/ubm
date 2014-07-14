@@ -34,20 +34,53 @@ echo "To: " . $v3;
 
 //6. Delete the link to all descendants of fromTargetObject
 
-
 }elseif ($v4=="'attach'"){
-echo "From: " . $v2;
-echo "To: " . $v3;
+
+echo "Attach From: " . $v2;
+echo "Attach To: " . $v3;
 
 //3. Get the descendants of the fromTargetObject
 
 //4. Get the ancestors of the toTargetObject
 
 //5. INSERT a copy of all rows with fromTargetObject as the ancestor listing toTargetObject as the new ancestor.
-
-//6. Delete the link to all descendants of fromTargetObject
-
-
+    //SELECT
+    $all_items = array();
+    //1. Select all records with ancestor equal to the activeObjectUUID
+    $sqlsel1 = "SELECT c.descendant_id, c.ancestor_id, c.path_length FROM ubm_modelcreationsuite_heirarchy_object_antiSolipsism_UUID u
+                            JOIN ubm_modelcreationsuite_heirarchy_object_closureTable c
+                            ON (u.UUID=c.descendant_id)
+                            WHERE c.ancestor_id=$v2
+                            ORDER BY u.UUID";
+    $rs1 = $conn->query($sqlsel1);
+    //2. Set rs1 equal to the list of objects that is returned in the result set.
+    if ($rs1 === false) {
+        trigger_error('Wrong SQL: ' . $sqlsel1 . ' Error: ' . $conn->error, E_USER_ERROR);
+    } else {
+        while ($items1 = $rs1->fetch_assoc()) {        
+            //3. Loop through the result set and get the descendant_id and the ancestor_id
+            $returnedDescendant = stripslashes($items1['descendant_id']);
+            $returnedAncestor = stripslashes($items1['ancestor_id']);
+            $sqlins3 =  "INSERT INTO ubm_modelcreationsuite_heirarchy_object_closureTable(ancestor_id, descendant_id, path_length)
+                                     SELECT a.ancestor_id, d.descendant_id, a.path_length+d.path_length+1
+                                       FROM ubm_modelcreationsuite_heirarchy_object_closureTable a, ubm_modelcreationsuite_heirarchy_object_closureTable d
+                                      WHERE a.descendant_id=$v3 
+                                        AND d.ancestor_id=$returnedDescendant";
+            //4. select the record with path_length=1 so that you get the immediate parent.
+            // $sqlsel2 = "SELECT c.*, u.* FROM ubm_modelcreationsuite_heirarchy_object_antiSolipsism_UUID u
+            //                         JOIN ubm_modelcreationsuite_heirarchy_object_closureTable c
+            //                         ON (u.UUID=c.descendant_id)
+            //                         WHERE c.descendant_id=$returnedDescendant
+            //                         AND c.path_length=1";
+            if ($conn->query($sqlins3) === false) {
+                trigger_error('Wrong SQL: ' . $sqlins3 . ' Error: ' . $conn->error, E_USER_ERROR);
+                echo "there was a problem";
+            } else {
+                $affected_rows = $affected_rows + $conn->affected_rows;
+                echo $_GET['callback'] . '(' . "{'message' : 'Requested action affected: $affected_rows rows!'}" . ')';
+            }
+        }
+    }
 }elseif ($v4=="'duplicate'"){
 echo "From: " . $v2;
 echo "To: " . $v3;
@@ -72,54 +105,7 @@ echo "To: " . $v3;
     echo "To: " . $v3;
 }
 
-//SELECT
-$all_items = array();
-
-//1. Select all records with ancestor equal to the activeObjectUUID
-$sqlsel1 = "SELECT c.descendant_id, c.ancestor_id, c.path_length FROM ubm_modelcreationsuite_heirarchy_object_antiSolipsism_UUID u
-                        JOIN ubm_modelcreationsuite_heirarchy_object_closureTable c
-                        ON (u.UUID=c.descendant_id)
-                        WHERE c.ancestor_id=$v2
-                        ORDER BY u.UUID";
-
-$sqlins3 =  "INSERT INTO ubm_modelcreationsuite_heirarchy_object_closureTable(ancestor_id, descendant_id, path_length)
-                         SELECT a.ancestor_id, d.descendant_id, a.path_length+d.path_length+1
-                           FROM ubm_modelcreationsuite_heirarchy_object_closureTable a, ubm_modelcreationsuite_heirarchy_object_closureTable d
-                          WHERE a.descendant_id=$v4 
-                            AND d.ancestor_id=$last_inserted_policy_uuid";
-
-
-$rs1 = $conn->query($sqlsel1);
-
-//2. Set rs1 equal to the list of objects that is returned in the result set.
-if ($rs1 === false) {
-    trigger_error('Wrong SQL: ' . $sqlsel1 . ' Error: ' . $conn->error, E_USER_ERROR);
-} else {
-    while ($items1 = $rs1->fetch_assoc()) {
-        
-        //3. Loop through the result set and get the descendant_id and the ancestor_id
-        $returnedDescendant = stripslashes($items1['descendant_id']);
-        $returnedAncestor = stripslashes($items1['ancestor_id']);
-        
-        //4. select the record with path_length=1 so that you get the immediate parent.
-        
-        $sqlsel2 = "SELECT c.*, u.* FROM ubm_modelcreationsuite_heirarchy_object_antiSolipsism_UUID u
-                                JOIN ubm_modelcreationsuite_heirarchy_object_closureTable c
-                                ON (u.UUID=c.descendant_id)
-                                WHERE c.descendant_id=$returnedDescendant
-                                AND c.path_length=1";
-        $rs2 = $conn->query($sqlsel2);
-        if ($rs1 === false) {
-            trigger_error('Wrong SQL: ' . $sqlsel2 . ' Error: ' . $conn->error, E_USER_ERROR);
-        } else {
-            while ($items2 = $rs2->fetch_assoc()) {
-                $all_items[] = $items2;
-            }
-        }
-    }
-}
 
 //6. JSONP packaged $all_items array
 echo $_GET['callback'] . '(' . json_encode($all_items) . ')';
-
 //Output $all_items array in json encoded format.
