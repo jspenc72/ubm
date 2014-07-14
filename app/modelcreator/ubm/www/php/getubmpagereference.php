@@ -28,6 +28,4 @@
 				   //    echo $_GET['callback'] . '(' . "{'message' : 'Something went horribly wrong!'}" . ')';							
 				}
 			/* close connection */
-			mysqli_close($sqllink);
-?>
-  
+			mysqli_close($sqllink);  
