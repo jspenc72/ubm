@@ -579,17 +579,20 @@ under the License.
 			        //$( this )
 			         //UUID of the Element that drop occured on
 			         alert("Element to attach to: " + $(event.target).attr('data-thisUUID'));
-
+			         window.toTargetObject = $(event.target).attr('data-thisUUID');
 			         //UUID of the Element that was hovered on 
 			         alert("Element to attach from: " + window.activeUUID);
+			         window.fromTargetObject = window.activeUUID;
 			         window.disableSetActiveIdentifiers=false;
 			         $("#ubmsuite_mcs_my_organizational_chart_confirm_move_copy_add_popup").popup("open");
+					 $(event.target).tooltipster('hide');
+
 			      }
 			    });
 				$(".heirarchyObjectTree").droppable({
 			      activeClass: "ui-state-default",
 			      hoverClass: "ui-state-hover",
-			      drop: function( event, ui ) {
+			      drop: function( event, ui ) {		
 			        //$( this )
 			         // alert($(event.target).attr('id')); 
 			         // alert("activeObjectUUID: " + window.activeObjectUUID);
@@ -701,21 +704,39 @@ under the License.
 	
 			}
 			function editSubtree(editType){
-				alert(editType);
-				
+				// alert(editType);
+				var SelectedAction;
 				switch (editType)
 				{
 				   case "move":
+				   SelectedAction = "move";
+				       break;
 				   case "attach":
+				   SelectedAction = "attach";
+				       break;
 				   case "duplicate": 
+				   SelectedAction = "duplicate";
 				       alert('Hey');
 				       break;
-
 				   default: 
 				       alert('Default: this option is not valid.');
 				       break;
 				}
-
+	
+				$.getJSON('http://api.universalbusinessmodel.com/ubms_modelcreationsuite_model_updateSubtree.php?callback=?', {
+					key : window.key,
+					SelectedAction: SelectedAction,
+					fromTargetObject : window.fromTargetObject,
+					toTargetObject : window.toTargetObject
+				}, function(res, status) {
+					//ElementsArray = res;
+					if ($('#heirarchyObjectTree_ul').is(':empty')){
+						//displayHierarchicalTree(ElementsArray);
+					}else if (window.setPositionClicked==true){
+						//displayHierarchicalTree(ElementsArray);
+					}
+					hideLoader();
+				});
 			}
 			function updateObject(){
 				//alert("This is a test: "+ window.activeUUID);

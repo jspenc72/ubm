@@ -336,12 +336,16 @@ $activePhaseId = $_GET['activePhaseId'];
 $activeModelId = $_GET['activeModelId'];
 $activeObjectUUID = $_GET['activeObjectUUID'];
 
+//updateSubtree
+$fromTargetObject = $_GET['fromTargetObject'];
+$toTargetObject = $_GET['toTargetObject'];
+$SelectedAction = $_GET['SelectedAction'];
+
 // ubms add
 $activePolicyUUID = $_GET['activePolicyUUID'];
 $activeProcedureUUID = $_GET['activeProcedureUUID'];
 $activeStepUUID = $_GET['activeStepUUID'];
 $activePositionUUID = $_GET['activePositionUUID'];
-
 
 // ubms remove
 $activeAncestorUUID = $_GET['activeAncestorUUID'];
@@ -349,8 +353,6 @@ $activeDescendantUUID = $_GET['activeDescendantUUID'];
 
 //object detail
 $activeUUID = $_GET['activeUUID'];
-
-
 
 //create alternative pro
 $activeModelId = $_GET['activeModelId'];
@@ -367,7 +369,6 @@ $alternativeConDescription = $_GET['alternativeConDescription'];
 $alternativeConROIRef = $_GET['alternativeConROIRef'];
 $alternativeConHighCost = $_GET['alternativeConHighCost'];
 $alternativeConLowCost = $_GET['alternativeConLowCost'];
-
 
 //all alternative stuff that has not been added
 $activeAlternative = $_GET['activeModelAlternativeId'];
@@ -386,8 +387,6 @@ $activeInvestmentId = $_GET['activeInvestmentId'];
 $activeModelId = $_GET['activeModelId'];
 $activeAlternativeId = $_GET['activeAlternativeId'];
 $activeRiskId = $_GET['activeRiskId'];
-
-
 
 //all investment stuff that has not been added
 $activeInvestmentId = $_GET['activeInvestmentId'];
@@ -412,7 +411,6 @@ $activeModelAlternativeId = $_GET['activeModelAlternativeId'];
 $activeAlternative = $_GET['activeModelAlternativeId'];
 $activeAlternativeRisk = $_GET['activeModelAlternativeRiskId'];
 $investmentTitle = $_GET['investmentTitle'];
-
 
 //Add Owner Name
 
@@ -455,7 +453,6 @@ $activeRiskId = $_GET['activeRiskId'];
  $OpenItem_duedate = $_GET['duedate'];
  $username = $_GET['username'];
 
-
 // agreements
 $licenseAgreementSetup = $_GET['licenseAgreementSetup'];
 $termsOfService = $_GET['termsOfService'];
@@ -469,7 +466,6 @@ $usrpasswd = $_GET['password'];
 $usrname = $_GET['username']; 
 $licenseAgreement = $_GET['licenseAgreement']; 
 $termsOfService = $_GET['termsOfService']; 
-
 
 //getwalkthroughstatus
 $pageName = $_GET['pageName']; 
