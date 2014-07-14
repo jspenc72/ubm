@@ -211,7 +211,7 @@ if($rs1 === false) {
          </tr>
          <tr>
              <td><font face="Arial, Helvetica, sans-serif">Object Type: </font></td>
-			       <td>'.$row['object_type_reference'].'</td>
+			       <td>'.$row['object_type'].'</td>
 			   </tr>
          <tr>
              <td><font face="Arial, Helvetica, sans-serif">Age Requirements: </font></td>
