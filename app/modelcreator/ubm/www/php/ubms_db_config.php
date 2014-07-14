@@ -39,5 +39,3 @@ $DBSName   = 'jessespe_ubm_applications';
 			echo $_GET['callback'] . '(' . "{'message' : 'The Universal Business Model is a collaborative project. However, our financiers insist we reserve access to this resource for UBM developers only. If you are not a robot, visit our website at www.universalbusinessmodel.com to sign up for a developer account and get access to this as well as our many other extensive APIs. If you are having trouble accessing an application email us at support@universalbusinessmodel.com'}" . ')';
 			die();
 		}	
-	
-	
