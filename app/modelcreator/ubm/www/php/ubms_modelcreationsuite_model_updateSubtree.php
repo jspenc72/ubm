@@ -17,14 +17,11 @@ $v4 = "'" . $conn->real_escape_string($SelectedAction) . "'";
 
 //1. Compare the toTargetObject and the fromTargetObject
 
-
-
 //2. Check that the selected action may be performed and is valid for the two objects.
 
 if($v4=="'move'"){
-echo "From: " . $v2;
-echo "To: " . $v3;
-
+// echo "From: " . $v2;
+// echo "To: " . $v3;
 //Removes a subtree from its current place in the tree
 //This deletes paths that terminate within the subtree (descendants of D), but not paths that begin within the subtree (paths whose ancestor is D or any of descendants of D).
     $sqldel = "DELETE a 
@@ -33,14 +30,26 @@ echo "To: " . $v3;
                 LEFT JOIN ubm_modelcreationsuite_heirarchy_object_closureTable AS x
                 ON x.ancestor_id = d.ancestor_id AND x.descendant_id = a.ancestor_id
                 WHERE d.ancestor_id = $v2 AND x.ancestor_id IS NULL;";
-//Inserts a    
+//Inserts appropriate links to all items in the subtree
     $sqlins = "INSERT INTO ubm_modelcreationsuite_heirarchy_object_closureTable (ancestor_id, descendant_id, path_length)
                 SELECT supertree.ancestor_id, subtree.descendant_id,
                 supertree.path_length+subtree.path_length+1
                 FROM ubm_modelcreationsuite_heirarchy_object_closureTable AS supertree JOIN ubm_modelcreationsuite_heirarchy_object_closureTable AS subtree
                 WHERE subtree.ancestor_id = $v2
                 AND supertree.descendant_id = $v3;";
+    if ($conn->query($sqldel) === false) {
+        trigger_error('Wrong SQL: ' . $sqlins3 . ' Error: ' . $conn->error, E_USER_ERROR);
 
+    } else {
+       // echo "Delete worked!";
+        $deleted_rows = $conn->affected_rows;
+        if ($conn->query($sqlins) === false) {
+            trigger_error('Wrong SQL: ' . $sqlins . ' Error: ' . $conn->error, E_USER_ERROR);
+        } else {
+            $inserted_rows = $conn->affected_rows;
+            echo $_GET['callback'] . '(' . "{'message' : 'Requested action deleted: $deleted_rows rows, action inserted rows: $inserted_rows ! From: $v2 and To: $v3 .'}" . ')';
+        }
+    }
 //3. Get the descendants of the fromTargetObject
 
 //4. Get the ancestors of the toTargetObject
@@ -58,6 +67,9 @@ echo "To: " . $v3;
 //4. Get the ancestors of the toTargetObject
 
 //5. INSERT a copy of all rows with fromTargetObject as the ancestor listing toTargetObject as the new ancestor.
+
+
+
     //SELECT
     $all_items = array();
     //1. Select all records with ancestor equal to the activeObjectUUID
@@ -93,7 +105,7 @@ echo "To: " . $v3;
                 $affected_rows = $affected_rows + $conn->affected_rows;
             }
         }
-        echo $_GET['callback'] . '(' . "{'message' : 'Requested action affected: $affected_rows rows!'}" . ')';
+            echo $_GET['callback'] . '(' . "{'message' : 'Requested action affected: $affected_rows rows! From: $v2 and To: $v3'}" . ')';
     }
 }elseif ($v4=="'duplicate'"){
 echo "From: " . $v2;
@@ -118,8 +130,3 @@ echo "To: " . $v3;
     echo "From: " . $v2;
     echo "To: " . $v3;
 }
-
-
-//6. JSONP packaged $all_items array
-echo $_GET['callback'] . '(' . json_encode($all_items) . ')';
-//Output $all_items array in json encoded format.
