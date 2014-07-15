@@ -1787,7 +1787,7 @@ under the License.
 					activeOwnerUUID : window.activeReportsToPosition
 				}, function(res, status) {
 					$.each(res, function(i, item) {
-						$('#my_model_current_owners').append("<li><a href='#'><p>" + item.name + " &nbsp;&nbsp;&nbsp;&nbsp;" + item.percent_owned + "%</p></a><a href='#' onclick='removeOwnersName(" + item.id + ")'>Remove Owner</a></li>");
+						$('#my_model_current_owners').append("<li><a href='#'><p>" + item.name + " &nbsp;&nbsp;&nbsp;&nbsp;" + item.percent_owned + "%</p></a><a class='ui-icon-delete' href='#' onclick='removeOwnersName(" + item.id + ")'>Remove Owner</a></li>");
 						$('#my_model_current_owners').listview().listview("refresh");
 					});
 				});	
