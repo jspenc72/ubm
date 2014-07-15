@@ -292,8 +292,8 @@ $service = $_GET['serviceTitle'];
 $activeModelId = $_GET['activeModelId'];
  
  // Create Strategic Alliance
- $strategicAllianceComment = $_GET['strategicAllianceComment'];
-$strategicAllianceDescription = $_GET['strategicAllianceDescription'];
+ $strategicAllianceDescription = $_GET['strategicAllianceDescription'];
+$strategicAllianceTitle = $_GET['strategicAllianceTitle'];
 $activeModelId = $_GET['activeModelId'];
 // Create Strategic positioning questions
 $strategicPosistion = $_GET['strategicPosistionQuestion'];

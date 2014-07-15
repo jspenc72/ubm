@@ -4,8 +4,8 @@ $RQType = $_GET['RQType'];
 $username = $_GET['username'];
 //Put your json request variables here
 
-$strategicAllianceComment = $_GET['strategicAllianceComment'];
 $strategicAllianceDescription = $_GET['strategicAllianceDescription'];
+$strategicAllianceTitle = $_GET['strategicAllianceTitle'];
 $activeModelId = $_GET['activeModelId'];
 
 //End JSON Request Variables
@@ -24,11 +24,11 @@ if ($conn -> connect_error) {
 }
 
 //INSERT
-$v2 = "'" . $conn -> real_escape_string($strategicAllianceComment) . "'";
-$v3 = "'" . $conn -> real_escape_string($strategicAllianceDescription) . "'";
+$v2 = "'" . $conn -> real_escape_string($strategicAllianceDescription) . "'";
+$v3 = "'" . $conn -> real_escape_string($strategicAllianceTitle) . "'";
 $v5 = "'" . $conn -> real_escape_string($activeModelId) . "'";
 
-$sqlins = "INSERT INTO ubm_model_strategicalliances (strategicalliance_description, strategicalliance_comment) VALUES ( $v2, $v3 )"; 	//Creates a New Strategic Alliance record.
+$sqlins = "INSERT INTO ubm_model_strategicalliances (strategicalliance_title, strategicalliance_description	) VALUES ( $v2, $v3 )"; 	//Creates a New Strategic Alliance record.
 if ($conn -> query($sqlins) === false) {
 	trigger_error('Wrong SQL: ' . $sqlins . ' Error: ' . $conn -> error, E_USER_ERROR);
 } else {
@@ -46,7 +46,7 @@ if ($conn -> query($sqlins) === false) {
 
 
 
-echo $_GET['callback'] . '(' . "{'message' : 'Strategic Alliance \"$strategicAllianceComment\" created successfully!'}" . ')';
+echo $_GET['callback'] . '(' . "{'message' : 'Strategic Alliance \"$strategicAllianceDescription\" created successfully!'}" . ')';
 
 /*SELECT
  $sqlsel="SELECT * FROM ubm_mcs_app_resolutions WHERE openitemid=$openitemid";

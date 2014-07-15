@@ -16,9 +16,9 @@ function getMyModelsStrategicAlliances() { //Populates Customer  Listview on Mod
         $.each(res, function(i, item) {
 
 
-            $('#ubmsuite_mcs_model_visual_content_strategic_alliances_ul').append("<li><a style='width:100%'>" + item.strategicalliance_description + "</a></li>");
+            $('#ubmsuite_mcs_model_visual_content_strategic_alliances_ul').append("<li><a style='width:100%'>" + item.strategicalliance_title + "</a></li>");
 
-            $('#ubmsuite_modelSettings_myStrategicAlliances_ul').append("<li><a href='#'> <h2 style='white-space:normal;'>" + item.strategicalliance_description + "</h2><p>" + item.strategicalliance_comment + "</p></a><a href='#ubmsuite_modelSettings_confirm_remove_StrategicAlliance_popup' data-rel='popup' data-position-to='window' data-transition='pop' onclick='setActiveStrategicAllianceId(" + item.id + ")'>Remove Strategic Alliance</a></li>");
+            $('#ubmsuite_modelSettings_myStrategicAlliances_ul').append("<li><a href='#'> <h2 style='white-space:normal;'>" + item.strategicalliance_title + "</h2><p>" + item.strategicalliance_description + "</p></a><a href='#ubmsuite_modelSettings_confirm_remove_StrategicAlliance_popup' data-rel='popup' data-position-to='window' data-transition='pop' onclick='setActiveStrategicAllianceId(" + item.id + ")'>Remove Strategic Alliance</a></li>");
 
             $('#ubmsuite_modelSettings_myStrategicAlliances_ul').listview().listview("refresh");
         });
@@ -37,7 +37,7 @@ function getListofPossibleStrategicAlliances() { //Populates Customer Listview o
         //						alert(status);
         $('#ubmsuite_modelSettings_strategicalliances_popup_listview').empty();
         $.each(res, function(i, item) {
-            $('#ubmsuite_modelSettings_strategicalliances_popup_listview').append("<li><a href='#'><p style='white-space:normal;'>" + item.strategicalliance_description + "</p></a><a href='#' onclick='addStrategicAllianceToMyModel(" + item.id + ")'>Add Strategic Alliance</a></li>");
+            $('#ubmsuite_modelSettings_strategicalliances_popup_listview').append("<li><a href='#'><p style='white-space:normal;'>" + item.strategicalliance_title + "</p></a><a href='#' onclick='addStrategicAllianceToMyModel(" + item.id + ")'>Add Strategic Alliance</a></li>");
             $('#ubmsuite_modelSettings_strategicalliances_popup_listview').listview().listview("refresh");
         })
     });
@@ -59,8 +59,8 @@ function createNewStrategicAllianceAddtoMyModel() { //Called when the user submi
     $.getJSON('http://api.universalbusinessmodel.com/ubms_modelcreationsuite_model_create_StrategicAlliance.php?callback=?', { //JSONP Request
         key: window.key,
         activeModelUUID: window.activeModelUUID,
-        strategicAllianceDescription: document.getElementById("ubmsuite_modelSettings_createStrategicAlliance_popup_StrategicAlliance_description").value,
-        strategicAllianceComment: document.getElementById("ubmsuite_modelSettings_createStrategicAlliance_popup_StrategicAlliance_comment").value
+        strategicAllianceTitle: document.getElementById("ubmsuite_modelSettings_createStrategicAlliance_popup_strategicalliance_title").value,
+        strategicAllianceDescription: document.getElementById("ubmsuite_modelSettings_createStrategicAlliance_popup_strategicalliance_description   ").value
     }, function(res, status) {
         if (status == "success") {
             $('#ubmsuite_modelSettings_createStrategicAlliance_popup_form').each(function() {
