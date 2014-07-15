@@ -49,22 +49,7 @@ if ($rs1 === false) {
                     $returnDescendant = stripslashes($items2['descendant_id']);
                 if($numberOfRows>1){
 //If the item has more than one ancestor check to see that both of its ancestors are indirect descendents of the parent of this subtree.                    
-                        $sqlsel3 = "SELECT * 
-                                     FROM ubm_modelcreationsuite_heirarchy_object_closureTable
-                                     WHERE ancestor_id=$v2
-                                     AND descendant_id=$returnDescendant";
-                        $rs3 = $conn->query($sqlsel3);
-                        if ($rs3 === false) {
-                             trigger_error('Wrong SQL: ' . $sqlsel3 . ' Error: ' . $conn->error, E_USER_ERROR);
-                        } else {
-                        $numberOfRows = $rs3->num_rows;
-                        if($numberOfRows==1){
-                              $all_items[] = $items2;
-                            //echo "Item is an indirect descendant.";
-                        }else{
-                            //echo "Item is not an indirect descendant.";
-                        }
-                    }
+                        $all_items[] = $items2;
                 }else{
                         $all_items[] = $items2;
                 }

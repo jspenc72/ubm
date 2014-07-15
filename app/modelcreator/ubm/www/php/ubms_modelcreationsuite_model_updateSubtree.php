@@ -16,7 +16,6 @@ $v3 = "'" . $conn->real_escape_string($toTargetObject) . "'";
 $v4 = "'" . $conn->real_escape_string($SelectedAction) . "'";
 
 //1. Compare the toTargetObject and the fromTargetObject
-
 //2. Check that the selected action may be performed and is valid for the two objects.
 
 if($v4=="'move'"){
@@ -39,7 +38,6 @@ if($v4=="'move'"){
                 AND supertree.descendant_id = $v3;";
     if ($conn->query($sqldel) === false) {
         trigger_error('Wrong SQL: ' . $sqlins3 . ' Error: ' . $conn->error, E_USER_ERROR);
-
     } else {
        // echo "Delete worked!";
         $deleted_rows = $conn->affected_rows;
@@ -50,16 +48,7 @@ if($v4=="'move'"){
             echo $_GET['callback'] . '(' . "{'message' : 'Requested action deleted: $deleted_rows rows, action inserted rows: $inserted_rows ! From: $v2 and To: $v3 .'}" . ')';
         }
     }
-//3. Get the descendants of the fromTargetObject
-
-//4. Get the ancestors of the toTargetObject
-
-//5. INSERT a copy of all rows with fromTargetObject as the ancestor listing toTargetObject as the new ancestor.
-
-//6. Delete the link to all descendants of fromTargetObject
-
 }elseif ($v4=="'attach'"){
-
 // echo "Attach From: " . $v2;
 // echo "Attach To: " . $v3;
 //3. Get the descendants of the fromTargetObject
@@ -81,24 +70,6 @@ if($v4=="'move'"){
         $inserted_rows = $conn->affected_rows;
         echo $_GET['callback'] . '(' . "{'message' : 'Requested action inserted rows: $inserted_rows ! From: $v2 and To: $v3 .'}" . ')';
     }
-}elseif ($v4=="'duplicate'"){
-echo "From: " . $v2;
-echo "To: " . $v3;
-
-//3. Get the descendants of the fromTargetObject
-
-//4. Get the ancestors of the toTargetObject
-
-//5. Starting with the highest descendant, 
-        //A. For each descendant of fromTargetObject get the specification id and insert a new UUID to link to it.
-        //B. Attach the new UUID to the toTargetObject
-        //C. If this descendant has any descendants, loop through them and add them to the new tree.
-
-//6. INSERT a copy of all rows with fromTargetObject as the ancestor listing toTargetObject as the new ancestor.
-
-//7. Delete the link to all descendants of fromTargetObject
-
-
 /*** /
     //SELECT
     $all_items = array();
@@ -145,6 +116,24 @@ echo "To: " . $v3;
 
 
 /***/
+
+}elseif ($v4=="'duplicate'"){
+echo "From: " . $v2;
+echo "To: " . $v3;
+
+//3. Get the descendants of the fromTargetObject
+
+//4. Get the ancestors of the toTargetObject
+
+//5. Starting with the highest descendant, 
+        //A. For each descendant of fromTargetObject get the specification id and insert a new UUID to link to it.
+        //B. Attach the new UUID to the toTargetObject
+        //C. If this descendant has any descendants, loop through them and add them to the new tree.
+
+//6. INSERT a copy of all rows with fromTargetObject as the ancestor listing toTargetObject as the new ancestor.
+
+//7. Delete the link to all descendants of fromTargetObject
+
 
 }else {
     echo $v4;
