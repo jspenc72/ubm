@@ -25,6 +25,21 @@ if($v4=="'move'"){
 echo "From: " . $v2;
 echo "To: " . $v3;
 
+//Removes a subtree from its current place in the tree
+//This deletes paths that terminate within the subtree (descendants of D), but not paths that begin within the subtree (paths whose ancestor is D or any of descendants of D).
+    $sqldel = "DELETE a 
+                FROM ubm_modelcreationsuite_heirarchy_object_closureTable AS a
+                JOIN ubm_modelcreationsuite_heirarchy_object_closureTable AS d ON a.descendant_id = d.descendant_id
+                LEFT JOIN ubm_modelcreationsuite_heirarchy_object_closureTable AS x
+                ON x.ancestor_id = d.ancestor_id AND x.descendant_id = a.ancestor_id
+                WHERE d.ancestor_id = $v2 AND x.ancestor_id IS NULL;";
+//Inserts a    
+    $sqlins = "INSERT INTO ubm_modelcreationsuite_heirarchy_object_closureTable (ancestor_id, descendant_id, path_length)
+                SELECT supertree.ancestor_id, subtree.descendant_id,
+                supertree.path_length+subtree.path_length+1
+                FROM ubm_modelcreationsuite_heirarchy_object_closureTable AS supertree JOIN ubm_modelcreationsuite_heirarchy_object_closureTable AS subtree
+                WHERE subtree.ancestor_id = $v2
+                AND supertree.descendant_id = $v3;";
 
 //3. Get the descendants of the fromTargetObject
 
@@ -36,9 +51,8 @@ echo "To: " . $v3;
 
 }elseif ($v4=="'attach'"){
 
-echo "Attach From: " . $v2;
-echo "Attach To: " . $v3;
-
+// echo "Attach From: " . $v2;
+// echo "Attach To: " . $v3;
 //3. Get the descendants of the fromTargetObject
 
 //4. Get the ancestors of the toTargetObject
@@ -77,9 +91,9 @@ echo "Attach To: " . $v3;
                 echo "there was a problem";
             } else {
                 $affected_rows = $affected_rows + $conn->affected_rows;
-                echo $_GET['callback'] . '(' . "{'message' : 'Requested action affected: $affected_rows rows!'}" . ')';
             }
         }
+        echo $_GET['callback'] . '(' . "{'message' : 'Requested action affected: $affected_rows rows!'}" . ')';
     }
 }elseif ($v4=="'duplicate'"){
 echo "From: " . $v2;
