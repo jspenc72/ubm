@@ -827,7 +827,7 @@ under the License.
 
 				            var key;
 				            // Add any column to keyArray that you do not want to show up in the editable popup
-				            var keyArray = ["id", "position_has_org_chart_level", "reports_to_id", "creation_date", "ads_ubm_h_ps_id", "ads_ubm_order_no", "adapted_from_id", "object_type", "object_type", "creator_username", "object_type", "created_by", "creation_date", "created_date", "sourceModel_reference", "ads_ubm_h_jd_id", "ads_jd_ref", "mfi_reference"];
+				            var keyArray = ["id", "position_has_org_chart_level", "reports_to_id", "creation_date", "ads_ubm_h_ps_id", "ads_ubm_order_no", "adapted_from_id", "object_type", "object_type", "creator_username", "object_type", "created_by", "creation_date", "created_date", "sourceModel_reference", "ads_ubm_h_jd_id", "ads_jd_ref", "mfi_reference", "ads_ubm_h_pl_id", "ads_ubm_h_pr_id"];
 				            for (key in item) {	
 				                if (item.hasOwnProperty(key)) {
 				                	//checks the keyArray for the value
@@ -3311,7 +3311,7 @@ under the License.
 				    <div data-role='content' data-theme='a'>
 						<ul data-role="listview">
 							<li <a href="#" onclick='confirmRemoveActiveTask()' class="ui-btn">Remove</a></li>
-							<li <a href="#" onclick='modifyActivePosition()' class="ui-btn">Modify</a></li>
+							<li <a href="#" onclick='editObject()' class="ui-btn">Modify</a></li>
 						</ul>
 				    </div>	
 				</div>	
