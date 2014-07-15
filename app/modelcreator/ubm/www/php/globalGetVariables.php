@@ -478,3 +478,4 @@ $modelDescription = $_GET['modelDescription'];
 $stepOrder = $_GET['stepOrder']; 
 $taskOrder = $_GET['taskOrder']; 
 $objectArray = $_GET['objectArray']; 
+$updateSwitch = $_GET['updateSwitch']; 

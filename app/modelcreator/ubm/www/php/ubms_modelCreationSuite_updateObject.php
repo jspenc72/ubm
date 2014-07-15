@@ -2,7 +2,8 @@
 require_once ('globalGetVariables.php');
 require_once ('ubms_db_config.php');
 require_once ('DBConnect_UBMv1.php');
- //Provides the variables used for UBMv1 database connection $conn
+
+//Provides the variables used for UBMv1 database connection $conn
 error_reporting(E_ALL);
 ini_set('display_errors', '1');
 $conn = new mysqli($DBServer, $DBUser, $DBPass, $DBName);
@@ -71,37 +72,61 @@ if ($rs1 === false) {
     // assign keys to the column variable
     $escapedValues = array();
     foreach ($objectArray as $key => $value) {
-        $escapedValues[] = "'" . $conn -> real_escape_string($value) . "'";
+        $escapedValues[] = "'" . $conn->real_escape_string($value) . "'";
+    }
+    $createdBy = "SELECT created_by FROM $table WHERE id=$activeObjectId";
+    $rs2 = $conn->query($createdBy);
+    if ($rs2 === false) {
+        trigger_error('Wrong SQL: ' . $createdBy . ' Error: ' . $conn->error, E_USER_ERROR);
+    } else {
+        while ($items2 = $rs2->fetch_assoc()) {
+            $creator = $items2['created_by'];
+        }
     }
     
-    //insert the modified object into the appropriate specification table
-    $sqlins = "INSERT INTO $table (" . implode(', ', array_keys($objectArray)) . ") VALUES (" . implode(', ', array_values($escapedValues)) . ")";
-    if ($conn->query($sqlins) === false) {
-        trigger_error('Wrong SQL: ' . $sqlins . ' Error: ' . $conn->error, E_USER_ERROR);
+    //Check if the user created the object and if they want it changed (updateSwitch)
+    if ($creator == $username && $updateSwitch == 1) {
+        $rowsModifedArray = [];
+        foreach ($objectArray as $column => $value) {
+            $sql = "UPDATE $table SET $column='$value' WHERE id=$activeObjectId";
+            if ($conn->query($sql) === false) {
+                trigger_error('Wrong SQL: ' . $sql . ' Error: ' . $conn->error, E_USER_ERROR);
+            } else {
+                $rowsModifedArray[] = $affected_rows = $conn->affected_rows;
+            }
+        }
+        echo $_GET['callback'] . '(' . "{'message' : 'All objects were successfully modified. Affected Rows: " . json_encode($rowsModifedArray) . "'}" . ')';
     } else {
         
-        //get laster inserted id
-        $last_inserted_id = $conn->insert_id;
-        
-        // Upadate the object id in the anti solipsism table to point to the new object id
-        
-        $sql = "UPDATE `ubm_modelcreationsuite_heirarchy_object_antiSolipsism_UUID` SET $object=$last_inserted_id WHERE UUID=$activeObjectUUID";
-        if ($conn->query($sql) === false) {
-            trigger_error('Wrong SQL: ' . $sql . ' Error: ' . $conn->error, E_USER_ERROR);
+        //insert the modified object into the appropriate specification table
+        $sqlins = "INSERT INTO $table (" . implode(', ', array_keys($objectArray)) . ") VALUES (" . implode(', ', array_values($escapedValues)) . ")";
+        if ($conn->query($sqlins) === false) {
+            trigger_error('Wrong SQL: ' . $sqlins . ' Error: ' . $conn->error, E_USER_ERROR);
         } else {
             
-            // get the amount of affected rows
-            $affected_rows = $conn->affected_rows;
+            //get laster inserted id
+            $last_inserted_id = $conn->insert_id;
             
-            //display a message
-            $sqlins2 = "INSERT INTO object_update_log (UUID, old_spec_id, new_spec_id, created_by)
-                VALUES ($activeObjectUUID, $activeObjectId, $last_inserted_id, '$username')";
-            if (!$conn->query($sqlins2)) {
-                $theError = $conn->error;
-                echo $_GET['callback'] . '(' . "{'message' : 'Unable to Process your request: $theError'}" . ')';
+            // Upadate the object id in the anti solipsism table to point to the new object id
+            
+            $sql = "UPDATE `ubm_modelcreationsuite_heirarchy_object_antiSolipsism_UUID` SET $object=$last_inserted_id WHERE UUID=$activeObjectUUID";
+            if ($conn->query($sql) === false) {
+                trigger_error('Wrong SQL: ' . $sql . ' Error: ' . $conn->error, E_USER_ERROR);
             } else {
+                
+                // get the amount of affected rows
+                $affected_rows = $conn->affected_rows;
+                
+                //display a message
+                $sqlins2 = "INSERT INTO object_update_log (UUID, old_spec_id, new_spec_id, created_by)
+                  VALUES ($activeObjectUUID, $activeObjectId, $last_inserted_id, '$username')";
+                if (!$conn->query($sqlins2)) {
+                    $theError = $conn->error;
+                    echo $_GET['callback'] . '(' . "{'message' : 'Unable to Process your request: $theError'}" . ')';
+                } else {
+                }
+                echo $_GET['callback'] . '(' . "{'message' : 'Object was successfully modified. Affected Rows: $affected_rows'}" . ')';
             }
-            echo $_GET['callback'] . '(' . "{'message' : 'Object was successfully modified. Affected Rows: $affected_rows'}" . ')';
         }
     }
 }

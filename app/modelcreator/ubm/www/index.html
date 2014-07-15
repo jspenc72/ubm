@@ -740,7 +740,9 @@ under the License.
 					hideLoader();
 				});
 			}
-			function updateObject(){
+
+			//Update switch is given from the submit buttons on the modify object form, they check if the user wants to modify all or one.
+			function updateObject(updateSwitch){
 				//alert("This is a test: "+ window.activeUUID);
 				var counter=1;
 				//1. Declare counter variable to keep track of the number of inputs in a given form.
@@ -775,7 +777,8 @@ under the License.
 						username: window.username,
 						activeModelUUID : window.activeModelUUID,
 						activeObjectUUID : window.activeObjectUUID,
-						objectArray : objectArray
+						objectArray : objectArray,
+						updateSwitch : updateSwitch
 					}, function(res, status) {
 						$().toastmessage('showNoticeToast', res.message);
 					});
@@ -823,7 +826,7 @@ under the License.
 							}
 
 							$("#ubmsuite_mcs_my_organizational_chart_content_editObject_popup_header").append("<center><h1 class='ui-title' role='heading' aria-level='1'>Edit " + objectName + "</h1></center>");
-							$("#ubmsuite_mcs_my_organizational_chart_content_editObject_popup_content_container").append("<li class='ui-body ui-body-b'><fieldset class='ui-grid-a'><div class='ui-block-a'><a href='#' data-rel='back' class='ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-plus ui-btn-b'>Cancel</a></div><div class='ui-block-b'><a href='#' onclick='updateObject()' class='ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-delete ui-btn-b'>Submit</a></div></fieldset></li>");
+							$("#ubmsuite_mcs_my_organizational_chart_content_editObject_popup_content_container").append("<li class='ui-body ui-body-b'><fieldset class='ui-grid-a'><div class='ui-block-a'><a href='#' class='ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-plus ui-btn-b' onclick='updateObject(1)' title='This will update all objects with the same name. You can only do this if you are the creator!'>Update All</a></div><div class='ui-block-b'><a href='#' onclick='updateObject(0)' class='ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-delete ui-btn-b' title='Only this object will be changed.'>Update One</a></div></fieldset></li>");
 
 				            var key;
 				            // Add any column to keyArray that you do not want to show up in the editable popup
