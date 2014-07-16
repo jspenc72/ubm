@@ -40,8 +40,12 @@ if ($rs1 === false) {
         $sql = "SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA='jessespe_UBMv1' AND TABLE_NAME='ubm_modelcreationsuite_identification_setup'";
         $rs1 = $conn->query($sql);
         while ($items = $rs1->fetch_assoc()) {
-            $all_items[] = $items['COLUMN_NAME'];
+            $keys[] = $items['COLUMN_NAME'];
         }
+        foreach ($keys as $key => $value) {
+                $items[$value] = "";
+            }
+            $all_items[] = $items;
         echo $_GET['callback'] . '(' . json_encode($all_items) . ')';
     }
 }
