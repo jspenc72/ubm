@@ -905,10 +905,13 @@ under the License.
 					});
 						$("#mcs_setup_checklist_setup_identification_setup_popup").popup("open");
 				}, 500);
-				
 			}
-
 			function getChildElementsforHierarchicalTree(activeObjectUUID) {
+				if(!activeObjectUUID){
+					activeObjectUUID = window.activePositionUUID;
+					$('#heirarchyObjectTree_ul').empty();
+				}else{
+				}
 				var ElementsArray = new Array();
 				$.getJSON('http://api.universalbusinessmodel.com/ubms_modelcreationsuite_model_get_Direct_ElementPosterityTree.php?callback=?', {
 					key : window.key,
@@ -3182,7 +3185,7 @@ under the License.
 						MCS Model Structure Dashboard
 					</div>
 				</div>
-					<a href="#" class="ui-btn ui-shadow ui-corner-all ui-icon-refresh ui-btn-icon-notext" onclick="getMyModelsOrgChart()">Refresh</a>
+					<a href="#" class="ui-btn ui-shadow ui-corner-all ui-icon-refresh ui-btn-icon-notext" onclick="getMyModelsOrgChart(); getChildElementsforHierarchicalTree();">Refresh</a>
 			    <div id="printModel" style="float:right;padding-right:15px">
 			    	<a class="ui-btn" id="printModel" onclick="printModel()">Print Model</a>
 			    </div>									
@@ -3734,7 +3737,7 @@ under the License.
 				   </ul>            
 			    </div>
 			    <center>
-				    <div id="chart_Container" style="overflow-y:scroll; max-height:400px; display: inline-block; margin-right:35px; margin-left:35px; ">
+				    <div id="chart_Container" style="overflow-y:scroll; max-height:400px; max-width:90%; display: inline-block; margin-right:35px; margin-left:35px; ">
 					    <div id="chart" class="orgChart org_chart" style="overflow-y:scroll;">
 					    	
 					    </div>				    	
