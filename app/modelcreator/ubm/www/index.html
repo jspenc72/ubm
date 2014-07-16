@@ -453,16 +453,19 @@ under the License.
 			}
 			function removeActivePositionfromMyModel(){
 				showLoader();
-				alert(window.activePositionUUID);
+				//alert(window.activePositionUUID);
 				$.getJSON('http://api.universalbusinessmodel.com/ubms_modelcreationsuite_model_remove_Positions.php?callback=?', {//JSONP Request
 					key : window.key,
 					username: window.username,
 					activeAncestorUUID: window.activeModelUUID,
 					activeDescendantUUID: window.activePositionUUID
 				}, function(res, status) {
-					$().toastmessage('showSuccessToast', res.message);
 					hideLoader();
+					$().toastmessage('showSuccessToast', res.message);
+					$(".ui-popup").popup("close");
 				});
+					hideLoader();
+					$(".ui-popup").popup("close");
 					getMyModelsOrgChart();
 			}
 			function removeActiveObjectfromMyModel(){
