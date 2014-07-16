@@ -858,6 +858,49 @@ under the License.
 				}, 500);
 				
 			}
+
+
+			function editInformationSetup(){
+				$(".ui-popup").popup("close");
+				showLoader();
+				setTimeout(function() {
+				    $("#mcs_setup_checklist_setup_identification_setup_popup_content").empty();
+					$.getJSON('http://api.universalbusinessmodel.com/ubms_modelCreationSuite_model_get_informationSetup.php?callback=?', {
+						key : window.key,
+						activeUUID : window.activeUUID
+					}, function(res, status) {
+						//1. Open Popup
+						//2. Append 1 input for each of the fields received from the API, set the value of each equal to the value of each field in the array.
+						//3. 
+						$.each(res, function(i, item) {
+
+				            var key;
+				            // Add any column to keyArray that you do not want to show up in the editable popup
+				            var keyArray = ["os", "hardware"];
+				            for (key in item) {	
+				                if (item.hasOwnProperty(key)) {
+				                	//checks the keyArray for the value
+				                	if(keyArray.indexOf(key) >=0){
+				                		console.log(key);
+				                	}else{
+			                			var visKey = key.charAt(0).toUpperCase() + key.slice(1);
+			                			visKey = visKey.split('_').join(' ');
+
+			                			$("#mcs_setup_checklist_setup_identification_setup_popup_content").append("<label for='textarea'>	" + visKey + ":</label>");
+		                				$("#mcs_setup_checklist_setup_identification_setup_popup_content").append("<li class='ui-field-contain'><textarea type='text' cols='60' rows='4' name='textarea' id='textarea' db-columnname='" + key + "' value='' placeholder='" + visKey + "'>" + item[key] + "</textarea></li>");
+
+		                				$("#mcs_setup_checklist_setup_identification_setup_popup_content").append("<li class='ui-body ui-body-b'><fieldset class='ui-grid-a'><div class='ui-block-a'><a href='#' class='ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-plus ui-btn-b' onclick='updateObject(1)' title='This will update all objects with the same name. You can only do this if you are the creator!'>Update All</a></div><div class='ui-block-b'><a href='#' onclick='updateObject(0)' class='ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-delete ui-btn-b' title='Only this object will be changed.'>Submit</a></div></fieldset></li>");
+				                	}
+				                }
+				            }
+						});
+						hideLoader();
+					});
+						$("#mcs_setup_checklist_setup_identification_setup_popup").popup("open");
+				}, 500);
+				
+			}
+
 			function getChildElementsforHierarchicalTree(activeObjectUUID) {
 				var ElementsArray = new Array();
 				$.getJSON('http://api.universalbusinessmodel.com/ubms_modelcreationsuite_model_get_Direct_ElementPosterityTree.php?callback=?', {
@@ -1524,6 +1567,30 @@ under the License.
 			}
 		</script>
 		<!-- End Step-->
+		<!-- Identification Setup -->
+		<script>
+		function getValuesForIdentificationSetup(){
+				$.getJSON('http://api.universalbusinessmodel.com/ubm_modelcreationsuite_model_Procedure_get_Steps.php?callback=?', {//JSONP Request
+					activeModelUUID:window.activeModelUUID,
+					activeProcedureId:window.activeProcedureId
+				}, function(res, status) {
+							$("#ubmsuite_mcs_my_organizational_chart_heirarchyObjectTree_ul_PR_" + window.activeProcedureId + "").empty();
+					$.each(res, function(i, item) {
+							//3. Append all children to their respective "reports_to" ul
+							$("#ubmsuite_mcs_my_organizational_chart_heirarchyObjectTree_ul_PR_" + window.activeProcedureId + "").append("<li><a data-position-to='origin' href='#ubmsuite_mcs_my_organizational_chart_content_manageTaskPopUp'data-rel='popup' class='ui-link' data-transition='pop' onclick='setActiveStepId(" + item.id + ")'>ST-" + item.id + "</a><ul id='ubmsuite_mcs_my_organizational_chart_heirarchyObjectTree_ul_ST_" + item.id + "'></ul></li>");
+							//4. Empty chart Div
+					        $('#chart').empty();
+							//5. Call jOrgChart plugin, append new org chart to chart div, set jorgdraganddrop to false to avoid conflicting compatibility issue with other jquery packages.
+					        $("#modelOrgChart").jOrgChart({
+					            chartElement : '#chart',
+					            dragAndDrop  : false
+					        }); /***/
+						
+					});
+				});			
+				$("#heirarchyObjectTree").trigger("create");		
+			}
+		</script>
 		<script>
 			
 			function setActiveTaskId(activeTaskId){
@@ -6931,50 +6998,12 @@ under the License.
 					<div data-role="header"  data-theme="a">
 						<h1>Identification Setup</h1>
 					</div>
-					<div role="main" class="ui-content">
-						<p>
-							Provide this information information as per your business model managers instructions.
-						</p>
-						<form id="mcs_setup_checklist_setup_identification_setup_popup_form"> <!-- Form Checklist Created By Aaron Miller -->
-							<input type="text" name="mcs_setup_checklist_setup_identification_setup_popup_form_legalentity" id="mcs_setup_checklist_setup_identification_setup_popup_form_legalentity" placeholder="Enter the Model Owner Legal Entity.." value="" data-mini="true">
-							<input type="text" name="mcs_setup_checklist_setup_identification_setup_popup_form_ccode" id="mcs_setup_checklist_setup_identification_setup_popup_form_ccode" placeholder="Enter the Model Owner CCODE" value="" data-mini="true">
-							<input type="text" name="mcs_setup_checklist_setup_identification_setup_popup_form_model_contactname" id="mcs_setup_checklist_setup_identification_setup_popup_form_model_contactname" placeholder="Add a Contact Name for this Model" value="" data-mini="true">
-							<input type="text" name="mcs_setup_checklist_setup_identification_setup_popup_form_modelcontactphone" id="mcs_setup_checklist_setup_identification_setup_popup_form_modelcontactphone" placeholder="Add the Model Contact/Client phone number" value="">
-							<input type="text" name="mcs_setup_checklist_setup_identification_setup_popup_form_modelcontactemail" id="mcs_setup_checklist_setup_identification_setup_popup_form_modelcontactemail" placeholder="Add the Model Contact/Client email address" value="">
-							<textarea name="mcs_setup_checklist_setup_identification_setup_popup_form_purpose" id="mcs_setup_checklist_setup_identification_setup_popup_form_purpose" placeholder="What is the primary purpose/goal of this model?"></textarea>
-							<textarea name="mcs_setup_checklist_setup_identification_setup_popup_form_scope" id="mcs_setup_checklist_setup_identification_setup_popup_form_scope" placeholder="Please define a scope for this model."></textarea>
-							<fieldset data-role="controlgroup">
-								<legend>
-									Choose how your model will be categorized:
-								</legend>
-								<input type="checkbox" name="mcs_setup_checklist_setup_identification_setup_popup_form_category_business" id="mcs_setup_checklist_setup_identification_setup_popup_form_category_business" checked="">
-								<label for="mcs_setup_checklist_setup_identification_setup_popup_form_category_business">Business</label>
-								<input type="checkbox" name="mcs_setup_checklist_setup_identification_setup_popup_form_category_education" id="mcs_setup_checklist_setup_identification_setup_popup_form_category_education">
-								<label for="mcs_setup_checklist_setup_identification_setup_popup_form_category_education">Education</label>
-								<input type="checkbox" name="mcs_setup_checklist_setup_identification_setup_popup_form_category_family" id="mcs_setup_checklist_setup_identification_setup_popup_form_category_family">
-								<label for="mcs_setup_checklist_setup_identification_setup_popup_form_category_family">Family</label>
-								<input type="checkbox" name="mcs_setup_checklist_setup_identification_setup_popup_form_category_health" id="mcs_setup_checklist_setup_identification_setup_popup_form_category_health">
-								<label for="mcs_setup_checklist_setup_identification_setup_popup_form_category_health">Health</label>
-								<input type="checkbox" name="mcs_setup_checklist_setup_identification_setup_popup_form_category_medical" id="mcs_setup_checklist_setup_identification_setup_popup_form_category_medical">
-								<label for="mcs_setup_checklist_setup_identification_setup_popup_form_category_medical">Medical</label>
-								<input type="checkbox" name="mcs_setup_checklist_setup_identification_setup_popup_form_category_productivity" id="mcs_setup_checklist_setup_identification_setup_popup_form_category_productivity">
-								<label for="mcs_setup_checklist_setup_identification_setup_popup_form_category_productivity">Productivity</label>
-								<input type="checkbox" name="mcs_setup_checklist_setup_identification_setup_popup_form_category_utilities" id="mcs_setup_checklist_setup_identification_setup_popup_form_category_utilities">
-								<label for="mcs_setup_checklist_setup_identification_setup_popup_form_category_utilities">Utilities</label>
-								<input type="checkbox" name="mcs_setup_checklist_setup_identification_setup_popup_form_category_church" id="mcs_setup_checklist_setup_identification_setup_popup_form_category_church">
-								<label for="mcs_setup_checklist_setup_identification_setup_popup_form_category_church">Church</label>
-								<input type="checkbox" name="mcs_setup_checklist_setup_identification_setup_popup_form_category_coop" id="mcs_setup_checklist_setup_identification_setup_popup_form_category_coop">
-								<label for="mcs_setup_checklist_setup_identification_setup_popup_form_category_coop">Coop</label>
-								<input type="checkbox" name="mcs_setup_checklist_setup_identification_setup_popup_form_category_other" id="mcs_setup_checklist_setup_identification_setup_popup_form_category_other" checked="">
-								<label for="mcs_setup_checklist_setup_identification_setup_popup_form_category_other">Other</label>
-							</fieldset>
-							<a href="#" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b" data-rel="back" data-transition="flow" onclick="submitMCS_phaseSetup_submitT4(4)" >Submit</a>
-						    <a href="index.html" data-rel="back" class="ui-shadow ui-btn ui-corner-all ui-btn-inline ui-mini">Cancel</a>
-						</form>
+					<div role="main" class="ui-content" id="mcs_setup_checklist_setup_identification_setup_popup_content">
+
 					</div>
 				</div>
 				<!-- /Identification Setup popup -->
-				<div data-role="popup" id="mcs_setup_1_popUp" data-theme="a" data-position-to="window" data-dismissible="false" style="max-width:25%;max-height:800px;overflow-y:scroll;margin-right:auto;margin-left:auto;">
+				<div data-role="popup" id="mcs_setup_1_popUp" data-theme="a" data-position-to="window" data-dismissible="true" style="max-width:25%;max-height:800px;overflow-y:scroll;margin-right:auto;margin-left:auto;">
 					<div data-role="header"  data-theme="a">
 						<h1>License Agreement</h1>
 					</div>

@@ -129,15 +129,8 @@ function submitMCS_phaseSetup_submitT4(MCSTaskId) {
         var catChurchVal = $('#mcs_setup_checklist_setup_identification_setup_popup_form_category_church').is(':checked');
         var catCoopVal = $('#mcs_setup_checklist_setup_identification_setup_popup_form_category_coop').is(':checked');
         var catOtherVal = $('#mcs_setup_checklist_setup_identification_setup_popup_form_category_other').is(':checked');
-        var formStringArray = new Array();
-        formStringArray.push({
-            modelOwnerLegalEntityVal: modelOwnerLegalEntityVal,
-            modelOwnerCCODEVal: modelOwnerCCODEVal,
-            modelContactNameVal: modelContactNameVal,
-            modelContactPhoneVal: modelContactPhoneVal,
-            modelContactEmailVal: modelContactEmailVal,
-            modelPurposeVal: modelPurposeVal,
-            modelScopeVal: modelScopeVal,
+        var categoryArray = new Array();
+        categoryArray.push({
             catBusinessVal: catBusinessVal,
             catEducationVal: catEducationVal,
             catFamilyVal: catFamilyVal,
@@ -148,6 +141,16 @@ function submitMCS_phaseSetup_submitT4(MCSTaskId) {
             catChurchVal: catChurchVal,
             catCoopVal: catCoopVal,
             catOtherVal: catOtherVal,
+        });
+        var formStringArray = new Array();
+        formStringArray.push({
+            modelOwnerLegalEntityVal: modelOwnerLegalEntityVal,
+            modelOwnerCCODEVal: modelOwnerCCODEVal,
+            modelContactNameVal: modelContactNameVal,
+            modelContactPhoneVal: modelContactPhoneVal,
+            modelContactEmailVal: modelContactEmailVal,
+            modelPurposeVal: modelPurposeVal,
+            modelScopeVal: modelScopeVal,
         });
         $.each(formStringArray, function(index, val) {
             if (!val.modelOwnerLegalEntityVal) {
@@ -182,16 +185,7 @@ function submitMCS_phaseSetup_submitT4(MCSTaskId) {
                                             modelContactEmail: modelContactEmailVal,
                                             modelPurpose: modelPurposeVal,
                                             modelScope: modelScopeVal,
-                                            catBusiness: catBusinessVal,
-                                            catEducation: catEducationVal,
-                                            catFamily: catFamilyVal,
-                                            catHealth: catHealthVal,
-                                            catMedical: catMedicalVal,
-                                            catProductivity: catProductivityVal,
-                                            catUtility: catUtilityVal,
-                                            catChurch: catChurchVal,
-                                            catCoop: catCoopVal,
-                                            catOther: catOtherVal
+                                            categoryArray: categoryArray
                                         }, function(res, status) {
                                             if (status == "success") {
                                                 //alert(res.message);
