@@ -1131,6 +1131,7 @@ under the License.
 					email : document.getElementById("ubmsuite_mcs_my_organizational_chart_content_genericManagePosition_popup_generic").value,
 				}, function(res, status) {
 					$().toastmessage('showSuccessToast', res.message);
+					getMyModelsOrgChart();
 				});
 					$('#ubmsuite_mcs_my_organizational_chart_content_genericManagePosition_popup_form').each(function() {
 						this.reset();
@@ -1190,6 +1191,7 @@ under the License.
 					positionNameId : id
 				}, function(res, status) {
 					$().toastmessage('showSuccessToast', res.message);
+					getMyModelsOrgChart();
 				});
 				setTimeout(function() {
 					getListOfPositionNames();	
