@@ -411,7 +411,7 @@ under the License.
 					positionSummary: document.getElementById("ubmsuite_mcs_my_organizational_chart_content_createNewPositionPopUp_form_positionSummary").value,
 					positionPayRangeLow: document.getElementById("ubmsuite_mcs_my_organizational_chart_content_createNewPositionPopUp_form_positionPayRangeLow").value,
 					positionPayRangeHigh: document.getElementById("ubmsuite_mcs_my_organizational_chart_content_createNewPositionPopUp_form_positionPayRangeHigh").value,
-					positionReportsTo: window.activeReportsToPosition
+					positionReportsTo: window.activePositionUUID
 				}, function(res, status) {
 					$().toastmessage('showSuccessToast', res.message);
 				});
