@@ -1,0 +1,89 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<!--
+-->
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<title>Projected Financial Statement</title>
+		<link rel="stylesheet" href="css/editableGrid.css" type="text/css" media="screen">
+		<link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.2/jquery.mobile-1.4.2.min.css" />
+		<link rel="stylesheet" href="css/jquery.mobile-1.4.2.min.css" type="text/css" media="screen">
+		<script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+		<script src="http://code.jquery.com/mobile/1.4.2/jquery.mobile-1.4.2.min.js"></script>
+
+		<script>
+			function addAccount(accountType){
+				//alert(accountType);
+//1. Get parameters from the url
+				var activeModelUUID = myvar = getURLParameter('activeModelUUID');
+				var username = myvar = getURLParameter('username');
+//2. Handle the undefined case.
+				if(activeModelUUID=="undefined"){
+					alert("Something went wrong, please sign out and then sign back in.");
+				}else{
+					//alert(activeModelUUID);
+					setTimeout(function() {
+						$("#popupInfo").popup("open");
+					}, 500);
+					$.getJSON('createAccount.php?callback=?', {//JSONP Request to Open Items Page setup tables
+						accountType: accountType,
+						activeModelUUID: activeModelUUID,
+						username: username
+					}, function(res, status) {
+						//alert(status);
+						if(status=="success"){
+	 						window.location.assign("http://application.universalbusinessmodel.com/P3/?activeModelUUID="+ activeModelUUID +"&username="+ username +"");
+	 					}
+					});					
+				}
+			}
+		</script>
+	</head>
+	<body onLoad="getAccounts()">
+		<div data-role="popup" id="popupInfo" class="ui-content" data-theme="a" style="max-width:350px;">
+		  <p>Here is a <strong>tiny popup</strong> being used like a tooltip. The text will wrap to multiple lines as needed.</p>
+		</div>
+		<div id="editableGripwrap">
+			<center><h1>Projected Financial Statement</h1></center>
+			<h2>Balance Sheet - (Assets 100-199)</h2> 
+				<a href="#" class="ui-btn" onclick="addAccount(100)">Add (Assets 100-199) Account</a>
+				<!-- Feedback message zone -->
+				<div id="message"></div>
+				<!-- Grid contents -->
+				<div id="balancesheetdebits_tablecontent" style="max-height: 200px; overflow-y: scroll;"></div>				<!-- Balace Sheet Debits-->
+				<!-- Paginator control -->
+				<div id="paginator"></div>
+			<div id="test_div"></div>
+			<h2>Balance Sheet - (Liabilities 200-299 + Owners Equity 300-399)</h2> 
+			<p>Balance Sheet - (Liabilities + Stock + Retained Earnings)</p> 
+				<a href="#" class="ui-btn" onclick="addAccount(200)">Add (Liability or Owners Equity 200-400) Account</a>
+				<!-- Grid contents -->
+				<div id="balancesheetcredits_tablecontent" style="max-height: 200px; overflow-y: scroll;"></div>				<!-- Balace Sheet Credits-->
+				<!-- Income Statement Credits - Test 1-->
+			<h2>Income Statement - (Income 400-499)</h2> 
+				<a href="#" class="ui-btn" onclick="addAccount(400)">Add (Income 400-499) Account</a>
+				<div id="incomestatementcredits_tablecontent" style="max-height: 200px; overflow-y: scroll;"></div>			<!-- Income Statement Debits-->
+			<h2>Income Statement - (Expenses 500-799)</h2> 
+				<a href="#" class="ui-btn" onclick="addAccount(500)">Add (Expense 500-799) Account</a>
+				<div id="incomestatementdebits_tablecontent" style="max-height: 200px; overflow-y: scroll;"></div>
+		</div>  
+		<!-- -->
+		<script src="js/editablegrid-2.0.1.js"></script>   
+		<script src="js/editableGrid.js" ></script>
+		<!-- I use jQuery for the Ajax methods This is a test 1-->
+		<script src="js/jquery-1.9.1.min.js" ></script>
+		<link rel="stylesheet" href="css/jquery-ui.css" type="text/css" media="screen">
+
+
+		<script type="text/javascript">
+			window.onload = function() { 
+				datagridbsd = new DatabaseGridBalanceSheetDebits();
+				datagridbsc = new DatabaseGridBalanceSheetCredits();
+				datagridisd = new DatabaseGridIncomeStatementDebits();
+				datagridisc = new DatabaseGridIncomeStatementCredits();
+			}; 
+		</script>
+
+	</body>
+
+</html>
