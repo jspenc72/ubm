@@ -452,21 +452,25 @@ under the License.
 				//4. If user selects "no, add this position without any positions that report to it." 
 			}
 			function removeActivePositionfromMyModel(){
-				showLoader();
-				//alert(window.activePositionUUID);
-				$.getJSON('http://api.universalbusinessmodel.com/ubms_modelcreationsuite_model_remove_Positions.php?callback=?', {//JSONP Request
-					key : window.key,
-					username: window.username,
-					activeAncestorUUID: window.activeModelUUID,
-					activeDescendantUUID: window.activePositionUUID
-				}, function(res, status) {
-					hideLoader();
-					$().toastmessage('showSuccessToast', res.message);
-					$(".ui-popup").popup("close");
-				});
-					hideLoader();
-					$(".ui-popup").popup("close");
-					getMyModelsOrgChart();
+				if(window.activePositionUUID==window.activeModelOwnersUUID){
+					alert("You cannot remove the owners position.");
+				}else{
+					showLoader();
+					//alert(window.activePositionUUID);
+					$.getJSON('http://api.universalbusinessmodel.com/ubms_modelcreationsuite_model_remove_Positions.php?callback=?', {//JSONP Request
+						key : window.key,
+						username: window.username,
+						activeAncestorUUID: window.activeModelUUID,
+						activeDescendantUUID: window.activePositionUUID
+					}, function(res, status) {
+						hideLoader();
+						$().toastmessage('showSuccessToast', res.message);
+						$(".ui-popup").popup("close");
+					});
+						hideLoader();
+						$(".ui-popup").popup("close");
+						getMyModelsOrgChart();
+				}
 			}
 			function removeActiveObjectfromMyModel(){
 				$.getJSON('http://api.universalbusinessmodel.com/ubms_modelcreationsuite_model_remove_HierarchyObject.php?callback=?', {//JSONP Request
