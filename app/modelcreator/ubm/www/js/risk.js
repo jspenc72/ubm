@@ -27,7 +27,7 @@ function getListofInvestmentsforRiskAnalysis() { //Populates the Investment Pick
         $('#risk_analysis_investment_select_menu').empty();
         $('#risk_analysis_investment_select_menu').append("<option>Choose an Investment</option>");
         $.each(res, function(i, item) {
-            $('#risk_analysis_investment_select_menu').append("<option value='" + item.id + "'>Investment " + item.id + " : " + item.title + "</option>");
+            $('#risk_analysis_investment_select_menu').append("<option value='" + item.id + "'>Investment: " + item.title + "</option>");
             $('#risk_analysis_investment_select_menu').selectmenu('refresh', true);
         });
     });

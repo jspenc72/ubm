@@ -21,18 +21,18 @@ $footer = "
 
 ";
 $pdf->AddPage();
-$actual_link = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
-// set style for barcode
-$style = array(
-    'border' => 2,
-    'vpadding' => 'auto',
-    'hpadding' => 'auto',
-    'fgcolor' => array(0,0,0),
-    'bgcolor' => false, //array(255,255,255)
-    'module_width' => 1, // width of a single module in points
-    'module_height' => 1 // height of a single module in points
-);
-$pdf->write2DBarcode($actual_link, 'QRCODE,H', 85, 175, 35, 35, $style, 'N');
+// $actual_link = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
+// // set style for barcode
+// $style = array(
+//     'border' => 2,
+//     'vpadding' => 'auto',
+//     'hpadding' => 'auto',
+//     'fgcolor' => array(0,0,0),
+//     'bgcolor' => false, //array(255,255,255)
+//     'module_width' => 1, // width of a single module in points
+//     'module_height' => 1 // height of a single module in points
+// );
+// $pdf->write2DBarcode($actual_link, 'QRCODE,H', 85, 175, 35, 35, $style, 'N');
 
 $pdf->Bookmark('Cover Page', 0, 0, '', 'B', array(0,64,128));
 // output the HTML content
