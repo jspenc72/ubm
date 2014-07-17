@@ -861,44 +861,118 @@ under the License.
 
 
 			function editInformationSetup(){
+				console.log("edit called");
 				$(".ui-popup").popup("close");
 				showLoader();
 				setTimeout(function() {
 				    $("#mcs_setup_checklist_setup_identification_setup_popup_content").empty();
-					$.getJSON('http://api.universalbusinessmodel.com/ubms_modelCreationSuite_model_get_informationSetup.php?callback=?', {
+					$.getJSON('http://api.universalbusinessmodel.com/ubms_modelCreationSuite_model_get_identificationSetup.php?callback=?', {
 						key : window.key,
-						activeUUID : window.activeUUID
+						activeModelUUID : window.activeModelUUID
 					}, function(res, status) {
 						//1. Open Popup
 						//2. Append 1 input for each of the fields received from the API, set the value of each equal to the value of each field in the array.
 						//3. 
 						$.each(res, function(i, item) {
+							if (item.checked) {
+				            	$("#mcs_setup_checklist_setup_identification_setup_popup_content").append("<label><input type='checkbox' db-columnname='checkbox' checked name='" + item.checked + "'>" + item.checked + "</label>");	
+				            } else if (item.category_name) {
+				            	$("#mcs_setup_checklist_setup_identification_setup_popup_content").append("<label><input type='checkbox' db-columnname='checkbox' name='" + item.category_name + "'>" + item.category_name + "</label>");	
+				            } else {
+					            var key;
+					            // Add any column to keyArray that you do not want to show up in the editable popup
+					            var keyArray = ["os", "hardware", "id", "created_by", "creation_date", 'model_UUID'];
+					            for (key in item) {	
+					                if (item.hasOwnProperty(key)) {
+					                	//checks the keyArray for the value
+					                	if(keyArray.indexOf(key) >=0){
+					                		console.log(key);
+					                	}else{
+				                			var visKey = key.charAt(0).toUpperCase() + key.slice(1);
+				                			visKey = visKey.split('_').join(' ');
 
-				            var key;
-				            // Add any column to keyArray that you do not want to show up in the editable popup
-				            var keyArray = ["os", "hardware"];
-				            for (key in item) {	
-				                if (item.hasOwnProperty(key)) {
-				                	//checks the keyArray for the value
-				                	if(keyArray.indexOf(key) >=0){
-				                		console.log(key);
-				                	}else{
-			                			var visKey = key.charAt(0).toUpperCase() + key.slice(1);
-			                			visKey = visKey.split('_').join(' ');
+				                			$("#mcs_setup_checklist_setup_identification_setup_popup_content").append("<label for='textarea'>	" + visKey + ":</label>");
+			                				$("#mcs_setup_checklist_setup_identification_setup_popup_content").append("<li class='ui-field-contain'><textarea type='text' cols='60' rows='2' name='textarea' id='textarea' db-columnname='" + key + "'  placeholder='" + visKey + "'>" + item[key] + "</textarea></li>");		                				
+					                	}
+					                	
+					                }
+					            }
+					        }
 
-			                			$("#mcs_setup_checklist_setup_identification_setup_popup_content").append("<label for='textarea'>	" + visKey + ":</label>");
-		                				$("#mcs_setup_checklist_setup_identification_setup_popup_content").append("<li class='ui-field-contain'><textarea type='text' cols='60' rows='4' name='textarea' id='textarea' db-columnname='" + key + "' value='' placeholder='" + visKey + "'>" + item[key] + "</textarea></li>");
-
-		                				$("#mcs_setup_checklist_setup_identification_setup_popup_content").append("<li class='ui-body ui-body-b'><fieldset class='ui-grid-a'><div class='ui-block-a'><a href='#' class='ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-plus ui-btn-b' onclick='updateObject(1)' title='This will update all objects with the same name. You can only do this if you are the creator!'>Update All</a></div><div class='ui-block-b'><a href='#' onclick='updateObject(0)' class='ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-delete ui-btn-b' title='Only this object will be changed.'>Submit</a></div></fieldset></li>");
-				                	}
-				                }
-				            }
+				            
 						});
+						$("#mcs_setup_checklist_setup_identification_setup_popup_content").trigger("create");
 						hideLoader();
+						$("#mcs_setup_checklist_setup_identification_setup_popup_content").append("<li class='ui-body ui-body-b'><fieldset class='ui-grid-a'><div class='ui-block-a'><a href='#' class='ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-plus ui-btn-b' data-rel='back'>Cancel</a></div><div class='ui-block-b'><a href='#' onclick='updateInformationSetup()' class='ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-delete ui-btn-b'>Submit</a></div></fieldset></li>");
 					});
 						$("#mcs_setup_checklist_setup_identification_setup_popup").popup("open");
 				}, 500);
 				
+			}
+
+			function updateInformationSetup(){
+				//alert("This is a test: "+ window.activeUUID);
+				var counter=1;
+				//1. Declare counter variable to keep track of the number of inputs in a given form.
+				var errors = [];
+				//2. Declare errors[] array to keep track of inputs that dont pass validation.		
+				var objectArray = {};	
+				var checkboxArray = {};
+				// Declare objectArray[] array to store all objects that are going to be submitted.
+				$("#mcs_setup_checklist_setup_identification_setup_popup_content input:checkbox").each(function() {
+					var checkboxName = $(this).attr('name');
+					console.log(checkboxName);
+					var checked;
+					if ($(this).is(':checked')) {
+						checked = true;
+						console.log("checkbox Checked");
+						checkboxArray[checkboxName] = checked;
+					} else {
+						console.log("not checked");
+					}
+					
+				});	
+				$('#mcs_setup_checklist_setup_identification_setup_popup_content :input').each(function() {
+					var value = $(this).val();
+			        var columnName = $(this).attr('db-columnname');
+			        if (columnName == 'checkbox') {
+			        	console.log("skipped checkbox");
+			        }else {
+			        	objectArray[columnName] = value;
+			    	}
+			        //tasksArray[key] = value;
+					//alert($(this).val());
+					if($(this).val().length>=1){
+						//3. Check to see if value has been entered into the input.
+
+						//4. alert("Input: " + $(this).attr('placeholder') + " has value: " + this.value);
+					}else{
+						alert("Input: " + $(this).attr('placeholder') + " is required but has no value.");
+						//5. Alert the user if the length of the inputs value is less than 1.
+						errors.push($(this).attr('id'));
+						//6. Add the input id to the errors array.
+					}
+					counter = counter+1;
+						//7. iterate the counter.
+				});
+				if(errors.length==0){
+				//8. If there are no errors, continue with the jsonp request.
+					$.getJSON('http://api.universalbusinessmodel.com/ubms_modelCreationSuite_update_identificationSetup.php?callback=?', {//JSONP Request
+						key: window.key,
+						username: window.username,
+						activeModelUUID : window.activeModelUUID,
+						objectArray : objectArray,
+						checkboxArray : checkboxArray
+					}, function(res, status) {
+						$().toastmessage('showNoticeToast', res.message);
+					});
+						$("#mcs_setup_checklist_setup_identification_setup_popup").popup('close');
+						$('#mcs_setup_checklist_setup_identification_setup_popup_content').each(function() {
+							this.reset();
+						});
+				}				
+
+
 			}
 
 			function getChildElementsforHierarchicalTree(activeObjectUUID) {
@@ -6994,7 +7068,7 @@ under the License.
 						<a href="#" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b" data-rel="back" data-transition="flow">Im Ok, Dismiss</a>
 					</div>
 				</div><!-- /popup -->
-				<div data-role="popup" id="mcs_setup_checklist_setup_identification_setup_popup" data-theme="a" data-position-to="window" data-dismissible="false">
+				<div data-role="popup" id="mcs_setup_checklist_setup_identification_setup_popup" data-theme="a" data-position-to="window" data-dismissible="true"  class="draggable_popup">
 					<div data-role="header"  data-theme="a">
 						<h1>Identification Setup</h1>
 					</div>
