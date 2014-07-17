@@ -19,7 +19,7 @@ function getMyModelsStrategicPositioningQuestions() { //Populates Customer  List
             $('#ubmsuite_mcs_model_visual_content_strategic_positioning_questions_ul').append("<li><a>" + item.id + "</a></li>");
 
 
-            $('#ubmsuite_modelSettings_myStrategicPositioningQuestions_ul').append("<li><a href='#'> <h2 style='white-space:normal;'>" + item.question + "</h2><p>" + item.id + "</p></a><a href='#ubmsuite_modelSettings_confirm_remove_StrategicPositioningQuestion_popup' data-rel='popup' data-position-to='window' data-transition='pop' onclick='setActiveStrategicPositioningQuestionId(" + item.id + ")'>Remove Strategic Positioning Question</a></li>");
+            $('#ubmsuite_modelSettings_myStrategicPositioningQuestions_ul').append("<li><a href='#'> <h2 style='white-space:normal;' title='" + item.question + "'>" + item.question + "</h2><p>" + item.id + "</p></a><a href='#ubmsuite_modelSettings_confirm_remove_StrategicPositioningQuestion_popup' data-rel='popup' data-position-to='window' data-transition='pop' onclick='setActiveStrategicPositioningQuestionId(" + item.id + ")'>Remove Strategic Positioning Question</a></li>");
             $('#ubmsuite_modelSettings_myStrategicPositioningQuestions_ul').listview().listview("refresh");
         });
         $('#ubmsuite_mcs_model_visual_content_strategic_positioning_questions_ul').listview().listview("refresh");

@@ -16,7 +16,7 @@ function getMyModelsFeatures() { //Populates Customer  Listview on Model Setting
         $.each(res, function(i, item) {
             $('#ubmsuite_mcs_model_visual_content_features_ul').append("<li><a>" + item.feature_title + "</a></li>");
             //$('#ubmsuite_mcs_model_visual_content_features_ul').listview().listview("refresh");
-            $('#ubmsuite_modelSettings_myFeatures_ul').append("<li><a href='#'> <h2 style='white-space:normal;'>" + item.feature_title + "</h2><p>" + item.feature_description + "</p></a><a href='#ubmsuite_modelSettings_confirm_remove_Feature_popup' data-rel='popup' data-position-to='window' data-transition='pop' onclick='setActiveFeatureId(" + item.id + ")'>Remove Feature</a></li>");
+            $('#ubmsuite_modelSettings_myFeatures_ul').append("<li><a href='#'> <h2 style='white-space:normal;' title='" + item.feature_title + "'>" + item.feature_title + "</h2><p>" + item.feature_description + "</p></a><a href='#ubmsuite_modelSettings_confirm_remove_Feature_popup' data-rel='popup' data-position-to='window' data-transition='pop' onclick='setActiveFeatureId(" + item.id + ")'>Remove Feature</a></li>");
             $('#ubmsuite_modelSettings_myFeatures_ul').listview().listview("refresh");
         });
         $('#ubmsuite_mcs_model_visual_content_features_ul').listview().listview("refresh");

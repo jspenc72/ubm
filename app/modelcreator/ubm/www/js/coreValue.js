@@ -18,7 +18,7 @@ function getMyModelsCoreValues() {
         $.each(res, function(i, item) {
             $('#ubmsuite_mcs_model_visual_content_core_values_ul').append("<li><a>" + item.value_title + "</a></li>");
             //$('#ubmsuite_mcs_model_visual_content_core_values_ul').listview().listview("refresh");
-            $('#ubmsuite_modelSettings_myCoreValues_ul').append("<li><a data-mini='true' href='#'><h2 style='white-space:normal;'>" + item.value_title + "</h2><p style='white-space:normal;'>" + item.value_summary + "</p></a><a href='#ubmsuite_modelSettings_confirm_remove_CoreValue_popup' data-mini='true' data-rel='popup' data-position-to='window' data-transition='pop' onclick='setActiveCoreValueId(" + item.id + ")'>Remove Core Value</a></li>");
+            $('#ubmsuite_modelSettings_myCoreValues_ul').append("<li><a data-mini='true' href='#'><h2 style='white-space:normal;' title='" + item.value_summary + "'>" + item.value_title + "</h2><p style='white-space:normal;'>" + item.value_summary + "</p></a><a href='#ubmsuite_modelSettings_confirm_remove_CoreValue_popup' data-mini='true' data-rel='popup' data-position-to='window' data-transition='pop' onclick='setActiveCoreValueId(" + item.id + ")'>Remove Core Value</a></li>");
             $('#ubmsuite_modelSettings_myCoreValues_ul').listview().listview("refresh");
         });
         $('#ubmsuite_modelSettings_myCoreValues_ul').listview().listview("refresh");

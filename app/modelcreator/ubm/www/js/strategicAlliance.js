@@ -18,7 +18,7 @@ function getMyModelsStrategicAlliances() { //Populates Customer  Listview on Mod
 
             $('#ubmsuite_mcs_model_visual_content_strategic_alliances_ul').append("<li><a style='width:100%'>" + item.strategicalliance_title + "</a></li>");
 
-            $('#ubmsuite_modelSettings_myStrategicAlliances_ul').append("<li><a href='#'> <h2 style='white-space:normal;'>" + item.strategicalliance_title + "</h2><p>" + item.strategicalliance_description + "</p></a><a href='#ubmsuite_modelSettings_confirm_remove_StrategicAlliance_popup' data-rel='popup' data-position-to='window' data-transition='pop' onclick='setActiveStrategicAllianceId(" + item.id + ")'>Remove Strategic Alliance</a></li>");
+            $('#ubmsuite_modelSettings_myStrategicAlliances_ul').append("<li><a href='#'> <h2 style='white-space:normal;' title='" + item.strategicalliance_description + "'>" + item.strategicalliance_title + "</h2><p>" + item.strategicalliance_description + "</p></a><a href='#ubmsuite_modelSettings_confirm_remove_StrategicAlliance_popup' data-rel='popup' data-position-to='window' data-transition='pop' onclick='setActiveStrategicAllianceId(" + item.id + ")'>Remove Strategic Alliance</a></li>");
 
             $('#ubmsuite_modelSettings_myStrategicAlliances_ul').listview().listview("refresh");
         });

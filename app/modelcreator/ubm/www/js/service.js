@@ -17,7 +17,7 @@ function getMyModelsServices() { //Populates Customer  Listview on Model Setting
         $.each(res, function(i, item) {
             $('#ubmsuite_mcs_model_visual_content_services_ul').append("<li><a style='padding:0px 0px 0px 0px; width:100%'>" + item.title + "</a></li>");
             //$('#ubmsuite_mcs_model_visual_content_services_ul').listview().listview("refresh");
-            $('#ubmsuite_modelSettings_myServices_ul').append("<li><a href='#'> <h2 style='white-space:normal;'>" + item.title + "</h2><p>" + item.id + "</p></a><a href='#ubmsuite_modelSettings_confirm_remove_Service_popup' data-rel='popup' data-position-to='window' data-transition='pop' onclick='setActiveServiceId(" + item.id + ")'>Remove Service</a></li>");
+            $('#ubmsuite_modelSettings_myServices_ul').append("<li><a href='#'> <h2 style='white-space:normal;' title='" + item.title + "'>" + item.title + "</h2><p>" + item.id + "</p></a><a href='#ubmsuite_modelSettings_confirm_remove_Service_popup' data-rel='popup' data-position-to='window' data-transition='pop' onclick='setActiveServiceId(" + item.id + ")'>Remove Service</a></li>");
             $('#ubmsuite_modelSettings_myServices_ul').listview().listview("refresh");
         });
         $('#ubmsuite_mcs_model_visual_content_services_ul').listview().listview("refresh");

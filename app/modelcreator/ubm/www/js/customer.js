@@ -17,7 +17,7 @@ function getMyModelsCustomers() { //Populates Customer  Listview on Model Settin
         $.each(res, function(i, item) {
             $('#ubmsuite_mcs_model_visual_content_customers_ul').append("<li><a>" + item.name + "</a></li>");
             //$('#ubmsuite_mcs_model_visual_content_customers_ul').listview().listview("refresh");
-            $('#ubmsuite_modelSettings_myCustomers_ul').append("<li><a href='#'> <h2 style='white-space:normal;'>" + item.name + "</h2><p>" + item.id + "</p></a><a href='#ubmsuite_modelSettings_confirm_remove_Customer_popup' data-rel='popup' data-position-to='window' data-transition='pop' onclick='setActiveCustomerId(" + item.id + ")'>Remove Customer</a></li>");
+            $('#ubmsuite_modelSettings_myCustomers_ul').append("<li><a href='#'> <h2 style='white-space:normal;' title='" + item.name + "'>" + item.name + "</h2><p>" + item.id + "</p></a><a href='#ubmsuite_modelSettings_confirm_remove_Customer_popup' data-rel='popup' data-position-to='window' data-transition='pop' onclick='setActiveCustomerId(" + item.id + ")'>Remove Customer</a></li>");
             $('#ubmsuite_modelSettings_myCustomers_ul').listview().listview("refresh");
         });
         $('#ubmsuite_mcs_model_visual_content_customers_ul').listview().listview("refresh");
