@@ -18,8 +18,35 @@ $v4 = "'" . $conn->real_escape_string($SelectedAction) . "'";
 
 
 //2. Compare the toTargetObject and the fromTargetObject
- $sqlsel="SELECT * FROM ubm_modelcreationsuite_heirarchy_object_antiSolipsism_UUID WHERE UUID=$v2 OR UUID=$v3";
+//Create attribute array to hold attributes of each item
+  $attributeContainer = array(
+        $v2 => array(
+             "attributes" => array(
+                 "object_type" => "foo",
+                 "number_of_descendants" => 0,
+                 "number_of_ancestors" => 0,
+                 "number_of_immediate_ancestors" => 0,
+                 "number_of_immediate_descendants" => 0,
+                 "number_of_instances" => 0
 
+             )
+        ),
+        $v3 => array(
+             "attributes" => array(
+                 "object_type" => "foo",
+                 "number_of_descendants" => 0,
+                 "number_of_ancestors" => 0,
+                 "number_of_immediate_ancestors" => 0,
+                 "number_of_immediate_descendants" => 0,
+                 "number_of_instances" => 0
+             )
+        )        
+    );
+  );
+ var_dump($attributeContainer[$v2]["attributes"]["object_type"]);
+
+
+ $sqlsel="SELECT * FROM ubm_modelcreationsuite_heirarchy_object_antiSolipsism_UUID WHERE UUID=$v2 OR UUID=$v3";
  $rs=$conn->query($sqlsel);
  if($rs === false) {
  trigger_error('Wrong SQL: ' . $sqlsel . ' Error: ' . $conn->error, E_USER_ERROR);
@@ -27,16 +54,19 @@ $v4 = "'" . $conn->real_escape_string($SelectedAction) . "'";
  $rows_returned = $rs->num_rows;
     if($rows_returned){
         while ($items = $rs->fetch_assoc()){
-
-
-
-
-
-
-
-
-
-
+            $UUID = stripslashes($items['UUID']);
+            $created_by = stripslashes($items['created_by']);
+            $legal_entity_id = stripslashes($items['legal_entity_id']);
+            $UUID = stripslashes($items['model_id']);
+            $UUID = stripslashes($items['position_id']);
+            $UUID = stripslashes($items['jobDescription_id']);
+            $UUID = stripslashes($items['policy_id']);
+            $UUID = stripslashes($items['procedure_id']);
+            $UUID = stripslashes($items['step_id']);
+            $UUID = stripslashes($items['task_id']);
+            $UUID = stripslashes($items['event_id']);
+            $UUID = stripslashes($items['product_id']);
+            if();)
 
         }
     }else{

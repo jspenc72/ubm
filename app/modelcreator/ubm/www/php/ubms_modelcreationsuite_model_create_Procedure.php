@@ -18,7 +18,7 @@ $v6 = "'" . $conn -> real_escape_string($purpose) . "'";
 $v7 = "'" . $conn -> real_escape_string($activeObjectUUID) . "'";
 $v8 = "'" . $conn -> real_escape_string($scope) . "'";
 $v9 = "'" . $conn -> real_escape_string($effectiveDate) . "'";
- echo $_GET['callback'] . '(' . "{'message' : '2: $v2, 3: $v3, 4: $v4, 5: $v5, 6: $v6, 7: $v7, 8: $v8, 9: $v9 !'}" . ')';
+ //echo $_GET['callback'] . '(' . "{'message' : '2: $v2, 3: $v3, 4: $v4, 5: $v5, 6: $v6, 7: $v7, 8: $v8, 9: $v9 !'}" . ')';
 
 $sqlins = "INSERT INTO ubm_model_procedures (description, title, created_by, purpose, scope, effective_date) 
 			VALUES ( $v3, $v4, $v5, $v6, $v8, $v9 )"; //Creates a New Core Value record.

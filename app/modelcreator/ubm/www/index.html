@@ -1756,13 +1756,13 @@ under the License.
 				}, 1000);
 			}
 			function createNewTaskAddtoMyModel() {
-				$.getJSON('http://api.universalbusinessmodel.com/ubm_modelcreationsuite_model_create_Task.php?callback=?', {//JSONP Request
+				$.getJSON('http://api.universalbusinessmodel.com/ubms_modelcreationsuite_model_create_Task.php?callback=?', {//JSONP Request
+					key: window.key,
 					username: window.username,
 					activeModelUUID : window.activeModelUUID,
 					title: document.getElementById("ubmsuite_mcs_my_organizational_chart_content_createNewTaskPopUp_form_TaskTitle").value,
 					instruction: document.getElementById("ubmsuite_mcs_my_organizational_chart_content_createNewTaskPopUp_form_TaskInstruction").value,
-					taskNumber: document.getElementById("ubmsuite_mcs_my_organizational_chart_content_createNewTaskPopUp_form_TaskNumber").value,
-					stepId : window.activeStepId
+					activeObjectUUID : window.activeObjectUUID
 				}, function(res, status) {
 					$().toastmessage('showNoticeToast', res.message);
 				});
@@ -3725,7 +3725,6 @@ under the License.
 						        <div style="padding:10px 20px;">
 						            <center><h1>Create New Task</h1></center>
 						            <input type="text" name="ubmsuite_mcs_my_organizational_chart_content_createNewTaskPopUp_form_TaskTitle" id="ubmsuite_mcs_my_organizational_chart_content_createNewTaskPopUp_form_TaskTitle" value="" placeholder="Task Title"  data-theme="a">
-						            <input type="text" name="ubmsuite_mcs_my_organizational_chart_content_createNewTaskPopUp_form_TaskNumber" id="ubmsuite_mcs_my_organizational_chart_content_createNewTaskPopUp_form_TaskNumber" value="" placeholder="Task #"  data-theme="a">
 									<textarea data-mini="true"  cols="40" rows="8" id="ubmsuite_mcs_my_organizational_chart_content_createNewTaskPopUp_form_TaskInstruction" placeholder="Task Instruction..."></textarea>
 						            <a href="#" class="ui-btn" onclick="createNewTaskAddtoMyModel()">Create Task</a>
 						        </div>
