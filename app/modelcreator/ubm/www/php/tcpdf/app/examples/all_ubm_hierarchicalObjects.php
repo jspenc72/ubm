@@ -128,8 +128,8 @@ if ($rs1 === false) {
 //echo $_GET['callback'] . '(' . json_encode($all_UUID) . ')';
 // $all_UUID array is a list of all the UUID's that were attatched to the given activeObjectUUID.
 //4. Go through each UUID
+$psCounter = 1;
 foreach ($positionUUID as $key => $activeObjectUUID) {
-    $psCounter = 1;
     $sqlsel1 = "SELECT * FROM ubm_modelcreationsuite_heirarchy_object_antiSolipsism_UUID WHERE UUID=$activeObjectUUID";
     $rs1 = $conn->query($sqlsel1);
     if ($rs1 === false) {

@@ -106,6 +106,14 @@ under the License.
 	<!-- End Custom sign_in_sign_up page stuff -->
         <title>UBM</title>
         <!-- Forces user to use chrome or safari -->
+
+
+
+        <script>
+        	$(function() {
+			    $( "#chart_Container" ).resizable();
+			  });
+        </script>
         <script>
 			if( navigator.userAgent.indexOf("Chrome") != -1 ) {
 			  window.browser = "Chrome";
@@ -3814,7 +3822,7 @@ under the License.
 				   </ul>            
 			    </div>
 			    <center>
-				    <div id="chart_Container" style="overflow-y:scroll; max-height:400px; max-width:90%; display: inline-block; margin-right:35px; margin-left:35px; ">
+				    <div id="chart_Container" style="overflow-y:scroll; height:400px; max-width:90%; display: inline-block; margin-right:35px; margin-left:35px; ">
 					    <div id="chart" class="orgChart org_chart" style="overflow-y:scroll;">
 					    	
 					    </div>				    	
