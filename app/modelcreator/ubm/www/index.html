@@ -869,7 +869,7 @@ under the License.
 			}
 
 
-			function editInformationSetup(){
+			function editIdentificationSetup(){
 				console.log("edit called");
 				$(".ui-popup").popup("close");
 				showLoader();
@@ -912,13 +912,13 @@ under the License.
 						});
 						$("#mcs_setup_checklist_setup_identification_setup_popup_content").trigger("create");
 						hideLoader();
-						$("#mcs_setup_checklist_setup_identification_setup_popup_content").append("<li class='ui-body ui-body-b'><fieldset class='ui-grid-a'><div class='ui-block-a'><a href='#' class='ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-plus ui-btn-b' data-rel='back'>Cancel</a></div><div class='ui-block-b'><a href='#' onclick='updateInformationSetup()' class='ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-delete ui-btn-b'>Submit</a></div></fieldset></li>");
+						$("#mcs_setup_checklist_setup_identification_setup_popup_content").append("<li class='ui-body ui-body-b'><fieldset class='ui-grid-a'><div class='ui-block-a'><a href='#' class='ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-delete ui-btn-b' data-rel='back'>Cancel</a></div><div class='ui-block-b'><a href='#' onclick='updateIdentificationSetup()' class='ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-check ui-btn-b'>Submit</a></div></fieldset></li>");
 					});
 						$("#mcs_setup_checklist_setup_identification_setup_popup").popup("open");
 				}, 500);
 			}
 
-			function updateInformationSetup(){
+			function updateIdentificationSetup(){
 				//alert("This is a test: "+ window.activeUUID);
 				var counter=1;
 				//1. Declare counter variable to keep track of the number of inputs in a given form.
