@@ -12,12 +12,11 @@ $v2 = "'" . $conn -> real_escape_string($activeModelUUID) . "'";
 $v3 = "'" . $conn -> real_escape_string($positionDescription) . "'";
 $v4 = "'" . $conn -> real_escape_string($positionTitle) . "'";
 $v5 = "'" . $conn -> real_escape_string($username) . "'";
-$v6 = "'" . $conn -> real_escape_string($positionReportsTo) . "'";
+$v6 = "'" . $conn -> real_escape_string($positionReportsTo) . "'"; // Relationship is stored in position closure table.
 $v7 = "'" . $conn -> real_escape_string($positionSummary) . "'";
 $v8 = "'" . $conn -> real_escape_string($positionPayRangeLow) . "'";
 $v9 = "'" . $conn -> real_escape_string($positionPayRangeHigh) . "'";
-
-
+// echo $_GET['callback'] . '(' . "{'message' : 'Model: $v2, Description: $v3, Title: $v4, Username: $v5,  !'}" . ')';
 //SELECT
 //1. Find the current active model UUID
 $activeModelUUID = 1;
@@ -32,7 +31,8 @@ $activeModelUUID = 1;
 	}
 //INSERT
 	//1. Insert Position into the model_positions table.
-$sqlins = "INSERT INTO ubm_model_positions (description, title, creator_username, summary, pay_range_low, pay_range_high) VALUES ( $v3, $v4, $v5, $v7, $v8, $v9 )"; //Creates a New Core Value record.
+$sqlins = "INSERT INTO ubm_model_positions (description, title, created_by, summary, pay_range_low, pay_range_high) 
+			VALUES ( $v3, $v4, $v5, $v7, $v8, $v9 )"; //Creates a New Position record.
 if ($conn -> query($sqlins) === false) {
 	trigger_error('Wrong SQL: ' . $sqlins . ' Error: ' . $conn -> error, E_USER_ERROR);
 } else {
@@ -82,7 +82,7 @@ if ($conn -> query($sqlins) === false) {
 						trigger_error('Wrong SQL: ' . $sqlins6 . ' Error: ' . $conn -> error, E_USER_ERROR);
 					} else {
 						$affected_rows = $affected_rows + $conn -> affected_rows;				 		
-						echo $_GET['callback'] . '(' . "{'message' : 'The affected rows is: $affected_rows . Requested Position $title was created successfully, given the UUID: $last_inserted_PS_UUID and added to model id: $v2 !'}" . ')';
+						echo $_GET['callback'] . '(' . "{'message' : 'The affected rows is: $affected_rows . Requested Position $v4 was created successfully, given the UUID: $last_inserted_PS_UUID and added to model id: $v2 !'}" . ')';
 					}	
 				}				
 			}		

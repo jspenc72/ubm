@@ -6,7 +6,6 @@ require_once ('DBConnect_UBMv1.php');
 //Provides the variables used for UBMv1 database connection $conn
 $conn = new mysqli($DBServer, $DBUser, $DBPass, $DBName);
 
-
 // check connection
 if ($conn->connect_error) {
     trigger_error('Database connection failed: ' . $conn->connect_error, E_USER_ERROR);
@@ -15,7 +14,35 @@ $v2 = "'" . $conn->real_escape_string($fromTargetObject) . "'";
 $v3 = "'" . $conn->real_escape_string($toTargetObject) . "'";
 $v4 = "'" . $conn->real_escape_string($SelectedAction) . "'";
 
-//1. Compare the toTargetObject and the fromTargetObject
+//1. Get column names from database.
+
+
+//2. Compare the toTargetObject and the fromTargetObject
+ $sqlsel="SELECT * FROM ubm_modelcreationsuite_heirarchy_object_antiSolipsism_UUID WHERE UUID=$v2 OR UUID=$v3";
+
+ $rs=$conn->query($sqlsel);
+ if($rs === false) {
+ trigger_error('Wrong SQL: ' . $sqlsel . ' Error: ' . $conn->error, E_USER_ERROR);
+ } else {
+ $rows_returned = $rs->num_rows;
+    if($rows_returned){
+        while ($items = $rs->fetch_assoc()){
+
+
+
+
+
+
+
+
+
+
+
+        }
+    }else{
+        echo "The target selection return 0 results.";
+    }
+ }
 //2. Check that the selected action may be performed and is valid for the two objects.
 
 if($v4=="'move'"){

@@ -411,7 +411,7 @@ under the License.
 					positionSummary: document.getElementById("ubmsuite_mcs_my_organizational_chart_content_createNewPositionPopUp_form_positionSummary").value,
 					positionPayRangeLow: document.getElementById("ubmsuite_mcs_my_organizational_chart_content_createNewPositionPopUp_form_positionPayRangeLow").value,
 					positionPayRangeHigh: document.getElementById("ubmsuite_mcs_my_organizational_chart_content_createNewPositionPopUp_form_positionPayRangeHigh").value,
-					positionReportsTo: window.activeReportsToPosition
+					positionReportsTo: window.activePositionUUID
 				}, function(res, status) {
 					$().toastmessage('showSuccessToast', res.message);
 				});
@@ -452,18 +452,25 @@ under the License.
 				//4. If user selects "no, add this position without any positions that report to it." 
 			}
 			function removeActivePositionfromMyModel(){
-				showLoader();
-				alert(window.activePositionUUID);
-				$.getJSON('http://api.universalbusinessmodel.com/ubms_modelcreationsuite_model_remove_Positions.php?callback=?', {//JSONP Request
-					key : window.key,
-					username: window.username,
-					activeAncestorUUID: window.activeModelUUID,
-					activeDescendantUUID: window.activePositionUUID
-				}, function(res, status) {
-					$().toastmessage('showSuccessToast', res.message);
-					hideLoader();
-				});
-					getMyModelsOrgChart();
+				if(window.activePositionUUID==window.activeModelOwnersUUID){
+					alert("You cannot remove the owners position.");
+				}else{
+					showLoader();
+					//alert(window.activePositionUUID);
+					$.getJSON('http://api.universalbusinessmodel.com/ubms_modelcreationsuite_model_remove_Positions.php?callback=?', {//JSONP Request
+						key : window.key,
+						username: window.username,
+						activeAncestorUUID: window.activeModelUUID,
+						activeDescendantUUID: window.activePositionUUID
+					}, function(res, status) {
+						hideLoader();
+						$().toastmessage('showSuccessToast', res.message);
+						$(".ui-popup").popup("close");
+					});
+						hideLoader();
+						$(".ui-popup").popup("close");
+						getMyModelsOrgChart();
+				}
 			}
 			function removeActiveObjectfromMyModel(){
 				$.getJSON('http://api.universalbusinessmodel.com/ubms_modelcreationsuite_model_remove_HierarchyObject.php?callback=?', {//JSONP Request
@@ -724,23 +731,25 @@ under the License.
 				       alert('Default: this option is not valid.');
 				       break;
 				}
-	
-				$.getJSON('http://api.universalbusinessmodel.com/ubms_modelcreationsuite_model_updateSubtree.php?callback=?', {
-					key : window.key,
-					SelectedAction: SelectedAction,
-					fromTargetObject : window.fromTargetObject,
-					toTargetObject : window.toTargetObject
-				}, function(res, status) {
-					//ElementsArray = res;
-					if ($('#heirarchyObjectTree_ul').is(':empty')){
-						//displayHierarchicalTree(ElementsArray);
-					}else if (window.setPositionClicked==true){
-						//displayHierarchicalTree(ElementsArray);
-					}
-					hideLoader();
-				});
+				if(SelectedAction=="attach"){
+					alert("We are currently unable to attach an object to more than one parent.");
+				}else{
+					$.getJSON('http://api.universalbusinessmodel.com/ubms_modelcreationsuite_model_updateSubtree.php?callback=?', {
+						key : window.key,
+						SelectedAction: SelectedAction,
+						fromTargetObject : window.fromTargetObject,
+						toTargetObject : window.toTargetObject
+					}, function(res, status) {
+						//ElementsArray = res;
+						if ($('#heirarchyObjectTree_ul').is(':empty')){
+							//displayHierarchicalTree(ElementsArray);
+						}else if (window.setPositionClicked==true){
+							//displayHierarchicalTree(ElementsArray);
+						}
+						hideLoader();
+					});					
+				}
 			}
-
 			//Update switch is given from the submit buttons on the modify object form, they check if the user wants to modify all or one.
 			function updateObject(updateSwitch){
 				//alert("This is a test: "+ window.activeUUID);
@@ -907,8 +916,8 @@ under the License.
 					});
 						$("#mcs_setup_checklist_setup_identification_setup_popup").popup("open");
 				}, 500);
-				
 			}
+<<<<<<< HEAD
 
 			function updateInformationSetup(){
 				//alert("This is a test: "+ window.activeUUID);
@@ -975,7 +984,14 @@ under the License.
 
 			}
 
+=======
+>>>>>>> FETCH_HEAD
 			function getChildElementsforHierarchicalTree(activeObjectUUID) {
+				if(!activeObjectUUID){
+					activeObjectUUID = window.activePositionUUID;
+					$('#heirarchyObjectTree_ul').empty();
+				}else{
+				}
 				var ElementsArray = new Array();
 				$.getJSON('http://api.universalbusinessmodel.com/ubms_modelcreationsuite_model_get_Direct_ElementPosterityTree.php?callback=?', {
 					key : window.key,
@@ -1198,6 +1214,7 @@ under the License.
 					email : document.getElementById("ubmsuite_mcs_my_organizational_chart_content_genericManagePosition_popup_generic").value,
 				}, function(res, status) {
 					$().toastmessage('showSuccessToast', res.message);
+					getMyModelsOrgChart();
 				});
 					$('#ubmsuite_mcs_my_organizational_chart_content_genericManagePosition_popup_form').each(function() {
 						this.reset();
@@ -1257,6 +1274,7 @@ under the License.
 					positionNameId : id
 				}, function(res, status) {
 					$().toastmessage('showSuccessToast', res.message);
+					getMyModelsOrgChart();
 				});
 				setTimeout(function() {
 					getListOfPositionNames();	
@@ -1512,7 +1530,8 @@ under the License.
 				//alert("This is a test");	
 			}
 			function createNewProcedureAddtoMyModel() {
-				$.getJSON('http://api.universalbusinessmodel.com/ubm_modelcreationsuite_model_create_Procedure.php?callback=?', {//JSONP Request
+				$.getJSON('http://api.universalbusinessmodel.com/ubms_modelcreationsuite_model_create_Procedure.php?callback=?', {//JSONP Request
+					key: window.key,
 					username: window.username,
 					activeModelUUID : window.activeModelUUID,
 					title: document.getElementById("ubmsuite_mcs_my_organizational_chart_content_createNewProcedurePopUp_form_ProcedureTitle").value,
@@ -1520,7 +1539,7 @@ under the License.
 					effectiveDate: document.getElementById("ubmsuite_mcs_my_organizational_chart_content_createNewProcedurePopUp_form_ProcedureEffectiveDate").value,
 					purpose: document.getElementById("ubmsuite_mcs_my_organizational_chart_content_createNewProcedurePopUp_form_ProcedurePurpose").value,
 					scope: document.getElementById("ubmsuite_mcs_my_organizational_chart_content_createNewProcedurePopUp_form_ProcedureScope").value,
-					policyId : window.activePolicyId
+					activeObjectUUID : window.activeObjectUUID
 				}, function(res, status) {
 					$().toastmessage('showNoticeToast', res.message);
 				});
@@ -3247,7 +3266,7 @@ under the License.
 						MCS Model Structure Dashboard
 					</div>
 				</div>
-					<a href="#" class="ui-btn ui-shadow ui-corner-all ui-icon-refresh ui-btn-icon-notext" onclick="getMyModelsOrgChart()">Refresh</a>
+					<a href="#" class="ui-btn ui-shadow ui-corner-all ui-icon-refresh ui-btn-icon-notext" onclick="getMyModelsOrgChart(); getChildElementsforHierarchicalTree();">Refresh</a>
 			    <div id="printModel" style="float:right;padding-right:15px">
 			    	<a class="ui-btn" id="printModel" onclick="printModel()">Print Model</a>
 			    </div>									
@@ -3335,10 +3354,10 @@ under the License.
 				<!-- Move, Copy or Add attachment -->
 				<div data-role="popup" id="ubmsuite_mcs_my_organizational_chart_confirm_move_copy_add_popup"  data-theme="a" data-overlay-theme="b" class="ui-content" style="max-width:340px; padding-bottom:2em;">
 				    <h3>What would you like to do?</h3>
-				    <p>You can move, attach, or attach duplicate this object with its children.</p>
+				    <p>You can move <!--, attach, or attach duplicate -->this object with its children.</p>
 				    <a href="index.html" data-rel="back" title="Moving this object will remove it along with its children, from its current parent and attach them to the new object." class="ui-shadow ui-btn ui-corner-all ui-btn-b ui-icon-check ui-btn-icon-left ui-btn-inline ui-mini" onclick="editSubtree('move')">Move </a>
-				    <a href="index.html" data-rel="back" title="Attaching this object will create a link from this object and its children to the new object, while keeping the current links in tact" class="ui-shadow ui-btn ui-corner-all ui-btn-b ui-icon-check ui-btn-icon-left ui-btn-inline ui-mini" onclick="editSubtree('attach')">Attach </a>
-				    <a href="index.html" data-rel="back" title="Attach Duplicate of this object will attach a copy of this object and all of its children to the new object, while the current links remain in tact" class="ui-shadow ui-btn ui-corner-all ui-btn-b ui-icon-check ui-btn-icon-left ui-btn-inline ui-mini" onclick="editSubtree('duplicate')">Attach Duplicate </a>
+				    <!--<a href="index.html" data-rel="back" title="Attaching this object will create a link from this object and its children to the new object, while keeping the current links in tact" class="ui-shadow ui-btn ui-corner-all ui-btn-b ui-icon-check ui-btn-icon-left ui-btn-inline ui-mini" onclick="editSubtree('attach')">Attach </a>
+				    <a href="index.html" data-rel="back" title="Attach Duplicate of this object will attach a copy of this object and all of its children to the new object, while the current links remain in tact" class="ui-shadow ui-btn ui-corner-all ui-btn-b ui-icon-check ui-btn-icon-left ui-btn-inline ui-mini" onclick="editSubtree('duplicate')">Attach Duplicate </a>-->
 				    <a href="index.html" data-rel="back" class="ui-shadow ui-btn ui-corner-all ui-btn-inline ui-mini">Cancel</a>
 				</div>	
 				
@@ -3798,11 +3817,13 @@ under the License.
 						</li>
 				   </ul>            
 			    </div>
-			    <div id="chart_Container" style="overflow-y:scroll; max-height:400px; margin-right:35px; ">
-				    <div id="chart" class="orgChart org_chart" style="overflow-y:scroll;">
-				    	
-				    </div>				    	
-			    </div>
+			    <center>
+				    <div id="chart_Container" style="overflow-y:scroll; max-height:400px; max-width:90%; display: inline-block; margin-right:35px; margin-left:35px; ">
+					    <div id="chart" class="orgChart org_chart" style="overflow-y:scroll;">
+					    	
+					    </div>				    	
+				    </div>
+			    </center>
 			    	<fieldset>	
 							<div id="heirarchyObjectTree_container">
 								<!--

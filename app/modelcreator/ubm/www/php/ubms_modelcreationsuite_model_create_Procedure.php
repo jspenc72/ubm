@@ -10,16 +10,18 @@ if ($conn -> connect_error) {
 }
 
 //INSERT
-$v2 = "'" . $conn -> real_escape_string($activeModelId) . "'";
+$v2 = "'" . $conn -> real_escape_string($activeModelUUID) . "'";
 $v3 = "'" . $conn -> real_escape_string($description) . "'";
 $v4 = "'" . $conn -> real_escape_string($title) . "'";
 $v5 = "'" . $conn -> real_escape_string($username) . "'";
 $v6 = "'" . $conn -> real_escape_string($purpose) . "'";
-$v7 = "'" . $conn -> real_escape_string($policyId) . "'";
+$v7 = "'" . $conn -> real_escape_string($activeObjectUUID) . "'";
 $v8 = "'" . $conn -> real_escape_string($scope) . "'";
 $v9 = "'" . $conn -> real_escape_string($effectiveDate) . "'";
+ echo $_GET['callback'] . '(' . "{'message' : '2: $v2, 3: $v3, 4: $v4, 5: $v5, 6: $v6, 7: $v7, 8: $v8, 9: $v9 !'}" . ')';
 
-$sqlins = "INSERT INTO ubm_model_procedures (description, title, created_by, purpose, scope, effective_date) VALUES ( $v3, $v4, $v5, $v6, $v8, $v9 )"; //Creates a New Core Value record.
+$sqlins = "INSERT INTO ubm_model_procedures (description, title, created_by, purpose, scope, effective_date) 
+			VALUES ( $v3, $v4, $v5, $v6, $v8, $v9 )"; //Creates a New Core Value record.
 if ($conn -> query($sqlins) === false) {
 	trigger_error('Wrong SQL: ' . $sqlins . ' Error: ' . $conn -> error, E_USER_ERROR);
 } else {
@@ -39,6 +41,7 @@ if ($conn -> query($sqlins) === false) {
 			trigger_error('Wrong SQL: ' . $sqlins3 . ' Error: ' . $conn -> error, E_USER_ERROR);
 			echo "there was a problem";
 		} else {
+			$closure_self_link_id = $conn -> insert_id;
 //4. Now INSERT the links to all the ancestors of the PR_UUID into the Closure table so has a tie to all ojects above it.			
 			$sqlins3 =  "INSERT INTO ubm_modelcreationsuite_heirarchy_object_closureTable(ancestor_id, descendant_id, path_length)
 						 SELECT a.ancestor_id, d.descendant_id, a.path_length+d.path_length+1
@@ -49,8 +52,7 @@ if ($conn -> query($sqlins) === false) {
 				trigger_error('Wrong SQL: ' . $sqlins3 . ' Error: ' . $conn -> error, E_USER_ERROR);
 				echo "there was a problem";
 			} else {
-				
-				echo $_GET['callback'] . '(' . "{'message' : 'Requested Procedure $title was created successfully and added to model id: $activeModelId !'}" . ')';
+				echo $_GET['callback'] . '(' . "{'message' : 'Requested Procedure: $last_inserted_PR_id - $v4 was created successfully, given UUID: $last_inserted_PR_UUID and an instance created with self link id: $closure_self_link_id and attached to model id: $v2 !'}" . ')';
 			}			
 		}
 	}
