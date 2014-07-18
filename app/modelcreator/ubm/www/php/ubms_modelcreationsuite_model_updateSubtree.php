@@ -2,7 +2,7 @@
 require_once ('globalGetVariables.php');
 require_once('ubms_db_config.php');
 require_once ('DBConnect_UBMv1.php');
-
+require_once ('ubms_modelcreationsuite_model_objectTools.php');
 //Provides the variables used for UBMv1 database connection $conn
 $conn = new mysqli($DBServer, $DBUser, $DBPass, $DBName);
 
