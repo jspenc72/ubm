@@ -110,11 +110,11 @@ under the License.
 
 
 
-        <script>
+        <!-- <script>
         	$(function() {
-			    $("#chart_Container").resizable();
+			    $("#chart_Container").resizable({ autoHide: true }, { ghost: true }, { containment: "document" });
 			  });
-        </script>
+        </script> -->
         <script>
 			if( navigator.userAgent.indexOf("Chrome") != -1 ) {
 			  window.browser = "Chrome";
@@ -3821,8 +3821,8 @@ under the License.
 				   </ul>            
 			    </div>
 			    <center>
-				    <div id="chart_Container" style="overflow-y:scroll; height:400px; max-width:90%; display: inline-block; margin-right:35px; margin-left:35px; ">
-					    <div id="chart" class="orgChart org_chart" style="overflow-y:scroll;">
+				    <div id="chart_Container" style="display: inline-block; max-width:100%">
+					    <div id="chart" class="orgChart org_chart">
 					    	
 					    </div>				    	
 				    </div>
