@@ -7,7 +7,6 @@ error_reporting(E_ALL);
 ini_set('display_errors', '1');
 //Provides the variables used for UBMv1 database connection $conn
 $conn = new mysqli($DBServer, $DBUser, $DBPass, $DBName);
-
 // check connection
 if ($conn->connect_error) {
     trigger_error('Database connection failed: ' . $conn->connect_error, E_USER_ERROR);
