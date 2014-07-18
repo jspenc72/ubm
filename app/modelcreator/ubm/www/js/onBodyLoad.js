@@ -1,8 +1,13 @@
 function onLoadBody() {
     window.setInterval(function() {
-        if (!window.username && window.location.hash != "") {
+        var hashname = window.location.hash;
+        var hashLength = window.location.hash.length;
+        if (!window.username && window.location.hash.length > 17) {
             window.location.hash = "";
-            alert("You have been logged out. Please do not use the browsers refresh button while this app is in development.")
+            console.log(hashname);
+            console.log(hashLength);
+
+            alert("You have been logged out. Please do not use the browsers refresh button while this app is in development.");
         }
     }, 5000);
     window.key = "YDoS20lf7Vrnr22h8Ma6NGUV5DblnVhueTPXS7gPynRvQ6U8optzfnMDs3UD"; //BMCL Application Key.

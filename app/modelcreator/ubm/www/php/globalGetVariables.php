@@ -271,12 +271,12 @@ $alternativeDescription = $_GET['alternativeDescription'];
 $alternativeDecision = $_GET['alternativeDecision'];
  
  //create core value
- $title = $_GET['coreValueTitle'];
+ $coreValueTitle = $_GET['coreValueTitle'];
 $summary = $_GET['coreValueSummary'];
 $activeModelUUID = $_GET['activeModelUUID'];
 
 // Create Customer
-$name = $_GET['customerName'];
+$customerName = $_GET['customerName'];
 $activeModelId = $_GET['activeModelId'];
 //Create Feature
 $featureDescription = $_GET['featureDescription'];

@@ -110,11 +110,17 @@ under the License.
 
 
 
-        <!-- <script>
-        	$(function() {
-			    $("#chart_Container").resizable({ autoHide: true }, { ghost: true }, { containment: "document" });
-			  });
-        </script> -->
+        <script>
+        $(function() {
+		    $(window).bind('resize', function()
+		    {
+		        resizeMe();
+		        }).trigger('resize');
+		});
+     //    	$(function() {
+			  //   $("#chart_Container").resizable({ autoHide: true }, { ghost: true }, { containment: "document" });
+			  // });
+        </script>
         <script>
 			if( navigator.userAgent.indexOf("Chrome") != -1 ) {
 			  window.browser = "Chrome";
@@ -2099,7 +2105,7 @@ under the License.
 													    <form id="forgotPassword_form">
 													        <div style="padding:10px 20px;">
 													        	<strong><p>Enter the email you signed up with.</p></strong>
-													            <input type="email" id="forgotPassword_popup_email_input" value="" placeholder="Email" data-theme="a">
+													            <input type="text" id="forgotPassword_popup_email_input" value="" placeholder="Email" data-theme="a">
 													            <button type="submit" id="forgotPassword_popup_submit" onclick="resetPassword()" class="ui-btn ui-corner-all ui-shadow ui-btn-b ui-btn-icon-left ui-icon-check">Submit</button>
 													        </div>
 													    </form>
@@ -2253,7 +2259,7 @@ under the License.
                         <div style="padding:10px 20px;">
                             <h3>Registration is Free!</h3>
                             <label for="un" class="ui-hidden-accessible">Email:</label>
-                            <input  type="email" name="reg_email" id="reg_email" value="" placeholder="Email"  data-theme="a" />
+                            <input  type="text" name="reg_email" id="reg_email" value="" placeholder="Email"  data-theme="a" />
                             <label for="reg_pw1" class="ui-hidden-accessible">Password:</label>
                             <input  type="password" name="reg_pass1" id="reg_pw1" value="" placeholder="Enter Password"  data-theme="a" />
                             <label for="reg_pw2" class="ui-hidden-accessible">Password:</label>
@@ -2357,7 +2363,7 @@ under the License.
 					<p style="padding-top:2em"> If you have not recieved an email try again here</p>
 					<center>
 					<div style="width:500px;">
-						<input type="email" id="emailForActivation" placeholder="Email">
+						<input type="text" id="emailForActivation" placeholder="Email">
 					</div>
 					<center>
 					<button class="ui-btn ui-btn-inline" onclick="sendActivationEmail()">Submit</button>
@@ -4931,7 +4937,7 @@ under the License.
                                <h1>Add user to this model.</h1> 
                             </li>
                             <li>
-                                <input data-clear-btn="true" type="email" id="ubmsuite_modelSettings_shareModel_inviteEmail" placeholder="Email Address">
+                                <input data-clear-btn="true" type="text" id="ubmsuite_modelSettings_shareModel_inviteEmail" placeholder="Email Address">
                             </li>
                             <li>
                                 <select  id="ubmsuite_modelSettings_shareModel_setRole" value="Select" data-native-menu="false">
@@ -5090,10 +5096,10 @@ under the License.
 							<h1>Create Position</h1>
 						</li>
 						<li>
-							<input data-clear-btn="true" type="email" id="ubmsuite_modelSettings_createPosition_popup_createPosition_title" placeholder="Title">
+							<input data-clear-btn="true" type="text" id="ubmsuite_modelSettings_createPosition_popup_createPosition_title" placeholder="Title">
 						</li>
 						<li>
-							<input data-clear-btn="true" type="email" id="ubmsuite_modelSettings_createPosition_popup_createPosition_description" placeholder="Description">
+							<input data-clear-btn="true" type="text" id="ubmsuite_modelSettings_createPosition_popup_createPosition_description" placeholder="Description">
 						</li>
 					</ul>
 					<a style="margin-left:10px;" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b" data-transition="flow" onclick="createNewPositionAddtoMyModel()">Submit</a>
@@ -5109,10 +5115,10 @@ under the License.
 							<h1>Create Core Value</h1>
 						</li>
 						<li>
-							<input data-clear-btn="true" type="email" id="ubmsuite_modelSettings_createCoreValue_popup_createCoreValue_title" placeholder="Title">
+							<input data-clear-btn="true" type="text" id="ubmsuite_modelSettings_createCoreValue_popup_createCoreValue_title" placeholder="Title">
 						</li>
 						<li>
-							<input data-clear-btn="true" type="email" id="ubmsuite_modelSettings_createCoreValue_popup_createCoreValue_summary" placeholder="Summary">
+							<input data-clear-btn="true" type="text" id="ubmsuite_modelSettings_createCoreValue_popup_createCoreValue_summary" placeholder="Summary">
 						</li>
 					</ul>
 					<a style="margin-left:10px;" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b" data-transition="flow" onclick="createNewCoreValueAddtoMyModel()">Submit</a>

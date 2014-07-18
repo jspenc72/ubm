@@ -10,7 +10,7 @@ if ($conn -> connect_error) {
 }
 
 //INSERT
-$v2 = "'" . $conn -> real_escape_string($title) . "'";
+$v2 = "'" . $conn -> real_escape_string($coreValueTitle) . "'";
 $v3 = "'" . $conn -> real_escape_string($summary) . "'";
 $v4 = "'" . $conn -> real_escape_string($username) . "'";
 $v5 = "'" . $conn -> real_escape_string($activeModelUUID) . "'";
@@ -29,4 +29,4 @@ if ($conn -> query($sqlins) === false) {
 	}
 }
 
-echo $_GET['callback'] . '(' . "{'message' : 'Core-Value $title created successfully!'}" . ')';
+echo $_GET['callback'] . '(' . "{'message' : 'Core-Value $coreValueTitle created successfully!'}" . ')';
