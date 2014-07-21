@@ -481,3 +481,21 @@ $objectArray = $_GET['objectArray'];
 $updateSwitch = $_GET['updateSwitch']; 
 $categoryArray = $_GET['categoryArray']; 
 $checkboxArray = $_GET['checkboxArray']; 
+
+//update alternative
+$annualCostHigh = $_GET['annualCostHigh']; 
+$annualCostLow = $_GET['annualCostLow']; 
+$annualBenefitHigh = $_GET['annualBenefitHigh']; 
+$annualBenefitLow = $_GET['annualBenefitLow']; 
+$lowExpectedROI = $_GET['lowExpectedROI']; 
+$highExpectedROI = $_GET['highExpectedROI']; 
+$decision = $_GET['decision']; 
+
+
+
+
+
+
+
+
+

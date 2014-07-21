@@ -11,8 +11,7 @@ $(function() {
             $("#possible_alternatives_pro_monetary_gain_input_high").val(ui.values[1]);
         }
     });
-    $("#possible_alternatives_pro_monetary_gain_input").val("$" + $("#possible_alternatives_pro_monetary_gain_slider").slider("values", 0) +
-        " - $" + $("#possible_alternatives_pro_monetary_gain_slider").slider("values", 1));
+    $("#possible_alternatives_pro_monetary_gain_input").val("$" + $("#possible_alternatives_pro_monetary_gain_slider").slider("values", 0) + " - $" + $("#possible_alternatives_pro_monetary_gain_slider").slider("values", 1));
     $("#possible_alternatives_pro_monetary_gain_input_low").val($("#possible_alternatives_pro_monetary_gain_slider").slider("values", 0));
     $("#possible_alternatives_pro_monetary_gain_input_high").val($("#possible_alternatives_pro_monetary_gain_slider").slider("values", 1));
 });
@@ -29,8 +28,7 @@ $(function() {
             $("#possible_alternatives_con_monetary_cost_input_high").val(ui.values[1]);
         }
     });
-    $("#possible_alternatives_con_monetary_cost_input").val("$" + $("#possible_alternatives_con_monetary_cost_slider").slider("values", 0) +
-        " - $" + $("#possible_alternatives_con_monetary_cost_slider").slider("values", 1));
+    $("#possible_alternatives_con_monetary_cost_input").val("$" + $("#possible_alternatives_con_monetary_cost_slider").slider("values", 0) + " - $" + $("#possible_alternatives_con_monetary_cost_slider").slider("values", 1));
     $("#possible_alternatives_con_monetary_cost_input_low").val($("#possible_alternatives_con_monetary_cost_slider").slider("values", 0));
     $("#possible_alternatives_con_monetary_cost_input_high").val($("#possible_alternatives_con_monetary_cost_slider").slider("values", 1));
 });
@@ -38,22 +36,17 @@ $(function() {
 function newLowSum() { //Calculates the Sum of the Low Annual Expected ROI Costs and Benefits 
     var sum = 0;
     var thisRow = $(this).closest('tr');
-
     var total = 0;
-
     //iterate through each input and add to sum
     $(thisRow).find(".low_col_num").each(function() {
         sum += parseInt(this.value);
     });
     //change value of total
     $(thisRow).find(".low_total").html(sum);
-
-
     // the grand total
     /*** / $('.total').each(function() {
-				         total += parseInt($(this).html());
-				     });/***/
-
+                         total += parseInt($(this).html());
+                     });/***/
     // $('.result').val(total);
 }
 
@@ -102,19 +95,16 @@ function getMyModelsListofAlternatives() {
     }, function(res, status) {
         $.each(res, function(i, item) {
             if (item.decision == "Use Now") {
-                $('#possible_alternitives_table_body').append("<tr><td><a href='#' onclick='removeAlternativefromModel(" + item.id + ")'><span class='trashico'></span></a></td><td><a href='#' onclick='setActiveAlternative(" + item.id + ")' class='ui-btn ui-icon-edit ui-btn-icon-notext ui-corner-all'>No text</a></td><td>" + item.description + "</td><td><fieldset class='alternative_decision_controlgroup' data-role='controlgroup' data-type='horizontal'><button data-icon='refresh' onclick='setActiveAlternative(" + item.id + ")'>Show Pros and Cons</button><label for='select-more-1a' class='ui-hidden-accessible'>More</label><select name='select-more-1a' id='select-more-1a' data-theme='d'><option value='#' selected='selected'>Use Now</option><option value='#'>Consider for the future</option><option value='#'>Not a forseen use</option></select></fieldset></td><td><input class='high_col_num' value = '" + item.annual_cost_high + "'/></td><td><input class='low_col_num' value = '" + item.annual_cost_low + "'/></td><td><input class='high_col_num' value = '" + item.annual_benefit_high + "'/></td><td><input class='low_col_num' value = '" + item.annual_benefit_low + "'/></td><td class='high_total'>High ROI</td><td class='low_total'>Low ROI</td><td><a href='#' class='ui-btn risk_analysis_table' onclick='saveAlternativeAnalysis(" + item.id + ")'>Save Alternative </br> Analysis</a></td></tr>");
+                $('#possible_alternitives_table_body').append("<tr><td><a href='#' onclick='removeAlternativefromModel(" + item.id + ")'><span class='trashico'></span></a></td><td><a href='#' onclick='setActiveAlternative(" + item.id + ")' class='ui-btn ui-icon-edit ui-btn-icon-notext ui-corner-all'>No text</a></td><td contenteditable='false' id='" + item.id + "'>" + item.description + "</td><td><fieldset class='alternative_decision_controlgroup' data-role='controlgroup' data-type='horizontal'><button data-icon='refresh' onclick='setActiveAlternative(" + item.id + ")'>Show Pros and Cons</button><label for='select-more-1a' class='ui-hidden-accessible'>More</label><select name='select-more-1a' id='select-more-1a' data-theme='d'><option value='#' selected='selected'>Use Now</option><option value='#'>Consider for the future</option><option value='#'>Not a forseen use</option></select></fieldset></td><td><input class='high_col_num' value = '" + item.annual_cost_high + "'/></td><td><input class='low_col_num' value = '" + item.annual_cost_low + "'/></td><td><input class='high_col_num' value = '" + item.annual_benefit_high + "'/></td><td><input class='low_col_num' value = '" + item.annual_benefit_low + "'/></td><td class='high_total'>High ROI</td><td class='low_total'>Low ROI</td><td><a href='#' class='ui-btn risk_analysis_table' onclick='saveAlternativeAnalysis(" + item.id + ")'>Save Alternative </br> Analysis</a></td></tr>");
             } else {
                 if (item.decision == "Consider for the future") {
-                    $('#possible_alternitives_table_body').append("<tr><td><a href='#' onclick='removeAlternativefromModel(" + item.id + ")'><span class='trashico'></span></a></td><td><a href='#' onclick='setActiveAlternative(" + item.id + ")' class='ui-btn ui-icon-edit ui-btn-icon-notext ui-corner-all'>No text</a></td><td>" + item.description + "</td><td><fieldset class='alternative_decision_controlgroup' data-role='controlgroup' data-type='horizontal'><button data-icon='refresh' onclick='setActiveAlternative(" + item.id + ")'>Show Pros and Cons</button><label for='select-more-1a' class='ui-hidden-accessible'>More</label><select name='select-more-1a' id='select-more-1a' data-theme='b'><option value='#'>Use Now</option><option value='#' selected='selected'>Consider for the future</option><option value='#'>Not a forseen use</option></select></fieldset></td><td><input class='high_col_num' value = '" + item.annual_cost_high + "'/></td><td><input class='low_col_num' value = '" + item.annual_cost_low + "'/></td><td><input class='high_col_num' value = '" + item.annual_benefit_high + "'/></td><td><input class='low_col_num' value = '" + item.annual_benefit_low + "'/></td><td class='high_total'>High ROI</td><td class='low_total'>Low ROI</td><td><a href='#' class='ui-btn risk_analysis_table' onclick='saveAlternativeAnalysis(" + item.id + ")'>Save Alternative </br> Analysis</a></td></tr>");
+                    $('#possible_alternitives_table_body').append("<tr><td><a href='#' onclick='removeAlternativefromModel(" + item.id + ")'><span class='trashico'></span></a></td><td><a href='#' onclick='setActiveAlternative(" + item.id + ")' class='ui-btn ui-icon-edit ui-btn-icon-notext ui-corner-all'>No text</a></td><td contenteditable='false' id='" + item.id + "'>" + item.description + "</td><td><fieldset class='alternative_decision_controlgroup' data-role='controlgroup' data-type='horizontal'><button data-icon='refresh' onclick='setActiveAlternative(" + item.id + ")'>Show Pros and Cons</button><label for='select-more-1a' class='ui-hidden-accessible'>More</label><select name='select-more-1a' id='select-more-1a' data-theme='b'><option value='#'>Use Now</option><option value='#' selected='selected'>Consider for the future</option><option value='#'>Not a forseen use</option></select></fieldset></td><td><input class='high_col_num' value = '" + item.annual_cost_high + "'/></td><td><input class='low_col_num' value = '" + item.annual_cost_low + "'/></td><td><input class='high_col_num' value = '" + item.annual_benefit_high + "'/></td><td><input class='low_col_num' value = '" + item.annual_benefit_low + "'/></td><td class='high_total'>High ROI</td><td class='low_total'>Low ROI</td><td><a href='#' class='ui-btn risk_analysis_table' onclick='saveAlternativeAnalysis(" + item.id + ")'>Save Alternative </br> Analysis</a></td></tr>");
                 } else {
                     if (item.decision == "Not a forseen use") {
-                        $('#possible_alternitives_table_body').append("<tr><td><a href='#' onclick='removeAlternativefromModel(" + item.id + ")'><span class='trashico'></span></a></td><td><a href='#' onclick='setActiveAlternative(" + item.id + ")' class='ui-btn ui-icon-edit ui-btn-icon-notext ui-corner-all'>No text</a></td><td>" + item.description + "</td><td><fieldset class='alternative_decision_controlgroup' data-role='controlgroup' data-type='horizontal'><button data-icon='refresh' onclick='setActiveAlternative(" + item.id + ")'>Show Pros and Cons</button><label for='select-more-1a' class='ui-hidden-accessible'>More</label><select name='select-more-1a' id='select-more-1a' data-theme='c'><option value='#'>Use Now</option><option value='#'>Consider for the future</option><option value='#' selected='selected'>Not a forseen use</option></select></fieldset></td><td><input class='high_col_num' value = '" + item.annual_cost_high + "'/></td><td><input class='low_col_num' value = '" + item.annual_cost_low + "'/></td><td><input class='high_col_num' value = '" + item.annual_benefit_high + "'/></td><td><input class='low_col_num' value = '" + item.annual_benefit_low + "'/></td><td class='high_total'>High ROI</td><td class='low_total'>Low ROI</td><td><a href='#' class='ui-btn risk_analysis_table' onclick='saveAlternativeAnalysis(" + item.id + ")'>Save Alternative </br> Analysis</a></td></tr>");
-                    } else {
-
-                    }
+                        $('#possible_alternitives_table_body').append("<tr><td><a href='#' onclick='removeAlternativefromModel(" + item.id + ")'><span class='trashico'></span></a></td><td><a href='#' onclick='setActiveAlternative(" + item.id + ")' class='ui-btn ui-icon-edit ui-btn-icon-notext ui-corner-all'>No text</a></td><td contenteditable='false' id='" + item.id + "'>" + item.description + "</td><td><fieldset class='alternative_decision_controlgroup' data-role='controlgroup' data-type='horizontal'><button data-icon='refresh' onclick='setActiveAlternative(" + item.id + ")'>Show Pros and Cons</button><label for='select-more-1a' class='ui-hidden-accessible'>More</label><select name='select-more-1a' id='select-more-1a' data-theme='c'><option value='#'>Use Now</option><option value='#'>Consider for the future</option><option value='#' selected='selected'>Not a forseen use</option></select></fieldset></td><td><input class='high_col_num' value = '" + item.annual_cost_high + "'/></td><td><input class='low_col_num' value = '" + item.annual_cost_low + "'/></td><td><input class='high_col_num' value = '" + item.annual_benefit_high + "'/></td><td><input class='low_col_num' value = '" + item.annual_benefit_low + "'/></td><td class='high_total'>High ROI</td><td class='low_total'>Low ROI</td><td><a href='#' class='ui-btn risk_analysis_table' onclick='saveAlternativeAnalysis(" + item.id + ")'>Save Alternative </br> Analysis</a></td></tr>");
+                    } else {}
                 }
             }
-
         });
         $('#possible_alternitives_table_body').append("<tr><td><a href='#possible_alternatives_createNewAlternative_popup' data-rel='popup' class='ui-btn ui-icon-plus ui-btn-icon-notext ui-corner-all'></a></td><td colspan='10'><h5>Add a New Alternative</h5></td></tr>");
         $("#possible_alternitives_table").table("refresh");
@@ -131,7 +121,6 @@ function getMyModelsListofAlternatives() {
                 newHighSum.call(this);
             });
         });
-
         hideLoader();
     }, 5000);
 }
@@ -139,7 +128,6 @@ function getMyModelsListofAlternatives() {
 function getActiveAlternativeListofPros() {
     showLoader();
     $('#possible_alternitives_pros_table_body').empty();
-
     $.getJSON('http://api.universalbusinessmodel.com/ubms_modelcreationsuite_model_getCurrentModel_activeAlternativePros.php?callback=?', { //JSONP Request
         key: window.key,
         activeModelAlternativeId: window.activeModelAlternativeId,
@@ -167,10 +155,8 @@ function getActiveAlternativeListofCons() {
     }, function(res, status) {
         if (status == "success") {
             setTimeout(function() {
-
                 hideLoader();
             }, 1000);
-
         }
         $.each(res, function(i, item) {
             $('#possible_alternitives_cons_table_body').append("<tr><td><a href='#' onclick='setActiveAlternativeCon(" + item.id + ")' class='ui-btn ui-icon-edit ui-btn-icon-notext ui-corner-all'>No text</a></td><td>" + item.description + "</td><td><input class='high_col_num' value = '" + item.cost_low + "'/></td><td><input class='low_col_num' value = '" + item.cost_high + "'/></td></tr>");
@@ -179,11 +165,8 @@ function getActiveAlternativeListofCons() {
         $('#possible_alternitives_cons_table_body').append("<tr><td><a href='#possible_alternatives_createNewCon_popup' data-rel='popup' class='ui-btn ui-icon-plus ui-btn-icon-notext ui-corner-all'></a></td><td colspan='3'><h5>Add a new Con</h5></td></tr>");
         $("#possible_alternitives_cons_table").table("refresh");
         $('html, body').animate({
-                scrollTop: $(document).height() - $(window).height()
-            },
-            500,
-            "easeOutBack"
-        );
+            scrollTop: $(document).height() - $(window).height()
+        }, 500, "easeOutBack");
     });
 }
 
@@ -277,5 +260,22 @@ function removeAlternativefromModel(activeAlternativeId) {
 }
 
 function saveAlternativeAnalysis() {
-    $().toastmessage('showNoticeToast', 'alternative analysis will be save to this model.');
+    $.getJSON('http://api.universalbusinessmodel.com/ubm_modelcreationsuite_model_update_PossibeAlternatives.php?callback=?', { //JSONP Request
+        key: window.key,
+        activeAlternativeId: activeAlternativeId,
+        annualCostHigh: annualCostHigh,
+        annualCostLow: annualCostLow,
+        annualBenefitHigh: annualBenefitHigh,
+        annualBenefitLow: annualBenefitLow,
+        lowExpectedROI: lowExpectedROI,
+        highExpectedROI: highExpectedROI,
+        decision: decision
+    }, function(res, status) {
+        $().toastmessage('showNoticeToast', res.message);
+        $("#" + window.activeModelAlternativeId + "").attr('contenteditable', 'true');
+    });
+}
+
+function editAlternative() {
+    $("#" + window.activeModelAlternativeId + "").attr('contenteditable', 'true');
 }
