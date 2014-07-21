@@ -107,9 +107,6 @@ under the License.
 	<!-- End Custom sign_in_sign_up page stuff -->
         <title>UBM</title>
         <!-- Forces user to use chrome or safari -->
-
-
-
         <script>
         $(function() {
 		    $(window).bind('resize', function()
@@ -3276,6 +3273,7 @@ under the License.
 					</div>
 				</div>
 					<a href="#" class="ui-btn ui-shadow ui-corner-all ui-icon-refresh ui-btn-icon-notext" onclick="getMyModelsOrgChart(); getChildElementsforHierarchicalTree();">Refresh</a>
+			    
 			    <div id="printModel" style="float:right;padding-right:15px">
 			    	<a class="ui-btn" id="printModel" onclick="printModel()">Print Model</a>
 			    </div>									
@@ -3815,10 +3813,6 @@ under the License.
 						</form>
 					</div>	
 				</div>
-
-
-
-
 				<div id="ubmsuite_mcs_my_organizational_chart_container" >
 				    <ul id="modelOrgChart" style="display:none;">
 						<li class="orgChartItem" id="ubmsuite_mcs_my_organizational_chart_L0_ul" ><!-- Owner Name Injected Here-->
@@ -3834,7 +3828,8 @@ under the License.
 				    </div>
 			    </center>
 			    	<fieldset>	
-							<div id="heirarchyObjectTree_container">
+			    	<center>
+							<div id="heirarchyObjectTree_container" style="max-width:90%; margin-top:40px;">
 								<!--
 								heirarchyObjectTree uses CSS(3) to display objects.
 								-->
@@ -3851,7 +3846,9 @@ under the License.
 										
 									</ul>
 								</div>					
-							</div>	
+							</div>				    		
+			    	</center>
+
 							<div id="heirarchyObjectBackbone_container" style="width:100%; float:left; overflow-x:scroll; overflow-y:	scroll;">
 								<!--
 								<style type="text/css">
