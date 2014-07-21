@@ -108,15 +108,14 @@ under the License.
         <title>UBM</title>
         <!-- Forces user to use chrome or safari -->
         <script>
-        $(function() {
-		    $(window).bind('resize', function()
-		    {
-		        resizeMe();
-		        }).trigger('resize');
+  //       $(function() {
+		//     $(window).bind('resize', function() {
+		//         resizeMe();
+		//         }).trigger('resize');
+		// });
+    	$(function() {
+		    $("#chart_Container").resizable({ autoHide: true }, { ghost: true }, { containment: "document" });
 		});
-     //    	$(function() {
-			  //   $("#chart_Container").resizable({ autoHide: true }, { ghost: true }, { containment: "document" });
-			  // });
         </script>
         <script>
 			if( navigator.userAgent.indexOf("Chrome") != -1 ) {
