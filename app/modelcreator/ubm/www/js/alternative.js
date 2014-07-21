@@ -247,7 +247,6 @@ function createNewConforactiveModelAlternative() {
 }
 
 function removeAlternativefromModel(activeAlternativeId) {
-    $().toastmessage('showNoticeToast', "this is a test " + activeAlternativeId + "");
     $.getJSON('http://api.universalbusinessmodel.com/ubms_modelcreationsuite_model_remove_Alternative.php?callback=?', { //JSONP Request
         key: window.key,
         activeAlternativeId: activeAlternativeId,
@@ -259,20 +258,21 @@ function removeAlternativefromModel(activeAlternativeId) {
 }
 
 function saveAlternativeAnalysis() {
-    $.getJSON('http://api.universalbusinessmodel.com/ubm_modelcreationsuite_model_update_PossibeAlternatives.php?callback=?', { //JSONP Request
-        key: window.key,
-        activeAlternativeId: activeAlternativeId,
-        annualCostHigh: annualCostHigh,
-        annualCostLow: annualCostLow,
-        annualBenefitHigh: annualBenefitHigh,
-        annualBenefitLow: annualBenefitLow,
-        lowExpectedROI: lowExpectedROI,
-        highExpectedROI: highExpectedROI,
-        decision: decision
-    }, function(res, status) {
-        $().toastmessage('showNoticeToast', res.message);
-        $("#" + window.activeModelAlternativeId + "").attr('contenteditable', 'false');
-    });
+
+    // $.getJSON('http://api.universalbusinessmodel.com/ubm_modelcreationsuite_model_update_PossibeAlternatives.php?callback=?', { //JSONP Request
+    //     key: window.key,
+    //     window.activeAlternativeId: activeAlternativeId,
+    //     annualCostHigh: annualCostHigh,
+    //     annualCostLow: annualCostLow,
+    //     annualBenefitHigh: annualBenefitHigh,
+    //     annualBenefitLow: annualBenefitLow,
+    //     lowExpectedROI: lowExpectedROI,
+    //     highExpectedROI: highExpectedROI,
+    //     decision: decision
+    // }, function(res, status) {
+    //     $().toastmessage('showNoticeToast', res.message);
+    //     $("#" + window.activeModelAlternativeId + "").attr('contenteditable', 'false');
+    // });
 }
 
 function editAlternative() {
