@@ -3397,10 +3397,11 @@ under the License.
 				    </div>
 				    <div data-role='content' data-theme='a' >
 						<ul data-role="listview">
-							<li <a href="#" onclick='openPositionHierarchicalPdf()' class="ui-btn">Print Position Hierarchy</a></li>
+							<li> <a href="#" onclick='openPositionHierarchicalPdf()' class="ui-btn">Print Position Hierarchy</a></li>
 							<li id="managePosition_change_anchor" <a href="#" onclick='openAddNewPositionPopup()' class="ui-btn">Add New Position to Model</a></li>
-							<li <a href="#" onclick='confirmRemoveActivePosition()' class="ui-btn">Remove</a></li>
-							<li <a href="#" onclick='editObject()' class="ui-btn">Modify</a></li>
+							<li> <a href="#" onclick='confirmRemoveActivePosition()' class="ui-btn">Remove</a></li>
+							<li> <a href="#" onclick='editObject()' class="ui-btn">Modify</a></li>
+							<li> <a href="#" onclick='uploadAttachment()' class="ui-btn">Upload Attachment </br>(pdf, jpg, gif, doc, docx, xls, xlsx) </a></li>
 						</ul>
 				    </div>	
 				</div>	
@@ -3810,34 +3811,32 @@ under the License.
 				   </ul>            
 			    </div>
 			    <center>
-				    <div id="chart_Container" style="max-height:400px; max-width:90%; display:inline-block; overflow-y:scroll;">
+				    <div id="chart_Container" style="max-height:500px; max-width:90%; display:inline-block; overflow-y:scroll;">
 					    <div id="chart" class="orgChart org_chart">
 					    	
 					    </div>				    	
 				    </div>
 			    </center>
-			    	<fieldset>	
 			    	<center>
 							<div id="heirarchyObjectTree_container" style="max-width:90%; margin-top:40px;">
-								<!--
-								heirarchyObjectTree uses CSS(3) to display objects.
-								-->
 								<div id="heirarchyObjectTree_container_header">
 									<center>Position Hierarchy</center>
-
 									<div id="heirarchyObjectTree_container_header_currentObject">
 
 									</div>
 								</div>
-								<div id="heirarchyObjectTree" class="heirarchyObjectTree" >
-
+								<div id="heirarchyObjectTree" class="heirarchyObjectTree" style="height:450px; overflow-x:scroll; overflow-y:scroll;" >
 									<ul id="heirarchyObjectTree_ul" >
-										
+											<!--
+											heirarchyObjectTree uses CSS(3) to display objects.
+											-->										
 									</ul>
 								</div>					
 							</div>				    		
 			    	</center>
-
+			    		</br>
+			    		</br>
+			    		</br>
 							<div id="heirarchyObjectBackbone_container" style="width:100%; float:left; overflow-x:scroll; overflow-y:	scroll;">
 								<!--
 								<style type="text/css">
@@ -3927,7 +3926,6 @@ under the License.
 
 -->
 							</div>					
-					</fieldset>
 			</div>
 		</div>
 		<div data-role="page" class="ubm_page" id="ubmsuite_mcs_model_visual" data-theme="a">
