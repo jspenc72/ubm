@@ -43,12 +43,15 @@ $(document).on("pageshow", "#return_on_investment", function() {
     getListofAlternativesforReturnOnInvestment();
     $("#return_on_investment_alternative_select_menu").bind("change", function(event, ui) {
         window.activeModelAlternativeId = $("#return_on_investment_alternative_select_menu option:selected").val();
+        $("#anchor_for_return_on_investment_createNewInvestment_popup").show();
         setTimeout(function() {
             getAlternativesInvestments();
         }, 500);
     });
     $("#return_on_investment_alternative_select_investment_menu").bind("change", function(event, ui) {
         window.activeModelInvestmentId = $("#return_on_investment_alternative_select_investment_menu option:selected").val();
+        $("#anchor_for_return_on_investment_createNewCostDriver_popup").show();
+        $("#anchor_for_return_on_investment_createNewIncomeDriver_popup").show();
         setTimeout(function() {
             getActiveInvestmentIncomeDrivers();
             getActiveInvestmentCostDrivers();
@@ -138,6 +141,7 @@ $(document).on("pageshow", "#risk_analysis", function() {
             getListofRisksforRiskAnalysisTable();
             getListofRisksforSearchBars();
             $("#risk_analysis_define_new_risk_popup_defineRisk_button").show();
+            $("#risk_analysis_load_search_progressbar").show();
         }, 500);
     });
 
@@ -181,8 +185,6 @@ $(document).on("pageshow", "#ubmsuite_mcs_my_organizational_chart", function() {
 });
 $(document).on("pageshow", "#possible_alternatives", function() {
     getMyModelsListofAlternatives();
-    getActiveAlternativeListofPros();
-    getActiveAlternativeListofCons();
     walkthrough('possible_alternatives', function(status) {
         if (status == 0) {
             introJs('#possible_alternatives').start().oncomplete(function() {

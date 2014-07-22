@@ -20,6 +20,7 @@ function newCalculatedRisk() { //Calculates the Product of
 }
 
 function getListofInvestmentsforRiskAnalysis() { //Populates the Investment Picker at the top of the risk_analysis page.
+    var i = 0;
     $.getJSON('http://api.universalbusinessmodel.com/ubms_modelcreationsuite_model_getCurrentModel_Investments.php?callback=?', { //JSONP Request
         key: window.key,
         activeModelUUID: window.activeModelUUID
@@ -27,10 +28,15 @@ function getListofInvestmentsforRiskAnalysis() { //Populates the Investment Pick
         $('#risk_analysis_investment_select_menu').empty();
         $('#risk_analysis_investment_select_menu').append("<option>Choose an Investment</option>");
         $.each(res, function(i, item) {
+            i++;
             $('#risk_analysis_investment_select_menu').append("<option value='" + item.id + "'>Investment: " + item.title + "</option>");
             $('#risk_analysis_investment_select_menu').selectmenu('refresh', true);
         });
     });
+    if (i < 1) {
+        window.location = "#return_on_investment";
+        $().toastmessage('showErrorToast', "You must create an investment before adding a risk!");
+    }
     //$('#risk_analysis_investment_select_menu_container').trigger("refresh");
 }
 

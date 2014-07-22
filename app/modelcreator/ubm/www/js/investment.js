@@ -126,6 +126,7 @@ function getAlternativesInvestments() { //Populates the Investment Picker at the
 }
 
 function getListofAlternativesforReturnOnInvestment() { //Populates the Alternative Picker at the top of the risk_analysis page.
+    var i = 0;
     showLoader();
     $('#return_on_investment_alternative_select_menu').empty();
     $.getJSON('http://api.universalbusinessmodel.com/ubms_modelcreationsuite_model_getCurrentModel_Alternatives.php?callback=?', { //JSONP Request
@@ -134,12 +135,17 @@ function getListofAlternativesforReturnOnInvestment() { //Populates the Alternat
     }, function(res, status) {
         $('#return_on_investment_alternative_select_menu').append("<option>Choose an Alternative</option>"); // Adds choose alternative to the alternative dropdown as the title
         $.each(res, function(i, item) {
+            i++;
             if (item.decision == "Use Now") { //Checks if the alternative is marked as use now, if it is then it is used
                 $('#return_on_investment_alternative_select_menu').append("<option value='" + item.id + "'>" + item.description + "</option>"); //Adds the alternative to the dropdown list
                 $('#return_on_investment_alternative_select_menu').selectmenu('refresh', true);
             }
         });
     });
+    if (i < 1) {
+        window.location = "#possible_alternatives";
+        $().toastmessage('showErrorToast', "You must create an alternative before adding an investment!");
+    }
     hideLoader();
 }
 

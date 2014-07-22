@@ -88,6 +88,8 @@ function setActiveAlternative(activeModelAlternativeId) {
 function getMyModelsListofAlternatives() {
     showLoader();
     $('#possible_alternitives_table_body').empty();
+    $('#possible_alternitives_pros_table_body').empty();
+    $('#possible_alternitives_cons_table_body').empty();
     $.getJSON('http://api.universalbusinessmodel.com/ubms_modelcreationsuite_model_getCurrentModel_Alternatives.php?callback=?', { //JSONP Request
         key: window.key,
         activeModelUUID: window.activeModelUUID,
