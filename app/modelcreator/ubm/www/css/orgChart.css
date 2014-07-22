@@ -2,12 +2,19 @@
 
         /* Styling for Org Chart Page */
 			.org_chart{
-				background 			: url('../img/bkgd.png') repeat top left;
+/*				background 			: url('images/pattern-2iic.png') repeat top left;*/
 				color 				: white;
 				font-family 		: tahoma;
 				font-weight 		: lighter;
 				padding-top 		: 40px;
-			}       
+			}   
+			#chart_Container{
+				background 			: url('images/pattern-2iic.png') repeat top left;
+				color 				: white;
+				font-family 		: tahoma;
+				font-weight 		: lighter;
+				padding-top 		: 40px;				
+			}    
         /* Styling for Model Listview Popups*/
 			#ubmsuite_modelSettings_coreValues_popup_listview
 			{
