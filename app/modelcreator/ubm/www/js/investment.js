@@ -143,7 +143,7 @@ function getListofAlternativesforReturnOnInvestment() { //Populates the Alternat
         });
     });
     if (i < 1) {
-        window.location = "#possible_alternatives";
+        location.replace("#possible_alternatives");
         $().toastmessage('showErrorToast', "You must create an alternative before adding an investment!");
     }
     hideLoader();

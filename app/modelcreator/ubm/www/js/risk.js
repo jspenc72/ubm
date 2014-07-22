@@ -34,7 +34,7 @@ function getListofInvestmentsforRiskAnalysis() { //Populates the Investment Pick
         });
     });
     if (i < 1) {
-        window.location = "#return_on_investment";
+        location.replace("#return_on_investment");
         $().toastmessage('showErrorToast', "You must create an investment before adding a risk!");
     }
     //$('#risk_analysis_investment_select_menu_container').trigger("refresh");
