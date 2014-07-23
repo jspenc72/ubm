@@ -67,8 +67,7 @@ Password: ' . $usrpasswd . '
 ------------------------
  
 Please click this link to activate your account:
-http://api.universalbusinessmodel.com/verify.php?callback=?&email=' . $usremail . '&activationCode=' . $hash . '
- 
+http://api.universalbusinessmodel.com/verify.php?callback=?&email=' . $usremail . '&activationCode=' . $hash . '&key=YDoS20lf7Vrnr22h8Ma6NGUV5DblnVhueTPXS7gPynRvQ6U8optzfnMDs3UD
 ';
     
     $headers = 'From:notify@universalbusinessmodel.com' . "\r\n";

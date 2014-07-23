@@ -53,7 +53,7 @@ $footerRight = '
 
 <p class="footer">App ID  App User License #: </p>
 <p class="footer">CC: </p>
-<p class="footer">BM V #: </p>
+<p class="footer">BM V #1.7: </p>
 <a href="#*2" style="color:blue;">TOC</a>
 ';
 $footerLeft = "
@@ -82,16 +82,16 @@ $pdf->writeHTMLCELL(0, 0, 150, 246, $footerRight, 0, 1, 0, true, 'L');
 
 
 
-//$actual_link = "http://api.universalbusinessmodel.com/tcpdf/app/examples/ubm_hierarchicalObjects.php?callback=?&activeObjectUUID=$value&activeModelUUID=$activeModelUUID&key=YDoS20lf7Vrnr22h8Ma6NGUV5DblnVhueTPXS7gPynRvQ6U8optzfnMDs3UD";
-// set style for barcode
-// $style = array(
-//     'border' => 2,
-//     'vpadding' => 'auto',
-//     'hpadding' => 'auto',
-//     'fgcolor' => array(0,0,0),
-//     'bgcolor' => false, //array(255,255,255)
-//     'module_width' => 1, // width of a single module in points
-//     'module_height' => 1 // height of a single module in points
-// );
-// $pdf->write2DBarcode($actual_link, 'QRCODE,H', 85, 245, 35, 35, $style, 'N');
+$actual_link = "http://api.universalbusinessmodel.com/tcpdf/app/examples/ubm_hierarchicalObjects.php?callback=?&activeObjectUUID=$activeObjectUUID&activeModelUUID=$activeModelUUID&key=YDoS20lf7Vrnr22h8Ma6NGUV5DblnVhueTPXS7gPynRvQ6U8optzfnMDs3UD";
+//set style for barcode
+$style = array(
+    'border' => 2,
+    'vpadding' => 'auto',
+    'hpadding' => 'auto',
+    'fgcolor' => array(0,0,0),
+    'bgcolor' => false, //array(255,255,255)
+    'module_width' => 1, // width of a single module in points
+    'module_height' => 1 // height of a single module in points
+);
+$pdf->write2DBarcode($actual_link, 'QRCODE,H', 85, 245, 35, 35, $style, 'N');
 

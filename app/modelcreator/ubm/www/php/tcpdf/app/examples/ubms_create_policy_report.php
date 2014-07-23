@@ -48,7 +48,7 @@ $footerRight = '
 
 <p class="footer">App ID  App User License #: </p>
 <p class="footer">CC: </p>
-<p class="footer">BM V #: </p>
+<p class="footer">BM V #1.7: </p>
 ';
 
 $footerLeft = '
