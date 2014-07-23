@@ -9,7 +9,7 @@ $html = '<html>
     </head>
     <body>
         <h1 class="header">' . $modelTitle . '</h1>
-        <h1 class="header">Business Model</h1>
+        <h1 class="header">Business Model</h1> 
     </body>
 </html>';
 $image = '
@@ -38,6 +38,3 @@ $pdf->Bookmark('Cover Page', 0, 0, '', 'B', array(0,64,128));
 $pdf->writeHTMLCELL(0, 0, 15, 6, $html, 0, 1, 0, true, 'C');
 $pdf->writeHTMLCELL(0, 0, 70, 55, $image, 0, 1, 0, true, 'L');
 $pdf->writeHTMLCELL(0, 0, 10, 220, $footer, 0, 1, 0, true, 'L');
-
-
-
