@@ -549,26 +549,43 @@ under the License.
 			}
 			function displayHierarchicalTree(ElementsArray){				//Callback function for when getChildElementsforHierarchicalTree() is complete 
 				var requestidentifier = Math.random().toString(36).substring(5);
+						if (window.hasOwnProperty('PS_counter')) {
+
+						  //..
+						}else{
+							window.PS_counter = 1;
+						}					
+						var JD_counter = 1;
+						var PL_counter = 1;
+						var PR_counter = 1;
+						var ST_counter = 1;
+						var TK_counter = 1;
 				event.preventDefault();
 				if(ElementsArray){
 					//1. Start by prepending the position to the tree.
-					$('#heirarchyObjectTree_ul').prepend("<li><a data-thisUUID='" + window.activePositionUUID + "' class='hierarchyObjectTreeItem ajax_tooltip' onclick='if(event.ctrlKey || event.metaKey) { setActivePosition(" + window.activePositionUUID + "); setActivePositionUUID(" + window.activePositionUUID + ")} else {setActivePositionUUID(" + window.activePositionUUID + ")}'>PS-" + window.activePositionUUID + "</a><ul id='ubmsuite_mcs_my_organizational_chart_heirarchyObjectTree_ul_" + window.activePositionUUID + requestidentifier +"'></ul></li>"); 	 					
+					$('#heirarchyObjectTree_ul').prepend("<li><a data-thisUUID='" + window.activePositionUUID + "' class='hierarchyObjectTreeItem ajax_tooltip' onclick='if(event.ctrlKey || event.metaKey) { setActivePosition(" + window.activePositionUUID + "); setActivePositionUUID(" + window.activePositionUUID + ")} else {setActivePositionUUID(" + window.activePositionUUID + ")}'>PS-" + window.PS_counter + "</a><ul id='ubmsuite_mcs_my_organizational_chart_heirarchyObjectTree_ul_" + window.activePositionUUID + requestidentifier +"'></ul></li>"); 	 					
+						window.PS_counter = window.PS_counter + 1;					
 					$.each(ElementsArray, function(i, item) {
 						if(item.jobDescription_id>="1"){
 						//2. jobDescription_id for Object hierarchy suggests the item is a JD
-							$("#ubmsuite_mcs_my_organizational_chart_heirarchyObjectTree_ul_" + item.ancestor_id + requestidentifier +"").append("<li><a data-thisUUID='" + item.descendant_id + "' class='hierarchyObjectTreeItem ajax_tooltip' onclick='if(event.ctrlKey || event.metaKey) { setActiveJobDescription(" + item.descendant_id + ");setActiveJobDescriptionUUID(" + item.descendant_id + ")} else {setActiveJobDescriptionUUID(" + item.descendant_id + ")}'>JD-" + item.descendant_id + "</a><ul id='ubmsuite_mcs_my_organizational_chart_heirarchyObjectTree_ul_" + item.descendant_id + requestidentifier +"'></ul></li>")
+							$("#ubmsuite_mcs_my_organizational_chart_heirarchyObjectTree_ul_" + item.ancestor_id + requestidentifier +"").append("<li><a data-thisUUID='" + item.descendant_id + "' class='hierarchyObjectTreeItem ajax_tooltip' onclick='if(event.ctrlKey || event.metaKey) { setActiveJobDescription(" + item.descendant_id + ");setActiveJobDescriptionUUID(" + item.descendant_id + ")} else {setActiveJobDescriptionUUID(" + item.descendant_id + ")}'>JD-" + JD_counter + "</a><ul id='ubmsuite_mcs_my_organizational_chart_heirarchyObjectTree_ul_" + item.descendant_id + requestidentifier +"'></ul></li>")
+							JD_counter = JD_counter + 1;
 						}else if(item.policy_id>="1"){
 						//3. policy_id for Object hierarchy suggests the item is a PL
-							$("#ubmsuite_mcs_my_organizational_chart_heirarchyObjectTree_ul_" + item.ancestor_id + requestidentifier +"").append("<li><a data-thisUUID='" + item.descendant_id + "' class='hierarchyObjectTreeItem ajax_tooltip' onclick='if(event.ctrlKey || event.metaKey) {setActivePolicy(" + item.descendant_id + ");setActivePolicyUUID(" + item.descendant_id + ")} else {setActivePolicyUUID(" + item.descendant_id + ")}'>PL-" + item.descendant_id + "</a><ul id='ubmsuite_mcs_my_organizational_chart_heirarchyObjectTree_ul_" + item.descendant_id + requestidentifier +"'></ul></li>")
+							$("#ubmsuite_mcs_my_organizational_chart_heirarchyObjectTree_ul_" + item.ancestor_id + requestidentifier +"").append("<li><a data-thisUUID='" + item.descendant_id + "' class='hierarchyObjectTreeItem ajax_tooltip' onclick='if(event.ctrlKey || event.metaKey) {setActivePolicy(" + item.descendant_id + ");setActivePolicyUUID(" + item.descendant_id + ")} else {setActivePolicyUUID(" + item.descendant_id + ")}'>PL-" + PL_counter + "</a><ul id='ubmsuite_mcs_my_organizational_chart_heirarchyObjectTree_ul_" + item.descendant_id + requestidentifier +"'></ul></li>")
+							PL_counter = PL_counter + 1;
 						}else if(item.procedure_id>="1"){
 						//4. procedure_id for Object hierarchy suggests the item is a PR
-							$("#ubmsuite_mcs_my_organizational_chart_heirarchyObjectTree_ul_" + item.ancestor_id + requestidentifier +"").append("<li><a data-thisUUID='" + item.descendant_id + "' class='hierarchyObjectTreeItem ajax_tooltip' onclick='if(event.ctrlKey || event.metaKey) {setActiveProcedure(" + item.descendant_id + ");setActiveProcedureUUID(" + item.descendant_id + ")} else {setActiveProcedureUUID(" + item.descendant_id + ")}'>PR-" + item.descendant_id + "</a><ul id='ubmsuite_mcs_my_organizational_chart_heirarchyObjectTree_ul_" + item.descendant_id + requestidentifier +"'></ul></li>")
+							$("#ubmsuite_mcs_my_organizational_chart_heirarchyObjectTree_ul_" + item.ancestor_id + requestidentifier +"").append("<li><a data-thisUUID='" + item.descendant_id + "' class='hierarchyObjectTreeItem ajax_tooltip' onclick='if(event.ctrlKey || event.metaKey) {setActiveProcedure(" + item.descendant_id + ");setActiveProcedureUUID(" + item.descendant_id + ")} else {setActiveProcedureUUID(" + item.descendant_id + ")}'>PR-" + PR_counter + "</a><ul id='ubmsuite_mcs_my_organizational_chart_heirarchyObjectTree_ul_" + item.descendant_id + requestidentifier +"'></ul></li>")
+							PR_counter = PR_counter + 1;
 						}else if(item.step_id>="1"){
 						//5. step_id for Object hierarchy suggests the item is a ST
-							$("#ubmsuite_mcs_my_organizational_chart_heirarchyObjectTree_ul_" + item.ancestor_id + requestidentifier +"").append("<li><a data-thisUUID='" + item.descendant_id + "' class='hierarchyObjectTreeItem ajax_tooltip' onclick='if(event.ctrlKey || event.metaKey) {setActiveStep(" + item.descendant_id + ");setActiveStepUUID(" + item.descendant_id + ")} else {setActiveStepUUID(" + item.descendant_id + ")}'>ST-" + item.descendant_id + "</a><ul id='ubmsuite_mcs_my_organizational_chart_heirarchyObjectTree_ul_" + item.descendant_id + requestidentifier +"'></ul></li>")
+							$("#ubmsuite_mcs_my_organizational_chart_heirarchyObjectTree_ul_" + item.ancestor_id + requestidentifier +"").append("<li><a data-thisUUID='" + item.descendant_id + "' class='hierarchyObjectTreeItem ajax_tooltip' onclick='if(event.ctrlKey || event.metaKey) {setActiveStep(" + item.descendant_id + ");setActiveStepUUID(" + item.descendant_id + ")} else {setActiveStepUUID(" + item.descendant_id + ")}'>ST-" + ST_counter + "</a><ul id='ubmsuite_mcs_my_organizational_chart_heirarchyObjectTree_ul_" + item.descendant_id + requestidentifier +"'></ul></li>")
+							ST_counter = ST_counter + 1;
 						}else if(item.task_id>="1"){
 						//6. task_id for Object hierarchy suggests the item is a TK
-							$("#ubmsuite_mcs_my_organizational_chart_heirarchyObjectTree_ul_" + item.ancestor_id + requestidentifier +"").append("<li><a data-thisUUID='" + item.descendant_id + "' class='hierarchyObjectTreeItem ajax_tooltip' onclick='if(event.ctrlKey || event.metaKey) {setActiveTask(" + item.descendant_id + ");setActiveTaskUUID(" + item.descendant_id + ")} else {setActiveTaskUUID(" + item.descendant_id + ")}'>TK-" + item.descendant_id + "</a></li>")
+							$("#ubmsuite_mcs_my_organizational_chart_heirarchyObjectTree_ul_" + item.ancestor_id + requestidentifier +"").append("<li><a data-thisUUID='" + item.descendant_id + "' class='hierarchyObjectTreeItem ajax_tooltip' onclick='if(event.ctrlKey || event.metaKey) {setActiveTask(" + item.descendant_id + ");setActiveTaskUUID(" + item.descendant_id + ")} else {setActiveTaskUUID(" + item.descendant_id + ")}'>TK-" + TK_counter + "</a></li>")
+							TK_counter = TK_counter + 1;
 						}
 					});
 				}	
@@ -714,6 +731,43 @@ under the License.
 				  //Original Background Color #65A6D1
 				});	
 	
+			}
+			function editOrgChartSubtree(editType){
+				// alert(editType);
+				var SelectedAction;
+				switch (editType)
+				{
+				   case "move":
+				   SelectedAction = "move";
+				       break;
+				   case "attach":
+				   SelectedAction = "attach";
+				       break;
+				   case "duplicate": 
+				   SelectedAction = "duplicate";
+				       break;
+				   default: 
+				       alert('Default: this option is not valid.');
+				       break;
+				}
+				if(SelectedAction=="attach"){
+					alert("We are currently unable to attach an object to more than one parent.");
+				}else{
+					$.getJSON('http://api.universalbusinessmodel.com/ubms_modelcreationsuite_model_updateOrgChartSubtree.php?callback=?', {
+						key : window.key,
+						SelectedAction: SelectedAction,
+						fromTargetObject : window.fromTargetObject,
+						toTargetObject : window.toTargetObject
+					}, function(res, status) {
+						//ElementsArray = res;
+						if ($('#heirarchyObjectTree_ul').is(':empty')){
+							//displayHierarchicalTree(ElementsArray);
+						}else if (window.setPositionClicked==true){
+							//displayHierarchicalTree(ElementsArray);
+						}
+						hideLoader();
+					});					
+				}				
 			}
 			function editSubtree(editType){
 				// alert(editType);
@@ -990,6 +1044,7 @@ under the License.
 				if(!activeObjectUUID){
 					activeObjectUUID = window.activePositionUUID;
 					$('#heirarchyObjectTree_ul').empty();
+					window.PS_counter = 1;
 				}else{
 				}
 				var ElementsArray = new Array();
@@ -1012,6 +1067,7 @@ under the License.
 
 				}else{
 					$('#heirarchyObjectTree_ul').empty();
+					window.PS_counter = 1;
 				}
 				//Called when user clicks on a position displayed on the org chart.
 				// 1. Gets the child elements of uuid
@@ -1843,14 +1899,14 @@ under the License.
 							activeModelOwnersUUID: window.activeModelOwnersUUID
 						}, function(res, status) {
 							$.each(res, function(i, item) {
-								if (!item.name) {
-									item.name = 'Vacant';
-								} else {
+										if (!item.name) {
+											item.name = 'Vacant';
+										} else {
 
-								}
+										}
 						//3. Append all other children to their respective "reports_to" ul
 						//$('#ubmsuite_mcs_my_organizational_chart_P' + item.reports_to_id + '_ul').append("<li id='orgChartPosition" + item.UUID + "'><div id='demo_box_" + item.UUID + "' class='demo_box' onclick='setActivePosition(" + item.UUID + ")'><div class='pop_ctrl'><i class='fa fa-bars'></i></div><ul id='demo_ul_2'><li class='demo_li'><a href='#' onclick='addChildPositiontoActivePosition()'><div><i class='fa fa-plus-circle'></i></div><p>Add</p></a></li><li class='demo_li'><a href='#' onclick='removeActivePosition()'><div><i class='fa fa-minus-circle'></i></div><p>Remove</p></a></li></ul></div></br>" + item.title + "<ul id='ubmsuite_mcs_my_organizational_chart_P" + item.UUID + "_ul'></ul></li>");	
-									$('#ubmsuite_mcs_my_organizational_chart_P' + item.ancestor_UUID + '_ul').append("<li class='orgChartItem' id='orgChartPosition" + item.UUID + "'><a this-UUID='" + item.UUID + "' onclick='if(event.ctrlKey || event.metaKey) {setActivePosition(" + item.UUID + ", &quot;" + item.title + "&quot;)} else {buildHierarchicalTree(" + item.UUID + ");setActivePositionUUID(" + item.UUID + ")}'><img id='org_img_" + item.UUID + "'  title='cmd-click(mac) or ctl-click(win) icon to manage this position, or add another position your models org chart.' style='width:50px; height:50px;' src='img/employee-opinion-surveys.png' class='click_pointer' /></a></br><p>" + item.title + "</p></br><p>" + item.name + "</p><ul id='ubmsuite_mcs_my_organizational_chart_P" + item.UUID + "_ul'></ul></li>");	
+									$('#ubmsuite_mcs_my_organizational_chart_P' + item.ancestor_UUID + '_ul').append("<li class='orgChartItem' id='orgChartPosition" + item.UUID + "' data-thisUUID='" + item.UUID + "'><a data-thisUUID='" + item.UUID + "' onclick='if(event.ctrlKey || event.metaKey) {setActivePosition(" + item.UUID + ", &quot;" + item.title + "&quot;)} else {buildHierarchicalTree(" + item.UUID + ");setActivePositionUUID(" + item.UUID + ")}' class='OC_Position' ><img id='org_img_" + item.UUID + "'  title='cmd-click(mac) or ctl-click(win) icon to manage this position, or add another position your models org chart.' style='width:50px; height:50px;' src='img/employee-opinion-surveys.png' class='click_pointer' /></a></br><p>" + item.title + "</p></br><p>" + item.name + "</p><ul id='ubmsuite_mcs_my_organizational_chart_P" + item.UUID + "_ul'></ul></li>");	
 						//4. Empty chart Div
 							        $('#chart').empty();
 						//5. Call jOrgChart plugin, append new org chart to chart div, set jorgdraganddrop to false to avoid conflicting compatibility issue with other jquery packages.
@@ -1875,14 +1931,12 @@ under the License.
 							        		$( this ).removeClass( "clicked" );
 							        		window.setPositionClicked=false;
 							        		$('#heirarchyObjectTree_ul').empty();
+							        		window.PS_counter = 1;
 									  	}else{
 											$(this).parentsUntil( ".node-container" ).find( ".orgChartItem" ).css( "background-color", "green" );
 											//Finds the first parent in the dom tree that has the class .node.container then is searches within that parent to find items with class .orgChartItem and modifies their css
 											$(this).css("background-color","#80CCFF");
 									  	}
-
-
-
 									  }, function() {
 									  	if($(this).hasClass("clicked")){
 											$(this).css("background-color","#80CCFF");
@@ -1891,12 +1945,54 @@ under the License.
 											$(this).parentsUntil( ".node-container" ).find( ".orgChartItem" ).animate({backgroundColor: '#35363B'}, 1000);
 											//Finds the first parent in the dom tree that has the class .node.container then is searches within that parent to find items with class .orgChartItem and modifies their css
 									  	}
-																			  }
+									  }
 									);		
-									// Original Background Color: #35363B							
+									// Original Background Color: #35363B
+
+								$(".OC_Position").draggable({ 
+										revert: "valid", 
+										drag: function(){
+								            // as you drag, add your "dragging" class, like so:
+								            $(this).siblings().andSelf().addClass("inmotion");
+								            $(this).zIndex( 999 );
+								            window.disableSetActiveIdentifiers=true;
+								        }
+								});
+								$(".OC_Position").droppable({
+							      activeClass: "ui-state-default",
+							      hoverClass: "ui-state-hover",
+							      drop: function( event, ui ) {
+							        //$( this )
+							         //UUID of the Element that drop occured on
+							         alert("Element to attach to: " + $(event.target).attr('data-thisuuid'));
+							         window.toTargetObject = $(event.target).attr('data-thisuuid');
+							         //$( $(ui.draggable).siblings().andSelf() ).appendTo( $(event.target).next() );
+							         //alert($(ui.draggable).attr('data-thisUUID'));
+							         //UUID of the Element that was hovered on 
+							         alert("Element to attach from: " + $(ui.draggable).attr('data-thisuuid'));
+							         window.fromTargetObject = window.activePositionUUID;
+							         window.disableSetActiveIdentifiers=false;
+							         $("#ubmsuite_mcs_my_organizational_chart_confirm_move_copy_add_position_popup").popup("open");
+									 $(event.target).tooltipster('hide');
+
+							      }
+							    });
+								$(".orgChartItem").droppable({
+							      activeClass: "ui-state-default",
+							      hoverClass: "ui-state-hover",
+							      drop: function( event, ui ) {		
+							        //$( this )
+							         // alert($(event.target).attr('id')); 
+							         // alert("activeObjectUUID: " + window.activeObjectUUID);
+							         // window.disableSetActiveIdentifiers==false;
+
+							      }
+							    });
+
 							});
 						});	
 					}, 1500);	
+
 				});  	
 			}  
         </script>
@@ -1968,6 +2064,9 @@ under the License.
 
 		  <!-- WOOKMARK CSS  -->
 		<style>
+			.inmotion{
+				background-color: #FF7373;
+			}
 		    /**
 		     * WOOKMARK Grid items
 		     */
@@ -3357,7 +3456,16 @@ under the License.
 				    <a href="index.html" data-rel="back" title="Attach Duplicate of this object will attach a copy of this object and all of its children to the new object, while the current links remain in tact" class="ui-shadow ui-btn ui-corner-all ui-btn-b ui-icon-check ui-btn-icon-left ui-btn-inline ui-mini" onclick="editSubtree('duplicate')">Attach Duplicate </a>-->
 				    <a href="index.html" data-rel="back" class="ui-shadow ui-btn ui-corner-all ui-btn-inline ui-mini">Cancel</a>
 				</div>	
-				
+				<!-- Move, Copy or Add Position -->
+				<div data-role="popup" id="ubmsuite_mcs_my_organizational_chart_confirm_move_copy_add_position_popup"  data-theme="a" data-overlay-theme="b" class="ui-content" style="max-width:340px; padding-bottom:2em;">
+				    <h3>Please confirm this action.</h3>
+				    <p>Clicking move will move this position along with its children.</p>
+				    <p>If you click cancel the object will remain in its new position until you click refresh at the top right corner of the header.</p>
+				    <a href="index.html" data-rel="back" title="Moving this object will remove it along with its children, from its current parent and attach them to the new object." class="ui-shadow ui-btn ui-corner-all ui-btn-b ui-icon-check ui-btn-icon-left ui-btn-inline ui-mini" onclick="editOrgChartSubtree('move')">Move </a>
+				    <!--<a href="index.html" data-rel="back" title="Attaching this object will create a link from this object and its children to the new object, while keeping the current links in tact" class="ui-shadow ui-btn ui-corner-all ui-btn-b ui-icon-check ui-btn-icon-left ui-btn-inline ui-mini" onclick="editSubtree('attach')">Attach </a>
+				    <a href="index.html" data-rel="back" title="Attach Duplicate of this object will attach a copy of this object and all of its children to the new object, while the current links remain in tact" class="ui-shadow ui-btn ui-corner-all ui-btn-b ui-icon-check ui-btn-icon-left ui-btn-inline ui-mini" onclick="editSubtree('duplicate')">Attach Duplicate </a>-->
+				    <a href="index.html" data-rel="back" class="ui-shadow ui-btn ui-corner-all ui-btn-inline ui-mini">Cancel</a>
+				</div>					
 				<div data-role="popup" id="ubmsuite_mcs_my_organizational_chart_content_createNewPositionPopUp"  data-theme="a" class="ui-corner-all draggable_popup">
 					<div data-role="header">
 						<h1>Add Position</h1>
@@ -3714,7 +3822,6 @@ under the License.
 							</div>
 					    </div>
 					</div>
-				    
 				</div>	
 				<div data-role="popup" id="ubmsuite_mcs_my_organizational_chart_content_createNewTaskPopUp"  data-theme="a" class="ui-corner-all draggable_popup">
 					<div data-role="header">
