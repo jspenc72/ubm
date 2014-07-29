@@ -1,51 +1,19 @@
-<head>
-    <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.3/jquery.mobile-1.4.3.min.css" />
-    <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
-    <script src="http://code.jquery.com/mobile/1.4.3/jquery.mobile-1.4.3.min.js"></script>
-    <style type="text/css">
-    .tg  {border-collapse:collapse;border-spacing:0;}
-    .tg td{font-family:Arial, sans-serif;font-size:14px;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;}
-    .tg th{font-family:Arial, sans-serif;font-size:14px;font-weight:normal;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;}
-    .tg .tg-iulr{color:#fe0000}
-    .tg .tg-wc4u{color:#340096}
-    .tg .tg-gswb{color:#9b9b9b}
-    .tg .tg-usb5{color:#009901}
-    .tg .tg-820e{color:#cd9934}
-    .tg .tg-walu{color:#3166ff}
-    .tg .tg-1lei{color:#ffc702}
-    .tg .tg-iw8r{color:#34cdf9}
-    .tg .tg-73wu{color:#34ff34}
-    .tg .tg-xxru{color:#ffccc9}
-    </style>
-    <script>
-    function refreshTable(something) {
-        var testObject = {};
-        window.positionCounter = 1;
-        // alert("test");
-        //send request to server and add result to an array
-        $.getJSON('http://api.universalbusinessmodel.com/ubms_modelcreationsuite_getActiveModelPositionsforOrgChart.php?callback=?', {//JSONP Request    
-            activeModelOwnersUUID : 673,
-            key : "YDoS20lf7Vrnr22h8Ma6NGUV5DblnVhueTPXS7gPynRvQ6U8optzfnMDs3UD",
-        }, function(res, status) {
-            $.each(res, function(i, item) {
-                $("#myTable").append("<tr class='Position_row'><th class='tg-031e'> </th><th class='tg-031e'> </th><th class='tg-031e'> </th><th class='tg-031e'> </th><th class='tg-031e'> </th><th class='tg-031e'> </th><th class='tg-031e'> </th><th class='tg-031e'> PS."+window.positionCounter+"<a href='#' class='ui-btn ui-icon-plus ui-btn-icon-notext ui-corner-all'>No text</a></th><th class='tg-031e'> </th><th class='tg-031e'> </th><th class='tg-031e'> </th><th class='tg-031e'></th><th class='tg-031e'> </th><th class='tg-031e'> </th><th class='tg-031e'> </th><th class='tg-031e'> </th><th class='tg-031e'> </th><th class='tg-031e'> </th><th class='tg-031e'> </th><td class='tg-031e' colspan='11'>"+item.title+"</td></tr>");
-                window.positionCounter+=1;
-             });
-
-        }); 
-
-        //iterate through the array and append one row to our table for each item in the array and insert the item name at the appropriate column in the table
-
-    }
-
-
-    </script>
-
-</head>
-
-<body>
-<a href="#" onclick="refreshTable()" class="ui-btn ui-icon-refresh ui-btn-icon-notext ui-corner-all">No text</a>
-<table id='myTable' class="tg">
+<style type="text/css">
+.tg  {border-collapse:collapse;border-spacing:0;}
+.tg td{font-family:Arial, sans-serif;font-size:14px;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;}
+.tg th{font-family:Arial, sans-serif;font-size:14px;font-weight:normal;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;}
+.tg .tg-iulr{color:#fe0000}
+.tg .tg-wc4u{color:#340096}
+.tg .tg-gswb{color:#9b9b9b}
+.tg .tg-usb5{color:#009901}
+.tg .tg-820e{color:#cd9934}
+.tg .tg-walu{color:#3166ff}
+.tg .tg-1lei{color:#ffc702}
+.tg .tg-iw8r{color:#34cdf9}
+.tg .tg-73wu{color:#34ff34}
+.tg .tg-xxru{color:#ffccc9}
+</style>
+<table class="tg">
   <tr>
     <th class="tg-031e">1</th>
     <th class="tg-031e">2</th>
@@ -114,7 +82,7 @@
     <td class="tg-xxru">File</td>
     <td class="tg-031e"></td>
   </tr>
-  <tr class="System_row">
+  <tr>
     <th class="tg-031e"> </th>
     <th class="tg-031e"> </th>
     <th class="tg-031e"> </th>
@@ -135,7 +103,7 @@
     <th class="tg-031e"> </th>
     <td class="tg-031e" colspan="12"></td>
   </tr>
-  <tr class="Position_row">
+  <tr>
     <th class="tg-031e"> </th>
     <th class="tg-031e"> </th>
     <th class="tg-031e"> </th>
@@ -157,7 +125,7 @@
     <th class="tg-031e"> </th>
     <td class="tg-031e" colspan="11"></td>
   </tr>
-  <tr class="JobDescription_row">
+  <tr>
     <th class="tg-031e"> </th>
     <th class="tg-031e"> </th>
     <th class="tg-031e"> </th>
@@ -180,7 +148,7 @@
     <th class="tg-031e"> </th>
     <td class="tg-031e" colspan="10"></td>
   </tr>
-  <tr class="Policy_row">
+  <tr>
     <th class="tg-031e"> </th>
     <th class="tg-031e"> </th>
     <th class="tg-031e"> </th>
@@ -204,7 +172,7 @@
     <th class="tg-031e"> </th>
     <td class="tg-031e" colspan="9"></td>
   </tr>
-  <tr class="Procedure_row">
+  <tr>
     <th class="tg-031e"> </th>
     <th class="tg-031e"> </th>
     <th class="tg-031e"> </th>
@@ -229,7 +197,7 @@
     <th class="tg-031e"> </th>
     <td class="tg-031e" colspan="8"></td>
   </tr>
-  <tr class="Step_row">
+  <tr>
     <th class="tg-031e"> </th>
     <th class="tg-031e"> </th>
     <th class="tg-031e"> </th>
@@ -255,7 +223,7 @@
     <th class="tg-031e"> </th>
     <td class="tg-031e" colspan="7"></td>
   </tr>
-  <tr class="Task_row">
+  <tr>
     <th class="tg-031e"> </th>
     <th class="tg-031e"> </th>
     <th class="tg-031e"> </th>
@@ -282,7 +250,7 @@
     <th class="tg-031e"> </th>
     <td class="tg-031e" colspan="6"></td>
   </tr>
-  <tr class="TrainingManual_row">
+  <tr>
     <th class="tg-031e"> </th>
     <th class="tg-031e"> </th>
     <th class="tg-031e"> </th>
@@ -310,7 +278,7 @@
     <th class="tg-031e"> </th>
     <td class="tg-031e" colspan="5"></td>
   </tr>
-  <tr class="Measurement_row">
+  <tr>
     <th class="tg-031e"> </th>
     <th class="tg-031e"> </th>
     <th class="tg-031e"> </th>
@@ -339,7 +307,7 @@
     <th class="tg-031e"> </th>
     <td class="tg-031e" colspan="4"></td>
   </tr>
-  <tr class="Product_row">
+  <tr>
     <th class="tg-031e"> </th>
     <th class="tg-031e"> </th>
     <th class="tg-031e"> </th>
@@ -369,7 +337,7 @@
     <th class="tg-031e"> </th>
     <td class="tg-031e" colspan="3"></td>
   </tr>
-  <tr class="File_row">
+  <tr>
     <th class="tg-031e"> </th>
     <th class="tg-031e"> </th>
     <th class="tg-031e"> </th>
@@ -400,5 +368,4 @@
     <th class="tg-031e"> </th>
     <td class="tg-031e" colspan="2"></td>
   </tr>
-</table>    
-</body>
+</table>
