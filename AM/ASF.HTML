@@ -21,6 +21,7 @@
     function refreshTable(something) {
         var testObject = {};
         window.positionCounter = 1;
+        window.rowCounter = 1;
         // alert("test");
         //send request to server and add result to an array
         $.getJSON('http://api.universalbusinessmodel.com/ubms_modelcreationsuite_getActiveModelPositionsforOrgChart.php?callback=?', {//JSONP Request    
@@ -28,8 +29,10 @@
             key : "YDoS20lf7Vrnr22h8Ma6NGUV5DblnVhueTPXS7gPynRvQ6U8optzfnMDs3UD",
         }, function(res, status) {
             $.each(res, function(i, item) {
-                $("#myTable").append("<tr class='Position_row'><th class='tg-031e'> </th><th class='tg-031e'> </th><th class='tg-031e'> </th><th class='tg-031e'> </th><th class='tg-031e'> </th><th class='tg-031e'> </th><th class='tg-031e'> </th><th class='tg-031e'> PS."+window.positionCounter+"<a href='#' class='ui-btn ui-icon-plus ui-btn-icon-notext ui-corner-all'>No text</a></th><th class='tg-031e'> </th><th class='tg-031e'> </th><th class='tg-031e'> </th><th class='tg-031e'></th><th class='tg-031e'> </th><th class='tg-031e'> </th><th class='tg-031e'> </th><th class='tg-031e'> </th><th class='tg-031e'> </th><th class='tg-031e'> </th><th class='tg-031e'> </th><td class='tg-031e' colspan='11'>"+item.title+"</td></tr>");
+                //if statement for object identifier
+                $("#myTable").append("<tr data-thisUUID='"+item.UUID+"' class='Position_row'><th class='tg-031e'>"+window.rowCounter+"</th><th class='tg-031e'> </th><th class='tg-031e'> </th><th class='tg-031e'> </th><th class='tg-031e'> </th><th class='tg-031e'> </th><th class='tg-031e'> </th><th class='tg-031e'> PS."+window.positionCounter+" ( "+item.position_id+" )<a href='#' class='ui-btn ui-icon-plus ui-btn-icon-notext ui-corner-all'>No text</a></th><th class='tg-031e'> </th><th class='tg-031e'> </th><th class='tg-031e'> </th><th class='tg-031e'></th><th class='tg-031e'> </th><th class='tg-031e'> </th><th class='tg-031e'> </th><th class='tg-031e'> </th><th class='tg-031e'> </th><th class='tg-031e'> </th><th class='tg-031e'> </th><td class='tg-031e' colspan='11'>"+item.title+"</td></tr>");
                 window.positionCounter+=1;
+                window.rowCounter+=1;
              });
 
         }); 
@@ -37,6 +40,7 @@
         //iterate through the array and append one row to our table for each item in the array and insert the item name at the appropriate column in the table
 
     }
+
 
 
     </script>
