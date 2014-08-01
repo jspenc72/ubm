@@ -101,7 +101,7 @@ $(document).on("pageshow", "#open_points_action_items", function() {
     new Tablesort(document.getElementById('mcs_open_points_action_items_table'), {
         descending: true
     });
-    refreshOpenItemsList();
+    open_points_action_items();
     walkthrough('open_points_action_items', function(status) {
         if (status == 0) {
             introJs('#open_points_action_items').start().oncomplete(function() {
@@ -117,7 +117,7 @@ $(document).on("pageshow", "#ubmsuite_mcs_management_reporting", function() {
     getMyModelsPositions();
 });
 $(document).on("pageshow", "#ubmsuite_swotAnalysis", function() {
-    $('area').on('click', function() {
+    $('area').on('click', function()open_points_action_items {
         if ($(this).attr('title') == 'strength') {
             $("#ubmsuite_swotAnalysis_add_strength_popup").popup("open");
         }

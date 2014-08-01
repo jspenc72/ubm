@@ -102,24 +102,27 @@ section.content, article.content
       background: $gray-dark
   dd.active
     a.sub-one, a.sub-two
-      padding: 0
-      padding-left: $gutter
+      padding: 0 $gutter / 2
+      list-style: disc
       color: $link-color
       background: none
       font-size: 80%
-      border: solid 1px $table-border-color
-      border-top: none
-      border-bottom: none
+      border: none
+      font-weight: normal
+      line-height: 1.5
+      background: darken($section-background-color, 5%)
+      text-transform: none
+      &:hover
+        text-decoration: underline
       &.active
         color: $text-color
       &:nth-child(2)
         padding-top: $gutter / 4
       &:last-child
-        border-bottom: solid 1px $table-border-color
         padding-bottom: $gutter / 4
     a.sub-two
-      padding-left: $gutter * 1.5
-      color: lighten($link-color, 10%)
+      color: $text-color
+      padding-left: $gutter * 1
 
   a
     display: inline-block
@@ -191,4 +194,5 @@ pre
     +span-columns(8)
   nav.wy-docs-nav
     +span-columns(8)
+
 
