@@ -229,6 +229,7 @@ $activeTaskId = $_GET['activeTaskId'];
  
  //UBM MODELCREATION SUITE ORG CHART
  $activeModelOwnersUUID = $_GET['activeModelOwnersUUID'];
+  $activeModelOwnerUUID = $_GET['activeModelOwnerUUID'];
  
  // Get Users With Access
  $aname = $_GET['appname'];

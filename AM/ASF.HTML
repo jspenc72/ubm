@@ -24,10 +24,10 @@
     function refreshTable(something) {
         var testObject = {};
         window.positionCounter = 1;
-        window.rowCounter = 1;
+        window.rowCounter = 1; 
         // alert("test");
         //send request to server and add result to an array
-        $.getJSON('http://api.universalbusinessmodel.com/ubms_modelcreationsuite_getActiveModelPositionsforOrgChart.php?callback=?', {//JSONP Request    
+        $.getJSON('http://api.universalbusinessmodel.com/ubms_get_modelHierarchicalObjects.php?callback=?', {//JSONP Request    
             activeModelOwnersUUID : 673,
             key : "YDoS20lf7Vrnr22h8Ma6NGUV5DblnVhueTPXS7gPynRvQ6U8optzfnMDs3UD",
         }, function(res, status) {
