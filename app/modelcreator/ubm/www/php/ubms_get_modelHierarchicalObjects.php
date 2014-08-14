@@ -19,6 +19,7 @@ ini_set('display_errors', 1);
 error_reporting(E_ALL);
 $positionUUID = array();
 $all_items = array();
+$hierarchy_array = array();
 $sqlsel1 = "SELECT * FROM ubm_modelcreationsuite_heirarchy_object_antiSolipsism_UUID
                 JOIN ubm_model
                 ON (ubm_model.id=ubm_modelcreationsuite_heirarchy_object_antiSolipsism_UUID.model_id)
@@ -106,7 +107,7 @@ foreach ($positionUUID as $key => $activePositionUUID) {
                         trigger_error('Wrong SQL: ' . $sqlsel2 . ' Error: ' . $conn->error, E_USER_ERROR);
                     } else {
                         while ($items6 = $rs6->fetch_assoc()) {
-                            $all_items[] = array('Position' => $items6['id']);
+                            $hierarchy_array[] = array('Position' => $items6['id']);
                             $jdCounter = 1;
                             $psCounter+= 1;
                             
@@ -122,7 +123,7 @@ foreach ($positionUUID as $key => $activePositionUUID) {
                             } else {
                                 while ($items7 = $rs7->fetch_assoc()) {
                                     $jobDescriptionUUID = $items7['UUID'];
-                                    $all_items[] = array('Job Description' => $items7['id']);
+                                    $hierarchy_array[] = array('Job Description' => $items7['id']);
                                     $plCounter = 1;
                                     $jdCounter+= 1;
                                     
@@ -138,7 +139,7 @@ foreach ($positionUUID as $key => $activePositionUUID) {
                                     } else {
                                         while ($items8 = $rs8->fetch_assoc()) {
                                             $policyUUID = $items8['UUID'];
-                                            $all_items[] = array('Policy' => $items8['id']);
+                                            $hierarchy_array[] = array('Policy' => $items8['id']);
                                             $prCounter = 1;
                                             $plCounter+= 1;
                                             
@@ -154,7 +155,7 @@ foreach ($positionUUID as $key => $activePositionUUID) {
                                             } else {
                                                 while ($items9 = $rs9->fetch_assoc()) {
                                                     $procedureId = $items9['UUID'];
-                                                    $all_items[] = array('Procedure' => $items9['id']);
+                                                    $hierarchy_array[] = array('Procedure' => $items9['id']);
                                                     
                                                     $sqlsel3 = "SELECT * FROM ubm_modelcreationsuite_heirarchy_object_closureTable
                                                             JOIN ubm_modelcreationsuite_heirarchy_object_antiSolipsism_UUID
@@ -172,7 +173,7 @@ foreach ($positionUUID as $key => $activePositionUUID) {
                                                     } else {
                                                         while ($items3 = $rs3->fetch_assoc()) {
                                                             $stepUUID = $items3['UUID'];
-                                                            $all_items[] = array('Step' => $items3['id']);
+                                                            $hierarchy_array[] = array('Step' => $items3['id']);
                                                             
                                                             $sqlsel5 = "SELECT * FROM ubm_modelcreationsuite_heirarchy_object_closureTable
                                                                     JOIN ubm_modelcreationsuite_heirarchy_object_antiSolipsism_UUID
@@ -190,7 +191,7 @@ foreach ($positionUUID as $key => $activePositionUUID) {
                                                             } else {
                                                                 if ($rs5->num_rows > 0) {
                                                                     while ($items5 = $rs5->fetch_assoc()) {
-                                                                        $all_items[] = array('Task' => $items5['id']);
+                                                                        $hierarchy_array[] = array('Task' => $items5['id']);
                                                                     }
                                                                 } else {
                                                                 }
@@ -210,5 +211,7 @@ foreach ($positionUUID as $key => $activePositionUUID) {
         } else {
         }
     }
+    $all_items[] = $hierarchy_array;
+    $hierarchy_array = array();
 }
 echo $_GET['callback'] . '(' . json_encode($all_items) . ')';
