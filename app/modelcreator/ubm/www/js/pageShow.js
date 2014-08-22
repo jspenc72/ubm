@@ -39,6 +39,7 @@ $(document).on("pageshow", "#ubmsuite_SelectBusinessModel", function() {
     $('.modelApp_title_header').empty();
     $(".modelApp_title_header").append("Model / App Title: Automated Model Creation Suite");
 });
+
 $(document).on("pageshow", "#return_on_investment", function() {
     getListofAlternativesforReturnOnInvestment();
     $("#return_on_investment_alternative_select_menu").bind("change", function(event, ui) {
@@ -158,6 +159,12 @@ $(document).on("pageshow", "#risk_analysis", function() {
 });
 
 $(document).on("pageshow", "#ubmsuite_mcs_my_organizational_chart", function() {
+
+
+    $("#showAddObjectMenu").click(function() {
+        $("#AddObjectsMenuPopup").popup('open');
+    });
+
     //initializeTooltipsterItem();
     /*** /$( "#heirarchyObjectTree_container_frame" ).draggable().resizable({
 				      maxHeight: 550,
@@ -357,6 +364,7 @@ $(document).on("pageshow", "#ubmsuite_modelSettings", function() {
     });
 });
 $(document).on("pageshow", ".ubm_page", function() {
+
     PieMenuInit();
     setTimeout(function() {
         $(".draggable").draggable();
@@ -536,5 +544,47 @@ $(document).on("pageshow", ".ubm_page", function() {
 
         //checkConnection();
     }, 3000);
+});
+$(document).on('pagebeforeshow', '#ubmsuite_mcs_my_organizational_chart', function() {
+    $("#ubmsuite_mcs_my_organizational_chart_content_createNewJobDescriptionPopUp").popup({
+        positionTo: "window"
+    });
+
+    $('[data-role="listview"]').find('.ui-btn-icon-left').removeClass('ui-btn-icon-left').addClass('ui-btn-icon-right');
+    //alert($('[data-role="listview"]').find('.ui-btn-icon-left').length);
+
+    $('.check:button').toggle(function() {
+        alert("test");
+
+        $('input:checkbox').attr('checked', 'checked');
+        $(this).val('uncheck all');
+    }, function() {
+        $('input:checkbox').removeAttr('checked');
+        $(this).val('check all');
+    })
+    $('.zoom').on("click", function() {
+        if ($(this).hasClass('orig')) {
+            $("#heirarchyObjectTree").width(10000);
+            $("#heirarchyObjectTree").children().andSelf().removeClass().addClass('heirarchyObjectTree');;
+        } else {
+            if ($("#heirarchyObjectTree").children().andSelf().hasClass('scale_x2')) {
+                //remove pre-existing class
+                $("#heirarchyObjectTree").children().andSelf().removeClass('scale_x2');
+                //reset original div width
+                $("#heirarchyObjectTree").width(10000);
+                // minimize width to accomodate smaller scale 
+                $("#heirarchyObjectTree").width($("#heirarchyObjectTree").width() * 0.3);
+                $("#heirarchyObjectTree").children().andSelf().addClass('scale_x4');
+            } else {
+                //remove pre-existing class
+                $("#heirarchyObjectTree").children().andSelf().removeClass('scale_x4');
+                //reset original div width
+                $("#heirarchyObjectTree").width(10000);
+                // minimize width to accomodate smaller scale                
+                $("#heirarchyObjectTree").width($("#heirarchyObjectTree").width() * 0.3);
+                $("#heirarchyObjectTree").children().andSelf().addClass('scale_x2');
+            }
+        }
+    });
 });
 app.initialize();

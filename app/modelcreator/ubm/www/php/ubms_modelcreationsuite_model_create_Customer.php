@@ -7,12 +7,10 @@ require_once ('DBConnect_UBMv1.php');
 $hash = md5(rand(0, 1000));
 $securePassword = md5($usrpasswd);
 $conn = new mysqli($DBServer, $DBUser, $DBPass, $DBName);
-
 // check connection
 if ($conn->connect_error) {
     trigger_error('Database connection failed: ' . $conn->connect_error, E_USER_ERROR);
 }
-
 //INSERT
 $v2 = "'" . $conn -> real_escape_string($customerName) . "'";
 $v5 = "'" . $conn -> real_escape_string($activeModelUUID) . "'";
@@ -30,10 +28,5 @@ if ($conn -> query($sqlins) === false) {
 
 	}
 }
-
-
-
-
-
 echo $_GET['callback'] . '(' . "{'message' : 'Customer $customerName created successfully!'}" . ')';
 

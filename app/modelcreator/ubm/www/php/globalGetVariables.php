@@ -1,7 +1,8 @@
 <?php
+$activeChecklistUUID = $_GET['activeChecklistUUID'];
 // Active Model UUID
 $activeModelUUID = $_GET['activeModelUUID'];
-//Application Authentication Variables
+//Application Authentication Variables 
  $aname = $_GET['appname'];				//Name of the application using the API
  $key = $_GET['key'];					//Application Security Key issued by BMCL
 //UBM Single Sign on Authentication
@@ -9,6 +10,14 @@ $activeModelUUID = $_GET['activeModelUUID'];
  $usrpasswd = $_GET['password']; 
  $usrname = 	$_GET['username'];
  $usremail = $_GET['email'];
+ $userbio = $_GET['user_bio'];
+ $userphone = $_GET['user_phone'];
+ $userwirelesscarrier = $_GET['user_wireless_carrier'];
+ $userfirstname = $_GET['user_first_name'];
+ $userlastname = $_GET['user_last_name'];
+ $useremployer = $_GET['user_employer'];
+ $useremailpreference = $_GET['user_email_preference'];
+ $usersmspreference = $_GET['user_sms_preference'];
 
 //UBM User Application Preferences
  $carrier = $_GET['carrier']; 			//Wireless carrier, e.g. Verizon, Sprint, AT&T
@@ -125,6 +134,11 @@ $purpose = $_GET['purpose'];
 $scope = $_GET['scope'];
 $type = $_GET['type'];
 $jobDescriptionId = $_GET['jobDescriptionId'];
+	//UBM MCS Model Create Checklist
+$checklistTitle = $_GET['checklist_title'];
+$checklistDescription = $_GET['checklist_description'];
+$checklistPurpose = $_GET['checklist_purpose'];
+
 	//UBM MCS Model Create Procedure
 $activeModelId = $_GET['activeModelId'];
 $description = $_GET['description'];
@@ -274,7 +288,6 @@ $alternativeDecision = $_GET['alternativeDecision'];
  //create core value
  $coreValueTitle = $_GET['coreValueTitle'];
 $summary = $_GET['coreValueSummary'];
-$activeModelUUID = $_GET['activeModelUUID'];
 
 // Create Customer
 $customerName = $_GET['customerName'];
@@ -317,7 +330,6 @@ $activePhysicalFacilityId = $_GET['activePhysicalFacilityId'];
 $activeModelId = $_GET['activeModelId'];
 $activeStrategicPositioningId = $_GET['activeStrategicPositioningId'];
 //remove organizational Structure
-$activeModelUUID = $_GET['activeModelUUID'];
 $activeOrganizationalStructureId = $_GET['activeOrganizationalStructureId'];
 //Remove Physical Facility
 $activePhysicalFacilitiesId = $_GET['activePhysicalFacilityId'];

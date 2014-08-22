@@ -94,8 +94,10 @@ under the License.
 		<script type="text/javascript" src="js/gapiTest.js"></script>	 <!-- Load Javascript for the example -->
 		<script src="https://apis.google.com/js/client:platform.js" type="text/javascript"></script><!-- Load Google + API -->
 		<!-- Custom sign_in_sign_up page stuff -->
-	    <!-- Bootstrap core CSS -->
-	    <link href="css/sign_in_sign_up/bootstrap.css" rel="stylesheet">
+		<!-- Latest Bootstrap compiled and minified CSS -->
+	    <link href="css/bootstrap/bootstrap.min.css" rel="stylesheet">
+		<!-- Optional theme -->
+		<link rel="stylesheet" href="css/bootstrap/bootstrap-theme.min.css">
 	    <!-- Custom Google Web Font -->
 	    <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet">
 	    <link href='http://fonts.googleapis.com/css?family=Lato:100,300,400,700,900,100italic,300italic,400italic,700italic,900italic' rel='stylesheet' type='text/css'>
@@ -104,6 +106,8 @@ under the License.
 	    <link href="css/sign_in_sign_up/custom.css" rel="stylesheet">
 	    <link href="css/sign_in_sign_up/responsiveMobile.css" rel="stylesheet" media="screen and (max-width: 400px)">
 	    <link rel="stylesheet" href="css/form_progress_bar.css">
+	    <script src="js/bootstrap/bootstrap.js"></script>
+
 	<!-- End Custom sign_in_sign_up page stuff -->
         <title>UBM</title>
         <!-- Forces user to use chrome or safari -->
@@ -149,6 +153,7 @@ under the License.
 				$("#managePosition_change_anchor").attr("onclick","openAddNewPositionPopup();getListofPossiblePositions()");
 				window.activeReportsToPosition = activePositionUUID;
 				window.activePositionUUID = activePositionUUID;
+				window.activeObjectUUID = activePositionUUID;
 				if(positionTitle == "Owners") {
 					$("#genericManagePosition").remove();
 					$("#manageOwnersListItem").remove();
@@ -223,17 +228,18 @@ under the License.
 			}
 			
 			function getMyModelsPositions(){
-				$.getJSON('http://api.universalbusinessmodel.com/ubm_modelcreationsuite_model_getCurrentModel_Positions.php?callback=?', {//JSONP Request
-					activeModelUUID : window.activeModelUUID,
-					key : window.key,
-				}, function(res, status) {
-						$("#ubsuite_mcs_managment_reporting_modelHasPositions_positions").empty();
-					$.each(res, function(i, item) {
-						$("#ubsuite_mcs_managment_reporting_modelHasPositions_positions").append("<li><a href='#'>" + item.title + "</a></li>");
-						$('#ubsuite_mcs_managment_reporting_modelHasPositions_positions').listview().listview("refresh");
-					});
+// Deprecated
+				// $.getJSON('http://api.universalbusinessmodel.com/ubm_modelcreationsuite_model_getCurrentModel_Positions.php?callback=?', {//JSONP Request
+				// 	activeModelUUID : window.activeModelUUID,
+				// 	key : window.key,
+				// }, function(res, status) {
+				// 		$("#ubsuite_mcs_managment_reporting_modelHasPositions_positions").empty();
+				// 	$.each(res, function(i, item) {
+				// 		$("#ubsuite_mcs_managment_reporting_modelHasPositions_positions").append("<li><a href='#'>" + item.title + "</a></li>");
+				// 		$('#ubsuite_mcs_managment_reporting_modelHasPositions_positions').listview().listview("refresh");
+				// 	});
 
-				});	
+				// });	
 			}
 			
 			function openAddNewPositionPopup(){
@@ -481,8 +487,8 @@ under the License.
 					activePositionUUID: window.activePositionUUID,
 					activeDescendantUUID: window.activeObjectUUID
 				}, function(res, status) {
-					$().toastmessage('showSuccessToast', res.message);
 					$('.ui-popup').popup('close');
+					$().toastmessage('showSuccessToast', res.message);
 				});
 					getMyModelsOrgChart();
 					getChildElementsforHierarchicalTree(window.activePositionUUID);
@@ -568,27 +574,27 @@ under the License.
 					$.each(ElementsArray, function(i, item) {
 						if(item.jobDescription_id>="1"){
 						//2. jobDescription_id for Object hierarchy suggests the item is a JD
-							$("#ubmsuite_mcs_my_organizational_chart_heirarchyObjectTree_ul_" + item.ancestor_id + requestidentifier +"").append("<li><a data-thisUUID='" + item.descendant_id + "' class='hierarchyObjectTreeItem ajax_tooltip' onclick='if(event.ctrlKey || event.metaKey) { setActiveJobDescription(" + item.descendant_id + ");setActiveJobDescriptionUUID(" + item.descendant_id + ")} else {setActiveJobDescriptionUUID(" + item.descendant_id + ")}'>JD-" + JD_counter + "</a><ul id='ubmsuite_mcs_my_organizational_chart_heirarchyObjectTree_ul_" + item.descendant_id + requestidentifier +"'></ul></li>")
+							$("#ubmsuite_mcs_my_organizational_chart_heirarchyObjectTree_ul_" + item.ancestor_id + requestidentifier +"").append("<li><a data-thisUUID='" + item.descendant_id + "' class='hierarchyObjectTreeItem ajax_tooltip' onclick='if(event.ctrlKey || event.metaKey) { setActiveJobDescription(" + item.descendant_id + ");setActiveJobDescriptionUUID(" + item.descendant_id + ")} else {setActiveJobDescriptionUUID(" + item.descendant_id + ")}'>JD-" + JD_counter + "<input id='JD_UUID_checkbox_" + item.descendant_id + "' name='JD_UUID_checkbox_" + item.descendant_id + "' class='item_checkbox' onclick='updateObjecttoActiveInstanceArray(" + item.descendant_id + ", "+ "&#x27;JD&#x27;" + ", &#x27JD_UUID_checkbox_" + item.descendant_id + "&#x27);' type='checkbox' value='false'/></a><ul id='ubmsuite_mcs_my_organizational_chart_heirarchyObjectTree_ul_" + item.descendant_id + requestidentifier +"'></ul></li>");
 							JD_counter = JD_counter + 1;
 						}else if(item.policy_id>="1"){
 						//3. policy_id for Object hierarchy suggests the item is a PL
-							$("#ubmsuite_mcs_my_organizational_chart_heirarchyObjectTree_ul_" + item.ancestor_id + requestidentifier +"").append("<li><a data-thisUUID='" + item.descendant_id + "' class='hierarchyObjectTreeItem ajax_tooltip' onclick='if(event.ctrlKey || event.metaKey) {setActivePolicy(" + item.descendant_id + ");setActivePolicyUUID(" + item.descendant_id + ")} else {setActivePolicyUUID(" + item.descendant_id + ")}'>PL-" + PL_counter + "</a><ul id='ubmsuite_mcs_my_organizational_chart_heirarchyObjectTree_ul_" + item.descendant_id + requestidentifier +"'></ul></li>")
+							$("#ubmsuite_mcs_my_organizational_chart_heirarchyObjectTree_ul_" + item.ancestor_id + requestidentifier +"").append("<li><a data-thisUUID='" + item.descendant_id + "' class='hierarchyObjectTreeItem ajax_tooltip' onclick='if(event.ctrlKey || event.metaKey) {setActivePolicy(" + item.descendant_id + ");setActivePolicyUUID(" + item.descendant_id + ")} else {setActivePolicyUUID(" + item.descendant_id + ")}'>PL-" + PL_counter + "<input id='PL_UUID_checkbox_" + item.descendant_id + "' name='PL_UUID_checkbox_" + item.descendant_id + "' class='item_checkbox' onclick='updateObjecttoActiveInstanceArray(" + item.descendant_id + ", "+ "&#x27;PL&#x27;" + ", &#x27PL_UUID_checkbox_" + item.descendant_id + "&#x27);' type='checkbox' value='false'/></a><ul id='ubmsuite_mcs_my_organizational_chart_heirarchyObjectTree_ul_" + item.descendant_id + requestidentifier +"'></ul></li>")
 							PL_counter = PL_counter + 1;
 						}else if(item.procedure_id>="1"){
 						//4. procedure_id for Object hierarchy suggests the item is a PR
-							$("#ubmsuite_mcs_my_organizational_chart_heirarchyObjectTree_ul_" + item.ancestor_id + requestidentifier +"").append("<li><a data-thisUUID='" + item.descendant_id + "' class='hierarchyObjectTreeItem ajax_tooltip' onclick='if(event.ctrlKey || event.metaKey) {setActiveProcedure(" + item.descendant_id + ");setActiveProcedureUUID(" + item.descendant_id + ")} else {setActiveProcedureUUID(" + item.descendant_id + ")}'>PR-" + PR_counter + "</a><ul id='ubmsuite_mcs_my_organizational_chart_heirarchyObjectTree_ul_" + item.descendant_id + requestidentifier +"'></ul></li>")
+							$("#ubmsuite_mcs_my_organizational_chart_heirarchyObjectTree_ul_" + item.ancestor_id + requestidentifier +"").append("<li><a data-thisUUID='" + item.descendant_id + "' class='hierarchyObjectTreeItem ajax_tooltip' onclick='if(event.ctrlKey || event.metaKey) {setActiveProcedure(" + item.descendant_id + ");setActiveProcedureUUID(" + item.descendant_id + ")} else {setActiveProcedureUUID(" + item.descendant_id + ")}'>PR-" + PR_counter + "<input id='PR_UUID_checkbox_" + item.descendant_id + "' name='PR_UUID_checkbox_" + item.descendant_id + "' class='item_checkbox' onclick='updateObjecttoActiveInstanceArray(" + item.descendant_id + ", "+ "&#x27;PR&#x27;" + ", &#x27PR_UUID_checkbox_" + item.descendant_id + "&#x27);' type='checkbox' value='false'/></a><ul id='ubmsuite_mcs_my_organizational_chart_heirarchyObjectTree_ul_" + item.descendant_id + requestidentifier +"'></ul></li>")
 							PR_counter = PR_counter + 1;
 						}else if(item.step_id>="1"){
 						//5. step_id for Object hierarchy suggests the item is a ST
-							$("#ubmsuite_mcs_my_organizational_chart_heirarchyObjectTree_ul_" + item.ancestor_id + requestidentifier +"").append("<li><a data-thisUUID='" + item.descendant_id + "' class='hierarchyObjectTreeItem ajax_tooltip' onclick='if(event.ctrlKey || event.metaKey) {setActiveStep(" + item.descendant_id + ");setActiveStepUUID(" + item.descendant_id + ")} else {setActiveStepUUID(" + item.descendant_id + ")}'>ST-" + ST_counter + "</a><ul id='ubmsuite_mcs_my_organizational_chart_heirarchyObjectTree_ul_" + item.descendant_id + requestidentifier +"'></ul></li>")
+							$("#ubmsuite_mcs_my_organizational_chart_heirarchyObjectTree_ul_" + item.ancestor_id + requestidentifier +"").append("<li><a data-thisUUID='" + item.descendant_id + "' class='hierarchyObjectTreeItem ajax_tooltip' onclick='if(event.ctrlKey || event.metaKey) {setActiveStep(" + item.descendant_id + ");setActiveStepUUID(" + item.descendant_id + ")} else {setActiveStepUUID(" + item.descendant_id + ")}'>ST-" + ST_counter + "<input id='ST_UUID_checkbox_" + item.descendant_id + "' name='ST_UUID_checkbox_" + item.descendant_id + "' class='item_checkbox' onclick='updateObjecttoActiveInstanceArray(" + item.descendant_id + ", "+ "&#x27;ST&#x27;" + ", &#x27ST_UUID_checkbox_" + item.descendant_id + "&#x27);' type='checkbox' value='false'/></a><ul id='ubmsuite_mcs_my_organizational_chart_heirarchyObjectTree_ul_" + item.descendant_id + requestidentifier +"'></ul></li>")
 							ST_counter = ST_counter + 1;
 						}else if(item.task_id>="1"){
 						//6. task_id for Object hierarchy suggests the item is a TK
-							$("#ubmsuite_mcs_my_organizational_chart_heirarchyObjectTree_ul_" + item.ancestor_id + requestidentifier +"").append("<li><a data-thisUUID='" + item.descendant_id + "' class='hierarchyObjectTreeItem ajax_tooltip' onclick='if(event.ctrlKey || event.metaKey) {setActiveTask(" + item.descendant_id + ");setActiveTaskUUID(" + item.descendant_id + ")} else {setActiveTaskUUID(" + item.descendant_id + ")}'>TK-" + TK_counter + "</a></li>")
+							$("#ubmsuite_mcs_my_organizational_chart_heirarchyObjectTree_ul_" + item.ancestor_id + requestidentifier +"").append("<li><a data-thisUUID='" + item.descendant_id + "' class='hierarchyObjectTreeItem ajax_tooltip' onclick='if(event.ctrlKey || event.metaKey) {setActiveTask(" + item.descendant_id + ");setActiveTaskUUID(" + item.descendant_id + ")} else {setActiveTaskUUID(" + item.descendant_id + ")}'>TK-" + TK_counter + "<input id='TK_UUID_checkbox_" + item.descendant_id + "' name='TK_UUID_checkbox_" + item.descendant_id + "' class='item_checkbox' onclick='updateObjecttoActiveInstanceArray(" + item.descendant_id + ", "+ "&#x27;TK&#x27;" + ", &#x27TK_UUID_checkbox_" + item.descendant_id + "&#x27);' type='checkbox' value='false'/></a></li>")
 							TK_counter = TK_counter + 1;
 						}
 					});
-				}	
+				}
 				$(".hierarchyObjectTreeItem").draggable({ 
 						revert: "valid", 
 						drag: function(){
@@ -609,8 +615,8 @@ under the License.
 			         $( $(ui.draggable).siblings().andSelf() ).appendTo( $(event.target).next() );
 			         //alert($(ui.draggable).attr('data-thisUUID'));
 			         //UUID of the Element that was hovered on 
-			         //alert("Element to attach from: " + window.activeUUID);
-			         window.fromTargetObject = window.activeUUID;
+			         //alert("Element to attach from: " + window.activeObjectUUID);
+			         window.fromTargetObject = window.activeObjectUUID;
 			         window.disableSetActiveIdentifiers=false;
 			         $("#ubmsuite_mcs_my_organizational_chart_confirm_move_copy_add_popup").popup("open");
 					 $(event.target).tooltipster('hide');
@@ -625,18 +631,19 @@ under the License.
 			         // alert($(event.target).attr('id')); 
 			         // alert("activeObjectUUID: " + window.activeObjectUUID);
 			         // window.disableSetActiveIdentifiers==false;
-
 			      }
 			    });
 				//7. Add hover event listener to all items on the tree.
 				$(".hierarchyObjectTreeItem").hover(function(){
 				//	alert("This is a test. IN");
 						window.activeObjectUUID = $(this).attr("data-thisUUID");
+						var divID = $(this).attr("id");
+						window.newInnerHTML = "";
 						  $(this).css("background-color","yellow");
 						  if(window.disableSetActiveIdentifiers==true){
-						  		window.activeUUID = window.activeUUID;
+						  		window.activeObjectUUID = window.activeObjectUUID;
 						  }else{
-						  		window.activeUUID = $(this).attr("data-thisUUID");
+						  		window.activeObjectUUID = $(this).attr("data-thisUUID");
 						  }
 							$(this).tooltipster({
 								content: 'Loading...',
@@ -656,9 +663,9 @@ under the License.
 							        		dataType: "jsonp",
 							        		crossDomain: true,
 				//4. Set appropriate parameters for the request.
-							        		url: 'http://api.universalbusinessmodel.com/ubms_modelcreationsuite_model_get_OjectDetail.php?callback=?',
-							        		data: { key : "YDoS20lf7Vrnr22h8Ma6NGUV5DblnVhueTPXS7gPynRvQ6U8optzfnMDs3UD", activeUUID : $(this).attr("data-thisUUID") } ,
-				//5. Pass the api key and the activeUUID to the api to authenticate the request.
+							        		url: 'http://api.universalbusinessmodel.com/ubms_modelcreationsuite_model_get_ObjectDetail.php?callback=?',
+							        		data: { key : window.key, activeObjectUUID : $(this).attr("data-thisUUID") } ,
+				//5. Pass the api key and the activeObjectUUID to the api to authenticate the request.
 							        		success: function(res) {
 				//6. Function to call on success for the request, and pass the information from the api into the function as the object, res.
 							        			$.each(res, function(i, item) {
@@ -670,20 +677,23 @@ under the License.
 														updated_content = "<span><img src='images/puppy.jpg' style='width:100px; height:auto;'></br><table class='docutils field-list' frame='void' rules='none'><col class='tooltipster field-name' /><col class='field-body' /><tbody valign='top'><tr class='field-odd field'><th class='tooltipster field-name'>" + item.reference_prefix + "</th><td class='field-body'>" + item.reference + "</td></tr><tr class='field-even field'><th class='tooltipster field-name'>Model " + item.title_prefix + "</th><td class='field-body'>" + item.title + "</td></tr><tr class='field-even field'><th class='tooltipster field-name'>" + item.description_prefix + "</th><td class='field-body'>" + item.description + "</td></tr><tr class='field-even field'><th class='tooltipster field-name'>" + item.scope_prefix + "</th><td class='field-body'>" + item.scope + "</td></tr><tr class='field-even field'><th class='tooltipster field-name'>" + item.purpose_prefix + "</th><td class='field-body'>" + item.purpose + "</td></tr><tr class='field-even field'><th class='tooltipster field-name'>" + item.creator_id_prefix + "</th><td class='field-body'>" + item.creator_id + "</td></tr><tr class='field-even field'><th class='tooltipster field-name'>" + item.created_date_prefix + "</th><td class='field-body'>" + item.created_date + "</td></tr></tbody></table></span>"
 				//10. Set the updated_content variable equal to a string of HTML format with the parameters from the api concatenated into the string.
 														//origin.tooltipster('content', updated_content).data('ajax', 'cached');
+														window.newInnerHTML = "<p class='itemTitle'>"+item.title+"</p>";
 														origin.tooltipster('content', updated_content);
 				//11. Update the content of the tooltip.										
 													} else if (item.object_type == "PS") {
 				//12. Check that the object_type is equal to Position.
-														updated_content = "<span><img src='images/puppy.jpg' style='width:100px; height:auto;/></br><table class='docutils field-list' frame='void' rules='none'><col class='tooltipster field-name' /><col class='field-body' /><tbody valign='top'><tr class='field-odd field'><th class='tooltipster field-name'>Position Title: </th><td class='field-body'>" + item.title + "</td></tr><tr class='field-even field'><th class='tooltipster field-name'>Position Description: </th><td class='field-body'>" + item.description + "</td></tr><tr class='field-even field'><th class='tooltipster field-name'>Position Summary: </th><td class='field-body'>" + item.summary + "</td></tr><tr class='field-even field'><th class='tooltipster field-name'>Security Level: </th><td class='field-body'>" + item.security_level + "</td></tr><tr class='field-even field'><th class='tooltipster field-name'>Age Requirement: </th><td class='field-body'>" + item.age_requirements + "</td></tr><tr class='field-even field'><th class='tooltipster field-name'>Education Requirement: </th><td class='field-body'>" + item.education_requirements + "</td></tr><tr class='field-even field'><th class='tooltipster field-name'>Physical Demands: </th><td class='field-body'>" + item.physical_demands + "</td></tr></tbody></table></span>"
+														updated_content = "<span><img src='images/puppy.jpg' style='width:100px; height:auto;/><table class='docutils field-list' frame='void' rules='none'><col class='tooltipster field-name' /><col class='field-body' /><tbody valign='top'><tr class='field-odd field'><th class='tooltipster field-name'>Position Title: </th><td class='field-body'>" + item.title + "</td></tr><tr class='field-even field'><th class='tooltipster field-name'>Position Description: </th><td class='field-body'>" + item.description + "</td></tr><tr class='field-even field'><th class='tooltipster field-name'>Position Summary: </th><td class='field-body'>" + item.summary + "</td></tr><tr class='field-even field'><th class='tooltipster field-name'>Security Level: </th><td class='field-body'>" + item.security_level + "</td></tr><tr class='field-even field'><th class='tooltipster field-name'>Age Requirement: </th><td class='field-body'>" + item.age_requirements + "</td></tr><tr class='field-even field'><th class='tooltipster field-name'>Education Requirement: </th><td class='field-body'>" + item.education_requirements + "</td></tr><tr class='field-even field'><th class='tooltipster field-name'>Physical Demands: </th><td class='field-body'>" + item.physical_demands + "</td></tr></tbody></table></span>"
 				//13. Set the updated_content variable equal to a string of HTML format with the parameters from the api concatenated into the string.
 														//origin.tooltipster('content', updated_content).data('ajax', 'cached');
+														window.newInnerHTML = "<p class='itemTitle'>"+item.title+"</p>";
 														origin.tooltipster('content', updated_content);
 				//14. Update the content of the tooltip.
 													} else if (item.object_type == "JD") {
 				//15. Check that the object_type is equal to Job Description.
-														updated_content = "<span><img src='images/puppy.jpg' style='width:100px; height:auto;')/> <table class='docutils field-list' frame='void' rules='none'><col class='tooltipster field-name' /><col class='field-body' /><tbody valign='top'><tr class='field-odd field'><th class='tooltipster field-name'>Job Description Title: </th><td class='field-body'>" + item.title + "</td></tr><tr class='field-even field'><th class='tooltipster field-name'>Objective: </th><td class='field-body'>" + item.objective + "</td></tr><tr class='field-even field'><th class='tooltipster field-name'>Essential Duties and Responsibilities: </th><td class='field-body'>" + item.essential_duties_and_responsibilities + "</td></tr><tr class='field-even field'><th class='tooltipster field-name'>Age Requirement: </th><td class='field-body'>" + item.age_requirement + "</td></tr><tr class='field-even field'><th class='tooltipster field-name'>Education Requirements: </th><td class='field-body'>" + item.education_requirements + "</td></tr><tr class='field-even field'><th class='tooltipster field-name'>Qualifications: </th><td class='field-body'>" + item.qualifications + "</td></tr><tr class='field-even field'><th class='tooltipster field-name'>Physical Demand: </th><td class='field-body'>" + item.physical_demand + "</td></tr><tr class='field-even field'><th class='tooltipster field-name'>Work Environment: </th><td class='field-body'>" + item.work_environment + "</td></tr><tr class='field-even field'><th class='tooltipster field-name'>Creator Id: </th><td class='field-body'>" + item.created_by + "</td></tr><tr class='field-even field'><th class='tooltipster field-name'>Creation Date: </th><td class='field-body'>" + item.created_date + "</td></tr></tbody></table></span>"
+														updated_content = "<span><img src='images/puppy.jpg' style='width:100px; height:auto;')/><table class='docutils field-list' frame='void' rules='none'><col class='tooltipster field-name' /><col class='field-body' /><tbody valign='top'><tr class='field-odd field'><th class='tooltipster field-name'>Job Description Title: </th><td class='field-body'>" + item.title + "</td></tr><tr class='field-even field'><th class='tooltipster field-name'>Objective: </th><td class='field-body'>" + item.objective + "</td></tr><tr class='field-even field'><th class='tooltipster field-name'>Essential Duties and Responsibilities: </th><td class='field-body'>" + item.essential_duties_and_responsibilities + "</td></tr><tr class='field-even field'><th class='tooltipster field-name'>Age Requirement: </th><td class='field-body'>" + item.age_requirement + "</td></tr><tr class='field-even field'><th class='tooltipster field-name'>Education Requirements: </th><td class='field-body'>" + item.education_requirements + "</td></tr><tr class='field-even field'><th class='tooltipster field-name'>Qualifications: </th><td class='field-body'>" + item.qualifications + "</td></tr><tr class='field-even field'><th class='tooltipster field-name'>Physical Demand: </th><td class='field-body'>" + item.physical_demand + "</td></tr><tr class='field-even field'><th class='tooltipster field-name'>Work Environment: </th><td class='field-body'>" + item.work_environment + "</td></tr><tr class='field-even field'><th class='tooltipster field-name'>Creator Id: </th><td class='field-body'>" + item.created_by + "</td></tr><tr class='field-even field'><th class='tooltipster field-name'>Creation Date: </th><td class='field-body'>" + item.created_date + "</td></tr></tbody></table></span>"
 				//16. Set the updated_content variable equal to a string of HTML format with the parameters from the api concatenated into the string.
 														//origin.tooltipster('content', updated_content).data('ajax', 'cached');
+														window.newInnerHTML = "<p class='itemTitle'>"+item.title+"</p>";
 														origin.tooltipster('content', updated_content);
 				//17. Update the content of the tooltip.	
 													} else if (item.object_type == "PL") {
@@ -691,6 +701,7 @@ under the License.
 														updated_content = "<span><img src='images/puppy.jpg' style='width:100px; height:auto;')/><table class='docutils field-list' frame='void' rules='none'><col class='tooltipster field-name' /><col class='field-body' /><tbody valign='top'><tr class='field-odd field'><th class='tooltipster field-name'>Policy Title: </th><td class='field-body'>" + item.title + "</td></tr><tr class='field-even field'><th class='tooltipster field-name'>Description: </th><td class='field-body'>" + item.description + "</td></tr><tr class='field-even field'><th class='tooltipster field-name'>Purpose: </th><td class='field-body'>" + item.purpose + "</td></tr><tr class='field-even field'><th class='tooltipster field-name'>Scope: </th><td class='field-body'>" + item.scope + "</td></tr><tr class='field-even field'><th class='tooltipster field-name'>Creator Id: </th><td class='field-body'>" + item.created_by + "</td></tr><tr class='field-even field'><th class='tooltipster field-name'>Creation Date: </th><td class='field-body'>" + item.created_date + "</td></tr></tbody></table></span>"
 				//19. Set the updated_content variable equal to a string of HTML format with the parameters from the api concatenated into the string.
 														//origin.tooltipster('content', updated_content).data('ajax', 'cached');
+														window.newInnerHTML = "<p class='itemTitle'>"+item.title+"</p>";
 														origin.tooltipster('content', updated_content);
 				//20. Update the content of the tooltip.
 													} else if (item.object_type == "PR") {
@@ -698,6 +709,7 @@ under the License.
 														updated_content = "<span><img src='images/puppy.jpg' style='width:100px; height:auto;')/> <table class='docutils field-list' frame='void' rules='none'><col class='tooltipster field-name' /><col class='field-body' /><tbody valign='top'><tr class='field-odd field'><th class='tooltipster field-name'>Procedure Title: </th><td class='field-body'>" + item.title + "</td></tr><tr class='field-even field'><th class='tooltipster field-name'>Description: </th><td class='field-body'>" + item.description + "</td></tr><tr class='field-even field'><th class='tooltipster field-name'>Purpose: </th><td class='field-body'>" + item.purpose + "</td></tr><tr class='field-even field'><th class='tooltipster field-name'>Scope: </th><td class='field-body'>" + item.scope + "</td></tr><tr class='field-even field'><th class='tooltipster field-name'>Creator Id: </th><td class='field-body'>" + item.created_by + "</td></tr><tr class='field-even field'><th class='tooltipster field-name'>Creation Date: </th><td class='field-body'>" + item.created_date + "</td></tr></tbody></table></span>"
 				//22. Set the updated_content variable equal to a string of HTML format with the parameters from the api concatenated into the string.
 														//origin.tooltipster('content', updated_content).data('ajax', 'cached');
+														window.newInnerHTML = "<p class='itemTitle'>"+item.title+"</p>";
 														origin.tooltipster('content', updated_content);
 				//23. Update the content of the tooltip.
 													} else if (item.object_type == "ST") {
@@ -705,6 +717,7 @@ under the License.
 														updated_content = "<span><img src='images/puppy.jpg' style='width:100px; height:auto;')/> <table class='docutils field-list' frame='void' rules='none'><col class='tooltipster field-name' /><col class='field-body' /><tbody valign='top'><tr class='field-odd field'><th class='tooltipster field-name'>Step Title: </th><td class='field-body'>" + item.title + "</td></tr><tr class='field-even field'><th class='tooltipster field-name'>Description: </th><td class='field-body'>" + item.description + "</td></tr><tr class='field-even field'><th class='tooltipster field-name'>Purpose: </th><td class='field-body'>" + item.purpose + "</td></tr><tr class='field-even field'><th class='tooltipster field-name'>Instruction: </th><td class='field-body'>" + item.instruction + "</td></tr><tr class='field-even field'><th class='tooltipster field-name'>Creator Id: </th><td class='field-body'>" + item.created_by + "</td></tr><tr class='field-even field'><th class='tooltipster field-name'>Creation Date: </th><td class='field-body'>" + item.creation_date + "</td></tr></tbody></table></span>"
 				//25. Set the updated_content variable equal to a string of HTML format with the parameters from the api concatenated into the string.
 														//origin.tooltipster('content', updated_content).data('ajax', 'cached');
+														window.newInnerHTML = "<p class='itemTitle'>"+item.title+"</p>";
 														origin.tooltipster('content', updated_content);
 				//26. Update the content of the tooltip.	
 													} else if (item.object_type == "TK") {
@@ -712,6 +725,7 @@ under the License.
 														updated_content = "<span><img src='images/puppy.jpg' style='width:100px; height:auto;')/><table class='docutils field-list' frame='void' rules='none'><col class='tooltipster field-name' /><col class='field-body' /><tbody valign='top'><tr class='field-odd field'><th class='tooltipster field-name'>Task Title: </th><td class='field-body'>" + item.title + "</td></tr><tr class='field-even field'><th class='tooltipster field-name'>Task Number: </th><td class='field-body'>" + item.task_number + "</td></tr><tr class='field-even field'><th class='tooltipster field-name'>Instruction: </th><td class='field-body'>" + item.instruction + "</td></tr><tr class='field-even field'><th class='tooltipster field-name'>Creator Id: </th><td class='field-body'>" + item.created_by + "</td></tr><tr class='field-even field'><th class='tooltipster field-name'>Creation Date: </th><td class='field-body'>" + item.creation_date + "</td></tr></tbody></table></span>"
 				//28. Set the updated_content variable equal to a string of HTML format with the parameters from the api concatenated into the string.
 														//origin.tooltipster('content', updated_content).data('ajax', 'cached');
+														window.newInnerHTML = "<p class='itemTitle'>"+item.title+"</p>";
 														origin.tooltipster('content', updated_content);
 				//29. Update the content of the tooltip with our returned data and cache it	
 													}
@@ -722,8 +736,10 @@ under the License.
 							    }
 							});
 				  },function(){
-				  	var thisItemHTML = $(this).html();
+				  	var thisItemoldHTML = $(this).html();
 				  	//alert( thisItemHTML );
+				  	$(this).children(".itemTitle").remove();
+				  	$(this).append(window.newInnerHTML);
 
 					//alert( $(this).attr("data-thisUUID") );
 				  $(this).css("background-color","pink");
@@ -809,7 +825,7 @@ under the License.
 			}
 			//Update switch is given from the submit buttons on the modify object form, they check if the user wants to modify all or one.
 			function updateObject(updateSwitch){
-				//alert("This is a test: "+ window.activeUUID);
+				//alert("This is a test: "+ window.activeObjectUUID);
 				var counter=1;
 				//1. Declare counter variable to keep track of the number of inputs in a given form.
 				var errors = [];
@@ -864,9 +880,9 @@ under the License.
 				setTimeout(function() {
 				    $("#ubmsuite_mcs_my_organizational_chart_content_editObject_popup_content_container").empty();
 					$("#ubmsuite_mcs_my_organizational_chart_content_editObject_popup_header").empty();
-					$.getJSON('http://api.universalbusinessmodel.com/ubms_modelcreationsuite_model_get_OjectDetail.php?callback=?', {
+					$.getJSON('http://api.universalbusinessmodel.com/ubms_modelcreationsuite_model_get_ObjectDetail.php?callback=?', {
 						key : window.key,
-						activeUUID : window.activeUUID
+						activeObjectUUID : window.activeObjectUUID
 					}, function(res, status) {
 						//1. Open Popup
 						//2. Append 1 input for each of the fields received from the API, set the value of each equal to the value of each field in the array.
@@ -925,7 +941,6 @@ under the License.
 				
 			}
 
-
 			function editIdentificationSetup(){
 				console.log("edit called");
 				$(".ui-popup").popup("close");
@@ -976,7 +991,7 @@ under the License.
 			}
 
 			function updateIdentificationSetup(){
-				//alert("This is a test: "+ window.activeUUID);
+				//alert("This is a test: "+ window.activeObjectUUID);
 				var counter=1;
 				//1. Declare counter variable to keep track of the number of inputs in a given form.
 				var errors = [];
@@ -1083,6 +1098,7 @@ under the License.
 			function setActivePositionUUID(activePositionUUID){		//Single Click Function
 				//1. Set window variable: window.activePositionUUID equal to activePositionUUID.
 				window.activePositionUUID = activePositionUUID;
+				window.activeObjectUUID = activePositionUUID;
 				//alert("active PS is called" + window.activePositionUUID);
 			}
 			function setActiveJobDescriptionUUID(activeJobDescriptionUUID){		//Single Click Function
@@ -1110,12 +1126,13 @@ under the License.
 			function setActiveTaskUUID(activeTaskUUID){							//Single Click Function
 				//1. Set window variable: window.activeStepUUID equal to activeStepUUID.
 				window.activeTaskUUID = activeTaskUUID;
-				window.activeObjectUUID = activeTaskUUID;	
-
+				window.activeObjectUUID = activeTaskUUID;
 			}
 			function openNewJDPopup(activePositionUUID){							//Double Click Function
 				//1. Set window variable: window.activePositionUUID equal to activePositionUUID.
-				window.activePositionUUID = activePositionUUID;
+				if(activePositionUUID){
+					window.activePositionUUID = activePositionUUID;
+				}else{}
 				//2. Populate the list of predefined job descriptions with those from the reference manual.
 				getListofPossibleJobDescriptions();
 				//3. Display the popup.
@@ -1208,14 +1225,17 @@ under the License.
 				}				
 			}
 			function getListofPossibleJobDescriptions() {//Populates Core Value Listview on Possible CoreValue Popup
+				showLoader();
 				$.getJSON('http://api.universalbusinessmodel.com/ubm_modelcreationsuite_model_getAll_JobDescriptions.php?callback=?', {//JSONP Request
 					key : window.key
 				}, function(res, status) {
 						$('#ubmsuite_mcs_my_organizational_chart_content_createNewJobDescriptionPopUp_form_UBMRepository').empty();
 					$.each(res, function(i, item) {
-						$('#ubmsuite_mcs_my_organizational_chart_content_createNewJobDescriptionPopUp_form_UBMRepository').append("<li><a href='#' onClick='openJobDescriptionSummaryPopup(" + item.id + ")'><p style='white-space:normal;'>" + item.title + "</p></a><a href='#' onclick='addJobDescriptiontoMyModel( " + item.id + " ) '>Add Job Description</a></li>");
+						$('#ubmsuite_mcs_my_organizational_chart_content_createNewJobDescriptionPopUp_form_UBMRepository').append("<li><a rel='external' style='padding: 0px 0px 0px 0px !important;margin: 0px 0px 0px 0px !important;'><label style='padding: 20px 10px 0px 10px !important;margin: 0px 10px 0px 0px !important;border-width: 0px 1px 0px 0px !important;height:50px;float:left;width:50px;' data-corners='false'><fieldset data-role='controlgroup' style='height:0px !important'><input id='JD_checkbox_" + item.id + "' name='JD_checkbox_" + item.id + "' class='item_checkbox' onclick='updateObjecttoActiveSpecificationArray(" + item.id + ", "+ "&#x27;JD&#x27;" + ", &#x27JD_checkbox_" + item.id + "&#x27);' type='checkbox' value='false'/></fieldset></label><div onclick='addJobDescriptiontoMyModel( " + item.id + " )'><img src='http://www.halogensoftware.com/uploads/learn/how-to/creating-best-practice-job-description-templates/_thumb/800/creating-best-practice-job-description-templates.png' style='height:60px;width:60px;float:left;padding-right:10px; display:inline-block; overflow-x:scroll;'/><h2 style='padding: 10px 0px 0px 0px; '>" + item.title + "</h2><p class='ui-li-aside' style='margin-right:10px;' ><br><br>Creator: " + item.created_by + "<br>Date: " + item.created_date + "</p></div><a data-rel='popup' data-position-to='window' data-inline='true' onClick='openJobDescriptionSummaryPopup(" + item.id + ")'>Add Job Description</a></a></li>");
 						$('#ubmsuite_mcs_my_organizational_chart_content_createNewJobDescriptionPopUp_form_UBMRepository').listview().listview("refresh");
+			   			$("#ubmsuite_mcs_my_organizational_chart_content_createNewJobDescriptionPopUp_form_UBMRepository").enhanceWithin().listview();
 					})
+					hideLoader();
 				});	
 			}
 			function addJobDescriptiontoMyModel(activeJobDescriptionId){
@@ -1229,10 +1249,9 @@ under the License.
 				}, function(res, status) {
 					$().toastmessage('showSuccessToast', res.message);
 				});
-					$("#ubmsuite_mcs_my_organizational_chart_content_createNewJobDescriptionPopUp").popup('close');
+					// $("#ubmsuite_mcs_my_organizational_chart_content_createNewJobDescriptionPopUp").popup('close');
 					getMyModelsOrgChart();
 					buildHierarchicalTree(window.activePositionUUID);
-
 				//Called from Model Settings Page????
 				//1. User selects a position from the list of ubm_model_positions?
 				//2. User is asked whether they wish to also add all positions that report to this position in the master file index?
@@ -1241,8 +1260,445 @@ under the License.
 				//3. If user selects yes, the relationships between the activeModelUUID and the active position as well as all positions that report to it are created in the the model_has_positions table. 
 				//4. If user selects "no, add this position without any positions that report to it." 
 			}
+			window.activeObjectsInstanceArray = {PS: [], JD: [], PL: [], PR: [], ST: [], TK: []};
+			function updateObjecttoActiveInstanceArray(objectUUID, objectType, checkBoxId){
+				switch (objectType)
+				{
+				   case "PS":
+				   		if(window.activeObjectsInstanceArray.PS.indexOf(objectUUID) == -1){
+				   			//Do this if checkbox was not checked
+							var aOIA = window.activeObjectsInstanceArray;
+							aOIA.PS.push(objectUUID);
+				   			var i = aOIA.PS.indexOf(objectUUID);
+							if(i != -1) { //True if object was successfully added to the array. 
+								setTimeout(function(){
+									//$("#"+checkBoxId).prop('checked', true);
+								}, 100);
+								window.activeObjectsInstanceArray = aOIA;
+							}else{		//False if object failed to be added to the array.
+								alert("Position "+i+" was successfully added to the array.");
+							}
+							var index;
+							var myString = "Contents: "
+							var a = window.activeObjectsInstanceArray.PS;
+							for (index = 0; index < a.length; ++index) {
+							    //console.log(a[index]);
+								//alert(a[index]);
+								myString = myString + index + " : " + a[index] + " , ";
+								//addJobDescriptiontoMyModel(a[index]);
+							}	
+							//alert(myString);
+							//alert(index+" # objects attached.");			
 
+				   		}else{
+				   			//Do this if checkbox was checked
+							var aOIA = window.activeObjectsInstanceArray;
+				   			var i = aOIA.PS.indexOf(objectUUID);
+							if(i != -1) {
+								// alert(aOSA.JD[i]);
+								aOIA.PS.splice( i, 1 );
+					   			 // alert(checkBoxId + " Will now be unchecked.");
+								setTimeout(function(){
+									$("#"+ checkBoxId).prop('checked', false);
+								}, 100);
+								window.activeObjectsInstanceArray = aOIA;
+							}else{
+								alert("This is not right, Something went wrong: "+i);								
+							}
+				   		}
+				       break;
+				   case "JD":
+				   		 // alert($("#"+ checkBoxId).prop("checked"));
+				   		if($("#"+ checkBoxId).prop("checked")){
+				   			//Do this if checkbox was not checked
+							var aOIA = window.activeObjectsInstanceArray;
+							aOIA.JD.push(objectUUID);
+				   			var i = aOIA.JD.indexOf(objectUUID);
+							if(i != -1) {
+								 //alert(checkBoxId + " Will now be checked.");
+								setTimeout(function(){
+									$("#"+ checkBoxId).prop('checked', true);
+								}, 100);
+								window.activeObjectsInstanceArray = aOIA;
+							}else{
+								alert("This is not right, Something went wrong: "+i);
+							}
+				   		}else{
+				   			//Do this if checkbox was checked
+							var aOIA = window.activeObjectsInstanceArray;
+				   			var i = aOIA.JD.indexOf(objectUUID);
+							if(i != -1) {
+								// alert(aOSA.JD[i]);
+								aOIA.JD.splice( i, 1 );
+					   			 // alert(checkBoxId + " Will now be unchecked.");
+								setTimeout(function(){
+									$("#"+ checkBoxId).prop('checked', false);
+								}, 100);
+								window.activeObjectsInstanceArray = aOIA;
+							}else{
+								alert("This is not right, Something went wrong: "+i);								
+							}
+				   		}				   
+				       break;
+				   case "PL": 
+				   		// alert($("#"+ checkBoxId).prop("checked"));
+				   		if($("#"+ checkBoxId).prop("checked")){
+				   			//Do this if checkbox was not checked
+							var aOIA = window.activeObjectsInstanceArray;
+							aOIA.PL.push(objectUUID);
+				   			var i = aOIA.PL.indexOf(objectUUID);
+							if(i != -1) {
+								// alert(checkBoxId + "Will now be checked.");
+								setTimeout(function(){
+									$("#"+ checkBoxId).prop('checked', true);
+								}, 100);
+								window.activeObjectsInstanceArray = aOIA;
+							}else{
+								alert("This is not right, Something went wrong: "+i);
+							}
+				   		}else{
+				   			//Do this if checkbox was checked
+							var aOIA = window.activeObjectsInstanceArray;
+				   			var i = aOIA.PL.indexOf(objectUUID);
+							if(i != -1) {
+								// alert(aOSA.JD[i]);
+								aOIA.PL.splice( i, 1 );
+					   			// alert(checkBoxId + "Will now be unchecked.");
+								setTimeout(function(){
+									$("#"+ checkBoxId).prop('checked', false);
+								}, 100);
+								window.activeObjectsInstanceArray = aOIA;
+							}else{
+								alert("This is not right, Something went wrong: "+i);								
+							}
+				   		}	
+				       break;
+				   case "PR":
+				   		// alert($("#"+ checkBoxId).prop("checked"));
+				   		if($("#"+ checkBoxId).prop("checked")){
+				   			//Do this if checkbox was not checked
+							var aOIA = window.activeObjectsInstanceArray;
+							aOIA.PR.push(objectUUID);
+				   			var i = aOIA.PR.indexOf(objectUUID);
+							if(i != -1) {
+								// alert(checkBoxId + "Will now be checked.");
+								setTimeout(function(){
+									$("#"+ checkBoxId).prop('checked', true);
+								}, 100);
+								window.activeObjectsInstanceArray = aOIA;
+							}else{
+								alert("This is not right, Something went wrong: "+i);
+							}
+				   		}else{
+				   			//Do this if checkbox was checked
+							var aOIA = window.activeObjectsInstanceArray;
+				   			var i = aOIA.PR.indexOf(objectUUID);
+							if(i != -1) {
+								// alert(aOSA.JD[i]);
+								aOIA.PR.splice( i, 1 );
+					   			// alert(checkBoxId + "Will now be unchecked.");
+								setTimeout(function(){
+									$("#"+ checkBoxId).prop('checked', false);
+								}, 100);
+								window.activeObjectsInstanceArray = aOIA;
+							}else{
+								alert("This is not right, Something went wrong: "+i);								
+							}
+				   		}					   
+				       break;
+				   case "ST":
+				   		// alert($("#"+ checkBoxId).prop("checked"));
+				   		if($("#"+ checkBoxId).prop("checked")){
+				   			//Do this if checkbox was not checked
+							var aOIA = window.activeObjectsInstanceArray;
+							aOIA.ST.push(objectUUID);
+				   			var i = aOSA.ST.indexOf(objectUUID);
+							if(i != -1) {
+								// alert(checkBoxId + "Will now be checked.");
+								setTimeout(function(){
+									$("#"+ checkBoxId).prop('checked', true);
+								}, 100);
+								window.activeObjectsInstanceArray = aOIA;
+							}else{
+								alert("This is not right, Something went wrong: "+i);
+							}
+				   		}else{
+				   			//Do this if checkbox was checked
+							var aOIA = window.activeObjectsInstanceArray;
+				   			var i = aOIA.ST.indexOf(objectUUID);
+							if(i != -1) {
+								// alert(aOSA.JD[i]);
+								aOIA.ST.splice( i, 1 );
+					   			// alert(checkBoxId + "Will now be unchecked.");
+								setTimeout(function(){
+									$("#"+ checkBoxId).prop('checked', false);
+								}, 100);
+								window.activeObjectsInstanceArray = aOIA;
+							}else{
+								alert("This is not right, Something went wrong: "+i);								
+							}
+				   		}					       
+					   break;
+				   case "TK": 
+				   		// alert($("#"+ checkBoxId).prop("checked"));
+				   		if($("#"+ checkBoxId).prop("checked")){
+				   			//Do this if checkbox was not checked
+							var aOIA = window.activeObjectsInstanceArray;
+							aOIA.TK.push(objectUUID);
+				   			var i = aOSA.TK.indexOf(objectUUID);
+							if(i != -1) {
+								// alert(checkBoxId + "Will now be checked.");
+								setTimeout(function(){
+									$("#"+ checkBoxId).prop('checked', true);
+								}, 100);
+								window.activeObjectsInstanceArray = aOIA;
+							}else{
+								alert("This is not right, Something went wrong: "+i);
+							}
+				   		}else{
+				   			//Do this if checkbox was checked
+							var aOIA = window.activeObjectsInstanceArray;
+				   			var i = aOIA.TK.indexOf(objectUUID);
+							if(i != -1) {
+								// alert(aOSA.JD[i]);
+								aOIA.TK.splice( i, 1 );
+					   			// alert(checkBoxId + "Will now be unchecked.");
+								setTimeout(function(){
+									$("#"+ checkBoxId).prop('checked', false);
+								}, 100);
+								window.activeObjectsInstanceArray = aOIA;
+							}else{
+								alert("This is not right, Something went wrong: "+i);								
+							}
+				   		}	
+				       break;
+				   default: 
+				       alert('Default: this option is not valid.');
+				       break;
+				}
 
+			}
+				window.activeObjectsSpecificationArray = {PS: [], JD: [], PL: [], PR: [], ST: [], TK: []};
+			function updateObjecttoActiveSpecificationArray(objectSpecificationId, objectType, checkBoxId){
+				switch (objectType)
+				{
+				   case "PS":
+				       break;
+				   case "JD":
+				   		// alert($("#"+ checkBoxId).prop("checked"));
+				   		if($("#"+ checkBoxId).prop("checked")){
+				   			//Do this if checkbox was not checked
+							var aOSA = window.activeObjectsSpecificationArray;
+							aOSA.JD.push(objectSpecificationId);
+				   			var i = aOSA.JD.indexOf(objectSpecificationId);
+							if(i != -1) {
+								// alert(checkBoxId + "Will now be checked.");
+								window.activeObjectsSpecificationArray = aOSA;
+							}else{
+								alert("This is not right, Something went wrong: "+i);
+							}
+				   		}else{
+				   			//Do this if checkbox was checked
+							var aOSA = window.activeObjectsSpecificationArray;
+				   			var i = aOSA.JD.indexOf(objectSpecificationId);
+							if(i != -1) {
+								// alert(aOSA.JD[i]);
+								aOSA.JD.splice( i, 1 );
+					   			// alert(checkBoxId + "Will now be unchecked.");
+								window.activeObjectsSpecificationArray = aOSA;
+							}else{
+								alert("This is not right, Something went wrong: "+i);								
+							}
+				   		}				   
+				       break;
+				   case "PL": 
+				   		// alert($("#"+ checkBoxId).prop("checked"));
+				   		if($("#"+ checkBoxId).prop("checked")){
+				   			//Do this if checkbox was not checked
+							var aOSA = window.activeObjectsSpecificationArray;
+							aOSA.PL.push(objectSpecificationId);
+				   			var i = aOSA.PL.indexOf(objectSpecificationId);
+							if(i != -1) {
+								// alert(checkBoxId + "Will now be checked.");
+								window.activeObjectsSpecificationArray = aOSA;
+							}else{
+								alert("This is not right, Something went wrong: "+i);
+							}
+				   		}else{
+				   			//Do this if checkbox was checked
+							var aOSA = window.activeObjectsSpecificationArray;
+				   			var i = aOSA.PL.indexOf(objectSpecificationId);
+							if(i != -1) {
+								// alert(aOSA.JD[i]);
+								aOSA.PL.splice( i, 1 );
+					   			// alert(checkBoxId + "Will now be unchecked.");
+								window.activeObjectsSpecificationArray = aOSA;
+							}else{
+								alert("This is not right, Something went wrong: "+i);								
+							}
+				   		}	
+				       break;
+				   case "PR":
+				   		// alert($("#"+ checkBoxId).prop("checked"));
+				   		if($("#"+ checkBoxId).prop("checked")){
+				   			//Do this if checkbox was not checked
+							var aOSA = window.activeObjectsSpecificationArray;
+							aOSA.PR.push(objectSpecificationId);
+				   			var i = aOSA.PR.indexOf(objectSpecificationId);
+							if(i != -1) {
+								// alert(checkBoxId + "Will now be checked.");
+								window.activeObjectsSpecificationArray = aOSA;
+							}else{
+								alert("This is not right, Something went wrong: "+i);
+							}
+				   		}else{
+				   			//Do this if checkbox was checked
+							var aOSA = window.activeObjectsSpecificationArray;
+				   			var i = aOSA.PR.indexOf(objectSpecificationId);
+							if(i != -1) {
+								// alert(aOSA.JD[i]);
+								aOSA.PR.splice( i, 1 );
+					   			// alert(checkBoxId + "Will now be unchecked.");
+								window.activeObjectsSpecificationArray = aOSA;
+							}else{
+								alert("This is not right, Something went wrong: "+i);								
+							}
+				   		}					   
+				       break;
+				   case "ST":
+				   		// alert($("#"+ checkBoxId).prop("checked"));
+				   		if($("#"+ checkBoxId).prop("checked")){
+				   			//Do this if checkbox was not checked
+							var aOSA = window.activeObjectsSpecificationArray;
+							aOSA.ST.push(objectSpecificationId);
+				   			var i = aOSA.ST.indexOf(objectSpecificationId);
+							if(i != -1) {
+								// alert(checkBoxId + "Will now be checked.");
+								window.activeObjectsSpecificationArray = aOSA;
+							}else{
+								alert("This is not right, Something went wrong: "+i);
+							}
+				   		}else{
+				   			//Do this if checkbox was checked
+							var aOSA = window.activeObjectsSpecificationArray;
+				   			var i = aOSA.ST.indexOf(objectSpecificationId);
+							if(i != -1) {
+								// alert(aOSA.JD[i]);
+								aOSA.ST.splice( i, 1 );
+					   			// alert(checkBoxId + "Will now be unchecked.");
+								window.activeObjectsSpecificationArray = aOSA;
+							}else{
+								alert("This is not right, Something went wrong: "+i);								
+							}
+				   		}					       
+					   break;
+				   case "TK": 
+				   		// alert($("#"+ checkBoxId).prop("checked"));
+				   		if($("#"+ checkBoxId).prop("checked")){
+				   			//Do this if checkbox was not checked
+							var aOSA = window.activeObjectsSpecificationArray;
+							aOSA.TK.push(objectSpecificationId);
+				   			var i = aOSA.TK.indexOf(objectSpecificationId);
+							if(i != -1) {
+								// alert(checkBoxId + "Will now be checked.");
+								window.activeObjectsSpecificationArray = aOSA;
+							}else{
+								alert("This is not right, Something went wrong: "+i);
+							}
+				   		}else{
+				   			//Do this if checkbox was checked
+							var aOSA = window.activeObjectsSpecificationArray;
+				   			var i = aOSA.TK.indexOf(objectSpecificationId);
+							if(i != -1) {
+								// alert(aOSA.JD[i]);
+								aOSA.TK.splice( i, 1 );
+					   			// alert(checkBoxId + "Will now be unchecked.");
+								window.activeObjectsSpecificationArray = aOSA;
+							}else{
+								alert("This is not right, Something went wrong: "+i);								
+							}
+				   		}	
+				       break;
+				   default: 
+				       alert('Default: this option is not valid.');
+				       break;
+				}
+			}
+			function addMultipleJobDescriptionstoMyModel(){
+					//alert(window.addToAllSelected);
+				if(window.addToAllSelected==true){
+					var index;
+					var a = window.activeObjectsInstanceArray.PS;
+					for (index = 0; index < a.length; ++index) {
+					    //console.log(a[index]);
+						window.activePositionUUID = a[index];
+
+						var indexb;
+						var b = window.activeObjectsSpecificationArray.JD;
+						for (indexb = 0; indexb < b.length; ++indexb) {
+						    //console.log(a[index]);
+							// alert(a[index]);
+							addJobDescriptiontoMyModel(b[indexb]);
+						}	
+					}
+					window.addToAllSelected = false;
+				}else{
+					var index;
+					var a = window.activeObjectsSpecificationArray.JD;
+					for (index = 0; index < a.length; ++index) {
+					    //console.log(a[index]);
+						// alert(a[index]);
+						addJobDescriptiontoMyModel(a[index]);
+					}	
+					window.activeObjectsSpecificationArray = {PS: [], JD: [], PL: [], PR: [], ST: [], TK: []};
+					alert(index+" # objects attached.")	
+				}		
+			}
+			function addMultiplePoliciestoMyModel(){
+				alert("test");
+				var index;
+				var a = window.activeObjectsSpecificationArray.PL;
+				for (index = 0; index < a.length; ++index) {
+				    //console.log(a[index]);
+					// alert(a[index]);
+					addPolicytoMyModel(a[index]);
+				}	
+				window.activeObjectsSpecificationArray = {PS: [], JD: [], PL: [], PR: [], ST: [], TK: []};
+				alert(index+" # objects attached.")			
+			}
+			function addMultipleProcedurestoMyModel(){
+				var index;
+				var a = window.activeObjectsSpecificationArray.PR;
+				for (index = 0; index < a.length; ++index) {
+				    //console.log(a[index]);
+					// alert(a[index]);
+					addProceduretoMyModel(a[index]);
+				}	
+				window.activeObjectsSpecificationArray = {PS: [], JD: [], PL: [], PR: [], ST: [], TK: []};
+				alert(index+" # objects attached.")			
+			}
+			function addMultipleStepstoMyModel(){
+				var index;
+				var a = window.activeObjectsSpecificationArray.ST;
+				for (index = 0; index < a.length; ++index) {
+				    //console.log(a[index]);
+					// alert(a[index]);
+					addSteptoMyModel(a[index]);
+				}	
+				window.activeObjectsSpecificationArray = {PS: [], JD: [], PL: [], PR: [], ST: [], TK: []};
+				alert(index+" # objects attached.")			
+			}
+			function addMultipleTaskstoMyModel(){
+				var index;
+				var a = window.activeObjectsSpecificationArray.TK;
+				for (index = 0; index < a.length; ++index) {
+				    //console.log(a[index]);
+					// alert(a[index]);
+					addTasktoMyModel(a[index]);
+				}	
+				window.activeObjectsSpecificationArray = {PS: [], JD: [], PL: [], PR: [], ST: [], TK: []};
+				alert(index+" # objects attached.")			
+			}
 			function manageOwners () {
 				$("#ubmsuite_mcs_my_organizational_chart_content_mangePositionPopUp").popup('close');
 
@@ -1338,38 +1794,40 @@ under the License.
 			}
 
 			function getJobDescriptionsforBackBoneTable(){
-				$.getJSON('http://api.universalbusinessmodel.com/ubm_modelcreationsuite_model_Position_get_JobDescriptions.php?callback=?', {//JSONP Request
-					activeModelUUID : window.activeModelUUID,
-					activePositionId: window.activeReportsToPosition
-				}, function(res, status) {
-						$("#heirarchyObjectBackbone_table_body").empty();
-					$.each(res, function(i, item) {
-						$("#heirarchyObjectBackbone_table_body").append("<tr><td class='tg-031e'>" + item.mfi_reference + "</td><td class='tg-031e'>PS-" + window.activeReportsToPosition + "</td><td class='tg-gcpq'>" + item.id + "</td><td class='tg-gcpq'>JD-" + item.id + "</td><td class='tg-2tnls'></td><td class='tg-2tnls'></td><td class='tg-hnhqs'></td><td class='tg-hnhqs'></td><td class='tg-4nips'></td><td class='tg-4nips'></td><td class='tg-gl8ns'></td><td class='tg-gl8ns'></td><td class='tg-akd2s'></td><td class='tg-akd2s'></td><td class='tg-8474s'></td><td class='tg-8474s'></td><td class='tg-w2xps'></td><td class='tg-w2xps'></td><td class='tg-w2xps'></td><td class='tg-w2xps'></td><td class='tg-w2xps'></td><td class='tg-w2xps'></td><td class='tg-w2xps'></td><td class='tg-w2xps'></td><td class='tg-48oos'></td><td class='tg-48oos'></td><td class='tg-48oos'></td><td class='tg-48oos'></td><td class='tg-48oos'></td><td class='tg-031e'>PS-" + window.activeReportsToPosition + ".JD-" + item.id + "</td><td class='tg-031e'>MD-" + window.activeModelUUID + "</td><td class='tg-031e'>PS-" + window.activeReportsToPosition + ".JD-" + item.id + "</td><td class='tg-031e'>" + item.title + "</td><td class='tg-031e'>Active</td></tr>");					
-					});
-						$("#heirarchyObjectBackbone_table").table( "refresh" );
-				});
+//Deprecated
+				// $.getJSON('http://api.universalbusinessmodel.com/ubm_modelcreationsuite_model_Position_get_JobDescriptions.php?callback=?', {//JSONP Request
+				// 	activeModelUUID : window.activeModelUUID,
+				// 	activePositionId: window.activeReportsToPosition
+				// }, function(res, status) {
+				// 		$("#heirarchyObjectBackbone_table_body").empty();
+				// 	$.each(res, function(i, item) {
+				// 		$("#heirarchyObjectBackbone_table_body").append("<tr><td class='tg-031e'>" + item.mfi_reference + "</td><td class='tg-031e'>PS-" + window.activeReportsToPosition + "</td><td class='tg-gcpq'>" + item.id + "</td><td class='tg-gcpq'>JD-" + item.id + "</td><td class='tg-2tnls'></td><td class='tg-2tnls'></td><td class='tg-hnhqs'></td><td class='tg-hnhqs'></td><td class='tg-4nips'></td><td class='tg-4nips'></td><td class='tg-gl8ns'></td><td class='tg-gl8ns'></td><td class='tg-akd2s'></td><td class='tg-akd2s'></td><td class='tg-8474s'></td><td class='tg-8474s'></td><td class='tg-w2xps'></td><td class='tg-w2xps'></td><td class='tg-w2xps'></td><td class='tg-w2xps'></td><td class='tg-w2xps'></td><td class='tg-w2xps'></td><td class='tg-w2xps'></td><td class='tg-w2xps'></td><td class='tg-48oos'></td><td class='tg-48oos'></td><td class='tg-48oos'></td><td class='tg-48oos'></td><td class='tg-48oos'></td><td class='tg-031e'>PS-" + window.activeReportsToPosition + ".JD-" + item.id + "</td><td class='tg-031e'>MD-" + window.activeModelUUID + "</td><td class='tg-031e'>PS-" + window.activeReportsToPosition + ".JD-" + item.id + "</td><td class='tg-031e'>" + item.title + "</td><td class='tg-031e'>Active</td></tr>");					
+				// 	});
+				// 		$("#heirarchyObjectBackbone_table").table( "refresh" );
+				// });
 			}
 
 			function getJobDescriptionforHeirarchicalObjectTree(){
-				//alert("this is a test");
-				$.getJSON('http://api.universalbusinessmodel.com/ubm_modelcreationsuite_model_Position_get_JobDescriptions.php?callback=?', {//JSONP Request
-					activeModelUUID:window.activeModelUUID,
-					activePositionId:window.activeReportsToPosition
-				}, function(res, status) {
-					$.each(res, function(i, item) {
-							//3. Append all children to their respective "reports_to" ul
-							$("#ubmsuite_mcs_my_organizational_chart_heirarchyObjectTree_ul_P").append("<li><a data-position-to='origin' href='#ubmsuite_mcs_my_organizational_chart_content_managePolicyPopUp'data-rel='popup' class='ui-link' data-transition='pop' onclick='addJobDescriptiontoMyModel(" + item.id + ")'>JD-" + item.id + "</a><ul id='ubmsuite_mcs_my_organizational_chart_heirarchyObjectTree_ul_JD_" + item.id + "'></ul></li>");
-							//4. Empty chart Div
-					        $('#chart').empty();
-							//5. Call jOrgChart plugin, append new org chart to chart div, set jorgdraganddrop to false to avoid conflicting compatibility issue with other jquery packages.
-					        $("#modelOrgChart").jOrgChart({
-					            chartElement : '#chart',
-					            dragAndDrop  : false
-					        }); /***/
+//Deprecated
+				// //alert("this is a test");
+				// $.getJSON('http://api.universalbusinessmodel.com/ubm_modelcreationsuite_model_Position_get_JobDescriptions.php?callback=?', {//JSONP Request
+				// 	activeModelUUID:window.activeModelUUID,
+				// 	activePositionId:window.activeReportsToPosition
+				// }, function(res, status) {
+				// 	$.each(res, function(i, item) {
+				// 			//3. Append all children to their respective "reports_to" ul
+				// 			$("#ubmsuite_mcs_my_organizational_chart_heirarchyObjectTree_ul_P").append("<li><a data-position-to='origin' href='#ubmsuite_mcs_my_organizational_chart_content_managePolicyPopUp'data-rel='popup' class='ui-link' data-transition='pop' onclick='addJobDescriptiontoMyModel(" + item.id + ")'>JD-" + item.id + "</a><ul id='ubmsuite_mcs_my_organizational_chart_heirarchyObjectTree_ul_JD_" + item.id + "'></ul></li>");
+				// 			//4. Empty chart Div
+				// 	        $('#chart').empty();
+				// 			//5. Call jOrgChart plugin, append new org chart to chart div, set jorgdraganddrop to false to avoid conflicting compatibility issue with other jquery packages.
+				// 	        $("#modelOrgChart").jOrgChart({
+				// 	            chartElement : '#chart',
+				// 	            dragAndDrop  : false
+				// 	        }); /***/
 						
-					});
-				});			
-				$("#heirarchyObjectTree").trigger("create");		
+				// 	});
+				// });			
+				// $("#heirarchyObjectTree").trigger("create");		
 			}
 		</script>
 		<!-- End Job Description-->
@@ -1395,14 +1853,17 @@ under the License.
 				});				
 			}
 			function getListofPossiblePolicies() {//Populates Core Value Listview on Possible CoreValue Popup
+				showLoader();
 				$.getJSON('http://api.universalbusinessmodel.com/ubm_modelcreationsuite_model_getAll_Policies.php?callback=?', {//JSONP Request
 					key : window.key,
 				}, function(res, status) {
 						$('#ubmsuite_mcs_my_organizational_chart_content_createNewPolicyPopUp_form_UBMRepository').empty();
 					$.each(res, function(i, item) {
-						$('#ubmsuite_mcs_my_organizational_chart_content_createNewPolicyPopUp_form_UBMRepository').append("<li><a href='#' onClick='openPolicySummaryPopup(" + item.id + ")'><p>" + item.title + "</p></a><a href='#' onclick='addPolicytoMyModel(" + item.id + ")'>Add Policy</a></li>");
+						$('#ubmsuite_mcs_my_organizational_chart_content_createNewPolicyPopUp_form_UBMRepository').append("<li><a rel='external' style='padding: 0px 0px 0px 0px !important;margin: 0px 0px 0px 0px !important;'><label style='padding: 20px 10px 0px 10px !important;margin: 0px 10px 0px 0px !important;border-width: 0px 1px 0px 0px !important;height:50px;float:left;width:50px;' data-corners='false'><fieldset data-role='controlgroup' style='height:0px !important'><input id='PL_checkbox_" + item.id + "' name='_checkbox_" + item.id + "' class='item_checkbox' onclick='updateObjecttoActiveSpecificationArray(" + item.id + ", "+ "&#x27;PL&#x27;" + ", &#x27PL_checkbox_" + item.id + "&#x27);' type='checkbox' value='false'/></fieldset></label><div onclick='addPolicytoMyModel( " + item.id + " )'><img src='http://www.halogensoftware.com/uploads/learn/how-to/creating-best-practice-job-description-templates/_thumb/800/creating-best-practice-job-description-templates.png' style='height:60px;width:60px;float:left;padding-right:10px; display:inline-block; overflow-x:scroll;'/><h2 style='padding: 10px 0px 0px 0px; '>" + item.title + "</h2><p class='ui-li-aside' style='margin-right:10px;' ><br><br>Creator: " + item.created_by + "<br>Date: " + item.created_date + "</p></div><a data-rel='popup' data-position-to='window' data-inline='true' onClick='openPolicySummaryPopup(" + item.id + ")'>Add Policy</a></a></li>");
 						$('#ubmsuite_mcs_my_organizational_chart_content_createNewPolicyPopUp_form_UBMRepository').listview().listview("refresh");
+			   			$("#ubmsuite_mcs_my_organizational_chart_content_createNewPolicyPopUp_form_UBMRepository").enhanceWithin().listview();
 					})
+					hideLoader();
 				});	
 			}
 			function addPolicytoMyModel(activePolicyId){
@@ -1511,27 +1972,31 @@ under the License.
 				//alert(window.activeProcedureId);
 			}
 			function getProceduresforBackBoneTable(){
+//Deprecated
 				//alert("this is a test");
-				$.getJSON('http://api.universalbusinessmodel.com/ubm_modelcreationsuite_model_Policy_get_Procedures.php?callback=?', {//JSONP Request
-					activeModelUUID : window.activeModelUUID,
-					activePolicyId: window.activePolicyId
-				}, function(res, status) {
-					$.each(res, function(i, item) {
-						$("#heirarchyObjectBackbone_table_body").append("<tr><td class='tg-031e'>" + item.mfi_reference + "</td><td class='tg-031e'>PS-" + window.activeReportsToPosition + "</td><td class='tg-gcpq'>" + window.activeJobDescriptionId + "</td><td class='tg-gcpq'>JD-" + window.activeJobDescriptionId + "</td><td class='tg-2tnl'>" + window.activePolicyId + "</td><td class='tg-2tnl'>PL-" + window.activePolicyId + "</td><td class='tg-hnhq'>" + item.id + "</td><td class='tg-hnhq'>PR-" + item.id + "</td><td class='tg-4nips'></td><td class='tg-4nips'></td><td class='tg-gl8ns'></td><td class='tg-gl8ns'></td><td class='tg-akd2s'></td><td class='tg-akd2s'></td><td class='tg-8474s'></td><td class='tg-8474s'></td><td class='tg-w2xps'></td><td class='tg-w2xps'></td><td class='tg-w2xps'></td><td class='tg-w2xps'></td><td class='tg-w2xps'></td><td class='tg-w2xps'></td><td class='tg-w2xps'></td><td class='tg-w2xps'></td><td class='tg-48oos'></td><td class='tg-48oos'></td><td class='tg-48oos'></td><td class='tg-48oos'></td><td class='tg-48oos'></td><td class='tg-031e'>PS-" + window.activeReportsToPosition + ".JD-" + window.activeJobDescriptionId + ".PL-" + item.id + "</td><td class='tg-031e'>MD-" + window.activeModelUUID + "</td><td class='tg-031e'>PS-" + window.activeReportsToPosition + ".JD-" + window.activeJobDescriptionId + ".PL-" + item.id + "</td><td class='tg-031e'>" + item.title + "</td><td class='tg-031e'>Active</td></tr>");					
+				// $.getJSON('http://api.universalbusinessmodel.com/ubm_modelcreationsuite_model_Policy_get_Procedures.php?callback=?', {//JSONP Request
+				// 	activeModelUUID : window.activeModelUUID,
+				// 	activePolicyId: window.activePolicyId
+				// }, function(res, status) {
+				// 	$.each(res, function(i, item) {
+				// 		$("#heirarchyObjectBackbone_table_body").append("<tr><td class='tg-031e'>" + item.mfi_reference + "</td><td class='tg-031e'>PS-" + window.activeReportsToPosition + "</td><td class='tg-gcpq'>" + window.activeJobDescriptionId + "</td><td class='tg-gcpq'>JD-" + window.activeJobDescriptionId + "</td><td class='tg-2tnl'>" + window.activePolicyId + "</td><td class='tg-2tnl'>PL-" + window.activePolicyId + "</td><td class='tg-hnhq'>" + item.id + "</td><td class='tg-hnhq'>PR-" + item.id + "</td><td class='tg-4nips'></td><td class='tg-4nips'></td><td class='tg-gl8ns'></td><td class='tg-gl8ns'></td><td class='tg-akd2s'></td><td class='tg-akd2s'></td><td class='tg-8474s'></td><td class='tg-8474s'></td><td class='tg-w2xps'></td><td class='tg-w2xps'></td><td class='tg-w2xps'></td><td class='tg-w2xps'></td><td class='tg-w2xps'></td><td class='tg-w2xps'></td><td class='tg-w2xps'></td><td class='tg-w2xps'></td><td class='tg-48oos'></td><td class='tg-48oos'></td><td class='tg-48oos'></td><td class='tg-48oos'></td><td class='tg-48oos'></td><td class='tg-031e'>PS-" + window.activeReportsToPosition + ".JD-" + window.activeJobDescriptionId + ".PL-" + item.id + "</td><td class='tg-031e'>MD-" + window.activeModelUUID + "</td><td class='tg-031e'>PS-" + window.activeReportsToPosition + ".JD-" + window.activeJobDescriptionId + ".PL-" + item.id + "</td><td class='tg-031e'>" + item.title + "</td><td class='tg-031e'>Active</td></tr>");					
 
-					});
-				});				
+				// 	});
+				// });				
 			}
 			function getListofPossibleProcedures() {//Populates Core Value Listview on Possible CoreValue Popup
+				showLoader();
 				$.getJSON('http://api.universalbusinessmodel.com/ubm_modelcreationsuite_model_getAll_Procedures.php?callback=?', {//JSONP Request
 					key : window.key,
 
 				}, function(res, status) {
 						$('#ubmsuite_mcs_my_organizational_chart_content_createNewProcedurePopUp_form_UBMRepository').empty();
 					$.each(res, function(i, item) {
-						$('#ubmsuite_mcs_my_organizational_chart_content_createNewProcedurePopUp_form_UBMRepository').append("<li><a href='#' onClick='openProcedureSummaryPopup(" + item.id + ")'><p style='white-space:normal;'>" + item.title + "</p></a><a href='#' onclick='addProceduretoMyModel(" + item.id + ")'>Add Procedure</a></li>");
+						$('#ubmsuite_mcs_my_organizational_chart_content_createNewProcedurePopUp_form_UBMRepository').append("<li><a rel='external' style='padding: 0px 0px 0px 0px !important;margin: 0px 0px 0px 0px !important;'><label style='padding: 20px 10px 0px 10px !important;margin: 0px 10px 0px 0px !important;border-width: 0px 1px 0px 0px !important;height:50px;float:left;width:50px;' data-corners='false'><fieldset data-role='controlgroup' style='height:0px !important'><input id='PR_checkbox_" + item.id + "' name='PR_checkbox_" + item.id + "' class='item_checkbox' onclick='updateObjecttoActiveSpecificationArray(" + item.id + ", "+ "&#x27;PR&#x27;" + ", &#x27PR_checkbox_" + item.id + "&#x27);' type='checkbox' value='false'/></fieldset></label><div onclick='addProceduretoMyModel( " + item.id + " )'><img src='http://www.halogensoftware.com/uploads/learn/how-to/creating-best-practice-job-description-templates/_thumb/800/creating-best-practice-job-description-templates.png' style='height:60px;width:60px;float:left;padding-right:10px; display:inline-block; overflow-x:scroll;'/><h2 style='padding: 10px 0px 0px 0px; '>" + item.title + "</h2><p class='ui-li-aside' style='margin-right:10px;' ><br><br>Creator: " + item.created_by + "<br>Date: " + item.created_date + "</p></div><a data-rel='popup' data-position-to='window' data-inline='true' onClick='openProcedureSummaryPopup(" + item.id + ")'>Add Procedure</a></a></li>");
 						$('#ubmsuite_mcs_my_organizational_chart_content_createNewProcedurePopUp_form_UBMRepository').listview().listview("refresh");
+			   			$("#ubmsuite_mcs_my_organizational_chart_content_createNewProcedurePopUp_form_UBMRepository").enhanceWithin().listview();
 					})
+					hideLoader();
 				});	
 			}
 			function addProceduretoMyModel(activeProcedureId){
@@ -1579,7 +2044,6 @@ under the License.
 					            chartElement : '#chart',
 					            dragAndDrop  : false
 					        }); /***/
-						
 					});
 				});			
 				$("#heirarchyObjectTree").trigger("create");	
@@ -1628,10 +2092,10 @@ under the License.
 				});				
 			}
 			function getListofPossibleSteps() {//Populates Core Value Listview on Possible CoreValue Popup
+				showLoader();
 				if(window.ListofStepsRetrieved==true){
-
+						hideLoader();
 				}else{
-					showLoader();
 					$.getJSON('http://api.universalbusinessmodel.com/ubm_modelcreationsuite_model_getAll_Steps.php?callback=?', {//JSONP Request to Open Items Page setup 
 						key : window.key,
 					}, function(res, status) {
@@ -1639,6 +2103,10 @@ under the License.
 						$.each(res, function(i, item) {
 							$('#ubmsuite_mcs_my_organizational_chart_content_createNewStepPopUp_form_UBMRepository').append("<li><a href='#'><p style='white-space:normal;'>" + item.title + "</p></a><a href='#' onclick='addSteptoMyModel(" + item.id + ")'>Add Step</a></li>");
 							$('#ubmsuite_mcs_my_organizational_chart_content_createNewStepPopUp_form_UBMRepository').listview().listview("refresh");
+						
+						$('#ubmsuite_mcs_my_organizational_chart_content_createNewStepPopUp_form_UBMRepository_Test').append("<li><a rel='external' style='padding: 0px 0px 0px 0px !important;margin: 0px 0px 0px 0px !important;'><label style='padding: 20px 10px 0px 10px !important;margin: 0px 10px 0px 0px !important;border-width: 0px 1px 0px 0px !important;height:50px;float:left;width:50px;' data-corners='false'><fieldset data-role='controlgroup' style='height:0px !important'><input id='ST_checkbox_" + item.id + "' name='ST_checkbox_" + item.id + "' class='item_checkbox' onclick='updateObjecttoActiveSpecificationArray(" + item.id + ", "+ "&#x27;ST&#x27;" + ", &#x27ST_checkbox_" + item.id + "&#x27);' type='checkbox' value='false'/></fieldset></label><div onclick='addSteptoMyModel( " + item.id + " )'><img src='http://www.halogensoftware.com/uploads/learn/how-to/creating-best-practice-job-description-templates/_thumb/800/creating-best-practice-job-description-templates.png' style='height:60px;width:60px;float:left;padding-right:10px; display:inline-block; overflow-x:scroll;'/><h2 style='padding: 10px 0px 0px 0px; '>" + item.title + "</h2><p class='ui-li-aside' style='margin-right:10px;' ><br><br>Creator: " + item.created_by + "<br>Date: " + item.created_date + "</p></div><a data-rel='popup' data-position-to='window' data-inline='true' onClick='openStepSummaryPopup(" + item.id + ")'>Add Step</a></a></li>");
+						$('#ubmsuite_mcs_my_organizational_chart_content_createNewStepPopUp_form_UBMRepository_Test').listview().listview("refresh");
+			   			$("#ubmsuite_mcs_my_organizational_chart_content_createNewStepPopUp_form_UBMRepository_Test").enhanceWithin().listview();
 						})
 						window.ListofStepsRetrieved=true;
 						hideLoader();
@@ -1758,7 +2226,7 @@ under the License.
 					});
 				});				
 			}
-			function getListofPossibleTasks() {//Populates Core Value Listview on Possible CoreValue Popup
+			function getListofPossibleTasks() {//Populates Task Listview on Possible Tasks Popup
 				if(window.ListofStepsRetrieved==true){
 
 				}else{
@@ -1768,8 +2236,8 @@ under the License.
 					}, function(res, status) {
 							$('#ubmsuite_mcs_my_organizational_chart_content_createNewTaskPopUp_form_UBMRepository').empty();
 						$.each(res, function(i, item) {
-							$('#ubmsuite_mcs_my_organizational_chart_content_createNewTaskPopUp_form_UBMRepository').append("<li><a href='#'><p style='white-space:normal;'>" + item.title + "</p></a><a href='#' onclick='addTasktoMyModel(" + item.id + ")'>Add Task</a></li>");
-							$('#ubmsuite_mcs_my_organizational_chart_content_createNewTaskPopUp_form_UBMRepository').listview().listview("refresh");
+							$('#ubmsuite_mcs_my_organizational_chart_content_createNewTaskPopUp_form_UBMRepository').append("<li><a rel='external' style='padding: 0px 0px 0px 0px !important;margin: 0px 0px 0px 0px !important;'><label style='padding: 20px 10px 0px 10px !important;margin: 0px 10px 0px 0px !important;border-width: 0px 1px 0px 0px !important;height:50px;float:left;width:50px;' data-corners='false'><fieldset data-role='controlgroup' style='height:0px !important'><input id='TK_checkbox_" + item.id + "' name='TK_checkbox_" + item.id + "' class='item_checkbox' onclick='updateObjecttoActiveSpecificationArray(" + item.id + ", "+ "&#x27;TK&#x27;" + ", &#x27TK_checkbox_" + item.id + "&#x27);' type='checkbox' value='false'/></fieldset></label><div onclick='addTasktoMyModel( " + item.id + " )'><img src='http://www.halogensoftware.com/uploads/learn/how-to/creating-best-practice-job-description-templates/_thumb/800/creating-best-practice-job-description-templates.png' style='height:60px;width:60px;float:left;padding-right:10px; display:inline-block; overflow-x:scroll;'/><h2 style='padding: 10px 0px 0px 0px; '>" + item.title + "</h2><p class='ui-li-aside' style='margin-right:10px;' ><br><br>Creator: " + item.created_by + "<br>Date: " + item.created_date + "</p></div><a data-rel='popup' data-position-to='window' data-inline='true' onClick='openTaskSummaryPopup(" + item.id + ")'>Add Task</a></a></li>");
+							$('#ubmsuite_mcs_my_organizational_chart_content_createNewTaskPopUp_form_UBMRepository').enhanceWithin().listview().listview("refresh");
 						})
 						window.ListofTasksRetrieved=true;
 						hideLoader();
@@ -1781,8 +2249,8 @@ under the License.
 				}, function(res, status) {
 						$('#ubmsuite_mcs_my_organizational_chart_content_createNewTaskPopUp_form_UBMRepository').empty();
 					$.each(res, function(i, item) {
-						$('#ubmsuite_mcs_my_organizational_chart_content_createNewTaskPopUp_form_UBMRepository').append("<li><a href='#'><p style='white-space:normal;'>" + item.title + "</p></a><a href='#' onclick='addTasktoMyModel(" + item.id + ")'>Add Task</a></li>");
-						$('#ubmsuite_mcs_my_organizational_chart_content_createNewTaskPopUp_form_UBMRepository').listview().listview("refresh");
+						$('#ubmsuite_mcs_my_organizational_chart_content_createNewTaskPopUp_form_UBMRepository').append("<li><a rel='external' style='padding: 0px 0px 0px 0px !important;margin: 0px 0px 0px 0px !important;'><label style='padding: 20px 10px 0px 10px !important;margin: 0px 10px 0px 0px !important;border-width: 0px 1px 0px 0px !important;height:50px;float:left;width:50px;' data-corners='false'><fieldset data-role='controlgroup' style='height:0px !important'><input id='TK_checkbox_" + item.id + "' name='TK_checkbox_" + item.id + "' class='item_checkbox' onclick='updateObjecttoActiveSpecificationArray(" + item.id + ", "+ "&#x27;TK&#x27;" + ", &#x27TK_checkbox_" + item.id + "&#x27);' type='checkbox' value='false'/></fieldset></label><div onclick='addTasktoMyModel( " + item.id + " )'><img src='http://www.halogensoftware.com/uploads/learn/how-to/creating-best-practice-job-description-templates/_thumb/800/creating-best-practice-job-description-templates.png' style='height:60px;width:60px;float:left;padding-right:10px; display:inline-block; overflow-x:scroll;'/><h2 style='padding: 10px 0px 0px 0px; '>" + item.title + "</h2><p class='ui-li-aside' style='margin-right:10px;' ><br><br>Creator: " + item.created_by + "<br>Date: " + item.created_date + "</p></div><a data-rel='popup' data-position-to='window' data-inline='true' onClick='openTaskSummaryPopup(" + item.id + ")'>Add Task</a></a></li>");
+						$('#ubmsuite_mcs_my_organizational_chart_content_createNewTaskPopUp_form_UBMRepository').enhanceWithin().listview().listview("refresh");						
 					})
 				});	
 			}
@@ -1906,7 +2374,7 @@ under the License.
 										}
 						//3. Append all other children to their respective "reports_to" ul
 						//$('#ubmsuite_mcs_my_organizational_chart_P' + item.reports_to_id + '_ul').append("<li id='orgChartPosition" + item.UUID + "'><div id='demo_box_" + item.UUID + "' class='demo_box' onclick='setActivePosition(" + item.UUID + ")'><div class='pop_ctrl'><i class='fa fa-bars'></i></div><ul id='demo_ul_2'><li class='demo_li'><a href='#' onclick='addChildPositiontoActivePosition()'><div><i class='fa fa-plus-circle'></i></div><p>Add</p></a></li><li class='demo_li'><a href='#' onclick='removeActivePosition()'><div><i class='fa fa-minus-circle'></i></div><p>Remove</p></a></li></ul></div></br>" + item.title + "<ul id='ubmsuite_mcs_my_organizational_chart_P" + item.UUID + "_ul'></ul></li>");	
-									$('#ubmsuite_mcs_my_organizational_chart_P' + item.ancestor_UUID + '_ul').append("<li class='orgChartItem' id='orgChartPosition" + item.UUID + "' data-thisUUID='" + item.UUID + "'><a data-thisUUID='" + item.UUID + "' onclick='if(event.ctrlKey || event.metaKey) {setActivePosition(" + item.UUID + ", &quot;" + item.title + "&quot;)} else {buildHierarchicalTree(" + item.UUID + ");setActivePositionUUID(" + item.UUID + ")}' class='OC_Position' ><img id='org_img_" + item.UUID + "'  title='cmd-click(mac) or ctl-click(win) icon to manage this position, or add another position your models org chart.' style='width:50px; height:50px;' src='img/employee-opinion-surveys.png' class='click_pointer' /></a></br><p>" + item.title + "</p></br><p>" + item.name + "</p><ul id='ubmsuite_mcs_my_organizational_chart_P" + item.UUID + "_ul'></ul></li>");	
+									$('#ubmsuite_mcs_my_organizational_chart_P' + item.ancestor_UUID + '_ul').append("<li class='orgChartItem' id='orgChartPosition" + item.UUID + "' data-thisUUID='" + item.UUID + "'><a data-thisUUID='" + item.UUID + "' onclick='if(event.ctrlKey || event.metaKey) {setActivePosition(" + item.UUID + ", &quot;" + item.title + "&quot;)} else {buildHierarchicalTree(" + item.UUID + ");setActivePositionUUID(" + item.UUID + ");updateObjecttoActiveInstanceArray(" + item.UUID + ", "+ "&#x27;PS&#x27;" + ", &#x27PS_OC_UUID_checkbox_" + item.UUID + "&#x27)}' class='OC_Position' ><img id='org_img_" + item.UUID + "'  title='cmd-click(mac) or ctl-click(win) icon to manage this position, or add another position your models org chart.' style='width:50px; height:50px;' src='img/employee-opinion-surveys.png' class='click_pointer' /></a></br><p>" + item.title + "</p></br><p>" + item.name + "</p><ul id='ubmsuite_mcs_my_organizational_chart_P" + item.UUID + "_ul'></ul></li>");	
 						//4. Empty chart Div
 							        $('#chart').empty();
 						//5. Call jOrgChart plugin, append new org chart to chart div, set jorgdraganddrop to false to avoid conflicting compatibility issue with other jquery packages.
@@ -1919,23 +2387,46 @@ under the License.
 							        	$(this).parentsUntil( "tr" ).find( ".orgChartItem" ).addClass( "clicked" );
 										$(this).parentsUntil( "tr" ).find( ".orgChartItem" ).css("background-color","#80CCFF");
 										window.setPositionClicked=true;
-									});							        
+									});			
+									//Click Event Listener for each position on org chart				        
 							        $( ".orgChartItem" ).click(function() {
 							        	$( this ).addClass( "clicked" );
+							        	$( this ).addClass( "activeAncestor" );			
 										$(this).css("background-color","#80CCFF");
+										var activePositionUUID, activePositionCheckboxId; 
+										//set the active position
+										activePositionUUID = $(this).attr(data-thisUUID);
+										//get the id of the checkbox withing the position tile
+										activePositionCheckboxId = $(this).find("input").attr("id");
+//										updateObjecttoActiveInstanceArray(objectUUID, objectType, checkBoxId)		        	
+							        	updateObjecttoActiveInstanceArray(activePositionUUID, "&#x27;PS&#x27;", activePositionCheckboxId);	        	
 									});
 							        //Hover Function for interactive Org Chart
 									$( ".orgChartItem" ).hover(
 									  function() {
 									  	if($( this ).hasClass( "clicked" )){
-							        		$( this ).removeClass( "clicked" );
+									  		window.activeObjectsInstanceArray.PS.length = 0;
+									  		$(".clicked").css("background-color","#35363B");
+									  		$(".clicked").removeClass( "clicked" );
+											$(".clicked").parentsUntil( ".node-container" ).find( ".orgChartItem" ).removeClass('activeDescendant');
 							        		window.setPositionClicked=false;
 							        		$('#heirarchyObjectTree_ul').empty();
 							        		window.PS_counter = 1;
+											activePositionUUID = $(this).attr(data-thisUUID);
+											//get the id of the checkbox withing the position tile
+											activePositionCheckboxId = $(this).find("input").attr("id");
+
+	//										updateObjecttoActiveInstanceArray(objectUUID, objectType, checkBoxId)		        	
+								        	updateObjecttoActiveInstanceArray(activePositionUUID, "&#x27;PS&#x27;", activePositionCheckboxId);
 									  	}else{
-											$(this).parentsUntil( ".node-container" ).find( ".orgChartItem" ).css( "background-color", "green" );
+											$(this).parentsUntil( ".node-container" ).find( ".orgChartItem" ).css( "background-color", "green" ); 
+											$(this).parentsUntil( ".node-container" ).find( ".orgChartItem" ).addClass('activeDescendant');
 											//Finds the first parent in the dom tree that has the class .node.container then is searches within that parent to find items with class .orgChartItem and modifies their css
 											$(this).css("background-color","#80CCFF");
+
+
+
+
 									  	}
 									  }, function() {
 									  	if($(this).hasClass("clicked")){
@@ -1947,7 +2438,8 @@ under the License.
 									  	}
 									  }
 									);		
-									// Original Background Color: #35363B
+									// Original Background Color: #35363B //Grey
+									// Descendant Background Color: Green
 
 								$(".OC_Position").draggable({ 
 										revert: "valid", 
@@ -1985,14 +2477,11 @@ under the License.
 							         // alert($(event.target).attr('id')); 
 							         // alert("activeObjectUUID: " + window.activeObjectUUID);
 							         // window.disableSetActiveIdentifiers==false;
-
 							      }
 							    });
-
 							});
 						});	
-					}, 1500);	
-
+					}, 1500);
 				});  	
 			}  
         </script>
@@ -2007,12 +2496,12 @@ under the License.
 				}, function(res, status) {
 					$().toastmessage('showSuccessToast', res.message);
 				});
-					$('#ubmsuite_mcs_my_organizational_chart_content_manageOwners_content_addNewOwner_form').each(function() {
-						this.reset();
-					});
-					setTimeout(function() {
-						getListOfOwnerNames();	
-					}, 2000);
+				$('#ubmsuite_mcs_my_organizational_chart_content_manageOwners_content_addNewOwner_form').each(function() {
+					this.reset();
+				});
+				setTimeout(function() {
+					getListOfOwnerNames();	
+				}, 2000);
         	}
         </script>
 		<!-- End Org Chart Functions -->
@@ -2091,7 +2580,6 @@ under the License.
 		</style>
 	    <!-- JavaScript -->
 <!--	<script src="js/sign_in_sign_up/jquery-1.10.2.js"></script> Incompatible with Sign In Page -->
-	    <script src="js/sign_in_sign_up/bootstrap.js"></script>
 
 		
     </head>
@@ -2117,6 +2605,7 @@ under the License.
 			<ul class="menu_option">
 			  <li><a href="#sign_in_sign_up_openItem_popup" id="openItem_popup_button" data-rel="popup" data-transition="slideup" class="ui-btn ui-icon-action ui-btn-icon-notext ui-corner-all">No text</a></li>
 			  <li><a href="#" id="draggable_circle_linkTo_openPointsPage" class="ui-btn ui-icon-info ui-btn-icon-notext ui-corner-all"></a></li>
+			  <li><a href="#" id="showAddObjectMenu" class="ui-btn ui-icon-user ui-btn-icon-notext ui-corner-all"></a></li>
 			</ul>
         </div>
         <div id="mcs_preparedBy_popup" data-theme="a" data-position-to="window" style="display:none">
@@ -3344,7 +3833,7 @@ under the License.
 		</div>
 		<div data-role="page" class="ubm_page" id="ubmsuite_mcs_my_organizational_chart" data-theme="a">
 			<!-- UBM Suite Table of Contents Page-->
-			<div data-role="header" data-position="fixed" data-fullscreen="true" >
+			<div data-role="header" id="ubmsuite_mcs_my_organizational_chart_page_header" data-position="fixed" data-fullscreen="true" >
                 	<a href="#" class="back_btn" data-icon="arrow-l" data-iconpos="notext">Back</a>
 				<div id="ubmsuite_mcs_my_organizational_chart_header_headerRecord_center" style="text-align: center">
 					<div id="ubmsuite_mcs_my_organizational_chart_header_headerRecord_center_legalentity">
@@ -3409,7 +3898,19 @@ under the License.
                         </ul>
                     </form>
                 </div>
+
                 <!-- End Open Items Popup -->
+				<div data-role="popup" id="AddObjectsMenuPopup" class="draggable_popup"  data-theme="a" data-overlay-theme="b" class="ui-content" style="max-width:340px; padding-bottom:2em;">
+				    <h1>Add to Selected Positions?</h1>
+				    <p>This will add the selected object to all positions that appear blue on the org chart!</p>
+				    <a href="index.html" data-rel="back" class="ui-shadow ui-btn ui-corner-all ui-btn-b ui-icon-check ui-btn-icon-left ui-btn-inline ui-mini" onclick="removeActivePositionfromMyModel()">Confirm Remove Position</a>
+				    <a href="index.html" data-rel="back" class="ui-shadow ui-btn ui-corner-all ui-btn-inline ui-mini">Cancel</a>
+				    <h1>Add to children of Selected Positions?</h1>
+				    <p>This will add the selected object to all positions that appear green on the org chart!</p>
+				    <a href="index.html" data-rel="back" class="ui-shadow ui-btn ui-corner-all ui-btn-b ui-icon-check ui-btn-icon-left ui-btn-inline ui-mini" onclick="removeActivePositionfromMyModel()">Confirm Remove Position</a>
+				    <a href="index.html" data-rel="back" class="ui-shadow ui-btn ui-corner-all ui-btn-inline ui-mini">Cancel</a>
+				</div>	
+				<!-- End Add Object Popup -->
 				<div data-role="popup" id="ubmsuite_mcs_my_organizational_chart_confirm_remove_Position_popup"  data-theme="a" data-overlay-theme="b" class="ui-content" style="max-width:340px; padding-bottom:2em;">
 				    <h3>Remove Position?</h3>
 				    <p>Removing this position will remove all child positions!</p>
@@ -3420,31 +3921,31 @@ under the License.
 				    <h3>Remove Job Description?</h3>
 				    <p>Removing this Job Description will remove all child objects!</p>
 				    <a href="#" data-rel="back" class="ui-shadow ui-btn ui-corner-all ui-btn-b ui-icon-check ui-btn-icon-left ui-btn-inline ui-mini" onclick="removeActiveObjectfromMyModel()">Confirm Remove Job Description</a>
-				    <a href="" data-rel="back" class="ui-shadow ui-btn ui-corner-all ui-btn-inline ui-mini">Cancel</a>
+				    <a href="" data-rel="back" class="ui-shadow ui-btn ui-corner-all ui-btn-inline ui-mini">Close</a>
 				</div>		
 				<div data-role="popup" id="ubmsuite_mcs_my_organizational_chart_confirm_remove_Policy_popup"  data-theme="a" data-overlay-theme="b" class="ui-content" style="max-width:340px; padding-bottom:2em;">
 				    <h3>Remove Policy?</h3>
 				    <p>Removing this Policy will remove all child objects!</p>
 				    <a href="#" data-rel="back" class="ui-shadow ui-btn ui-corner-all ui-btn-b ui-icon-check ui-btn-icon-left ui-btn-inline ui-mini" onclick="removeActiveObjectfromMyModel()">Confirm Remove Policy</a>
-				    <a href="" data-rel="back" class="ui-shadow ui-btn ui-corner-all ui-btn-inline ui-mini">Cancel</a>
+				    <a href="" data-rel="back" class="ui-shadow ui-btn ui-corner-all ui-btn-inline ui-mini">Close</a>
 				</div>		
 				<div data-role="popup" id="ubmsuite_mcs_my_organizational_chart_confirm_remove_Procedure_popup"  data-theme="a" data-overlay-theme="b" class="ui-content" style="max-width:340px; padding-bottom:2em;">
 				    <h3>Remove Procedure?</h3>
 				    <p>Removing this Procedure will remove all child objects!</p>
 				    <a href="#" data-rel="back" class="ui-shadow ui-btn ui-corner-all ui-btn-b ui-icon-check ui-btn-icon-left ui-btn-inline ui-mini" onclick="removeActiveObjectfromMyModel()">Confirm Remove Procedure</a>
-				    <a href="" data-rel="back" class="ui-shadow ui-btn ui-corner-all ui-btn-inline ui-mini">Cancel</a>
+				    <a href="" data-rel="back" class="ui-shadow ui-btn ui-corner-all ui-btn-inline ui-mini">Close</a>
 				</div>					
 				<div data-role="popup" id="ubmsuite_mcs_my_organizational_chart_confirm_remove_Step_popup"  data-theme="a" data-overlay-theme="b" class="ui-content" style="max-width:340px; padding-bottom:2em;">
 				    <h3>Remove Step?</h3>
 				    <p>Removing this Step will remove all child objects!</p>
 				    <a href="#" data-rel="back" class="ui-shadow ui-btn ui-corner-all ui-btn-b ui-icon-check ui-btn-icon-left ui-btn-inline ui-mini" onclick="removeActiveObjectfromMyModel()">Confirm Remove Step</a>
-				    <a href="" data-rel="back" class="ui-shadow ui-btn ui-corner-all ui-btn-inline ui-mini">Cancel</a>
+				    <a href="" data-rel="back" class="ui-shadow ui-btn ui-corner-all ui-btn-inline ui-mini">Close</a>
 				</div>	
 				<div data-role="popup" id="ubmsuite_mcs_my_organizational_chart_confirm_remove_Task_popup"  data-theme="a" data-overlay-theme="b" class="ui-content" style="max-width:340px; padding-bottom:2em;">
 				    <h3>Remove Task?</h3>
 				    <p>Removing this Task will remove all child objects!</p>
 				    <a href="#" data-rel="back" class="ui-shadow ui-btn ui-corner-all ui-btn-b ui-icon-check ui-btn-icon-left ui-btn-inline ui-mini" onclick="removeActiveObjectfromMyModel()">Confirm Remove Task</a>
-				    <a href="" data-rel="back" class="ui-shadow ui-btn ui-corner-all ui-btn-inline ui-mini">Cancel</a>
+				    <a href="" data-rel="back" class="ui-shadow ui-btn ui-corner-all ui-btn-inline ui-mini">Close</a>
 				</div>	
 				<!-- Move, Copy or Add attachment -->
 				<div data-role="popup" id="ubmsuite_mcs_my_organizational_chart_confirm_move_copy_add_popup"  data-theme="a" data-overlay-theme="b" class="ui-content" style="max-width:340px; padding-bottom:2em;">
@@ -3625,10 +4126,11 @@ under the License.
 				<div data-role="popup" id="ubmsuite_mcs_my_organizational_chart_content_manageTaskPopUp">
 					<a href="#" onclick="createNewTask();getListofPossibleTasks()" data-rel="popup" data-transition="pop" class="my-tooltip-btn ui-btn ui-alt-icon ui-nodisc-icon ui-btn-inline ui-icon-plus ui-btn-icon-notext" title="Add a New Job Description">Add a New Task</a>
 				</div>
-	    		<div data-role="popup" id="ubmsuite_mcs_my_organizational_chart_content_createNewJobDescriptionPopUp"  data-theme="a" class="ui-corner-all draggable_popup">
+	    		<div data-role="popup" id="ubmsuite_mcs_my_organizational_chart_content_createNewJobDescriptionPopUp" data-position-to="window" data-theme="a" class="ui-corner-all draggable_popup" style="max-width:60%;">
 				    <div id="ubmsuite_mcs_my_organizational_chart_content_createNewJobDescriptionPopUp_header" data-role="header" data-theme="a">
+						<a href="#" data-rel="back" data-role="button" data-theme="a" data-icon="delete" data-iconpos="notext" class="ui-btn-left">Close</a>
 						<h1 style="white-space:normal;">Add New Job Description</h1>
-						<a href="#" data-rel="back" data-role="button" data-theme="a" data-icon="delete" data-iconpos="notext" class="ui-btn-right">Close</a>
+						<a href="#" onclick="getListofPossibleJobDescriptions();" data-role="button" data-theme="a" data-icon="refresh" data-iconpos="notext" class="ui-btn-right">Refresh</a>
 				    </div>	    			
 	    			<div class="ui-grid-a">
 					    <div class="ui-block-a">
@@ -3649,10 +4151,26 @@ under the License.
 					</div>
 					    <div class="ui-block-b">
 							<div style="padding:10px 20px;">
-								<h2>All UBM Predefined Job Descriptions</h2>
-								<ul data-role="listview" id="ubmsuite_mcs_my_organizational_chart_content_createNewJobDescriptionPopUp_form_UBMRepository"data-inset="true" data-filter="true" data-filter-placeholder="Search UBM Reference Manual" style="max-height:400px; padding-bottom:2em; overflow-y:scroll;">
+								<h2>All UBM Predefined Job Descriptions</h2>	
+								<button class="check">Check/Uncheck All</button>				
+							    <ul data-role="listview" data-split-icon="info" id="ubmsuite_mcs_my_organizational_chart_content_createNewJobDescriptionPopUp_form_UBMRepository" data-split-theme="c" data-inset="true"  data-filter-placeholder="Search UBM Reference Manual"  data-split-theme="c" data-filter="true" style="max-height:400px; padding-bottom:2em; overflow-y:scroll;">
 
-								</ul>
+						        </ul>
+						        <div class="ui-grid-a">
+						        	<div class="ui-block-a">
+						        		</br>
+						        		<p>Add Selected Job Descriptions to:</p> 
+										<select name="select-choice-mini" id="select-choice-mini" data-mini="true" data-inline="true">
+										    <option value="rush">Active Position(s)</option>
+										    <option value="express">All children of Active</option>
+										</select>						        	
+						        	</div>
+						        	<div class="ui-block-b">
+						        		</br>
+						        		<p>Caution, This feature could potentially modify a large portion of your model. This will add all of the selected JDs in the list above to your model. Changes will appear immediately.</p> 
+								        <a href="#" class="ui-btn" onclick="addMultipleJobDescriptionstoMyModel()">Submit Changes</a>				        		
+						        	</div>
+						        </div>								
 							</div>
 						</div>
 				    </div>
@@ -3730,8 +4248,9 @@ under the License.
 				</div>
 				<div data-role="popup" id="ubmsuite_mcs_my_organizational_chart_content_createNewPolicyPopUp"  data-theme="a" class="ui-corner-all draggable_popup">
 					<div data-role="header">
-						<h1>New Policy Popup</h1>
-						<a href="#" data-rel="back" data-role="button" data-theme="a" data-icon="delete" data-iconpos="notext" class="ui-btn-right">Close</a>
+						<a href="#" data-rel="back" data-role="button" data-theme="a" data-icon="delete" data-iconpos="notext" class="ui-btn-left">Close</a>
+						<h1 style="white-space:normal;">Add New Policies</h1>
+						<a href="#" onclick="getListofPossiblePolicies();" data-role="button" data-theme="a" data-icon="refresh" data-iconpos="notext" class="ui-btn-right">Refresh</a>
 					</div>
 					<div class="ui-grid-a">
 					    <div class="ui-block-a">
@@ -3761,7 +4280,22 @@ under the License.
 						    	<center><h2>All UBM Predefined Policies</h2></center>
 								<ul data-role="listview" id="ubmsuite_mcs_my_organizational_chart_content_createNewPolicyPopUp_form_UBMRepository"data-inset="true" data-filter="true" data-filter-placeholder="Search UBM Reference Manual" style="max-height:400px; padding-bottom:2em; overflow-y:scroll;">
 
-								</ul>
+								</ul>								
+								<div class="ui-grid-a">
+						        	<div class="ui-block-a">
+						        		</br>
+						        		<p>Add Selected Policies to:</p> 
+										<select name="select-choice-mini" id="select-choice-mini" data-mini="true" data-inline="true">
+										    <option value="rush">Active Position(s)</option>
+										    <option value="express">All children of Active</option>
+										</select>						        	
+						        	</div>
+						        	<div class="ui-block-b">
+						        		</br>
+						        		<p>Caution, This feature could potentially modify a large portion of your model. This will add all of the selected PL's in the list above to your model. Changes will appear immediately.</p> 
+								        <a href="#" class="ui-btn" onclick="addMultiplePoliciestoMyModel()">Submit Changes</a>				        		
+						        	</div>
+						        </div>	
 							</div>
 					    </div>
 					</div>
@@ -3769,8 +4303,9 @@ under the License.
 				</div>	
 				<div data-role="popup" id="ubmsuite_mcs_my_organizational_chart_content_createNewProcedurePopUp"  data-theme="a" class="ui-corner-all draggable_popup">
 					<div data-role="header">
-						<h1>New Procedure Popup</h1>
-						<a href="#" data-rel="back" data-role="button" data-theme="a" data-icon="delete" data-iconpos="notext" class="ui-btn-right">Close</a>
+						<a href="#" data-rel="back" data-role="button" data-theme="a" data-icon="delete" data-iconpos="notext" class="ui-btn-left">Close</a>
+						<h1 style="white-space:normal;">Add New Procedures</h1>
+						<a href="#" onclick="getListofPossibleProcedures();" data-role="button" data-theme="a" data-icon="refresh" data-iconpos="notext" class="ui-btn-right">Refresh</a>
 					</div>					
 					<div class="ui-grid-a">
 					    <div class="ui-block-a">
@@ -3787,19 +4322,34 @@ under the License.
 						    </form>
 					    </div>
 					    <div class="ui-block-b">
-					    	<form>
+							<div style="padding:10px 20px;">
 								<h3>All UBM Predefined Procedures</h3>
 								<ul data-role="listview" id="ubmsuite_mcs_my_organizational_chart_content_createNewProcedurePopUp_form_UBMRepository"data-inset="true" data-filter="true" data-filter-placeholder="Search UBM Reference Manual" style="max-height:400px; padding-bottom:2em; overflow-y:scroll;">
 
 								</ul>
-							</form>
+								<div class="ui-grid-a">
+						        	<div class="ui-block-a">
+						        		</br>
+						        		<p>Add Selected Procedures to:</p> 
+										<select name="select-choice-mini" id="select-choice-mini" data-mini="true" data-inline="true">
+										    <option value="rush">Active Position(s)</option>
+										    <option value="express">All children of Active</option>
+										</select>						        	
+						        	</div>
+						        	<div class="ui-block-b">
+						        		</br>
+						        		<p>Caution, This feature could potentially modify a large portion of your model. This will add all of the selected PR's in the list above to your model. Changes will appear immediately.</p> 
+								        <a href="#" class="ui-btn" onclick="addMultipleProcedurestoMyModel()">Submit Changes</a>				        		
+						        	</div>
+						        </div>									
+							</div>
 					    </div>
 					</div>
 				</div>	
 				<div data-role="popup" id="ubmsuite_mcs_my_organizational_chart_content_createNewStepPopUp"  data-theme="a" class="ui-corner-all draggable_popup">
 					<div data-role="header">
-						<a href="index.html" class="ui-btn ui-shadow ui-corner-all ui-icon-delete ui-btn-icon-notext">Delete</a>
-						<h1>New Step Popup</h1>
+						<a href="#" class="ui-btn ui-shadow ui-corner-all ui-icon-delete ui-btn-icon-notext">Delete</a>
+						<h1>Add New Step</h1>
 						<a onclick="window.ListofStepsRetrieved=false; getListofPossibleSteps();" class="ui-btn ui-shadow ui-corner-all ui-icon-refresh ui-btn-icon-notext">Refresh</a>
 					</div>					
 					<div class="ui-grid-a">
@@ -3819,14 +4369,33 @@ under the License.
 								<ul data-role="listview" id="ubmsuite_mcs_my_organizational_chart_content_createNewStepPopUp_form_UBMRepository"data-inset="true" data-filter="true" data-filter-placeholder="Search UBM Reference Manual" style="max-height:400px; padding-bottom:2em; overflow-y:scroll;">
 
 								</ul>
+								<ul data-role="listview" id="ubmsuite_mcs_my_organizational_chart_content_createNewStepPopUp_form_UBMRepository_Test"data-inset="true" data-filter="true" data-filter-placeholder="Search UBM Reference Manual" style="max-height:400px; padding-bottom:2em; overflow-y:scroll;">
+
+								</ul>
+								<div class="ui-grid-a">
+						        	<div class="ui-block-a">
+						        		</br>
+						        		<p>Add Selected Step to:</p> 
+										<select name="select-choice-mini" id="select-choice-mini" data-mini="true" data-inline="true">
+										    <option value="rush">Active Position(s)</option>
+										    <option value="express">All children of Active</option>
+										</select>						        	
+						        	</div>
+						        	<div class="ui-block-b">
+						        		</br>
+						        		<p>Caution, This feature could potentially modify a large portion of your model. This will add all of the selected ST's in the list above to your model. Changes will appear immediately.</p> 
+								        <a href="#" class="ui-btn" onclick="addMultipleStepstoMyModel()">Submit Changes</a>				        		
+						        	</div>
+						        </div>									
 							</div>
 					    </div>
 					</div>
 				</div>	
 				<div data-role="popup" id="ubmsuite_mcs_my_organizational_chart_content_createNewTaskPopUp"  data-theme="a" class="ui-corner-all draggable_popup">
 					<div data-role="header">
-						<h1>New Task Popup</h1>
-						<a href="#" data-rel="back" data-role="button" data-theme="a" data-icon="delete" data-iconpos="notext" class="ui-btn-right">Close</a>
+						<a href="#" data-rel="back" data-role="button" data-theme="a" data-icon="delete" data-iconpos="notext" class="ui-btn-left">Close</a>
+						<h1 style="white-space:normal;">Add New Task</h1>
+						<a href="#" onclick="getListofPossiblePolicies();" data-role="button" data-theme="a" data-icon="refresh" data-iconpos="notext" class="ui-btn-right">Refresh</a>
 					</div>					
 					<div class="ui-grid-a">
 					    <div class="ui-block-a">
@@ -3840,13 +4409,28 @@ under the License.
 						    </form>
 					    </div>
 					    <div class="ui-block-b">
-					    	<form>
+							<div style="padding:10px 20px;">
 								<h3>All UBM Predefined Tasks</h3>
 								<ul data-role="listview" id="ubmsuite_mcs_my_organizational_chart_content_createNewTaskPopUp_form_UBMRepository"data-inset="true" data-filter="true" data-filter-placeholder="Search UBM Reference Manual" style="max-height:400px; padding-bottom:2em; overflow-y:scroll;">
 
 								</ul>
-							</form>
-					    </div>
+								<div class="ui-grid-a">
+						        	<div class="ui-block-a">
+						        		</br>
+						        		<p>Add Selected Task to:</p> 
+										<select name="select-choice-mini" id="select-choice-mini" data-mini="true" data-inline="true">
+										    <option value="rush">Active Position(s)</option>
+										    <option value="express">All children of Active</option>
+										</select>						        	
+						        	</div>
+						        	<div class="ui-block-b">
+						        		</br>
+						        		<p>Caution, This feature could potentially modify a large portion of your model. This will add all of the selected TK's in the list above to your model. Changes will appear immediately.</p> 
+								        <a href="#" class="ui-btn" onclick="addMultipleTaskstoMyModel()">Submit Changes</a>				        		
+						        	</div>
+						        </div>	
+							</div>					    
+						</div>
 					</div>
 				    
 				</div>	
@@ -3918,29 +4502,124 @@ under the License.
 						</li>
 				   </ul>            
 			    </div>
-			    <center>
-				    <div id="chart_Container" style="max-height:500px; max-width:90%; display:inline-block; overflow-y:scroll;">
-					    <div id="chart" class="orgChart org_chart">
-					    	
-					    </div>				    	
-				    </div>
-			    </center>
-			    	<center>
-							<div id="heirarchyObjectTree_container" style="max-width:90%; margin-top:40px;">
-								<div id="heirarchyObjectTree_container_header">
-									<center>Position Hierarchy</center>
-									<div id="heirarchyObjectTree_container_header_currentObject">
+				    <center>
+					    <div id="chart_Container" style="max-height:500px; max-width:90%; display:inline-block; overflow-y:scroll;">
+						    <div id="chart" class="orgChart org_chart">
+						    	
+						    </div>				    	
+					    </div>
+				    </center>
+				    <center>
+						<!-- Single button -->
+						<div class="btn-group">
+						  <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown">
+						    Add Job Description <span class="caret"></span>
+						  </button>
+						  <ul class="dropdown-menu" role="menu">
+						    <li><a href="#" onclick="window.addToAllSelected=false; alert('Your current selection will add objects to the one previous position you selected above.');">Add to previously selected (one)</a></li>
+						    <li><a href="#" onclick="window.addToAllSelected=true; alert('Your current selection will add objects to all light blue positions above.'); openNewJDPopup();">Add to all Selected (many)</a></li>
+						    <li class="divider"></li>
+<!-- 						    <li><a href="#">Add to Children of Selected</a></li>
+ -->						  </ul>
+						</div>	
+						<!-- Single button -->
+						<div class="btn-group">
+						  <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown">
+						    Add Policy <span class="caret"></span>
+						  </button>
+						  <ul class="dropdown-menu" role="menu">
+						    <li><a href="#" onclick="window.addToAllSelected=false; alert('Your current selection will add objects to the one previous position you selected above.');">Add to previously selected (one)</a></li>
+						    <li><a href="#" onclick="window.addToAllSelected=true; alert('Your current selection will add objects to all light blue positions above.'); openNewJDPopup();">Add to all Selected (many)</a></li>
+						    <li class="divider"></li>
+<!-- 						    <li><a href="#">Add to Children of Selected</a></li>
+ -->						  </ul>
+						</div>	
+						<div class="btn-group">
+						  <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown">
+						    Add Procedure <span class="caret"></span>
+						  </button>
+						  <ul class="dropdown-menu" role="menu">
+						    <li><a href="#" onclick="window.addToAllSelected=false; alert('Your current selection will add objects to the one previous position you selected above.');">Add to previously selected (one)</a></li>
+						    <li><a href="#" onclick="window.addToAllSelected=true; alert('Your current selection will add objects to all light blue positions above.'); openNewJDPopup();">Add to all Selected (many)</a></li>
+						    <li class="divider"></li>
+<!-- 						    <li><a href="#">Add to Children of Selected</a></li>
+ -->						  </ul>
+						</div>	
+						<div class="btn-group">
+						  <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown">
+						    Add Step <span class="caret"></span>
+						  </button>
+						  <ul class="dropdown-menu" role="menu">
+						    <li><a href="#" onclick="window.addToAllSelected=false; alert('Your current selection will add objects to the one previous position you selected above.');">Add to previously selected (one)</a></li>
+						    <li><a href="#" onclick="window.addToAllSelected=true; alert('Your current selection will add objects to all light blue positions above.'); openNewJDPopup();">Add to all Selected (many)</a></li>
+						    <li class="divider"></li>
+<!-- 						    <li><a href="#">Add to Children of Selected</a></li>
+ -->						  </ul>
+						</div>	
+						<div class="btn-group">
+						  <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown">
+						    Add Task <span class="caret"></span>
+						  </button>
+						  <ul class="dropdown-menu" role="menu">
+						    <li><a href="#" onclick="window.addToAllSelected=false; alert('Your current selection will add objects to the one previous position you selected above.');">Add to previously selected (one)</a></li>
+						    <li><a href="#" onclick="window.addToAllSelected=true; alert('Your current selection will add objects to all light blue positions above.'); openNewJDPopup();">Add to all Selected (many)</a></li>
+						    <li class="divider"></li>
+<!-- 						    <li><a href="#">Add to Children of Selected</a></li>
+ -->						  </ul>
+						</div>					    	
+				    </center>
+					<div id="control_container">
+			    	<style type="text/css">
+							.scale_x4 {
+							    -webkit-transform: scale(0.8);
+							    -moz-transform: scale(0.8);
+							    -ms-transform: scale(0.8);
+							    -o-transform: scale(0.8);
+							    transform: scale(0.8);
+							}
+							.scale_x2 {
+							    -webkit-transform: scale(0.9);
+							    -moz-transform: scale(0.9);
+							    -ms-transform: scale(0.9);
+							    -o-transform: scale(0.9);
+							    transform: scale(0.9);
+							}
+							#control_container{
+								position:relative;
+								left: 50px;
+								top: 30px;
+							}
+			    	</style>
+						<p>Zoom</p>	
+					    <div id="custom-border-radius">
+					        <div class="zoom orig ui-input-btn ui-btn ui-icon-plus ui-btn-icon-notext ui-corner-all">
+					            Original
+					            <input type="button" data-enhanced="true" title="Original" value="Enhanced - Icon only">
+					        </div>
+					    </div>	
+					    <div id="custom-border-radius">
+					        <div class="zoom x4 ui-input-btn ui-btn ui-icon-minus ui-btn-icon-notext ui-corner-all">
+					             Zoom Out
+					            <input type="button" data-enhanced="true" title="Zoom Out" value="Enhanced - Icon only">
+					        </div>
+					    </div>		
+					</div>
+			    	<center>    			
+						<div id="heirarchyObjectTree_container" style="max-width:90%; margin-top:40px;">
+							<div id="heirarchyObjectTree_container_header">
+								<center>Position Hierarchy</center>
+								<div id="heirarchyObjectTree_container_header_currentObject">
 
-									</div>
 								</div>
-								<div id="heirarchyObjectTree" class="heirarchyObjectTree" style="height:450px; overflow-x:scroll; overflow-y:scroll;" >
-									<ul id="heirarchyObjectTree_ul" >
-											<!--
-											heirarchyObjectTree uses CSS(3) to display objects.
-											-->										
-									</ul>
-								</div>					
-							</div>				    		
+							</div>
+							<div id="heirarchyObjectTree" class="heirarchyObjectTree" style="height:450px; width:10000px; overflow-x:scroll; overflow-y:scroll;" >
+								<ul id="heirarchyObjectTree_ul" >
+										<!--
+										heirarchyObjectTree uses CSS(3) to display objects.
+										-->										
+								</ul>
+							</div>					
+						</div>				    		
 			    	</center>
 			    		</br>
 			    		</br>
@@ -15083,10 +15762,10 @@ under the License.
                                         <textarea data-mini="true" cols="40" rows="8" id="open_points_action_items_submitComment_form_comment" placeholder="Type your comment here..."></textarea>
                                     </li>
                                     <li>
+                                    	<p>Comment Type...</p>
                                         <select  id="open_points_action_items_submitComment_form_type" value="Select" data-native-menu="false">
-                                            <option>Comment Type...</option>
-                                            <option value="Urgent Request">Urgent Request</option>
                                             <option value="General Request">General Comment</option>
+                                            <option value="Urgent Request">Urgent Request</option>
                                             <option value="Suggestion">Suggestion</option>
                                             <option value="Request to Close Item">Request to Close Item</option>
                                         </select>
@@ -15218,6 +15897,7 @@ under the License.
 		<script src='js/removeModel.js'></script>
 		<script src='js/printHierarchicalObjects.js'></script>
 		<script src='js/tableSorter.js'></script>
+
     </body>
 </html>
 

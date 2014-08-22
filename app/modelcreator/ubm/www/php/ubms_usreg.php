@@ -12,7 +12,6 @@ $conn = new mysqli($DBServer, $DBUser, $DBPass, $DBName);
 if ($conn->connect_error) {
     trigger_error('Database connection failed: ' . $conn->connect_error, E_USER_ERROR);
 }
-
 $v2 = "'" . $conn->real_escape_string($aname) . "'";
 $v3 = "'" . $conn->real_escape_string($RQType) . "'";
 $v4 = "'" . $conn->real_escape_string($usremail) . "'";

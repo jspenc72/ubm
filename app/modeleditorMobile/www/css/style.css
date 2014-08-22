@@ -1,0 +1,97 @@
+@import url(http://fonts.googleapis.com/css?family=Exo:100,200,400);
+@import url(http://fonts.googleapis.com/css?family=Source+Sans+Pro:700,400,300);
+@media only screen and (max-width: 1150px) {
+    .loginform {
+		margin-left: 25%;
+		margin-right: 25%;
+    }
+    .login_header {
+		margin-left: 25%;
+		margin-right: 25%;
+    }
+	.login_container{
+		position: absolute;
+		margin-top: 100px;
+	}
+}
+@media all and (max-width: 425px) {
+	.my-breakpoint .ui-block-a, 
+	.my-breakpoint .ui-block-b, 
+	.my-breakpoint .ui-block-c,
+	.my-breakpoint .ui-block-d,
+	.my-breakpoint .ui-block-e { 
+		width: 100%; 
+		float:none; 
+	}
+}
+.ubm_page{
+
+	background-image: url(http://heysaltlake.org/wp-content/uploads/2013/12/thecity.jpg);
+	background-size: cover;
+	z-index: 0;
+}
+.login_grad{
+	position: absolute;
+	top: -20px;
+	left: -20px;
+	right: -40px;
+	bottom: -270px;
+	width: auto;
+	height: auto;
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(0,0,0,0)), color-stop(100%,rgba(0,0,0,0.65))); /* Chrome,Safari4+ */
+	z-index: 0;
+	opacity: 0.9;
+}
+.login_container{
+	position: absolute;
+	margin-top: 15%;
+	min-width: 70%;
+	height: 400px;
+	margin-left: 15%;
+	margin-right: 15%;
+}
+
+.login_header{
+	max-width:70%; 
+	min-width:50%; 
+	float:left;
+	margin-top: 55px;
+
+}
+
+.login_header div{
+	color: #fff;
+	font-family: 'Exo', sans-serif;
+	font-size: 35px;
+	font-weight: 200;
+}
+
+.login_header div span{
+	color: #5379fa !important;
+}
+
+.loginform{
+	max-width:50%; 
+	min-width:50%; 
+	float:left;
+	z-index: 2;
+}
+
+.loginform input{
+	width: 250px;
+	height: 30px;
+	background: transparent;
+	font-family: 'Exo', sans-serif;
+	font-weight: 400;
+}
+
+.loginform input[type=button]{
+	width: 100%;
+	height: 35px;
+	background: #fff;
+	cursor: pointer;
+	color: #a18d6c;
+	font-family: 'Exo', sans-serif;
+	font-size: 16px;
+	font-weight: 400;
+}

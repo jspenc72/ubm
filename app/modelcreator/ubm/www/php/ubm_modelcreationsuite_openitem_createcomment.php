@@ -42,17 +42,79 @@ $numberofresolutions = 2;
 			  $last_inserted_id = $conn->insert_id;
 			  $affected_rows = $conn->affected_rows;
 			}
-		  	echo $_GET['callback'] . '(' . "{'message' : 'The number of affected rows is $affected_rows. The openitemid modified was $openitemid!'}" . ')';
+	//SELECT Resolutions
+		$sqlsel="SELECT * FROM ubm_mcs_app_resolutions WHERE openitemid=$openitemid";
+		 
+		$rs=$conn->query($sqlsel);
+		 
+		if($rs === false) {
+		  trigger_error('Wrong SQL: ' . $sqlsel . ' Error: ' . $conn->error, E_USER_ERROR);
+		} else {
+		  $rows_returned = $rs->num_rows;
+				//Send Text Message to appropriate user.
+		}
+	//SELECT Comments
+			$sqlsel="SELECT * FROM ubm_mcs_app_item_comments WHERE openitemid=$openitemid";
+			 
+			$rs=$conn->query($sqlsel);
+			 
+			if($rs === false) {
+			  trigger_error('Wrong SQL: ' . $sqlsel . ' Error: ' . $conn->error, E_USER_ERROR);
+			} else {
+			  $rows_returned = $rows_returned + $rs->num_rows;
+					//Send Text Message to appropriate user.
+			}		
+	//UPDATE
+	 		//$v1="'" . $conn->real_escape_string($disposition) . "'";			 
+			$sql="UPDATE `ubm_mcs_app_openitems` SET number_resolutions=$rows_returned WHERE id=$openitemid";
+			if($conn->query($sql) === false) {
+			  trigger_error('Wrong SQL: ' . $sql . ' Error: ' . $conn->error, E_USER_ERROR);
+			} else {
+			  $affected_rows = $conn->affected_rows;
+			  echo $_GET['callback'] . '(' . "{'message' : 'The number of affected rows is $affected_rows, the number of resolutions is: $rows_returned the openitemid modified was $openitemid!'}" . ')';
+			}
+//SELECT
+			$sqlsel1="SELECT * FROM ubm_mcs_app_openitems WHERE id=$openitemid";
+			$rs1=$conn->query($sqlsel1);
+			if($rs1 === false) {
+			  trigger_error('Wrong SQL: ' . $sqlsel1 . ' Error: ' . $conn->error, E_USER_ERROR);
+			} else {
+			  $rows_returned = $rs1->num_rows;
+			  	 // echo "$v2 and $openitemid and rows: $rows_returned";
+				while ($items1 = $rs1->fetch_assoc()) {
+					$openItemAuthor = stripslashes($items1['opened_by']);
+				//Send Text Message to appropriate user.
+					$sqlsel2="SELECT * FROM members WHERE username='$author'";
+					$rs2=$conn->query($sqlsel2);
 
-//Send Email Message 
-$to = "jspenc72@gmail.com";
-$subject = "A new Comment has bee submitted for open item# $openitemid!";
-$message = "$usrname submitted a comment using the UBMChangeRequest app. Current latitude is $lat Current longitude is $lng";
-$from = "notify@universalbusinessmodel.com";
-$headers = "From:" . $from;
-mail($to,$subject,$message,$headers);
-//echo "Mail Sent.";
-/*http://www.pontikis.net/blog/how-to-use-php-improved-mysqli-extension-and-why-you-should
+					if($rs2 === false) {
+					  trigger_error('Wrong SQL: ' . $sqlsel2 . ' Error: ' . $conn->error, E_USER_ERROR);
+					} else {
+						$rows_returned = $rs2->num_rows;
+						while ($items1 = $rs2->fetch_assoc()) {
+							$openItemAuthorWC = stripslashes($items1['wireless_carrier']);
+							$openItemAuthorPhone = stripslashes($items1['phone_number']);
+							if($openItemAuthorWC=="Verizon"){
+								mail("$openItemAuthorPhone@vtext.com", "", "$author commented on ur open item: $comment", "From: App <openitem@universalbusinessmodel.com>\r\n");
+								mail("8018287454@vtext.com", "", "UBM SMS 4 $openItemAuthor. Comment By: $author Disp: $comment", "From: App <openitem@universalbusinessmodel.com>\r\n");
+								mail("8019464515@vtext.com", "", "UBM SMS 4 $openItemAuthor. Comment By: $author Disp: $comment", "From: App <openitem@universalbusinessmodel.com>\r\n");
+								mail("8016086458@vtext.com", "", "UBM SMS 4 $openItemAuthor. Comment By: $author Disp: $comment", "From: App <openitem@universalbusinessmodel.com>\r\n");
+							}else{
+								mail("8016086458@vtext.com", "", "Wireless carrier type for $openItemAuthor unknown. Closed By: $closed_by Disposition: $disposition ", "From: App <notify@universalbusinessmodel.com>\r\n");
+							}
+						}
+					}
+				}
+			}
+			//Send Email Message 
+			$to = "jspenc72@gmail.com";
+			$subject = "A new Comment has bee submitted for open item# $openitemid!";
+			$message = "$usrname submitted a comment using the UBMChangeRequest app. Current latitude is $lat Current longitude is $lng";
+			$from = "notify@universalbusinessmodel.com";
+			$headers = "From:" . $from;
+			mail($to,$subject,$message,$headers);
+			//echo "Mail Sent.";
+			/*http://www.pontikis.net/blog/how-to-use-php-improved-mysqli-extension-and-why-you-should
 	 * SELECT
 				$sql='SELECT col1, col2, col3 FROM table1 WHERE condition';
 				 

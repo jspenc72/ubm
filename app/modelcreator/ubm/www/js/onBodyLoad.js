@@ -234,15 +234,6 @@ function onLoadBody() {
                 }
             }
         }
-        //      alert(window.location.hash);                                    //outputs the original hash
-        //alert(strarray[1]);                                               //outputs the split string which has the hash removed
-        $.getJSON('http://api.universalbusinessmodel.com/getubmpagereference.php?callback=?', { //JSONP Request to the app_pages table.
-            key: window.key,
-            pageid: strarray[1] // sends the current page to the server.
-        }, function(res, status) {
-            //  alert("json returned successfully! "+ status);
-            //  alert(res.message); // Alerts the current page which was sent in the call back from the server.
-        });
     });
     $("#si_email").focus();
 }

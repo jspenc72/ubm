@@ -10,7 +10,7 @@
 			    printf("Connect failed: %s\n", mysqli_connect_error());
 			    exit();
 			}
-			$query = "SELECT * FROM `ubm_model_steps`";
+			$query = "SELECT * FROM `ubm_model_steps` ORDER BY title ASC";
 			$result = mysqli_query($sqllink, $query);
 			if (!$result) { //there is a problem with the table
 			}

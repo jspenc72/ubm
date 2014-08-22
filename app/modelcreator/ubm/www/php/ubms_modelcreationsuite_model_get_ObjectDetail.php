@@ -1,14 +1,13 @@
 <?php
 require_once('globalGetVariables.php');
-//require_once('ubms_db_config.php');
+require_once('ubms_db_config.php');
 require_once('DBConnect_UBMv1.php');		//Provides the variables used for UBMv1 database connection $conn
-
 $conn = new mysqli($DBServer, $DBUser, $DBPass, $DBName);
 // check connection
 if ($conn -> connect_error) {
 	trigger_error('Database connection failed: ' . $conn -> connect_error, E_USER_ERROR);
 }
-$v2 = "'" . $conn -> real_escape_string($activeUUID) . "'";
+$v2 = "'" . $conn -> real_escape_string($activeObjectUUID) . "'";
 //SELECT
 $all_items = array();
 //1. Select all records for checklist items stored in model_creation_suite, Count the number of items in the checklist.
@@ -24,10 +23,11 @@ $all_items = array();
 						$positionId = stripslashes($items['position_id']);
 						$jobDescriptionId = stripslashes($items['jobDescription_id']);
 						$policyId = stripslashes($items['policy_id']);
+						$checklistId = stripslashes($items['checklist_id']);
+						$checklistItemId = stripslashes($items['checklistItem_id']);
 						$procedureId = stripslashes($items['procedure_id']);
 						$stepId = stripslashes($items['step_id']);
 						$taskId = stripslashes($items['task_id']);
-						
 						if($modelId >= 1) {
 							$objectType = "MD";
 							$sqlsel2="SELECT * FROM ubm_model WHERE id=$modelId";
@@ -43,6 +43,14 @@ $all_items = array();
 						} elseif ($policyId >=1) {
 							$objectType = "PL";
 							$sqlsel2="SELECT * FROM ubm_model_policies WHERE id=$policyId";
+							$rs2=$conn->query($sqlsel2);
+						} elseif ($checklistId >=1) {
+							$objectType = "CL";
+							$sqlsel2="SELECT * FROM ubm_model_checklists WHERE id=$checklistId";
+							$rs2=$conn->query($sqlsel2);
+						} elseif ($checklistItemId>=1) {
+							$objectType = "CLI";
+							$sqlsel2="SELECT * FROM ubm_model_checklistItems WHERE id=$checklistItemId";
 							$rs2=$conn->query($sqlsel2);
 						} elseif ($procedureId >=1) {
 							$objectType = "PR";

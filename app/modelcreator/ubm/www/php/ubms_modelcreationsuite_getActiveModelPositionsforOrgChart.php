@@ -12,7 +12,7 @@ $conn = new mysqli($DBServer, $DBUser, $DBPass, $DBName);
 if ($conn->connect_error) {
     trigger_error('Database connection failed: ' . $conn->connect_error, E_USER_ERROR);
 }
-
+$v2 = "'" . $conn->real_escape_string($activeModelOwnersUUID) . "'";
 //SELECT
 $all_items = array();
 
@@ -27,7 +27,7 @@ $sqlsel1 = "SELECT *
                 ON ubm_modelcreationsuite_heirarchy_object_antiSolipsism_UUID.position_id=ubm_model_positions.id  
                 LEFT JOIN ubm_modelCreationSuite_position_has_members
                 ON ubm_modelCreationSuite_position_has_members.position_UUID=ubm_modelcreationsuite_heirarchy_object_antiSolipsism_UUID.UUID                   
-                WHERE ubm_model_position_closure.ancestor_UUID=$activeModelOwnersUUID
+                WHERE ubm_model_position_closure.ancestor_UUID=$v2
                 GROUP BY ubm_modelcreationsuite_heirarchy_object_antiSolipsism_UUID.UUID";
 
 //NEED to add if statment that retrieves the record where the current

@@ -46,15 +46,13 @@ function getMyModels() { //Get all models in database where current user is the 
         $('#ubmsuite_SelectBusinessModel_MyModels_ul').append("<li data-role='list-divider'><center>Models I Created</center></li>");
         $('#ubmsuite_SelectBusinessModel_MyModels_ul').listview().listview("refresh");
         $.each(res, function(i, item) {
-            $('#ubmsuite_SelectBusinessModel_MyModels_ul').append("<li id='creator_name_list_divider' data-role='list-divider' >Model Contact: " + item.model_contact_name + "</li>");
+            $('#ubmsuite_SelectBusinessModel_MyModels_ul').append("<li id='creator_name_list_divider' data-role='list-divider' >Model Creator: " + item.creator_id + "</li>");
             $('#ubmsuite_SelectBusinessModel_MyModels_ul').append("<li><a href='#ubmsuite_modelDashboard' onclick='setActiveModel(" + item.UUID + ")'></br></br></br><h2 style='white-space:normal;'>Title: " + item.title + "</h2><p><strong>Model Reference: " + item.reference + "</strong></p><p style='white-space:normal;'>" + item.description + "</p><p class='ui-li-aside'>Creation Date:</br> <strong>" + item.created_date + "</strong></p></a></li>");
             $('#ubmsuite_SelectBusinessModel_MyModels_ul').listview().listview("refresh");
             $(".model_listItem").hover();
         });
         getSharedModels();
     });
-
-
 }
 
 function getSharedModels() { //Get all models in database where current user is the creator.
@@ -67,7 +65,7 @@ function getSharedModels() { //Get all models in database where current user is 
         $('#ubmsuite_SelectBusinessModel_SharedModels_ul').listview().listview("refresh");
         $.each(res, function(i, item) {
             if (window.username !== item.creator_id) {
-                $('#ubmsuite_SelectBusinessModel_SharedModels_ul').append("<li data-role='list-divider' >Model Creator: " + item.model_contact_name + "</li>");
+                $('#ubmsuite_SelectBusinessModel_SharedModels_ul').append("<li data-role='list-divider' >Model Creator: " + item.creator_id + "</li>");
                 $('#ubmsuite_SelectBusinessModel_SharedModels_ul').append("<li><a href='#ubmsuite_modelDashboard' onclick='setActiveModel(" + item.UUID + ")'></br></br></br><h2 style='white-space:normal;'>Title: " + item.title + "</h2><p><strong>Model Reference: " + item.reference + "</strong></p><p style='white-space:normal;'>" + item.description + "</p><p class='ui-li-aside'>Creation Date:</br> <strong>" + item.created_date + "</strong></p></a></li>");
                 $('#ubmsuite_SelectBusinessModel_SharedModels_ul').listview().listview("refresh");
             }

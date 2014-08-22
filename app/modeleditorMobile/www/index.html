@@ -1,0 +1,668 @@
+<!DOCTYPE html> 
+<html>
+<head>
+	<title>Page Title</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="css/jquery.mobile-1.4.0.min.css" />
+    <script src="js/jquery-1.9.1.min.js"></script>
+    <script src="js/jquery-mobile-1.4.0.min.js"></script>
+    <script src="js/jquery-ui.js"></script>
+    <script src="js/jquery.ui.touch-punch.js"></script>
+	<script src="js/prefixfree.min.js"></script>
+	<script src="js/main.js"></script>
+	<script src="js/loader.js"></script>
+	<script src="js/userProfile.js"></script>
+	<script src="js/emailVerification.js"></script>
+	<script src="js/userSignIn.js"></script>
+	<script src="js/userRegister.js"></script>
+	<script src="js/models.js"></script>
+	<script src="js/positions.js"></script>
+	<script src="js/jobDescriptions.js"></script>
+	<script src="js/policies.js"></script>
+	<script src="js/checklistBuilder.js"></script>
+	<script src="js/checklist.js"></script>
+	<script src="js/procedures.js"></script>
+	<script src="js/steps.js"></script>
+	<script src="js/tasks.js"></script>
+	<link rel="stylesheet" href="css/checklist.css">
+	<!-- Bootstrap Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+	<!-- Bootstrap Optional theme -->
+	<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+	<!-- Bootstrap Latest compiled and minified JavaScript -->
+	<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+</head>
+<body>
+	<div data-role="page" id="login" class="ubm_page">
+		<div role="main" class="ui-content" id="logincontent">
+			  <div class="login_body"></div>
+					<div class="login_grad"></div>
+					<div class="login_container">
+						<div class="login_header">
+							<div><span>Universal </span>Business Model</div>
+						</div>
+						<br>
+						<div class="loginform">
+							<input type="text" id="si_email" placeholder="username" name="user"><br>
+							<input type="password" id="si_pw" placeholder="password" name="password"><br>
+							<input type="button" onclick="userSignIn()" value="Login">
+							<a href="#popupRegister" data-rel="popup" data-position-to="window" data-mini="true"  data-transition="pop">Register</a>
+						</div>						
+					</div>
+				</div>
+                <!-- Change Password Popup -->
+				<div data-role="popup" id="initialChangePasssword" data-theme="a" class="ui-corner-all">
+				    <form id="initialChangePasssword_form">
+				        <div style="padding:10px 20px;">
+				            <h2>Your account has been reset, you must change your password</h2>
+				            <input type="password" name="user" id="initialChangePasssword_form_changePassword" value="" placeholder="Password" data-theme="a">
+				            <input type="password" name="pass" id="initialChangePasssword_form_verfyChangePassword" value="" placeholder="Verfiy Password" data-theme="a">
+				            <button onclick='submitNewPassword()' class="ui-btn ui-corner-all ui-shadow ui-btn-b ui-btn-icon-left ui-icon-check">Change Password</button>
+				        </div>
+				    </form>
+				</div>
+				<!-- End Change Password Popup -->
+                <div data-role="popup" id="popupRegister"  data-theme="a">
+                    <form id="registration_form"> <!-- Form Checklist Created By Aaron Miller -->
+                        <div style="padding:10px 20px;">
+                            <h3>Registration is Free!</h3>
+                            <label for="un" class="ui-hidden-accessible">Email:</label>
+                            <input  type="text" name="reg_email" id="reg_email" value="" placeholder="Email"  data-theme="a" />
+                            <label for="reg_pw1" class="ui-hidden-accessible">Password:</label>
+                            <input  type="password" name="reg_pass1" id="reg_pw1" value="" placeholder="Enter Password"  data-theme="a" />
+                            <label for="reg_pw2" class="ui-hidden-accessible">Password:</label>
+                            <input  type="password" name="reg_pass2" id="reg_pw2" value="" placeholder="Confirm Password"  data-theme="a" />                          
+                            <div id="registration_agree_checkboxes">
+                                <label for="register_license_agreement">I agree to the License Agreement</label>
+                                <input  type="checkbox" name="register_license_agreement" id="register_license_agreement" v data-theme="a" / >                         
+                                <label for="register_termsOfService">I agree to the Terms of Service</label>
+                                <input  type="checkbox" name="register_termsOfService" id="register_termsOfService"  data-theme="a" />
+                                <center>
+	                                <a style="font-size:9px" href="#" id="linkto_licenenseAgreement"> Click Here To Read the licence agreement</a><br>
+	                                <a style="font-size:9px" href="#" id="linkto_termsOfService"> Click Here To Read the terms of service</a>
+                                </center>
+                            </div>
+                            <button data-theme="a" data-icon="check" onclick="userRegister()">
+                                Create Account!
+                            </button>
+                        </div>
+                    </form>
+                    <div id="result" style="background-color: white;">
+
+                    </div>
+                </div>
+		</div><!-- /content -->
+	</div><!-- /page -->
+	<div data-role="page" id="objectList" class="ubm_page"><!-- This page is shown when user clicks the plus button at the top right of the screen. Its filled with objects attachable to the currently selected object. -->
+		<div data-role="header">
+			<a href="#" class="ui-btn" data-rel="back">Go Back</a>
+			<h1>List of Objects Page</h1>
+			<a href="#" class="ui-btn ui-icon-plus ui-btn-icon-notext ui-corner-all">No text</a>
+		</div><!-- /header -->
+		<div role="main" class="ui-content">
+			
+		</div><!-- /content -->
+		<div data-role="footer" data-position="fixed">
+			<h4>Page Footer</h4>
+		</div><!-- /footer -->
+	</div><!-- /page -->
+
+	<div data-role="page" id="legalEntity" class="ubm_page">
+		<div data-role="header">
+			<a href="#" class="ui-btn" data-rel="back">Go Back</a>
+			<h1>My Legal Entities</h1>
+			<a href="#" class="ui-btn ui-icon-plus ui-btn-icon-notext ui-corner-all">No text</a>
+		</div><!-- /header -->
+		<div role="main" class="ui-content">
+			<ul data-role="listview" data-autodividers="true" data-filter="true" data-inset="true">
+			    <li><a href="#models">Legal Entity 1</a></li>
+			</ul>			
+		</div><!-- /content -->
+		<div data-role="footer" data-position="fixed">
+			<h4>Page Footer</h4>
+		</div><!-- /footer -->
+	</div><!-- /page -->
+
+        <!-- Agree to License Agreement Page -->
+        <div data-role="page" id="license_agreement_verification" class="ubm_page">
+			<div role="main" class="ui-content">
+				<div style="padding-top:15%;text-align:center;">
+					<h1>You Must Agree To The License Agreement Before Continuing</h1>
+					<div id="registration_agree_checkboxes" style="max-width:25%;margin-right:auto;margin-left:auto">
+                        <label for="register_license_agreement">I agree to the License Agreement</label>
+                        <input type="checkbox" name="register_license_agreement" id="register_license_agreement" data-theme="a" / >                         
+                        <label for="register_termsOfService">I agree to the Terms of Service</label>
+                        <input  type="checkbox" name="register_termsOfService" id="register_termsOfService"  data-theme="a" />
+                        <a style="font-size:15px" href="#" id="linkto_licenenseAgreement"> Click Here To Read the licence agreement</a><br>
+                        <a style="font-size:15px" href="#" id="linkto_termsOfService"> Click Here To Read the terms of service</a>
+                        <button id="submit terms_of_service" onclick="">Continue</button>
+                    </div>
+				</div>
+			</div>
+		</div>
+        <!-- End Agree to License Agreement Page -->
+
+        <!-- Verify Account Page -->
+        <div data-role="page" id="account_verification" class="ubm_page">
+			<div role="main" class="ui-content">
+				<div style="padding-top:15%;text-align:center;">
+					<h1>Your Account Has Been Successfully Created</h1>
+					<h1>Please Click On The Activation Link That Has Been Emailed To You</h1>
+					<button class="ui-btn ui-btn-inline" onclick="checkEmailVerification()">Continue</button>
+					<p style="padding-top:2em"> If you have not recieved an email try again here</p>
+					<center>
+					<div style="width:500px;">
+						<input type="text" id="emailForActivation" placeholder="Email">
+					</div>
+					<center>
+					<button class="ui-btn ui-btn-inline" onclick="sendActivationEmail()">Submit</button>
+					<center>
+						<div id="email_has_been_sent">
+
+						</div>
+					</center>
+				</div>
+
+			</div>
+		</div>
+        <!-- End Verify Account Page -->
+	<!-- Start of second page -->
+	<div data-role="page" id="models" class="ubm_page">
+		<div role="main" class="ui-content">
+			<nav class="navbar navbar-default" role="navigation">
+			  <div class="container-fluid">
+			    <!-- Brand and toggle get grouped for better mobile display -->
+			    <div class="navbar-header">
+			      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+			        <span class="sr-only">Toggle navigation</span>
+			        <span class="icon-bar"></span>
+			        <span class="icon-bar"></span>
+			        <span class="icon-bar"></span>
+			      </button>
+			      <a class="navbar-brand" href="#">UBM</a>
+			    </div>
+			    <!-- Collect the nav links, forms, and other content for toggling -->
+			    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+			      <ul class="nav navbar-nav navbar-right">
+			        <li class="dropdown">
+			          <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span><span class="caret"></span></a>
+			          <ul class="dropdown-menu" role="menu">
+			            <li><a href="#settings">Settings</a></li>
+			            <li class="divider"></li>
+			            <li><a href="#login">Sign Out</a></li>
+			          </ul>
+			        </li>
+			      </ul>
+			    </div><!-- /.navbar-collapse -->
+			  </div><!-- /.container-fluid -->
+			</nav>
+			<div style="max-width:100%; float:center;">
+				<div style="max-width:20%; float:left;">				
+					<img src="http://s3.amazonaws.com/37assets/svn/765-default-avatar.png" alt="Lamp" width="100%" height="auto">
+				</div>
+				<div style="float:left; min-width:25%; white-space:normal; margin-left:5px; margin-right:5px;">				
+					<h4 id="welcome_user" style="color:white">Welcome Username</h4>
+					<p class="user_bio" style="color:white; max-width:375px; white-space:normal;">Users Biography...</p>
+				</div>
+				<div style="max-width:50%; min-width:50%; float:left; margin-left:5px; margin-right:5px;">
+					<div class="ui-grid-b" >
+					    <div class="ui-block-a"><div id="models_created" class="ui-bar ui-bar-a" style="height:120px; overflow:scroll;">Models Created: (Sum # of users Models)</div></div>
+					    <div class="ui-block-b"><div id="shared_models" class="ui-bar ui-bar-a" style="height:120px; overflow:scroll;">Models Shared: (Sum # of models user has shared or has been shared with user)</div></div>
+					    <div class="ui-block-c"><div id="total_objects_created" class="ui-bar ui-bar-a" style="height:120px; overflow:scroll;">Total Model Objects: (Sum # of all md, ps, jd, pl, pr, st, tk objects) that this user has created. </div></div>
+						<a href="#checklist_creator" class="ui-btn ui-icon-edit ui-btn-icon-left ui-corner-all" style="width:50%; float:right;">Open Checklist Editor</a>					
+					</div><!-- /grid-b -->					
+				</div>
+			</div>
+			<div style="min-width:100%; float:left;">
+				<div data-role="collapsible">
+				    <h4>My Models</h4>
+					<ul id="myModels_list" data-role="listview" data-autodividers="true" data-filter="true" data-filter-placeholder="Search My Models..." data-inset="true">
+					</ul>	
+				</div>		
+				<div data-role="collapsible">
+				    <h4>Shared Models</h4>
+					<ul id="sharedModels_list" data-role="listview" data-autodividers="true" data-filter="true" data-filter-placeholder="Search Shared Models..." data-inset="true">
+					</ul>	
+				</div>									
+			</div>					
+		</div><!-- /content -->
+	</div><!-- /page -->
+
+	<div data-role="page" id="checklist_creator" class="ubm_page">
+		<div data-role="header">
+			<a href="#" class="ui-btn ui-icon-back ui-btn-icon-notext ui-corner-all" data-rel="back">Go Back</a>
+			<h1 style='white-space:normal;' class="modelApp_title_header">Model / App Title: </h1>
+			<h1 style='white-space:normal;' >Checklist Creator</h1>
+			<a href="#" onclick="getMyModelsPositions()" class="ui-btn ui-icon-refresh ui-btn-icon-notext ui-corner-all">Refresh</a>
+		</div><!-- /header -->
+		<div role="main" class="ui-content">	
+			<div class="ui-grid-a">
+				<div class="ui-block-a">
+					<a href="#" onclick="displayChecklist()" class="ui-btn ui-icon-refresh ui-btn-icon-notext ui-corner-all" style="float:right; position:relative; top:35px;">Refresh</a>
+					<legend style="color:white;">Checklist Information</legend>		
+					<nav class="navbar navbar-default" role="navigation">
+					  <div class="container-fluid">
+					    <div class="navbar-header">
+					      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+					        <span class="sr-only">Toggle navigation</span>
+					        <span class="icon-bar"></span>
+					        <span class="icon-bar"></span>
+					        <span class="icon-bar"></span>
+					      </button>
+					    </div>
+					    <!-- Brand and toggle get grouped for better mobile display -->
+					    <div class="navbar-header">
+							<a class="navbar-brand" href="#" onclick="displayChecklist();">Checklist Information</a>
+					    </div>
+					    <!-- Collect the nav links, forms, and other content for toggling -->
+					    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+					      <ul class="nav navbar-nav navbar-right">
+					        <li class="dropdown">
+					          <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span><span class="caret"></span></a>
+					          <ul class="dropdown-menu" role="menu">
+					            <li><a href="#" onclick="NewChecklist()" >New Checklist</a></li>
+					            <li><a href="#" onclick="SaveChecklist()" >Save </a></li>
+					            <li><a href="#" onclick="NewChecklist()" >Save as New</a></li>
+					            <li class="divider"></li>
+					            <li><a href="#checklist_interface" onclick="ViewGeneratedChecklist()" >View Generated Checklist</a></li>
+					            <li><a href="#" onclick="MakeChecklistPublic()" >Make Public</a></li>
+					            <li class="divider"></li>
+					            <li><a href="#" style='color:red;' onclick="DeleteChecklist()" >Delete Checklist</a></li>
+					          </ul>
+					        </li>	
+					      </ul>
+					    </div><!-- /.navbar-collapse -->	
+					  </div><!-- /.container-fluid -->
+					</nav>	
+					<form>
+						<div class="ui-field-contain">
+						    <textarea id="checklist_title"  class="checklist_title" cols="40" rows="2" placeholder="Checklist Title"></textarea>
+						</div>	
+						<div class="ui-field-contain">
+						    <textarea id="checklist_description"  class="checklist_description" cols="40" rows="2" placeholder="Description of Checklist"></textarea>
+						</div>		
+						<div class="ui-field-contain">
+						    <textarea id="checklist_purpose"  class="checklist_purpose" cols="40" rows="2" placeholder="Purpose of this checklist or summary of what it aims to accomplish"></textarea>
+						</div>	
+													
+					</form>
+				</div>
+				<div class="ui-block-b">
+					<a href="#" onclick="getChecklistsCreatedByUser()" class="ui-btn ui-icon-refresh ui-btn-icon-notext ui-corner-all" style="float:right; position:relative; top:35px;">Refresh</a>
+					<legend style="color:white;">My Checklists</legend>		
+					<div class="ui-grid-a">
+					    <div class="ui-block-a">
+							<ul id="my_checklists" data-role="listview" data-autodividers="true" data-filter="true" data-filter-placeholder="Search My Checklists..." data-inset="true" style="max-height:400px; overflow-y:scroll;">
+							</ul>
+					    </div>
+					    <div class="ui-block-b">
+							<ul id="public_ubm_checklists" data-role="listview" data-filter="true" data-filter-placeholder="Search Publicly Available UBM Checklists..." data-inset="true" style="max-height:400px; overflow-y:scroll;">
+							</ul>						    
+					    </div>
+					</div>					
+				</div>
+			</div>
+			<div class="ui-grid-a">
+			    <div class="ui-block-a">
+					<a href="#" onclick="GetChecklistAttachments()" class="ui-btn ui-icon-refresh ui-btn-icon-notext ui-corner-all" style="float:right; position:relative; top:35px;">Refresh</a>
+						<legend style="color:white;">Checklist Preview</legend>
+					<nav class="navbar navbar-default" role="navigation">
+					  <div class="container-fluid">
+					    <div class="navbar-header">
+					      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+					        <span class="sr-only">Toggle navigation</span>
+					        <span class="icon-bar"></span>
+					        <span class="icon-bar"></span>
+					        <span class="icon-bar"></span>
+					      </button>
+					    </div>
+					    <!-- Brand and toggle get grouped for better mobile display -->
+					    <div class="navbar-header">
+							<a class="navbar-brand" href="#" onclick="displayChecklist();">Checklist Attachments</a>
+					    </div>
+					    <!-- Collect the nav links, forms, and other content for toggling -->
+					    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+					      <ul class="nav navbar-nav navbar-right">
+					        <li class="dropdown">
+					          <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span><span class="caret"></span></a>
+					          <ul class="dropdown-menu" role="menu">
+					            <li><a href="#checklist_interface" onclick="ViewGeneratedChecklist()">View Generated Checklist</a></li>
+					            <li class="divider"></li>
+					            <li><a href="#" style='color:red;' onclick="DeleteChecklist()" >Edit Mode</a></li>
+					          </ul>
+					        </li>	
+					      </ul>
+					    </div><!-- /.navbar-collapse -->	
+					  </div><!-- /.container-fluid -->
+					</nav>	
+			    	<fieldset data-role="collapsible"  data-collapsed="false">					
+						<legend style="color:white;">View Checklist</legend>
+						<ul id="checklist_preview" data-role="listview" data-filter="true" data-filter-placeholder="Search Checklist..." class="ui-listview-outer"  data-inset="true" style="max-height:358px; overflow-y:scroll;">
+
+						</ul>
+					</fieldset>
+			    </div>
+			    <div class="ui-block-b">
+					<a href="#" onclick="GetAttachableObjectsforChecklist()" class="ui-btn ui-icon-refresh ui-btn-icon-notext ui-corner-all" style="float:right; position:relative; top:35px;">Refresh</a>
+					<legend style="color:white;">Procedures</legend>
+			    	<fieldset data-role="collapsible" data-collapsed="false">
+						<legend style="color:white;">View Procedures</legend>
+						<div class="ui-grid-a">
+						    <div class="ui-block-a">
+								<ul id="ubm_procedures" data-filter-reveal="true" data-role="listview" data-filter="true" data-filter-placeholder="Search UBM Procedures..." data-inset="true" style="max-height:125px; overflow-y:scroll;">
+								</ul>
+						    </div>
+						    <div class="ui-block-b">
+								<ul id="my_models_procedures" data-filter-reveal="true" data-role="listview" data-filter="true" data-filter-placeholder="Search My Models Procedures..." data-inset="true" style="max-height:125px; overflow-y:scroll;">
+								</ul>						    	
+						    </div>
+						</div><!-- /grid-a -->
+			    	</fieldset>
+					<legend style="color:white;">Steps</legend>
+			    	<fieldset data-role="collapsible" data-collapsed="false">
+						<legend style="color:white;">View Steps</legend>		
+						<div class="ui-grid-a">
+						    <div class="ui-block-a">
+								<ul id="ubm_steps" data-role="listview" data-filter="true" data-filter-placeholder="Search UBM Steps..." data-inset="true" style="max-height:125px; overflow-y:scroll;">
+								</ul>
+						    </div>
+						    <div class="ui-block-b">
+								<ul id="my_models_steps" data-filter-reveal="true" data-role="listview" data-filter="true" data-filter-placeholder="Search My Models Steps..." data-inset="true" style="max-height:125px; overflow-y:scroll;">
+								</ul>						    	
+						    </div>
+						</div><!-- /grid-a -->							    		
+			    	</fieldset>
+					<legend style="color:white;">Tasks</legend>
+			    	<fieldset data-role="collapsible" data-collapsed="false">
+						<legend style="color:white;">View Tasks</legend>			    		
+						<div class="ui-grid-a">
+						    <div class="ui-block-a">
+								<ul id="ubm_tasks" data-role="listview" data-filter="true" data-filter-placeholder="Search UBM Tasks..." data-inset="true" style="max-height:125px; overflow-y:scroll;">
+								</ul>
+						    </div>
+						    <div class="ui-block-b">
+								<ul id="my_models_tasks" data-filter-reveal="true" data-role="listview" data-filter="true" data-filter-placeholder="Search My Models Tasks..." data-inset="true" style="max-height:125px; overflow-y:scroll;">
+								</ul>						    	
+						    </div>
+						</div><!-- /grid-a -->
+			    	</fieldset>
+			    </div>
+			</div><!-- /grid-a -->							
+		</div><!-- /content -->
+		<div data-role="footer" data-position="fixed">
+			<h4>Page Footer</h4>
+		</div><!-- /footer -->
+	</div><!-- /page -->
+
+	<div data-role="page" id="checklist_interface" class="ubm_page"> 
+		<div data-role="header" data-position="fixed" data-fullscreen='true' >
+			<a href="#" class="ui-btn ui-icon-back ui-btn-icon-notext ui-corner-all" data-rel="back">Go Back</a>
+			<h1 style='white-space:normal;' >Checklist: +Title+</h1>
+			<a href="#add-form" data-icon="gear" class="ui-btn-right">Options</a>
+		    <div data-role="navbar">
+				<div style='width:50%; margin-left:auto; margin-right:auto;' class="ui-input-search ui-body-inherit ui-corner-all ui-shadow-inset ui-input-has-clear" >
+					<input placeholder='Search Checklist...' type="text" data-type="search" data-enhanced="true" name="search-enhanced" id="search-enhanced" value="">
+					<a href="#" class="ui-input-clear ui-btn ui-icon-delete ui-btn-icon-notext ui-corner-all ui-input-clear-hidden" title="Clear text">Clear text</a>
+				</div>
+		        <ul>
+		            <li><a href="#">Submit for Review</a></li>
+		        </ul>
+		    </div><!-- /navbar -->
+		</div><!-- /header -->		
+		<div id='checklist_container' data-submiteventId='none' data-submiteventString='none' >
+			<div id='checklist_body'>
+				<ul id="Uchecklist" class='Uchecklist' data-filter='true' data-input='#search-enhanced'>	
+			
+				</ul>				
+			</div>
+			<div id='checklist_footer'>
+				
+			</div>
+		</div>
+	    <div data-role="footer" data-position="fixed" data-fullscreen='true'>
+	        <div data-role="navbar">
+	            <ul>
+	                <li><a href="#previous_submissions" data-icon="grid" >Previously Submitted</a></li>
+	                <li><a href="#" data-icon="star" class="ui-btn-active ui-state-persist">My Checklist</a></li>
+	            </ul>
+	        </div><!-- /navbar -->
+		</div><!-- /footer -->
+	    <div data-role="panel" data-position="right" data-position-fixed="true" data-display="overlay" data-theme="a" id="add-form">
+	        <form class="userform">
+	            <h2>Login</h2>
+	            <label for="name">Username:</label>
+	            <input type="text" name="name" id="name" value="" data-clear-btn="true" data-mini="true">
+	            <label for="password">Password:</label>
+	            <input type="password" name="password" id="password" value="" data-clear-btn="true" autocomplete="off" data-mini="true">
+	            <div class="ui-grid-a">
+	                <div class="ui-block-a"><a href="#" data-rel="close" class="ui-btn ui-shadow ui-corner-all ui-btn-b ui-mini">Cancel</a></div>
+	                <div class="ui-block-b"><a href="#" data-rel="close" class="ui-btn ui-shadow ui-corner-all ui-btn-a ui-mini">Save</a></div>
+	            </div>
+	        </form>
+	    </div><!-- /panel -->
+	    <div data-role="panel" data-position="left" data-position-fixed="true" data-display="overlay" data-theme="a" id="previous_submissions">
+			<div data-role="header">
+				<h3>Submit History</h3>				
+			</div>
+			<ul data-role="listview" data-filter="true" data-filter-placeholder="Search..." data-inset="true">
+			    <li><a href="#">6-7-2014<span class="ui-li-count">12</span></a></li>
+			    <li><a href="#">6-8-2014<span class="ui-li-count">0</span></a></li>
+			    <li><a href="#">6-9-2014<span class="ui-li-count">4</span></a></li>
+			    <li><a href="#">6-10-2014<span class="ui-li-count">328</span></a></li>
+			    <li><a href="#">6-11-2014<span class="ui-li-count">62</span></a></li>
+			</ul>
+	    </div><!-- /panel -->
+	</div>
+
+	<div data-role="page" id="positions" class="ubm_page">
+		<div data-role="header">
+			<a href="#" class="ui-btn ui-icon-back ui-btn-icon-notext ui-corner-all" data-rel="back">Go Back</a>
+			<h1 style='white-space:normal;' class="modelApp_title_header">Model / App Title: </h1>
+			<h1 style='white-space:normal;' >Model Summary with List of Positions</h1>
+			<a href="#" onclick="getMyModelsPositions()" class="ui-btn ui-icon-refresh ui-btn-icon-notext ui-corner-all">Refresh</a>
+		</div><!-- /header -->
+		<div role="main" class="ui-content">		
+			<ul id="positions_list" data-role="listview" data-autodividers="true" data-filter="true" data-filter-placeholder="Search Attached Positions..." data-inset="true" style="max-height:400px;">
+			</ul>				
+		</div><!-- /content -->
+		<div data-role="footer" data-position="fixed">
+			<h4>Page Footer</h4>
+		</div><!-- /footer -->
+	</div><!-- /page -->
+	<div data-role="page" id="settings" class="ubm_page">
+		<div data-role="header">
+			<a href="#" class="ui-btn ui-icon-back ui-btn-icon-notext ui-corner-all" data-rel="back">Go Back</a>
+			<h1 style='white-space:normal;' >UBM User Account Settings</h1>
+			<a href="#" onclick="getUsersProfile()" class="ui-btn ui-icon-refresh ui-btn-icon-notext ui-corner-all">Refresh</a>
+		</div><!-- /header -->
+		<div role="main" class="ui-content">		
+			<div class="ui-grid-b my-breakpoint">
+			    <div class="ui-block-a">
+					<form>
+				        <legend style="color:white;">User Bio</legend>
+						<input type="text" id="settings_user_first_name" placeholder="First Name" value="">
+						<input type="text" id="settings_user_last_name" placeholder="Last Name" value="">
+						<input type="text" id="settings_user_employer" placeholder="Employer" value="">
+						<div class="ui-field-contain">
+						    <textarea id="settings_user_bio"  class="user_bio" cols="40" rows="8" placeholder="UBM Users Bio"></textarea>
+						</div>			
+						<a href="#" onclick="updateUserBiography()" class="ui-btn" data-mini="true" data-rel="back">Update Bio</a>
+					</form>
+			    </div>
+			    <div class="ui-block-b" style="background-color:transparent;">
+
+			    </div>
+			    <div class="ui-block-c">
+					<form>
+				        <legend style="color:white;">User Phone</legend>
+					    <select name="select-native-1" id="settings_user_wirelesscarrier">
+					        <option value="T-Mobile">T-Mobile</option>
+					        <option value="Verizon">Verizon</option>
+					        <option value="AT&T">AT&T</option>
+					        <option value="Other">Other</option>
+					    </select>
+						<div class="ui-field-contain">
+						    <textarea id="settings_user_phone"  class="user_phone" cols="40" rows="8" placeholder="Users Mobile Phone"></textarea>
+						</div>			
+						<a href="#" onclick="updateUserPhone()" class="ui-btn" data-mini="true" data-rel="back">Update Phone</a>
+					</form>
+			    </div>
+			    <div class="ui-block-a">
+
+			    </div>
+			    <div class="ui-block-b">
+				    <form style="background-color:transparent;">
+					    <fieldset data-role="controlgroup">
+					        <legend style="color:white;">UBM Notifications:</legend>
+					        <input type="checkbox" name="settings_user_sms_preference" id="settings_user_sms_preference">
+					        <label for="settings_user_sms_preference">SMS - Text Messaging</label>
+					        <input type="checkbox" name="settings_user_email_preference" id="settings_user_email_preference">
+					        <label for="settings_user_email_preference">Email notifications</label>
+					    </fieldset>		
+					    <a href="#" onclick="updateUserNotificationPreferences()" class="ui-btn" data-mini="true" data-rel="back">Update Notification Settings</a>
+				    </form>
+			    </div>
+			    <div class="ui-block-c">
+
+			    </div>
+			</div><!-- /grid-b -->
+		</div><!-- /content -->
+	</div><!-- /page -->
+
+	<div data-role="page" id="jobDescriptions" class="ubm_page">
+		<div data-role="header">
+			<a href="#" class="ui-btn ui-icon-back ui-btn-icon-notext ui-corner-all" data-rel="back">Go Back</a>
+			<h1 class="modelApp_title_header" style='white-space:normal;'>Model / App Title: </h1>
+			<h1 class="header_editObjectTitle" style='white-space:normal;'>Position: ++Title++</h1>
+			<h2 style='white-space:normal;'>Summary with List of Job Descriptions</h2>
+			<a href="#" onclick="getMyModelsjobDescriptions()" class="ui-btn ui-icon-refresh ui-btn-icon-notext ui-corner-all">Refresh</a>
+		</div><!-- /header -->
+		<div role="main" class="ui-content">
+			<form>
+			    <fieldset data-role="collapsible">
+			        <h2 class="section_title editObjectTitle">Edit Object : </h2>
+					<form>
+					    <ul data-role="listview" data-inset="true" id="jobDescriptions_editObject_popup_content_container" class="editObject_popup_content_container" style="max-height:300px; padding-bottom:2em; overflow-y:scroll;">
+					    </ul>
+					</form>
+			    </fieldset>
+			</form>
+			<ul id="jobDescriptions_list" data-role="listview" data-autodividers="true" data-filter-placeholder="Filter attached Job Descriptions..." data-filter="true" data-inset="true">
+
+			</ul>				
+		</div><!-- /content -->
+		<div data-role="footer" data-position="fixed">
+			<h4>Page Footer</h4>
+		</div><!-- /footer -->
+	</div><!-- /page -->
+
+	<div data-role="page" id="policies" class="ubm_page">
+		<div data-role="header">
+			<a href="#" class="ui-btn ui-icon-back ui-btn-icon-notext ui-corner-all" data-rel="back">Go Back</a>
+			<h1 class="modelApp_title_header">Model / App Title: </h1>
+			<h1 class="header_editObjectTitle">Job Description: ++Title++</h1>
+			<h2>Summary with List of Policies</h2>
+			<a href="#" onclick="getMyModelsPolicies()" class="ui-btn ui-icon-refresh ui-btn-icon-notext ui-corner-all">Refresh</a>
+		</div><!-- /header -->
+		<div role="main" class="ui-content">
+			<form>
+			    <fieldset data-role="collapsible">
+			        <h2 class="section_title editObjectTitle">Edit Object : </h2>
+					<form>
+					    <ul data-role="listview" data-inset="true" id="policies_editObject_popup_content_container" class="editObject_popup_content_container" style="max-height:300px; padding-bottom:2em; overflow-y:scroll;">
+					    </ul>
+					</form>
+			    </fieldset>
+			</form>
+			<ul id="policies_list" data-role="listview" data-autodividers="true" data-filter="true" data-filter-placeholder="Filter attached Policies..." data-inset="true">
+			    <li><a href="#procedures">Test Policy 1</a></li>
+			</ul>			
+		</div><!-- /content -->
+		<div data-role="footer" data-position="fixed">
+			<h4>Page Footer</h4>
+		</div><!-- /footer -->
+	</div><!-- /page -->
+
+	<div data-role="page" id="procedures" class="ubm_page">
+		<div data-role="header">
+			<a href="#" class="ui-btn ui-icon-back ui-btn-icon-notext ui-corner-all" data-rel="back">Go Back</a>
+			<h1 class="modelApp_title_header">Model / App Title: </h1>
+			<h1 class="header_editObjectTitle">Policy: ++Title++</h1>
+			<h2>Summary with List of Procedures</h2>
+			<a href="#" onclick="getMyModelsProcedures()" class="ui-btn ui-icon-refresh ui-btn-icon-notext ui-corner-all">Refresh</a>
+		</div><!-- /header -->
+		<div role="main" class="ui-content">
+			<form>
+			    <fieldset data-role="collapsible">
+			        <h2 class="section_title editObjectTitle">Edit Object : </h2>
+					<form>
+					    <ul data-role="listview" data-inset="true" id="procedures_editObject_popup_content_container" class="editObject_popup_content_container" style="max-height:300px; padding-bottom:2em; overflow-y:scroll;">
+					    </ul>
+					</form>
+			    </fieldset>
+			</form>
+			<ul id="procedures_list" data-role="listview" data-autodividers="true" data-filter="true" data-filter-placeholder="Filter attached Procedures..." data-inset="true">
+			    <li><a href="#steps">Test Procedure 1</a></li>
+			</ul>				
+		</div><!-- /content -->
+		<div data-role="footer" data-position="fixed">
+			<h4>Page Footer</h4>
+		</div><!-- /footer -->
+	</div><!-- /page -->
+
+	<div data-role="page" id="steps" class="ubm_page">
+		<div data-role="header">
+			<a href="#" class="ui-btn ui-icon-back ui-btn-icon-notext ui-corner-all" data-rel="back">Go Back</a>
+			<h1 class="modelApp_title_header">Model / App Title: </h1>
+			<h1 class="header_editObjectTitle">Procedure: ++Title++</h1>
+			<h2>Summary with List of Steps</h2>
+			<a href="#" onclick="getMyModelsSteps()" class="ui-btn ui-icon-refresh ui-btn-icon-notext ui-corner-all">Refresh</a>
+		</div><!-- /header -->
+		<div role="main" class="ui-content">
+			<form>
+			    <fieldset data-role="collapsible">
+			        <h2 class="section_title editObjectTitle">Edit Object : </h2>
+					<form>
+					    <ul data-role="listview" data-inset="true" id="steps_editObject_popup_content_container" class="editObject_popup_content_container" style="max-height:300px; padding-bottom:2em; overflow-y:scroll;">
+					    </ul>
+					</form>
+			    </fieldset>
+			</form>
+			<ul id="steps_list" data-role="listview" data-autodividers="true" data-filter="true" data-filter-placeholder="Filter attached Steps..." data-inset="true">
+			    <li><a href="#tasks">Test Step 1</a></li>
+			</ul>				
+		</div><!-- /content -->
+		<div data-role="footer" data-position="fixed">
+			<h4>Page Footer</h4>
+		</div><!-- /footer -->
+	</div><!-- /page -->
+
+	<div data-role="page" id="tasks" class="ubm_page">
+		<div data-role="header">
+			<a href="#" class="ui-btn ui-icon-back ui-btn-icon-notext ui-corner-all" data-rel="back">Go Back</a>
+			<h1 class="modelApp_title_header">Model / App Title: </h1>
+			<h1 class="header_editObjectTitle">Step: ++Title++</h1>
+			<h2>Summary with List of Tasks</h2>
+			<a href="#" onclick="getMyModelsTasks()" class="ui-btn ui-icon-refresh ui-btn-icon-notext ui-corner-all">Refresh</a>
+		</div><!-- /header -->
+		<div role="main" class="ui-content">
+			<form>
+			    <fieldset data-role="collapsible">
+			        <h2 class="section_title editObjectTitle">Edit Object : </h2>
+					<form>
+					    <ul data-role="listview" data-inset="true" id="tasks_editObject_popup_content_container" class="editObject_popup_content_container" style="max-height:300px; padding-bottom:2em; overflow-y:scroll;">
+					    </ul>
+					</form>
+			    </fieldset>
+			</form>
+			<ul id="tasks_list" data-role="listview" data-autodividers="true" data-filter="true" data-filter-placeholder="Filter attached Tasks..." data-inset="true">
+			    <li><a href="#">Test Task 1</a></li>
+			</ul>				
+		</div><!-- /content -->
+		<div data-role="footer" data-position="fixed">
+			<h4>Page Footer</h4>
+		</div><!-- /footer -->
+	</div><!-- /page -->
+</body>
+    <link rel="stylesheet" href="css/style.css" />
+</html>

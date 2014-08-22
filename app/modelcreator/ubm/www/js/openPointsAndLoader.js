@@ -44,7 +44,7 @@ function refreshOpenItemsList() {
         theme = $this.jqmData("theme") || $.mobile.loader.prototype.options.theme,
         msgText = $this.jqmData("msgtext") || $.mobile.loader.prototype.options.text,
         textVisible = $this.jqmData("textvisible") || $.mobile.loader.prototype.options.textVisible,
-        textonly = !! $this.jqmData("textonly");
+        textonly = !!$this.jqmData("textonly");
     html = $this.jqmData("html") || "";
     $.mobile.loading("show", {
         text: msgText,
@@ -244,7 +244,9 @@ function submitResolution() {
         disposition: document.getElementById("open_points_action_items_submitResolution_form_disposition").value,
         githuburl: document.getElementById("open_points_action_items_submitResolution_form_githuturl").value
     }, function(res, status) {
+
         if (status = "SUCCESS") { //If request is successful, empty the form.
+            $().toastmessage('showSuccessToast', "Comment Submission Status! " + status + "");
             $('#open_points_action_items_submitResolution_form').each(function() {
                 this.reset();
                 $("#mcs_open_points_action_items_submitresolution_popup").popup("close");
