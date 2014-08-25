@@ -213,8 +213,6 @@ under the License.
 					//buildHierarchicalTree(activeReportsToPosition);					
 				}, 10);
 			}
-			// End manage XXXXX popups 
-
 			// This function is the second of two functions that show popups this one is for the hierarchical
 			function setActivePosition2(activeReportsToPosition){
 				window.activeReportsToPosition = activeReportsToPosition;
@@ -227,21 +225,6 @@ under the License.
 				}, 10);		
 			}
 			
-			function getMyModelsPositions(){
-// Deprecated
-				// $.getJSON('http://api.universalbusinessmodel.com/ubm_modelcreationsuite_model_getCurrentModel_Positions.php?callback=?', {//JSONP Request
-				// 	activeModelUUID : window.activeModelUUID,
-				// 	key : window.key,
-				// }, function(res, status) {
-				// 		$("#ubsuite_mcs_managment_reporting_modelHasPositions_positions").empty();
-				// 	$.each(res, function(i, item) {
-				// 		$("#ubsuite_mcs_managment_reporting_modelHasPositions_positions").append("<li><a href='#'>" + item.title + "</a></li>");
-				// 		$('#ubsuite_mcs_managment_reporting_modelHasPositions_positions').listview().listview("refresh");
-				// 	});
-
-				// });	
-			}
-			
 			function openAddNewPositionPopup(){
 				getListofPossiblePositions();
 				$("#ubmsuite_mcs_my_organizational_chart_content_mangePositionPopUp").popup('close');
@@ -250,7 +233,7 @@ under the License.
 				}, 1000);	
 			}
 			function getListofPossiblePositions() {//Populates the Create new Position Listview on the Possible Positions Popup
-				$.getJSON('http://api.universalbusinessmodel.com/ubm_modelcreationsuite_model_getAll_Positions.php?callback=?', {//JSONP Request
+				$.getJSON('http://api.universalbusinessmodel.com/ubms_modelcreationsuite_model_getAll_Positions.php?callback=?', {//JSONP Request
 					key : window.key,
 				}, function(res, status) {
 						$('#ubmsuite_mcs_my_organizational_chart_content_createNewPositionPopUp_form_UBMRepository').empty();
@@ -1154,19 +1137,30 @@ under the License.
 				//2. Populate the list of predefined Procedures with those from the reference manual.				
 				getListofPossibleProcedures();
 				//3. Display the popup.
-				$(".ui-popup").popup("close");
 				setTimeout(function() {
-			        $("#ubmsuite_mcs_my_organizational_chart_content_createNewProcedurePopUp").popup("open");
-			    }, 500);
+					$("#ubmsuite_mcs_my_organizational_chart_content_manageProcedurePopUp").popup("close");
+					setTimeout(function() {
+				        $("#ubmsuite_mcs_my_organizational_chart_content_createNewProcedurePopUp").popup("open");
+				    }, 1000);
+			    }, 1000);
 			}
 			function openNewSTPopup(){							//Double Click Function
+				if(window.ListofStepsRetrieved==true){
+					hideLoader();
+					setTimeout(function() {
+				        $("#ubmsuite_mcs_my_organizational_chart_content_manageProcedurePopUp").popup("close");
+						setTimeout(function() {
+					        $("#ubmsuite_mcs_my_organizational_chart_content_createNewStepPopUp").popup("open");
+					    }, 500);
+				    }, 500);						
+				}else{
+					getListofPossibleSteps();
+					setTimeout(function() {
+				        $("#ubmsuite_mcs_my_organizational_chart_content_createNewStepPopUp").popup("open");
+				    }, 500);
+				}
 				//2. Populate the list of predefined Steps with those from the reference manual.				
-				getListofPossibleSteps();
 				//3. Display the popup.
-				$(".ui-popup").popup("close");
-				setTimeout(function() {
-			        $("#ubmsuite_mcs_my_organizational_chart_content_createNewStepPopUp").popup("open");
-			    }, 500);
 			}
 			function openNewTKPopup(){								//Double Click Function
 				//2. Populate the list of predefined Tasks with those from the reference manual.				
@@ -1226,7 +1220,7 @@ under the License.
 			}
 			function getListofPossibleJobDescriptions() {//Populates Core Value Listview on Possible CoreValue Popup
 				showLoader();
-				$.getJSON('http://api.universalbusinessmodel.com/ubm_modelcreationsuite_model_getAll_JobDescriptions.php?callback=?', {//JSONP Request
+				$.getJSON('http://api.universalbusinessmodel.com/ubms_modelcreationsuite_model_getAll_JobDescriptions.php?callback=?', {//JSONP Request
 					key : window.key
 				}, function(res, status) {
 						$('#ubmsuite_mcs_my_organizational_chart_content_createNewJobDescriptionPopUp_form_UBMRepository').empty();
@@ -1792,43 +1786,6 @@ under the License.
 					getListOfPositionNames();	
 				}, 1000);
 			}
-
-			function getJobDescriptionsforBackBoneTable(){
-//Deprecated
-				// $.getJSON('http://api.universalbusinessmodel.com/ubm_modelcreationsuite_model_Position_get_JobDescriptions.php?callback=?', {//JSONP Request
-				// 	activeModelUUID : window.activeModelUUID,
-				// 	activePositionId: window.activeReportsToPosition
-				// }, function(res, status) {
-				// 		$("#heirarchyObjectBackbone_table_body").empty();
-				// 	$.each(res, function(i, item) {
-				// 		$("#heirarchyObjectBackbone_table_body").append("<tr><td class='tg-031e'>" + item.mfi_reference + "</td><td class='tg-031e'>PS-" + window.activeReportsToPosition + "</td><td class='tg-gcpq'>" + item.id + "</td><td class='tg-gcpq'>JD-" + item.id + "</td><td class='tg-2tnls'></td><td class='tg-2tnls'></td><td class='tg-hnhqs'></td><td class='tg-hnhqs'></td><td class='tg-4nips'></td><td class='tg-4nips'></td><td class='tg-gl8ns'></td><td class='tg-gl8ns'></td><td class='tg-akd2s'></td><td class='tg-akd2s'></td><td class='tg-8474s'></td><td class='tg-8474s'></td><td class='tg-w2xps'></td><td class='tg-w2xps'></td><td class='tg-w2xps'></td><td class='tg-w2xps'></td><td class='tg-w2xps'></td><td class='tg-w2xps'></td><td class='tg-w2xps'></td><td class='tg-w2xps'></td><td class='tg-48oos'></td><td class='tg-48oos'></td><td class='tg-48oos'></td><td class='tg-48oos'></td><td class='tg-48oos'></td><td class='tg-031e'>PS-" + window.activeReportsToPosition + ".JD-" + item.id + "</td><td class='tg-031e'>MD-" + window.activeModelUUID + "</td><td class='tg-031e'>PS-" + window.activeReportsToPosition + ".JD-" + item.id + "</td><td class='tg-031e'>" + item.title + "</td><td class='tg-031e'>Active</td></tr>");					
-				// 	});
-				// 		$("#heirarchyObjectBackbone_table").table( "refresh" );
-				// });
-			}
-
-			function getJobDescriptionforHeirarchicalObjectTree(){
-//Deprecated
-				// //alert("this is a test");
-				// $.getJSON('http://api.universalbusinessmodel.com/ubm_modelcreationsuite_model_Position_get_JobDescriptions.php?callback=?', {//JSONP Request
-				// 	activeModelUUID:window.activeModelUUID,
-				// 	activePositionId:window.activeReportsToPosition
-				// }, function(res, status) {
-				// 	$.each(res, function(i, item) {
-				// 			//3. Append all children to their respective "reports_to" ul
-				// 			$("#ubmsuite_mcs_my_organizational_chart_heirarchyObjectTree_ul_P").append("<li><a data-position-to='origin' href='#ubmsuite_mcs_my_organizational_chart_content_managePolicyPopUp'data-rel='popup' class='ui-link' data-transition='pop' onclick='addJobDescriptiontoMyModel(" + item.id + ")'>JD-" + item.id + "</a><ul id='ubmsuite_mcs_my_organizational_chart_heirarchyObjectTree_ul_JD_" + item.id + "'></ul></li>");
-				// 			//4. Empty chart Div
-				// 	        $('#chart').empty();
-				// 			//5. Call jOrgChart plugin, append new org chart to chart div, set jorgdraganddrop to false to avoid conflicting compatibility issue with other jquery packages.
-				// 	        $("#modelOrgChart").jOrgChart({
-				// 	            chartElement : '#chart',
-				// 	            dragAndDrop  : false
-				// 	        }); /***/
-						
-				// 	});
-				// });			
-				// $("#heirarchyObjectTree").trigger("create");		
-			}
 		</script>
 		<!-- End Job Description-->
 		<script>
@@ -1841,20 +1798,21 @@ under the License.
 				}, 10);
 				//alert(window.activePolicyId);
 			}
-			function getPoliciesforBackBoneTable(){				
-				$.getJSON('http://api.universalbusinessmodel.com/ubm_modelcreationsuite_model_JobDescription_get_Policies.php?callback=?', {//JSONP Request
-					activeModelUUID : window.activeModelUUID,
-					activeJobDescriptionId: window.activeJobDescriptionId
-				}, function(res, status) {
-					$("#heirarchyObjectBackbone_table_body").empty()
-					$.each(res, function(i, item) {
-						$("#heirarchyObjectBackbone_table_body").append("<tr><td class='tg-031e'>" + item.mfi_reference + "</td><td class='tg-031e'>PS-" + window.activeReportsToPosition + "</td><td class='tg-gcpq'>" + window.activeJobDescriptionId + "</td><td class='tg-gcpq'>JD-" + window.activeJobDescriptionId + "</td><td class='tg-2tnl'>" + item.id + "</td><td class='tg-2tnl'>PL-" + item.id + "</td><td class='tg-hnhqs'></td><td class='tg-hnhqs'></td><td class='tg-4nips'></td><td class='tg-4nips'></td><td class='tg-gl8ns'></td><td class='tg-gl8ns'></td><td class='tg-akd2s'></td><td class='tg-akd2s'></td><td class='tg-8474s'></td><td class='tg-8474s'></td><td class='tg-w2xps'></td><td class='tg-w2xps'></td><td class='tg-w2xps'></td><td class='tg-w2xps'></td><td class='tg-w2xps'></td><td class='tg-w2xps'></td><td class='tg-w2xps'></td><td class='tg-w2xps'></td><td class='tg-48oos'></td><td class='tg-48oos'></td><td class='tg-48oos'></td><td class='tg-48oos'></td><td class='tg-48oos'></td><td class='tg-031e'>PS-" + window.activeReportsToPosition + ".JD-" + window.activeJobDescriptionId + ".PL-" + item.id + "</td><td class='tg-031e'>MD-" + window.activeModelUUID + "</td><td class='tg-031e'>PS-" + window.activeReportsToPosition + ".JD-" + window.activeJobDescriptionId + ".PL-" + item.id + "</td><td class='tg-031e'>" + item.title + "</td><td class='tg-031e'>Active</td></tr>");					
-					});
-				});				
+			function getPoliciesforBackBoneTable(){		
+//Deprecated					
+				// $.getJSON('http://api.universalbusinessmodel.com/ubm_modelcreationsuite_model_JobDescription_get_Policies.php?callback=?', {//JSONP Request
+				// 	activeModelUUID : window.activeModelUUID,
+				// 	activeJobDescriptionId: window.activeJobDescriptionId
+				// }, function(res, status) {
+				// 	$("#heirarchyObjectBackbone_table_body").empty()
+				// 	$.each(res, function(i, item) {
+				// 		$("#heirarchyObjectBackbone_table_body").append("<tr><td class='tg-031e'>" + item.mfi_reference + "</td><td class='tg-031e'>PS-" + window.activeReportsToPosition + "</td><td class='tg-gcpq'>" + window.activeJobDescriptionId + "</td><td class='tg-gcpq'>JD-" + window.activeJobDescriptionId + "</td><td class='tg-2tnl'>" + item.id + "</td><td class='tg-2tnl'>PL-" + item.id + "</td><td class='tg-hnhqs'></td><td class='tg-hnhqs'></td><td class='tg-4nips'></td><td class='tg-4nips'></td><td class='tg-gl8ns'></td><td class='tg-gl8ns'></td><td class='tg-akd2s'></td><td class='tg-akd2s'></td><td class='tg-8474s'></td><td class='tg-8474s'></td><td class='tg-w2xps'></td><td class='tg-w2xps'></td><td class='tg-w2xps'></td><td class='tg-w2xps'></td><td class='tg-w2xps'></td><td class='tg-w2xps'></td><td class='tg-w2xps'></td><td class='tg-w2xps'></td><td class='tg-48oos'></td><td class='tg-48oos'></td><td class='tg-48oos'></td><td class='tg-48oos'></td><td class='tg-48oos'></td><td class='tg-031e'>PS-" + window.activeReportsToPosition + ".JD-" + window.activeJobDescriptionId + ".PL-" + item.id + "</td><td class='tg-031e'>MD-" + window.activeModelUUID + "</td><td class='tg-031e'>PS-" + window.activeReportsToPosition + ".JD-" + window.activeJobDescriptionId + ".PL-" + item.id + "</td><td class='tg-031e'>" + item.title + "</td><td class='tg-031e'>Active</td></tr>");					
+				// 	});
+				// });				
 			}
 			function getListofPossiblePolicies() {//Populates Core Value Listview on Possible CoreValue Popup
 				showLoader();
-				$.getJSON('http://api.universalbusinessmodel.com/ubm_modelcreationsuite_model_getAll_Policies.php?callback=?', {//JSONP Request
+				$.getJSON('http://api.universalbusinessmodel.com/ubms_modelcreationsuite_model_getAll_Policies.php?callback=?', {//JSONP Request
 					key : window.key,
 				}, function(res, status) {
 						$('#ubmsuite_mcs_my_organizational_chart_content_createNewPolicyPopUp_form_UBMRepository').empty();
@@ -1891,25 +1849,26 @@ under the License.
 				//4. If user selects "no, add this position without any positions that report to it." 
 			}
 			function getPoliciesforHeirarchicalObjectTree(){
-				$.getJSON('http://api.universalbusinessmodel.com/ubm_modelcreationsuite_model_JobDescription_get_Policies.php?callback=?', {//JSONP Request
-					activeModelUUID:window.activeModelUUID,
-					activeJobDescriptionId:window.activeJobDescriptionId
-				}, function(res, status) {
-							$("#ubmsuite_mcs_my_organizational_chart_heirarchyObjectTree_ul_JD_" + window.activeJobDescriptionId + "").empty();
-					$.each(res, function(i, item) {
-							//3. Append all children to their respective "reports_to" ul
-							$("#ubmsuite_mcs_my_organizational_chart_heirarchyObjectTree_ul_JD_" + window.activeJobDescriptionId + "").append("<li><a data-position-to='origin' href='#ubmsuite_mcs_my_organizational_chart_content_manageProcedurePopUp'data-rel='popup' class='ui-link' data-transition='pop' onclick='setActivePolicyId(" + item.id + ")'>PL-" + item.id + "</a><ul id='ubmsuite_mcs_my_organizational_chart_heirarchyObjectTree_ul_PL_" + item.id + "'></ul></li>");
-							//4. Empty chart Div
-					        $('#chart').empty();
-							//5. Call jOrgChart plugin, append new org chart to chart div, set jorgdraganddrop to false to avoid conflicting compatibility issue with other jquery packages.
-					        $("#modelOrgChart").jOrgChart({
-					            chartElement : '#chart',
-					            dragAndDrop  : false
-					        }); /***/
+//Deprecated				
+				// $.getJSON('http://api.universalbusinessmodel.com/ubm_modelcreationsuite_model_JobDescription_get_Policies.php?callback=?', {//JSONP Request
+				// 	activeModelUUID:window.activeModelUUID,
+				// 	activeJobDescriptionId:window.activeJobDescriptionId
+				// }, function(res, status) {
+				// 			$("#ubmsuite_mcs_my_organizational_chart_heirarchyObjectTree_ul_JD_" + window.activeJobDescriptionId + "").empty();
+				// 	$.each(res, function(i, item) {
+				// 			//3. Append all children to their respective "reports_to" ul
+				// 			$("#ubmsuite_mcs_my_organizational_chart_heirarchyObjectTree_ul_JD_" + window.activeJobDescriptionId + "").append("<li><a data-position-to='origin' href='#ubmsuite_mcs_my_organizational_chart_content_manageProcedurePopUp'data-rel='popup' class='ui-link' data-transition='pop' onclick='setActivePolicyId(" + item.id + ")'>PL-" + item.id + "</a><ul id='ubmsuite_mcs_my_organizational_chart_heirarchyObjectTree_ul_PL_" + item.id + "'></ul></li>");
+				// 			//4. Empty chart Div
+				// 	        $('#chart').empty();
+				// 			//5. Call jOrgChart plugin, append new org chart to chart div, set jorgdraganddrop to false to avoid conflicting compatibility issue with other jquery packages.
+				// 	        $("#modelOrgChart").jOrgChart({
+				// 	            chartElement : '#chart',
+				// 	            dragAndDrop  : false
+				// 	        }); /***/
 						
-					});
-				});			
-				$("#heirarchyObjectTree").trigger("create");		
+				// 	});
+				// });			
+				// $("#heirarchyObjectTree").trigger("create");		
 			}
 			function createNewPolicy () {
 				$("#ubmsuite_mcs_my_organizational_chart_content_managePolicyPopUp").popup('close');
@@ -1986,7 +1945,7 @@ under the License.
 			}
 			function getListofPossibleProcedures() {//Populates Core Value Listview on Possible CoreValue Popup
 				showLoader();
-				$.getJSON('http://api.universalbusinessmodel.com/ubm_modelcreationsuite_model_getAll_Procedures.php?callback=?', {//JSONP Request
+				$.getJSON('http://api.universalbusinessmodel.com/ubms_modelcreationsuite_model_getAll_Procedures.php?callback=?', {//JSONP Request
 					key : window.key,
 
 				}, function(res, status) {
@@ -2028,26 +1987,27 @@ under the License.
 				}, 1000);
 			}
 			function getProceduresforHeirarchicalObjectTree(){
-				//alert("This is a test");
-				$.getJSON('http://api.universalbusinessmodel.com/ubm_modelcreationsuite_model_Policy_get_Procedures.php?callback=?', {//JSONP Request
-					activeModelUUID:window.activeModelUUID,
-					activePolicyId:window.activePolicyId
-				}, function(res, status) {
-							$("#ubmsuite_mcs_my_organizational_chart_heirarchyObjectTree_ul_PL_" + window.activePolicyId + "").empty();
-					$.each(res, function(i, item) {
-							//3. Append all children to their respective "reports_to" ul
-							$("#ubmsuite_mcs_my_organizational_chart_heirarchyObjectTree_ul_PL_" + window.activePolicyId + "").append("<li><a data-position-to='origin' href='#ubmsuite_mcs_my_organizational_chart_content_manageStepPopUp'data-rel='popup' class='ui-link' data-transition='pop' onclick='setActiveProcedureId(" + item.id + ")'>PR-" + item.id + "</a><ul id='ubmsuite_mcs_my_organizational_chart_heirarchyObjectTree_ul_PR_" + item.id + "'></ul></li>");
-							//4. Empty chart Div
-					        $('#chart').empty();
-							//5. Call jOrgChart plugin, append new org chart to chart div, set jorgdraganddrop to false to avoid conflicting compatibility issue with other jquery packages.
-					        $("#modelOrgChart").jOrgChart({
-					            chartElement : '#chart',
-					            dragAndDrop  : false
-					        }); /***/
-					});
-				});			
-				$("#heirarchyObjectTree").trigger("create");	
-				//alert("This is a test");	
+//Deprecated
+				// //alert("This is a test");
+				// $.getJSON('http://api.universalbusinessmodel.com/ubm_modelcreationsuite_model_Policy_get_Procedures.php?callback=?', {//JSONP Request
+				// 	activeModelUUID:window.activeModelUUID,
+				// 	activePolicyId:window.activePolicyId
+				// }, function(res, status) {
+				// 			$("#ubmsuite_mcs_my_organizational_chart_heirarchyObjectTree_ul_PL_" + window.activePolicyId + "").empty();
+				// 	$.each(res, function(i, item) {
+				// 			//3. Append all children to their respective "reports_to" ul
+				// 			$("#ubmsuite_mcs_my_organizational_chart_heirarchyObjectTree_ul_PL_" + window.activePolicyId + "").append("<li><a data-position-to='origin' href='#ubmsuite_mcs_my_organizational_chart_content_manageStepPopUp'data-rel='popup' class='ui-link' data-transition='pop' onclick='setActiveProcedureId(" + item.id + ")'>PR-" + item.id + "</a><ul id='ubmsuite_mcs_my_organizational_chart_heirarchyObjectTree_ul_PR_" + item.id + "'></ul></li>");
+				// 			//4. Empty chart Div
+				// 	        $('#chart').empty();
+				// 			//5. Call jOrgChart plugin, append new org chart to chart div, set jorgdraganddrop to false to avoid conflicting compatibility issue with other jquery packages.
+				// 	        $("#modelOrgChart").jOrgChart({
+				// 	            chartElement : '#chart',
+				// 	            dragAndDrop  : false
+				// 	        }); /***/
+				// 	});
+				// });			
+				// $("#heirarchyObjectTree").trigger("create");	
+				// //alert("This is a test");	
 			}
 			function createNewProcedureAddtoMyModel() {
 				$.getJSON('http://api.universalbusinessmodel.com/ubms_modelcreationsuite_model_create_Procedure.php?callback=?', {//JSONP Request
@@ -2081,37 +2041,40 @@ under the License.
 				//alert(window.activeStepId);
 			}
 			function getStepsforBackBoneTable(){
+//Deprecated
 				//alert("this is a test");
-				$.getJSON('http://api.universalbusinessmodel.com/ubm_modelcreationsuite_model_Procedure_get_Steps.php?callback=?', {//JSONP Request
-					activeModelUUID : window.activeModelUUID,
-					activeProcedureId: window.activeProcedureId
-				}, function(res, status) {
-					$.each(res, function(i, item) {
-						$("#heirarchyObjectBackbone_table_body").append("<tr><td class='tg-031e'>1</td><td class='tg-031e'>2</td><td class='tg-031e'>3</td><td class='tg-031e'>4</td><td class='tg-031e'>5</td><td class='tg-031e'>6</td><td class='tg-031e'>7</td><td class='tg-031e'>8</td><td class='tg-031e'>9</td><td class='tg-031e'>10</td><td class='tg-031e'>11</td><td class='tg-031e'>12</td><td class='tg-031e'>13</td><td class='tg-031e'>14</td><td class='tg-031e'>15</td><td class='tg-031e'>16</td><td class='tg-031e'>17</td><td class='tg-031e'>18</td><td class='tg-031e'>19</td><td class='tg-031e'>20</td></tr>");					
-					});
-				});				
+				// $.getJSON('http://api.universalbusinessmodel.com/ubm_modelcreationsuite_model_Procedure_get_Steps.php?callback=?', {//JSONP Request
+				// 	activeModelUUID : window.activeModelUUID,
+				// 	activeProcedureId: window.activeProcedureId
+				// }, function(res, status) {
+				// 	$.each(res, function(i, item) {
+				// 		$("#heirarchyObjectBackbone_table_body").append("<tr><td class='tg-031e'>1</td><td class='tg-031e'>2</td><td class='tg-031e'>3</td><td class='tg-031e'>4</td><td class='tg-031e'>5</td><td class='tg-031e'>6</td><td class='tg-031e'>7</td><td class='tg-031e'>8</td><td class='tg-031e'>9</td><td class='tg-031e'>10</td><td class='tg-031e'>11</td><td class='tg-031e'>12</td><td class='tg-031e'>13</td><td class='tg-031e'>14</td><td class='tg-031e'>15</td><td class='tg-031e'>16</td><td class='tg-031e'>17</td><td class='tg-031e'>18</td><td class='tg-031e'>19</td><td class='tg-031e'>20</td></tr>");					
+				// 	});
+				// });				
 			}
 			function getListofPossibleSteps() {//Populates Core Value Listview on Possible CoreValue Popup
 				showLoader();
-				if(window.ListofStepsRetrieved==true){
-						hideLoader();
-				}else{
-					$.getJSON('http://api.universalbusinessmodel.com/ubm_modelcreationsuite_model_getAll_Steps.php?callback=?', {//JSONP Request to Open Items Page setup 
-						key : window.key,
-					}, function(res, status) {
-							$('#ubmsuite_mcs_my_organizational_chart_content_createNewStepPopUp_form_UBMRepository').empty();
-						$.each(res, function(i, item) {
-							$('#ubmsuite_mcs_my_organizational_chart_content_createNewStepPopUp_form_UBMRepository').append("<li><a href='#'><p style='white-space:normal;'>" + item.title + "</p></a><a href='#' onclick='addSteptoMyModel(" + item.id + ")'>Add Step</a></li>");
+
+					$(".ui-popup").popup("close");
+					setTimeout(function() {
+						$.getJSON('http://api.universalbusinessmodel.com/ubms_modelcreationsuite_model_getAll_Steps.php?callback=?', {//JSONP Request to Open Items Page setup 
+							key : window.key,
+						}, function(res, status) {
+								$('#ubmsuite_mcs_my_organizational_chart_content_createNewStepPopUp_form_UBMRepository').empty();
+								var html = "";
+							$.each(res, function(i, item) {
+								html += "<li><a rel='external' style='padding: 0px 0px 0px 0px !important;margin: 0px 0px 0px 0px !important;'><label style='padding: 20px 10px 0px 10px !important;margin: 0px 10px 0px 0px !important;border-width: 0px 1px 0px 0px !important;height:50px;float:left;width:50px;' data-corners='false'><fieldset data-role='controlgroup' style='height:0px !important'><input id='ST_checkbox_" + item.id + "' name='ST_checkbox_" + item.id + "' class='item_checkbox' onclick='updateObjecttoActiveSpecificationArray(" + item.id + ", "+ "&#x27;ST&#x27;" + ", &#x27ST_checkbox_" + item.id + "&#x27);' type='checkbox' value='false'/></fieldset></label><div onclick='addSteptoMyModel( " + item.id + " )'><img src='http://www.halogensoftware.com/uploads/learn/how-to/creating-best-practice-job-description-templates/_thumb/800/creating-best-practice-job-description-templates.png' style='height:60px;width:60px;float:left;padding-right:10px; display:inline-block; overflow-x:scroll;'/><h2 style='padding: 10px 0px 0px 0px; '>" + item.title + "</h2><p class='ui-li-aside' style='margin-right:10px;' ><br><br>Creator: " + item.created_by + "<br>Date: " + item.created_date + "</p></div><a data-rel='popup' data-position-to='window' data-inline='true' onClick='openStepSummaryPopup(" + item.id + ")'>Add Step</a></a></li>";
+							});
+							$('#ubmsuite_mcs_my_organizational_chart_content_createNewStepPopUp_form_UBMRepository').append(html);
 							$('#ubmsuite_mcs_my_organizational_chart_content_createNewStepPopUp_form_UBMRepository').listview().listview("refresh");
-						
-						$('#ubmsuite_mcs_my_organizational_chart_content_createNewStepPopUp_form_UBMRepository_Test').append("<li><a rel='external' style='padding: 0px 0px 0px 0px !important;margin: 0px 0px 0px 0px !important;'><label style='padding: 20px 10px 0px 10px !important;margin: 0px 10px 0px 0px !important;border-width: 0px 1px 0px 0px !important;height:50px;float:left;width:50px;' data-corners='false'><fieldset data-role='controlgroup' style='height:0px !important'><input id='ST_checkbox_" + item.id + "' name='ST_checkbox_" + item.id + "' class='item_checkbox' onclick='updateObjecttoActiveSpecificationArray(" + item.id + ", "+ "&#x27;ST&#x27;" + ", &#x27ST_checkbox_" + item.id + "&#x27);' type='checkbox' value='false'/></fieldset></label><div onclick='addSteptoMyModel( " + item.id + " )'><img src='http://www.halogensoftware.com/uploads/learn/how-to/creating-best-practice-job-description-templates/_thumb/800/creating-best-practice-job-description-templates.png' style='height:60px;width:60px;float:left;padding-right:10px; display:inline-block; overflow-x:scroll;'/><h2 style='padding: 10px 0px 0px 0px; '>" + item.title + "</h2><p class='ui-li-aside' style='margin-right:10px;' ><br><br>Creator: " + item.created_by + "<br>Date: " + item.created_date + "</p></div><a data-rel='popup' data-position-to='window' data-inline='true' onClick='openStepSummaryPopup(" + item.id + ")'>Add Step</a></a></li>");
-						$('#ubmsuite_mcs_my_organizational_chart_content_createNewStepPopUp_form_UBMRepository_Test').listview().listview("refresh");
-			   			$("#ubmsuite_mcs_my_organizational_chart_content_createNewStepPopUp_form_UBMRepository_Test").enhanceWithin().listview();
-						})
-						window.ListofStepsRetrieved=true;
-						hideLoader();
-					});						
-				}
+				   			$("#ubmsuite_mcs_my_organizational_chart_content_createNewStepPopUp_form_UBMRepository").enhanceWithin().listview();
+							window.ListofStepsRetrieved=true;
+							hideLoader();
+						});						
+						//$("#ui-popup").popup("close");			
+				        $("#ubmsuite_mcs_my_organizational_chart_content_createNewStepPopUp").popup("open");
+				    }, 500);
+	
 
 			}
 			function addSteptoMyModel(activeStepId){
@@ -2162,50 +2125,52 @@ under the License.
 					//getChildElements(activeObjectUUID);
 			}
 			function getStepsforHeirarchicalObjectTree(){
-				$.getJSON('http://api.universalbusinessmodel.com/ubm_modelcreationsuite_model_Procedure_get_Steps.php?callback=?', {//JSONP Request
-					activeModelUUID:window.activeModelUUID,
-					activeProcedureId:window.activeProcedureId
-				}, function(res, status) {
-							$("#ubmsuite_mcs_my_organizational_chart_heirarchyObjectTree_ul_PR_" + window.activeProcedureId + "").empty();
-					$.each(res, function(i, item) {
-							//3. Append all children to their respective "reports_to" ul
-							$("#ubmsuite_mcs_my_organizational_chart_heirarchyObjectTree_ul_PR_" + window.activeProcedureId + "").append("<li><a data-position-to='origin' href='#ubmsuite_mcs_my_organizational_chart_content_manageTaskPopUp'data-rel='popup' class='ui-link' data-transition='pop' onclick='setActiveStepId(" + item.id + ")'>ST-" + item.id + "</a><ul id='ubmsuite_mcs_my_organizational_chart_heirarchyObjectTree_ul_ST_" + item.id + "'></ul></li>");
-							//4. Empty chart Div
-					        $('#chart').empty();
-							//5. Call jOrgChart plugin, append new org chart to chart div, set jorgdraganddrop to false to avoid conflicting compatibility issue with other jquery packages.
-					        $("#modelOrgChart").jOrgChart({
-					            chartElement : '#chart',
-					            dragAndDrop  : false
-					        }); /***/
+//Deprecated
+				// $.getJSON('http://api.universalbusinessmodel.com/ubm_modelcreationsuite_model_Procedure_get_Steps.php?callback=?', {//JSONP Request
+				// 	activeModelUUID:window.activeModelUUID,
+				// 	activeProcedureId:window.activeProcedureId
+				// }, function(res, status) {
+				// 			$("#ubmsuite_mcs_my_organizational_chart_heirarchyObjectTree_ul_PR_" + window.activeProcedureId + "").empty();
+				// 	$.each(res, function(i, item) {
+				// 			//3. Append all children to their respective "reports_to" ul
+				// 			$("#ubmsuite_mcs_my_organizational_chart_heirarchyObjectTree_ul_PR_" + window.activeProcedureId + "").append("<li><a data-position-to='origin' href='#ubmsuite_mcs_my_organizational_chart_content_manageTaskPopUp'data-rel='popup' class='ui-link' data-transition='pop' onclick='setActiveStepId(" + item.id + ")'>ST-" + item.id + "</a><ul id='ubmsuite_mcs_my_organizational_chart_heirarchyObjectTree_ul_ST_" + item.id + "'></ul></li>");
+				// 			//4. Empty chart Div
+				// 	        $('#chart').empty();
+				// 			//5. Call jOrgChart plugin, append new org chart to chart div, set jorgdraganddrop to false to avoid conflicting compatibility issue with other jquery packages.
+				// 	        $("#modelOrgChart").jOrgChart({
+				// 	            chartElement : '#chart',
+				// 	            dragAndDrop  : false
+				// 	        }); /***/
 						
-					});
-				});			
-				$("#heirarchyObjectTree").trigger("create");		
+				// 	});
+				// });			
+				// $("#heirarchyObjectTree").trigger("create");		
 			}
 		</script>
 		<!-- End Step-->
 		<!-- Identification Setup -->
 		<script>
 		function getValuesForIdentificationSetup(){
-				$.getJSON('http://api.universalbusinessmodel.com/ubm_modelcreationsuite_model_Procedure_get_Steps.php?callback=?', {//JSONP Request
-					activeModelUUID:window.activeModelUUID,
-					activeProcedureId:window.activeProcedureId
-				}, function(res, status) {
-							$("#ubmsuite_mcs_my_organizational_chart_heirarchyObjectTree_ul_PR_" + window.activeProcedureId + "").empty();
-					$.each(res, function(i, item) {
-							//3. Append all children to their respective "reports_to" ul
-							$("#ubmsuite_mcs_my_organizational_chart_heirarchyObjectTree_ul_PR_" + window.activeProcedureId + "").append("<li><a data-position-to='origin' href='#ubmsuite_mcs_my_organizational_chart_content_manageTaskPopUp'data-rel='popup' class='ui-link' data-transition='pop' onclick='setActiveStepId(" + item.id + ")'>ST-" + item.id + "</a><ul id='ubmsuite_mcs_my_organizational_chart_heirarchyObjectTree_ul_ST_" + item.id + "'></ul></li>");
-							//4. Empty chart Div
-					        $('#chart').empty();
-							//5. Call jOrgChart plugin, append new org chart to chart div, set jorgdraganddrop to false to avoid conflicting compatibility issue with other jquery packages.
-					        $("#modelOrgChart").jOrgChart({
-					            chartElement : '#chart',
-					            dragAndDrop  : false
-					        }); /***/
+//Deprecated
+				// $.getJSON('http://api.universalbusinessmodel.com/ubm_modelcreationsuite_model_Procedure_get_Steps.php?callback=?', {//JSONP Request
+				// 	activeModelUUID:window.activeModelUUID,
+				// 	activeProcedureId:window.activeProcedureId
+				// }, function(res, status) {
+				// 			$("#ubmsuite_mcs_my_organizational_chart_heirarchyObjectTree_ul_PR_" + window.activeProcedureId + "").empty();
+				// 	$.each(res, function(i, item) {
+				// 			//3. Append all children to their respective "reports_to" ul
+				// 			$("#ubmsuite_mcs_my_organizational_chart_heirarchyObjectTree_ul_PR_" + window.activeProcedureId + "").append("<li><a data-position-to='origin' href='#ubmsuite_mcs_my_organizational_chart_content_manageTaskPopUp'data-rel='popup' class='ui-link' data-transition='pop' onclick='setActiveStepId(" + item.id + ")'>ST-" + item.id + "</a><ul id='ubmsuite_mcs_my_organizational_chart_heirarchyObjectTree_ul_ST_" + item.id + "'></ul></li>");
+				// 			//4. Empty chart Div
+				// 	        $('#chart').empty();
+				// 			//5. Call jOrgChart plugin, append new org chart to chart div, set jorgdraganddrop to false to avoid conflicting compatibility issue with other jquery packages.
+				// 	        $("#modelOrgChart").jOrgChart({
+				// 	            chartElement : '#chart',
+				// 	            dragAndDrop  : false
+				// 	        }); /***/
 						
-					});
-				});			
-				$("#heirarchyObjectTree").trigger("create");		
+				// 	});
+				// });			
+				// $("#heirarchyObjectTree").trigger("create");		
 			}
 		</script>
 		<script>
@@ -2216,22 +2181,23 @@ under the License.
 				
 			}
 			function getTasksforBackBoneTable(){
+//Deprecated
 				//alert("this is a test");
-				$.getJSON('http://api.universalbusinessmodel.com/ubm_modelcreationsuite_model_Step_get_Tasks.php?callback=?', {//JSONP Request
-					activeModelUUID : window.activeModelUUID,
-					activeStepId: window.activeStepId
-				}, function(res, status) {
-					$.each(res, function(i, item) {
-						$("#heirarchyObjectBackbone_table_body").append("<tr><td class='tg-031e'>1</td><td class='tg-031e'>2</td><td class='tg-031e'>3</td><td class='tg-031e'>4</td><td class='tg-031e'>5</td><td class='tg-031e'>6</td><td class='tg-031e'>7</td><td class='tg-031e'>8</td><td class='tg-031e'>9</td><td class='tg-031e'>10</td><td class='tg-031e'>11</td><td class='tg-031e'>12</td><td class='tg-031e'>13</td><td class='tg-031e'>14</td><td class='tg-031e'>15</td><td class='tg-031e'>16</td><td class='tg-031e'>17</td><td class='tg-031e'>18</td><td class='tg-031e'>19</td><td class='tg-031e'>20</td></tr>");					
-					});
-				});				
+				// $.getJSON('http://api.universalbusinessmodel.com/ubm_modelcreationsuite_model_Step_get_Tasks.php?callback=?', {//JSONP Request
+				// 	activeModelUUID : window.activeModelUUID,
+				// 	activeStepId: window.activeStepId
+				// }, function(res, status) {
+				// 	$.each(res, function(i, item) {
+				// 		$("#heirarchyObjectBackbone_table_body").append("<tr><td class='tg-031e'>1</td><td class='tg-031e'>2</td><td class='tg-031e'>3</td><td class='tg-031e'>4</td><td class='tg-031e'>5</td><td class='tg-031e'>6</td><td class='tg-031e'>7</td><td class='tg-031e'>8</td><td class='tg-031e'>9</td><td class='tg-031e'>10</td><td class='tg-031e'>11</td><td class='tg-031e'>12</td><td class='tg-031e'>13</td><td class='tg-031e'>14</td><td class='tg-031e'>15</td><td class='tg-031e'>16</td><td class='tg-031e'>17</td><td class='tg-031e'>18</td><td class='tg-031e'>19</td><td class='tg-031e'>20</td></tr>");					
+				// 	});
+				// });				
 			}
 			function getListofPossibleTasks() {//Populates Task Listview on Possible Tasks Popup
 				if(window.ListofStepsRetrieved==true){
 
 				}else{
 					showLoader();
-					$.getJSON('http://api.universalbusinessmodel.com/ubm_modelcreationsuite_model_getAll_Tasks.php?callback=?', {//JSONP Request
+					$.getJSON('http://api.universalbusinessmodel.com/ubms_modelcreationsuite_model_getAll_Tasks.php?callback=?', {//JSONP Request
 						key : window.key
 					}, function(res, status) {
 							$('#ubmsuite_mcs_my_organizational_chart_content_createNewTaskPopUp_form_UBMRepository').empty();
@@ -2244,7 +2210,7 @@ under the License.
 					});	
 				}
 
-				$.getJSON('http://api.universalbusinessmodel.com/ubm_modelcreationsuite_model_getAll_Tasks.php?callback=?', {//JSONP Request
+				$.getJSON('http://api.universalbusinessmodel.com/ubms_modelcreationsuite_model_getAll_Tasks.php?callback=?', {//JSONP Request
 					key : window.key
 				}, function(res, status) {
 						$('#ubmsuite_mcs_my_organizational_chart_content_createNewTaskPopUp_form_UBMRepository').empty();
@@ -2302,24 +2268,25 @@ under the License.
 					//getChildElements(activeObjectUUID);
 			}
 			function getTasksforHeirarchicalObjectTree(){
-				$.getJSON('http://api.universalbusinessmodel.com/ubm_modelcreationsuite_model_Step_get_Tasks.php?callback=?', {//JSONP Request
-					activeModelUUID:window.activeModelUUID,
-					activeStepId:window.activeStepId
-				}, function(res, status) {
-							$("#ubmsuite_mcs_my_organizational_chart_heirarchyObjectTree_ul_ST_" + window.activeStepId + "").empty();
-					$.each(res, function(i, item) {
-							//3. Append all children to their respective "reports_to" ul
-							$("#ubmsuite_mcs_my_organizational_chart_heirarchyObjectTree_ul_ST_" + window.activeStepId + "").append("<li><a  onclick='setActiveTaskId(" + item.id + ")'>TK-" + item.id + "</a><ul id='ubmsuite_mcs_my_organizational_chart_heirarchyObjectTree_ul_TK_" + item.id + "'></ul></li>");
-							//4. Empty chart Div
-					        $('#chart').empty();
-							//5. Call jOrgChart plugin, append new org chart to chart div, set jorgdraganddrop to false to avoid conflicting compatibility issue with other jquery packages.
-					        $("#modelOrgChart").jOrgChart({
-					            chartElement : '#chart',
-					            dragAndDrop  : false
-					        }); /***/
-					});
-				});			
-				$("#heirarchyObjectTree").trigger("create");		
+//Deprecated				
+				// $.getJSON('http://api.universalbusinessmodel.com/ubm_modelcreationsuite_model_Step_get_Tasks.php?callback=?', {//JSONP Request
+				// 	activeModelUUID:window.activeModelUUID,
+				// 	activeStepId:window.activeStepId
+				// }, function(res, status) {
+				// 			$("#ubmsuite_mcs_my_organizational_chart_heirarchyObjectTree_ul_ST_" + window.activeStepId + "").empty();
+				// 	$.each(res, function(i, item) {
+				// 			//3. Append all children to their respective "reports_to" ul
+				// 			$("#ubmsuite_mcs_my_organizational_chart_heirarchyObjectTree_ul_ST_" + window.activeStepId + "").append("<li><a  onclick='setActiveTaskId(" + item.id + ")'>TK-" + item.id + "</a><ul id='ubmsuite_mcs_my_organizational_chart_heirarchyObjectTree_ul_TK_" + item.id + "'></ul></li>");
+				// 			//4. Empty chart Div
+				// 	        $('#chart').empty();
+				// 			//5. Call jOrgChart plugin, append new org chart to chart div, set jorgdraganddrop to false to avoid conflicting compatibility issue with other jquery packages.
+				// 	        $("#modelOrgChart").jOrgChart({
+				// 	            chartElement : '#chart',
+				// 	            dragAndDrop  : false
+				// 	        }); /***/
+				// 	});
+				// });			
+				// $("#heirarchyObjectTree").trigger("create");		
 			}
 		</script>
 			<!-- End Task-->
@@ -4366,10 +4333,7 @@ under the License.
 					    <div class="ui-block-b">
 							<div style="padding:10px 20px;">
 								<h3>All UBM Predefined Steps</h3>
-								<ul data-role="listview" id="ubmsuite_mcs_my_organizational_chart_content_createNewStepPopUp_form_UBMRepository"data-inset="true" data-filter="true" data-filter-placeholder="Search UBM Reference Manual" style="max-height:400px; padding-bottom:2em; overflow-y:scroll;">
-
-								</ul>
-								<ul data-role="listview" id="ubmsuite_mcs_my_organizational_chart_content_createNewStepPopUp_form_UBMRepository_Test"data-inset="true" data-filter="true" data-filter-placeholder="Search UBM Reference Manual" style="max-height:400px; padding-bottom:2em; overflow-y:scroll;">
+								<ul data-role="listview" id="ubmsuite_mcs_my_organizational_chart_content_createNewStepPopUp_form_UBMRepository" data-inset="true" data-filter="true" data-filter-placeholder="Search UBM Reference Manual" style="max-height:400px; padding-bottom:2em; overflow-y:scroll;">
 
 								</ul>
 								<div class="ui-grid-a">
@@ -4529,7 +4493,7 @@ under the License.
 						  </button>
 						  <ul class="dropdown-menu" role="menu">
 						    <li><a href="#" onclick="window.addToAllSelected=false; alert('Your current selection will add objects to the one previous position you selected above.');">Add to previously selected (one)</a></li>
-						    <li><a href="#" onclick="window.addToAllSelected=true; alert('Your current selection will add objects to all light blue positions above.'); openNewJDPopup();">Add to all Selected (many)</a></li>
+						    <li><a href="#" onclick="window.addToAllSelected=true; alert('Your current selection will add objects to all light blue positions above.'); openNewPLPopup();">Add to all Selected (many)</a></li>
 						    <li class="divider"></li>
 <!-- 						    <li><a href="#">Add to Children of Selected</a></li>
  -->						  </ul>
@@ -4540,7 +4504,7 @@ under the License.
 						  </button>
 						  <ul class="dropdown-menu" role="menu">
 						    <li><a href="#" onclick="window.addToAllSelected=false; alert('Your current selection will add objects to the one previous position you selected above.');">Add to previously selected (one)</a></li>
-						    <li><a href="#" onclick="window.addToAllSelected=true; alert('Your current selection will add objects to all light blue positions above.'); openNewJDPopup();">Add to all Selected (many)</a></li>
+						    <li><a href="#" onclick="window.addToAllSelected=true; alert('Your current selection will add objects to all light blue positions above.'); openNewPRPopup();">Add to all Selected (many)</a></li>
 						    <li class="divider"></li>
 <!-- 						    <li><a href="#">Add to Children of Selected</a></li>
  -->						  </ul>
@@ -4551,7 +4515,7 @@ under the License.
 						  </button>
 						  <ul class="dropdown-menu" role="menu">
 						    <li><a href="#" onclick="window.addToAllSelected=false; alert('Your current selection will add objects to the one previous position you selected above.');">Add to previously selected (one)</a></li>
-						    <li><a href="#" onclick="window.addToAllSelected=true; alert('Your current selection will add objects to all light blue positions above.'); openNewJDPopup();">Add to all Selected (many)</a></li>
+						    <li><a href="#" onclick="window.addToAllSelected=true; alert('Your current selection will add objects to all light blue positions above.'); openNewSTPopup();">Add to all Selected (many)</a></li>
 						    <li class="divider"></li>
 <!-- 						    <li><a href="#">Add to Children of Selected</a></li>
  -->						  </ul>
@@ -4562,7 +4526,7 @@ under the License.
 						  </button>
 						  <ul class="dropdown-menu" role="menu">
 						    <li><a href="#" onclick="window.addToAllSelected=false; alert('Your current selection will add objects to the one previous position you selected above.');">Add to previously selected (one)</a></li>
-						    <li><a href="#" onclick="window.addToAllSelected=true; alert('Your current selection will add objects to all light blue positions above.'); openNewJDPopup();">Add to all Selected (many)</a></li>
+						    <li><a href="#" onclick="window.addToAllSelected=true; alert('Your current selection will add objects to all light blue positions above.'); openNewTKPopup();">Add to all Selected (many)</a></li>
 						    <li class="divider"></li>
 <!-- 						    <li><a href="#">Add to Children of Selected</a></li>
  -->						  </ul>

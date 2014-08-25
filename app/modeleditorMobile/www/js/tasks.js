@@ -23,3 +23,18 @@ function getMyModelsTasks(activeObjectUUID) {
         });
     });
 }
+
+function createNewTask(){
+     alert("Task test");       
+    $.getJSON('http://api.universalbusinessmodel.com/ubms_modelcreationsuite_new_Task.php?callback=?', {
+        key: window.key,
+        activeObjectUUID: activeObjectUUID
+    }, function(res, status) {
+        $.each(res, function(i, item) {
+            if (item.task_id !== "0") {
+                $('#tasks_list').append("<li><a href='#' onclick='setActiveJobDescriptionUUID(" + item.UUID + ")'><img  src='http://www.smithins.com/assets/images/employee%20appreciation%20plan2.jpg'><h2>" + item.title + "</h2><p>Task Instruction: " + item.instruction + "</p></a><a href='#purchase' data-rel='popup' data-position-to='window' data-transition='pop'>Purchase album</a></li>");
+                $('#tasks_list').listview().listview("refresh");
+            }
+        });
+    });       
+}

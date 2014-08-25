@@ -22,3 +22,19 @@ function getMyModelsSteps(activeObjectUUID) {
         });
     });
 }
+
+function createNewStep(){
+    alert("Test");
+    $.getJSON('http://api.universalbusinessmodel.com/ubms_modelcreationsuite_checklist_create_Step.php?callback=?', {
+        key: window.key,
+        stepTitle: $("#step_title").val(),
+        stepInstruction: $("#step_instruction").val(),
+        stepAlertType: $("#step_alert_type").val(),
+        stepAlertText: $("#step_alert_text").val(),
+        allottedTimeHrs: $("#allotted_time_hrs").val(),
+        allottedTimeMin: $("#allotted_time_min").val()
+    }, function(res, status) {
+
+    });
+
+}

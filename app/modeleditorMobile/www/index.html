@@ -235,7 +235,45 @@
 			<h1 style='white-space:normal;' >Checklist Creator</h1>
 			<a href="#" onclick="getMyModelsPositions()" class="ui-btn ui-icon-refresh ui-btn-icon-notext ui-corner-all">Refresh</a>
 		</div><!-- /header -->
-		<div role="main" class="ui-content">	
+		<div role="main" class="ui-content">
+			<div data-role="popup" id="newStep" data-theme="a"  style="min-width:300px; max-width:400px;">
+			    <form>
+			        <div style="padding:10px 20px;">
+			            <h3>Create Step</h3>
+			            <input type="text" name="step_title" id="step_title" value="" placeholder="Step Title" data-theme="a">
+			            <input type="text" name="step_instruction" id="step_instruction" value="" placeholder="Step Instruction" data-theme="a">
+						<label for="step_alert_type" class="select">Step Alert</label>	
+			            <input type="text" name="step_alert_text" id="step_alert_text" value="" placeholder="Alert Text (Optional)" data-theme="a">
+						<select name="step_alert_type" id="step_alert_type" data-mini="true" data-inline="true">
+						    <option value="none">Alert Type (Optional)</option>
+						    <option value="critical">Critical</option>
+						    <option value="generalNotice">General Notice</option>
+						    <option value="stoppingPoint">Stopping Point</option>
+						</select>
+						<label for="allotted_time" class="select">Alloted Time (Optional)</label>	
+						<input type="number" placeholder="time (hrs)" id="allotted_time_hrs" name="allotted_time_hrs" min="0" max="24">
+						<input type="number" placeholder="time (min)" id="allotted_time_min" name="allotted_time_min" min="0" max="60">
+					</div>
+			    </form>
+						<a onclick="createNewStep()" class="ui-btn">Create Step</a>
+			</div>
+			<div data-role="popup" id="newTask" data-theme="a" class="ui-corner-all">
+			    <form>
+			        <div style="padding:10px 20px;">
+			            <h3>Create Task</h3>
+			            <input type="text" name="task_title" id="task_title" value="" placeholder="Task Title" data-theme="a">
+			            <input type="text" name="user" id="task_instruction" value="" placeholder="Task Instruction" data-theme="a">
+			            <input type="text" name="user" id="task_alert" value="" placeholder="Task Alert (Optional)" data-theme="a">
+						<select name="task_alert_type" id="task_alert_type" data-mini="true" data-inline="true">
+						    <option value="general">General Notice</option>
+						    <option value="critical">Critical</option>
+						    <option value="stopping_point">Stopping Point</option>
+						</select>
+			        </div>
+					    <input type="reset" value="Reset">
+						<a href="#" class="ui-btn">Create Task</a>
+			    </form>
+			</div>
 			<div class="ui-grid-a">
 				<div class="ui-block-a">
 					<a href="#" onclick="displayChecklist()" class="ui-btn ui-icon-refresh ui-btn-icon-notext ui-corner-all" style="float:right; position:relative; top:35px;">Refresh</a>
@@ -262,7 +300,6 @@
 					          <ul class="dropdown-menu" role="menu">
 					            <li><a href="#" onclick="NewChecklist()" >New Checklist</a></li>
 					            <li><a href="#" onclick="SaveChecklist()" >Save </a></li>
-					            <li><a href="#" onclick="NewChecklist()" >Save as New</a></li>
 					            <li class="divider"></li>
 					            <li><a href="#checklist_interface" onclick="ViewGeneratedChecklist()" >View Generated Checklist</a></li>
 					            <li><a href="#" onclick="MakeChecklistPublic()" >Make Public</a></li>
@@ -328,6 +365,9 @@
 					          <ul class="dropdown-menu" role="menu">
 					            <li><a href="#checklist_interface" onclick="ViewGeneratedChecklist()">View Generated Checklist</a></li>
 					            <li class="divider"></li>
+								<li><a href="#newStep" data-rel="popup" data-position-to="window"  data-transition="pop" >Create New Step Item</a></li>
+								<li><a href="#newTask" data-rel="popup" data-position-to="window"  data-transition="pop" onclick="createNewTask()">Create New Task Item</a></li>
+					            <li class="divider"></li>
 					            <li><a href="#" style='color:red;' onclick="DeleteChecklist()" >Edit Mode</a></li>
 					          </ul>
 					        </li>	
@@ -343,7 +383,6 @@
 					</fieldset>
 			    </div>
 			    <div class="ui-block-b">
-					<a href="#" onclick="GetAttachableObjectsforChecklist()" class="ui-btn ui-icon-refresh ui-btn-icon-notext ui-corner-all" style="float:right; position:relative; top:35px;">Refresh</a>
 					<legend style="color:white;">Procedures</legend>
 			    	<fieldset data-role="collapsible" data-collapsed="false">
 						<legend style="color:white;">View Procedures</legend>
@@ -362,8 +401,9 @@
 			    	<fieldset data-role="collapsible" data-collapsed="false">
 						<legend style="color:white;">View Steps</legend>		
 						<div class="ui-grid-a">
+
 						    <div class="ui-block-a">
-								<ul id="ubm_steps" data-role="listview" data-filter="true" data-filter-placeholder="Search UBM Steps..." data-inset="true" style="max-height:125px; overflow-y:scroll;">
+								<ul id="ubm_steps" data-role="listview" data-filter="true" data-filter-placeholder="Search UBM Steps..." data-inset="true" style="max-height:125px; overflow-y:scroll; float:left;">
 								</ul>
 						    </div>
 						    <div class="ui-block-b">
@@ -375,6 +415,7 @@
 					<legend style="color:white;">Tasks</legend>
 			    	<fieldset data-role="collapsible" data-collapsed="false">
 						<legend style="color:white;">View Tasks</legend>			    		
+
 						<div class="ui-grid-a">
 						    <div class="ui-block-a">
 								<ul id="ubm_tasks" data-role="listview" data-filter="true" data-filter-placeholder="Search UBM Tasks..." data-inset="true" style="max-height:125px; overflow-y:scroll;">

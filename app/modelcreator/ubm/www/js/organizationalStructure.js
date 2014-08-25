@@ -28,8 +28,8 @@ function getMyModelsOrganizationalStructures() { //Populates Customer  Listview 
 }
 
 function getListofPossibleOrganizationalStructures() { //Populates Customer Listview on Possible Customers Popup
-    $.getJSON('http://api.universalbusinessmodel.com/ubm_modelcreationsuite_model_getAll_OrganizationalStructures.php?callback=?', { //JSONP Request
-        key: window.key,
+    $.getJSON('http://api.universalbusinessmodel.com/ubms_modelcreationsuite_model_getAll_OrganizationalStructures.php?callback=?', { //JSONP Request
+        key: window.key
     }, function(res, status) {
         //						alert(status);
         $('#ubmsuite_modelSettings_organizationalstructure_popup_listview').empty();
