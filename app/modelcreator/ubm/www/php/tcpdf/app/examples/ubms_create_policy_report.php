@@ -63,7 +63,7 @@ $footerLeft = '
 <p class="footer">BM Revision Date: </p>
 <p class="footer">BM Ref Manual #: </p>
 <p class="footer">Destination Model Source Object String Ref # :</p>
-<a href="#*2" style="color:blue;">TOC</a>
+<a href="#*2" style="color:blue;">Table of Contents</a>
 ';
 $pdf->AddPage();
 $pdf->Bookmark("PL-$plCounter - $plTitle", 2, 0, '', 'B', array(64,128,0));

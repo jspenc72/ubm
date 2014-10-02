@@ -852,10 +852,7 @@ under the License.
 							this.reset();
 						});
 				}				
-
-
 			}
-
 
 			function editObject(){
 				$(".ui-popup").popup("close");
@@ -1135,14 +1132,15 @@ under the License.
 			}
 			function openNewPRPopup(){								//Double Click Function
 				//2. Populate the list of predefined Procedures with those from the reference manual.				
-				getListofPossibleProcedures();
 				//3. Display the popup.
+				$(".ui-popup").popup("close");
+				showLoader();
 				setTimeout(function() {
-					$("#ubmsuite_mcs_my_organizational_chart_content_manageProcedurePopUp").popup("close");
+					getListofPossibleProcedures();
 					setTimeout(function() {
 				        $("#ubmsuite_mcs_my_organizational_chart_content_createNewProcedurePopUp").popup("open");
 				    }, 1000);
-			    }, 1000);
+			    }, 250);
 			}
 			function openNewSTPopup(){							//Double Click Function
 				if(window.ListofStepsRetrieved==true){

@@ -10,6 +10,7 @@
     <script src="js/jquery.ui.touch-punch.js"></script>
 	<script src="js/prefixfree.min.js"></script>
 	<script src="js/main.js"></script>
+	<script src="js/init.js"></script>
 	<script src="js/loader.js"></script>
 	<script src="js/userProfile.js"></script>
 	<script src="js/emailVerification.js"></script>
@@ -237,7 +238,7 @@
 		</div><!-- /header -->
 		<div role="main" class="ui-content">
 			<div data-role="popup" id="newStep" data-theme="a"  style="min-width:300px; max-width:400px;">
-			    <form>
+			    <form id="newStep_popup_form">
 			        <div style="padding:10px 20px;">
 			            <h3>Create Step</h3>
 			            <input type="text" name="step_title" id="step_title" value="" placeholder="Step Title" data-theme="a">
@@ -247,32 +248,36 @@
 						<select name="step_alert_type" id="step_alert_type" data-mini="true" data-inline="true">
 						    <option value="none">Alert Type (Optional)</option>
 						    <option value="critical">Critical</option>
-						    <option value="generalNotice">General Notice</option>
-						    <option value="stoppingPoint">Stopping Point</option>
+						    <option value="general">General Notice</option>
+						    <option value="stop">Stopping Point</option>
 						</select>
 						<label for="allotted_time" class="select">Alloted Time (Optional)</label>	
-						<input type="number" placeholder="time (hrs)" id="allotted_time_hrs" name="allotted_time_hrs" min="0" max="24">
-						<input type="number" placeholder="time (min)" id="allotted_time_min" name="allotted_time_min" min="0" max="60">
+						<input type="number" placeholder="time (hrs)" id="step_allotted_time_hrs" name="step_allotted_time_hrs" min="0" max="24" value="0">
+						<input type="number" placeholder="time (min)" id="step_allotted_time_min" name="step_allotted_time_min" min="0" max="60" value="0">
 					</div>
 			    </form>
 						<a onclick="createNewStep()" class="ui-btn">Create Step</a>
 			</div>
-			<div data-role="popup" id="newTask" data-theme="a" class="ui-corner-all">
-			    <form>
+			<div data-role="popup" id="newTask" data-theme="a" style="min-width:300px; max-width:400px;">
+			    <form id="newTask_popup_form">
 			        <div style="padding:10px 20px;">
 			            <h3>Create Task</h3>
 			            <input type="text" name="task_title" id="task_title" value="" placeholder="Task Title" data-theme="a">
-			            <input type="text" name="user" id="task_instruction" value="" placeholder="Task Instruction" data-theme="a">
-			            <input type="text" name="user" id="task_alert" value="" placeholder="Task Alert (Optional)" data-theme="a">
+			            <input type="text" name="task_instruction" id="task_instruction" value="" placeholder="Task Instruction" data-theme="a">
+						<label for="task_alert_type" class="select">Task Alert</label>	
+			            <input type="text" name="task_alert_text" id="task_alert_text" value="" placeholder="Alert Text (Optional)" data-theme="a">
 						<select name="task_alert_type" id="task_alert_type" data-mini="true" data-inline="true">
-						    <option value="general">General Notice</option>
+						    <option value="none">Alert Type (Optional)</option>
 						    <option value="critical">Critical</option>
-						    <option value="stopping_point">Stopping Point</option>
+						    <option value="general">General Notice</option>
+						    <option value="stop">Stopping Point</option>
 						</select>
-			        </div>
-					    <input type="reset" value="Reset">
-						<a href="#" class="ui-btn">Create Task</a>
+						<label for="allotted_time" class="select">Alloted Time (Optional)</label>	
+						<input type="number" placeholder="time (hrs)" id="task_allotted_time_hrs" name="task_allotted_time_hrs" min="0" max="24" value="0">
+						<input type="number" placeholder="time (min)" id="task_allotted_time_min" name="task_allotted_time_min" min="0" max="60" value="0">
+					</div>
 			    </form>
+						<a onclick="createNewTask()" class="ui-btn">Create Task</a>
 			</div>
 			<div class="ui-grid-a">
 				<div class="ui-block-a">
@@ -311,7 +316,7 @@
 					    </div><!-- /.navbar-collapse -->	
 					  </div><!-- /.container-fluid -->
 					</nav>	
-					<form>
+					<form id="newChecklist_form">
 						<div class="ui-field-contain">
 						    <textarea id="checklist_title"  class="checklist_title" cols="40" rows="2" placeholder="Checklist Title"></textarea>
 						</div>	
@@ -366,7 +371,7 @@
 					            <li><a href="#checklist_interface" onclick="ViewGeneratedChecklist()">View Generated Checklist</a></li>
 					            <li class="divider"></li>
 								<li><a href="#newStep" data-rel="popup" data-position-to="window"  data-transition="pop" >Create New Step Item</a></li>
-								<li><a href="#newTask" data-rel="popup" data-position-to="window"  data-transition="pop" onclick="createNewTask()">Create New Task Item</a></li>
+								<li><a href="#newTask" data-rel="popup" data-position-to="window"  data-transition="pop" >Create New Task Item</a></li>
 					            <li class="divider"></li>
 					            <li><a href="#" style='color:red;' onclick="DeleteChecklist()" >Edit Mode</a></li>
 					          </ul>
@@ -377,15 +382,17 @@
 					</nav>	
 			    	<fieldset data-role="collapsible"  data-collapsed="false">					
 						<legend style="color:white;">View Checklist</legend>
-						<ul id="checklist_preview" data-role="listview" data-filter="true" data-filter-placeholder="Search Checklist..." class="ui-listview-outer"  data-inset="true" style="max-height:358px; overflow-y:scroll;">
-
-						</ul>
+						<div id="checklist_preview_container">
+							
+						</div>
 					</fieldset>
 			    </div>
 			    <div class="ui-block-b">
 					<legend style="color:white;">Procedures</legend>
 			    	<fieldset data-role="collapsible" data-collapsed="false">
-						<legend style="color:white;">View Procedures</legend>
+						<legend style="color:white;">View Procedures
+							<a href="#" onclick="GetAttachableObjectsforChecklist()" class="ui-btn ui-icon-refresh ui-btn-icon-notext ui-corner-all">Refresh</a>
+						</legend>
 						<div class="ui-grid-a">
 						    <div class="ui-block-a">
 								<ul id="ubm_procedures" data-filter-reveal="true" data-role="listview" data-filter="true" data-filter-placeholder="Search UBM Procedures..." data-inset="true" style="max-height:125px; overflow-y:scroll;">

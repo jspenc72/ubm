@@ -13,7 +13,10 @@ $v5 = "'" . $conn -> real_escape_string($username) . "'";
 $all_items = array();
 $sqlsel1="SELECT * FROM ubm_model_checklists cl 
 			JOIN ubm_modelcreationsuite_heirarchy_object_antiSolipsism_UUID u
-			ON (cl.id=u.checklist_id) WHERE cl.created_by=$v5";
+			ON (cl.id=u.checklist_id) 
+			WHERE cl.created_by=$v5
+			AND cl.Soft_DELETE='FALSE'
+			ORDER BY cl.title";
 $rs1=$conn->query($sqlsel1);
 if($rs1 === false) {
   trigger_error('Wrong SQL: ' . $sqlsel1 . ' Error: ' . $conn->error, E_USER_ERROR);

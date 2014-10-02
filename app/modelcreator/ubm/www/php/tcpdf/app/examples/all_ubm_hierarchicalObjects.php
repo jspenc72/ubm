@@ -6,6 +6,8 @@ include ('../../../DBConnect_UBMv1.php');
 
 //Provides the variables used for UBMv1 database connection $conn
 require_once ('../../../globalGetVariables.php');
+$activeModelOwnersUUID = $_GET['activeModelOwnersUUID'];
+$activeModelUUID = $_GET['activeModelUUID'];
 $conn = new mysqli($DBServer, $DBUser, $DBPass, $DBName);
 date_default_timezone_set('America/Denver');
 $round_numerator = 60 * 5;
@@ -15,8 +17,8 @@ $rounded_time = (floor(time() / $round_numerator) * $round_numerator);
 $ubm_date_time = date('m-d-Y h:i:s A', $rounded_time);
 $bm_date_time = date('m-d-Y h:i:s A', time());
 
-error_reporting(E_ALL);
-ini_set('display_errors', '1');
+// error_reporting(E_ALL);
+// ini_set('display_errors', '1');
 
 $pdf = new TCPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
 
@@ -75,6 +77,8 @@ $sqlsel1 = "SELECT *
                 WHERE ubm_model_position_closure.ancestor_UUID=$activeModelOwnersUUID
                 GROUP BY ubm_modelcreationsuite_heirarchy_object_antiSolipsism_UUID.UUID";
 
+$todaysDate = date("n-j-Y");  
+
 //NEED to add if statment that retrieves the record where the current
 //descendant has a relationship with path length of 1 if the returned
 //path_length is greater than 1.
@@ -82,7 +86,7 @@ $sqlsel1 = "SELECT *
 $positionUUID[] = $activeModelOwnersUUID;
 $rs1 = $conn->query($sqlsel1);
 if ($rs1 === false) {
-    trigger_error('Wrong SQL: ' . $sqlsel1 . ' Error: ' . $conn->error, E_USER_ERROR);
+   // trigger_error('Wrong SQL: ' . $sqlsel1 . ' Error: ' . $conn->error, E_USER_ERROR);
 } else {
     if (mysqli_num_rows($rs1) > 0) {
         
@@ -239,6 +243,7 @@ foreach ($positionUUID as $key => $activeObjectUUID) {
                                                             $stepNumber = $items3['step_number'];
                                                             $stInstruction = $items3['instruction'];
                                                             $tableRow[] = '<tr><td width="35" align="center">' . $stepNumber . '</td><td width="350">' . $stInstruction . '</td></tr>';
+                                                            $cktableRow[] = '<tr><td width="35"><input type="text" name="frb' . $stepNumber . '" value="" size="7" maxlength="30" /></td><td width="35"><input type="text" name="frbd' . $stepNumber . '" value="" size="7" maxlength="30" /></td><td width="45"><input type="text" name="rb' . $stepNumber . '" value="" size="9" maxlength="30" /></td><td width="35"><input type="text" name="rbd' . $stepNumber . '" value="" size="7" maxlength="30" /></td><td width="45"><input type="text" name="pb' . $stepNumber . '" value="" size="9" maxlength="30" /></td><td width="45"><input type="text" name="pbd' . $stepNumber . '" value="'.$todaysDate.'" size="9" maxlength="30" /></td><td width="30" align="center" style="color:blue;">ST-' . $stepNumber . '</td><td width="350">' . $stInstruction . '</td><td width="35"><input type="text" name="bhST' . $stepNumber . 'TK' . $taskNubmer . '" value="0" size="7" maxlength="30" /></td><td width="35"><input type="text" name="ahST' . $stepNumber . 'TK' . $taskNubmer . '" value="0" size="7" maxlength="30" /></td><td width="35"><input type="text" name="rtST' . $stepNumber . 'TK' . $taskNubmer . '" value="0" size="7" maxlength="30" /></td><td width="47"><input type="text" name="difST' . $stepNumber . 'TK' . $taskNubmer . '" value="0" size="9" maxlength="30" /></td></tr>';
                                                             
                                                             $sqlsel5 = "SELECT * FROM ubm_modelcreationsuite_heirarchy_object_closureTable 
                                                                     JOIN ubm_modelcreationsuite_heirarchy_object_antiSolipsism_UUID
@@ -258,13 +263,15 @@ foreach ($positionUUID as $key => $activeObjectUUID) {
                                                                         $taskNubmer = $items5['task_number'];
                                                                         $tkInstruction = $items5['instruction'];
                                                                         $tableRow[] = '<tr><td width="50"></td><td width="20">' . $taskNubmer . '.</td><td>' . $tkInstruction . '</td></tr>';
+                                                                        $cktableRow[] = '<tr><td width="35"><input type="text" name="frbST' . $stepNumber . 'TK' . $taskNubmer . '" value="" size="7" maxlength="30" /></td><td width="35"><input type="text" name="frbdST' . $stepNumber . 'TK' . $taskNubmer . '" value="" size="7" maxlength="30" /></td><td width="45"><input type="text" name="rbST' . $stepNumber . 'TK' . $taskNubmer . '" value="" size="9" maxlength="30" /></td><td width="35"><input type="text" name="rbdST' . $stepNumber . 'TK' . $taskNubmer . '" value="" size="7" maxlength="30" /></td><td width="45"><input type="text" name="pbST' . $stepNumber . 'TK' . $taskNubmer . '" value="" size="9" maxlength="30" /></td><td width="45"><input type="text" name="pbdST' . $stepNumber . 'TK' . $taskNubmer . '" value="'.$todaysDate.'" size="9" maxlength="30" /></td><td width="65" align="center" colspan="2" style="color:green;">TK-' . $stepNumber . '.' . $taskNubmer . '</td><td width="315">' . $tkInstruction . '</td><td width="35"><input type="text" name="bhST' . $stepNumber . 'TK' . $taskNubmer . '" value="0" size="7" maxlength="30" /></td><td width="35"><input type="text" name="ahST' . $stepNumber . 'TK' . $taskNubmer . '" value="0" size="7" maxlength="30" /></td><td width="35"><input type="text" name="rtST' . $stepNumber . 'TK' . $taskNubmer . '" value="0" size="7" maxlength="30" /></td><td width="47"><input type="text" name="difST' . $stepNumber . 'TK' . $taskNubmer . '" value="0" size="9" maxlength="30" /></td></tr>';
                                                                     }
                                                                 } else {
-                                                                    $tableRow[] = '<tr><td width="50"></td><td width="20"></td><td>No Task</td></tr>';
+                                                                    $tableRow[] = '<tr><td width="35"></td><td width="35"></td><td width="35"></td><td width="20" align="right"></td><td>***This Step has no tasks***</td></tr>';
                                                                 }
                                                             }
                                                         }
                                                         require ('ubms_create_procedure_report.php');
+                                                        require ('ubms_create_procedure_checklist.php');
                                                         $tableRow = array();
                                                     }
                                                 }
@@ -299,5 +306,30 @@ $pdf->addTOC(2, 'courier', '.', 'INDEX', 'B', array(128, 0, 0));
 
 // end of TOC page
 $pdf->endTOCPage();
+
+
+// some JavaScript code
+$js = <<<EOD
+app.alert('The UBM would like to extend a warm welcome to you.', 3, 0, 'Welcome');
+var cResponse = app.response({
+    cQuestion: 'How are you today?',
+    cTitle: 'Greetings from the UBM',
+    cDefault: 'Everyday is a great day when you have got the UBM at your side!',
+    cLabel: 'Response:'
+});
+if (cResponse == null) {
+    app.alert('Thanks for trying anyway.', 3, 0, 'Result');
+} else {
+    app.alert('You greeted the UBM with: "'+cResponse+'"', 3, 0, 'Result');
+}
+EOD;
+
+// force print dialog
+$js .= 'print(true);';
+
+// set javascript
+$pdf->IncludeJS($js);
+
+
 
 $pdf->Output('businessModel.pdf', 'I');

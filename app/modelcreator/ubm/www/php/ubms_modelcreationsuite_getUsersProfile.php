@@ -3,8 +3,8 @@ require_once ('globalGetVariables.php');
 require_once ('ubms_db_config.php');
 require_once ('DBConnect_UBMv1.php');
  //Provides the variables used for UBMv1 database connection $conn
-error_reporting(E_ALL);
-ini_set('display_errors', '1');
+// error_reporting(E_ALL);
+// ini_set('display_errors', '1');
 $conn = new mysqli($DBServer, $DBUser, $DBPass, $DBName);
 
 // check connection

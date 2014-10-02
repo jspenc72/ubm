@@ -21,28 +21,28 @@ $sqlins = "INSERT INTO ubm_modelcreationsuite_heirarchy_object_antiSolipsism_UUI
 if ($conn->query($sqlins) === false) {
     trigger_error('Wrong SQL: ' . $sqlins . ' Error: ' . $conn->error, E_USER_ERROR);
 } else {
-    echo $affected_rows = $conn -> affected_rows;
+    $affected_rows = $conn -> affected_rows;
     $last_inserted_step_UUID = $conn->insert_id;
 //1. Create specification of the checklistItem
     $sqlins = "INSERT INTO ubm_model_checklistItems (Instance_UUID, created_by) VALUES ($last_inserted_step_UUID, $v9)";
     if ($conn->query($sqlins) === false) {
         trigger_error('Wrong SQL: ' . $sqlins . ' Error: ' . $conn->error, E_USER_ERROR);
     } else {
-        echo $affected_rows = $affected_rows + $conn -> affected_rows;
+        $affected_rows = $affected_rows + $conn -> affected_rows;
         $last_inserted_checklistItem_id = $conn->insert_id;
     //2. Create instance of the checklistItem specification
         $sqlins = "INSERT INTO ubm_modelcreationsuite_heirarchy_object_antiSolipsism_UUID ( checklistItem_id, created_by) VALUES ( $last_inserted_checklistItem_id,$v9)";
         if ($conn->query($sqlins) === false) {
             trigger_error('Wrong SQL: ' . $sqlins . ' Error: ' . $conn->error, E_USER_ERROR);
         } else {
-            echo $affected_rows = $affected_rows + $conn -> affected_rows;
+            $affected_rows = $affected_rows + $conn -> affected_rows;
             $last_inserted_checklistItem_UUID = $conn->insert_id;
         //3. Create Self Link of the checklistItem instance
             $sqlins = "INSERT INTO ubm_modelcreationsuite_heirarchy_object_closureTable ( ancestor_id, descendant_id, path_length) VALUES ( $last_inserted_checklistItem_UUID,$last_inserted_checklistItem_UUID, '0')";
             if ($conn->query($sqlins) === false) {
                 trigger_error('Wrong SQL: ' . $sqlins . ' Error: ' . $conn->error, E_USER_ERROR);
             } else {
-             echo $affected_rows = $affected_rows + $conn -> affected_rows;
+            $affected_rows = $affected_rows + $conn -> affected_rows;
 
             }
             //3. Create Self Link of the Step instance
@@ -50,7 +50,7 @@ if ($conn->query($sqlins) === false) {
             if ($conn->query($sqlins) === false) {
                 trigger_error('Wrong SQL: ' . $sqlins . ' Error: ' . $conn->error, E_USER_ERROR);
             } else {
-             echo $affected_rows = $affected_rows + $conn -> affected_rows;
+            $affected_rows = $affected_rows + $conn -> affected_rows;
 
             }
             //5. Now attach checklistItem to Checklist.
@@ -63,7 +63,7 @@ if ($conn->query($sqlins) === false) {
                 trigger_error('Wrong SQL: ' . $sqlins3 . ' Error: ' . $conn->error, E_USER_ERROR);
                 echo "there was a problem";
             } else {
-             echo "CT".$affected_rows = $affected_rows + $conn -> affected_rows;
+             //echo "CT".$affected_rows = $affected_rows + $conn -> affected_rows;
 
                 echo $_GET['callback'] . '(' . "{'message' : 'Requested Step: $activeStepId was created successfully and linked to ChecklistItem: $last_inserted_checklistItem_UUID. This checklist item was then attached to Checklist: $activeChecklistUUID ! Affected Rows with Closure Table: $affected_rows}" . ')';
             }

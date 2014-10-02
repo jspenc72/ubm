@@ -73,7 +73,8 @@ if ($rs1 === false) {
                             JOIN ubm_modelcreationsuite_heirarchy_object_closureTable cc 
                             ON (cc.descendant_id=u.UUID)
                             WHERE u.UUID=$returnedDescendant
-                            AND cc.path_length=1";
+                            AND cc.path_length=1
+                            LIMIT 1";
         }elseif($isST>0){
             $sqlsel2 = "SELECT u.*, ci.*, st.*, cc.*  FROM ubm_modelcreationsuite_heirarchy_object_antiSolipsism_UUID u
                             JOIN ubm_model_checklistItems ci
@@ -87,7 +88,8 @@ if ($rs1 === false) {
                             JOIN ubm_modelcreationsuite_heirarchy_object_closureTable cc 
                             ON (cc.descendant_id=u.UUID)
                             WHERE u.UUID=$returnedDescendant
-                            AND cc.path_length=1";
+                            AND cc.path_length=1
+                            LIMIT 1";
         }elseif($isTK>0){
             $sqlsel2 = "SELECT u.*, ci.*, tk.*, cc.*  FROM ubm_modelcreationsuite_heirarchy_object_antiSolipsism_UUID u
                             JOIN ubm_model_checklistItems ci
@@ -101,7 +103,8 @@ if ($rs1 === false) {
                             JOIN ubm_modelcreationsuite_heirarchy_object_closureTable cc 
                             ON (cc.descendant_id=u.UUID)
                             WHERE u.UUID=$returnedDescendant
-                            AND cc.path_length=1";
+                            AND cc.path_length=1
+                            LIMIT 1";
         }
         $rs2 = $conn->query($sqlsel2);
         if ($rs2 === false) {
@@ -116,6 +119,8 @@ if ($rs1 === false) {
 //If the item has more than one ancestor check to see that both of its ancestors are indirect descendents of the parent of this subtree.                    
                         $all_items[] = $items2;
                 }else{
+                    $isLE = stripslashes($items1['legal_entity_id']);
+
                         $all_items[] = $items2;
                 }
             }

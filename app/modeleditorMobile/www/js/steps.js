@@ -24,17 +24,59 @@ function getMyModelsSteps(activeObjectUUID) {
 }
 
 function createNewStep(){
-    alert("Test");
-    $.getJSON('http://api.universalbusinessmodel.com/ubms_modelcreationsuite_checklist_create_Step.php?callback=?', {
-        key: window.key,
-        stepTitle: $("#step_title").val(),
-        stepInstruction: $("#step_instruction").val(),
-        stepAlertType: $("#step_alert_type").val(),
-        stepAlertText: $("#step_alert_text").val(),
-        allottedTimeHrs: $("#allotted_time_hrs").val(),
-        allottedTimeMin: $("#allotted_time_min").val()
-    }, function(res, status) {
-
+//1. Validate Input
+    var counter=1;
+    //1. Declare counter variable to keep track of the number of inputs in a given form.
+    var errors = [];
+    //2. Declare errors[] array to keep track of inputs that dont pass validation.      
+    var objectArray = {};   
+    // Declare objectArray[] array to store all objects that are going to be submitted.     
+    $('#newStep_popup_form :input').each(function() {
+        var value = $(this).val();
+        var columnName = $(this).attr('db-columnname');
+        objectArray[columnName] = value;
+        //tasksArray[key] = value;
+        //alert($(this).val());
+        if($(this).val().length>=1){
+            //3. Check to see if value has been entered into the input.
+            if($(this).prop('type')=='number'){
+                    console.log("Input: " + $(this).attr('placeholder') + " should contain a numerical value.");
+            }
+            //4. alert("Input: " + $(this).attr('placeholder') + " has value: " + this.value);
+        }else{
+            alert("Input: " + $(this).attr('placeholder') + " is required but has no value.");
+            //5. Alert the user if the length of the inputs value is less than 1.
+            errors.push($(this).attr('id'));
+            //6. Add the input id to the errors array.
+        }
+        counter = counter+1;
+            //7. iterate the counter.
     });
-
+    if(errors.length==0){
+        if(window.activeChecklistUUID){
+//2. Validate that an active checklist has been selected.
+            $.getJSON('http://api.universalbusinessmodel.com/ubms_modelcreationsuite_checklist_create_Step.php?callback=?', {
+                key: window.key,
+                username: window.username,
+                activeChecklistUUID: window.activeChecklistUUID,
+                stepTitle: $("#step_title").val(),
+                stepInstruction: $("#step_instruction").val(),
+                stepAlertType: $("#step_alert_type").val(),
+                stepAlertText: $("#step_alert_text").val(),
+                allottedTimeHrs: $("#step_allotted_time_hrs").val(),
+                allottedTimeMin: $("#step_allotted_time_min").val()
+            }, function(res, status) {
+                alert(res.message);
+                $('#newStep_popup_form').each(function() {
+                    this.reset();        
+                });
+                $("#newStep").popup("close");
+                GetChecklistAttachments();
+            });         
+        }else{
+            alert("You must select a checklist before creating a new procedure step or task.");
+        }
+    }else{
+        console.log("The form was not submitted due to the errors found in your input.");
+    }
 }
